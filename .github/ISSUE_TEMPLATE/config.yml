@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: https://github.com/latticeward-labs/music-copilot/security
+    about: Report security issues privately; do not open a public issue.
