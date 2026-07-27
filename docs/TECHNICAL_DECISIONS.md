@@ -1,75 +1,175 @@
-# Technical Decisions — MVP v1
+# Technical Decisions - MVP v1
 
-**Status:** Approved baseline  
-**Authority:** PRD v1.0 and MVP v1.0
+- **Status:** Proposed for formal approval in [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2)
+- **Decision date:** 2026-07-27
+- **Authority:** Music Copilot PRD v1.0 and MVP v1.0
+- **Applies to:** Android MVP v1, ten-week build and Closed Beta
 
-## Binding decisions
+This document is the implementation baseline derived from the approved product sources. It becomes binding only when Issue #2 is approved and moved to Done. Until then, implementation may prepare the foundation but must not silently choose a conflicting architecture.
 
-| Layer | Choice | Responsibility |
+## Source hierarchy
+
+1. Music Copilot PRD v1.0 - `Approved for MVP`
+2. Music Copilot MVP v1.0 - `Ready for Planning`
+3. Accepted ADRs in [`docs/adr`](adr/README.md)
+4. Other repository documentation and implementation
+
+If a lower-level artifact conflicts with a higher-level source, work stops until the conflict is corrected and recorded.
+
+## Binding baseline proposed for approval
+
+| Concern | Decision | Boundary |
 |---|---|---|
-| Platform | Native Android 10+ | First and only MVP platform |
-| Language/UI | Kotlin + Jetpack Compose | UI, Driving Mode and voice states |
-| Architecture | Layered, feature-oriented, unidirectional state | Testability and explicit boundaries |
-| Playback | AndroidX Media3 / ExoPlayer in a MediaSessionService | Queue, background, audio focus, notification, lock screen |
-| Local discovery | MediaStore | Consented device audio discovery |
-| Local data | Room | Media index, Like, short history and session state |
-| Preferences | DataStore | Settings, selected Bluetooth device, privacy choices |
-| Voice | Android STT/TTS behind interfaces | Speech conversion and replaceable provider |
-| Intent | Deterministic restricted mapper | Six supported intents only |
-| Dependency injection | Hilt | Boundaries and test substitution |
-| Async | Coroutines + Flow | Streams and lifecycle-safe state |
-| Quality | Crash reporting + allowlisted analytics | Non-sensitive Beta reliability and metrics |
-| Distribution | Google Play Internal/Closed Testing | Controlled Alpha/Beta |
-| Design | Figma tokens/components | Ten screens and all critical states |
+| Platform | Native Android 10+ (API 29+) | No iOS or KMP implementation in MVP |
+| Language and UI | Kotlin + Jetpack Compose | UI renders state and emits actions; it never owns playback |
+| State and async | Coroutines + Flow, unidirectional state | Canonical state is exposed from the owning layer |
+| Playback | AndroidX Media3/ExoPlayer owned by `MediaSessionService` | Queue, MediaSession, notification, audio focus and route behavior live outside UI lifecycle |
+| Discovery | Android MediaStore | System-authoritative discovery and content URIs only |
+| Structured local data | Room | Derived library index, scan state, optional Like, short history and restorable session references |
+| Preferences | DataStore | Small typed settings, onboarding/privacy choices and selected Bluetooth hint |
+| Voice provider | Android STT/TTS behind replaceable interfaces | Provider details do not enter UI, intent rules or playback |
+| Voice interpretation | Restricted deterministic mapper | Exactly six English MVP intents |
+| Dependency injection | Hilt | Composition, provider replacement and test doubles |
+| Telemetry | Central typed allowlist + crash diagnostics | No raw audio, transcript, filename, title, artist or album telemetry |
+| Distribution | Google Play Internal Testing, then Closed Testing | No public production release before Beta gates |
 
-## Explicit non-decisions
+## Explicit non-decisions and exclusions
 
-There is no MVP backend, account, authentication, cloud sync, network catalog, streaming API or production environment. Primary product data remains on the device. Networking must not be introduced merely as infrastructure.
+MVP v1 has no backend, account, authentication, cloud sync, online catalog, streaming, download, upload, content distribution, subscription, advertising, royalty system, Android Auto, CarPlay, iOS, KMP, wake word or open-ended conversation.
 
-Kotlin Multiplatform and iOS remain discovery topics only after the Android Beta decision gate.
+Primary product data remains on the device. Networking must not be introduced as speculative infrastructure. A privacy-reviewed crash/analytics SDK is not a product backend and must remain optional/configurable according to the approved privacy plan.
 
-## Required module boundaries
+## Logical architecture
 
-- `app`: navigation and composition root
-- `core:model`: domain models
-- `core:database`: Room and migrations
-- `core:media`: MediaStore scanner and index refresh
-- `core:playback`: Media3 service, session, queue and audio focus
-- `core:voice`: STT/TTS interfaces, state machine and intent mapper
-- `core:telemetry`: event allowlist and crash-safe context
-- `feature:onboarding`
-- `feature:library`
-- `feature:search`
-- `feature:player`
-- `feature:driving`
-- `feature:liked` (P2)
-- `feature:settings`
+```text
+Compose UI / feature ViewModels
+              |
+         Domain use cases
+       /         |          \
+Playback port  Voice port   Data repositories
+     |            |          |       |        |
+Media3 service  STT/TTS   MediaStore Room  DataStore
+```
 
-The Player is independent of UI lifecycle and owned by a service. UI observes canonical playback state. Voice providers sit behind interfaces and raw audio is never written by application code.
+Dependency direction points inward toward domain contracts:
 
-## State and persistence
+- Feature UI may depend on domain models/use cases and shared UI primitives.
+- Domain code must not depend on Compose, Activity, ViewModel, Media3, Room, MediaStore, DataStore or a concrete STT/TTS provider.
+- Playback, Voice and Data adapters implement domain-facing contracts.
+- UI communicates with playback through a controller/use-case boundary; it never receives ExoPlayer.
+- Voice orchestration requests domain commands; it does not manipulate UI widgets.
+- Telemetry receives typed, allowlisted events; features do not call a vendor SDK directly.
+- Cross-feature implementation dependencies are prohibited; shared behavior moves to an approved core/domain contract.
 
-- Queue, current item and position survive UI closure and process recreation where Android permits.
-- Media index refresh is incremental and supports at least 5,000 files smoothly.
-- Corrupt or missing files produce normalized errors and controlled skip.
-- Bluetooth and route identity stored locally must be user-clearable.
-- Database migrations require automated tests.
+## Planned Gradle module map
 
-## Build and quality baseline
+Physical modules may be introduced incrementally, but their ownership is fixed by this map.
 
-- Separate debug and release build types
-- CI: formatting, static analysis, unit tests and debug build
-- No private credential required for clean checkout
-- Signing keys, service accounts and environment secrets remain outside Git
-- English Beta UI; all strings externalized for future localization
-- Remote confidence tuning may use a simple privacy-reviewed config; a build config fallback must exist
-- Analytics emission is centrally allowlisted
+| Module | Owns | May depend on |
+|---|---|---|
+| `:app` | Application, navigation and Hilt composition root | Feature modules and approved core modules |
+| `:core:model` | Pure domain models and value types | Kotlin only |
+| `:core:domain` | Use cases and ports | `:core:model` |
+| `:core:database` | Room schema, DAOs and migrations | model/domain contracts |
+| `:core:media` | MediaStore scan and reconciliation | model/domain contracts, Android media APIs |
+| `:core:playback` | Media3 service, session, queue, audio focus and routes | model/domain contracts, Media3 |
+| `:core:voice` | STT/TTS adapters, voice state machine and deterministic mapper | model/domain contracts, Android speech APIs |
+| `:core:telemetry` | Typed event schema, allowlist and vendor adapter | model/domain contracts |
+| `:core:designsystem` | Compose tokens and reusable accessible components | Compose only |
+| `:feature:onboarding` | First-run and permission education | domain + design system |
+| `:feature:library` | Songs, artists, albums and folders | domain + design system |
+| `:feature:search` | Local search UI | domain + design system |
+| `:feature:player` | Full Player UI | domain + design system |
+| `:feature:driving` | Driving Mode and Voice overlay UI | domain + design system |
+| `:feature:liked` | Optional P2 Like/Liked Songs UI | domain + design system |
+| `:feature:settings` | Privacy, data clearing, Bluetooth hint and voice settings | domain + design system |
 
-## Required ADRs
+## Data ownership and lifecycle
 
-1. Native Android and minimum SDK
-2. Media3 service ownership and lifecycle
-3. MediaStore/Room incremental indexing
-4. Restricted Voice contract and provider boundary
-5. Telemetry and no-raw-audio policy
-6. No backend/account/streaming in MVP v1
+### MediaStore
+
+- Discovers audio the user is permitted to access.
+- Supplies content URIs and current system metadata.
+- Is reconciled incrementally; it is not copied wholesale into application storage.
+
+### Room
+
+- Stores the derived searchable index and scan bookkeeping.
+- Stores optional Like, short history and restorable playback references.
+- Does not store raw audio, microphone data, transcripts or secrets.
+- Every schema change includes a migration and automated migration test.
+
+### DataStore
+
+- Stores only small typed preferences and flags.
+- Does not store relational collections, media indexes or transcripts.
+
+Queue/current item/position are restored after UI closure and process recreation where Android permits. Missing or corrupt media produces a normalized error and controlled queue continuation. All user-owned app data has a clear deletion path.
+
+## Playback contract
+
+- `MediaSessionService` is the sole owner of the player and canonical playback state.
+- UI, notification, lock screen and Bluetooth/head unit observe/control the same session.
+- Rotation, UI closure and screen-off do not stop playback.
+- Incoming calls, audio-focus changes, headset disconnect and route loss are explicit state transitions.
+- Route loss must not cause unintended phone-speaker playback.
+
+## Voice contract
+
+Push-to-talk follows:
+
+`Idle -> Listening -> Processing -> Confirming -> Executed | Failed -> Idle`
+
+- Listening timeout: at most six seconds.
+- Retry: once.
+- TTS response: at most one short sentence.
+- Transcript: memory-only for the active command, then discarded.
+- High-confidence single match: direct execution.
+- Low confidence or multiple plausible matches: one short confirmation.
+- Failure/no match: playback remains stable and manual control remains available.
+
+Supported intents are exactly:
+
+`PLAY`, `PAUSE`, `NEXT`, `PREVIOUS`, `SEEK_BACK`, `PLAY_ARTIST`.
+
+The detailed, testable behavior is governed by [`VOICE_CONTRACT.md`](VOICE_CONTRACT.md).
+
+## CI and merge gate expectations
+
+The foundation workflow must run on pull requests to `main` and `develop` and on pushes to protected branches. A change is not mergeable unless all required checks pass:
+
+1. Gradle wrapper validation and clean dependency resolution.
+2. Kotlin/Android formatting check.
+3. Android Lint and configured static analysis.
+4. JVM unit tests for changed modules.
+5. Debug APK assembly from a clean checkout with no private credential.
+6. Instrumented/integration tests when the relevant emulator/test infrastructure is available.
+7. Room migration tests for every database schema change.
+8. Dependency/secret review with no signing key, service account or secret committed.
+
+CI implementation is a week-1 foundation deliverable. This document defines the gate; it does not claim that enforcement already exists.
+
+## Verification baseline
+
+Architecture approval does not replace implementation evidence. Feature completion later requires:
+
+- 5,000-item incremental library test without blocking error,
+- screen-off and UI-reconnection playback tests,
+- notification/lock-screen/Bluetooth state synchronization,
+- call, audio-focus, headset and route-transition matrix,
+- deterministic Voice fixtures and provider contract tests,
+- permission-denial and data-clearing tests,
+- telemetry schema tests proving prohibited values cannot be emitted.
+
+## ADR register
+
+| ADR | Decision | Status before Issue #2 approval |
+|---|---|---|
+| [ADR-0001](adr/0001-native-android-platform.md) | Native Android 10+ platform baseline | Proposed |
+| [ADR-0002](adr/0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Proposed |
+| [ADR-0003](adr/0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore boundaries | Proposed |
+| [ADR-0004](adr/0004-replaceable-voice-provider.md) | Replaceable STT/TTS provider boundary | Proposed |
+| [ADR-0005](adr/0005-deterministic-intent-mapping.md) | Restricted deterministic intent mapping | Proposed |
+| [ADR-0006](adr/0006-no-backend-account-streaming.md) | No backend, account or streaming in MVP v1 | Proposed |
+
+At formal approval, the team changes these ADRs from Proposed to Accepted in one reviewed change, checks the approval criteria in Issue #2, and moves the board item to Done. Any later reversal requires a superseding ADR.
