@@ -1,75 +1,69 @@
 # Music Copilot
 
-> An AI-assisted music experience by **Latticeward Labs**.
+> Voice-first local music control for driving, by **Latticeward Labs**.
 
-Music Copilot is an early-stage product focused on helping listeners discover, organize, and interact with music through a simple mobile experience and carefully scoped intelligent features.
+Music Copilot v1 is an Android 10+ application that plays the user's lawful on-device audio and reduces manual interaction through a dedicated Driving Mode and six short English push-to-talk commands.
 
-## Project status
+## Source of truth
 
-**Phase:** MVP definition and product foundation  
-**Repository:** Private  
-**Primary target:** Android internal testing
+Product and implementation decisions are governed by:
 
-The product scope, technical baseline, and UX flows are being finalized before feature development begins.
+1. `Music_Copilot_PRD_v1_FA.pdf` — **Approved for MVP**
+2. `Music_Copilot_MVP_v1_FA.pdf` — **Ready for Planning**
+3. This repository's derived execution documents and GitHub Issues
 
-## MVP goals
+If any repository item conflicts with those v1 documents, the v1 documents win and the conflict must be corrected before implementation.
 
-- A clear and reliable onboarding flow
-- Home and music discovery surfaces
-- Search
-- A functional player using legally approved audio sources
-- Likes and playlists
-- Minimal, privacy-conscious product analytics
-- Crash reporting
-- An internal Android test release
+## Locked MVP
 
-See [Product Scope](docs/PRODUCT_SCOPE.md) for the current boundaries.
+**In scope**
 
-## Repository map
+- Native Android 10+; Kotlin, Jetpack Compose
+- Local audio discovery via MediaStore; songs, artists, albums, folders, local search
+- Media3 playback service, queue, seek, persistence, background playback
+- Media notification, lock-screen and Bluetooth controls
+- Audio Focus, calls, headset disconnects and route changes
+- Driving Mode with large fixed controls and an immediate exit
+- Push-to-talk STT/TTS and a limited intent mapper
+- Six English intents: Play, Pause, Next, Previous, Seek Back 10s, Play Artist
+- One-step confirmation for ambiguity; one retry for failed speech
+- Local history/settings and optional simple Liked Songs (P2)
+- Privacy-safe telemetry, crash diagnostics, accessibility and field QA
+- Closed Beta: 50 qualified drivers, 14 days, at least 3 car models
 
-```text
-.github/                   Collaboration templates
-docs/                      Product and engineering decisions
-README.md                  Project entry point
-CONTRIBUTING.md            Team workflow
-SECURITY.md                Security reporting policy
-```
+**Out of scope**
 
-Application source will be added only after the technical decision issue is approved.
+Streaming, downloads, accounts, backend, cloud sync, advanced playlists/social, wake word, open-ended conversation, Android Auto, CarPlay, iOS, DSP/EQ, crossfade, humming recognition and generative music.
 
-## Working model
+## Success gates
 
-- `main`: stable, reviewed state
-- `develop`: integration branch for active development
-- `feature/<short-name>`: new product work
-- `fix/<short-name>`: bug fixes
-- Pull requests are required for product code
-- Every task must have acceptance criteria
-- No secrets, production credentials, copyrighted tracks, or personal data may be committed
+- Direct-command success: **≥ 85%**
+- Manual correction after voice command: **< 15%**
+- Serious wrong-command execution: **< 3%**
+- Voice response P95: **< 2.5 s** after end of speech
+- Serious-crash-free sessions: **≥ 99%**
+- Driving Mode reuse: **≥ 50%** of Beta testers
+- Weekly return: **≥ 30%**
+- Release blockers: zero open P0, no unintended speaker playback, no ambiguous call behavior
 
 ## Start here
 
-1. Read [Product Scope](docs/PRODUCT_SCOPE.md).
-2. Review the open GitHub Issues and select only items marked **Ready** on the project board.
-3. Confirm the technical baseline in the architecture decision issue.
-4. Design the core user flows in Figma.
-5. Build the first vertical slice: open app → find approved sample audio → play it.
-6. Validate the slice before expanding the backlog.
+1. [Product Scope](docs/PRODUCT_SCOPE.md)
+2. [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
+3. [10-week Roadmap](docs/ROADMAP.md)
+4. [Voice Contract](docs/VOICE_CONTRACT.md)
+5. [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
+6. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
+7. [Definition of Done](docs/DEFINITION_OF_DONE.md)
 
-## Core documentation
+Development begins only from an Issue marked **Ready** on the private project board. P0 Player, Voice and Driving work cannot be traded away for P1/P2 features.
 
-- [Product Scope](docs/PRODUCT_SCOPE.md)
-- [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
-- [Roadmap](docs/ROADMAP.md)
-- [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
-- [Definition of Done](docs/DEFINITION_OF_DONE.md)
-- [Contributing](CONTRIBUTING.md)
-- [Security](SECURITY.md)
+## Repository policy
 
-## Legal note
-
-Music Copilot must not stream, copy, cache, distribute, or monetize commercial music without the necessary licenses and agreements. Development should use owned, licensed, public-domain, or explicitly authorized sample audio.
-
----
+- `main`: reviewed stable state
+- `develop`: integration branch
+- `feature/<issue>-<name>`, `fix/<issue>-<name>`, `docs/<issue>-<name>`
+- No secrets, raw voice, personal media metadata, commercial audio or signing material in Git
+- App code must build without private credentials
 
 Built by **Latticeward Labs**.
