@@ -1,60 +1,75 @@
-# Technical Decisions
+# Technical Decisions — MVP v1
 
-This document records the proposed baseline. A decision becomes binding only when its corresponding GitHub issue is accepted.
+**Status:** Approved baseline  
+**Authority:** PRD v1.0 and MVP v1.0
 
-## Proposed baseline
+## Binding decisions
 
-| Area | Proposed choice | Status |
+| Layer | Choice | Responsibility |
 |---|---|---|
-| Mobile | Android, Kotlin, Jetpack Compose | Proposed |
-| Architecture | Feature-oriented, layered modules | Proposed |
-| UI state | Unidirectional data flow | Proposed |
-| Async work | Kotlin coroutines and Flow | Proposed |
-| Local storage | Room or DataStore by data type | Proposed |
-| Networking | Retrofit/OkHttp or Ktor client | To evaluate |
-| Backend | API-first; provider chosen after requirements | Open |
-| Authentication | Provider chosen after privacy and cost review | Open |
-| Crash reporting | Firebase Crashlytics | Proposed |
-| Analytics | Minimal allowlisted events | Proposed |
-| Distribution | Google Play Internal Testing | Proposed |
-| Design | Figma with shared tokens and components | Proposed |
+| Platform | Native Android 10+ | First and only MVP platform |
+| Language/UI | Kotlin + Jetpack Compose | UI, Driving Mode and voice states |
+| Architecture | Layered, feature-oriented, unidirectional state | Testability and explicit boundaries |
+| Playback | AndroidX Media3 / ExoPlayer in a MediaSessionService | Queue, background, audio focus, notification, lock screen |
+| Local discovery | MediaStore | Consented device audio discovery |
+| Local data | Room | Media index, Like, short history and session state |
+| Preferences | DataStore | Settings, selected Bluetooth device, privacy choices |
+| Voice | Android STT/TTS behind interfaces | Speech conversion and replaceable provider |
+| Intent | Deterministic restricted mapper | Six supported intents only |
+| Dependency injection | Hilt | Boundaries and test substitution |
+| Async | Coroutines + Flow | Streams and lifecycle-safe state |
+| Quality | Crash reporting + allowlisted analytics | Non-sensitive Beta reliability and metrics |
+| Distribution | Google Play Internal/Closed Testing | Controlled Alpha/Beta |
+| Design | Figma tokens/components | Ten screens and all critical states |
 
-## Required decisions before implementation
+## Explicit non-decisions
 
-1. Confirm native Android versus cross-platform.
-2. Confirm authentication requirements for the first vertical slice.
-3. Identify the legal source of MVP audio.
-4. Define the smallest backend boundary.
-5. Define offline and caching behavior.
-6. Set minimum Android version and supported devices.
-7. Approve analytics consent and data retention rules.
-8. Define environments: local, test, staging, production.
+There is no MVP backend, account, authentication, cloud sync, network catalog, streaming API or production environment. Primary product data remains on the device. Networking must not be introduced merely as infrastructure.
 
-## Architecture principles
+Kotlin Multiplatform and iOS remain discovery topics only after the Android Beta decision gate.
 
-- Build a vertical slice before broad infrastructure.
-- Keep playback, catalog, library, identity, and telemetry boundaries explicit.
-- Keep provider-specific SDKs behind adapters.
-- Do not place secrets in the client or repository.
-- Make telemetry opt-in or consent-aware where required.
-- Prefer reversible decisions until usage data justifies complexity.
+## Required module boundaries
 
-## Decision record format
+- `app`: navigation and composition root
+- `core:model`: domain models
+- `core:database`: Room and migrations
+- `core:media`: MediaStore scanner and index refresh
+- `core:playback`: Media3 service, session, queue and audio focus
+- `core:voice`: STT/TTS interfaces, state machine and intent mapper
+- `core:telemetry`: event allowlist and crash-safe context
+- `feature:onboarding`
+- `feature:library`
+- `feature:search`
+- `feature:player`
+- `feature:driving`
+- `feature:liked` (P2)
+- `feature:settings`
 
-For every consequential choice, add a short ADR under `docs/adr/`:
+The Player is independent of UI lifecycle and owned by a service. UI observes canonical playback state. Voice providers sit behind interfaces and raw audio is never written by application code.
 
-```markdown
-# ADR-NNN: Decision title
+## State and persistence
 
-## Context
-What problem are we solving?
+- Queue, current item and position survive UI closure and process recreation where Android permits.
+- Media index refresh is incremental and supports at least 5,000 files smoothly.
+- Corrupt or missing files produce normalized errors and controlled skip.
+- Bluetooth and route identity stored locally must be user-clearable.
+- Database migrations require automated tests.
 
-## Decision
-What did we choose?
+## Build and quality baseline
 
-## Alternatives
-What else was considered?
+- Separate debug and release build types
+- CI: formatting, static analysis, unit tests and debug build
+- No private credential required for clean checkout
+- Signing keys, service accounts and environment secrets remain outside Git
+- English Beta UI; all strings externalized for future localization
+- Remote confidence tuning may use a simple privacy-reviewed config; a build config fallback must exist
+- Analytics emission is centrally allowlisted
 
-## Consequences
-What improves, and what trade-offs remain?
-```
+## Required ADRs
+
+1. Native Android and minimum SDK
+2. Media3 service ownership and lifecycle
+3. MediaStore/Room incremental indexing
+4. Restricted Voice contract and provider boundary
+5. Telemetry and no-raw-audio policy
+6. No backend/account/streaming in MVP v1
