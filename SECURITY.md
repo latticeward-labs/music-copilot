@@ -1,30 +1,34 @@
-# Security Policy
+# Security and Privacy Policy
 
 ## Reporting
 
-Do not open a public issue for a vulnerability or exposed secret. Report it privately to the repository owner through GitHub's private security reporting channel when enabled.
+Do not open a public issue for vulnerabilities, exposed secrets or privacy incidents. Use GitHub private security reporting when enabled and include component/version, reproduction, impact and a minimal safe proof.
 
-Include:
+## Prohibited repository and log material
 
-- affected component and version,
-- reproduction steps,
-- expected and actual behavior,
-- impact assessment,
-- a minimal proof of concept if safe.
+- API keys, access tokens, signing keys and service-account credentials
+- production environment files
+- raw voice or microphone recordings
+- speech transcripts
+- full personal filenames, track titles, artists or albums
+- user identifiers, contacts or precise location
+- commercial audio without repository distribution rights
 
-## Sensitive material
+Voice text may exist in memory only long enough to resolve the current restricted intent. Application code must not persist it.
 
-The repository must never contain:
+## High-risk behaviors
 
-- API keys or access tokens,
-- Android signing keys,
-- Firebase service-account credentials,
-- production environment files,
-- personal user data,
-- copyrighted audio without repository distribution rights.
+Treat these as P0 security/safety release blockers:
 
-If a secret is exposed, revoke or rotate it immediately. Removing it from the latest commit is not sufficient because Git history may retain it.
+- unintended playback through phone speaker after Bluetooth loss,
+- microphone activation without explicit push-to-talk action,
+- raw voice/transcript persistence or transmission without approved consent,
+- exposure of personal media metadata in analytics/crash reports,
+- repeatable wrong-command execution with serious distraction impact,
+- ambiguous behavior during calls or audio-route changes.
+
+If a secret is exposed, revoke/rotate it immediately; deleting the latest file is insufficient because Git history may retain it.
 
 ## Supported versions
 
-Until the first internal release, only the latest `main` state is supported.
+Until the first Closed Beta, only the latest reviewed `main` state is supported.
