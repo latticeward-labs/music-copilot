@@ -1,63 +1,66 @@
-# MVP Roadmap
+# MVP v1 — 10-Week Roadmap
 
-The roadmap is outcome-based. Dates are assigned only after capacity is known.
+The timebox is fixed. P0 scope is release blocking. P2 Like and then the P1 Bluetooth hint are the first cuts when delivery slips.
 
-## Phase 0 — Foundation
+| Week | Deliverable | Exit gate |
+|---:|---|---|
+| 1 | Repository baseline, CI, architecture, design tokens, crash logging | Healthy build on 2 devices |
+| 2 | Permissions, MediaStore, Room, incremental local-library scan | 5,000-file library without blocking error |
+| 3 | Media3 service, queue, persistence, background and notification | Playback continues with screen off |
+| 4 | Audio Focus, call/headset/Bluetooth route handling and edge cases | P0 route matrix green |
+| 5 | Home/Library, local Search, Full Player and empty/error states | Complete manual flow |
+| 6 | Driving Mode and optional selected-Bluetooth suggestion | Tested in a stationary vehicle |
+| 7 | Push-to-talk, STT/TTS, state machine and five control intents | ≥90% laboratory success |
+| 8 | PLAY_ARTIST, fuzzy matching, ambiguity, telemetry and privacy controls | Golden voice scenario complete |
+| 9 | Device/vehicle QA, accessibility, regression and all P0 fixes | Zero open P0 |
+| 10 | Internal Alpha, signed Beta package, tester guide and rollout | Go/No-Go review for 50-driver Beta |
 
-- Approve MVP scope
-- Confirm target tester and primary use case
-- Decide mobile stack and system boundaries
-- Confirm legal sample-audio source
-- Create Figma user flows and design tokens
-- Agree on Definition of Done
+## Dependency sequence
 
-**Exit:** scope, architecture baseline, and core flow are approved.
+1. Scope and technical baseline
+2. Android foundation and UI design
+3. Permissions + local index
+4. Playback service + stability
+5. Manual surfaces
+6. Driving Mode
+7. Voice control contract
+8. Telemetry and privacy
+9. Field QA and accessibility
+10. Closed Beta and decision gate
 
-## Phase 1 — First vertical slice
+Parallel work is allowed only when dependencies are satisfied. No account, backend, streaming, discovery feed or advanced playlist task may enter the MVP Board.
 
-Deliver one complete journey:
+## Project-board policy
 
-`open app → browse approved sample → open player → play/pause → observe verified telemetry`
+Workflow: `Backlog → Ready → In Progress → Review → Testing → Done`
 
-**Exit:** the journey works locally and has automated checks for critical logic.
+- **Ready:** acceptance criteria, dependency and owner are clear
+- **In Progress:** active implementation with one owner
+- **Review:** pull request/design decision awaits review
+- **Testing:** merged/approved work is being verified
+- **Done:** evidence satisfies Definition of Done
+- Maximum active work should protect Player, Voice and Driving P0 delivery
+- Closed or superseded out-of-scope work is marked `not planned`, not silently deleted
 
-## Phase 2 — Library MVP
+## Gates
 
-- Search
-- Likes
-- Playlist creation
-- Add/remove tracks
-- Basic persistence and error states
+### Prototype gate
 
-**Exit:** a tester can find and organize sample music reliably.
+10 users can complete the stationary golden scenario.
 
-## Phase 3 — Quality and observability
+### Alpha gate
 
-- Crashlytics validation
-- Privacy-safe analytics validation
-- Accessibility pass
-- Performance and battery checks
-- Release checklist
-- Tester feedback workflow
+Internal testers verify all P0 scenarios across the Android device matrix.
 
-**Exit:** no known critical defects and observability behaves as documented.
+### Beta entry gate
 
-## Phase 4 — Internal testing
+- Zero open P0
+- ≥99% internal serious-crash-free sessions
+- Golden scenario on at least 3 vehicles
+- Privacy copy approved
+- Analytics verified
+- Rollback route documented
 
-- Signed Android App Bundle
-- Google Play internal track
-- Release notes
-- Named tester group
-- Feedback review and prioritized fixes
+### Beta decision gate
 
-**Exit:** evidence supports continuing, changing scope, or stopping.
-
-## Backlog policy
-
-Only three foundation items should begin immediately:
-
-1. Approve the exact MVP scope.
-2. Approve the technical baseline.
-3. Design the core user journeys.
-
-All other work remains in Backlog until a dependency and owner are clear.
+After 50 qualified drivers use the app naturally for 14 days: GO, ITERATE or STOP using the approved metric thresholds.
