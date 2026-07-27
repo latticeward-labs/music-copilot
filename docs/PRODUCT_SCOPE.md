@@ -1,71 +1,111 @@
-# Product Scope — MVP
+# Product Scope — Approved MVP v1
 
-## Product promise
+**Decision date:** 2026-07-27  
+**Authority:** Music Copilot PRD v1.0 + MVP v1.0  
+**Status:** Locked for the 10-week MVP
 
-Music Copilot should help a listener discover and organize music with less friction while providing a foundation for useful, transparent intelligent assistance.
+## Product statement
 
-## Target user
+Music Copilot v1 is an Android application for daily drivers who use car Bluetooth and keep lawful music files on their phone. It lets them play local music and control frequent actions with one microphone tap and one short English command.
 
-For the first validation cycle, the target user is a mobile listener who:
+The version-one hypothesis is: if drivers can control music with one tap and a short command, manual interactions will fall and at least half of Beta testers will reuse Driving Mode.
 
-- regularly searches for music,
-- saves favorites and playlists,
-- wants lightweight recommendations or assistance,
-- accepts an early Android test build.
+## Primary user and context
 
-This is a validation target, not a permanent market limitation.
+A qualified Beta tester:
 
-## In scope
+- drives at least 30 minutes per day,
+- regularly uses vehicle Bluetooth,
+- has at least 50 lawful local audio files,
+- can use the six English commands,
+- consents to non-audio diagnostic telemetry.
 
-1. Onboarding and basic account access
-2. Home surface with approved sample content
-3. Search across the available MVP catalog
-4. Player controls: play, pause, seek, next, previous
-5. Like and unlike
-6. Create, rename, and view playlists
-7. Add and remove tracks from playlists
-8. Basic profile and settings
-9. Crash reporting
-10. Minimal anonymous product analytics
-11. Android internal test distribution
+Streaming-only listeners are not representative of the first Beta and this sample bias must be recorded.
 
-## Out of scope
+## Scope and priority
 
-- A Spotify-scale commercial catalog
-- Unlicensed playback, downloading, or redistribution
-- Social feeds and direct messaging
-- Artist payouts and royalty accounting
-- Advertising marketplace
-- Public creator uploads
-- Advanced generative music
-- Desktop and iOS production releases
-- Full subscription billing
+### P0 — release blocking
 
-## MVP success signals
+- Android 10+ native app
+- Just-in-time media and microphone permissions with denial/recovery states
+- MediaStore scan and incremental index
+- Songs, artists, albums, folders and local search
+- Media3 player service: play, pause, next, previous, seek, queue
+- Queue and position persistence after UI closure
+- Background, screen-off, notification, lock-screen and Bluetooth controls
+- Correct Audio Focus, incoming call, headset disconnect and audio-route behavior
+- Driving Mode: artwork, title, artist, four large controls, microphone and immediate exit
+- Push-to-talk: duck playback, STT, restricted intent mapping, execution and short TTS
+- Six English intents: PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST
+- Ambiguity confirmation, low-confidence handling, six-second timeout and one retry
+- Corrupt-file recovery without collapsing the queue
+- Privacy-safe telemetry and crash diagnostics
+- Device, accessibility, vehicle and regression QA
 
-Before implementation, the product owner must assign numeric targets and a test window to:
+### P1 — required when schedule permits
 
-- onboarding completion,
-- successful first playback,
-- search-to-play conversion,
-- playlist creation,
-- crash-free sessions,
-- tester retention,
-- qualitative tester satisfaction.
+- Manual Driving Mode activation
+- Bluetooth connection suggestion for a user-selected vehicle; never forced auto-open
+- Short local playback history
+- Settings for Bluetooth hint, privacy/data clearing and voice configuration
 
-## Product constraints
+### P2 — cut first if schedule slips
 
-- Use only owned, licensed, public-domain, or explicitly authorized audio.
-- Collect the minimum telemetry required to answer a documented product question.
-- Never log passwords, access tokens, email addresses, raw search text, or playlist names.
-- Every MVP feature needs acceptance criteria and a measurable reason to exist.
+- Simple local Like/Unlike and Liked Songs playback
 
-## Exit criteria
+## Explicitly out of scope
 
-The MVP is ready for internal testing when:
+- Online catalog, streaming, downloads, casting
+- Account, authentication, backend, cloud sync
+- General recommendation/discovery feed
+- Full playlist management or social features
+- iOS, CarPlay, Android Auto
+- Always-on wake word or open-ended/multi-turn conversation
+- Motion detection
+- Song/humming recognition or music generation
+- DSP, equalizer, crossfade
+- Public upload, distribution, advertising, subscription and royalty systems
 
-- the core playback journey works on supported Android devices,
-- critical and high-severity defects are resolved,
-- privacy disclosures match actual telemetry,
-- Crashlytics and analytics are verified in a non-production environment,
-- release notes and a tester feedback channel exist.
+No online catalog, content upload or distribution exists in this MVP. The application plays only audio already lawfully present on the user's device.
+
+## Required screens and states
+
+1. Splash: loading, migration error
+2. Onboarding: first run, value, skip voice education
+3. Permissions: granted, denied, permanently denied
+4. Home/Library: scanning, empty, ready
+5. Search: result, no result, error
+6. Full Player: playing, paused, corrupt file
+7. Driving Mode: playing, paused, no track
+8. Voice Overlay: listening, processing, confirm, executed, failed
+9. Liked Songs: empty, ready (P2)
+10. Settings: default, updated; Bluetooth, privacy, data clearing
+
+Driving Mode uses one layer, high contrast, scalable text, fixed controls and touch targets of at least 48dp. It must not present typing, deep navigation or long result lists.
+
+## Beta success metrics
+
+| Metric | Target |
+|---|---:|
+| Driving session with ≥1 voice command | ≥50% of weekly users |
+| Direct-command success | ≥85% |
+| Manual correction after command | <15% |
+| Serious wrong-command execution | <3% |
+| Voice response P95 | <2.5 s |
+| Local command P95 | <1 s |
+| Serious-crash-free sessions | ≥99% |
+| Serious player error | <1 per 100 sessions |
+| Weekly return | ≥30% |
+| Driving Mode reuse | ≥50% |
+
+## Delivery and decision gates
+
+- Timebox: 10 weeks
+- Prototype: 10 users
+- Alpha: internal team
+- Closed Beta: 50 qualified drivers, 14 days, at least 3 vehicle models
+- GO: quality, repeat use and reduced manual correction meet targets
+- ITERATE: value exists but accuracy or stability misses target
+- STOP: users do not return or Voice adds no material value
+
+Any incomplete P0 blocks Beta. When schedule slips, P2 Like and then P1 Bluetooth suggestion are removed; Player, Voice and Driving Mode are never cut.
