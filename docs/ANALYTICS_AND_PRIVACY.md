@@ -1,44 +1,64 @@
-# Analytics and Privacy
+# Analytics and Privacy — MVP v1
 
-## Principle
+## Principles
 
-Collect only data that answers a documented product or reliability question. Analytics must not become a shadow user database.
+Collect only what is required to answer: is Driving Mode used, does Voice work, and do users return? Raw voice is never stored. Personal media metadata is not telemetry. Permissions are requested just in time and explained.
 
-## Initial event allowlist
+If cloud STT is ever selected, separate consent, processor destination and retention disclosure are required before release.
 
-| Event | Product question | Allowed properties |
+## Event allowlist
+
+| Event | Allowed properties | Question |
 |---|---|---|
-| `app_open` | Is the test build being used? | app version, platform |
-| `onboarding_completed` | Can testers finish onboarding? | flow version |
-| `search_submitted` | Is search used? | result-count bucket; never raw query |
-| `track_play_started` | Can users start playback? | anonymous catalog item ID, source type |
-| `track_play_completed` | Does playback complete? | duration bucket |
-| `playlist_created` | Is library organization useful? | none |
-| `playback_error` | Where does playback fail? | normalized error code |
-| `feedback_opened` | Can testers reach feedback? | entry point |
+| `driving_mode_started` | `entry_source`, `bt_connected` | How is Driving Mode entered? |
+| `voice_button_pressed` | `session_id`, `playback_state` | Is push-to-talk used? |
+| `intent_detected` | `intent_type`, `confidence_bucket` | Which intents and confidence ranges occur? |
+| `command_executed` | `intent_type`, `latency_bucket`, `result` | Is execution fast and successful? |
+| `intent_failed` | `intent_type`, `failure_code` | Why does restricted Voice fail? |
+| `manual_correction` | `previous_intent`, `correction_type` | How often must users correct Voice? |
+| `player_error` | `error_code`, `route_type` | Is Player/route behavior stable? |
+| `session_completed` | `duration_bucket`, `commands_count_bucket` | Retention and North Star |
+| `library_scan_completed` | `duration_bucket`, `item_count_bucket`, `result` | Can local libraries be prepared? |
+
+No arbitrary event or property may be emitted. A central allowlist enforces names and typed properties.
 
 ## Prohibited data
 
-Do not send:
+Never collect or log:
 
-- passwords or authentication tokens,
-- email addresses, names, phone numbers, or precise location,
-- raw search queries,
-- playlist names,
-- message content,
-- device advertising ID unless explicitly approved,
-- audio content or microphone recordings,
-- free-form exception text containing user data.
+- raw audio or microphone recordings,
+- full filename, track title, artist or album from personal media,
+- raw speech transcript,
+- exact location,
+- contacts, advertising ID or unnecessary device identifier,
+- email, name, phone, account token or password,
+- free-form exception text that may include personal content.
+
+A short-lived transcript may exist in memory only for current intent resolution and must be discarded immediately afterward.
+
+## Consent and control
+
+- Media and microphone permissions are separate and contextual.
+- Diagnostic telemetry requires clear disclosure and any legally required consent.
+- The user can clear history, Bluetooth preference and diagnostic identifiers/settings.
+- Permission denial never crashes the app; permanent denial links to Android Settings.
+- Retention must be set before Beta and documented in the privacy notice.
+- Data deletion and collection-disable behavior must be verified.
+
+## Dashboard
+
+Weekly reporting must show:
+
+- Driving Mode start and reuse
+- sessions with at least one voice command
+- direct-command success by intent
+- manual-correction rate
+- serious wrong-execution rate
+- latency distribution and P95
+- player errors by route type
+- serious-crash-free sessions
+- weekly return cohort
 
 ## Governance
 
-Every new event requires:
-
-1. a documented question,
-2. an owner,
-3. an allowed property list,
-4. a retention decision,
-5. a verification step,
-6. privacy review before release.
-
-Analytics documentation and actual implementation must stay synchronized.
+Every change requires a product question, owner, allowlisted schema, retention decision, privacy review and DebugView/equivalent verification. Documentation and implementation must match before release.
