@@ -119,7 +119,6 @@ Driving Mode -> microphone tap -> Listening -> Processing -> direct execution or
 
 ### P1 - required when schedule permits
 
-- Manual Driving Mode entry
 - Suggestion after connecting to one user-selected Bluetooth vehicle; never forced auto-open
 - Short local playback history
 - Settings for Bluetooth hint, Voice availability/consent, privacy and data clearing
