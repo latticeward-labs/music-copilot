@@ -1,4 +1,4 @@
-# Definition of Done — MVP v1
+# Definition of Done — MVP v1.1
 
 A task is Done only when every applicable condition below has evidence in its Issue or pull request.
 
@@ -22,6 +22,8 @@ A task is Done only when every applicable condition below has evidence in its Is
 ## Voice and driving
 
 - Voice follows `Idle → Listening → Processing → Confirming → Executed/Failed`.
+- On-device recognition is preferred; any network-capable recognizer requires clear, revocable consent.
+- Voice unavailable or consent denial/revocation preserves complete manual control.
 - Playback ducks only during listening/response and returns predictably.
 - Six-second timeout and no more than one retry are enforced.
 - Low-confidence or multiple artist matches require one-step confirmation.
@@ -51,7 +53,7 @@ A Beta release is Done only when:
 - zero open P0 defects,
 - serious-crash-free internal sessions ≥99%,
 - golden voice scenario passes on at least 3 vehicle models,
-- Android 10/12/14 device matrix is covered across representative Pixel, Samsung and Xiaomi devices,
+- PR API 26/33/36 and Nightly API 29/31/34 evidence is complete; physical coverage includes an older Android device, Android 12/13, Android 16 where available, and representative Pixel, Samsung and Xiaomi devices,
 - privacy copy and data-safety answers match behavior,
 - telemetry dashboard is verified,
 - signing custody, rollback, release notes and tester guide exist.
