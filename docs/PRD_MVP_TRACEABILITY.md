@@ -1,6 +1,6 @@
-# PRD/MVP v1 Traceability
+# PRD/MVP v1.1 Traceability
 
-This matrix prevents drift. The approved PRD/MVP v1 documents are authoritative.
+This matrix prevents drift. The canonical [PRD v1.1](PRD.md) and [MVP v1.1](MVP.md) Markdown documents are authoritative; PDF exports and attachments are not requirement sources.
 
 | Requirement | Delivery Issue |
 |---|---|
