@@ -75,7 +75,7 @@ Dependency direction points inward toward domain contracts:
 
 ## Initial Gradle module map
 
-MVP starts with seven physical modules to preserve boundaries without imposing a sixteen-module build and ownership cost during the ten-week timebox.
+MVP starts with seven physical modules to preserve boundaries without premature module expansion and ownership cost during the ten-week timebox.
 
 | Module | Owns | May depend on |
 |---|---|---|
