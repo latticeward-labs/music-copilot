@@ -5,7 +5,7 @@
 - **Revised:** 2026-07-28
 - **Decision owner:** Latticeward Labs
 - **Approval:** [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2)
-- **Authority:** PRD v1.1 sections 05, 07 and 09; MVP v1.1 sections 06-07
+- **Authority:** Canonical [PRD v1.1](../PRD.md) and [MVP v1.1](../MVP.md)
 
 ## Context
 
