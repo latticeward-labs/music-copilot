@@ -1,5 +1,7 @@
 # Voice Contract — MVP v1.1
 
+> Derived from the canonical [PRD v1.1](PRD.md) and [MVP v1.1](MVP.md). If this document conflicts with either source, the canonical source wins.
+
 ## Interaction
 
 Voice is push-to-talk only. The microphone starts after an explicit tap. Playback ducks while listening and returns predictably after execution/failure. TTS is at most one short sentence. Provider selection is on-device-first and full manual playback control is always available.
