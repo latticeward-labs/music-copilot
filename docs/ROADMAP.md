@@ -1,5 +1,7 @@
 # MVP v1.1 — 10-Week Roadmap
 
+> Derived from the canonical [PRD v1.1](PRD.md) and [MVP v1.1](MVP.md). If this document conflicts with either source, the canonical source wins.
+
 The timebox is fixed. P0 scope is release blocking. P2 Like and then the P1 Bluetooth hint are the first cuts when delivery slips.
 
 | Week | Deliverable | Exit gate |
