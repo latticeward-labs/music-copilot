@@ -6,14 +6,12 @@ Music Copilot MVP v1.1 is a native Android 8.0+ application that plays the user'
 
 ## Source of truth
 
-Product and implementation decisions are governed by:
+1. [PRD v1.1](docs/PRD.md) - canonical product requirements
+2. [MVP v1.1](docs/MVP.md) - canonical execution and validation plan
+3. [Accepted ADRs](docs/adr/README.md) and [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
+4. Derived execution documents, Figma and GitHub Issues
 
-1. `Music_Copilot_PRD_v1.1_FA.pdf` — **Approved for MVP**
-2. `Music_Copilot_MVP_v1.1_FA.pdf` — **Ready for Development**
-3. Accepted ADR-0001 through ADR-0006 and `docs/TECHNICAL_DECISIONS.md`
-4. This repository's derived execution documents and GitHub Issues
-
-If a derived repository item conflicts with PRD v1.1 or MVP v1.1, the product sources win and the conflict must be corrected through change control or a superseding ADR.
+PDF exports or attachments are presentation artifacts only and are not product authorities. If any lower-level artifact conflicts with the canonical Markdown PRD or MVP, work stops until the conflict is corrected through product change control or a superseding ADR.
 
 ## Locked MVP
 
@@ -49,14 +47,16 @@ Streaming, downloads, accounts, backend, cloud sync, advanced playlists/social, 
 
 ## Start here
 
-1. [Product Scope](docs/PRODUCT_SCOPE.md)
-2. [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
-3. [Figma Design Plan](docs/FIGMA_DESIGN_PLAN.md)
-4. [10-week Roadmap](docs/ROADMAP.md)
-5. [Voice Contract](docs/VOICE_CONTRACT.md)
-6. [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
-7. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
-8. [Definition of Done](docs/DEFINITION_OF_DONE.md)
+1. [PRD v1.1](docs/PRD.md)
+2. [MVP v1.1](docs/MVP.md)
+3. [Product Scope summary](docs/PRODUCT_SCOPE.md)
+4. [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
+5. [Figma Design Plan](docs/FIGMA_DESIGN_PLAN.md)
+6. [10-week Roadmap](docs/ROADMAP.md)
+7. [Voice Contract](docs/VOICE_CONTRACT.md)
+8. [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
+9. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
+10. [Definition of Done](docs/DEFINITION_OF_DONE.md)
 
 Development begins only from an Issue marked **Ready** on the private project board. P0 Player, Voice and Driving work cannot be traded away for P1/P2 features.
 
