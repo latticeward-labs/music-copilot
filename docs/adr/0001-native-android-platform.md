@@ -13,8 +13,6 @@ The MVP must validate reliable local music, Bluetooth, Audio Focus and backgroun
 
 Build a native Android 10+ application using Kotlin, Jetpack Compose, Coroutines/Flow and Hilt. Deliver through Android internal/closed testing.
 
-Version 1.0 does not lock a separate numeric `minSdk`, `compileSdk`, `targetSdk`, ABI-filter policy or API 26 support matrix.
-
 ## Validation
 
 - Healthy build on two representative devices in week 1
