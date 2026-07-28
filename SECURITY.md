@@ -1,5 +1,7 @@
 # Security and Privacy Policy
 
+Security and privacy behavior is governed by the canonical [PRD v1.1](docs/PRD.md), [MVP v1.1](docs/MVP.md) and the stricter requirements in this policy.
+
 ## Reporting
 
 Do not open a public issue for vulnerabilities, exposed secrets or privacy incidents. Use GitHub private security reporting when enabled and include component/version, reproduction, impact and a minimal safe proof.
