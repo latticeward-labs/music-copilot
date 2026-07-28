@@ -1,5 +1,7 @@
 # Contributing to Music Copilot
 
+All work must conform to the canonical [PRD v1.1](docs/PRD.md) and [MVP v1.1](docs/MVP.md). PDF exports or attachments are not requirement sources.
+
 ## Before starting
 
 - Select a GitHub Issue marked **Ready** on the project board.
