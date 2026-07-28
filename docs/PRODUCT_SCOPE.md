@@ -1,12 +1,12 @@
-# Product Scope — Approved MVP v1
+# Product Scope — Approved MVP v1.1
 
 **Decision date:** 2026-07-27  
-**Authority:** Music Copilot PRD v1.0 + MVP v1.0  
+**Authority:** Music Copilot PRD v1.1 + MVP v1.1  
 **Status:** Locked for the 10-week MVP
 
 ## Product statement
 
-Music Copilot v1 is an Android application for daily drivers who use car Bluetooth and keep lawful music files on their phone. It lets them play local music and control frequent actions with one microphone tap and one short English command.
+Music Copilot MVP v1.1 is a native Android application for daily drivers who use car Bluetooth and keep lawful music files on their phone. It lets them play local music and control frequent actions with one microphone tap and one short English command.
 
 The version-one hypothesis is: if drivers can control music with one tap and a short command, manual interactions will fall and at least half of Beta testers will reuse Driving Mode.
 
@@ -26,7 +26,7 @@ Streaming-only listeners are not representative of the first Beta and this sampl
 
 ### P0 — release blocking
 
-- Android 10+ native app
+- Native Android 8.0+ (`minSdk 26`) with `compileSdk 36` and `targetSdk 36` for the planned 2026 release
 - Just-in-time media and microphone permissions with denial/recovery states
 - MediaStore scan and incremental index
 - Songs, artists, albums, folders and local search
@@ -35,9 +35,10 @@ Streaming-only listeners are not representative of the first Beta and this sampl
 - Background, screen-off, notification, lock-screen and Bluetooth controls
 - Correct Audio Focus, incoming call, headset disconnect and audio-route behavior
 - Driving Mode: artwork, title, artist, four large controls, microphone and immediate exit
-- Push-to-talk: duck playback, STT, restricted intent mapping, execution and short TTS
+- Push-to-talk: duck playback, on-device-first STT/TTS behind replaceable interfaces, restricted intent mapping, execution and short TTS
 - Six English intents: PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST
 - Ambiguity confirmation, low-confidence handling, six-second timeout and one retry
+- Network-capable system recognizer disabled by default; clear, revocable consent and complete manual fallback
 - Corrupt-file recovery without collapsing the queue
 - Privacy-safe telemetry and crash diagnostics
 - Device, accessibility, vehicle and regression QA
@@ -72,7 +73,7 @@ No online catalog, content upload or distribution exists in this MVP. The applic
 
 1. Splash: loading, migration error
 2. Onboarding: first run, value, skip voice education
-3. Permissions: granted, denied, permanently denied
+3. Permissions & Privacy: media/microphone granted, denied, permanently denied; on-device Voice unavailable; optional network-recognizer consent granted/revoked
 4. Home/Library: scanning, empty, ready
 5. Search: result, no result, error
 6. Full Player: playing, paused, corrupt file
