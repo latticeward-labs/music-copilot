@@ -1,5 +1,7 @@
 # Definition of Done — MVP v1.1
 
+> Derived from the canonical [PRD v1.1](PRD.md) and [MVP v1.1](MVP.md). If this document conflicts with either source, the canonical source wins.
+
 A task is Done only when every applicable condition below has evidence in its Issue or pull request.
 
 ## Product and scope
