@@ -15,7 +15,7 @@ An ADR is immutable after acceptance except for spelling, links, or explicit sta
 
 | ADR | Decision | Status |
 |---|---|---|
-| [0001](0001-native-android-platform.md) | Native Android 10+ platform baseline | Proposed |
+| [0001](0001-native-android-platform.md) | Native Android 8.0+ / API 36 release baseline | Proposed |
 | [0002](0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Proposed |
 | [0003](0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore boundaries | Proposed |
 | [0004](0004-replaceable-voice-provider.md) | Replaceable Android STT/TTS provider boundary | Proposed |
