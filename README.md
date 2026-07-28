@@ -2,29 +2,30 @@
 
 > Voice-first local music control for driving, by **Latticeward Labs**.
 
-Music Copilot v1 is an Android 10+ application that plays the user's lawful on-device audio and reduces manual interaction through a dedicated Driving Mode and six short English push-to-talk commands.
+Music Copilot MVP v1.1 is a native Android 8.0+ application that plays the user's lawful on-device audio and reduces manual interaction through a dedicated Driving Mode and six short English push-to-talk commands.
 
 ## Source of truth
 
 Product and implementation decisions are governed by:
 
-1. `Music_Copilot_PRD_v1_FA.pdf` — **Approved for MVP**
-2. `Music_Copilot_MVP_v1_FA.pdf` — **Ready for Planning**
-3. This repository's derived execution documents and GitHub Issues
+1. `Music_Copilot_PRD_v1.1_FA.pdf` — **Approved for MVP**
+2. `Music_Copilot_MVP_v1.1_FA.pdf` — **Ready for Development**
+3. Accepted ADR-0001 through ADR-0006 and `docs/TECHNICAL_DECISIONS.md`
+4. This repository's derived execution documents and GitHub Issues
 
-If any repository item conflicts with those v1 documents, the v1 documents win and the conflict must be corrected before implementation.
+If a derived repository item conflicts with PRD v1.1 or MVP v1.1, the product sources win and the conflict must be corrected through change control or a superseding ADR.
 
 ## Locked MVP
 
 **In scope**
 
-- Native Android 10+; Kotlin, Jetpack Compose
+- Native Android 8.0+ (`minSdk 26`), Kotlin and Jetpack Compose; `compileSdk 36` / `targetSdk 36` for the planned 2026 release
 - Local audio discovery via MediaStore; songs, artists, albums, folders, local search
 - Media3 playback service, queue, seek, persistence, background playback
 - Media notification, lock-screen and Bluetooth controls
 - Audio Focus, calls, headset disconnects and route changes
 - Driving Mode with large fixed controls and an immediate exit
-- Push-to-talk STT/TTS and a limited intent mapper
+- Push-to-talk, on-device-first STT/TTS behind replaceable interfaces; network-capable recognition only after clear, revocable consent, with complete manual fallback
 - Six English intents: Play, Pause, Next, Previous, Seek Back 10s, Play Artist
 - One-step confirmation for ambiguity; one retry for failed speech
 - Local history/settings and optional simple Liked Songs (P2)
