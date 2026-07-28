@@ -1,11 +1,11 @@
 # ADR-0001: Native Android 8.0+ platform and API 36 release baseline
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-07-27
 - **Revised:** 2026-07-28
 - **Decision owner:** Latticeward Labs
 - **Approval:** [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2)
-- **Authority:** PRD v1.0 section 09; MVP v1.0 scope and week 1
+- **Authority:** PRD v1.1 sections 05, 07 and 09; MVP v1.1 sections 06-07
 
 ## Context
 
@@ -35,9 +35,9 @@ All user-visible strings remain externalized even though the Closed Beta voice c
 - Android 8–12 use the legacy media-read permission path where required.
 - Android 13+ uses `READ_MEDIA_AUDIO`.
 - Foreground-service, media notification, runtime-permission and Bluetooth differences are isolated behind API-level adapters.
-- The required OS test matrix is Android 8/API 26, Android 10/API 29, Android 13/API 33 and Android 16/API 36.
-- Emulator coverage is acceptable for deterministic platform behavior; playback routes, Bluetooth, audio focus and device-specific lifecycle behavior require representative physical-device evidence.
-- `arm64-v8a` is the baseline ABI. `armeabi-v7a` is enabled only after every native dependency supports it and coverage benefit is verified.
+- Pull-request CI covers API 26, 33 and 36; Nightly coverage adds API 29, 31 and 34.
+- Emulator coverage is acceptable for deterministic behavior. Playback routes, Bluetooth, audio focus and lifecycle require an older API 26-29 device, Android 12/13, Android 16, representative Pixel/Samsung/Xiaomi devices where available, and at least three head units.
+- No explicit `abiFilters` are configured while the app has no native dependency. A native dependency triggers a 64-bit, package-size and device-coverage review before any ABI is filtered.
 
 ## Consequences
 
@@ -68,8 +68,9 @@ All user-visible strings remain externalized even though the Closed Beta voice c
 Approval requires:
 
 1. a clean `minSdk 26`, `compileSdk 36`, `targetSdk 36` build baseline;
-2. build/install/smoke evidence on API 26, 29, 33 and 36;
-3. legacy and Android 13+ media-permission tests;
-4. foreground-service and media-notification tests across the matrix;
-5. physical-device evidence for Bluetooth, audio focus, route loss and background playback;
-6. a pre-release check of the then-current Google Play target-API policy.
+2. pull-request build/install/smoke evidence on API 26, 33 and 36;
+3. nightly compatibility evidence on API 29, 31 and 34;
+4. legacy and Android 13+ media-permission tests;
+5. foreground-service and media-notification tests across the matrix;
+6. physical-device evidence for Bluetooth, audio focus, route loss and background playback;
+7. a pre-release check of the then-current Google Play target-API policy.
