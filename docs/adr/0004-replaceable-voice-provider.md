@@ -9,4 +9,4 @@
 
 Keep Android STT/TTS behind a replaceable interface. Push-to-talk is the only microphone entry. Listening lasts at most six seconds, playback ducks and retry is allowed once. Raw voice is not stored. TTS is at most one short sentence.
 
-Version 1.0 does not require on-device-first provider selection. If cloud STT is used, separate consent and transparent disclosure of processing destination and retention are required.
+If cloud STT is used, separate consent and transparent disclosure of processing destination and retention are required.
