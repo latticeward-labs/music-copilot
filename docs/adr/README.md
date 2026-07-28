@@ -9,23 +9,23 @@ This directory contains the architectural decisions that govern Music Copilot MV
 - **Superseded:** replaced by a newer ADR; the replacement must be linked.
 - **Rejected:** considered but not selected.
 
-An ADR is immutable after acceptance except for spelling, links, or explicit status metadata. A changed decision requires a new ADR that supersedes the old one.
+ADR-0001 through ADR-0006 were accepted on 2026-07-28 through Issue #2. An ADR is immutable after acceptance except for spelling, links, or explicit status metadata. A changed decision requires a new ADR that supersedes the old one.
 
 ## Decision index
 
 | ADR | Decision | Status |
 |---|---|---|
-| [0001](0001-native-android-platform.md) | Native Android 8.0+ / API 36 release baseline | Proposed |
-| [0002](0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Proposed |
-| [0003](0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore boundaries | Proposed |
-| [0004](0004-replaceable-voice-provider.md) | Replaceable Android STT/TTS provider boundary | Proposed |
-| [0005](0005-deterministic-intent-mapping.md) | Restricted deterministic intent mapping | Proposed |
-| [0006](0006-no-backend-account-streaming.md) | No backend, account or streaming in MVP v1 | Proposed |
+| [0001](0001-native-android-platform.md) | Native Android 8.0+ / API 36 release baseline | Accepted |
+| [0002](0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Accepted |
+| [0003](0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore boundaries | Accepted |
+| [0004](0004-replaceable-voice-provider.md) | Replaceable Android STT/TTS provider boundary | Accepted |
+| [0005](0005-deterministic-intent-mapping.md) | Restricted deterministic intent mapping | Accepted |
+| [0006](0006-no-backend-account-streaming.md) | No backend, account or streaming in MVP v1 | Accepted |
 
 ## Source hierarchy
 
-1. Music Copilot PRD v1.0 - status: Approved for MVP
-2. Music Copilot MVP v1.0 - status: Ready for Planning
+1. Music Copilot PRD v1.1 - status: Approved for MVP
+2. Music Copilot MVP v1.1 - status: Ready for Development
 3. Accepted ADRs
 4. Derived repository documentation and implementation
 
