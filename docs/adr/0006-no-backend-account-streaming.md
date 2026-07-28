@@ -1,10 +1,11 @@
 # ADR-0006: No backend, account or streaming in MVP v1
 
-- **Status:** Proposed
+- **Status:** Accepted
+- **Accepted:** 2026-07-28
 - **Date:** 2026-07-27
 - **Decision owner:** Latticeward Labs
 - **Approval:** [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2)
-- **Authority:** PRD v1.0 scope and section 09; MVP v1.0 scope and legal decision
+- **Authority:** PRD v1.1 scope and section 09; MVP v1.1 scope and legal decision
 
 ## Context
 
