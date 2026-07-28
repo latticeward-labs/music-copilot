@@ -51,11 +51,12 @@ Streaming, downloads, accounts, backend, cloud sync, advanced playlists/social, 
 
 1. [Product Scope](docs/PRODUCT_SCOPE.md)
 2. [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
-3. [10-week Roadmap](docs/ROADMAP.md)
-4. [Voice Contract](docs/VOICE_CONTRACT.md)
-5. [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
-6. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
-7. [Definition of Done](docs/DEFINITION_OF_DONE.md)
+3. [Figma Design Plan](docs/FIGMA_DESIGN_PLAN.md)
+4. [10-week Roadmap](docs/ROADMAP.md)
+5. [Voice Contract](docs/VOICE_CONTRACT.md)
+6. [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
+7. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
+8. [Definition of Done](docs/DEFINITION_OF_DONE.md)
 
 Development begins only from an Issue marked **Ready** on the private project board. P0 Player, Voice and Driving work cannot be traded away for P1/P2 features.
 
