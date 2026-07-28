@@ -1,6 +1,6 @@
 # Contributing to Music Copilot
 
-All work must conform to the canonical [PRD v1.1](docs/PRD.md) and [MVP v1.1](docs/MVP.md). PDF exports or attachments are not requirement sources.
+All work must conform to the canonical [PRD v1.0](docs/PRD.md) and [MVP v1.0](docs/MVP.md). PDF exports or attachments are not requirement sources.
 
 ## Before starting
 
