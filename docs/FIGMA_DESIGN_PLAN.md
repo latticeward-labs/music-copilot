@@ -4,7 +4,7 @@
 - **Owner:** Latticeward Labs
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Workfile:** [Music Copilot — MVP v1.1](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF)
-- **Product sources:** Music Copilot PRD v1.1 and MVP v1.1
+- **Product sources:** Canonical [PRD v1.1](PRD.md) and [MVP v1.1](MVP.md)
 - **Technical sources:** Issue #2, Technical Decisions and ADR-0001 through ADR-0006
 
 ## Design objective
@@ -145,4 +145,4 @@ Music Copilot-specific repeated elements must be local components with variants;
 
 ## Exit gate
 
-Issue #3 moves to Review only when every required flow/state is represented, components and tokens are reusable, the stationary golden scenario is testable, accessibility checks are recorded and the Figma workfile contains implementation notes linked to PRD/MVP v1.1.
+Issue #3 moves to Review only when every required flow/state is represented, components and tokens are reusable, the stationary golden scenario is testable, accessibility checks are recorded and the Figma workfile contains implementation notes linked to the canonical PRD/MVP v1.1 Markdown sources.
