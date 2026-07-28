@@ -1,16 +1,16 @@
-# MVP v1 — 10-Week Roadmap
+# MVP v1.1 — 10-Week Roadmap
 
 The timebox is fixed. P0 scope is release blocking. P2 Like and then the P1 Bluetooth hint are the first cuts when delivery slips.
 
 | Week | Deliverable | Exit gate |
 |---:|---|---|
-| 1 | Repository baseline, CI, architecture, design tokens, crash logging | Healthy build on 2 devices |
+| 1 | Figma journeys/foundations, Android seven-module baseline, CI and privacy-safe crash logging | Healthy design baseline and clean build on API 26 plus a current API |
 | 2 | Permissions, MediaStore, Room, incremental local-library scan | 5,000-file library without blocking error |
 | 3 | Media3 service, queue, persistence, background and notification | Playback continues with screen off |
 | 4 | Audio Focus, call/headset/Bluetooth route handling and edge cases | P0 route matrix green |
 | 5 | Home/Library, local Search, Full Player and empty/error states | Complete manual flow |
 | 6 | Driving Mode and optional selected-Bluetooth suggestion | Tested in a stationary vehicle |
-| 7 | Push-to-talk, STT/TTS, state machine and five control intents | ≥90% laboratory success |
+| 7 | Push-to-talk, on-device-first STT/TTS, consent-aware fallback, state machine and five control intents | ≥90% laboratory success on supported Voice sessions |
 | 8 | PLAY_ARTIST, fuzzy matching, ambiguity, telemetry and privacy controls | Golden voice scenario complete |
 | 9 | Device/vehicle QA, accessibility, regression and all P0 fixes | Zero open P0 |
 | 10 | Internal Alpha, signed Beta package, tester guide and rollout | Go/No-Go review for 50-driver Beta |
