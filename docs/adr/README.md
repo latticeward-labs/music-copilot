@@ -1,5 +1,7 @@
 # Architecture Decision Records
 
+The canonical product authorities are [PRD v1.1](../PRD.md) and [MVP v1.1](../MVP.md). PDF exports or attachments are not authoritative.
+
 This directory contains the architectural decisions that govern Music Copilot MVP v1.
 
 ## Status model
