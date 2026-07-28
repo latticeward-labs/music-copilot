@@ -1,266 +1,222 @@
 # Music Copilot - Minimum Viable Product Plan
 
-- **Version:** 1.1
-- **Status:** Ready for Development
-- **Decision date:** 2026-07-28
-- **Owner:** Latticeward Labs
-- **Timebox:** 10 build weeks plus a 14-day Closed Beta
-- **Canonical companion:** [PRD v1.1](PRD.md)
+- **Version:** 1.0
+- **Status:** Ready for Planning
+- **Date:** July 2026
+- **Platform:** Android only, Android 10+
+- **Timebox:** 10 weeks
+- **Validation:** 50-driver Closed Beta
+- **Companion:** [PRD v1.0](PRD.md)
 
-This Markdown document is the canonical execution source for Music Copilot MVP v1.1. It converts the approved product requirements into build scope, acceptance criteria, delivery gates and validation evidence.
+This Markdown document is the repository version of the approved MVP v1.0. It contains the execution information defined in the approved Persian MVP and does not introduce later-version scope.
 
-## 1. MVP hypothesis and questions
+## 1. Hypothesis and questions
 
-If a daily driver can control local music with one explicit tap and one short command, manual interaction will fall and the user will return to Driving Mode.
+If a driver can control music with one tap and one short command, manual interactions will fall and the user will return to Driving Mode the following week.
 
 The MVP must answer:
 
-1. **Value:** Do at least half of qualified Beta testers reuse Driving Mode?
-2. **Usability:** Do at least 85% of direct commands succeed without manual correction?
-3. **Performance:** Is Voice response P95 under 2.5 seconds after end of speech?
-4. **Reliability:** Are at least 99% of sessions free from serious Player crashes?
-5. **Safety guardrail:** Are serious wrong executions under 3%, with no unintended output-route behavior?
+- **Value:** Do at least half of users use Driving Mode more than once?
+- **Usability:** Do at least 85% of direct commands complete without manual correction?
+- **Performance:** Does voice-response P95 stay under 2.5 seconds?
+- **Reliability:** Are at least 99% of trips free of a serious player crash?
 
-## 2. Definition of the delivered MVP
+## 2. Definition of Done for the MVP
 
-The MVP is complete only when:
+- The local player is stable in background, lock-screen and Bluetooth use.
+- Driving Mode is usable with large controls and immediate exit.
+- Six English commands execute and ambiguity/error states are managed.
+- Events required for hypothesis measurement are recorded without storing raw voice.
+- Internal testing and Closed Beta run across multiple phones and vehicles.
+- Build is fixed to ten weeks.
+- An incomplete P1 feature is removed; an incomplete P0 blocks Beta.
 
-- lawful local audio can be scanned, browsed, searched and played without an account;
-- playback remains canonical in background, screen-off, notification, lock-screen and Bluetooth contexts;
-- calls, Audio Focus, headset disconnect and route changes behave deterministically;
-- Driving Mode provides large fixed manual controls and immediate exit;
-- six English push-to-talk commands execute with short feedback and stable fallback;
-- on-device-first Voice and separate, revocable network-recognizer consent are implemented;
-- prohibited audio/transcript/personal-media telemetry cannot be emitted;
-- accessibility, API, OEM, route and vehicle evidence satisfies the release gates;
-- a signed Android App Bundle and rollback route are ready for the controlled Beta.
+## 3. Exact scope and priorities
 
-Any incomplete P0 blocks Beta. P2 Like/Liked Songs and then the optional P1 Bluetooth suggestion are cut before Player, Voice, Driving, Privacy or P0 Stability.
-
-## 3. Scope by epic
-
-| Epic | Included | Excluded |
+| Epic | In MVP | Outside MVP |
 |---|---|---|
-| Player | local files, queue, seek, persistence, background, screen off, notification, lock screen, Bluetooth | streaming, download, cast |
-| Library | songs, artists, albums, folders, incremental scan, local search | cloud sync, online recommendations |
-| Driving | manual entry, one-layer controls, immediate exit; optional selected-Bluetooth suggestion | Android Auto, motion detection, forced auto-open |
-| Voice | push-to-talk, on-device-first provider selection, six intents, short TTS, confirmation/fallback | wake word, always listening, free or multi-turn conversation |
-| User data | local settings, short history, data clearing; P2 simple Like | account, profile, backend, sync |
-| Audio | Audio Focus, call/headset/route behavior, system volume integration | equalizer, DSP, crossfade |
-| Quality | allowlisted telemetry, non-sensitive crash diagnostics, accessibility and field QA | raw voice/transcript/personal media collection |
+| Player | local files, queue, background, lock screen, Bluetooth | streaming, download, cast |
+| Library | songs, artists, albums, folders, search | cloud sync, recommendations |
+| Driving | manual activation, Bluetooth suggestion, large controls | Android Auto, motion detection |
+| Voice | push-to-talk, six intents, short TTS | wake word, free conversation |
+| User Data | simple Like, local history, settings | account, backend, sync |
+| Audio | Audio Focus and system volume | equalizer, crossfade, DSP |
 
-## 4. Priority contract
+Priority contract:
 
-### P0
+- **P0:** base player, Voice, Driving and stability (calls, headset and audio route)
+- **P1:** Bluetooth entry suggestion
+- **P2:** Like, only if sprint capacity permits
 
-Local Library, stable Media3 Player, P0 audio routes, manual Driving Mode, six-command Voice, consent/fallback, Privacy, Accessibility, QA and release evidence.
+There is no online catalog, upload or content distribution. The app plays only lawful files present on the user's device.
 
-### P1
+## 4. User stories
 
-Optional selected-Bluetooth entry suggestion, short history and supporting settings. Manual Driving Mode entry remains part of the P0 golden journey.
-
-### P2
-
-Simple Like/Unlike and Liked Songs, only after the week-8 capacity gate.
-
-## 5. User stories and acceptance
-
-| ID | User story | Key acceptance |
+| ID | Story | Acceptance |
 |---|---|---|
-| `US-01` | As a new user, I want permissions requested when needed so I understand each access. | Denial never crashes; permanent denial offers Android Settings; manual functionality remains available. |
-| `US-02` | I want my local files scanned quickly so I can play without an account. | Songs/artists/albums/folders are indexed; later scans are incremental; empty/error states exist. |
-| `US-03` | I want playback with the screen off and over Bluetooth. | MediaSession, notification, lock screen and head-unit controls reflect canonical service state. |
-| `US-04` | While driving, I want only essential controls. | One layer contains four large controls, microphone, current media and immediate exit; no typing or deep navigation. |
-| `US-05` | I want a short spoken command to change playback immediately. | A high-confidence deterministic intent executes without opening another screen; feedback is at most one sentence. |
-| `US-06` | If a command is ambiguous, I want confirmation before a wrong action. | Low confidence or multiple plausible artists cause one short confirmation. |
-| `US-07` | If Voice fails, I want to return to manual control quickly. | Timeout is at most six seconds, retry occurs at most once, playback remains stable and manual control remains complete. |
-| `US-08` | I want control over optional Voice processing and diagnostics. | Network-recognizer consent is separate and revocable; local data and diagnostic controls are understandable and testable. |
+| US-01 | As a new user, I want permissions requested at the right time so I understand each access. | Denial does not crash and a Settings path is shown. |
+| US-02 | I want my files scanned quickly so I can play music without an account. | Song/artist/album index is created and later scans are incremental. |
+| US-03 | I want music to continue with screen off and Bluetooth. | Media notification and vehicle controls show real state. |
+| US-04 | While driving, I want to see only essential controls. | Four primary controls, microphone, title and exit fit on one screen. |
+| US-05 | I want playback to change immediately after speaking a command. | A certain intent executes without a new screen and returns short TTS. |
+| US-06 | If a command is ambiguous, I want a question before a wrong action. | Low confidence or multiple matches cause one-step confirmation. |
+| US-07 | If STT fails, I want to return quickly to manual control. | One retry, then return without stopping music. |
 
-## 6. Golden scenario
+## 5. Golden scenario
 
-Vehicle connected -> Driving Mode -> microphone tap -> "Next song" -> `NEXT` detected -> next item starts -> title/artwork updates -> one short response -> no new screen.
+Vehicle connected -> Driving Mode -> microphone tap -> “Next song” -> execution under 2.5 seconds -> next track starts -> title updates -> response is at most one sentence -> no extra screen opens.
 
-Acceptance:
+## 6. Voice contract
 
-- P95 response is under 2.5 seconds after end of speech;
-- Player, MediaSession and UI remain synchronized;
-- no raw audio/transcript is persisted;
-- failure preserves current playback and manual controls.
+State model:
 
-## 7. Voice execution contract
+`Idle -> Listening -> Processing -> Confirming -> Executed | Failed`
 
-### State machine
+| Intent | Example | Action | Fallback |
+|---|---|---|---|
+| PLAY | Play / Resume | Start or continue | Last track if queue is empty |
+| PAUSE | Pause / Stop music | Pause | No long response |
+| NEXT | Next / Next song | Next track | Announce end of queue |
+| PREVIOUS | Previous song | Previous or beginning | Fixed behavior based on position |
+| SEEK_BACK | Go back 10 seconds | Seek -10 seconds | Clamp at zero |
+| PLAY_ARTIST | Play songs by [artist] | Best local match | Confirmation or Not found |
 
-`Idle -> Listening -> Processing -> Confirming -> Executed | Failed -> Idle`
+Quality rules:
 
-### Rules
+- Playback ducks while Listening.
+- Listening timeout is at most six seconds and retry occurs only once.
+- Confidence threshold is configurable through simple Remote Config or Build Config.
+- Log intent and execution result, not raw voice.
+- Resolve artist names with normalization, fuzzy matching and playback-history priority.
+- If cloud STT is used, separate consent and transparent retention/processing disclosure are required.
 
-- Explicit push-to-talk only; no wake word.
-- Duck playback during listening/response and restore it predictably.
-- Listening timeout is at most six seconds.
-- Retry at most once.
-- Use on-device recognition when available.
-- Keep STT/TTS providers behind replaceable interfaces.
-- A network-capable recognizer remains disabled without separate, clear and revocable consent.
-- If acceptable recognition is unavailable, show a typed unavailable state and preserve complete manual control.
-- Persist neither raw audio nor transcript.
-- High-confidence single match executes; low confidence or multiple plausible matches confirms once.
-- TTS is at most one short sentence.
+## 7. Screen and state map
 
-### Intent acceptance
+| # | Screen | Purpose | Required states |
+|---:|---|---|---|
+| 1 | Splash | short preparation | Loading, Migration Error |
+| 2 | Onboarding | value and Voice introduction | First Run, Skip |
+| 3 | Permissions | file, microphone, notification | Granted, Denied, Permanently Denied |
+| 4 | Home / Library | music access | Scanning, Empty, Ready |
+| 5 | Search | local search | No Result, Result, Error |
+| 6 | Full Player | control and queue | Playing, Paused, Corrupt File |
+| 7 | Driving Mode | minimal interaction | Playing, Paused, No Track |
+| 8 | Voice Overlay | Listening and Result | Listening, Confirm, Failed |
+| 9 | Liked Songs | play favorites | Empty, Ready |
+| 10 | Settings | data, Bluetooth and Privacy | Default, Updated |
 
-| Intent | Action | Fallback/edge behavior |
-|---|---|---|
-| `PLAY` | resume/start current queue | if empty, offer last playable item |
-| `PAUSE` | pause | no long response |
-| `NEXT` | advance | announce end of queue |
-| `PREVIOUS` | restart current or move previous | one documented position threshold |
-| `SEEK_BACK` | seek minus 10 seconds | clamp at zero |
-| `PLAY_ARTIST` | normalize/fuzzy-match local artist and start queue | one confirmation or not-found; no long list |
+Driving Mode uses one layer, a dark high-contrast theme, readable typography, limited motion and touch targets of at least 48dp.
 
-Confidence threshold is typed/configurable with a build fallback. Remote Config is not on the MVP critical path.
+## 8. Ten-week plan
 
-## 8. Screen/state acceptance map
-
-| Surface | Required acceptance states |
-|---|---|
-| Splash | loading, migration error |
-| Onboarding | value, optional Voice education, skip |
-| Permissions & Privacy | rationale, granted, denied, permanently denied, Voice unavailable, optional consent, revocation |
-| Home/Library | scanning, empty, ready, error |
-| Search | query, results, no result, error |
-| Full Player | loading, playing, paused, completed, corrupt/missing file |
-| Driving Mode | no track, playing, paused, route warning, immediate exit |
-| Voice Overlay | idle, listening, processing, confirming, executed, failed, timeout, unavailable |
-| Liked Songs | empty, ready; P2 only |
-| Settings | selected-Bluetooth hint, Voice availability/consent, privacy, data clearing |
-
-## 9. Ten-week delivery plan
-
-| Week | Deliverable | Exit gate |
+| Week | Deliverable | Gate |
 |---:|---|---|
-| 1 | Figma journeys/foundations; Android seven-module baseline; CI; privacy-safe crash logging | Healthy design baseline and clean build on API 26 plus a current API |
-| 2 | Contextual permissions; MediaStore; Room; incremental Library scan | 5,000-file library without blocking error |
-| 3 | Media3 service; queue; persistence; background and notification | Playback continues with screen off |
-| 4 | Audio Focus; call/headset/Bluetooth route behavior; edge cases | P0 route matrix green |
-| 5 | Home/Library; Search; Full Player; empty/error states | Complete manual flow |
-| 6 | Driving Mode and optional selected-Bluetooth suggestion | Stationary-vehicle test passes |
-| 7 | Push-to-talk; provider boundary; consent-aware fallback; state machine; five control intents | At least 90% laboratory success on supported Voice sessions |
-| 8 | `PLAY_ARTIST`; fuzzy matching; ambiguity; telemetry and privacy controls | Golden scenario complete |
-| 9 | API/OEM/device/vehicle QA; accessibility; regression; P0 fixes | Zero open P0 |
-| 10 | Internal Alpha; signed AAB; tester guide; rollback and rollout | Go/No-Go review for 50-driver Beta |
+| 1 | Repository, architecture, CI, Design Tokens and crash logging | Healthy build on two devices |
+| 2 | Room, MediaStore, incremental scan and Library | 5,000 files without blocking error |
+| 3 | Media3, queue, background and notification | Playback with screen off |
+| 4 | Audio Focus, calls, headset, Bluetooth and persistence | Edge-case matrix green |
+| 5 | Home, Search, Full Player and empty/error states | Complete manual flow |
+| 6 | Driving Mode and Bluetooth connection suggestion | Stationary-vehicle test |
+| 7 | STT/TTS, state machine and five control intents | 90% laboratory success |
+| 8 | Play Artist, ambiguity, Analytics and Privacy controls | Golden scenario complete |
+| 9 | Device/vehicle QA, Accessibility and P0 fixes | Zero open P0 |
+| 10 | Alpha, closed Beta package, tester guide and 50-person launch | Go/No-Go review |
 
-## 10. Technical execution baseline
+If week 8 slips, Like and Bluetooth Suggestion are removed. Player, Voice and Driving Mode are not cut.
 
-- `minSdk 26`, `compileSdk 36`, `targetSdk 36`; Play target policy rechecked before release
-- Kotlin, Jetpack Compose, coroutines/Flow and Hilt
-- `MediaSessionService` owns Media3/ExoPlayer and canonical playback state
-- MediaStore owns discovery; Room owns derived index/restorable structured data; DataStore owns small typed settings
-- Seven initial modules: `:app`, `:core:model`, `:core:domain`, `:core:data`, `:core:playback`, `:core:voice`, `:core:ui`
-- Feature areas begin as packages
-- No explicit ABI filter unless a reviewed native dependency is introduced
-- No backend URL or private credential required for a clean build
-- Product networking is absent; approved diagnostic SDKs do not become a product backend
+## 9. Proposed technical baseline
 
-See [Technical Decisions](TECHNICAL_DECISIONS.md) and accepted [ADRs](adr/README.md).
+- Native Android 10+
+- Kotlin and Jetpack Compose
+- Media3/ExoPlayer and a service-owned player
+- MediaStore, Room and DataStore
+- Android STT/TTS behind a replaceable interface
+- Restricted deterministic Intent Mapper
+- Coroutines/Flow and Hilt
+- Privacy-safe crash reporting and analytics
+- No backend, account, cloud sync or streaming
 
-## 11. Test strategy and release blockers
+Version 1.0 does not define a seven-module Gradle map, ABI filtering policy, fixed compile/target SDK or an on-device-first provider policy. Those decisions remain for technical planning.
 
-### Test levels
+## 10. QA matrix
 
-- **Unit:** intent mapper, artist normalization, queue, previous threshold, seek clamp, telemetry schema
-- **Integration:** MediaStore/Room, MediaSessionService, STT provider contracts/consent, Audio Focus and persistence
-- **UI:** permissions, Library/Search/Player, Driving Mode, Voice Overlay and Settings
-- **Field:** road noise, Bluetooth/head units, route transitions and real vehicles
+Test levels:
 
-### Compatibility matrix
+- **Unit:** queue, seek, intent mapper and name normalization
+- **Integration:** Room, Media Service, STT and Audio Focus
+- **Field:** road noise, Bluetooth and different vehicles
 
-- Pull-request automation: API 26, 33 and 36
-- Nightly automation: API 29, 31 and 34
-- Physical: older API 26-29, Android 12/13, Android 16 where available
-- OEM: Pixel/stock, Samsung/One UI, Xiaomi/HyperOS or MIUI
-- Vehicle/head unit: at least three documented combinations
+P0 scenarios:
 
-### P0 scenarios
+| Scenario | Expected | Acceptance |
+|---|---|---|
+| Incoming call during playback | Pause/Duck and logical return | No overlap or crash |
+| Bluetooth disconnect | Immediate pause | No unintended speaker playback |
+| Corrupt file in queue | Controlled skip | Queue continues and error is recorded |
+| UI rotation/closure | Player continues | UI remains synchronized with service |
+| Medium road noise | Direct intent detected | At least 85% success |
+| Two similar artists | Short confirmation | No automatic low-confidence execution |
 
-| Scenario | Required result |
-|---|---|
-| Incoming call | logical duck/pause and recovery; no overlap/crash |
-| Bluetooth/headset disconnect | immediate pause; no unintended speaker playback |
-| Route change | service, notification and UI remain synchronized |
-| Corrupt/missing item | normalized error, controlled skip and queue continuation |
-| UI rotation/closure | service continues; UI reconnects |
-| Screen off | playback and controls remain functional |
-| Medium road noise | aggregate direct-intent success at least 85% |
-| Similar artists | one short confirmation; no low-confidence auto-execution |
-| Voice unavailable/timeout/failure/consent revoked | typed state, at most one retry, stable music and complete manual control |
-| Permission denial | no crash; clear recovery |
-| 5,000 files | incremental scan and smooth UI without blocking error |
+Device matrix: Pixel/Android Stock, Samsung/One UI, Xiaomi/MIUI; Android 10, Android 12 and Android 14+; at least three vehicles.
 
-Any repeatable serious playback crash, unintended output route, seriously wrong Voice execution, ambiguous call behavior or unapproved Voice data handling blocks release.
+Any repeatable playback crash, wrong output route or serious wrong Voice execution is P0 and blocks release.
 
-## 12. Telemetry and privacy acceptance
+## 11. Closed Beta
 
-### Required allowlisted events
-
-`driving_mode_started`, `voice_button_pressed`, `intent_detected`, `command_executed`, `intent_failed`, `manual_correction`, `player_error`, `session_completed`, `library_scan_completed`.
-
-### Prohibited
-
-- raw audio or microphone recordings;
-- raw speech transcript;
-- personal filename, title, artist or album;
-- precise location, contacts or unnecessary identifiers;
-- free-form exception content that can contain personal data.
-
-Network-recognizer consent is separate from telemetry, media and microphone permission. Retention, disclosure, data clearing and disable behavior must be documented and verified before Beta.
-
-## 13. Closed Beta plan
-
-### Sample
+Sample:
 
 - 50 qualified drivers
 - 14 days of natural use
-- at least 3 vehicle/head-unit models
+- 3+ vehicle/head-unit models
 - at least 30 minutes driving per day
-- regular vehicle Bluetooth use
-- at least 50 lawful local tracks
+- vehicle Bluetooth use
+- at least 50 local music files
 - ability to use the six English commands
-- informed consent for approved non-audio diagnostics
+- informed consent for non-audio diagnostic data
 
-### Protocol
+Protocol:
 
-1. Baseline interview and current control method
+1. Baseline interview and current music-control method
 2. Five-minute stationary training and golden scenario
 3. Natural use for 14 days without daily coercion
 4. Short surveys on days 3 and 7
-5. Final interview
-6. Cohort, intent, latency, correction, route and retention analysis
-
-### Decision bands
+5. Final interview and cohort/intent/manual-correction analysis
 
 | Signal | Green | Yellow | Red |
 |---|---:|---:|---:|
 | Driving Mode reuse | at least 50% | 30-49% | under 30% |
-| Direct-command success | at least 85% | 70-84% | under 70% |
+| Command success | at least 85% | 70-84% | under 70% |
 | Manual correction | under 15% | 15-25% | over 25% |
-| Serious-crash-free sessions | at least 99% | 97-98.9% | under 97% |
+| Crash-free session | at least 99% | 97-98.9% | under 97% |
 
-## 14. Final Go/No-Go gate
+## 12. Telemetry
 
-All are required for Beta entry:
+| Event | Allowed properties | Purpose |
+|---|---|---|
+| driving_mode_started | entry_source, bt_connected | Count and entry path |
+| voice_button_pressed | session_id, playback_state | Voice-start rate |
+| intent_detected | intent_type, confidence_bucket | Intent distribution and accuracy |
+| command_executed | intent_type, latency_bucket | Success and speed |
+| manual_correction | previous_intent, correction_type | Friction after Voice |
+| player_error | error_code, route_type | Player stability |
+| session_completed | duration_bucket, commands_count | Retention and North Star |
 
-- zero open P0 defects;
-- at least 99% internal serious-crash-free sessions;
-- golden scenario passes on at least three vehicles;
-- approved privacy copy and matching Play data-safety answers;
-- verified telemetry dashboard;
-- signing custody, release notes, tester guide, incident stop rule and rollback route.
+Allowed: intent type, confidence/latency buckets, player error code and coarse audio-route type.
 
-After Beta:
+Prohibited: raw audio, full titles of personal files, precise location, contacts and unnecessary identifiers.
 
-- **GO** when quality, repeat use and correction targets are met;
-- **ITERATE** when value is demonstrated but accuracy, latency or stability misses targets;
-- **STOP** when repeat use is weak or Voice offers no material value over manual control.
+## 13. Ownership and final gate
 
-No streaming-service connection, iOS work or other scope expansion begins before this evidence and a documented product decision.
+| Area | Suggested owner | Output |
+|---|---|---|
+| Product | Product Owner | Scope, metric, recruiting, Decision Gate |
+| Android | Android Engineer | Player, Voice, Driving and release build |
+| Design | Product Designer | 10 screens, Voice states and Accessibility |
+| QA | QA / Team | device, vehicle and regression matrix |
+| Privacy | Product + Legal Review | consent, retention and access copy |
+
+GO requires zero open P0, internal crash-free at least 99%, golden scenario on three vehicles, approved Privacy Copy, reliable Analytics and a documented Rollback path.
+
+No-Go reasons include unintended speaker playback, repeated wrong commands, unclear call behavior, voice-data storage without consent or inability to measure the hypothesis.
+
+After successful Beta, Discovery is limited to one legal music-service connection and the possibility of iOS. Neither enters the committed roadmap before Beta evidence.
