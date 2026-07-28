@@ -1,22 +1,22 @@
 # Technical Decisions - MVP v1
 
-- **Status:** Proposed for formal approval in [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2)
-- **Decision date:** 2026-07-27
-- **Authority:** Music Copilot PRD v1.0 and MVP v1.0
+- **Status:** Accepted and binding under [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2)
+- **Decision date:** 2026-07-28
+- **Authority:** Music Copilot PRD v1.1 and MVP v1.1
 - **Applies to:** Android MVP v1, ten-week build and Closed Beta
 
-This document is the implementation baseline derived from the approved product sources. It becomes binding only when Issue #2 is approved and moved to Done. Until then, implementation may prepare the foundation but must not silently choose a conflicting architecture.
+This document is the accepted implementation baseline for MVP v1.1. Issue #2 records approval and closure. Any material reversal requires a superseding ADR; any product-scope change requires product change control.
 
 ## Source hierarchy
 
-1. Music Copilot PRD v1.0 - `Approved for MVP`
-2. Music Copilot MVP v1.0 - `Ready for Planning`
+1. Music Copilot PRD v1.1 - `Approved for MVP`
+2. Music Copilot MVP v1.1 - `Ready for Development`
 3. Accepted ADRs in [`docs/adr`](adr/README.md)
 4. Other repository documentation and implementation
 
 If a lower-level artifact conflicts with a higher-level source, work stops until the conflict is corrected and recorded.
 
-## Binding baseline proposed for approval
+## Binding baseline
 
 | Concern | Decision | Boundary |
 |---|---|---|
@@ -40,8 +40,10 @@ If a lower-level artifact conflicts with a higher-level source, work stops until
 - The target SDK is revalidated against the current Google Play policy immediately before every release; a newer required target supersedes this numeric release setting without changing the product scope.
 - Android 8–12 use the legacy media-read permission path where required; Android 13+ uses `READ_MEDIA_AUDIO`.
 - Foreground-service, media notification, runtime-permission and Bluetooth behavior must be implemented through API-level adapters rather than duplicated feature logic.
-- The minimum compatibility matrix covers Android 8 (API 26), Android 10 (API 29), Android 13 (API 33) and Android 16 (API 36), on both emulator and representative physical devices where hardware behavior matters.
-- Release artifacts use Android App Bundle (`.aab`). The baseline ABI is `arm64-v8a`; `armeabi-v7a` is included only after dependency and device-coverage validation.
+- Pull-request CI covers API 26, 33 and 36 for build, lint, unit and smoke/permission-boundary checks.
+- Nightly coverage adds API 29, 31 and 34 for scoped-storage, Android 12 Bluetooth/foreground-service behavior and intermediate platform changes.
+- Physical-device evidence covers an older API 26-29 device, Android 12/13, Android 16, and representative Pixel, Samsung and Xiaomi devices where available; Bluetooth/audio-route evidence covers at least three head units.
+- Release artifacts use Android App Bundle (`.aab`). No explicit `abiFilters` are configured while the application has no native dependency. If a native dependency is introduced, 64-bit compliance, package size and device coverage are reviewed before filtering any ABI.
 
 ## Explicit non-decisions and exclusions
 
@@ -71,28 +73,21 @@ Dependency direction points inward toward domain contracts:
 - Telemetry receives typed, allowlisted events; features do not call a vendor SDK directly.
 - Cross-feature implementation dependencies are prohibited; shared behavior moves to an approved core/domain contract.
 
-## Planned Gradle module map
+## Initial Gradle module map
 
-Physical modules may be introduced incrementally, but their ownership is fixed by this map.
+MVP starts with seven physical modules to preserve boundaries without imposing a sixteen-module build and ownership cost during the ten-week timebox.
 
 | Module | Owns | May depend on |
 |---|---|---|
-| `:app` | Application, navigation and Hilt composition root | Feature modules and approved core modules |
+| `:app` | Application, navigation, feature packages and Hilt composition root | approved core modules |
 | `:core:model` | Pure domain models and value types | Kotlin only |
 | `:core:domain` | Use cases and ports | `:core:model` |
-| `:core:database` | Room schema, DAOs and migrations | model/domain contracts |
-| `:core:media` | MediaStore scan and reconciliation | model/domain contracts, Android media APIs |
-| `:core:playback` | Media3 service, session, queue, audio focus and routes | model/domain contracts, Media3 |
-| `:core:voice` | STT/TTS adapters, voice state machine and deterministic mapper | model/domain contracts, Android speech APIs |
-| `:core:telemetry` | Typed event schema, allowlist and vendor adapter | model/domain contracts |
-| `:core:designsystem` | Compose tokens and reusable accessible components | Compose only |
-| `:feature:onboarding` | First-run and permission education | domain + design system |
-| `:feature:library` | Songs, artists, albums and folders | domain + design system |
-| `:feature:search` | Local search UI | domain + design system |
-| `:feature:player` | Full Player UI | domain + design system |
-| `:feature:driving` | Driving Mode and Voice overlay UI | domain + design system |
-| `:feature:liked` | Optional P2 Like/Liked Songs UI | domain + design system |
-| `:feature:settings` | Privacy, data clearing, Bluetooth hint and voice settings | domain + design system |
+| `:core:data` | MediaStore, Room, DataStore, migrations and repository adapters | model/domain contracts and Android data APIs |
+| `:core:playback` | Media3 service, session, queue, audio focus and routes | model/domain contracts and Media3 |
+| `:core:voice` | STT/TTS adapters, consent-aware provider selection, Voice state machine and deterministic mapper | model/domain contracts and Android speech APIs |
+| `:core:ui` | Compose tokens and reusable accessible components | Compose only |
+
+Onboarding, Library, Search, Player, Driving, Liked and Settings begin as independently owned packages inside `:app`. A package becomes a Gradle feature module only when ownership, isolation, testability or build evidence justifies the additional boundary. Telemetry remains a typed allowlisted boundary and vendor adapter; it may move to a module when a vendor is selected.
 
 ## Data ownership and lifecycle
 
@@ -134,6 +129,10 @@ Push-to-talk follows:
 - Retry: once.
 - TTS response: at most one short sentence.
 - Transcript: memory-only for the active command, then discarded.
+- On API 31+, use on-device recognition when `isOnDeviceRecognitionAvailable()` is true.
+- The general Android recognizer may stream audio to remote servers and is disabled by default; it requires clear, revocable consent describing the available processor, destination and retention behavior.
+- If on-device recognition is unavailable and consent is not granted, Voice remains unavailable while full manual control remains functional.
+- Availability, consent and provider errors are normalized into typed domain results.
 - High-confidence single match: direct execution.
 - Low confidence or multiple plausible matches: one short confirmation.
 - Failure/no match: playback remains stable and manual control remains available.
@@ -163,7 +162,8 @@ CI implementation is a week-1 foundation deliverable. This document defines the 
 
 Architecture approval does not replace implementation evidence. Feature completion later requires:
 
-- build, install and smoke tests across API 26, 29, 33 and 36,
+- pull-request build, install and smoke tests across API 26, 33 and 36,
+- nightly compatibility tests across API 29, 31 and 34,
 - permission-path tests for legacy storage access and `READ_MEDIA_AUDIO`,
 - foreground-service and media-notification behavior across the compatibility matrix,
 - 5,000-item incremental library test without blocking error,
@@ -176,13 +176,13 @@ Architecture approval does not replace implementation evidence. Feature completi
 
 ## ADR register
 
-| ADR | Decision | Status before Issue #2 approval |
+| ADR | Decision | Status |
 |---|---|---|
-| [ADR-0001](adr/0001-native-android-platform.md) | Native Android 8.0+ / API 36 release baseline | Proposed |
-| [ADR-0002](adr/0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Proposed |
-| [ADR-0003](adr/0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore boundaries | Proposed |
-| [ADR-0004](adr/0004-replaceable-voice-provider.md) | Replaceable STT/TTS provider boundary | Proposed |
-| [ADR-0005](adr/0005-deterministic-intent-mapping.md) | Restricted deterministic intent mapping | Proposed |
-| [ADR-0006](adr/0006-no-backend-account-streaming.md) | No backend, account or streaming in MVP v1 | Proposed |
+| [ADR-0001](adr/0001-native-android-platform.md) | Native Android 8.0+ / API 36 release baseline | Accepted |
+| [ADR-0002](adr/0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Accepted |
+| [ADR-0003](adr/0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore boundaries | Accepted |
+| [ADR-0004](adr/0004-replaceable-voice-provider.md) | Replaceable STT/TTS provider boundary | Accepted |
+| [ADR-0005](adr/0005-deterministic-intent-mapping.md) | Restricted deterministic intent mapping | Accepted |
+| [ADR-0006](adr/0006-no-backend-account-streaming.md) | No backend, account or streaming in MVP v1 | Accepted |
 
-At formal approval, the team changes these ADRs from Proposed to Accepted in one reviewed change, checks the approval criteria in Issue #2, and moves the board item to Done. Any later reversal requires a superseding ADR.
+ADR-0001 through ADR-0006 were accepted on 2026-07-28 under Issue #2 after PRD v1.1 and MVP v1.1 resolved the Android, Voice, module, ABI and test-matrix changes. Any later reversal requires a superseding ADR.
