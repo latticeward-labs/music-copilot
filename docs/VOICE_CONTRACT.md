@@ -1,8 +1,8 @@
-# Voice Contract — MVP v1
+# Voice Contract — MVP v1.1
 
 ## Interaction
 
-Voice is push-to-talk only. The microphone starts after an explicit tap. Playback ducks while listening and returns predictably after execution/failure. TTS is at most one short sentence.
+Voice is push-to-talk only. The microphone starts after an explicit tap. Playback ducks while listening and returns predictably after execution/failure. TTS is at most one short sentence. Provider selection is on-device-first and full manual playback control is always available.
 
 ## State machine
 
@@ -14,6 +14,10 @@ Voice is push-to-talk only. The microphone starts after an explicit tap. Playbac
 - Low confidence or multiple matches: one short confirmation
 - Failed/not found: preserve current playback and return to manual controls
 - Raw voice and transcript: never persisted
+- On API 31+, use on-device recognition when available
+- A network-capable system recognizer is disabled by default and requires clear, revocable consent
+- If on-device recognition is unavailable and consent is absent or revoked, Voice is unavailable without blocking manual control
+- Availability, consent, timeout and provider errors use typed states
 
 ## Supported English intents
 
@@ -26,7 +30,7 @@ Voice is push-to-talk only. The microphone starts after an explicit tap. Playbac
 | `SEEK_BACK` | “Go back 10 seconds” | Seek current position minus 10 seconds, clamped at zero |
 | `PLAY_ARTIST` | “Play songs by Adele” | Normalize/fuzzy-match local artists, then replace/start queue |
 
-No extra intent is part of MVP v1.
+No extra intent is part of MVP v1.1.
 
 ## Artist resolution
 
