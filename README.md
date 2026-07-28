@@ -2,54 +2,51 @@
 
 > Voice-first local music control for driving, by **Latticeward Labs**.
 
-Music Copilot MVP v1.1 is a native Android 8.0+ application that plays the user's lawful on-device audio and reduces manual interaction through a dedicated Driving Mode and six short English push-to-talk commands.
+Music Copilot MVP v1.0 is an Android 10+ application that plays lawful audio already on the user's device and tests whether a dedicated Driving Mode plus six short English push-to-talk commands can reduce manual music interaction.
 
 ## Source of truth
 
-1. [PRD v1.1](docs/PRD.md) - canonical product requirements
-2. [MVP v1.1](docs/MVP.md) - canonical execution and validation plan
-3. [Accepted ADRs](docs/adr/README.md) and [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
+1. [PRD v1.0](docs/PRD.md) - approved product requirements
+2. [MVP v1.0](docs/MVP.md) - execution and validation plan
+3. Proposed [Technical Decisions](docs/TECHNICAL_DECISIONS.md) and [ADRs](docs/adr/README.md)
 4. Derived execution documents, Figma and GitHub Issues
 
-PDF exports or attachments are presentation artifacts only and are not product authorities. If any lower-level artifact conflicts with the canonical Markdown PRD or MVP, work stops until the conflict is corrected through product change control or a superseding ADR.
+If a derived artifact conflicts with PRD v1.0 or MVP v1.0, the v1.0 product documents win.
 
-## Locked MVP
+## MVP scope
 
 **In scope**
 
-- Native Android 8.0+ (`minSdk 26`), Kotlin and Jetpack Compose; `compileSdk 36` / `targetSdk 36` for the planned 2026 release
-- Local audio discovery via MediaStore; songs, artists, albums, folders, local search
-- Media3 playback service, queue, seek, persistence, background playback
-- Media notification, lock-screen and Bluetooth controls
-- Audio Focus, calls, headset disconnects and route changes
-- Driving Mode with large fixed controls and an immediate exit
-- Push-to-talk, on-device-first STT/TTS behind replaceable interfaces; network-capable recognition only after clear, revocable consent, with complete manual fallback
-- Six English intents: Play, Pause, Next, Previous, Seek Back 10s, Play Artist
-- One-step confirmation for ambiguity; one retry for failed speech
-- Local history/settings and optional simple Liked Songs (P2)
-- Privacy-safe telemetry, crash diagnostics, accessibility and field QA
-- Closed Beta: 50 qualified drivers, 14 days, at least 3 car models
+- Native Android 10+, Kotlin and Jetpack Compose
+- Local audio through MediaStore; songs, artists, albums, folders and local search
+- Media3 player, queue, seek, background playback, notification, lock-screen and Bluetooth controls
+- Audio Focus, calls, headset disconnect and route handling
+- Driving Mode with large controls and immediate exit
+- Push-to-talk with six English intents: Play, Pause, Next, Previous, Seek Back 10s and Play Artist
+- One-step ambiguity confirmation, one retry and short TTS
+- Short local history; Bluetooth hint as P1; simple Like/Liked Songs as P2
+- Privacy-safe telemetry, crash reporting, accessibility and field QA
+- Closed Beta: 50 drivers, 14 days and at least 3 vehicle/head-unit models
 
 **Out of scope**
 
-Streaming, downloads, accounts, backend, cloud sync, advanced playlists/social, wake word, open-ended conversation, Android Auto, CarPlay, iOS, DSP/EQ, crossfade, humming recognition and generative music.
+Streaming, downloads, accounts, backend, cloud sync, advanced playlists/social, wake word, free conversation, Android Auto, CarPlay, iOS, DSP/EQ, crossfade, humming recognition and generative music.
 
 ## Success gates
 
-- Direct-command success: **≥ 85%**
-- Manual correction after voice command: **< 15%**
-- Serious wrong-command execution: **< 3%**
-- Voice response P95: **< 2.5 s** after end of speech
-- Serious-crash-free sessions: **≥ 99%**
-- Driving Mode reuse: **≥ 50%** of Beta testers
-- Weekly return: **≥ 30%**
-- Release blockers: zero open P0, no unintended speaker playback, no ambiguous call behavior
+- Direct-command success: **at least 85%**
+- Manual correction after Voice: **under 15%**
+- Serious wrong-command execution: **under 3%**
+- Voice response P95: **under 2.5 seconds**
+- Crash-free sessions: **at least 99%**
+- Driving Mode reuse: **at least 50%**
+- Weekly return: **at least 30%**
 
 ## Start here
 
-1. [PRD v1.1](docs/PRD.md)
-2. [MVP v1.1](docs/MVP.md)
-3. [Product Scope summary](docs/PRODUCT_SCOPE.md)
+1. [PRD v1.0](docs/PRD.md)
+2. [MVP v1.0](docs/MVP.md)
+3. [Product Scope](docs/PRODUCT_SCOPE.md)
 4. [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
 5. [Figma Design Plan](docs/FIGMA_DESIGN_PLAN.md)
 6. [10-week Roadmap](docs/ROADMAP.md)
@@ -58,7 +55,7 @@ Streaming, downloads, accounts, backend, cloud sync, advanced playlists/social, 
 9. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
 10. [Definition of Done](docs/DEFINITION_OF_DONE.md)
 
-Development begins only from an Issue marked **Ready** on the private project board. P0 Player, Voice and Driving work cannot be traded away for P1/P2 features.
+Development begins only from an Issue marked **Ready** on the project board. P0 Player, Voice, Driving and Stability work cannot be traded for P1/P2 features.
 
 ## Repository policy
 
