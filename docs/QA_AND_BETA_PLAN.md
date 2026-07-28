@@ -1,5 +1,7 @@
 # QA and Closed Beta Plan — MVP v1.1
 
+> Derived from the canonical [PRD v1.1](PRD.md) and [MVP v1.1](MVP.md). If this document conflicts with either source, the canonical source wins.
+
 ## Test levels
 
 - **Unit:** intent mapper, artist normalization, queue, previous threshold, seek clamp, telemetry schema
