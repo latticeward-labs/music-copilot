@@ -1,10 +1,11 @@
 # ADR-0005: Restricted deterministic intent mapping
 
-- **Status:** Proposed
+- **Status:** Accepted
+- **Accepted:** 2026-07-28
 - **Date:** 2026-07-27
 - **Decision owner:** Latticeward Labs
 - **Approval:** [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2)
-- **Authority:** PRD v1.0 FR-05 to FR-07; MVP v1.0 Voice Contract
+- **Authority:** PRD v1.1 FR-05 to FR-07; MVP v1.1 Voice Contract
 
 ## Context
 
@@ -23,7 +24,7 @@ Map recognized text to exactly six versioned intents:
 - One high-confidence match executes directly.
 - Low confidence or multiple plausible artists requires one short confirmation.
 - No match or one failed retry returns safely to manual control without disrupting playback.
-- Confidence thresholds come through a typed configuration boundary with a build fallback.
+- Confidence thresholds come through a typed local configuration boundary with a versioned `BuildConfig` fallback; Remote Config is not on the MVP critical path.
 - Raw transcript and artist text are prohibited from analytics.
 
 ## Consequences
