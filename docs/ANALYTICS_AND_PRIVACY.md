@@ -1,10 +1,10 @@
-# Analytics and Privacy — MVP v1
+# Analytics and Privacy — MVP v1.1
 
 ## Principles
 
 Collect only what is required to answer: is Driving Mode used, does Voice work, and do users return? Raw voice is never stored. Personal media metadata is not telemetry. Permissions are requested just in time and explained.
 
-If cloud STT is ever selected, separate consent, processor destination and retention disclosure are required before release.
+On-device recognition is preferred. The network-capable Android system recognizer is disabled by default and may be enabled only after clear, revocable consent describing the available processor, destination and retention behavior. Revocation immediately returns the app to on-device Voice when available, otherwise to complete manual control.
 
 ## Event allowlist
 
@@ -40,6 +40,8 @@ A short-lived transcript may exist in memory only for current intent resolution 
 
 - Media and microphone permissions are separate and contextual.
 - Diagnostic telemetry requires clear disclosure and any legally required consent.
+- Voice-provider mode and availability may be reported only as coarse allowlisted categories; provider identity, transcript and recognized artist text are prohibited.
+- Network-recognizer consent is separate, revocable and never bundled with media or microphone permission.
 - The user can clear history, Bluetooth preference and diagnostic identifiers/settings.
 - Permission denial never crashes the app; permanent denial links to Android Settings.
 - Retention must be set before Beta and documented in the privacy notice.
