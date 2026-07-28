@@ -1,6 +1,6 @@
 # Security and Privacy Policy
 
-Security and privacy behavior is governed by the canonical [PRD v1.1](docs/PRD.md), [MVP v1.1](docs/MVP.md) and the stricter requirements in this policy.
+Security and privacy behavior is governed by the canonical [PRD v1.0](docs/PRD.md), [MVP v1.0](docs/MVP.md).
 
 ## Reporting
 
@@ -11,12 +11,9 @@ Do not open a public issue for vulnerabilities, exposed secrets or privacy incid
 - API keys, access tokens, signing keys and service-account credentials
 - production environment files
 - raw voice or microphone recordings
-- speech transcripts
 - full personal filenames, track titles, artists or albums
 - user identifiers, contacts or precise location
 - commercial audio without repository distribution rights
-
-Voice text may exist in memory only long enough to resolve the current restricted intent. Application code must not persist it.
 
 ## High-risk behaviors
 
@@ -24,7 +21,7 @@ Treat these as P0 security/safety release blockers:
 
 - unintended playback through phone speaker after Bluetooth loss,
 - microphone activation without explicit push-to-talk action,
-- raw voice/transcript persistence or transmission without approved consent,
+- raw voice storage or cloud STT use without the required separate consent and disclosure,
 - exposure of personal media metadata in analytics/crash reports,
 - repeatable wrong-command execution with serious distraction impact,
 - ambiguous behavior during calls or audio-route changes.
