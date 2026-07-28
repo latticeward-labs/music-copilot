@@ -1,9 +1,9 @@
-# QA and Closed Beta Plan — MVP v1
+# QA and Closed Beta Plan — MVP v1.1
 
 ## Test levels
 
 - **Unit:** intent mapper, artist normalization, queue, previous threshold, seek clamp, telemetry schema
-- **Integration:** Room/MediaStore, MediaSessionService, STT adapter, Audio Focus, persistence
+- **Integration:** Room/MediaStore, MediaSessionService, on-device/network-consent STT adapters, Audio Focus, persistence
 - **UI:** permission states, library/search/player, Driving Mode, Voice overlay, Settings
 - **Field:** road noise, Bluetooth/head unit, route transitions and real vehicles
 
@@ -19,13 +19,13 @@
 | Screen off | playback and controls remain functional |
 | Medium road noise | direct-intent success ≥85% in aggregate |
 | Similar artists | short confirmation; no low-confidence auto-execution |
-| STT timeout/failure | one retry, then manual control; music remains stable |
+| STT unavailable/timeout/failure or consent revoked | typed state, at most one retry where applicable, then complete manual control; music remains stable |
 | Permission denial | no crash; clear Settings recovery |
 | 5,000 files | incremental scan and smooth scroll without blocking error |
 
 ## Device and vehicle matrix
 
-Minimum Android versions: 10, 12 and 14. Representative vendor coverage: Pixel/stock Android, Samsung/One UI, Xiaomi/MIUI. Test at least three vehicle/head-unit models and document phone/OS/head-unit combinations.
+Pull-request automation covers API 26, 33 and 36. Nightly automation covers API 29, 31 and 34. Physical evidence includes an older API 26–29 device, Android 12/13 and Android 16 where available. Representative vendor coverage includes Pixel/stock Android, Samsung/One UI and Xiaomi/HyperOS or MIUI. Test at least three vehicle/head-unit models and document phone/OS/head-unit combinations.
 
 Any repeatable Playback crash, unintended output route or seriously wrong Voice execution is P0 and blocks release.
 
