@@ -4,7 +4,7 @@
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
 - **Applies to:** Android MVP v1.0 and the 10-week build
 
-The approved v1.0 product documents define a proposed architecture, not a locked v1.1 implementation baseline.
+The approved v1.0 product documents define the proposed architecture below.
 
 ## Proposed baseline
 
@@ -30,8 +30,6 @@ The approved v1.0 product documents define a proposed architecture, not a locked
 - Voice: STT/TTS and restricted intent mapping
 - Data: MediaStore, Room and DataStore
 
-No seven-module Gradle map is defined in v1.0. No fixed `minSdk`, `compileSdk`, `targetSdk` or ABI-filter policy is defined beyond Android 10+ product support.
-
 ## Voice and privacy
 
 - Push-to-talk only
@@ -41,8 +39,6 @@ No seven-module Gradle map is defined in v1.0. No fixed `minSdk`, `compileSdk`, 
 - Log intent/result, not raw voice
 - Confidence threshold through simple Remote Config or Build Config
 - If cloud STT is used, obtain separate consent and disclose processing destination and retention
-
-Version 1.0 does not require on-device-first recognition and does not define network recognition as disabled by default.
 
 ## Verification baseline
 
