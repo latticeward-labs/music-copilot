@@ -47,7 +47,6 @@ Streaming-only listeners are not representative of the first Beta and this sampl
 
 ### P1 — required when schedule permits
 
-- Manual Driving Mode activation
 - Bluetooth connection suggestion for a user-selected vehicle; never forced auto-open
 - Short local playback history
 - Settings for Bluetooth hint, privacy/data clearing and voice configuration
@@ -83,6 +82,8 @@ No online catalog, content upload or distribution exists in this MVP. The applic
 8. Voice Overlay: listening, processing, confirm, executed, failed
 9. Liked Songs: empty, ready (P2)
 10. Settings: default, updated; Bluetooth, privacy, data clearing
+
+Manual Driving Mode activation is P0. The optional Bluetooth suggestion is P1.
 
 Driving Mode uses one layer, high contrast, scalable text, fixed controls and touch targets of at least 48dp. It must not present typing, deep navigation or long result lists.
 
