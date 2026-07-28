@@ -2,19 +2,19 @@
 
 - **Status:** Accepted and binding under [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2)
 - **Decision date:** 2026-07-28
-- **Authority:** Music Copilot PRD v1.1 and MVP v1.1
+- **Authority:** Canonical [PRD v1.1](PRD.md) and [MVP v1.1](MVP.md)
 - **Applies to:** Android MVP v1, ten-week build and Closed Beta
 
 This document is the accepted implementation baseline for MVP v1.1. Issue #2 records approval and closure. Any material reversal requires a superseding ADR; any product-scope change requires product change control.
 
 ## Source hierarchy
 
-1. Music Copilot PRD v1.1 - `Approved for MVP`
-2. Music Copilot MVP v1.1 - `Ready for Development`
+1. Canonical [PRD v1.1](PRD.md) - `Approved for MVP`
+2. Canonical [MVP v1.1](MVP.md) - `Ready for Development`
 3. Accepted ADRs in [`docs/adr`](adr/README.md)
-4. Other repository documentation and implementation
+4. Other repository documentation, Figma, Issues and implementation
 
-If a lower-level artifact conflicts with a higher-level source, work stops until the conflict is corrected and recorded.
+PDF exports or attachments are non-authoritative presentation artifacts. If a lower-level artifact conflicts with a higher-level source, work stops until the conflict is corrected and recorded.
 
 ## Binding baseline
 
