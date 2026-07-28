@@ -1,5 +1,7 @@
 # Analytics and Privacy — MVP v1.1
 
+> Derived from the canonical [PRD v1.1](PRD.md) and [MVP v1.1](MVP.md). If this document conflicts with either source, the canonical source wins.
+
 ## Principles
 
 Collect only what is required to answer: is Driving Mode used, does Voice work, and do users return? Raw voice is never stored. Personal media metadata is not telemetry. Permissions are requested just in time and explained.
