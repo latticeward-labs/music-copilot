@@ -11,7 +11,7 @@
 
 MVP v1 must validate reliable, low-touch local music control in real vehicles within ten weeks. Playback lifecycle, Bluetooth behavior, audio focus and Android media controls are higher risks than cross-platform reach.
 
-The original Android 10+ proposal reduced the test matrix but unnecessarily excluded usable older and budget devices. Installation compatibility and Google Play release compliance are separate concerns: `minSdk` controls which devices can install the app, while `targetSdk` controls the Android behavior contract and Play policy baseline.
+The original a higher minimum-SDK proposal reduced the test matrix but unnecessarily excluded usable older and budget devices. Installation compatibility and Google Play release compliance are separate concerns: `minSdk` controls which devices can install the app, while `targetSdk` controls the Android behavior contract and Play policy baseline.
 
 ## Decision
 
@@ -44,20 +44,20 @@ All user-visible strings remain externalized even though the Closed Beta voice c
 ### Positive
 
 - Direct access to Android media, lifecycle, permission and Bluetooth APIs.
-- Broader coverage of older and budget devices than the Android 10+ proposal.
+- Broader coverage of older and budget devices than the a higher minimum-SDK proposal.
 - Current Play-target baseline remains independent from installation compatibility.
 - One native platform for the first Beta.
 
 ### Trade-offs
 
 - Android 8 and 9 add permission, service, notification and lifecycle test paths.
-- The QA matrix is larger than Android 10+.
+- The QA matrix is broader than under the superseded minimum-SDK proposal.
 - No iOS client or shared KMP domain layer in MVP v1.
 - Target SDK and dependency compatibility must be revalidated for every Play release.
 
 ## Rejected alternatives
 
-- **Android 10+ minimum:** simpler QA, but excludes compatible older devices without a demonstrated MVP requirement.
+- **a higher minimum-SDK minimum:** simpler QA, but excludes compatible older devices without a demonstrated MVP requirement.
 - **Android 6/7 minimum:** broader theoretical reach, but adds disproportionate permission, security, background-execution and testing complexity.
 - **Kotlin Multiplatform now:** adds abstraction and integration cost before product value is proven.
 - **Cross-platform UI framework:** increases risk in MediaSession, service lifecycle and route handling.
