@@ -20,7 +20,7 @@ If a lower-level artifact conflicts with a higher-level source, work stops until
 
 | Concern | Decision | Boundary |
 |---|---|---|
-| Platform | Native Android 10+ (API 29+) | No iOS or KMP implementation in MVP |
+| Platform | Native Android 8.0+ (`minSdk 26`), compiled and targeted with API 36 | No iOS or KMP implementation in MVP; SDK levels are revalidated before each Play release |
 | Language and UI | Kotlin + Jetpack Compose | UI renders state and emits actions; it never owns playback |
 | State and async | Coroutines + Flow, unidirectional state | Canonical state is exposed from the owning layer |
 | Playback | AndroidX Media3/ExoPlayer owned by `MediaSessionService` | Queue, MediaSession, notification, audio focus and route behavior live outside UI lifecycle |
@@ -32,6 +32,16 @@ If a lower-level artifact conflicts with a higher-level source, work stops until
 | Dependency injection | Hilt | Composition, provider replacement and test doubles |
 | Telemetry | Central typed allowlist + crash diagnostics | No raw audio, transcript, filename, title, artist or album telemetry |
 | Distribution | Google Play Internal Testing, then Closed Testing | No public production release before Beta gates |
+
+## Android compatibility and Play baseline
+
+- `minSdk 26` (Android 8.0) defines installation compatibility.
+- `compileSdk 36` and `targetSdk 36` define the initial planned 2026 build and Google Play compliance baseline.
+- The target SDK is revalidated against the current Google Play policy immediately before every release; a newer required target supersedes this numeric release setting without changing the product scope.
+- Android 8–12 use the legacy media-read permission path where required; Android 13+ uses `READ_MEDIA_AUDIO`.
+- Foreground-service, media notification, runtime-permission and Bluetooth behavior must be implemented through API-level adapters rather than duplicated feature logic.
+- The minimum compatibility matrix covers Android 8 (API 26), Android 10 (API 29), Android 13 (API 33) and Android 16 (API 36), on both emulator and representative physical devices where hardware behavior matters.
+- Release artifacts use Android App Bundle (`.aab`). The baseline ABI is `arm64-v8a`; `armeabi-v7a` is included only after dependency and device-coverage validation.
 
 ## Explicit non-decisions and exclusions
 
@@ -153,6 +163,9 @@ CI implementation is a week-1 foundation deliverable. This document defines the 
 
 Architecture approval does not replace implementation evidence. Feature completion later requires:
 
+- build, install and smoke tests across API 26, 29, 33 and 36,
+- permission-path tests for legacy storage access and `READ_MEDIA_AUDIO`,
+- foreground-service and media-notification behavior across the compatibility matrix,
 - 5,000-item incremental library test without blocking error,
 - screen-off and UI-reconnection playback tests,
 - notification/lock-screen/Bluetooth state synchronization,
@@ -165,7 +178,7 @@ Architecture approval does not replace implementation evidence. Feature completi
 
 | ADR | Decision | Status before Issue #2 approval |
 |---|---|---|
-| [ADR-0001](adr/0001-native-android-platform.md) | Native Android 10+ platform baseline | Proposed |
+| [ADR-0001](adr/0001-native-android-platform.md) | Native Android 8.0+ / API 36 release baseline | Proposed |
 | [ADR-0002](adr/0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Proposed |
 | [ADR-0003](adr/0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore boundaries | Proposed |
 | [ADR-0004](adr/0004-replaceable-voice-provider.md) | Replaceable STT/TTS provider boundary | Proposed |
