@@ -8,6 +8,12 @@ Closes #
 
 - 
 
+## Requirements
+
+- [ ] Canonical PRD/MVP requirement IDs or an approved non-product reason are linked
+- [ ] No PDF attachment is used as a requirements source
+- [ ] Traceability and derived docs are updated when behavior changes
+
 ## Validation
 
 - [ ] Automated tests pass
