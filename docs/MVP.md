@@ -136,7 +136,6 @@ If week 8 slips, Like and Bluetooth Suggestion are removed. Player, Voice and Dr
 - Privacy-safe crash reporting and analytics
 - No backend, account, cloud sync or streaming
 
-Version 1.0 does not define a seven-module Gradle map, ABI filtering policy, fixed compile/target SDK or an on-device-first provider policy. Those decisions remain for technical planning.
 
 ## 10. QA matrix
 
