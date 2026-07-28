@@ -1,8 +1,10 @@
 # Product Scope — Approved MVP v1.1
 
 **Decision date:** 2026-07-27  
-**Authority:** Music Copilot PRD v1.1 + MVP v1.1  
-**Status:** Locked for the 10-week MVP
+**Authority:** Canonical [PRD v1.1](PRD.md) + [MVP v1.1](MVP.md)  
+**Status:** Locked summary for the 10-week MVP
+
+This is a concise scope view derived from the canonical Markdown sources. It does not override them.
 
 ## Product statement
 
