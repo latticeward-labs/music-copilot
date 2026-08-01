@@ -7,6 +7,16 @@
 
 This document is the repository index for approved User Flow artifacts. Until Issue #3 is approved, the flow set is not implementation-ready.
 
+## Phase 0 foundation - complete
+
+- **Decision:** Approved for User Flow drafting on 01 August 2026
+- **Detailed record:** [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md)
+- **Figma section:** [User Flows / State Inventory - 00 / Phase 0 Foundation](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=14-2)
+- **Boundary:** This completes input, scope, state, decision, conflict, terminology, spike and coverage preparation. It does not approve the final flow set, low-fidelity Wireframes, final Software Architecture or implementation.
+- **ADR dependency:** Issue #2 and the ADR register must align on explicit reviewed outcomes before the complete User Flow set is marked Approved.
+
+Approved drafting decisions include one top-level Home / Library destination, contextual permissions, immediate Driving Mode exit, suggestion-only Bluetooth entry, Voice as an overlay/session state, safe Settings return, paused P1 queue restore, no surprise Bluetooth resume and manual fallback after every Voice failure.
+
 ## Required flow catalog
 
 | ID | Flow | Priority | Required terminal states |
@@ -53,4 +63,6 @@ Every state must record:
 
 ## Approved artifact links
 
-_To be completed by Issue #3._
+- [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md) - approved for User Flow drafting
+- [Figma Phase 0 section](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=14-2)
+- Complete UF-01 through UF-13 diagrams and final review date - _to be completed by Issue #3_
