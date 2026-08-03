@@ -35,9 +35,15 @@ Phase 0 is **complete** because every identified question now has one of four co
 
 ### Approval boundary
 
-- **Approved now:** source hierarchy, MVP scope, priorities, fixed constraints, surface/state inventory v0, user-visible navigation and recovery policies listed in this document, flow catalog, terminology, conflict routing, and spike list.
-- **Not approved now:** numeric confidence/fuzzy thresholds, exact `Previous` position threshold, final provider selection, persistence representation, process-death limits, exact retention periods, final navigation implementation, ViewModel/use-case boundaries, package/module layout, or any app code.
+- **Approved now:** source hierarchy, MVP scope, priorities, fixed constraints, surface/state inventory v0, provisional user-visible routing and recovery policies for User Flow drafting, flow catalog, terminology, conflict routing, and spike list.
+- **Not approved now:** numeric confidence/fuzzy thresholds, exact `Previous` position threshold, final provider selection, persistence representation, process-death limits, exact retention periods, final navigation graph and Back behavior, final Voice overlay/state/navigation form and ownership, ViewModel/use-case boundaries, package/module layout, or any app code.
 - **Final-flow blocker:** Issue #2 and the ADR register must agree on explicit ADR outcomes before the complete User Flow set is marked Approved.
+
+### Architecture deferral clarification
+
+- User Flows may record the user-visible destination or recovery expectation, but they do not select the final navigation graph, Back-stack implementation, or destination ownership.
+- Voice feedback is represented provisionally as state associated with the initiating playback experience. Whether it is implemented as an overlay, screen state, or another approved presentation pattern remains open for Issue #15 and Issue #16.
+- Final Voice state ownership, shared-state boundaries, and navigation responsibility must be approved in Issue #16; no coordinator, ViewModel, destination, or package name is binding at Phase 0.
 
 ---
 
@@ -158,9 +164,9 @@ These rules appear on every flow review checklist.
 | S-03 | **Permissions** - Granted, Denied, Permanently Denied | A capability is first needed. Copy explains one permission at a time. | Continue, Not now, Retry, Open Android Settings. System requests/rechecks the applicable platform access. | Granted continues the blocked action. Denied preserves a retry/manual path. Permanently Denied exposes Settings; return triggers recheck. |
 | S-04 | **Home / Library** - Scanning, Empty, Ready | Default application destination. One destination with Songs, Artists, Albums, and Folders internal views. | Browse, rescan, search, select media, open Full Player/Driving Mode/Settings. System observes scan and playback state. | Ready supports selection. Empty explains local-file requirement and scan/permission recovery. Scan failure remains recoverable. |
 | S-05 | **Search** - Result, No Result, Error | Search opened from Home/Library; not available as typing inside Driving Mode. | Enter query, select result, clear query, retry. System searches the derived local index only. | Selection builds/updates queue and opens playback. No Result preserves query. Error offers retry without corrupting library. |
-| S-06 | **Full Player** - Playing, Paused, Corrupt File | Opened from track selection, mini-player, or external media control fallback. | Play/pause, next, previous, seek, open queue, enter Driving Mode, back. Commands go through the shared playback command surface. | Back returns to the prior non-driving app surface; if none exists, Home/Library. Playback continues. Corrupt file is skipped and explained briefly. |
-| S-07 | **Driving Mode** - Playing, Paused, No Track | Manual P0 entry or accepted P1 Bluetooth suggestion. Never automatic. | Four fixed controls, microphone, and immediate Exit only. | Exit/back returns to the most recent non-driving surface; fallback Home/Library. No Track offers Play fallback if a valid last track exists, otherwise an exit/manual recovery. |
-| S-08 | **Voice Overlay** - Listening, Processing, Confirming, Executed, Failed | Microphone tap from an allowed playback surface. It is an overlay/state, not a navigation destination. | Cancel; provide one spoken command; answer one bounded confirmation; retry once after recognition failure. | Terminal state dismisses to the initiating surface. Certain intent executes directly. Unknown/unsupported preserves playback. Failed returns immediately to manual control. |
+| S-06 | **Full Player** - Playing, Paused, Corrupt File | Opened from track selection, mini-player, or external media control fallback. | Play/pause, next, previous, seek, open queue, enter Driving Mode, back. Commands go through the shared playback command surface. | The provisional user-visible return target is the preceding non-driving app surface, with Home/Library as fallback; playback continues. Final Back-stack and navigation implementation remain open for Issue #15 and Issue #16. Corrupt file is skipped and explained briefly. |
+| S-07 | **Driving Mode** - Playing, Paused, No Track | Manual P0 entry or accepted P1 Bluetooth suggestion. Never automatic. | Four fixed controls, microphone, and immediate Exit only. | Exit is immediate. The provisional user-visible return target is the most recent non-driving surface, with Home/Library as fallback. Final system Back equivalence, Back-stack behavior, and navigation implementation remain open for Issue #15 and Issue #16. No Track offers Play fallback if a valid last track exists, otherwise an exit/manual recovery. |
+| S-08 | **Voice Feedback State** - Listening, Processing, Confirming, Executed, Failed | Microphone tap from an allowed playback surface. Voice feedback is provisionally represented in association with the initiating playback experience; its final overlay, screen-state, or navigation form remains open for Issue #15 and Issue #16. | Cancel; provide one spoken command; answer one bounded confirmation; retry once after recognition failure. | Terminal behavior returns control to the initiating playback experience. Certain intent executes directly. Unknown/unsupported preserves playback. Failed returns immediately to manual control. Final presentation and navigation ownership remain open for Issue #16. |
 | S-09 | **Liked Songs** - Empty, Ready - P2 | Opened from Home/Library only if P2 ships. | Like/unlike, select track, play list, back. | Empty explains the list. Ready plays a local queue. Missing files reconcile safely. Entire surface is removable without breaking P0 flows. |
 | S-10 | **Settings** - Default, Updated | Opened from non-driving UI; deep settings are not opened from active Driving Mode. | Select Bluetooth hint device, review/replay education, manage voice consent, clear history/diagnostic data, open Android Settings. | Update is stored locally. Clear actions require confirmation and show completion. Settings return rechecks access/consent. |
 
@@ -175,7 +181,7 @@ These rules appear on every flow review checklist.
 | S-05 | Derived local index; selected track resolves to accessible MediaStore identity. | Query/transcript is not logged by default. | No search typing during Driving Mode. |
 | S-06 | MediaSessionService owns playing/current/queue/position. P1 restore data is local. | `player_error` uses coarse code/route only. | 48dp minimum; content descriptions; no hidden playback state. |
 | S-07 | MediaSessionService owns playback; mode UI observes it. Mode entry state may persist only as a preference if approved. | `driving_mode_started(entry_source, bt_connected)` only. | One layer, high contrast, limited motion, large fixed controls, immediate exit. |
-| S-08 | VoiceSessionCoordinator owns ephemeral voice/confirmation state; playback remains service-owned. | Allowed: intent type, confidence/latency buckets, result. Prohibited: raw audio and full transcript by default. | Short feedback; no long choices; one confirmation; manual controls remain visible/reachable. |
+| S-08 | Playback remains service-owned. The owner of ephemeral voice/confirmation state, its public contract, and its overlay/screen/navigation presentation are not finalized and remain for Issue #16. | Allowed: intent type, confidence/latency buckets, result. Prohibited: raw audio and full transcript by default. | Short feedback; no long choices; one confirmation; manual controls remain visible/reachable. |
 | S-09 | Local application persistence; media validity still comes from MediaStore. | Likes remain local; no sync/account profile. | P2 label stays visible in design/review artifacts. |
 | S-10 | Preferences repository/DataStore baseline. Data deletion affects only the selected app-owned categories. | Consent and diagnostic controls are explicit. No hidden remote deletion promise where no remote product data exists. | Destructive clear action has accessible confirmation; unavailable while actively driving. |
 
@@ -210,10 +216,10 @@ These rules appear on every flow review checklist.
 | D-007 | Microphone permission is requested just-in-time on first real voice action or controlled practice, not blindly at app start. | UX / privacy | Product + Privacy | Approved | UF-01, UF-02, UF-08 |
 | D-008 | Notification permission is contextual after the user has started playback and before background/system-control value is needed; platform details require TS-01. | UX / technical | Design + Android | Routed | UF-02, UF-06 |
 | D-009 | Onboarding can be skipped; education can be replayed from Settings. Skipping never grants or forces microphone access. | UX | Product + Design | Approved | UF-01, UF-12 |
-| D-010 | Full Player back returns to the preceding non-driving app surface; fallback is Home/Library. Playback continues. | Navigation | Design | Approved | UF-05 |
+| D-010 | Provisional user-visible policy: leaving Full Player returns toward the preceding non-driving app experience, with Home/Library fallback, while playback continues. Final Back-stack, navigation graph, and destination ownership remain open. | UX / navigation | Design + Android | Routed | Issue #15 / Issue #16 / UF-05 |
 | D-011 | Driving Mode entry is manual P0. Bluetooth is P1 suggestion-only and requires explicit acceptance. | UX / safety | Product + Design | Approved | UF-07 |
-| D-012 | Driving Mode Exit and system Back are equivalent, immediate, and return to the last non-driving surface; fallback Home/Library. | Navigation / safety | Design | Approved | UF-07 |
-| D-013 | Voice is an overlay/session state on the initiating playback surface, not a navigation destination. | UX / architecture | Design + Android | Approved for UX; architecture ownership confirmed in #16 | UF-08, UF-09, UF-10 |
+| D-012 | Provisional user-visible policy: Driving Mode provides immediate Exit and returns toward the most recent non-driving experience, with Home/Library fallback. Final system Back equivalence, Back-stack behavior, and navigation implementation remain open. | UX / navigation / safety | Design + Android | Routed | Issue #15 / Issue #16 / UF-07 |
+| D-013 | Voice feedback is provisionally associated with the initiating playback experience. Whether it is an overlay, screen state, or another presentation pattern, and which component owns the state, remain open. | UX / architecture | Design + Android | Routed | Issue #15 / Issue #16 / UF-08, UF-09, UF-10 |
 | D-014 | Returning from Android Settings always rechecks the relevant permission/provider condition. | UX / lifecycle | Design + Android | Approved | UF-02, UF-12 |
 | D-015 | FR-08 restore is P1: rebuild queue/position in a paused state and require explicit Resume; never surprise auto-resume. Representation and process-death limits remain for TS-02/TS-08/#16. | UX / persistence | Product + Android | Routed | UF-05, UF-06 |
 | D-016 | Beta baseline uses Android STT/TTS behind replaceable interfaces. No app-selected cloud-only provider is required. Do not claim offline STT. Provider/disclosure feasibility requires TS-03. | Product / privacy / technical | Product + Privacy + Android | Routed | UF-08, UF-10, UF-12 |
@@ -246,7 +252,7 @@ These rules appear on every flow review checklist.
 | C-006 | Product language says core commands remain available without internet, while Android STT may be network-assisted. | Local player and deterministic command execution remain local-first; never claim guaranteed offline recognition. Validate provider and disclosure behavior in TS-03. | Privacy + Android / TS-03 | High product truth |
 | C-007 | FR-02 requires P0 playback continuity after UI closure; FR-08 defines P1 queue/position persistence after UI closure. | Separate active-service continuity (P0) from restoration after active lifecycle/process loss (P1, paused and explicit Resume). | D-015 / TS-02 / #16 | High scope |
 | C-008 | PRD/MVP include short local history, but do not assign it a standalone FR priority; derived technical material labels it P1. | Do not elevate it to P0. Keep it subordinate to P0, and enforce privacy controls if collected. | Product / #3 and #16 | Medium scope |
-| C-009 | PRD/MVP shorthand lists Voice Overlay states as Listening/Confirm/Failed, while technical synthesis includes Processing/Executed. | Use the complete state machine: Idle, Listening, Processing, Confirming, Executed, Failed. | Approved inventory | Low naming |
+| C-009 | PRD/MVP shorthand lists Voice Overlay states as Listening/Confirm/Failed, while technical synthesis includes Processing/Executed. | Use the complete state machine: Idle, Listening, Processing, Confirming, Executed, Failed. The final overlay/state/navigation presentation remains routed to Issue #15 and Issue #16. | D-013 / Issue #15 / Issue #16 | Low naming / architecture |
 | C-010 | Exact retention, `Previous` threshold, confidence threshold, fuzzy threshold, and post-call policy are not numerically specified. | Keep user-visible safe branches, but route numbers/mechanics to named spikes or #16. | D-017, D-018, D-026 / #16 | High design integrity |
 
 No unresolved conflict authorizes a capability outside MVP v1.0.
@@ -266,9 +272,9 @@ No unresolved conflict authorizes a capability outside MVP v1.0.
 | UF-05 | Manual playback and queue control | P0 plus P1 restore branch | Full Player, Home mini-player | Playing; Paused; end of queue; corrupt skip; paused restore | FR-02, FR-03, FR-08 |
 | UF-06 | Background, screen-off, and system controls | P0 plus P1 restore branch | Notification, lock screen, Bluetooth/head unit, service reconnection | Synchronized active playback; recoverable controller state; paused restore | FR-02, FR-08; US-03 |
 | UF-07 | Driving Mode entry, use, and exit | P0; P1 hint | Home/Library, Full Player, Driving Mode, Bluetooth suggestion | Playing; Paused; No Track; immediate exit | FR-04, FR-07; US-04 |
-| UF-08 | Direct Voice command | P0 | Driving/Full Player, Voice Overlay, playback service | Executed; Failed-safe; manual fallback | FR-05, FR-06; US-05 |
-| UF-09 | Ambiguous or missing artist | P0 | Voice Overlay, playback service | Confirmed execution; not found; failed-safe | FR-06; US-06 |
-| UF-10 | Voice timeout, unavailable provider, and retry | P0 | Voice Overlay, provider/system settings outside driving | One retry; failed; manual fallback; playback preserved | US-07; ADR-0004 boundary |
+| UF-08 | Direct Voice command | P0 | Driving/Full Player, provisional Voice feedback state, playback service | Executed; Failed-safe; manual fallback | FR-05, FR-06; US-05 |
+| UF-09 | Ambiguous or missing artist | P0 | Provisional Voice feedback state, playback service | Confirmed execution; not found; failed-safe | FR-06; US-06 |
+| UF-10 | Voice timeout, unavailable provider, and retry | P0 | Provisional Voice feedback state, provider/system settings outside driving | One retry; failed; manual fallback; playback preserved | US-07; ADR-0004 boundary |
 | UF-11 | Calls, Audio Focus, route changes, and corrupt queue item | P0 | Phone call, focus, Bluetooth/headset, route system surfaces | Conditional resume; remain paused; no speaker leakage; queue continues | FR-03; QA P0 matrix |
 | UF-12 | Settings, privacy, Bluetooth selection, and data clearing | P0 control surface | Settings, Android Settings | Updated; consent accepted/declined; data cleared; permission rechecked | Privacy; telemetry; FR-07 setup |
 | UF-13 | Liked Songs | P2 | Home/Library, Liked Songs, Full Player | Empty; Ready; playback started; missing item reconciled | FR-09 |
@@ -294,7 +300,7 @@ No unresolved conflict authorizes a capability outside MVP v1.0.
 | Permission denial/revocation | UF-01, UF-02, UF-03, UF-05, UF-10 | Every denied state has a non-crashing recovery or manual fallback. |
 | UI close/recreation | UF-05, UF-06 | Player state comes back from the controller/service; no duplicated authority. |
 | Process death/restoration | UF-05, UF-06 | P1 branch only; paused, explicit Resume; exact limits remain #16. |
-| Voice certainty/ambiguity/failure | UF-08, UF-09, UF-10 | Direct, one confirmation, one retry, safe failure. |
+| Voice certainty/ambiguity/failure | UF-08, UF-09, UF-10 | Direct, one confirmation, one retry, safe failure; final presentation and ownership remain #15/#16. |
 | Driving safety | UF-07 through UF-11 | No typing, deep navigation, long list, surprise resume, or speaker leakage. |
 | Privacy/telemetry | UF-08 through UF-12 | Allowlist only; no raw audio/transcript/title payload. |
 | Accessibility | All UI flows | 48dp, scalable text, TalkBack, concise messages, accessible error recovery. |
@@ -310,7 +316,7 @@ No unresolved conflict authorizes a capability outside MVP v1.0.
 | **Home / Library** | One top-level destination with Songs/Artists/Albums/Folders views. | Separate Home and Library top-level destinations unless later approved. |
 | **Full Player** | Standard playback and queue-control surface. | Playback owner. The service owns playback. |
 | **Driving Mode** | One-layer, glance-minimized playback surface. | Safe-driving mode, crash-prevention mode, Android Auto. |
-| **Voice Overlay** | Ephemeral voice-session state over the initiating playback surface. | Voice screen or navigation destination. |
+| **Voice feedback state** | Provisional User Flow term for Listening, Processing, Confirming, Executed, and Failed behavior associated with the initiating playback experience. Final overlay/screen/navigation form and ownership remain Issue #15/#16 decisions. | Treating `Voice Overlay` as a final architecture destination or binding owner before approval. |
 | **Push-to-Talk** | Explicit microphone tap starts a bounded session. | Wake word, always listening. |
 | **Media access** | User-granted Android access to supported local audio. | Ownership verification or supplied catalog. |
 | **Local-first** | Local media and product state remain on-device; core player has no product backend. | Guaranteed offline STT. |
@@ -384,7 +390,7 @@ Quality-service outage must not block library browsing, manual playback, Driving
 | All required application surfaces are inventoried. | Pass | S-01 through S-10. |
 | Android/system surfaces are inventoried. | Pass | SYS-01 through SYS-09. |
 | Every open question has Owner, Status, and Gate. | Pass | Decision and Spike Registers. |
-| No structural behavior is silently delegated to Wireframes. | Pass | D-004 through D-015. |
+| User-visible routing/recovery expectations are explicit, while final navigation, Back behavior, and Voice presentation/ownership are routed rather than silently locked. | Pass | Approval boundary; S-06 through S-08; D-010, D-012, D-013; Issue #15/#16. |
 | Permission denial, revocation, and Settings return are covered. | Pass | S-03, SYS-01 through SYS-04, D-006 through D-008/D-014/D-020. |
 | Voice certainty, ambiguity, failure, and retry are covered. | Pass | S-08, D-013/D-016/D-024/D-030. |
 | Calls, routes, disconnect, reconnect, and corrupt media are covered. | Pass | SYS-07 through SYS-09, D-018/D-019/D-022. |
@@ -448,7 +454,7 @@ Required endpoints:
 | Role | Phase 0 responsibility | Phase 0 result |
 |---|---|---|
 | Product Owner | Scope, priority, user-visible policy, conflict authority | Approved through user confirmation on 01 August 2026. |
-| Product Design | Navigation/recovery contract and state completeness | Ready to draft flows from this foundation. |
+| Product Design | Provisional user-visible routing/recovery expectations and state completeness | Ready to draft flows; final navigation, Back behavior, and Voice presentation remain Issue #15/#16 decisions. |
 | Android Engineering | Feasibility boundaries and spike ownership | Preliminary constraints recorded; Issue #2/#16 evidence still required. |
 | QA | Edge cases, safety invariants, device/vehicle evidence | Required scenarios and spikes recorded. |
 | Privacy Review | Microphone, STT disclosure, telemetry, retention, clearing | Boundaries fixed; TS-03 and TS-10 remain evidence gates. |
@@ -467,4 +473,4 @@ Required endpoints:
 
 ---
 
-**Final Phase 0 statement:** Music Copilot MVP v1.0 now has a controlled, traceable foundation for User Flow drafting. Nothing in this artifact expands the product beyond the approved English PRD/MVP, promotes a proposed ADR to accepted status, or authorizes implementation before the final architecture gate.
+**Final Phase 0 statement:** Music Copilot MVP v1.0 now has a controlled, traceable foundation for User Flow drafting. Nothing in this artifact expands the product beyond the approved English PRD/MVP, promotes a proposed ADR to accepted status, locks final navigation/Back/Voice ownership before Issue #16, or authorizes implementation before the final architecture gate.
