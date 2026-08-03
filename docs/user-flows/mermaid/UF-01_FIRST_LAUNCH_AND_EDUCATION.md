@@ -1,58 +1,68 @@
 # UF-01 - First Launch and Education
 
 ```mermaid
-%%{init: {"theme": "base", "flowchart": {"curve": "stepAfter", "nodeSpacing": 45, "rankSpacing": 60, "htmlLabels": true}, "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "15px", "lineColor": "#667085", "textColor": "#1F2633"}}}%%
+%%{init: {"theme": "base", "flowchart": {"curve": "stepAfter", "nodeSpacing": 52, "rankSpacing": 70, "htmlLabels": true}, "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px", "lineColor": "#667085", "textColor": "#1F2633"}}}%%
 flowchart TB
 
-    FRESH["Fresh install<br/>No onboarding completion flag."]
-    INCOMPLETE["Onboarding incomplete<br/>Return to the interrupted first-use path."]
-    REPLAY["Replay from Settings<br/>Education may be replayed without resetting the library."]
+    subgraph ENTRY["ENTRY STATES"]
+        direction LR
+        FRESH["Fresh install<br/>No onboarding completion flag."]
+        INCOMPLETE["Onboarding incomplete<br/>Resume the interrupted first-use path."]
+        REPLAY["Replay from Settings<br/>Replay onboarding/education without resetting the library."]
+    end
 
-    FRESH -->|launch| SPLASH
-    INCOMPLETE -->|resume| SPLASH
-    REPLAY -->|replay| SPLASH
+    FRESH -->|Launch| SPLASH
+    INCOMPLETE -->|Resume| SPLASH
 
     SPLASH["Splash - Loading<br/>Validate local schema, permission state, service connection, and next destination."]
-    SPLASH -->|validate| STARTUP{"Startup preparation succeeds?"}
+    SPLASH -->|Validate| STARTUP{"Startup preparation succeeds?"}
 
     STARTUP -->|No| MIGRATION["Splash - Migration Error<br/>Show concise recovery. Retry; never fabricate library or player state."]
     MIGRATION -->|Retry| SPLASH
 
     STARTUP -->|Yes| ONBOARDING{"Onboarding complete?"}
+    ONBOARDING -->|Yes| RETURNING_HOME["Returning-user routing<br/>Observe the current Home / Library state: Scanning, Empty, Ready, or recoverable error.<br/>Observe active playback; never restart the service from UI routing."]
+    ONBOARDING -->|No| SLIDE1
+    REPLAY -->|Explicit replay| SLIDE1
 
-    ONBOARDING -->|Yes| RETURNING["Returning-user routing<br/>Observe current Home / Library state. An active playback service is observed, never restarted."]
-
-    ONBOARDING -->|No| SLIDE1["Onboarding - Slide 1<br/>Value: control user-authorized local music with fewer manual interactions."]
-    SLIDE1 -->|Next| SLIDE2["Onboarding - Slide 2<br/>Road-attention warning; Push-to-Talk; no streaming/account claim."]
+    SLIDE1["Onboarding - Slide 1<br/>Value: control user-authorized local music with fewer manual interactions."]
+    SLIDE1 -->|Next| SLIDE2["Onboarding - Slide 2<br/>Road-attention warning; Push-to-Talk; no streaming or account claim."]
     SLIDE2 --> CONTINUE_OR_SKIP{"Continue or Skip?"}
 
-    CONTINUE_OR_SKIP -->|Continue| CONTINUE["Continue<br/>Enter contextual media-access explanation before scan."]
+    CONTINUE_OR_SKIP -->|Continue| CONTINUE["Continue<br/>Enter the contextual media-access explanation before the first scan."]
     CONTINUE_OR_SKIP -->|Skip| SKIP["Skip onboarding<br/>Record completion locally. Do not force microphone or notification access."]
 
-    CONTINUE --> HANDOFF["Handoff to UF-02 / UF-03<br/>Media permission -> scan -> Library Scanning / Empty / Ready / recovery."]
+    CONTINUE --> HANDOFF["Handoff to UF-02 / UF-03<br/>Media permission -> scan -> Scanning / Empty / Ready / recovery."]
     SKIP --> HANDOFF
 
-    RETURNING --> READINESS_RETURN["Return from readiness cluster<br/>Library Ready or Empty with a valid recovery path."]
-    HANDOFF -->|after scan| READINESS_RETURN
+    HANDOFF --> READINESS{"UF-02 / UF-03 result?"}
+    READINESS -->|Recovery required| FIRST_RECOVERY["Permission or scan recovery<br/>Remain on a non-crashing recovery path until access or scan succeeds."]
+    READINESS -->|Ready| FIRST_READY["Library readiness - Ready<br/>Accessible local media is available."]
+    READINESS -->|Empty| FIRST_EMPTY["Library readiness - Empty<br/>No supported accessible files, or access remains unavailable."]
 
-    READINESS_RETURN --> EDUCATION["Six-command education<br/>PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST."]
+    FIRST_READY -->|Offer education| EDUCATION
+    FIRST_EMPTY -->|Offer education| EDUCATION
+
+    EDUCATION["Six-command education<br/>PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST."]
     EDUCATION --> PRACTICE{"Practice a command?"}
 
-    PRACTICE -->|Yes| PRACTICE_VOICE["User chooses practice<br/>Microphone purpose explanation; OS permission is requested just-in-time in UF-02."]
     PRACTICE -->|No| SKIP_PRACTICE["Skip command practice<br/>No microphone request. Education remains replayable from Settings."]
+    PRACTICE -->|Yes| PRACTICE_VOICE["Handoff to UF-02<br/>Explain microphone purpose and request access just-in-time."]
 
-    PRACTICE_VOICE -->|permission result| MANUAL["Manual controls preserved<br/>Microphone declined or unavailable does not block local browsing/playback."]
-    PRACTICE_VOICE -->|Ready| READY["Home / Library - Ready<br/>Songs, Artists, Albums, and Folders internal views are available."]
-    PRACTICE_VOICE -->|Empty| EMPTY["Home / Library - Empty<br/>Explain local-file requirement; preserve rescan and permission recovery."]
+    PRACTICE_VOICE -->|Granted| PRACTICE_HANDOFF["Begin bounded command practice<br/>Detailed Voice execution and failure behavior belongs to UF-08 / UF-10."]
+    PRACTICE_VOICE -->|Denied / Permanently Denied / unavailable| MANUAL["Manual controls preserved<br/>Voice denial or unavailability does not block local browsing or playback."]
 
-    SKIP_PRACTICE -->|Ready| READY
-    SKIP_PRACTICE -->|Empty| EMPTY
+    PRACTICE_HANDOFF --> HOME_AFTER_EDU
+    MANUAL --> HOME_AFTER_EDU
+    SKIP_PRACTICE --> HOME_AFTER_EDU
 
-    RULES["FIXED RULES & VALID ENDPOINTS<br/>Two value slides; onboarding is skippable and replayable.<br/>Media permission is explained before the first scan.<br/>Microphone permission is requested only on explicit practice or the first real microphone action.<br/>Notification permission is deferred until playback/background-control value exists (UF-06 / TS-01).<br/>No account, backend, sync, catalog, streaming, upload, download, or forced cloud dependency.<br/>Valid endpoints: Home / Library Ready; Home / Library Empty with recovery; permission recovery; startup recovery; microphone declined with manual controls preserved."]
+    HOME_AFTER_EDU["Home / Library<br/>Return to the current Ready or Empty state with valid Rescan and permission recovery."]
 
-    READY ~~~ RULES
-    EMPTY ~~~ RULES
-    MANUAL ~~~ RULES
+    RULES["FIXED RULES & VALID ENDPOINTS<br/>Two value slides; onboarding is skippable and replayable.<br/>Media permission is explained before the first scan.<br/>Microphone permission is requested only on explicit practice or the first real microphone action.<br/>Notification permission is deferred until playback/background-control value exists in UF-06 / TS-01.<br/>No account, backend, sync, catalog, streaming, upload, download, or forced cloud dependency.<br/>Valid endpoints: returning Home / Library state; Home / Library Ready or Empty; permission/scan recovery; startup recovery; microphone declined with manual controls preserved."]
+
+    RETURNING_HOME ~~~ RULES
+    FIRST_RECOVERY ~~~ RULES
+    HOME_AFTER_EDU ~~~ RULES
 
     classDef start fill:#EAF2FF,stroke:#3776D6,color:#1F2633,stroke-width:1.5px;
     classDef state fill:#E1F9FA,stroke:#16BEC7,color:#1F2633,stroke-width:1.5px;
@@ -65,12 +75,14 @@ flowchart TB
     classDef note fill:#F4F7FB,stroke:#C7CED9,color:#1F2633,stroke-width:1.5px;
 
     class FRESH,INCOMPLETE,REPLAY start;
-    class SPLASH,SLIDE1,SLIDE2,EDUCATION state;
-    class STARTUP,ONBOARDING,CONTINUE_OR_SKIP,PRACTICE decision;
-    class CONTINUE,SKIP,PRACTICE_VOICE,SKIP_PRACTICE action;
-    class MIGRATION recovery;
-    class RETURNING,READINESS_RETURN route;
-    class HANDOFF handoff;
-    class READY,EMPTY,MANUAL terminal;
+    class SPLASH,SLIDE1,SLIDE2,EDUCATION,FIRST_READY,FIRST_EMPTY state;
+    class STARTUP,ONBOARDING,CONTINUE_OR_SKIP,READINESS,PRACTICE decision;
+    class CONTINUE,SKIP,SKIP_PRACTICE,PRACTICE_VOICE action;
+    class MIGRATION,FIRST_RECOVERY,MANUAL recovery;
+    class RETURNING_HOME route;
+    class HANDOFF,PRACTICE_HANDOFF handoff;
+    class HOME_AFTER_EDU terminal;
     class RULES note;
+
+    style ENTRY fill:transparent,stroke:#C7CED9,stroke-width:1px
 ```
