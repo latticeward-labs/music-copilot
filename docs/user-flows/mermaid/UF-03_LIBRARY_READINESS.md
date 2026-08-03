@@ -1,0 +1,88 @@
+# UF-03 - Local Scan and Library Readiness
+
+```mermaid
+%%{init: {"theme": "base", "flowchart": {"curve": "stepAfter", "nodeSpacing": 58, "rankSpacing": 78, "htmlLabels": true}, "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px", "lineColor": "#667085", "textColor": "#1F2633"}}}%%
+flowchart TB
+
+    subgraph START["START STATES"]
+        direction TB
+        S0["Entry conditions\n1. Media access newly granted\n2. Existing derived library index on returning-user startup\n3. User-requested Rescan\n4. Permission restored after Android Settings\n5. Previous scan interrupted or app relaunched during preparation\n6. Permission revoked or media access changed\n7. Recoverable scan failure"]
+    end
+
+    A{"Media access granted?\nRecheck Android permission state before scanning."}
+    B{"Select scan mode"}
+    B1["Initial scan\nFirst consented setup or rebuild"]
+    B2["Incremental reconciliation\nReturning use, Rescan, metadata change, move, deletion, or stale-entry cleanup"]
+    C["Home / Library - Scanning\nVisible preparation\nUI remains responsive\nDo not display fabricated Ready content\nExisting index data is not treated as current playable truth without accessibility checks"]
+    D{"Result decision"}
+
+    E["Home / Library - Ready\nSupported accessible files found\nOne top-level destination with internal Songs, Artists, Albums, and Folders views"]
+    F["Home / Library - Empty\nNo supported accessible files\nExplain local-file requirement\nOffer Rescan\nShow permission recovery only when access is unavailable\nNever offer account, streaming, upload, download, or online catalog paths"]
+    G["Recoverable scan failure\nShow concise error and Retry\nPreserve a verified prior library state where possible\nNever require reinstall as the default recovery"]
+    H["Access lost during scan or reconciliation\nReconcile inaccessible entries\nMark affected items unavailable\nRoute to UF-02 without a crash"]
+
+    R1["Updated Ready state\nNew accessible media -> add derived entry/tokens\nMetadata changed -> update derived labels and search tokens"]
+    R2["Ready or Empty\nMedia moved or deleted -> remove stale playable reference"]
+    R3["UF-02 recovery\nPermission revoked -> mark inaccessible; do not trust stale rows"]
+    R4["Scanning or recoverable error\nScan interrupted -> resume/restart safely without false Ready\nIndex/database problem -> rebuild or retry the derived projection"]
+
+    N1["Source-of-truth contract\nMediaStore = authoritative for accessible media existence and platform identity\nLocal relational index = derived and rebuildable\nDataStore/preferences = small local settings and consent only\nTelemetry = non-authoritative and never a recovery source"]
+    N2["Performance and reliability constraints\nInitial and incremental scans are non-blocking\nTarget smooth library behavior for approximately 5,000 files\nScanning must not occur on the main UI thread\nMissing, moved, deleted, corrupt, or permission-bound media must not remain falsely playable\nAnalytics, crash reporting, or configuration-service failure must not block scanning, browsing, or manual playback"]
+    N3["Accessibility and privacy\nScanning, Empty, Ready, Retry, Rescan, and permission recovery are textually identified\nAll controls have labels and TalkBack semantics\nText scales without hiding recovery actions\nState meaning is not conveyed by color alone\nDo not upload filenames, full titles, artists, albums, folders, content URIs, paths, or library contents\nUF-03 introduces no new telemetry event without separate Privacy review"]
+
+    T1["Valid terminal states\nHome / Library - Ready\nHome / Library - Empty with Rescan/recovery\nRecoverable scan failure with Retry\nPermission recovery through UF-02\nReconciled inaccessible media without crash or false playability"]
+    T2["Open evidence gate\nTS-06 must validate MediaStore access, scoped-storage permission changes, moved/deleted files, incremental reconciliation, and rebuild behavior across supported Android versions before final flow and architecture approval"]
+
+    S0 --> A
+    A -->|No| R3
+    A -->|Yes| B
+    B -->|Initial| B1
+    B -->|Incremental| B2
+    B1 --> C
+    B2 --> C
+    C --> D
+
+    D -->|Supported accessible files found| E
+    D -->|No supported accessible files| F
+    D -->|Recoverable scan or index failure| G
+    D -->|Access lost during scan or reconciliation| H
+
+    E -->|New accessible media or metadata changed| R1
+    E -->|Media moved or deleted| R2
+    F -->|Rescan| B
+    G -->|Retry| B
+    H -->|Recover access| R3
+
+    R3 -->|Return from UF-02| A
+    R1 -.library updated.-> E
+    R2 -.reconciled endpoint.-> T1
+    R4 -.evidence cases.-> T2
+
+    C -.governed by.-> N1
+    D -.must satisfy.-> N2
+    E -.must satisfy.-> N3
+    F -.must satisfy.-> N3
+    G -.must satisfy.-> N3
+    H -.must satisfy.-> N3
+
+    E --> T1
+    F --> T1
+    G --> T1
+    H --> T1
+    N2 -.supports.-> R4
+
+    classDef action fill:#EAF2FF,stroke:#3776D6,color:#1F2633,stroke-width:1.5px;
+    classDef decision fill:#FFF4D6,stroke:#C68817,color:#1F2633,stroke-width:1.5px;
+    classDef process fill:#E1F9FA,stroke:#16BEC7,color:#1F2633,stroke-width:1.5px;
+    classDef success fill:#EAF8EE,stroke:#2E8B4B,color:#1F2633,stroke-width:1.5px;
+    classDef recovery fill:#FFE8E8,stroke:#C63B3B,color:#1F2633,stroke-width:1.5px;
+    classDef note fill:#EEF1F5,stroke:#667085,color:#1F2633,stroke-width:1.5px;
+
+    class S0,B1,B2,R1 action;
+    class A,B,D decision;
+    class C,N1,N2,N3 process;
+    class E,F,T1 success;
+    class G,H,R2,R3,R4,T2 recovery;
+
+    style START fill:transparent,stroke:#C7CED9,stroke-width:1px
+```
