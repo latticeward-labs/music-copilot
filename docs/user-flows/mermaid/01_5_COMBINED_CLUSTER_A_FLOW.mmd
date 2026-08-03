@@ -1,0 +1,163 @@
+%%{init: {"theme": "base", "flowchart": {"curve": "stepAfter", "nodeSpacing": 56, "rankSpacing": 72, "htmlLabels": true}, "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px", "lineColor": "#667085", "textColor": "#1F2633"}}}%%
+flowchart TB
+
+    subgraph ENTRY["A. ENTRY AND ONBOARDING - UF-01"]
+        direction TB
+
+        subgraph ENTRY_STATES["ENTRY STATES"]
+            direction LR
+            FRESH["Fresh install"]
+            INCOMPLETE["Onboarding incomplete"]
+            REPLAY["Replay from Settings<br/>Do not reset the library"]
+            RETURNING["Returning user<br/>Existing Home / Library state"]
+        end
+
+        FRESH --> SPLASH
+        INCOMPLETE --> SPLASH
+        REPLAY --> SLIDE1
+        RETURNING --> SPLASH
+
+        SPLASH["Splash - Loading<br/>Validate preparation, Android permission state, service connection, and next route.<br/>Never fabricate library or playback state."]
+        SPLASH --> STARTUP{"Startup preparation succeeds?"}
+        STARTUP -->|No| STARTUP_ERROR["Recoverable startup / migration error<br/>Show concise Retry."]
+        STARTUP_ERROR -->|Retry| SPLASH
+        STARTUP -->|Yes| ONBOARDING{"Onboarding complete?"}
+
+        ONBOARDING -->|Yes| RETURN_ROUTE["Returning-user route<br/>Observe the current Home / Library state.<br/>Observe any active playback service; do not restart it from UI routing."]
+        ONBOARDING -->|No| SLIDE1
+
+        SLIDE1["Onboarding - Slide 1<br/>Value: control user-authorized local music with fewer manual interactions."]
+        SLIDE1 --> SLIDE2["Onboarding - Slide 2<br/>Road-attention warning and Push-to-Talk.<br/>No account, streaming, or supplied-music claim."]
+        SLIDE2 --> ONBOARDING_ACTION{"Continue or Skip?"}
+        ONBOARDING_ACTION -->|Continue| MEDIA_ENTRY["Enter contextual media setup"]
+        ONBOARDING_ACTION -->|Skip| SKIP_ONBOARDING["Record onboarding completion locally<br/>Do not force microphone or notification access."]
+        SKIP_ONBOARDING --> MEDIA_ENTRY
+    end
+
+    subgraph MEDIA["B. MEDIA ACCESS AND SETTINGS RECOVERY - UF-02"]
+        direction TB
+
+        RECHECK{"Media access currently granted?<br/>Android permission state is authoritative."}
+        RECHECK -->|No| MEDIA_PURPOSE["Media-access explanation<br/>Explain access to supported audio already present on the device.<br/>One purpose; no coercive loop."]
+        MEDIA_PURPOSE --> MEDIA_DIALOG["Android media permission dialog<br/>System-owned surface"]
+        MEDIA_DIALOG --> MEDIA_RESULT{"Permission result"}
+
+        MEDIA_RESULT -->|Granted| SCAN_ENTRY
+        MEDIA_RESULT -->|Denied| MEDIA_DENIED["Denied<br/>Offer Retry and Not now.<br/>No crash or dead end."]
+        MEDIA_RESULT -->|Permanently Denied| MEDIA_PERMANENT["Permanently Denied<br/>Offer Open Android Settings only after explicit user action."]
+
+        MEDIA_DENIED --> DENIED_ACTION{"User choice"}
+        DENIED_ACTION -->|Retry| MEDIA_PURPOSE
+        DENIED_ACTION -->|Not now| EMPTY_NO_ACCESS["Home / Library - Empty<br/>Access unavailable<br/>Keep visible Retry / permission recovery."]
+
+        MEDIA_PERMANENT --> ANDROID_SETTINGS["Android Settings<br/>External system surface"]
+        ANDROID_SETTINGS -->|Return to app| RECHECK
+        RECHECK -->|Yes| SCAN_ENTRY["Continue blocked scan or reconciliation"]
+    end
+
+    subgraph LIBRARY["C. LOCAL SCAN AND LIBRARY READINESS - UF-03"]
+        direction TB
+
+        SCAN_MODE{"Select scan mode"}
+        SCAN_MODE -->|First consented setup or rebuild| INITIAL_SCAN["Initial scan"]
+        SCAN_MODE -->|Returning use, Rescan, change, move, deletion, or stale cleanup| INCREMENTAL_SCAN["Incremental reconciliation"]
+
+        INITIAL_SCAN --> SCANNING
+        INCREMENTAL_SCAN --> SCANNING
+
+        SCANNING["Home / Library - Scanning<br/>Visible truthful preparation state.<br/>UI remains responsive; no false Ready content."]
+        SCANNING --> SCAN_RESULT{"Scan / reconciliation result"}
+
+        SCAN_RESULT -->|Supported accessible files found| READY["Home / Library - Ready<br/>Verified accessible local media.<br/>Internal Songs, Artists, Albums, and Folders views."]
+        SCAN_RESULT -->|No supported accessible files| EMPTY["Home / Library - Empty<br/>Valid non-error state.<br/>Explain local-file requirement and offer Rescan."]
+        SCAN_RESULT -->|Recoverable scan or index failure| SCAN_ERROR["Recoverable scan failure<br/>Concise error and Retry.<br/>Never require reinstall as default recovery."]
+        SCAN_RESULT -->|Access lost or permission revoked| REVOKED["Reconcile inaccessible media<br/>Remove false playability and route to UF-02 recovery."]
+
+        EMPTY -->|Rescan| RECHECK
+        SCAN_ERROR -->|Retry| RECHECK
+        REVOKED -->|Recover access| RECHECK
+    end
+
+    subgraph EDUCATION["D. SIX-COMMAND EDUCATION AND JUST-IN-TIME MICROPHONE - UF-01 / UF-02"]
+        direction TB
+
+        EDUCATION_ENTRY["Six-command education<br/>PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST.<br/>View, skip, or replay later from Settings."]
+        EDUCATION_ENTRY --> PRACTICE{"Practice a command?"}
+        PRACTICE -->|No| NO_PRACTICE["Skip practice<br/>Do not request microphone access."]
+        PRACTICE -->|Yes - explicit action| MIC_PURPOSE["Voice-purpose explanation<br/>Microphone access is just-in-time."]
+        MIC_PURPOSE --> MIC_DIALOG["Android microphone permission dialog"]
+        MIC_DIALOG --> MIC_RESULT{"Microphone result"}
+
+        MIC_RESULT -->|Granted| CLOUD_CHECK{"Selected STT performs cloud processing?"}
+        MIC_RESULT -->|Denied| MANUAL["Manual controls preserved<br/>Local browsing and playback remain available."]
+        MIC_RESULT -->|Permanently Denied / unavailable| MIC_RECOVERY["Manual controls preserved<br/>Optional Android Settings recovery only outside active Driving Mode."]
+
+        CLOUD_CHECK -->|No| PRACTICE_START["Begin bounded command practice<br/>Detailed Voice execution and failure behavior belongs to UF-08 / UF-10."]
+        CLOUD_CHECK -->|Yes| CLOUD_CONSENT["Separate cloud-speech consent<br/>Disclose processing destination, purpose, and retention.<br/>Do not claim guaranteed offline STT."]
+        CLOUD_CONSENT -->|Accepted| PRACTICE_START
+        CLOUD_CONSENT -->|Declined| MANUAL
+
+        NO_PRACTICE --> HOME_RETURN
+        PRACTICE_START --> HOME_RETURN
+        MANUAL --> HOME_RETURN
+        MIC_RECOVERY --> HOME_RETURN
+
+        HOME_RETURN["Return to the current Home / Library state<br/>Ready or Empty with valid Rescan and permission recovery."]
+    end
+
+    RETURN_ROUTE --> RECHECK
+    MEDIA_ENTRY --> RECHECK
+    SCAN_ENTRY --> SCAN_MODE
+
+    READY -->|Offer education| EDUCATION_ENTRY
+    EMPTY -->|Offer education| EDUCATION_ENTRY
+    EMPTY_NO_ACCESS -->|Education remains available| EDUCATION_ENTRY
+
+    SOURCE_TRUTH["SOURCE-OF-TRUTH CONTRACT<br/>Android permission state = access authority<br/>MediaStore = accessible media existence and platform identity<br/>Local index = derived and rebuildable<br/>Telemetry = non-authoritative and never a recovery source"]
+
+    DEFERRED["DEFERRED BOUNDARY<br/>Notification permission is requested only after successful playback and background-control value exists.<br/>Exact Android 10 / 12 / 14+ behavior belongs to UF-06 and TS-01."]
+
+    PRIVACY["PRIVACY AND SCOPE<br/>No raw audio or full transcript by default.<br/>No personal titles, filenames, artists, albums, folders, URIs, paths, or library contents in telemetry.<br/>No account, backend, sync, catalog, streaming, upload, download, or forced cloud dependency."]
+
+    ENDPOINTS["VALID CLUSTER A ENDPOINTS<br/>Home / Library Ready<br/>Home / Library Empty with Rescan / recovery<br/>Denied with Retry / Not now<br/>Permanently Denied with Settings / recheck<br/>Recoverable startup or scan failure<br/>Reconciled revocation without false playability<br/>Microphone declined with manual controls preserved"]
+
+    GATES["OPEN EVIDENCE GATES<br/>TS-01: notification / foreground-media behavior<br/>TS-03: voice-provider availability, network dependence, consent, retention, and fallback<br/>TS-06: MediaStore permission changes, move / delete, incremental reconciliation, and rebuild<br/>Issue #2 / ADR register alignment remains required before final User Flow approval"]
+
+    SCANNING -. governed by .-> SOURCE_TRUTH
+    HOME_RETURN -. constrained by .-> DEFERRED
+    MIC_PURPOSE -. constrained by .-> PRIVACY
+
+    READY --> ENDPOINTS
+    EMPTY --> ENDPOINTS
+    EMPTY_NO_ACCESS --> ENDPOINTS
+    STARTUP_ERROR --> ENDPOINTS
+    SCAN_ERROR --> ENDPOINTS
+    REVOKED --> ENDPOINTS
+    HOME_RETURN --> ENDPOINTS
+    SOURCE_TRUTH -. evidence .-> GATES
+    DEFERRED -. evidence .-> GATES
+    PRIVACY -. evidence .-> GATES
+
+    classDef start fill:#EAF2FF,stroke:#3776D6,color:#1F2633,stroke-width:1.5px;
+    classDef process fill:#E1F9FA,stroke:#16BEC7,color:#1F2633,stroke-width:1.5px;
+    classDef decision fill:#FFF4D6,stroke:#C68817,color:#1F2633,stroke-width:1.5px;
+    classDef system fill:#F2EBFF,stroke:#7650C7,color:#1F2633,stroke-width:1.5px;
+    classDef data fill:#EEF1F5,stroke:#667085,color:#1F2633,stroke-width:1.5px;
+    classDef recovery fill:#FFE8E8,stroke:#C63B3B,color:#1F2633,stroke-width:1.5px;
+    classDef success fill:#EAF8EE,stroke:#2E8B4B,color:#1F2633,stroke-width:1.5px;
+    classDef note fill:#F4F7FB,stroke:#C7CED9,color:#1F2633,stroke-width:1.5px;
+
+    class FRESH,INCOMPLETE,REPLAY,RETURNING start;
+    class SPLASH,SLIDE1,SLIDE2,MEDIA_ENTRY,SKIP_ONBOARDING,MEDIA_PURPOSE,SCAN_ENTRY,SCANNING,EDUCATION_ENTRY,MIC_PURPOSE,PRACTICE_START,HOME_RETURN process;
+    class STARTUP,ONBOARDING,ONBOARDING_ACTION,RECHECK,MEDIA_RESULT,DENIED_ACTION,SCAN_MODE,SCAN_RESULT,PRACTICE,MIC_RESULT,CLOUD_CHECK decision;
+    class MEDIA_DIALOG,ANDROID_SETTINGS,MIC_DIALOG system;
+    class INITIAL_SCAN,INCREMENTAL_SCAN,SOURCE_TRUTH data;
+    class STARTUP_ERROR,MEDIA_DENIED,MEDIA_PERMANENT,SCAN_ERROR,REVOKED,MANUAL,MIC_RECOVERY recovery;
+    class READY,EMPTY,EMPTY_NO_ACCESS,NO_PRACTICE,ENDPOINTS success;
+    class RETURN_ROUTE,CLOUD_CONSENT,DEFERRED,PRIVACY,GATES note;
+
+    style ENTRY fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style ENTRY_STATES fill:transparent,stroke:#D8DEE8,stroke-width:1px
+    style MEDIA fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style LIBRARY fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style EDUCATION fill:transparent,stroke:#C7CED9,stroke-width:1px
