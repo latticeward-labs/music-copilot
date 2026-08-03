@@ -48,6 +48,12 @@ flowchart TB
     SKIP_PRACTICE -->|Ready| READY
     SKIP_PRACTICE -->|Empty| EMPTY
 
+    RULES["FIXED RULES & VALID ENDPOINTS<br/>Two value slides; onboarding is skippable and replayable.<br/>Media permission is explained before the first scan.<br/>Microphone permission is requested only on explicit practice or the first real microphone action.<br/>Notification permission is deferred until playback/background-control value exists (UF-06 / TS-01).<br/>No account, backend, sync, catalog, streaming, upload, download, or forced cloud dependency.<br/>Valid endpoints: Home / Library Ready; Home / Library Empty with recovery; permission recovery; startup recovery; microphone declined with manual controls preserved."]
+
+    READY ~~~ RULES
+    EMPTY ~~~ RULES
+    MANUAL ~~~ RULES
+
     classDef start fill:#EAF2FF,stroke:#3776D6,color:#1F2633,stroke-width:1.5px;
     classDef state fill:#E1F9FA,stroke:#16BEC7,color:#1F2633,stroke-width:1.5px;
     classDef decision fill:#FFF4D6,stroke:#C68817,color:#1F2633,stroke-width:1.5px;
@@ -56,6 +62,7 @@ flowchart TB
     classDef route fill:#EEF1F5,stroke:#667085,color:#1F2633,stroke-width:1.5px;
     classDef handoff fill:#F2EBFF,stroke:#7650C7,color:#1F2633,stroke-width:1.5px;
     classDef terminal fill:#EAF8EE,stroke:#2E8B4B,color:#1F2633,stroke-width:1.5px;
+    classDef note fill:#F4F7FB,stroke:#C7CED9,color:#1F2633,stroke-width:1.5px;
 
     class FRESH,INCOMPLETE,REPLAY start;
     class SPLASH,SLIDE1,SLIDE2,EDUCATION state;
@@ -65,4 +72,5 @@ flowchart TB
     class RETURNING,READINESS_RETURN route;
     class HANDOFF handoff;
     class READY,EMPTY,MANUAL terminal;
+    class RULES note;
 ```
