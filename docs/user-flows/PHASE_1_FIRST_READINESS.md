@@ -59,6 +59,7 @@ Issue #3 remains open. UF-04 through UF-13 are not complete, and the complete Us
 - Optional practice and just-in-time microphone permission.
 - Microphone denial with manual controls preserved.
 - Notification permission deferred to UF-06 / TS-01.
+- Cloud-speech consent and truthful provider disclosure remain explicitly routed to TS-03 before any cloud-processed Voice session.
 
 ## 4. Fixed behavior
 
@@ -76,6 +77,8 @@ Issue #3 remains open. UF-04 through UF-13 are not complete, and the complete Us
 12. No account, backend, sync, catalog, streaming, upload, download, or forced cloud dependency exists.
 13. No raw audio or personal media metadata is added to telemetry.
 14. Cluster A introduces no new analytics events because the current allowlist does not define them.
+15. If the selected STT provider performs cloud processing, separate consent must disclose the processing destination, purpose, and retention before the first cloud-processed session.
+16. Product copy must not claim guaranteed offline speech recognition without validated provider evidence.
 
 ## 5. Valid endpoints
 
@@ -95,12 +98,14 @@ Issue #3 remains open. UF-04 through UF-13 are not complete, and the complete Us
 | FR-01 local scan and library views | UF-01, UF-02, UF-03 |
 | US-01 permission timing and recovery | UF-01, UF-02 |
 | US-02 account-free scan and incremental index | UF-01, UF-03 |
+| Voice-provider privacy and truthful disclosure | UF-01, UF-02; TS-03 evidence remains open |
 | Privacy principles | UF-01 through UF-03 |
 | Accessibility requirements | UF-01 through UF-03 |
 
 ## 7. Open gates
 
 - TS-01: notification and foreground media behavior across Android versions.
+- TS-03: voice-provider availability, language support, network dependence, processing destination, separate cloud-speech consent, retention disclosure, and fallback behavior.
 - TS-06: permission, scoped storage, move/delete, and reconciliation evidence.
 - Issue #2 and ADR register alignment before full User Flow approval.
 - UF-04 through UF-13 completion.
