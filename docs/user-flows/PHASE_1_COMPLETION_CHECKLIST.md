@@ -17,10 +17,12 @@
 ## Required behavior
 
 - [x] Two-slide value introduction.
+- [x] The introduction includes explicit road-attention copy without claiming that Music Copilot makes driving safe.
 - [x] Onboarding Continue, Skip, and replay.
 - [x] Media explanation and permission before first scan.
 - [x] Media Granted, Denied, and Permanently Denied.
 - [x] Retry, Not now, Android Settings, return, and recheck.
+- [x] Six-command education covers `PLAY`, `PAUSE`, `NEXT`, `PREVIOUS`, `SEEK_BACK`, and `PLAY_ARTIST`.
 - [x] Microphone permission only after explicit action.
 - [x] Microphone denial preserves manual controls.
 - [x] Notification permission deferred to UF-06 / TS-01.
@@ -47,6 +49,8 @@
 - [x] Local index is derived and rebuildable.
 - [x] No raw audio or personal media metadata added to telemetry.
 - [x] No new Cluster A analytics event invented outside the current allowlist.
+- [x] Cloud STT, if selected, requires separate consent and disclosure of processing destination, purpose, and retention before use.
+- [x] No guaranteed-offline STT claim is made without validated provider evidence.
 - [x] Recovery controls are explicitly labeled.
 - [x] Scalable text and TalkBack requirements are recorded.
 - [x] State meaning does not rely on color alone.
@@ -54,6 +58,7 @@
 ## Open evidence gates
 
 - [ ] TS-01 notification/foreground-media behavior validated on Android 10, 12, and 14+.
+- [ ] TS-03 voice-provider availability, language support, network dependence, processing destination, consent, retention, and fallback validated.
 - [ ] TS-06 permission/scoped-storage/move/delete/reconciliation matrix validated.
 - [ ] Issue #2 and ADR register aligned.
 - [ ] Remaining flow clusters completed.
