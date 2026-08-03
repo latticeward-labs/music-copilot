@@ -8,62 +8,88 @@
 - **Beta language:** English, with a localization-ready structure
 - **Companion:** [MVP v1.0](MVP.md)
 
-This Markdown document is the repository version of the approved PRD v1.0. It contains the product information defined in the approved Persian PRD and does not introduce later-version scope.
+> **Authoritative source:** the attached English **Music Copilot Product Requirements Document v1.0**. This Markdown file is a concise repository representation of that English source. It must not expand, reinterpret, or override the approved English PRD. Delivery details, acceptance criteria, and the build plan belong to the English MVP document.
 
 ## 1. Executive decision
 
-Music Copilot v1.0 is an Android application for playing local music and controlling it through push-to-talk while driving.
+Music Copilot v1.0 is an Android application for playing user-authorized local music and controlling it through Push-to-Talk while driving.
 
-The goal is to validate whether voice interaction reduces the touches required for frequent music actions and whether users return to Driving Mode. The first version focuses only on Android, lawful local files, a stable player, a driving interface and six voice commands. Public streaming, iOS, accounts and conversational AI are outside the version.
+The goal is to validate whether voice interaction reduces the touches required for frequent music actions and whether users return to Driving Mode. Version One focuses on Android, local files, a stable player, Driving Mode, and six English voice commands. General streaming, iOS, accounts, and conversational AI are outside the version.
+
+### Version specification
+
+| Component | Decision | Rationale |
+|---|---|---|
+| Platform | Android 10+ | Better access to local files and a shorter validation timeline |
+| Interface language | English in Beta; localization-ready structure | Aligned with the initial market and limited command set |
+| Voice input | Push-to-Talk | Controls battery use and protects privacy |
+| Music source | User-authorized local files | Removes streaming-license risk from the first experiment |
+| Release model | Closed Beta | Controlled measurement on real phones and in real cars |
 
 ### Primary user
 
-A driver who:
+A daily driver who:
 
-- drives at least 30 minutes per day;
+- drives 30-90 minutes per day;
 - regularly connects a phone to vehicle Bluetooth;
-- has local music on the device;
-- wants fast control without navigating menus;
+- keeps local music on the device;
+- needs fast control without menu navigation;
 - has basic familiarity with voice commands.
 
-Streaming-only listeners are not representative of the first Beta; this sampling bias must be recorded.
+### Job to be done
+
+When I am driving, I want to control music with the least possible looking and touching, so the listening flow is not interrupted and my attention returns to the road quickly.
+
+### Secondary users
+
+- Ride-hailing driver
+- User with limited mobility
+- Road-trip passenger
+- Local-file enthusiast
+
+Users who rely exclusively on streaming services are not representative candidates for the first Beta. This sampling bias must be recorded when results are analyzed.
 
 ### Product promise
 
-Control your music while driving with one tap and one sentence.
+Control your music while driving with one touch and one sentence.
 
 ### Success definition
 
 - Direct-command success: at least 85%
 - Manual correction after a command: under 15%
 - Driving Mode reuse: at least 50% of Beta users
-- Voice-response P95: under 2.5 seconds after end of speech
-- Weekly return: at least 30%
-- Serious wrong-command execution: under 3%
-- Crash-free sessions: at least 99%
+- Voice-response P95: under 2.5 seconds after the end of speech
 
-## 2. Problem, opportunity and differentiation
+## 2. Problem, opportunity, and differentiation
 
-Changing tracks, seeking backward or playing an artist can require looking at the screen, multiple touches and menu navigation. In a vehicle, this small friction becomes distraction.
+Changing tracks, seeking backward, or playing an artist can require looking at the screen, multiple touches, and menu navigation. In a vehicle, that small friction becomes distraction.
 
-Version-one differentiation:
+| Need | Current barrier | Product response |
+|---|---|---|
+| Change tracks quickly | Finding a button or opening the app | Large controls and direct commands |
+| Play an artist | Typing and selecting a result | Voice search in the local library |
+| Control with weak internet | Dependence on a cloud service | Base intents and local player |
+| Trust the command | Wrong execution or a long response | Ambiguity confirmation and one-sentence reply |
 
-- **Voice-first, not Voice-added:** Voice is central to the Driving flow.
-- **Restricted and predictable:** a small intent set replaces open conversation.
-- **Local-first:** core commands work without internet; raw voice is not stored by default.
-- **Measurable:** command success, response time, manual correction and repeat use inform the next decision.
-- **One glance, one decision:** Driving Mode shows essential information and four primary controls.
-- **Short response:** TTS returns at most one sentence.
-- **Direct execution:** certain commands execute without an intermediate screen.
-- **Safe return:** failure does not destabilize the player and manual controls remain one touch away.
+Version One differentiation:
 
-## 3. Core journeys
+- **Voice-first, not voice-added:** Voice is central to the Driving flow.
+- **Limited and reliable:** A small intent set replaces open conversation.
+- **Local-first:** Core commands remain available without the internet; raw voice is not stored by default.
+- **Measurable:** Command success, response time, manual correction, and repeat use inform the next-version decision.
 
-### First use
+## 3. Experience principles and core journeys
 
-Two-slide value introduction -> file and microphone permissions -> local-library scan -> six-command education -> ready Home.
+- **One glance, one decision:** Driving Mode shows only essential information and four primary controls.
+- **Short response:** TTS announces the result in no more than one sentence.
+- **Direct execution:** A certain command executes without an intermediate screen; only ambiguity requires confirmation.
+- **Safe recovery:** On error, the player does not stop or break, and manual control remains reachable with one touch.
 
-### Driving voice command
+### First-use flow
+
+Two-slide value introduction -> file and microphone permissions -> local-library scan -> six-command tutorial -> Home ready to play.
+
+### Driving command flow
 
 Driving Mode -> microphone tap -> spoken command -> intent detection -> execution and short response.
 
@@ -74,171 +100,169 @@ Driving Mode -> microphone tap -> spoken command -> intent detection -> executio
 | Certain command | Execute immediately | “Playing Adele.” |
 | Two similar results | Ask one short question | “Did you mean Adele or Adèle?” |
 | Unclear speech | Ask once to repeat | “Please say that again.” |
-| Not available locally | Preserve current playback | “I couldn't find that in your library.” |
+| No local match | Preserve current playback | “I couldn't find that in your library.” |
 
 ## 4. Scope
 
 ### In scope
 
 - Android 10+
-- Scan and search supported local audio
-- Songs, artists, albums and folders
-- Play, pause, next, previous, seek and queue
-- Background, lock-screen and Bluetooth playback/control
-- Push-to-talk and Driving Mode
+- Scan and search supported local audio files
+- Play, pause, next, previous, and seek
+- Background, lock-screen, and Bluetooth playback/control
+- Driving Mode and Push-to-Talk
 - Six English voice commands
-- Short local playback history
-- Simple Like/Liked Songs, subject to P2 priority
-- Privacy-safe telemetry and non-sensitive crash reporting
-- Closed Beta
+- Short playback history and simple Liked Songs
+- Non-sensitive telemetry and crash reporting
 
 ### Out of scope
 
+- iOS, Android Auto, and CarPlay
 - Online streaming and downloads
-- Registration, account, backend, cloud sync
-- iOS, Android Auto and CarPlay
-- Equalizer, crossfade and DSP
-- Persistent wake word
-- Multi-step conversational commands
+- Sign-up, backend, and sync
+- Equalizer, crossfade, and DSP
+- Always-on wake word
+- Multi-turn conversational commands
 - Song or humming recognition
 - Advanced playlists and social features
-- Public upload, music distribution or online catalog
 
-The app plays only lawful audio already present on the user's device.
+A new capability enters Version One only when it directly tests a Beta hypothesis or removes a blocker to reliable journey execution.
 
-## 5. Priority and functional requirements
+## 5. P0 voice commands
+
+| Intent | Example command | Behavior |
+|---|---|---|
+| PLAY / PAUSE | Play / Pause | Control the player |
+| NEXT | Next song | Move to the next track |
+| PREVIOUS | Previous song | Previous track or start of current track |
+| SEEK_BACK | Go back 10 seconds | Seek backward 10 seconds |
+| PLAY_ARTIST | Play songs by Adele | Play the best local match |
+
+## 6. Functional requirements
 
 | ID | Priority | Requirement |
 |---|---|---|
-| FR-01 | P0 | With user consent, scan supported audio and present it by song, album, artist and folder. |
-| FR-02 | P0 | Continue playback in background and with screen off, while updating Media Session state. |
-| FR-03 | P0 | Handle calls, headset disconnect and audio-route changes without crash, using logical pause/resume behavior. |
-| FR-04 | P0 | Driving Mode shows title, artist, artwork and four large controls. |
-| FR-05 | P0 | A microphone tap ducks music, starts STT and maps the result to the restricted intent set. |
+| FR-01 | P0 | With user consent, scan supported audio files and display them by track, album, artist, and folder. |
+| FR-02 | P0 | Continue playback in the background and with the screen off, while updating the system Media Session. |
+| FR-03 | P0 | Handle phone calls, headphone disconnection, and Audio Route changes without crashes and with sensible Pause/Resume behavior. |
+| FR-04 | P0 | Driving Mode displays title, artist, artwork, and four large controls. |
+| FR-05 | P0 | When the microphone is tapped, music volume ducks, STT starts, and the result maps to the limited intents. |
 | FR-06 | P0 | A certain intent executes directly; an ambiguous intent is confirmed before execution. |
-| FR-07 | P1 | The user can activate Driving Mode manually or receive a suggestion when the selected Bluetooth device connects. |
-| FR-08 | P1 | Preserve queue and track position after the UI closes. |
-| FR-09 | P2 | Let the user Like a track and play a simple Liked Songs list. |
+| FR-07 | P1 | The user can activate Driving Mode manually or receive a suggestion when a selected Bluetooth device connects. |
+| FR-08 | P1 | Preserve playback queue and track position after the UI closes. |
+| FR-09 | P2 | Let the user Like a track and play it from a simple Liked Songs screen. |
 
-New scope enters only when it directly tests an MVP hypothesis or blocks reliable execution.
+## 7. Version screens
 
-## 6. Voice contract
+The English PRD names these Version One screens:
 
-State model:
+1. Splash
+2. Onboarding
+3. Permissions
+4. Home
+5. Library
+6. Search
+7. Full Player
+8. Driving Mode
+9. Voice State
+10. Settings
 
-`Idle -> Listening -> Processing -> Confirming -> Executed | Failed`
+Detailed required states and delivery acceptance are maintained in the English MVP and downstream User Flow artifacts.
 
-| Intent | Example | Result |
-|---|---|---|
-| PLAY | “Play”, “Resume” | Start or resume playback |
-| PAUSE | “Pause”, “Stop music” | Pause playback |
-| NEXT | “Next”, “Next song” | Move to the next track |
-| PREVIOUS | “Previous song” | Previous track or start of current track |
-| SEEK_BACK | “Go back 10 seconds” | Seek back 10 seconds, clamped at zero |
-| PLAY_ARTIST | “Play songs by Adele” | Play the best local artist match |
+## 8. Non-functional, accessibility, and safety requirements
 
-Rules:
-
-- Push-to-talk only; no wake word.
-- Playback ducks during Listening.
-- Listening timeout is at most six seconds.
-- Retry is allowed once.
-- A certain intent executes directly.
-- Low confidence or multiple matches require one short confirmation.
-- Artist matching uses normalization, fuzzy matching and playback-history priority.
-- TTS is at most one short sentence.
-- Intent and execution result may be logged; raw audio is not stored.
-- Confidence threshold may use simple Remote Config or Build Config.
-- If cloud STT is used, separate consent plus transparent disclosure of processing destination and retention is required.
-
-## 7. Required screens and states
-
-1. Splash - Loading, Migration Error
-2. Onboarding - First Run, Skip
-3. Permissions - file, microphone and notification; Granted, Denied, Permanently Denied
-4. Home / Library - Scanning, Empty, Ready
-5. Search - Result, No Result, Error
-6. Full Player - Playing, Paused, Corrupt File
-7. Driving Mode - Playing, Paused, No Track
-8. Voice Overlay - Listening, Confirm, Failed
-9. Liked Songs - Empty, Ready
-10. Settings - data, Bluetooth and Privacy; Default, Updated
-
-Driving Mode uses one layer, high contrast, readable typography, limited motion and touch targets of at least 48dp. It contains no typing, deep navigation or long result lists.
-
-## 8. Non-functional, accessibility and safety requirements
-
-### Performance and stability
+### Performance
 
 - Local-command P95: under 1 second
-- Voice-response P95: under 2.5 seconds after end of speech
-- Smooth scrolling with 5,000 files
-- Crash-free sessions: at least 99%
-- Serious player errors: under 1 per 100 sessions
-- Recover from a corrupt file without stopping the whole queue
-- Incremental library scan
-- No unnecessary wake lock
-- Microphone only after user action
+- Voice-command P95: under 2.5 seconds after the end of speech
+- Smooth scrolling for 5,000 files
 
-### Accessibility and driving
+### Stability
+
+- At least 99% crash-free journeys
+- Fewer than one critical player error per 100 sessions
+- Recover from a corrupt file without stopping the entire queue
+
+### Resource use
+
+- Microphone activates only after user action
+- No unnecessary Wake Lock
+- Incremental library scanning
+
+### Accessibility
 
 - Minimum 48dp touch target
-- Suitable contrast and scalable text
+- Sufficient contrast and scalable text
 - Complete TalkBack labels
-- Short messages and fixed controls
+
+### Driving-experience safety
+
 - No typing or deep navigation in Driving Mode
-- No long result list while driving
-- No claim that the product makes driving safe
-- Clear warning that road attention remains the driver's responsibility
+- Short messages and fixed controls
+- No long result lists while moving
+- No claim of “safe driving”; the product only reduces interaction
+- Clear warning that responsibility for attention to the road remains with the driver
 
-A serious wrong command, crash or audio-route behavior that creates serious distraction stops Beta release until fixed.
+If an incorrect command execution, crash, or Audio Route behavior creates serious distraction, Beta release is paused until the issue is resolved.
 
-## 9. Data, privacy and measurement
+## 9. Data, privacy, and measurement
 
-Principles:
+### Principles
 
 - Collect only data required for quality and hypothesis measurement.
-- Request microphone permission when needed and explain it clearly.
-- Let the user clear history and diagnostic data.
-- Do not store or send raw voice by default.
-- If cloud STT is used, disclose processing destination and retention and obtain separate consent.
+- Request microphone permission only when needed and explain it clearly.
+- Let the user delete history and diagnostic data.
+- Do not store or transmit raw audio by default.
+- If cloud STT is used, obtain separate consent and disclose the processing destination and retention period.
 
-Required events:
+### Metrics
+
+| Metric | Beta target | Type |
+|---|---:|---|
+| Successful driving session with at least one voice command | At least 50% of weekly users | North Star |
+| Direct-command success | At least 85% | Quality |
+| Manual correction after a command | Less than 15% | Friction |
+| Incorrect command execution | Less than 3% | Guardrail |
+| Weekly return | At least 30% | Retention |
+| Driving Mode reuse | At least 50% | Value |
+
+### Required events
 
 `driving_mode_started`, `voice_button_pressed`, `intent_detected`, `intent_failed`, `command_executed`, `manual_correction`, `player_error`, `session_completed`.
 
-Do not collect raw audio, full titles of personal files, precise location, contacts or unnecessary identifiers.
+Do not collect raw audio, full titles of personal files, precise location, contacts, or unnecessary identifiers.
 
 ## 10. Proposed technology and architecture
 
-- Kotlin + Jetpack Compose + Media3
-- Coroutines/Flow
-- Hilt
-- Media3/ExoPlayer for playback, queue, Media Session and Audio Focus
-- MediaStore for local audio discovery
-- Room + DataStore for library index, Like, settings and session data
-- Android STT/TTS + restricted Intent Mapper
-- Privacy-safe crash reporting and analytics
-- No backend in version one; primary data remains on-device
-- Kotlin Multiplatform is deferred until after Android validation
-- Voice Provider stays behind an interface
-- Player is independent of UI lifecycle and managed in a service
-- Logical boundaries: UI, Domain, Playback, Voice and Data
+| Layer | Proposed choice | Responsibility |
+|---|---|---|
+| UI | Jetpack Compose | Screens, Driving Mode, and Voice states |
+| Playback | Media3 / ExoPlayer | Playback, Media Session, queue, and Audio Focus |
+| Local Data | Room + DataStore | Library index, Likes, settings, and session state |
+| Voice | Android STT/TTS + Intent Mapper | Speech conversion, limited classification, and response |
+| DI | Hilt | Dependency separation and testability |
+| Quality | Crash reporting + privacy-safe analytics | Beta stability and measurement |
 
-These are proposed implementation directions in v1.0 and require technical planning before they become accepted ADRs.
+Logical boundary: `UI -> Domain -> Playback -> Voice -> Data`.
 
-## 11. Risks, rollout and decision
+- There is no backend in Version One; primary data remains on-device.
+- Kotlin Multiplatform is deferred until Android value is proven.
+- The Voice Provider stays behind an interface so the STT provider can be replaced.
+- The player is independent of the UI lifecycle and managed in a Service.
+- Product-scope changes require PRD/MVP approval; provider or library replacements require architecture review while preserving locked v1.0 constraints.
+
+## 11. Risks, rollout, and next decision
 
 | Risk | Severity | Mitigation |
 |---|---|---|
-| Low artist-name accuracy in road noise | High | Restricted intents, confidence, confirmation and vehicle tests |
-| Player/audio-route instability | High | Media3, device matrix and call/Bluetooth scenarios |
-| Too few local-file users | High | Screen Beta users and validate a legal service connection in Discovery |
-| Scope growth | Medium | Lock P0 and use a formal gate for changes |
-| Voice privacy concern | Medium | Push-to-talk, no raw storage and clear explanation |
+| Low artist-name accuracy in road noise | High | Limited intents, confidence threshold, ambiguity confirmation, and in-car testing |
+| Player and Audio Route instability | High | Media3, device matrix, and call/Bluetooth scenarios |
+| Too few local files in the target market | High | Beta-user screening and validation of a legal service-integration path during Discovery |
+| Scope expansion | Medium | P0 lock and a formal gate for every change |
+| Voice privacy concerns | Medium | Push-to-Talk, no raw storage, and transparent explanation |
 
-Rollout: 10-user prototype -> internal Alpha -> 50-driver Closed Beta -> GO / ITERATE / STOP.
+Rollout: 10-user Prototype -> internal Alpha -> 50-driver Closed Beta -> GO / ITERATE / STOP Decision Gate.
 
-- **GO:** quality, repeat use and reduced touches meet targets; begin discovery for one legal music-service connection and iOS.
-- **ITERATE:** value is visible but accuracy or stability is low; run one technical correction cycle.
-- **STOP:** users do not return or Voice adds no material value over manual control.
+- **GO:** Quality, repeat use, and reduced touching meet targets; begin evaluating one licensed-service integration and iOS.
+- **ITERATE:** Value is visible but accuracy or stability is low; run one technical-improvement cycle.
+- **STOP:** Users do not return after initial novelty, or Voice provides no meaningful advantage over manual control.
