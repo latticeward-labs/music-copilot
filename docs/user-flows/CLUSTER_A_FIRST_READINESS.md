@@ -57,7 +57,9 @@ A lower-ranked source may narrow an implementation choice but may not add produc
 12. Six-command education may be viewed, skipped, or replayed.
 13. Microphone permission is requested only after explicit practice or a real microphone tap.
 14. Microphone denial preserves manual browsing and playback.
-15. Notification permission remains deferred until playback/background-control value exists and is finalized in UF-06/TS-01.
+15. If the selected STT provider performs cloud processing, separate consent and disclosure of processing destination, purpose, and retention are required before the first cloud-processed session.
+16. The product must not claim guaranteed offline speech recognition without validated provider evidence.
+17. Notification permission remains deferred until playback/background-control value exists and is finalized in UF-06/TS-01.
 
 ## Valid endpoints
 
@@ -89,6 +91,7 @@ A lower-ranked source may narrow an implementation choice but may not add produc
 | FR-01 - consented local scan and library views | UF-01, UF-02, UF-03 | Media permission before scan; MediaStore authority; Scanning/Empty/Ready/recovery |
 | US-01 - understandable permission timing and recovery | UF-01, UF-02 | Contextual explanations; Denied/Permanent; Settings return recheck |
 | US-02 - account-free local scan and incremental index | UF-01, UF-03 | No account/backend; initial and incremental scan; derived rebuildable index |
+| Voice-provider privacy boundary | UF-01, UF-02 | Just-in-time microphone; separate cloud-speech consent and truthful provider disclosure; TS-03 remains open |
 | Privacy principles | UF-01 through UF-03 | Just-in-time microphone; no raw audio or personal media telemetry |
 | Accessibility | UF-01 through UF-03 | Labeled recovery, scalable text, TalkBack order, no color-only meaning |
 
@@ -102,6 +105,8 @@ A lower-ranked source may narrow an implementation choice but may not add produc
 - The local index is derived and rebuildable.
 - Microphone access starts only after explicit user action.
 - Manual controls remain available after voice denial/failure.
+- If cloud STT is used, separate consent plus transparent disclosure of processing destination, purpose, and retention are required before use.
+- Local-first must not be presented as guaranteed offline speech recognition without validated provider evidence.
 - No raw audio, full transcript, personal title, filename, artist, album, folder, URI, path, location, contacts, or unnecessary identifier in telemetry/logging.
 - No new Cluster A analytics events are introduced because the Phase 0 allowlist does not define them.
 
@@ -116,6 +121,7 @@ A lower-ranked source may narrow an implementation choice but may not add produc
 - [x] Onboarding is skippable and replayable.
 - [x] Microphone permission is just-in-time.
 - [x] Notification permission is deferred to UF-06/TS-01.
+- [x] Cloud STT consent/disclosure and no-guaranteed-offline-copy boundaries are recorded; TS-03 evidence remains open.
 - [x] Permission revocation and stale-index reconciliation covered.
 - [x] Scanning, Empty, Ready, recoverable failure, and permission-recovery endpoints covered.
 - [x] P0 scope is visible and no v1.1 capability was introduced.
@@ -125,19 +131,20 @@ A lower-ranked source may narrow an implementation choice but may not add produc
 
 ## Review and approval record
 
-- **Product Owner:** approved the Phase 1 behavior and execution instruction on 01 August 2026.
+- **Product Owner:** the 01 August 2026 direction for Cluster A drafting and review has been incorporated; this is not final approval of the complete User Flow set.
 - **Product Design:** Cluster A diagrams, state inventory, and traceability completed in Figma.
-- **Android Engineering:** preliminary constraints recorded; formal evidence remains required for TS-01 and TS-06.
+- **Android Engineering:** preliminary constraints recorded; formal evidence remains required for TS-01, TS-03, and TS-06.
 - **QA:** required denial, Settings, scan, Empty/Ready, revocation, and recovery scenarios are recorded.
-- **Privacy:** microphone, cloud-consent, telemetry, and personal-media boundaries are preserved.
+- **Privacy:** microphone, cloud-consent, telemetry, personal-media, and truthful-provider-disclosure boundaries are preserved; TS-03 evidence remains open.
 
 ## Open gates
 
 1. Issue #2 and the ADR register must align on explicit reviewed outcomes before the complete User Flow set is marked Approved.
 2. TS-01 must validate notification and foreground media behavior across Android versions.
-3. TS-06 must validate permission, scoped-storage, move/delete, and reconciliation behavior.
-4. UF-04 through UF-13 remain to be drafted and reviewed.
-5. Issue #15 low-fidelity Wireframes, Issue #16 final Software Architecture, and implementation remain outside this approval.
+3. TS-03 must validate voice-provider availability, language support, network dependence, processing destination, separate cloud-speech consent, retention disclosure, and fallback behavior.
+4. TS-06 must validate permission, scoped-storage, move/delete, and reconciliation behavior.
+5. UF-04 through UF-13 remain to be drafted and reviewed.
+6. Issue #15 low-fidelity Wireframes, Issue #16 final Software Architecture, and implementation remain outside this approval.
 
 ## Exit decision
 
