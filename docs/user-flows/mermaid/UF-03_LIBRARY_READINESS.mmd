@@ -7,9 +7,10 @@ flowchart TB
     end
 
     A{"Media access granted?\nRecheck Android permission state before scanning."}
+    R0{"Returning-state decision\nIs a verified current Home / Library state already available?"}
     B{"Select scan mode"}
     B1["Initial scan\nFirst consented setup or rebuild"]
-    B2["Incremental reconciliation\nReturning use, Rescan, metadata change, move, deletion, or stale-entry cleanup"]
+    B2["Incremental reconciliation\nRequired returning work, Rescan, metadata change, move, deletion, or stale-entry cleanup"]
     C["Home / Library - Scanning\nVisible preparation\nUI remains responsive\nDo not display fabricated Ready content\nExisting index data is not treated as current playable truth without accessibility checks"]
     D{"Result decision"}
 
@@ -32,7 +33,11 @@ flowchart TB
 
     S0 --> A
     A -->|No| R3
-    A -->|Yes| B
+    A -->|Yes| R0
+    R0 -->|Ready and current| E
+    R0 -->|Empty and current| F
+    R0 -->|Unknown, stale, interrupted, or reconciliation required| B
+    R0 -->|Recoverable index or migration problem| G
     B -->|Initial| B1
     B -->|Incremental| B2
     B1 --> C
@@ -76,7 +81,7 @@ flowchart TB
     classDef note fill:#EEF1F5,stroke:#667085,color:#1F2633,stroke-width:1.5px;
 
     class S0,B1,B2,R1 action;
-    class A,B,D decision;
+    class A,R0,B,D decision;
     class C,N1,N2,N3 process;
     class E,F,T1 success;
     class G,H,R2,R3,R4,T2 recovery;
