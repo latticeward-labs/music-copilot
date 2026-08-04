@@ -13,10 +13,11 @@ flowchart TB
         A_RETRY["Retry<br/>Request again only after user action; no coercive loop."]
         A_NOT_NOW["Not now<br/>Route to Home / Library Empty with media-access recovery."]
 
-        A_PERMANENT["Permanently Denied<br/>Expose Open Android Settings after explicit user action."]
+        A_PERMANENT["Permanently Denied<br/>Explain recovery without opening Android Settings automatically."]
+        A_PERMANENT_ACTION{"User choice"}
         A_SETTINGS["Android Settings<br/>External system surface; the user may grant access or leave it denied."]
         A_RECHECK{"Return to app - permission recheck"}
-        A_STILL_DENIED["Still denied<br/>Return to explanation / Retry / manual Empty state."]
+        A_STILL_PERMANENT["Still Permanently Denied<br/>Keep Open Settings and Not now available; do not loop automatically."]
         A_GRANTED_AFTER["Granted after recheck<br/>Resume the blocked scan or action."]
 
         A_EXPLAIN -->|Continue| A_DIALOG
@@ -30,11 +31,14 @@ flowchart TB
         A_RETRY -->|Request again| A_DIALOG
         A_DENIED -->|Not now| A_NOT_NOW
 
-        A_PERMANENT -->|Open Settings| A_SETTINGS
+        A_PERMANENT --> A_PERMANENT_ACTION
+        A_PERMANENT_ACTION -->|Open Android Settings| A_SETTINGS
+        A_PERMANENT_ACTION -->|Not now| A_NOT_NOW
         A_SETTINGS -->|Return| A_RECHECK
         A_RECHECK -->|Granted| A_GRANTED_AFTER
-        A_RECHECK -->|Still denied| A_STILL_DENIED
-        A_STILL_DENIED -->|Retry path| A_RETRY
+        A_RECHECK -->|Denied - requestable| A_DENIED
+        A_RECHECK -->|Still permanently denied| A_STILL_PERMANENT
+        A_STILL_PERMANENT --> A_PERMANENT_ACTION
     end
 
     subgraph B["B / MICROPHONE - JUST IN TIME"]
@@ -46,13 +50,17 @@ flowchart TB
         B_RESULT{"Permission result?"}
 
         B_GRANTED["Granted<br/>Continue toward a bounded Voice session."]
-        B_DENIED["Denied<br/>Return immediately to manual controls; playback remains available."]
-        B_PERMANENT["Permanently Denied<br/>Settings may be offered only outside active Driving Mode."]
+        B_DENIED["Denied - requestable<br/>Offer Retry or Not now; manual controls and playback remain available."]
+        B_DENIED_ACTION{"User choice"}
+        B_PERMANENT["Permanently Denied<br/>Explain recovery; never open Settings automatically."]
+        B_PERMANENT_ACTION{"User choice<br/>Outside active Driving Mode only"}
         B_DRIVING{"Active Driving Mode?"}
         B_SETTINGS["Android Settings<br/>Open only from a non-driving surface after explicit user action."]
         B_RECHECK{"Return to app - microphone recheck"}
 
-        B_PROVIDER{"Selected speech provider uses cloud processing?"}
+        B_PROVIDER_AVAILABLE{"Selected speech provider available?"}
+        B_PROVIDER_UNAVAILABLE["Provider unavailable<br/>Preserve playback and return to manual controls; do not misreport a permission failure."]
+        B_PROVIDER{"Available provider uses cloud processing?"}
         B_CLOUD["Separate cloud-speech consent<br/>Disclose processing destination, purpose, and retention before use."]
         B_SESSION["Bounded Voice session<br/>Push-to-Talk only; detailed Listening / Processing / failure behavior belongs to UF-08 / UF-10."]
         B_MANUAL["Manual fallback<br/>Local browsing and playback remain usable without Voice."]
@@ -62,18 +70,26 @@ flowchart TB
         B_DIALOG --> B_RESULT
 
         B_RESULT -->|Granted| B_GRANTED
-        B_RESULT -->|Denied| B_DENIED
+        B_RESULT -->|Denied - requestable| B_DENIED
         B_RESULT -->|Permanently Denied| B_PERMANENT
 
-        B_DENIED --> B_MANUAL
+        B_DENIED --> B_DENIED_ACTION
+        B_DENIED_ACTION -->|Retry| B_EXPLAIN
+        B_DENIED_ACTION -->|Not now| B_MANUAL
         B_PERMANENT --> B_DRIVING
         B_DRIVING -->|Yes| B_MANUAL
-        B_DRIVING -->|No| B_SETTINGS
+        B_DRIVING -->|No| B_PERMANENT_ACTION
+        B_PERMANENT_ACTION -->|Open Android Settings| B_SETTINGS
+        B_PERMANENT_ACTION -->|Not now| B_MANUAL
         B_SETTINGS -->|Return| B_RECHECK
         B_RECHECK -->|Granted| B_GRANTED
-        B_RECHECK -->|Still denied| B_MANUAL
+        B_RECHECK -->|Denied - requestable| B_DENIED
+        B_RECHECK -->|Still permanently denied| B_PERMANENT
 
-        B_GRANTED --> B_PROVIDER
+        B_GRANTED --> B_PROVIDER_AVAILABLE
+        B_PROVIDER_AVAILABLE -->|No| B_PROVIDER_UNAVAILABLE
+        B_PROVIDER_UNAVAILABLE --> B_MANUAL
+        B_PROVIDER_AVAILABLE -->|Yes| B_PROVIDER
         B_PROVIDER -->|No| B_SESSION
         B_PROVIDER -->|Yes| B_CLOUD
         B_CLOUD -->|Accepted| B_SESSION
@@ -134,11 +150,11 @@ flowchart TB
     classDef process fill:#E1F9FA,stroke:#16BEC7,color:#1F2633,stroke-width:1.5px;
     classDef note fill:#EEF1F5,stroke:#667085,color:#1F2633,stroke-width:1.5px;
 
-    class A_EXPLAIN,A_RETRY,A_NOT_NOW,A_STILL_DENIED,B_ACTION,B_EXPLAIN,D_VALUE,D_EXPLAIN action;
+    class A_EXPLAIN,A_RETRY,A_NOT_NOW,A_STILL_PERMANENT,B_ACTION,B_EXPLAIN,D_VALUE,D_EXPLAIN action;
     class A_DIALOG,A_SETTINGS,B_DIALOG,B_SETTINGS,D_DIALOG system;
-    class A_RESULT,A_RECHECK,B_RESULT,B_DRIVING,B_RECHECK,B_PROVIDER,C_RECHECK,C_AFFECTED decision;
+    class A_RESULT,A_PERMANENT_ACTION,A_RECHECK,B_RESULT,B_DENIED_ACTION,B_PERMANENT_ACTION,B_DRIVING,B_RECHECK,B_PROVIDER_AVAILABLE,B_PROVIDER,C_RECHECK,C_AFFECTED decision;
     class A_GRANTED,A_GRANTED_AFTER,B_GRANTED,B_SESSION,C_VALID,C_UNAFFECTED,D_MANUAL success;
-    class A_DENIED,A_PERMANENT,B_DENIED,B_PERMANENT,B_MANUAL,C_UNAVAILABLE,C_RECOVERY,D_FAILURE recovery;
+    class A_DENIED,A_PERMANENT,B_DENIED,B_PERMANENT,B_PROVIDER_UNAVAILABLE,B_MANUAL,C_UNAVAILABLE,C_RECOVERY,D_FAILURE recovery;
     class C_PREVIOUS,C_RECONCILE process;
     class B_CLOUD,C_INVARIANT,D_ROUTED note;
 
@@ -146,3 +162,4 @@ flowchart TB
     style B fill:#EAF2FF,stroke:#3776D6,stroke-width:1px
     style C fill:#FFE8E8,stroke:#C63B3B,stroke-width:1px
     style D fill:#EEF1F5,stroke:#667085,stroke-width:1px
+

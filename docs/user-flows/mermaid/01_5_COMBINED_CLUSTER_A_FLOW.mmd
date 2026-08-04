@@ -1,66 +1,102 @@
 %%{init: {"theme": "base", "flowchart": {"curve": "stepAfter", "nodeSpacing": 56, "rankSpacing": 72, "htmlLabels": true}, "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px", "lineColor": "#667085", "textColor": "#1F2633"}}}%%
 flowchart TB
 
-    subgraph ENTRY["A. ENTRY AND ONBOARDING - UF-01"]
+    subgraph ENTRY["A. ENTRY, RESUME, AND ONBOARDING - UF-01"]
         direction TB
 
         subgraph ENTRY_STATES["ENTRY STATES"]
             direction LR
             FRESH["Fresh install"]
-            INCOMPLETE["Onboarding incomplete"]
-            REPLAY["Replay from Settings<br/>Do not reset the library"]
+            INCOMPLETE["Interrupted / incomplete first use"]
+            REPLAY["Replay from Settings<br/>Preserve library and active playback"]
             RETURNING["Returning user<br/>Existing Home / Library state"]
         end
 
         FRESH --> SPLASH
         INCOMPLETE --> SPLASH
-        REPLAY --> SLIDE1
         RETURNING --> SPLASH
+        REPLAY --> REPLAY_CHOICE{"Replay selection"}
 
         SPLASH["Splash - Loading<br/>Validate preparation, Android permission state, service connection, and next route.<br/>Never fabricate library or playback state."]
         SPLASH --> STARTUP{"Startup preparation succeeds?"}
         STARTUP -->|No| STARTUP_ERROR["Recoverable startup / migration error<br/>Show concise Retry."]
         STARTUP_ERROR -->|Retry| SPLASH
-        STARTUP -->|Yes| ONBOARDING{"Onboarding complete?"}
+        STARTUP -->|Yes| ONBOARDING{"Two-slide onboarding complete?"}
 
-        ONBOARDING -->|Yes| RETURN_ROUTE["Returning-user route<br/>Observe the current Home / Library state.<br/>Observe any active playback service; do not restart it from UI routing."]
         ONBOARDING -->|No| SLIDE1
+        ONBOARDING -->|Yes| FIRST_USE_ROUTE{"Next first-use / returning step?<br/>Resolve from permission, library, and education state."}
+
+        FIRST_USE_ROUTE -->|Media setup pending| MEDIA_ENTRY
+        FIRST_USE_ROUTE -->|Media access granted; readiness unresolved| SCAN_ENTRY
+        FIRST_USE_ROUTE -->|Ready / Empty; command education pending| EDUCATION_ENTRY
+        FIRST_USE_ROUTE -->|Readiness complete; education not pending| RETURN_ROUTE["Returning-user route<br/>Observe current Home / Library state.<br/>Observe any active playback service; never restart it from UI routing."]
 
         SLIDE1["Onboarding - Slide 1<br/>Value: control user-authorized local music with fewer manual interactions."]
         SLIDE1 --> SLIDE2["Onboarding - Slide 2<br/>Road-attention warning and Push-to-Talk.<br/>No account, streaming, or supplied-music claim."]
         SLIDE2 --> ONBOARDING_ACTION{"Continue or Skip?"}
-        ONBOARDING_ACTION -->|Continue| MEDIA_ENTRY["Enter contextual media setup"]
-        ONBOARDING_ACTION -->|Skip| SKIP_ONBOARDING["Record onboarding completion locally<br/>Do not force microphone or notification access."]
-        SKIP_ONBOARDING --> MEDIA_ENTRY
+        ONBOARDING_ACTION -->|Continue| COMPLETE_ONBOARDING
+        ONBOARDING_ACTION -->|Skip| COMPLETE_ONBOARDING
+        COMPLETE_ONBOARDING["Record two-slide onboarding completion locally<br/>Skip never forces microphone or notification access."]
+        COMPLETE_ONBOARDING --> MEDIA_ENTRY["Enter contextual media setup<br/>First consented scan remains blocked until access is granted."]
+
+        REPLAY_CHOICE -->|Two-slide introduction| REPLAY_SLIDE1["Replay Slide 1<br/>Non-mutating education mode"]
+        REPLAY_SLIDE1 --> REPLAY_SLIDE2["Replay Slide 2<br/>Preserve current permissions, library, queue, and playback"]
+        REPLAY_SLIDE2 --> REPLAY_AFTER_INTRO{"Continue to command education?"}
+        REPLAY_AFTER_INTRO -->|Yes| EDUCATION_ENTRY
+        REPLAY_AFTER_INTRO -->|No| HOME_RETURN
+        REPLAY_CHOICE -->|Six-command education| EDUCATION_ENTRY
     end
 
     subgraph MEDIA["B. MEDIA ACCESS AND SETTINGS RECOVERY - UF-02"]
         direction TB
 
-        RECHECK{"Media access currently granted?<br/>Android permission state is authoritative."}
-        RECHECK -->|No| MEDIA_PURPOSE["Media-access explanation<br/>Explain access to supported audio already present on the device.<br/>One purpose; no coercive loop."]
-        MEDIA_PURPOSE --> MEDIA_DIALOG["Android media permission dialog<br/>System-owned surface"]
+        MEDIA_ENTRY --> MEDIA_ACCESS_STATE{"Current media-access state?<br/>Android permission state is authoritative."}
+        MEDIA_ACCESS_STATE -->|Granted| SCAN_ENTRY
+        MEDIA_ACCESS_STATE -->|Denied - requestable| MEDIA_PURPOSE
+        MEDIA_ACCESS_STATE -->|Permanently denied| MEDIA_PERMANENT
+
+        MEDIA_PURPOSE["Media-access explanation<br/>Explain access to supported audio already present on the device.<br/>One purpose; no coercive loop."]
+        MEDIA_PURPOSE --> MEDIA_EXPLANATION_ACTION{"User choice"}
+        MEDIA_EXPLANATION_ACTION -->|Continue| MEDIA_DIALOG["Android media permission dialog<br/>System-owned surface"]
+        MEDIA_EXPLANATION_ACTION -->|Not now| EMPTY_NO_ACCESS
         MEDIA_DIALOG --> MEDIA_RESULT{"Permission result"}
 
         MEDIA_RESULT -->|Granted| SCAN_ENTRY
         MEDIA_RESULT -->|Denied| MEDIA_DENIED["Denied<br/>Offer Retry and Not now.<br/>No crash or dead end."]
-        MEDIA_RESULT -->|Permanently Denied| MEDIA_PERMANENT["Permanently Denied<br/>Offer Open Android Settings only after explicit user action."]
+        MEDIA_RESULT -->|Permanently Denied| MEDIA_PERMANENT["Permanently Denied<br/>Explain recovery without opening Settings automatically."]
 
         MEDIA_DENIED --> DENIED_ACTION{"User choice"}
         DENIED_ACTION -->|Retry| MEDIA_PURPOSE
-        DENIED_ACTION -->|Not now| EMPTY_NO_ACCESS["Home / Library - Empty<br/>Access unavailable<br/>Keep visible Retry / permission recovery."]
+        DENIED_ACTION -->|Not now| EMPTY_NO_ACCESS["Home / Library - Empty<br/>Media access unavailable.<br/>Keep visible Retry / permission recovery."]
 
-        MEDIA_PERMANENT --> ANDROID_SETTINGS["Android Settings<br/>External system surface"]
-        ANDROID_SETTINGS -->|Return to app| RECHECK
-        RECHECK -->|Yes| SCAN_ENTRY["Continue blocked scan or reconciliation"]
+        MEDIA_PERMANENT --> PERMANENT_ACTION{"User choice"}
+        PERMANENT_ACTION -->|Open Android Settings| ANDROID_SETTINGS["Android Settings<br/>External system surface"]
+        PERMANENT_ACTION -->|Not now| EMPTY_NO_ACCESS
+        ANDROID_SETTINGS -->|Return to app| SETTINGS_RECHECK{"Media access after Settings return?"}
+        SETTINGS_RECHECK -->|Granted| SCAN_ENTRY
+        SETTINGS_RECHECK -->|Denied - requestable| MEDIA_DENIED
+        SETTINGS_RECHECK -->|Still permanently denied| MEDIA_PERMANENT
+
+        EMPTY_NO_ACCESS -->|Retry access| MEDIA_ACCESS_STATE
     end
 
     subgraph LIBRARY["C. LOCAL SCAN AND LIBRARY READINESS - UF-03"]
         direction TB
 
-        SCAN_MODE{"Select scan mode"}
+        RETURN_ROUTE --> RETURN_ACCESS_STATE{"Current media-access state?"}
+        RETURN_ACCESS_STATE -->|Granted| RETURN_LIBRARY_STATE{"Current verified Home / Library state?"}
+        RETURN_ACCESS_STATE -->|Denied or permanently denied| RETURN_REVOKED["Reconcile inaccessible media<br/>Remove false playability before showing recovery."]
+        RETURN_REVOKED --> EMPTY_NO_ACCESS
+
+        RETURN_LIBRARY_STATE -->|Ready and current| READY
+        RETURN_LIBRARY_STATE -->|Empty and current| EMPTY
+        RETURN_LIBRARY_STATE -->|Unknown, stale, interrupted, or reconciliation required| SCAN_ENTRY
+        RETURN_LIBRARY_STATE -->|Recoverable index / migration problem| SCAN_ERROR
+
+        SCAN_ENTRY["Continue blocked scan or reconciliation"]
+        SCAN_ENTRY --> SCAN_MODE{"Select scan mode"}
         SCAN_MODE -->|First consented setup or rebuild| INITIAL_SCAN["Initial scan"]
-        SCAN_MODE -->|Returning use, Rescan, change, move, deletion, or stale cleanup| INCREMENTAL_SCAN["Incremental reconciliation"]
+        SCAN_MODE -->|Returning use, Rescan, metadata change, move, deletion, or stale cleanup| INCREMENTAL_SCAN["Incremental reconciliation"]
 
         INITIAL_SCAN --> SCANNING
         INCREMENTAL_SCAN --> SCANNING
@@ -70,12 +106,19 @@ flowchart TB
 
         SCAN_RESULT -->|Supported accessible files found| READY["Home / Library - Ready<br/>Verified accessible local media.<br/>Internal Songs, Artists, Albums, and Folders views."]
         SCAN_RESULT -->|No supported accessible files| EMPTY["Home / Library - Empty<br/>Valid non-error state.<br/>Explain local-file requirement and offer Rescan."]
-        SCAN_RESULT -->|Recoverable scan or index failure| SCAN_ERROR["Recoverable scan failure<br/>Concise error and Retry.<br/>Never require reinstall as default recovery."]
+        SCAN_RESULT -->|Recoverable scan or index failure| SCAN_ERROR["Recoverable scan failure<br/>Concise error and Retry.<br/>Preserve verified prior state where possible; never require reinstall by default."]
         SCAN_RESULT -->|Access lost or permission revoked| REVOKED["Reconcile inaccessible media<br/>Remove false playability and route to UF-02 recovery."]
 
-        EMPTY -->|Rescan| RECHECK
-        SCAN_ERROR -->|Retry| RECHECK
-        REVOKED -->|Recover access| RECHECK
+        EMPTY -->|Rescan| MEDIA_ACCESS_STATE
+        SCAN_ERROR -->|Retry| MEDIA_ACCESS_STATE
+        REVOKED -->|Recover access| EMPTY_NO_ACCESS
+
+        READY --> EDUCATION_CHECK
+        EMPTY --> EDUCATION_CHECK
+        EMPTY_NO_ACCESS --> EDUCATION_CHECK
+        EDUCATION_CHECK{"Command education pending or explicitly requested?"}
+        EDUCATION_CHECK -->|Yes| EDUCATION_ENTRY
+        EDUCATION_CHECK -->|No| ENDPOINTS
     end
 
     subgraph EDUCATION["D. SIX-COMMAND EDUCATION AND JUST-IN-TIME MICROPHONE - UF-01 / UF-02"]
@@ -88,48 +131,54 @@ flowchart TB
         MIC_PURPOSE --> MIC_DIALOG["Android microphone permission dialog"]
         MIC_DIALOG --> MIC_RESULT{"Microphone result"}
 
-        MIC_RESULT -->|Granted| CLOUD_CHECK{"Selected STT performs cloud processing?"}
-        MIC_RESULT -->|Denied| MANUAL["Manual controls preserved<br/>Local browsing and playback remain available."]
-        MIC_RESULT -->|Permanently Denied / unavailable| MIC_RECOVERY["Manual controls preserved<br/>Optional Android Settings recovery only outside active Driving Mode."]
+        MIC_RESULT -->|Granted| PROVIDER_AVAILABLE{"Selected speech provider available?"}
+        MIC_RESULT -->|Denied - requestable| MIC_DENIED["Microphone denied - requestable<br/>Offer Retry or Not now; manual controls remain available."]
+        MIC_RESULT -->|Permanently denied| MIC_PERMANENT["Microphone permanently denied<br/>Explain recovery; never open Settings automatically."]
+
+        MIC_DENIED --> MIC_DENIED_ACTION{"User choice"}
+        MIC_DENIED_ACTION -->|Retry| MIC_PURPOSE
+        MIC_DENIED_ACTION -->|Not now| MANUAL["Manual controls preserved<br/>Local browsing and playback remain available."]
+
+        MIC_PERMANENT --> MIC_RECOVERY_ACTION{"User choice<br/>Outside active Driving Mode only"}
+        MIC_RECOVERY_ACTION -->|Open Android Settings| MIC_SETTINGS["Android Settings<br/>External system surface"]
+        MIC_RECOVERY_ACTION -->|Not now| MANUAL
+        MIC_SETTINGS -->|Return to app| MIC_RECHECK{"Microphone state after Settings return?"}
+        MIC_RECHECK -->|Granted| PROVIDER_AVAILABLE
+        MIC_RECHECK -->|Denied - requestable| MIC_DENIED
+        MIC_RECHECK -->|Still permanently denied| MIC_PERMANENT
+
+        PROVIDER_AVAILABLE -->|No| PROVIDER_UNAVAILABLE["Speech provider unavailable<br/>Preserve playback and return to manual controls; do not misreport a permission failure."]
+        PROVIDER_UNAVAILABLE --> MANUAL
+        PROVIDER_AVAILABLE -->|Yes| CLOUD_CHECK{"Available STT provider performs cloud processing?"}
 
         CLOUD_CHECK -->|No| PRACTICE_START["Begin bounded command practice<br/>Detailed Voice execution and failure behavior belongs to UF-08 / UF-10."]
-        CLOUD_CHECK -->|Yes| CLOUD_CONSENT["Separate cloud-speech consent<br/>Disclose processing destination, purpose, and retention.<br/>Do not claim guaranteed offline STT."]
+        CLOUD_CHECK -->|Yes| CLOUD_CONSENT_STATE{"Valid separate cloud-speech consent exists?"}
+        CLOUD_CONSENT_STATE -->|Yes| PRACTICE_START
+        CLOUD_CONSENT_STATE -->|No| CLOUD_CONSENT["Separate cloud-speech consent<br/>Disclose processing destination, purpose, and retention.<br/>Do not claim guaranteed offline STT."]
         CLOUD_CONSENT -->|Accepted| PRACTICE_START
         CLOUD_CONSENT -->|Declined| MANUAL
 
         NO_PRACTICE --> HOME_RETURN
         PRACTICE_START --> HOME_RETURN
         MANUAL --> HOME_RETURN
-        MIC_RECOVERY --> HOME_RETURN
 
-        HOME_RETURN["Return to the current Home / Library state<br/>Ready or Empty with valid Rescan and permission recovery."]
+        HOME_RETURN["Return to the current Home / Library state<br/>Preserve Ready or Empty state, valid recovery, queue, and active playback."]
     end
 
-    RETURN_ROUTE --> RECHECK
-    MEDIA_ENTRY --> RECHECK
-    SCAN_ENTRY --> SCAN_MODE
-
-    READY -->|Offer education| EDUCATION_ENTRY
-    EMPTY -->|Offer education| EDUCATION_ENTRY
-    EMPTY_NO_ACCESS -->|Education remains available| EDUCATION_ENTRY
-
-    SOURCE_TRUTH["SOURCE-OF-TRUTH CONTRACT<br/>Android permission state = access authority<br/>MediaStore = accessible media existence and platform identity<br/>Local index = derived and rebuildable<br/>Telemetry = non-authoritative and never a recovery source"]
+    SOURCE_TRUTH["SOURCE-OF-TRUTH CONTRACT<br/>Android permission state = access authority<br/>MediaStore = accessible media existence and platform identity<br/>Local index = derived and rebuildable<br/>Playback service = active playback authority<br/>Telemetry = non-authoritative and never a recovery source"]
 
     DEFERRED["DEFERRED BOUNDARY<br/>Notification permission is requested only after successful playback and background-control value exists.<br/>Exact Android 10 / 12 / 14+ behavior belongs to UF-06 and TS-01."]
 
     PRIVACY["PRIVACY AND SCOPE<br/>No raw audio or full transcript by default.<br/>No personal titles, filenames, artists, albums, folders, URIs, paths, or library contents in telemetry.<br/>No account, backend, sync, catalog, streaming, upload, download, or forced cloud dependency."]
 
-    ENDPOINTS["VALID CLUSTER A ENDPOINTS<br/>Home / Library Ready<br/>Home / Library Empty with Rescan / recovery<br/>Denied with Retry / Not now<br/>Permanently Denied with Settings / recheck<br/>Recoverable startup or scan failure<br/>Reconciled revocation without false playability<br/>Microphone declined with manual controls preserved"]
+    ENDPOINTS["VALID CLUSTER A ENDPOINTS<br/>Home / Library Ready<br/>Home / Library Empty with Rescan / recovery<br/>Denied with Retry / Not now<br/>Permanently Denied with explicit Settings / recheck<br/>Recoverable startup or scan failure<br/>Reconciled revocation without false playability<br/>Microphone or cloud consent declined with manual controls preserved"]
 
-    GATES["OPEN EVIDENCE GATES<br/>TS-01: notification / foreground-media behavior<br/>TS-03: voice-provider availability, network dependence, consent, retention, and fallback<br/>TS-06: MediaStore permission changes, move / delete, incremental reconciliation, and rebuild<br/>Issue #2 / ADR register alignment remains required before final User Flow approval"]
+    GATES["OPEN EVIDENCE GATES<br/>TS-01: notification / foreground-media behavior<br/>TS-03: voice-provider availability, network dependence, consent, retention, and fallback<br/>TS-06: MediaStore permission changes, move / delete, incremental reconciliation, and rebuild<br/>Issue #2 / ADR register alignment remains required before final complete User Flow approval"]
 
     SCANNING -. governed by .-> SOURCE_TRUTH
     HOME_RETURN -. constrained by .-> DEFERRED
     MIC_PURPOSE -. constrained by .-> PRIVACY
 
-    READY --> ENDPOINTS
-    EMPTY --> ENDPOINTS
-    EMPTY_NO_ACCESS --> ENDPOINTS
     STARTUP_ERROR --> ENDPOINTS
     SCAN_ERROR --> ENDPOINTS
     REVOKED --> ENDPOINTS
@@ -148,11 +197,11 @@ flowchart TB
     classDef note fill:#F4F7FB,stroke:#C7CED9,color:#1F2633,stroke-width:1.5px;
 
     class FRESH,INCOMPLETE,REPLAY,RETURNING start;
-    class SPLASH,SLIDE1,SLIDE2,MEDIA_ENTRY,SKIP_ONBOARDING,MEDIA_PURPOSE,SCAN_ENTRY,SCANNING,EDUCATION_ENTRY,MIC_PURPOSE,PRACTICE_START,HOME_RETURN process;
-    class STARTUP,ONBOARDING,ONBOARDING_ACTION,RECHECK,MEDIA_RESULT,DENIED_ACTION,SCAN_MODE,SCAN_RESULT,PRACTICE,MIC_RESULT,CLOUD_CHECK decision;
-    class MEDIA_DIALOG,ANDROID_SETTINGS,MIC_DIALOG system;
+    class SPLASH,SLIDE1,SLIDE2,COMPLETE_ONBOARDING,MEDIA_ENTRY,REPLAY_SLIDE1,REPLAY_SLIDE2,MEDIA_PURPOSE,SCAN_ENTRY,SCANNING,EDUCATION_ENTRY,MIC_PURPOSE,PRACTICE_START,HOME_RETURN process;
+    class STARTUP,ONBOARDING,FIRST_USE_ROUTE,ONBOARDING_ACTION,REPLAY_CHOICE,REPLAY_AFTER_INTRO,MEDIA_ACCESS_STATE,MEDIA_EXPLANATION_ACTION,MEDIA_RESULT,DENIED_ACTION,PERMANENT_ACTION,SETTINGS_RECHECK,RETURN_ACCESS_STATE,RETURN_LIBRARY_STATE,SCAN_MODE,SCAN_RESULT,EDUCATION_CHECK,PRACTICE,MIC_RESULT,MIC_DENIED_ACTION,MIC_RECOVERY_ACTION,MIC_RECHECK,PROVIDER_AVAILABLE,CLOUD_CHECK,CLOUD_CONSENT_STATE decision;
+    class MEDIA_DIALOG,ANDROID_SETTINGS,MIC_DIALOG,MIC_SETTINGS system;
     class INITIAL_SCAN,INCREMENTAL_SCAN,SOURCE_TRUTH data;
-    class STARTUP_ERROR,MEDIA_DENIED,MEDIA_PERMANENT,SCAN_ERROR,REVOKED,MANUAL,MIC_RECOVERY recovery;
+    class STARTUP_ERROR,MEDIA_DENIED,MEDIA_PERMANENT,RETURN_REVOKED,SCAN_ERROR,REVOKED,MANUAL,MIC_DENIED,MIC_PERMANENT,PROVIDER_UNAVAILABLE recovery;
     class READY,EMPTY,EMPTY_NO_ACCESS,NO_PRACTICE,ENDPOINTS success;
     class RETURN_ROUTE,CLOUD_CONSENT,DEFERRED,PRIVACY,GATES note;
 
@@ -161,3 +210,4 @@ flowchart TB
     style MEDIA fill:transparent,stroke:#C7CED9,stroke-width:1px
     style LIBRARY fill:transparent,stroke:#C7CED9,stroke-width:1px
     style EDUCATION fill:transparent,stroke:#C7CED9,stroke-width:1px
+

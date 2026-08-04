@@ -2,7 +2,7 @@
 
 - **Product:** Music Copilot MVP v1.0
 - **Coverage:** UF-01 First Launch and Education, UF-02 Permission Recovery, UF-03 Library Readiness
-- **Status:** Final corrected Cluster A diagram; complete for Cluster A review
+- **Status:** Canonical Cluster A connected flow; synchronized with the Stage 1 traceability gate
 - **Approval boundary:** This artifact does not close Issue #3, approve UF-04 through UF-13, approve final Software Architecture, or authorize implementation. Final complete User Flow approval remains gated by Issue #2 / ADR-register alignment and completion of the remaining flow set.
 
 ```mermaid
@@ -139,16 +139,25 @@ flowchart TB
         MIC_PURPOSE --> MIC_DIALOG["Android microphone permission dialog"]
         MIC_DIALOG --> MIC_RESULT{"Microphone result"}
 
-        MIC_RESULT -->|Granted| CLOUD_CHECK{"Selected STT performs cloud processing?"}
-        MIC_RESULT -->|Denied| MANUAL["Manual controls preserved<br/>Local browsing and playback remain available."]
-        MIC_RESULT -->|Permanently denied or provider unavailable| MIC_RECOVERY["Manual controls preserved<br/>Settings recovery is optional and never automatic."]
+        MIC_RESULT -->|Granted| PROVIDER_AVAILABLE{"Selected speech provider available?"}
+        MIC_RESULT -->|Denied - requestable| MIC_DENIED["Microphone denied - requestable<br/>Offer Retry or Not now; manual controls remain available."]
+        MIC_RESULT -->|Permanently denied| MIC_PERMANENT["Microphone permanently denied<br/>Explain recovery; never open Settings automatically."]
 
-        MIC_RECOVERY --> MIC_RECOVERY_ACTION{"User choice<br/>Outside active Driving Mode only"}
-        MIC_RECOVERY_ACTION -->|Open Android Settings| MIC_SETTINGS["Android Settings / provider configuration<br/>External system surface"]
+        MIC_DENIED --> MIC_DENIED_ACTION{"User choice"}
+        MIC_DENIED_ACTION -->|Retry| MIC_PURPOSE
+        MIC_DENIED_ACTION -->|Not now| MANUAL["Manual controls preserved<br/>Local browsing and playback remain available."]
+
+        MIC_PERMANENT --> MIC_RECOVERY_ACTION{"User choice<br/>Outside active Driving Mode only"}
+        MIC_RECOVERY_ACTION -->|Open Android Settings| MIC_SETTINGS["Android Settings<br/>External system surface"]
         MIC_RECOVERY_ACTION -->|Not now| MANUAL
-        MIC_SETTINGS -->|Return to app| MIC_RECHECK{"Microphone / provider available now?"}
-        MIC_RECHECK -->|Yes| CLOUD_CHECK
-        MIC_RECHECK -->|No| MANUAL
+        MIC_SETTINGS -->|Return to app| MIC_RECHECK{"Microphone state after Settings return?"}
+        MIC_RECHECK -->|Granted| PROVIDER_AVAILABLE
+        MIC_RECHECK -->|Denied - requestable| MIC_DENIED
+        MIC_RECHECK -->|Still permanently denied| MIC_PERMANENT
+
+        PROVIDER_AVAILABLE -->|No| PROVIDER_UNAVAILABLE["Speech provider unavailable<br/>Preserve playback and return to manual controls; do not misreport a permission failure."]
+        PROVIDER_UNAVAILABLE --> MANUAL
+        PROVIDER_AVAILABLE -->|Yes| CLOUD_CHECK{"Available STT provider performs cloud processing?"}
 
         CLOUD_CHECK -->|No| PRACTICE_START["Begin bounded command practice<br/>Detailed Voice execution and failure behavior belongs to UF-08 / UF-10."]
         CLOUD_CHECK -->|Yes| CLOUD_CONSENT_STATE{"Valid separate cloud-speech consent exists?"}
@@ -197,10 +206,10 @@ flowchart TB
 
     class FRESH,INCOMPLETE,REPLAY,RETURNING start;
     class SPLASH,SLIDE1,SLIDE2,COMPLETE_ONBOARDING,MEDIA_ENTRY,REPLAY_SLIDE1,REPLAY_SLIDE2,MEDIA_PURPOSE,SCAN_ENTRY,SCANNING,EDUCATION_ENTRY,MIC_PURPOSE,PRACTICE_START,HOME_RETURN process;
-    class STARTUP,ONBOARDING,FIRST_USE_ROUTE,ONBOARDING_ACTION,REPLAY_CHOICE,REPLAY_AFTER_INTRO,MEDIA_ACCESS_STATE,MEDIA_EXPLANATION_ACTION,MEDIA_RESULT,DENIED_ACTION,PERMANENT_ACTION,SETTINGS_RECHECK,RETURN_ACCESS_STATE,RETURN_LIBRARY_STATE,SCAN_MODE,SCAN_RESULT,EDUCATION_CHECK,PRACTICE,MIC_RESULT,MIC_RECOVERY_ACTION,MIC_RECHECK,CLOUD_CHECK,CLOUD_CONSENT_STATE decision;
+    class STARTUP,ONBOARDING,FIRST_USE_ROUTE,ONBOARDING_ACTION,REPLAY_CHOICE,REPLAY_AFTER_INTRO,MEDIA_ACCESS_STATE,MEDIA_EXPLANATION_ACTION,MEDIA_RESULT,DENIED_ACTION,PERMANENT_ACTION,SETTINGS_RECHECK,RETURN_ACCESS_STATE,RETURN_LIBRARY_STATE,SCAN_MODE,SCAN_RESULT,EDUCATION_CHECK,PRACTICE,MIC_RESULT,MIC_DENIED_ACTION,MIC_RECOVERY_ACTION,MIC_RECHECK,PROVIDER_AVAILABLE,CLOUD_CHECK,CLOUD_CONSENT_STATE decision;
     class MEDIA_DIALOG,ANDROID_SETTINGS,MIC_DIALOG,MIC_SETTINGS system;
     class INITIAL_SCAN,INCREMENTAL_SCAN,SOURCE_TRUTH data;
-    class STARTUP_ERROR,MEDIA_DENIED,MEDIA_PERMANENT,RETURN_REVOKED,SCAN_ERROR,REVOKED,MANUAL,MIC_RECOVERY recovery;
+    class STARTUP_ERROR,MEDIA_DENIED,MEDIA_PERMANENT,RETURN_REVOKED,SCAN_ERROR,REVOKED,MANUAL,MIC_DENIED,MIC_PERMANENT,PROVIDER_UNAVAILABLE recovery;
     class READY,EMPTY,EMPTY_NO_ACCESS,NO_PRACTICE,ENDPOINTS success;
     class RETURN_ROUTE,CLOUD_CONSENT,DEFERRED,PRIVACY,GATES note;
 
