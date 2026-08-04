@@ -53,8 +53,8 @@ Phase 0 is **complete** because every identified question now has one of four co
 
 | Rank | ID | Source | Status | Governs |
 |---:|---|---|---|---|
-| 1 | P1 | `Music_Copilot_PRD_v1_EN_Clarified(1).pdf` | Approved for MVP | Product problem, users, experience, scope, FR-01 through FR-09, safety, privacy, metrics, and proposed technology. |
-| 2 | P2 | `Music_Copilot_MVP_v1_EN(2).pdf` | Ready for Planning | Priorities, user stories, acceptance, ten-week timebox, QA, Beta, telemetry, and Go/No-Go. |
+| 1 | P1 | `Music_Copilot_PRD_v1_EN_Clarified.pdf` | Approved for MVP | Product problem, users, experience, scope, FR-01 through FR-09, safety, privacy, metrics, and proposed technology. |
+| 2 | P2 | `Music_Copilot_MVP_v1_EN.pdf` | Ready for Planning | Priorities, user stories, acceptance, ten-week timebox, QA, Beta, telemetry, and Go/No-Go. |
 | 3 | A1 | `ADR-0001_Native_Android_Platform_Revised.pdf` | Proposed - Revised | Android 10+, native platform, Kotlin/Compose baseline, and replaceable engineering choices. |
 | 3 | A2 | `ADR-0002_Service_Owned_Media3_Playback.pdf` | Proposed | Service-owned player, MediaSession authority, UI observation, and playback continuity. |
 | 3 | A3 | `ADR-0003_Local_First_Data_Boundaries_Revised.pdf` | Proposed - Revised | MediaStore authority, rebuildable index, local state, and telemetry boundaries. |
