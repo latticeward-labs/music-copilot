@@ -1,68 +1,71 @@
 # Phase 1 Completion Checklist - First Readiness
 
-**Date:** 01 August 2026  
+**Updated:** 04 August 2026  
 **Tracking:** Issue #3  
-**Result:** Pass for Cluster A; full User Flow set remains open
+**Result:** **PASS for the Stage 1 Cluster A Traceability Matrix only**  
+**Final User Flow status:** **Open**
 
-## Flow artifacts
+## Canonical documentation evidence
 
-- [x] UF-01 First Launch and Education created in Figma and GitHub.
-- [x] UF-02 Permission Denial and Settings Recovery created in Figma and GitHub.
-- [x] UF-03 Local Scan and Library Readiness created in Figma and GitHub.
-- [x] Connected Cluster A swimlane created.
-- [x] Cluster A state inventory completed.
-- [x] Requirement traceability completed.
-- [x] Review and exit record completed.
+- [x] One explicit ten-field traceability record exists for UF-01.
+- [x] One explicit ten-field traceability record exists for UF-02.
+- [x] One explicit ten-field traceability record exists for UF-03.
+- [x] Connected Cluster A behavior exists in 01.5.
+- [x] State inventory, requirement status, ADR influence, and open evidence exist in 01.6.
+- [x] Limited Stage 1 decision and approval boundary exist in 01.7.
+- [x] Corrected Markdown/Mermaid pairs are synchronized for the Stage 1 canonical records.
+- [x] The official English PRD/MVP remain product authorities.
+- [ ] Figma synchronized with the corrected repository records.
+- [ ] Final Product, Design, Android, QA, Privacy, and Governance sign-off recorded.
 
-## Required behavior
+## Requirement and state correctness
 
-- [x] Two-slide value introduction.
-- [x] The introduction includes explicit road-attention copy without claiming that Music Copilot makes driving safe.
-- [x] Onboarding Continue, Skip, and replay.
-- [x] Media explanation and permission before first scan.
-- [x] Media Granted, Denied, and Permanently Denied.
-- [x] Retry, Not now, Android Settings, return, and recheck.
-- [x] Six-command education covers `PLAY`, `PAUSE`, `NEXT`, `PREVIOUS`, `SEEK_BACK`, and `PLAY_ARTIST`.
-- [x] Microphone permission only after explicit action.
-- [x] Microphone denial preserves manual controls.
-- [x] Notification permission deferred to UF-06 / TS-01.
-- [x] Initial and incremental scanning.
-- [x] Scanning, Empty, Ready, and recoverable failure.
-- [x] Permission revocation and stale-index reconciliation.
-- [x] Home / Library remains one top-level destination.
-- [x] Songs, Artists, Albums, and Folders remain internal views.
+- [x] `FR-01` is marked **Partial** and maps to UF-01 + UF-02 + UF-03 + UF-04.
+- [x] Two-slide onboarding includes Continue, Skip, interrupted resume, and non-mutating replay.
+- [x] Replay preserves permission, verified library, queue, and service-owned active playback state.
+- [x] Six-command education contains exactly `PLAY`, `PAUSE`, `NEXT`, `PREVIOUS`, `SEEK_BACK`, and `PLAY_ARTIST`.
+- [x] Home / Library is one top-level destination with Songs, Artists, Albums, and Folders internal views.
+- [x] Verified current Ready/Empty returning state bypasses unnecessary visible Scanning.
+- [x] Scanning, Empty, Ready, recoverable failure, and revoked/reconciled states are explicit.
+- [ ] UF-04 completes Songs/Artists/Albums/Folders browsing and search behavior.
 
-## Scope and governance
+## Permission, provider, and recovery correctness
 
-- [x] English PRD/MVP remain the product authorities.
-- [x] No account, authentication, backend, sync, catalog, streaming, upload, download, or content distribution added.
-- [x] No v1.1 scope introduced.
-- [x] No Wireframe, final architecture, or implementation choice presented as approved.
-- [x] Issue #3 remains open.
-- [x] Issue #2/ADR alignment remains a final-flow gate.
-- [x] UF-04 through UF-13 remain pending.
+- [x] Media permission is explained before the first consented scan.
+- [x] Denied - requestable preserves Retry and Not now.
+- [x] Permanently Denied preserves Open Android Settings and Not now.
+- [x] Settings return distinguishes Granted, Denied - requestable, and Still permanently denied.
+- [x] Android Settings never opens automatically or loops coercively.
+- [x] Microphone permission is requested only after explicit user action.
+- [x] Provider unavailable is distinct from permission denial.
+- [x] Cloud-processing consent is separate and truthful if remote processing is selected.
+- [x] Voice denial/failure preserves manual controls, queue, and service-owned playback.
+- [x] Notification permission remains deferred to UF-06/TS-01.
+- [x] Permission revocation reconciles stale entries and false playability.
 
-## Data, privacy, and accessibility
+## Data, privacy, accessibility, and scope
 
-- [x] Android permission state is authoritative.
-- [x] MediaStore is authoritative for accessible media existence and identity.
-- [x] Local index is derived and rebuildable.
-- [x] No raw audio or personal media metadata added to telemetry.
-- [x] No new Cluster A analytics event invented outside the current allowlist.
-- [x] Cloud STT, if selected, requires separate consent and disclosure of processing destination, purpose, and retention before use.
-- [x] No guaranteed-offline STT claim is made without validated provider evidence.
-- [x] Recovery controls are explicitly labeled.
-- [x] Scalable text and TalkBack requirements are recorded.
-- [x] State meaning does not rely on color alone.
+- [x] Android permission state is authoritative for access.
+- [x] MediaStore is authoritative for accessible media existence and platform identity.
+- [x] The local index is derived and rebuildable.
+- [x] Playback service/MediaSession is authoritative for active playback.
+- [x] No new Cluster A analytics event is approved outside the allowlist.
+- [x] Raw audio, full transcript, and personal media metadata are excluded from telemetry by default.
+- [x] Recovery controls, scalable text, TalkBack order, and non-color-only state meaning are recorded.
+- [x] No account, backend, sync, catalog, streaming, upload/download, Android Auto, iOS, or v1.1 scope is introduced.
+- [x] No guaranteed-offline STT claim is made without evidence.
 
-## Open evidence gates
+## Governance and open evidence
 
-- [ ] TS-01 notification/foreground-media behavior validated on Android 10, 12, and 14+.
-- [ ] TS-03 voice-provider availability, language support, network dependence, processing destination, consent, retention, and fallback validated.
-- [ ] TS-06 permission/scoped-storage/move/delete/reconciliation matrix validated.
-- [ ] Issue #2 and ADR register aligned.
-- [ ] Remaining flow clusters completed.
+- [x] Every ADR is mapped as an influence without false acceptance.
+- [ ] Issue #2 records explicit Accepted or Revised outcomes for ADR-0001 through ADR-0006.
+- [ ] ADR register synchronized with Issue #2.
+- [ ] TS-01 notification/foreground-media evidence completed.
+- [ ] TS-03 provider/language/network/processing/consent/retention/fallback evidence completed.
+- [ ] TS-06 permission/scoped-storage/move/delete/reconciliation/rebuild evidence completed.
+- [ ] UF-04 through UF-13 completed and reviewed.
+- [ ] Issue #3 acceptance criteria satisfied and issue closed.
 
-## Exit
+## Exit decision
 
-Cluster A is registered and may hand off to Cluster B drafting. This checklist does not close Issue #3 or authorize Wireframes, final Software Architecture, or implementation.
+The Stage 1 Traceability Matrix is passed and may feed continued User Flow and Golden Scenario drafting. The unchecked items remain real blockers for their affected later claims. This checklist does not authorize Wireframes, final Software Architecture, implementation, or final User Flow approval.
