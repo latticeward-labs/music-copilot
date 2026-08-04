@@ -5,233 +5,277 @@
 - **Coverage:** UF-01, UF-02, UF-03, corrected `01.5` combined flow, corrected `01.6` state inventory and traceability
 - **Figma source:** `01.7 / Review and Approval Record` - node `23:31`
 - **Repository source:** [`01_7_REVIEW_AND_APPROVAL_RECORD.mmd`](01_7_REVIEW_AND_APPROVAL_RECORD.mmd)
-- **Status:** Cluster A complete for review and repository registration; complete User Flow approval not granted
-- **Tracking:** GitHub Issue #3
-- **Approval boundary:** This record does not close Issue #3, approve UF-04 through UF-13, authorize low-fidelity Wireframes, approve final Software Architecture, or authorize implementation.
+- **Current decision:** Cluster A documentation baseline approved for continuation to Cluster B
+- **Final-flow status:** Not approved; GitHub Issue #3 remains open
+- **Tracking:** GitHub Issues #2 and #3
+- **Approval meaning:** Approval in this record is limited to the Cluster A documentation baseline and the next User Flow drafting action. It is not final approval of the complete MVP v1.0 User Flow set.
 
 ## 1. Decision summary
 
-Cluster A is complete for review and repository registration because the following implementation-independent artifacts exist and are connected:
+The corrected Cluster A documentation is internally consistent enough to continue User Flow discovery:
 
 - UF-01 - First Launch and Education.
 - UF-02 - Permission Denial and Settings Recovery.
 - UF-03 - Local Scan and Library Readiness.
-- Corrected `01.5 / Combined Cluster A Flow`.
-- Corrected `01.6 / State Inventory and Traceability`.
-- Privacy, analytics, accessibility, source-of-truth, recovery, and scope contracts.
+- `01.5 / Combined Cluster A Flow`.
+- `01.6 / State Inventory and Traceability`.
+- This `01.7 / Review and Approval Record`.
+- Scope, recovery, source-of-truth, privacy, accessibility, analytics, and open-evidence boundaries.
 
-This is not final approval of the complete MVP v1.0 User Flow set. GitHub Issue #2 remains open, GitHub Issue #3 remains open, UF-04 through UF-13 remain incomplete, and the named technical evidence gates remain open.
+**Approved now:** use this Cluster A documentation baseline as the controlled input for drafting Cluster B.
 
-## 2. Authority and scope
+**Not approved now:** the complete UF-01 through UF-13 set, final product/Android sign-off, low-fidelity Wireframes, final Software Architecture, Android foundation work, or implementation.
 
-Authority order for this review:
+## 2. Authority and evidence order
 
-1. English PRD v1.0.
-2. English MVP v1.0.
-3. Phase 0 Foundation decisions and routed evidence gates.
-4. Proposed ADR-0001 through ADR-0006 as constraints, not substitutes for current GitHub approval evidence.
-5. System Architecture MVP v1.0 and Technical Blueprint MVP v1.0 as technical interpretation.
-6. GitHub and Figma as workflow, state, traceability, and review evidence.
+1. English PRD v1.0 - product problem, scope, functional requirements, safety, privacy, and quality.
+2. English MVP v1.0 - P0/P1/P2 delivery scope, user-story acceptance, QA, telemetry, ownership, and release gates.
+3. Phase 0 Foundation - approved preparation for User Flow drafting, decision routing, state inventory, conflicts, and technical-spike register.
+4. Current GitHub evidence - Issue #2, Issue #3, `docs/USER_FLOWS.md`, ADR register, and canonical User Flow records.
+5. ADR-0001 through ADR-0006, System Architecture, and Technical Blueprint - architectural constraints and technical interpretation; they may not add product scope.
+6. Figma - visual workflow evidence that must remain synchronized with the canonical repository records.
 
-Fixed scope:
+The Phase 1 First Readiness PDF is a derived report and may be revised later. It does not override the English PRD/MVP, the current GitHub issue state, or the current ADR register.
+
+## 3. Fixed scope
 
 - Native Android 10+.
 - User-authorized local audio.
-- Push-to-Talk and six restricted commands.
+- Push-to-Talk.
+- Exactly six restricted commands: PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST.
+- Media access before first scan.
+- Microphone access only after explicit user action.
+- Manual controls remain available after Voice denial or failure.
 - No account, authentication, backend, cloud sync, online catalog, streaming, upload, download, distribution, Android Auto, iOS, or v1.1 capability.
-- No raw audio or personal media metadata in telemetry by default.
+- No raw audio, full transcript, or personal media metadata in telemetry by default.
+- Cloud-processed speech, if selected, requires separate consent and truthful destination, purpose, and retention disclosure.
 
-## 3. Reviewed artifact register
+## 4. Reviewed artifact register
 
-| ID | Artifact | Review result |
+| ID | Artifact | Current review result |
 |---|---|---|
-| `F-02 / G-UF01` | UF-01 First Launch and Education | Complete for Cluster A review. |
-| `F-03 / G-UF02` | UF-02 Permission Recovery | Complete for Cluster A review; TS-01, TS-03, and TS-06 remain evidence gates where applicable. |
-| `F-04 / G-UF03` | UF-03 Library Readiness | Complete for Cluster A review; TS-06 remains open. |
-| `F-05 / 01.5` | Connected Cluster A flow | Corrected canonical repository flow; Figma must match the corrected resume, replay, permission recheck, returning-user, and cloud-consent branches. |
-| `F-06 / 01.6` | State Inventory and Traceability | Corrected canonical repository record; Figma must include CA-01, CA-02, SYS-05, D-005, D-016, D-028, D-030, and TS-03. |
-| `F-07 / 01.7` | Review and Approval Record | This file is the canonical repository review record and approval-gate diagram. |
+| `F-02 / G-UF01` | UF-01 First Launch and Education | Documentation complete for Cluster A continuation. Final complete-flow approval remains open. |
+| `F-03 / G-UF02` | UF-02 Permission Recovery | Documentation complete for Cluster A continuation. TS-01, TS-03, and TS-06 remain evidence dependencies where applicable. |
+| `F-04 / G-UF03` | UF-03 Library Readiness | Documentation complete for Cluster A continuation. TS-06 remains an evidence dependency. |
+| `F-05 / 01.5` | Connected Cluster A flow | Corrected canonical repository flow. Figma synchronization remains required. |
+| `F-06 / 01.6` | State Inventory and Traceability | Corrected canonical repository record. Figma synchronization remains required. |
+| `F-07 / 01.7` | Review and Approval Record | Canonical decision record for Cluster A continuation and approval boundaries. |
 
-## 4. Role-by-role review record
+## 5. Review evidence record
 
-| Role | Current result | Accepted now | Still open |
-|---|---|---|---|
-| Product Owner | **Pass for Cluster A review** | MVP v1.0 scope, user-visible behavior, recovery paths, state ownership, and Cluster B exit direction. | Final approval of the complete UF-01 through UF-13 set. |
-| Product Design | **Pass with synchronization action** | Cluster A coverage, terminal states, recovery behavior, and implementation-independent representation. | Synchronize Figma `01.5`, `01.6`, and `01.7` with the corrected canonical repository artifacts. |
-| Android Engineering | **Conditional** | User-visible Android boundaries are recorded without inventing final implementation. | Issue #2 evidence and ADR-register alignment; TS-01, TS-03, and TS-06 validation. |
-| QA | **Conditional** | Required happy, denial, empty, error, revocation, retry, and fallback scenarios are recorded. | Executed evidence across Android versions, OEM devices, and applicable provider/storage conditions. |
-| Privacy | **Conditional pass** | Just-in-time microphone, no raw-audio default, no personal-media telemetry, manual fallback, and separate cloud-speech disclosure boundary. | TS-03 provider destination, purpose, retention, availability, network dependence, and fallback evidence. |
-| Governance | **Open** | Cluster A may proceed to the next drafting cluster. | Issue #2 remains open; Issue #3 remains open; final cross-role approval is not recorded. |
+This record does not invent role approvals that are not stored as review evidence.
 
-## 5. Cluster A Definition of Done
+| Review area | Evidence recorded now | Still open |
+|---|---|---|
+| Product direction | MVP v1.0 scope, Cluster A behavior, recovery boundaries, and the Cluster B drafting decision are incorporated. | Final product approval of the complete UF-01 through UF-13 set. |
+| Product Design | Repository artifacts are internally consistent and implementation-independent. | Synchronize Figma `01.5`, `01.6`, and `01.7` with the corrected repository records. |
+| Android Engineering | User-visible Android boundaries and unresolved technical questions are recorded without fixing detailed implementation prematurely. | Explicit Issue #2/ADR outcomes and TS-01, TS-03, TS-06 evidence. |
+| QA | Happy, denial, empty, error, revocation, retry, and manual-fallback scenarios are specified. | Executed evidence across supported Android versions, OEM devices, storage changes, and applicable Voice-provider conditions. |
+| Privacy | Just-in-time microphone, data minimization, manual fallback, prohibited telemetry, and cloud-processing disclosure boundaries are recorded. | Provider-specific destination, purpose, retention, availability, network-dependence, and fallback evidence. |
+| Governance | Cluster A may continue to Cluster B drafting without closing Issue #3. | Issue #2, Issue #3, final reviewer approvals, and downstream gates remain open. |
+
+## 6. Cluster A continuation criteria
 
 | Result | Criterion |
 |---|---|
-| `PASS` | UF-01, UF-02, and UF-03 exist in Figma and GitHub. |
+| `PASS` | UF-01, UF-02, and UF-03 are documented and linked. |
 | `PASS` | Corrected connected Cluster A flow exists in `01.5`. |
-| `PASS` | Denied and Permanently Denied are separate. |
-| `PASS` | Android Settings opens only after explicit user action and return always rechecks the real condition. |
-| `PASS` | Incomplete first use resumes from the pending step; Settings replay is non-mutating. |
-| `PASS` | Continue and Skip record onboarding completion; Skip never forces microphone or notification access. |
-| `PASS` | Returning users do not enter visible Scanning when a verified current state already exists. |
-| `PASS` | Initial/incremental scan, Scanning, Empty, Ready, recoverable failure, and revoked/reconciled states are present. |
+| `PASS` | Corrected state inventory and traceability exist in `01.6`. |
+| `PASS` | Denied and Permanently Denied are separate and recoverable. |
+| `PASS` | Android Settings opens only after explicit user action and return rechecks the real condition. |
+| `PASS` | Interrupted first use resumes from the pending step; Settings replay is non-mutating. |
+| `PASS` | Continue and Skip record onboarding completion; Skip forces neither microphone nor notification access. |
+| `PASS` | Returning users retain a verified current state and are not forced through visible Scanning. |
+| `PASS` | Initial/incremental scan, Scanning, Empty, Ready, recoverable failure, and revocation reconciliation are represented. |
 | `PASS` | Six-command education and just-in-time microphone behavior are explicit. |
-| `PASS` | Manual controls remain after microphone denial, provider unavailability, or cloud-consent decline. |
-| `PASS` | Corrected state inventory, traceability, privacy, accessibility, and source-of-truth records exist in `01.6`. |
-| `PASS` | P0 scope is explicit and no v1.1 or excluded capability is introduced. |
-| `SYNC` | Figma `01.5`, `01.6`, and `01.7` must be synchronized with their corrected repository records. |
-| `OPEN` | TS-01 evidence. |
-| `OPEN` | TS-03 evidence. |
-| `OPEN` | TS-06 evidence. |
-| `OPEN` | UF-04 through UF-13. |
-| `OPEN` | Issue #2 / ADR register alignment and final complete-flow approval. |
+| `PASS` | Manual controls survive microphone denial, provider unavailability, or cloud-consent decline. |
+| `PASS` | P0 scope is explicit and no excluded or v1.1 capability is introduced. |
+| `OPEN - SYNC` | Figma `01.5`, `01.6`, and `01.7` must match the corrected repository artifacts. |
+| `OPEN - GOVERNANCE` | Issue #2 and the ADR register do not yet contain explicit final outcomes for all ADRs. |
+| `OPEN - EVIDENCE` | TS-01, TS-03, and TS-06 remain unresolved evidence dependencies. |
+| `OPEN - COVERAGE` | UF-04 through UF-13 remain incomplete. |
+| `OPEN - APPROVAL` | Final product and Android approval of the complete flow set is not recorded. |
 
-## 6. Open gates
+The open items above do not block Cluster B drafting. They do block final complete-flow approval, affected exact-behavior claims, downstream architecture approval, or implementation where applicable.
+
+## 7. Open dependencies and effect
 
 ### Issue #2 and ADR register
 
-GitHub Issue #2 is open. The ADR review has partial checked criteria, but repository evidence, explicit open assumptions, final register alignment, and closure criteria remain incomplete. Cluster A may remain complete for review, but complete User Flow approval remains blocked until Issue #2 and the ADR register agree.
+Issue #2 is open and the ADR register still marks ADR-0001 through ADR-0006 as `Proposed`. Existing files and preliminary review do not make those ADRs binding. Each requires an explicit `Accepted` or `Revised` outcome with repository evidence.
 
-### TS-01
+**Effect:** does not invalidate the user-visible Cluster A documentation; blocks final architectural reliance and contributes to the final complete-flow approval gate.
 
-Validate notification permission, foreground-media-service visibility, denial, recovery, and Settings behavior across Android 10, Android 12, and Android 14+.
+### TS-01 - notification and foreground media
 
-### TS-03
+Validate notification permission, foreground-media-service visibility, denial, recovery, and Settings behavior across supported Android versions.
 
-Validate voice-provider availability, supported language behavior, network dependence, processing destination, separate consent, retention disclosure, provider-unavailable behavior, and manual fallback.
+**Effect:** does not block Cluster B drafting; must be resolved before UF-06 and any final exact Android notification/background claim.
 
-### TS-06
+### TS-03 - Voice provider and cloud-processing evidence
 
-Validate MediaStore and scoped-storage permission changes, moved/deleted media, incremental reconciliation, interruption recovery, and rebuild behavior across supported Android versions.
+Validate provider availability, supported language behavior, network dependence, processing destination, separate consent, retention, provider-unavailable behavior, and manual fallback.
 
-### Remaining User Flows
+**Effect:** Cluster A may retain the abstract just-in-time microphone and consent boundary. TS-03 is primarily a downstream Voice evidence gate and must be resolved before final Voice flows, provider-specific copy, Beta Voice approval, or final complete-flow approval.
 
-GitHub Issue #3 is open. UF-04 through UF-13 and final cross-role review remain required before the complete User Flow set can be approved.
+### TS-06 - MediaStore and storage reconciliation
 
-### Downstream gates
+Validate permission changes, scoped storage behavior, moved/deleted media, incremental reconciliation, interruption recovery, and rebuild behavior.
 
-Low-fidelity Wireframes, final Software Architecture, Android foundation work, and implementation are not authorized by this record.
+**Effect:** does not block Cluster B drafting; must be resolved before final exact library-reconciliation behavior and implementation approval.
 
-## 7. Approval semantics
+### Issue #3 and remaining flows
 
-| Term | Meaning in this project |
+UF-04 through UF-13 and final complete-set review remain open.
+
+**Effect:** the complete User Flow set is not approved and Issue #3 must stay open.
+
+### Figma synchronization
+
+The corrected repository records are canonical until the matching Figma frames are synchronized.
+
+**Effect:** no inconsistency may be treated as approved design evidence; later work must reference the corrected repository behavior.
+
+## 8. Approval semantics
+
+| Term | Meaning |
 |---|---|
-| **Pass for Cluster A review** | The reviewed Cluster A user-visible behavior and documentation are sufficient to continue User Flow drafting. |
-| **Conditional** | The flow boundary is usable for drafting, but named technical or executed evidence remains open. |
-| **Complete for repository registration** | Durable canonical records exist in GitHub and can be referenced by later work. |
-| **Final complete-flow approval** | UF-01 through UF-13, cross-role approval, Issue #2/ADR alignment, and all required evidence gates are complete. This status is not granted here. |
+| **Documentation baseline approved for continuation** | Cluster A is coherent enough to serve as input for the next User Flow drafting cluster. |
+| **Evidence dependency open** | The abstract flow boundary may remain, but exact platform/provider behavior cannot be finalized without named evidence. |
+| **Repository canonical** | The current GitHub record controls when Figma or an older derived report conflicts with it. |
+| **Final complete-flow approval** | All required flows, P0 traceability, affected evidence gates, explicit ADR outcomes, and final product/Android review are complete. This status is not granted here. |
 
-## 8. Exit decision
+## 9. Exit decision
 
-**Approved next action:** proceed to Cluster B drafting:
+**Approved next action:** draft Cluster B only:
 
 - UF-04 - Browse and Search Local Music.
 - UF-05 - Manual Playback and Queue Control.
 - UF-06 - Background, Screen-off, and System Controls.
 
-This exit decision preserves Issue #3 as open and does not authorize Wireframes, final architecture, or implementation.
+This approval keeps Issue #3 open and does not authorize low-fidelity Wireframes, Issue #16 final Software Architecture, Issue #4 Android foundation work, or implementation.
 
-## 9. Canonical approval-gate diagram
+## 10. Canonical approval-gate diagram
 
 ```mermaid
 %%{init: {"theme": "base", "flowchart": {"curve": "stepAfter", "nodeSpacing": 52, "rankSpacing": 70, "htmlLabels": true}, "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px", "lineColor": "#667085", "textColor": "#1F2633"}}}%%
 flowchart TB
 
-    subgraph INPUTS["A. REVIEW INPUTS - CLUSTER A"]
+    subgraph INPUTS["A. CANONICAL REVIEW INPUTS - CLUSTER A"]
         direction LR
+        PRD["English PRD v1.0<br/>Product problem, scope, privacy, quality"]
+        MVP["English MVP v1.0<br/>P0 delivery, acceptance, QA and handoff"]
+        PH0["Phase 0 Foundation<br/>Approved for User Flow drafting"]
         UF01["UF-01<br/>First Launch and Education"]
         UF02["UF-02<br/>Permission Recovery"]
         UF03["UF-03<br/>Library Readiness"]
-        FLOW["01.5 Combined Cluster A Flow<br/>Corrected canonical repository flow"]
-        STATE["01.6 State Inventory and Traceability<br/>Corrected canonical repository record"]
-        PRIV["Privacy, analytics, accessibility<br/>Cluster A constraints and recovery"]
+        FLOW["01.5 Combined Cluster A Flow<br/>Corrected repository baseline"]
+        STATE["01.6 State Inventory and Traceability<br/>Corrected repository baseline"]
     end
 
-    INPUTS_READY{"Required Cluster A artifacts complete and internally consistent?"}
-    UF01 --> INPUTS_READY
-    UF02 --> INPUTS_READY
-    UF03 --> INPUTS_READY
-    FLOW --> INPUTS_READY
-    STATE --> INPUTS_READY
-    PRIV --> INPUTS_READY
+    PRD --> BASELINE_CHECK
+    MVP --> BASELINE_CHECK
+    PH0 --> BASELINE_CHECK
+    UF01 --> BASELINE_CHECK
+    UF02 --> BASELINE_CHECK
+    UF03 --> BASELINE_CHECK
+    FLOW --> BASELINE_CHECK
+    STATE --> BASELINE_CHECK
 
-    INPUTS_READY -->|No| REWORK["Return to affected artifact<br/>Correct scope, state, traceability, recovery, or approval wording"]
-    REWORK --> INPUTS_READY
-    INPUTS_READY -->|Yes| ROLE_REVIEW
+    BASELINE_CHECK{"Cluster A documentation internally consistent,<br/>traceable, recoverable, and within MVP v1.0?"}
+    BASELINE_CHECK -->|No| REWORK["Return to the affected artifact<br/>Correct scope, state, recovery, traceability, or approval wording"]
+    REWORK --> BASELINE_CHECK
+    BASELINE_CHECK -->|Yes| PRODUCT_RECORD
 
-    subgraph ROLE_REVIEW["B. ROLE-BY-ROLE REVIEW RECORD"]
+    subgraph REVIEW_EVIDENCE["B. REVIEW EVIDENCE - NO UNRECORDED SIGN-OFF"]
         direction LR
-        PRODUCT["Product Owner<br/>PASS FOR CLUSTER A REVIEW<br/>User-visible behavior, recovery, scope, and exit direction accepted"]
-        DESIGN["Product Design<br/>PASS WITH SYNCHRONIZATION ACTION<br/>Repository artifacts complete; Figma 01.5 / 01.6 / 01.7 must match corrected records"]
-        ANDROID["Android Engineering<br/>CONDITIONAL<br/>User-visible boundaries recorded; TS-01, TS-03, TS-06 and Issue #2 evidence remain open"]
-        QA["QA<br/>CONDITIONAL<br/>Required scenarios recorded; execution evidence across versions/devices remains open"]
-        PRIVACY["Privacy<br/>CONDITIONAL PASS<br/>No raw audio/personal media telemetry; provider/cloud disclosure evidence remains TS-03"]
+        PRODUCT_RECORD["Product direction<br/>MVP v1.0 scope and Cluster A continuation decision incorporated<br/>Final complete-flow product sign-off remains open"]
+        DESIGN_RECORD["Product Design evidence<br/>Repository artifacts internally consistent<br/>Figma 01.5 / 01.6 / 01.7 synchronization remains open"]
+        ANDROID_RECORD["Android Engineering evidence<br/>User-visible boundaries recorded<br/>Formal ADR and technical-spike evidence remains open"]
+        QA_RECORD["QA evidence<br/>Required scenarios specified<br/>Executed device / version / recovery evidence remains open"]
+        PRIVACY_RECORD["Privacy evidence<br/>JIT microphone, data minimization, manual fallback, and cloud-disclosure boundary recorded<br/>Provider-specific evidence remains open"]
+        GOVERNANCE_RECORD["Governance evidence<br/>Issue #2 and Issue #3 remain open<br/>No final cross-role approval or implementation authorization"]
     end
 
-    PRODUCT --> CLUSTER_DECISION
-    DESIGN --> CLUSTER_DECISION
-    ANDROID --> CLUSTER_DECISION
-    QA --> CLUSTER_DECISION
-    PRIVACY --> CLUSTER_DECISION
+    PRODUCT_RECORD --> DECISION
+    DESIGN_RECORD --> DECISION
+    ANDROID_RECORD --> DECISION
+    QA_RECORD --> DECISION
+    PRIVACY_RECORD --> DECISION
+    GOVERNANCE_RECORD --> DECISION
 
-    CLUSTER_DECISION{"Cluster A complete for review and repository registration?"}
-    CLUSTER_DECISION -->|No| REWORK
-    CLUSTER_DECISION -->|Yes| CLUSTER_COMPLETE["CLUSTER A RESULT<br/>Complete for review and repository registration<br/>Not final approval of the complete User Flow set"]
+    DECISION{"Approve the Cluster A documentation baseline<br/>for continued User Flow drafting?"}
+    DECISION -->|No| REWORK
+    DECISION -->|Yes| CLUSTER_APPROVED["CLUSTER A APPROVAL RESULT<br/>Documentation baseline approved for continuation to Cluster B<br/>Not final approval of UF-01 through UF-13"]
 
-    subgraph OPEN_GATES["C. OPEN GATES BEFORE FINAL COMPLETE-FLOW APPROVAL"]
+    subgraph DEPENDENCIES["C. OPEN DEPENDENCIES AND THEIR EFFECT"]
         direction LR
-        ISSUE2["Issue #2 / ADR register<br/>OPEN - alignment and repository evidence required"]
-        TS01["TS-01 OPEN<br/>Notification and foreground-media behavior across Android 10 / 12 / 14+"]
-        TS03["TS-03 OPEN<br/>Voice provider availability, network dependence, processing destination, consent, retention, fallback"]
-        TS06["TS-06 OPEN<br/>Media permission changes, move/delete, reconciliation, rebuild across supported versions"]
-        REMAINING["Issue #3 OPEN<br/>UF-04 through UF-13 and final cross-role review remain"]
-        DOWNSTREAM["Issue #15 / #16 / implementation<br/>NOT AUTHORIZED by this decision"]
+        FIGMA_SYNC["Figma synchronization<br/>OPEN<br/>Must match corrected 01.5 / 01.6 / 01.7 repository records"]
+        ISSUE2["Issue #2 / ADR register<br/>OPEN<br/>ADRs remain Proposed until explicit Accepted or Revised outcomes are recorded"]
+        TS01["TS-01<br/>OPEN EVIDENCE<br/>Notification and foreground-media behavior"]
+        TS03["TS-03<br/>OPEN DOWNSTREAM VOICE EVIDENCE<br/>Provider availability, network, processing, consent, retention, fallback"]
+        TS06["TS-06<br/>OPEN EVIDENCE<br/>Media permission changes, move/delete, reconciliation, rebuild"]
+        REMAINING["Issue #3<br/>OPEN<br/>UF-04 through UF-13 and complete-flow review remain"]
+        REVIEWERS["Final reviewer sign-off<br/>OPEN<br/>Product and Android approval of the complete flow set is not yet recorded"]
     end
 
-    CLUSTER_COMPLETE --> ISSUE2
-    CLUSTER_COMPLETE --> TS01
-    CLUSTER_COMPLETE --> TS03
-    CLUSTER_COMPLETE --> TS06
-    CLUSTER_COMPLETE --> REMAINING
-    CLUSTER_COMPLETE --> DOWNSTREAM
+    CLUSTER_APPROVED --> FIGMA_SYNC
+    CLUSTER_APPROVED --> ISSUE2
+    CLUSTER_APPROVED --> TS01
+    CLUSTER_APPROVED --> TS03
+    CLUSTER_APPROVED --> TS06
+    CLUSTER_APPROVED --> REMAINING
+    CLUSTER_APPROVED --> REVIEWERS
 
-    FINAL_GATE{"All complete-flow gates closed and final cross-role approval recorded?"}
+    CLUSTER_APPROVED --> NEXT["APPROVED NEXT ACTION<br/>Draft Cluster B only:<br/>UF-04 Browse/Search, UF-05 Manual Playback, UF-06 Background/System Controls"]
+
     ISSUE2 --> FINAL_GATE
     TS01 --> FINAL_GATE
     TS03 --> FINAL_GATE
     TS06 --> FINAL_GATE
     REMAINING --> FINAL_GATE
+    REVIEWERS --> FINAL_GATE
 
-    FINAL_GATE -->|No| BLOCKED["FINAL USER FLOW APPROVAL BLOCKED<br/>Keep Issue #3 open<br/>Do not start low-fidelity Wireframes, final architecture, or implementation as approved work"]
-    FINAL_GATE -->|Yes - future state only| FINAL_APPROVAL["FINAL COMPLETE USER FLOW APPROVAL<br/>Future decision; not granted by Cluster A record"]
+    FINAL_GATE{"All requirements, affected evidence gates,<br/>ADR outcomes, and final reviewer approvals complete?"}
+    FINAL_GATE -->|No| FINAL_BLOCKED["FINAL COMPLETE-FLOW APPROVAL NOT GRANTED<br/>Keep Issue #3 open<br/>Do not treat Wireframes, final architecture, or implementation as approved"]
+    FINAL_GATE -->|Yes - future reviewed decision| FINAL_APPROVAL["FINAL MVP v1.0 USER FLOW APPROVAL<br/>Future state; not granted by this Cluster A record"]
 
-    CLUSTER_COMPLETE --> EXIT["PHASE 1 EXIT DECISION<br/>Proceed with Cluster B drafting: UF-04 Browse/Search, UF-05 Manual Playback, UF-06 Background/System Controls<br/>No expansion beyond MVP v1.0"]
+    DOWNSTREAM["DOWNSTREAM BOUNDARY<br/>This record does not approve low-fidelity Wireframes, Issue #16 final Software Architecture, Issue #4 Android foundation, or implementation"]
+    CLUSTER_APPROVED -. does not authorize .-> DOWNSTREAM
 
-    AUTHORITY["AUTHORITY AND SCOPE<br/>English PRD v1.0 and MVP v1.0 remain product authorities<br/>No account, backend, sync, catalog, streaming, upload, download, Android Auto, iOS, or v1.1 scope"]
-    CLUSTER_COMPLETE -. constrained by .-> AUTHORITY
+    AUTHORITY["AUTHORITY AND SCOPE<br/>English PRD v1.0 and English MVP v1.0 are the product authorities<br/>Phase 1 PDF is a derived report and may be updated<br/>No account, backend, sync, catalog, streaming, upload, download, Android Auto, iOS, or v1.1 scope"]
+    CLUSTER_APPROVED -. constrained by .-> AUTHORITY
     FINAL_GATE -. constrained by .-> AUTHORITY
 
     classDef input fill:#EAF2FF,stroke:#3776D6,color:#1F2633,stroke-width:1.5px;
     classDef decision fill:#FFF4D6,stroke:#C68817,color:#1F2633,stroke-width:1.5px;
-    classDef pass fill:#EAF8EE,stroke:#2E8B4B,color:#1F2633,stroke-width:1.5px;
-    classDef conditional fill:#F2EBFF,stroke:#7650C7,color:#1F2633,stroke-width:1.5px;
+    classDef approved fill:#EAF8EE,stroke:#2E8B4B,color:#1F2633,stroke-width:1.5px;
+    classDef evidence fill:#F2EBFF,stroke:#7650C7,color:#1F2633,stroke-width:1.5px;
     classDef open fill:#FFE8E8,stroke:#C63B3B,color:#1F2633,stroke-width:1.5px;
     classDef note fill:#EEF1F5,stroke:#667085,color:#1F2633,stroke-width:1.5px;
     classDef final fill:#F4F7FB,stroke:#2E8B4B,color:#1F2633,stroke-width:2px;
 
-    class UF01,UF02,UF03,FLOW,STATE,PRIV input;
-    class INPUTS_READY,CLUSTER_DECISION,FINAL_GATE decision;
-    class PRODUCT,CLUSTER_COMPLETE,EXIT pass;
-    class DESIGN,ANDROID,QA,PRIVACY conditional;
-    class ISSUE2,TS01,TS03,TS06,REMAINING,DOWNSTREAM,BLOCKED,REWORK open;
-    class AUTHORITY note;
+    class PRD,MVP,PH0,UF01,UF02,UF03,FLOW,STATE input;
+    class BASELINE_CHECK,DECISION,FINAL_GATE decision;
+    class CLUSTER_APPROVED,NEXT approved;
+    class PRODUCT_RECORD,DESIGN_RECORD,ANDROID_RECORD,QA_RECORD,PRIVACY_RECORD,GOVERNANCE_RECORD evidence;
+    class REWORK,FIGMA_SYNC,ISSUE2,TS01,TS03,TS06,REMAINING,REVIEWERS,FINAL_BLOCKED open;
+    class DOWNSTREAM,AUTHORITY note;
     class FINAL_APPROVAL final;
 
     style INPUTS fill:transparent,stroke:#C7CED9,stroke-width:1px
-    style ROLE_REVIEW fill:transparent,stroke:#C7CED9,stroke-width:1px
-    style OPEN_GATES fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style REVIEW_EVIDENCE fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style DEPENDENCIES fill:transparent,stroke:#C7CED9,stroke-width:1px
 ```
 
-## 10. Change control
+## 11. Change control
 
-Any change that marks final User Flow approval, closes Issue #3, removes TS-01/TS-03/TS-06 without evidence, authorizes Wireframes/final architecture/implementation, or expands MVP v1.0 scope requires an explicit reviewed update to this record and the relevant GitHub issues/registers.
+An explicit reviewed update is required before any of the following:
+
+- marking the complete User Flow set approved;
+- closing Issue #3;
+- changing an ADR from Proposed without review evidence;
+- removing TS-01, TS-03, or TS-06 without the required evidence;
+- claiming product or Android final sign-off;
+- authorizing Wireframes, final Software Architecture, Android foundation work, or implementation;
+- expanding MVP v1.0 scope.
