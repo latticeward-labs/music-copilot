@@ -2,161 +2,87 @@
 
 **Product:** Music Copilot MVP v1.0  
 **Priority:** P0 - Beta blocking  
-**Date:** 01 August 2026  
-**Status:** Complete for Cluster A review; cross-version reconciliation evidence remains routed to TS-06  
+**Updated:** 04 August 2026  
+**Status:** Stage 1 Traceability Matrix — PASS for this flow; TS-06 and complete FR-01 remain open  
 **Tracking:** GitHub Issue #3  
-**Figma:** [UF-03 - Local Scan and Library Readiness](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=23-28)
+**Canonical diagram:** [`mermaid/UF-03_LIBRARY_READINESS.md`](mermaid/UF-03_LIBRARY_READINESS.md)  
+**Figma reference:** [UF-03 - Local Scan and Library Readiness](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=23-28) — synchronization with the corrected repository record remains open
 
 ## Authority and boundary
 
-UF-03 defines the user-visible states and recovery behavior for initial scanning, incremental reconciliation, Empty/Ready outcomes, recoverable failure, and permission revocation.
+UF-03 defines initial scanning, returning-state routing, incremental reconciliation, truthful Empty/Ready outcomes, recoverable failure, and access-revocation behavior. The official English PRD/MVP are authoritative. Proposed ADR-0003 and technical documents constrain source-of-truth boundaries without adding product scope.
 
-The English PRD v1.0 and English MVP v1.0 are the product authorities. ADR-0003, the System Architecture, and the Technical Blueprint provide source-of-truth and verification constraints but do not add scope.
+This flow does not approve scanner implementation, Room schema, migration strategy, observer/worker choice, background scheduling, or package structure.
 
-This flow does not approve the exact scanner implementation, Room schema, migration strategy, observer/worker choice, background scheduling, or package structure.
+## Ten-field traceability record
 
-## Product mapping
+| Required field | Controlled value |
+|---|---|
+| Flow ID | UF-03 |
+| User goal | Build or reconcile an account-free local library and see a truthful Scanning, Empty, Ready, failure, or revoked state. |
+| Priority | P0 |
+| User Story | US-02 |
+| Functional Requirement | **FR-01 partial** — scan/index/readiness only; Songs/Artists/Albums/Folders browsing/search completion remains UF-04. |
+| Screens and states | S-04 Scanning/Empty/Ready/Recoverable Failure/Revoked-Reconciled; SYS-01 media access; UF-02 recovery handoff. |
+| Influencing ADRs | ADR-0001 observable Android state; ADR-0002 service-owned playback during routing; ADR-0003 MediaStore authority/derived index; ADR-0006 local-only/no account/backend/streaming. All remain Proposed pending Issue #2. |
+| Failure and recovery | Initial/incremental scan; Retry after recoverable failure; preserve verified prior state where possible; reconcile moved/deleted/inaccessible media; never require reinstall by default. |
+| Data and permissions | MediaStore = accessible media existence/identity; local DB index = derived/rebuildable; Android media access authoritative; telemetry non-authoritative and excludes personal media metadata. |
+| Open assumptions or evidence | TS-06 storage/reconciliation evidence; Issue #2 ADR outcomes; UF-04 for complete FR-01; Figma synchronization; final reviewer sign-off. |
 
-- FR-01: consented scan and display by track, album, artist, and folder.
-- US-02: local files are scanned without creating an account; the index supports song, artist, and album access and later scans are incremental.
-- Phase 0 decisions: D-004, D-005, D-006, D-014, and D-020.
-- Phase 0 system surfaces: S-03, S-04, SYS-01, and SYS-04.
-- Technical spike: TS-06.
+## Entry and returning-state decision
 
-## Start states
+Entry may come from newly granted media access, an existing derived index, Rescan, Settings recovery, interrupted preparation, permission/media changes, or a prior recoverable failure.
 
-1. Media access newly granted.
-2. Existing derived library index on returning-user startup.
-3. User-requested Rescan.
-4. Permission restored after Android Settings.
-5. Previous scan interrupted or app relaunched during preparation.
-6. Permission revoked or media access changed.
-7. Recoverable scan failure.
+After rechecking media access, do not force every returning user through visible Scanning:
+
+| Verified current state | Required route |
+|---|---|
+| Ready and current | Show Ready directly; observe service-owned playback without restart |
+| Empty and current | Show Empty directly with Rescan |
+| Unknown, stale, interrupted, or reconciliation required | Run the appropriate initial or incremental scan |
+| Recoverable index/migration problem | Show recoverable failure with Retry |
+| Access denied or revoked | Reconcile false playability and hand off to UF-02 |
+
+## Scan and reconciliation flow
+
+1. Recheck Android media access. If unavailable, route to UF-02.
+2. Decide whether the verified current state can be shown directly or scan/reconciliation is required.
+3. Select initial scan for first consented setup/rebuild, or incremental reconciliation for Rescan, metadata change, move, deletion, interruption, or stale cleanup.
+4. Show `Home / Library - Scanning` only while work is actually required. Keep the UI responsive and never fabricate Ready content.
+5. Resolve to one of: verified Ready, current Empty, recoverable failure, or revoked/inaccessible recovery.
+6. Reconcile new/changed/moved/deleted media and remove stale playable references.
 
 ## Source-of-truth contract
 
-- **MediaStore:** authoritative for accessible media existence and Android platform identity.
-- **Local relational index:** derived, rebuildable, and optimized for browsing/search; never proof that the underlying media still exists.
-- **DataStore/preferences:** small local settings and consent only; not a library database.
+- **Android permission state:** authoritative for access.
+- **MediaStore:** authoritative for accessible media existence and platform identity.
+- **Local relational index:** derived, rebuildable, and optimized for browsing/search; never proof that media remains accessible.
+- **Playback service/MediaSession:** authoritative for active playback while library routing changes.
+- **DataStore/preferences:** small local settings and consent only; not the library database.
 - **Telemetry:** non-authoritative and never a recovery source.
-
-## Primary flow
-
-1. **Entry condition arrives.**
-2. **Recheck media access.**
-   - If not granted, route to UF-02 permission recovery.
-3. **Select scan mode.**
-   - Initial scan for first consented setup or rebuild.
-   - Incremental reconciliation for returning use, Rescan, metadata change, move, deletion, or stale-entry cleanup.
-4. **Home / Library - Scanning.**
-   - Visible preparation state.
-   - Scan work must not block the UI.
-   - Do not display fabricated Ready content.
-   - Existing index data must not be treated as current playable truth without accessibility checks.
-5. **Result decision.**
-   - Supported accessible files found.
-   - No supported accessible files.
-   - Recoverable scan/index failure.
-   - Access lost during scan or reconciliation.
-6. **Files found -> Home / Library - Ready.**
-   - One top-level destination with internal `Songs`, `Artists`, `Albums`, and `Folders` views.
-   - Ready may proceed to browse, Search, playback, Driving Mode, or Settings in later flow clusters.
-7. **No files -> Home / Library - Empty.**
-   - Explain that Music Copilot works with supported local audio already present on the device.
-   - Offer Rescan.
-   - Show media permission recovery only when access is unavailable.
-   - Do not offer account creation, streaming sign-in, upload, download, or online catalog paths.
-8. **Recoverable failure.**
-   - Show a concise error and Retry.
-   - Preserve a verified prior library state where possible.
-   - Never require reinstall as the default recovery.
-9. **Access lost.**
-   - Reconcile inaccessible entries.
-   - Mark affected items unavailable.
-   - Route to UF-02 without a crash.
-
-## Incremental reconciliation outcomes
-
-| Device/platform change | Required index behavior | User-visible endpoint |
-|---|---|---|
-| New accessible media | Add derived entry/tokens | Ready updated |
-| Metadata changed | Update derived labels and search tokens | Ready updated |
-| Media moved or deleted | Remove stale playable reference | Ready or Empty |
-| Permission revoked | Mark inaccessible; do not trust stale rows | UF-02 recovery |
-| Index/database problem | Rebuild or retry the derived projection | Recoverable scan state |
-| Scan interrupted | Resume/restart safely without false Ready | Scanning or recoverable error |
 
 ## Required states
 
-### Scanning
+- **Scanning:** visible only for real work; UI responsive; no false Ready; Retry/recovery after interruption.
+- **Empty:** valid non-error state; local-file explanation; Rescan; permission recovery only when access is unavailable.
+- **Ready:** verified accessible local media; one Home / Library destination with Songs, Artists, Albums, and Folders internal views. UF-04 must define their full browsing/search behavior.
+- **Recoverable failure:** concise message and Retry; preserve verified prior state where possible; no reinstall default.
+- **Revoked/reconciled:** inaccessible items are not falsely playable; safe UF-02 recovery.
 
-- System work is visible.
-- UI remains responsive.
-- No false Ready state.
-- Interruption or failure has a retry/recovery path.
+## Reliability, privacy, and accessibility
 
-### Empty
-
-- Valid non-error state.
-- Explains local-file requirement.
-- Preserves Rescan and relevant permission recovery.
-- Does not imply supplied or licensed music.
-
-### Ready
-
-- Based on verified accessible local media.
-- Supports internal Songs, Artists, Albums, and Folders views.
-- Does not create a separate top-level Home and Library destination.
-
-### Recoverable failure
-
-- Concise message.
-- Retry.
-- No corruption of verified prior state.
-- No personal-data upload as recovery.
-
-### Revoked / inaccessible
-
-- Stale entries reconciled.
-- Affected media is not falsely playable.
-- Routes to permission recovery.
-
-## Performance and reliability constraints
-
-- Initial and incremental scans are non-blocking.
-- The product target includes smooth library behavior for approximately 5,000 files.
-- Scanning must not occur on the main UI thread.
+- Initial and incremental work is non-blocking and targets smooth behavior around 5,000 files.
 - Missing, moved, deleted, corrupt, or permission-bound media must not remain falsely playable.
-- Analytics, crash reporting, or configuration-service failure must not block scanning, browsing, or manual playback.
+- Analytics/configuration failure must not block scanning, browsing, or manual playback.
+- Filenames, titles, artists, albums, folders, content URIs, paths, library contents, raw audio, and full transcripts are excluded from telemetry by default.
+- Scanning, Empty, Ready, Retry, Rescan, failure, and permission recovery are textually identified with TalkBack semantics and scalable text.
 
-## Privacy and analytics
+## Review boundary
 
-- Do not upload filenames, full titles, artists, albums, folders, content URIs, paths, or library contents.
-- Do not serialize arbitrary media entities into telemetry or crash payloads.
-- The current approved event allowlist does not define library-scan events. UF-03 introduces no new telemetry event without a separate Privacy review and allowlist update.
-
-## Accessibility
-
-- Scanning, Empty, Ready, Retry, Rescan, and permission recovery are textually identified.
-- All actionable controls have labels and TalkBack semantics.
-- Text scales without hiding recovery actions.
-- State meaning is not conveyed by color alone.
-
-## Valid terminal states
-
-- Home / Library - Ready.
-- Home / Library - Empty with Rescan/recovery.
-- Recoverable scan failure with Retry.
-- Permission recovery through UF-02.
-- Reconciled inaccessible media without crash or false playability.
-
-## Open evidence gate
-
-**TS-06** must validate MediaStore access, scoped-storage permission changes, moved/deleted files, incremental reconciliation, and rebuild behavior across supported Android versions before final flow and architecture approval.
-
-## Review result
-
-- Product scope and user-visible readiness states: approved for this cluster by the Product Owner on 01 August 2026.
-- Product Design: initial, incremental, Empty, Ready, error, revocation, and reconciliation branches are represented in Figma.
-- Android and QA: device/version evidence remains required under TS-06.
-- This flow does not close Issue #3 or authorize implementation.
+- Stage 1 traceability completeness: **PASS**.
+- FR-01: **Partial until UF-04**.
+- TS-06: **Open**.
+- Product Design/Figma synchronization: **Open**.
+- ADR governance: **Open; all six ADRs remain Proposed**.
+- Final role sign-off and Issue #3 closure: **Not recorded / not granted**.
+- This record does not authorize Wireframes, final architecture, or implementation.
