@@ -1,96 +1,108 @@
 %%{init: {"theme": "base", "flowchart": {"curve": "stepAfter", "nodeSpacing": 52, "rankSpacing": 70, "htmlLabels": true}, "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px", "lineColor": "#667085", "textColor": "#1F2633"}}}%%
 flowchart TB
 
-    subgraph INPUTS["A. REVIEW INPUTS - CLUSTER A"]
+    subgraph INPUTS["A. CANONICAL REVIEW INPUTS - CLUSTER A"]
         direction LR
+        PRD["English PRD v1.0<br/>Product problem, scope, privacy, quality"]
+        MVP["English MVP v1.0<br/>P0 delivery, acceptance, QA and handoff"]
+        PH0["Phase 0 Foundation<br/>Approved for User Flow drafting"]
         UF01["UF-01<br/>First Launch and Education"]
         UF02["UF-02<br/>Permission Recovery"]
         UF03["UF-03<br/>Library Readiness"]
-        FLOW["01.5 Combined Cluster A Flow<br/>Corrected canonical repository flow"]
-        STATE["01.6 State Inventory and Traceability<br/>Corrected canonical repository record"]
-        PRIV["Privacy, analytics, accessibility<br/>Cluster A constraints and recovery"]
+        FLOW["01.5 Combined Cluster A Flow<br/>Corrected repository baseline"]
+        STATE["01.6 State Inventory and Traceability<br/>Corrected repository baseline"]
     end
 
-    INPUTS_READY{"Required Cluster A artifacts complete and internally consistent?"}
-    UF01 --> INPUTS_READY
-    UF02 --> INPUTS_READY
-    UF03 --> INPUTS_READY
-    FLOW --> INPUTS_READY
-    STATE --> INPUTS_READY
-    PRIV --> INPUTS_READY
+    PRD --> BASELINE_CHECK
+    MVP --> BASELINE_CHECK
+    PH0 --> BASELINE_CHECK
+    UF01 --> BASELINE_CHECK
+    UF02 --> BASELINE_CHECK
+    UF03 --> BASELINE_CHECK
+    FLOW --> BASELINE_CHECK
+    STATE --> BASELINE_CHECK
 
-    INPUTS_READY -->|No| REWORK["Return to affected artifact<br/>Correct scope, state, traceability, recovery, or approval wording"]
-    REWORK --> INPUTS_READY
-    INPUTS_READY -->|Yes| ROLE_REVIEW
+    BASELINE_CHECK{"Cluster A documentation internally consistent,<br/>traceable, recoverable, and within MVP v1.0?"}
+    BASELINE_CHECK -->|No| REWORK["Return to the affected artifact<br/>Correct scope, state, recovery, traceability, or approval wording"]
+    REWORK --> BASELINE_CHECK
+    BASELINE_CHECK -->|Yes| PRODUCT_RECORD
 
-    subgraph ROLE_REVIEW["B. ROLE-BY-ROLE REVIEW RECORD"]
+    subgraph REVIEW_EVIDENCE["B. REVIEW EVIDENCE - NO UNRECORDED SIGN-OFF"]
         direction LR
-        PRODUCT["Product Owner<br/>PASS FOR CLUSTER A REVIEW<br/>User-visible behavior, recovery, scope, and exit direction accepted"]
-        DESIGN["Product Design<br/>PASS WITH SYNCHRONIZATION ACTION<br/>Repository artifacts complete; Figma 01.5 / 01.6 / 01.7 must match corrected records"]
-        ANDROID["Android Engineering<br/>CONDITIONAL<br/>User-visible boundaries recorded; TS-01, TS-03, TS-06 and Issue #2 evidence remain open"]
-        QA["QA<br/>CONDITIONAL<br/>Required scenarios recorded; execution evidence across versions/devices remains open"]
-        PRIVACY["Privacy<br/>CONDITIONAL PASS<br/>No raw audio/personal media telemetry; provider/cloud disclosure evidence remains TS-03"]
+        PRODUCT_RECORD["Product direction<br/>MVP v1.0 scope and Cluster A continuation decision incorporated<br/>Final complete-flow product sign-off remains open"]
+        DESIGN_RECORD["Product Design evidence<br/>Repository artifacts internally consistent<br/>Figma 01.5 / 01.6 / 01.7 synchronization remains open"]
+        ANDROID_RECORD["Android Engineering evidence<br/>User-visible boundaries recorded<br/>Formal ADR and technical-spike evidence remains open"]
+        QA_RECORD["QA evidence<br/>Required scenarios specified<br/>Executed device / version / recovery evidence remains open"]
+        PRIVACY_RECORD["Privacy evidence<br/>JIT microphone, data minimization, manual fallback, and cloud-disclosure boundary recorded<br/>Provider-specific evidence remains open"]
+        GOVERNANCE_RECORD["Governance evidence<br/>Issue #2 and Issue #3 remain open<br/>No final cross-role approval or implementation authorization"]
     end
 
-    PRODUCT --> CLUSTER_DECISION
-    DESIGN --> CLUSTER_DECISION
-    ANDROID --> CLUSTER_DECISION
-    QA --> CLUSTER_DECISION
-    PRIVACY --> CLUSTER_DECISION
+    PRODUCT_RECORD --> DECISION
+    DESIGN_RECORD --> DECISION
+    ANDROID_RECORD --> DECISION
+    QA_RECORD --> DECISION
+    PRIVACY_RECORD --> DECISION
+    GOVERNANCE_RECORD --> DECISION
 
-    CLUSTER_DECISION{"Cluster A complete for review and repository registration?"}
-    CLUSTER_DECISION -->|No| REWORK
-    CLUSTER_DECISION -->|Yes| CLUSTER_COMPLETE["CLUSTER A RESULT<br/>Complete for review and repository registration<br/>Not final approval of the complete User Flow set"]
+    DECISION{"Approve the Cluster A documentation baseline<br/>for continued User Flow drafting?"}
+    DECISION -->|No| REWORK
+    DECISION -->|Yes| CLUSTER_APPROVED["CLUSTER A APPROVAL RESULT<br/>Documentation baseline approved for continuation to Cluster B<br/>Not final approval of UF-01 through UF-13"]
 
-    subgraph OPEN_GATES["C. OPEN GATES BEFORE FINAL COMPLETE-FLOW APPROVAL"]
+    subgraph DEPENDENCIES["C. OPEN DEPENDENCIES AND THEIR EFFECT"]
         direction LR
-        ISSUE2["Issue #2 / ADR register<br/>OPEN - alignment and repository evidence required"]
-        TS01["TS-01 OPEN<br/>Notification and foreground-media behavior across Android 10 / 12 / 14+"]
-        TS03["TS-03 OPEN<br/>Voice provider availability, network dependence, processing destination, consent, retention, fallback"]
-        TS06["TS-06 OPEN<br/>Media permission changes, move/delete, reconciliation, rebuild across supported versions"]
-        REMAINING["Issue #3 OPEN<br/>UF-04 through UF-13 and final cross-role review remain"]
-        DOWNSTREAM["Issue #15 / #16 / implementation<br/>NOT AUTHORIZED by this decision"]
+        FIGMA_SYNC["Figma synchronization<br/>OPEN<br/>Must match corrected 01.5 / 01.6 / 01.7 repository records"]
+        ISSUE2["Issue #2 / ADR register<br/>OPEN<br/>ADRs remain Proposed until explicit Accepted or Revised outcomes are recorded"]
+        TS01["TS-01<br/>OPEN EVIDENCE<br/>Notification and foreground-media behavior"]
+        TS03["TS-03<br/>OPEN DOWNSTREAM VOICE EVIDENCE<br/>Provider availability, network, processing, consent, retention, fallback"]
+        TS06["TS-06<br/>OPEN EVIDENCE<br/>Media permission changes, move/delete, reconciliation, rebuild"]
+        REMAINING["Issue #3<br/>OPEN<br/>UF-04 through UF-13 and complete-flow review remain"]
+        REVIEWERS["Final reviewer sign-off<br/>OPEN<br/>Product and Android approval of the complete flow set is not yet recorded"]
     end
 
-    CLUSTER_COMPLETE --> ISSUE2
-    CLUSTER_COMPLETE --> TS01
-    CLUSTER_COMPLETE --> TS03
-    CLUSTER_COMPLETE --> TS06
-    CLUSTER_COMPLETE --> REMAINING
-    CLUSTER_COMPLETE --> DOWNSTREAM
+    CLUSTER_APPROVED --> FIGMA_SYNC
+    CLUSTER_APPROVED --> ISSUE2
+    CLUSTER_APPROVED --> TS01
+    CLUSTER_APPROVED --> TS03
+    CLUSTER_APPROVED --> TS06
+    CLUSTER_APPROVED --> REMAINING
+    CLUSTER_APPROVED --> REVIEWERS
 
-    FINAL_GATE{"All complete-flow gates closed and final cross-role approval recorded?"}
+    CLUSTER_APPROVED --> NEXT["APPROVED NEXT ACTION<br/>Draft Cluster B only:<br/>UF-04 Browse/Search, UF-05 Manual Playback, UF-06 Background/System Controls"]
+
     ISSUE2 --> FINAL_GATE
     TS01 --> FINAL_GATE
     TS03 --> FINAL_GATE
     TS06 --> FINAL_GATE
     REMAINING --> FINAL_GATE
+    REVIEWERS --> FINAL_GATE
 
-    FINAL_GATE -->|No| BLOCKED["FINAL USER FLOW APPROVAL BLOCKED<br/>Keep Issue #3 open<br/>Do not start low-fidelity Wireframes, final architecture, or implementation as approved work"]
-    FINAL_GATE -->|Yes - future state only| FINAL_APPROVAL["FINAL COMPLETE USER FLOW APPROVAL<br/>Future decision; not granted by Cluster A record"]
+    FINAL_GATE{"All requirements, affected evidence gates,<br/>ADR outcomes, and final reviewer approvals complete?"}
+    FINAL_GATE -->|No| FINAL_BLOCKED["FINAL COMPLETE-FLOW APPROVAL NOT GRANTED<br/>Keep Issue #3 open<br/>Do not treat Wireframes, final architecture, or implementation as approved"]
+    FINAL_GATE -->|Yes - future reviewed decision| FINAL_APPROVAL["FINAL MVP v1.0 USER FLOW APPROVAL<br/>Future state; not granted by this Cluster A record"]
 
-    CLUSTER_COMPLETE --> EXIT["PHASE 1 EXIT DECISION<br/>Proceed with Cluster B drafting: UF-04 Browse/Search, UF-05 Manual Playback, UF-06 Background/System Controls<br/>No expansion beyond MVP v1.0"]
+    DOWNSTREAM["DOWNSTREAM BOUNDARY<br/>This record does not approve low-fidelity Wireframes, Issue #16 final Software Architecture, Issue #4 Android foundation, or implementation"]
+    CLUSTER_APPROVED -. does not authorize .-> DOWNSTREAM
 
-    AUTHORITY["AUTHORITY AND SCOPE<br/>English PRD v1.0 and MVP v1.0 remain product authorities<br/>No account, backend, sync, catalog, streaming, upload, download, Android Auto, iOS, or v1.1 scope"]
-    CLUSTER_COMPLETE -. constrained by .-> AUTHORITY
+    AUTHORITY["AUTHORITY AND SCOPE<br/>English PRD v1.0 and English MVP v1.0 are the product authorities<br/>Phase 1 PDF is a derived report and may be updated<br/>No account, backend, sync, catalog, streaming, upload, download, Android Auto, iOS, or v1.1 scope"]
+    CLUSTER_APPROVED -. constrained by .-> AUTHORITY
     FINAL_GATE -. constrained by .-> AUTHORITY
 
     classDef input fill:#EAF2FF,stroke:#3776D6,color:#1F2633,stroke-width:1.5px;
     classDef decision fill:#FFF4D6,stroke:#C68817,color:#1F2633,stroke-width:1.5px;
-    classDef pass fill:#EAF8EE,stroke:#2E8B4B,color:#1F2633,stroke-width:1.5px;
-    classDef conditional fill:#F2EBFF,stroke:#7650C7,color:#1F2633,stroke-width:1.5px;
+    classDef approved fill:#EAF8EE,stroke:#2E8B4B,color:#1F2633,stroke-width:1.5px;
+    classDef evidence fill:#F2EBFF,stroke:#7650C7,color:#1F2633,stroke-width:1.5px;
     classDef open fill:#FFE8E8,stroke:#C63B3B,color:#1F2633,stroke-width:1.5px;
     classDef note fill:#EEF1F5,stroke:#667085,color:#1F2633,stroke-width:1.5px;
     classDef final fill:#F4F7FB,stroke:#2E8B4B,color:#1F2633,stroke-width:2px;
 
-    class UF01,UF02,UF03,FLOW,STATE,PRIV input;
-    class INPUTS_READY,CLUSTER_DECISION,FINAL_GATE decision;
-    class PRODUCT,CLUSTER_COMPLETE,EXIT pass;
-    class DESIGN,ANDROID,QA,PRIVACY conditional;
-    class ISSUE2,TS01,TS03,TS06,REMAINING,DOWNSTREAM,BLOCKED,REWORK open;
-    class AUTHORITY note;
+    class PRD,MVP,PH0,UF01,UF02,UF03,FLOW,STATE input;
+    class BASELINE_CHECK,DECISION,FINAL_GATE decision;
+    class CLUSTER_APPROVED,NEXT approved;
+    class PRODUCT_RECORD,DESIGN_RECORD,ANDROID_RECORD,QA_RECORD,PRIVACY_RECORD,GOVERNANCE_RECORD evidence;
+    class REWORK,FIGMA_SYNC,ISSUE2,TS01,TS03,TS06,REMAINING,REVIEWERS,FINAL_BLOCKED open;
+    class DOWNSTREAM,AUTHORITY note;
     class FINAL_APPROVAL final;
 
     style INPUTS fill:transparent,stroke:#C7CED9,stroke-width:1px
-    style ROLE_REVIEW fill:transparent,stroke:#C7CED9,stroke-width:1px
-    style OPEN_GATES fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style REVIEW_EVIDENCE fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style DEPENDENCIES fill:transparent,stroke:#C7CED9,stroke-width:1px
