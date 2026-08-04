@@ -1,0 +1,147 @@
+%%{init: {"theme": "base", "flowchart": {"curve": "stepAfter", "nodeSpacing": 46, "rankSpacing": 64, "htmlLabels": true}, "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px", "lineColor": "#667085", "textColor": "#1F2633"}}}%%
+flowchart LR
+
+    subgraph AUTH["A. PRODUCT AUTHORITY AND CLUSTER A EVIDENCE"]
+        direction TB
+        PRD["English PRD v1.0<br/>First-use journey, FR-01, privacy, accessibility, MVP scope"]
+        MVP["English MVP v1.0<br/>US-01, US-02, P0 delivery and recovery acceptance"]
+        PH0["Phase 0 Foundation<br/>D-004, D-005, D-006, D-007, D-008, D-009, D-014, D-016, D-020, D-028, D-030"]
+        ADRS["Proposed ADR constraints<br/>ADR-0001 / 0003 / 0004 / 0006<br/>Not final acceptance evidence"]
+        GH["GitHub evidence<br/>UF-01, UF-02, UF-03 and corrected 01.5 Combined Cluster A Flow"]
+    end
+
+    subgraph FLOWS["B. FLOW COVERAGE"]
+        direction TB
+        UF01["UF-01<br/>First Launch and Education"]
+        UF02["UF-02<br/>Permission Denial and Settings Recovery"]
+        UF03["UF-03<br/>Local Scan and Library Readiness"]
+    end
+
+    subgraph APP["C. APPLICATION AND CLUSTER-LOCAL STATE INVENTORY"]
+        direction TB
+        S01["S-01 Splash<br/>Loading / Migration Error<br/>Retry without fabricated library or playback state"]
+        S02["S-02 Onboarding<br/>First Run / Incomplete Resume / Skip / Replay<br/>Continue and Skip record completion; Replay is non-mutating"]
+        S03["S-03 Permissions<br/>Granted / Denied / Permanently Denied<br/>Retry, Not now, explicit Settings, return recheck"]
+        S04["S-04 Home / Library<br/>Scanning / Empty / Ready / Recoverable Failure / Revoked-Reconciled<br/>Returning users bypass unnecessary scan when verified state is current"]
+        CA01["CA-01 Six-Command Education<br/>View / Skip / Replay / Explicit Practice Choice<br/>PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST"]
+        CA02["CA-02 Voice Access and Consent Boundary<br/>Mic purpose / Granted / Denied / Permanently Denied / Provider Unavailable<br/>Separate cloud-speech consent when applicable; manual controls preserved"]
+    end
+
+    subgraph SYS["D. ANDROID AND SYSTEM SURFACES"]
+        direction TB
+        SYS01["SYS-01 Android media dialog<br/>After one-purpose explanation and before first scan"]
+        SYS02["SYS-02 Android microphone dialog<br/>Only after explicit mic action or user-selected practice"]
+        SYS03["SYS-03 Notification boundary<br/>Deferred until successful playback and background-control value<br/>Exact behavior: UF-06 / TS-01"]
+        SYS04["SYS-04 Android Settings<br/>Explicit user action only<br/>Return rechecks Granted / Denied / Still Permanently Denied"]
+        SYS05["SYS-05 STT provider / cloud-processing boundary<br/>Availability, language, network dependence, destination and retention<br/>Evidence remains TS-03"]
+    end
+
+    subgraph CONTRACTS["E. SOURCE-OF-TRUTH, PRIVACY, AND ACCESSIBILITY CONTRACTS"]
+        direction TB
+        TRUTH["Authority contract<br/>Android permission state = access authority<br/>MediaStore = accessible media existence and identity<br/>Local index = derived and rebuildable<br/>Playback service = active playback authority"]
+        PRIV["Privacy contract<br/>No raw audio or full transcript by default<br/>No personal media metadata in telemetry, logs, or crash payloads<br/>Cluster A adds no new analytics event without allowlist review"]
+        ACCESS["Accessibility and recovery<br/>Scalable text, TalkBack order, labeled actions, no color-only meaning<br/>Every denied, empty, error, and revoked state has recovery or manual fallback"]
+        SCOPE["MVP v1.0 boundary<br/>Android 10+ local audio<br/>No account, backend, sync, catalog, streaming, upload, download, or forced cloud dependency"]
+    end
+
+    subgraph TRACE["F. REQUIREMENT AND DECISION TRACEABILITY"]
+        direction TB
+        T_PRD["PRD first-use flow<br/>Two slides -> contextual media access -> scan -> six-command education -> Home / Library"]
+        T_FR01["FR-01 P0<br/>Consented local scan and Songs / Artists / Albums / Folders views"]
+        T_US01["US-01 P0<br/>Permission timing, denial recovery, Settings path, no crash"]
+        T_US02["US-02 P0<br/>Account-free initial / incremental scan and derived index"]
+        T_DEC["Phase 0 decisions<br/>Navigation, permission timing, replay, Settings recheck, provider truth, revocation and telemetry boundaries"]
+        T_SPIKES["Open evidence gates<br/>TS-01 notification / foreground media<br/>TS-03 voice provider / cloud disclosure<br/>TS-06 storage permission / move-delete / reconciliation"]
+    end
+
+    PRD --> UF01
+    PRD --> UF02
+    PRD --> UF03
+    MVP --> UF01
+    MVP --> UF02
+    MVP --> UF03
+    PH0 --> UF01
+    PH0 --> UF02
+    PH0 --> UF03
+    ADRS -. constrains .-> UF01
+    ADRS -. constrains .-> UF02
+    ADRS -. constrains .-> UF03
+    GH --> UF01
+    GH --> UF02
+    GH --> UF03
+
+    UF01 --> S01
+    UF01 --> S02
+    UF01 --> CA01
+    UF01 --> CA02
+    UF02 --> S03
+    UF02 --> CA02
+    UF02 --> SYS01
+    UF02 --> SYS02
+    UF02 --> SYS03
+    UF02 --> SYS04
+    UF02 --> SYS05
+    UF03 --> S04
+
+    S03 --> SYS01
+    S03 --> SYS04
+    CA02 --> SYS02
+    CA02 --> SYS04
+    CA02 --> SYS05
+    S04 --> TRUTH
+    S03 --> TRUTH
+    CA02 --> PRIV
+    S01 --> ACCESS
+    S02 --> ACCESS
+    S03 --> ACCESS
+    S04 --> ACCESS
+    CA01 --> ACCESS
+    CA02 --> ACCESS
+    TRUTH --> SCOPE
+    PRIV --> SCOPE
+
+    UF01 --> T_PRD
+    UF02 --> T_PRD
+    UF03 --> T_PRD
+    UF01 --> T_FR01
+    UF02 --> T_FR01
+    UF03 --> T_FR01
+    UF01 --> T_US01
+    UF02 --> T_US01
+    UF01 --> T_US02
+    UF03 --> T_US02
+    PH0 --> T_DEC
+    SYS03 --> T_SPIKES
+    SYS05 --> T_SPIKES
+    S04 --> T_SPIKES
+
+    FINAL["CLUSTER A REVIEW RESULT<br/>State inventory and traceability are complete for Cluster A review after the corrections represented here.<br/>Issue #3 remains open; UF-04 through UF-13, Issue #2 / ADR alignment, Wireframes, final architecture, and implementation remain separate gates."]
+    T_PRD --> FINAL
+    T_FR01 --> FINAL
+    T_US01 --> FINAL
+    T_US02 --> FINAL
+    T_DEC --> FINAL
+    T_SPIKES --> FINAL
+
+    classDef authority fill:#EAF2FF,stroke:#3776D6,color:#1F2633,stroke-width:1.5px;
+    classDef flow fill:#E1F9FA,stroke:#16BEC7,color:#1F2633,stroke-width:1.5px;
+    classDef app fill:#FFF4D6,stroke:#C68817,color:#1F2633,stroke-width:1.5px;
+    classDef system fill:#F2EBFF,stroke:#7650C7,color:#1F2633,stroke-width:1.5px;
+    classDef contract fill:#EEF1F5,stroke:#667085,color:#1F2633,stroke-width:1.5px;
+    classDef trace fill:#EAF8EE,stroke:#2E8B4B,color:#1F2633,stroke-width:1.5px;
+    classDef final fill:#F4F7FB,stroke:#2E8B4B,color:#1F2633,stroke-width:2px;
+
+    class PRD,MVP,PH0,ADRS,GH authority;
+    class UF01,UF02,UF03 flow;
+    class S01,S02,S03,S04,CA01,CA02 app;
+    class SYS01,SYS02,SYS03,SYS04,SYS05 system;
+    class TRUTH,PRIV,ACCESS,SCOPE contract;
+    class T_PRD,T_FR01,T_US01,T_US02,T_DEC,T_SPIKES trace;
+    class FINAL final;
+
+    style AUTH fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style FLOWS fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style APP fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style SYS fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style CONTRACTS fill:transparent,stroke:#C7CED9,stroke-width:1px
+    style TRACE fill:transparent,stroke:#C7CED9,stroke-width:1px
