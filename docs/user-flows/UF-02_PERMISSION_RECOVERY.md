@@ -2,170 +2,99 @@
 
 **Product:** Music Copilot MVP v1.0  
 **Priority:** P0 - Beta blocking and privacy critical  
-**Date:** 01 August 2026  
-**Status:** Complete for Cluster A review; exact notification behavior remains routed to TS-01 and UF-06  
+**Updated:** 04 August 2026  
+**Status:** Stage 1 Traceability Matrix — PASS for this flow; TS-01, TS-03, and TS-06 remain open  
 **Tracking:** GitHub Issue #3  
-**Figma:** [UF-02 - Permission Recovery](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=23-27)
+**Canonical diagram:** [`mermaid/UF-02_PERMISSION_DENIAL_AND_SETTINGS_RECOVERY.md`](mermaid/UF-02_PERMISSION_DENIAL_AND_SETTINGS_RECOVERY.md)  
+**Figma reference:** [UF-02 - Permission Recovery](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=23-27) — synchronization with the corrected repository record remains open
 
 ## Authority and boundary
 
-This flow defines the user-visible contract for media, microphone, and notification permission handling. Android owns the platform permission state. The application owns the contextual explanation, recovery path, Settings handoff, and safe fallback.
+UF-02 defines the user-visible contract for media, microphone, later notification permission, Android Settings recovery, speech-provider availability, and manual fallback. Android owns platform permission state. The application owns contextual explanation, the blocked action, recovery routing, and truthful fallback.
 
-It does not invent Android-version behavior that Phase 0 routed to technical evidence. It does not approve provider selection, storage mechanics, or implementation code.
+It does not invent version-specific behavior routed to Technical Spikes, choose a speech provider, or treat documentation completeness as implementation evidence.
 
-## Product mapping
+## Ten-field traceability record
 
-- MVP US-01: the user understands why access is needed; denial does not crash the app and a Settings path is available.
-- PRD privacy principles: microphone permission is requested when needed; raw audio is not stored by default.
-- Phase 0 decisions: D-006, D-007, D-008, D-009, D-014, D-016, D-020, D-028, and D-030.
-- Technical spikes: TS-01, TS-03, and TS-06.
+| Required field | Controlled value |
+|---|---|
+| Flow ID | UF-02 |
+| User goal | Recover safely from media, microphone, and later notification denial without a crash, coercive loop, or loss of manual playback control. |
+| Priority | P0 |
+| User Story | US-01 |
+| Functional Requirement | **FR-01 partial** — media-access precondition/recovery; FR-05 microphone precondition only — Voice execution remains UF-08/UF-10. |
+| Screens and states | S-03; CA-02; SYS-01/02/03/04/05; Home / Library Empty/manual fallback. |
+| Influencing ADRs | ADR-0001 Android permission surfaces; ADR-0002 playback remains service-owned/truthful; ADR-0003 revocation reconciliation; ADR-0004 provider/consent/failure isolation; ADR-0006 no forced cloud/backend. All remain Proposed pending Issue #2. |
+| Failure and recovery | Denied-requestable: Retry/Not now; permanent denial: Open Settings/Not now; Settings return: three outcomes; provider unavailable and consent decline: manual fallback; revocation: reconcile false playability. |
+| Data and permissions | Android permission state authoritative; MediaStore existence separated from derived index; microphone requested JIT; notification deferred; cloud consent stored locally only if applicable. |
+| Open assumptions or evidence | TS-01 notification behavior; TS-03 provider/cloud behavior; TS-06 storage/revocation behavior; Issue #2 ADR outcomes; Figma synchronization; final reviewer sign-off. |
 
-## Global permission rules
+## Global rules
 
-1. One purpose is explained at a time.
-2. No permission is treated as consent for unrelated data collection.
-3. No coercive request loop is allowed.
-4. `Denied` and `Permanently Denied` are separate states.
-5. Returning from Android Settings always rechecks the relevant condition.
-6. A denial must preserve a non-crashing recovery path or manual fallback.
-7. Deep Android Settings are never opened automatically.
+1. Explain one purpose at a time.
+2. Request a permission only when its capability is first needed.
+3. Do not treat a permission result as consent for unrelated processing.
+4. Keep `Denied - requestable` and `Permanently Denied` distinct.
+5. Never open Android Settings automatically or create a coercive retry loop.
+6. Recheck the actual condition whenever the app returns from Settings.
+7. Preserve a non-crashing recovery or manual fallback after every denial/failure.
 
-## A. Media access
+## Media access
 
-### Trigger
+1. Show a contextual explanation before the first consented scan or explicit retry.
+2. `Continue` opens the Android media permission dialog; `Not now` goes to a safe Home / Library Empty state with visible recovery.
+3. `Granted` resumes the blocked scan/reconciliation action.
+4. `Denied - requestable` offers `Retry` and `Not now`.
+5. `Permanently Denied` offers both `Open Android Settings` and `Not now`.
+6. Returning from Android Settings rechecks one of three independent outcomes:
+   - `Granted` → resume the blocked action;
+   - `Denied - requestable` → show Retry/Not now recovery;
+   - `Still permanently denied` → show Open Settings/Not now without an automatic loop.
 
-- The first consented local-library scan is about to begin.
-- A previously denied request is retried by the user.
-- Access was restored or revoked and the app must re-evaluate the blocked action.
+## Microphone, provider, and cloud-processing boundary
 
-### Flow
+Microphone permission may be requested only after an explicit microphone tap or user-selected command practice.
 
-1. **Media-access explanation.**
-   - Explain that Music Copilot accesses supported audio already present on the device.
-   - Do not imply that the app supplies, licenses, verifies ownership of, uploads, or synchronizes the files.
-2. **User selects Continue.**
-3. **Android media permission dialog.**
-4. **Granted.**
-   - Continue the blocked action: initial scan, incremental scan, or media resolution.
-5. **Denied.**
-   - Return to a concise app explanation.
-   - Offer `Retry` and `Not now`.
-   - `Not now` routes to Home / Library Empty with a visible media-access recovery path.
-6. **Permanently Denied.**
-   - Offer `Open Android Settings` only after explicit user action.
-7. **Android Settings.**
-   - The user may grant access or leave it denied.
-8. **Return to app.**
-   - Re-read Android permission state.
-   - Granted resumes the blocked action.
-   - Still denied returns to explanation, Retry, or the safe Empty/manual path.
+The checks are ordered and distinct:
 
-## B. Microphone access
+1. microphone permission;
+2. speech-provider availability and capability;
+3. cloud-processing determination;
+4. separate truthful cloud consent, if applicable;
+5. bounded Voice handoff or manual fallback.
 
-### Trigger
+`Provider unavailable` is not a permission denial. Microphone denial, provider unavailability, network/provider failure, or cloud-consent decline must leave local browsing, manual controls, the queue, and authoritative playback available. The app must not claim guaranteed offline speech recognition without validated TS-03 evidence.
 
-Microphone permission may be requested only after:
+## Notification boundary
 
-- the first explicit microphone tap; or
-- user-selected controlled command practice.
+Notification permission remains deferred until successful playback/background-control value exists and the Android version requires the prompt. Exact Android 10, 12, and 14+ behavior belongs to UF-06 and TS-01. Denial must not crash, stop playback, or falsify player state.
 
-It is not requested blindly during startup or merely because onboarding is displayed.
+## Revocation and reconciliation
 
-### Flow
+When previously granted media access is revoked, recheck Android state, reconcile the derived index with current MediaStore access, mark affected media unavailable, prevent false playability, preserve unaffected service-owned playback state where valid, and route to recovery. A stale index row never proves current accessibility.
 
-1. Explicit microphone action.
-2. Voice-purpose explanation.
-3. Android microphone permission dialog.
-4. **Granted:** begin the bounded Voice session.
-5. **Denied:** return immediately to manual controls; local browsing and playback remain available.
-6. **Permanently Denied:** offer Android Settings only outside active Driving Mode.
-7. Declining microphone or cloud speech consent never removes manual player controls.
-
-### Voice privacy boundary
-
-- Raw microphone audio is not stored by default.
-- Raw audio and full transcripts do not enter analytics, crash reports, logs, or persistence.
-- If cloud speech processing is used, separate consent must disclose destination, purpose, and retention.
-- The product must not claim guaranteed offline STT without validated provider evidence.
-
-## C. Notification permission boundary
-
-Notification permission is deferred until:
-
-- playback has succeeded; and
-- background/system-control value exists; and
-- the Android version actually requires the applicable prompt.
-
-The Phase 1 contract is limited to:
-
-1. show an app-level explanation after value exists;
-2. request the Android permission only where applicable;
-3. ensure denial does not crash, stop playback, or falsify player state;
-4. keep manual in-app controls available; and
-5. route exact Android 10, 12, and 14+ behavior to UF-06 and TS-01.
-
-## D. Permission revocation
-
-### Trigger
-
-A permission that was previously granted is revoked while:
-
-- the app resumes;
-- a scan begins;
-- a media item is resolved; or
-- an existing library state is reconciled.
-
-### Required behavior
-
-1. Recheck fails.
-2. Reconcile the derived index against current MediaStore access.
-3. Mark inaccessible media unavailable.
-4. Do not treat a Room/index row as proof that the media is still accessible.
-5. If the current item is affected, do not crash or leave it falsely playable.
-6. Route to media permission recovery.
-7. Reconnect or restored access does not bypass a fresh state check.
-
-## Valid terminal states
+## Valid endpoints
 
 - Granted and blocked action continued.
-- Denied with Retry and `Not now`.
-- Permanently Denied with explicit Android Settings path.
-- Still denied after Settings return with explanation/manual fallback.
-- Microphone declined with manual controls preserved.
+- Denied - requestable with Retry and Not now.
+- Permanently Denied with Open Android Settings and Not now.
+- Any of the three Settings-return results routed correctly.
+- Provider unavailable or cloud consent declined with manual controls preserved.
 - Notification denied without playback-state corruption.
-- Revoked media reconciled and routed to recovery.
+- Revoked media reconciled and routed safely.
 
-## Ownership and persistence
+## Privacy and telemetry
 
-- Android permission state is authoritative.
-- App explanation state is temporary UI state.
-- MediaStore is authoritative for accessible media existence and platform identity.
-- The local index is derived and rebuildable.
-- Permission results do not create a user identity or account.
+- Raw audio is not stored by default.
+- Raw audio, full transcripts, titles, filenames, artists, albums, folders, URIs, paths, library contents, precise location, contacts, and unnecessary identifiers do not enter analytics, crash reports, or logs.
+- If cloud speech is used, consent must disclose destination, purpose, and retention before processing.
+- This flow approves no permission-result telemetry event.
 
-## Privacy and analytics
+## Review boundary
 
-The approved Phase 0 event allowlist does not include permission-result telemetry. UF-02 adds no permission event or sensitive payload. Any future instrumentation requires an explicit allowlist revision and Privacy review.
-
-Forbidden data includes raw audio, full transcripts, full personal titles, filenames, artists, albums, folders, paths, URIs, library contents, precise location, contacts, and unnecessary persistent identifiers.
-
-## Accessibility and safety
-
-- Purpose copy is short and specific.
-- Retry, Not now, Open Settings, and manual fallback are explicitly labeled.
-- No state relies on color alone.
-- TalkBack order and scalable text are required.
-- Android Settings are not opened from active Driving Mode.
-
-## Open evidence gates
-
-- **TS-01:** notification permission and foreground media behavior on Android 10, 12, and 14+.
-- **TS-03:** provider availability, network dependence, processing destination, and consent copy.
-- **TS-06:** permission changes, scoped storage, moved/deleted files, and reconciliation across Android versions.
-
-## Review result
-
-- Product behavior and recovery policy: approved for this cluster by the Product Owner on 01 August 2026.
-- Product Design: all denial, permanent denial, Settings return, revocation, and fallback branches are represented in Figma.
-- Android, QA, and Privacy: formal evidence remains required for the routed spikes.
-- This flow does not close Issue #3 or authorize implementation.
+- Stage 1 traceability completeness: **PASS**.
+- TS-01, TS-03, and TS-06: **Open**.
+- Product Design/Figma synchronization: **Open**.
+- ADR governance: **Open; all six ADRs remain Proposed**.
+- Final Product, Design, Android, QA, Privacy, and Governance sign-off: **Not recorded**.
+- This record does not close Issue #3 or authorize implementation.
