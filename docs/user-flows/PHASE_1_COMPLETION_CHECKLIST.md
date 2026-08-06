@@ -1,6 +1,6 @@
 # Phase 1 Completion Checklist - First Readiness
 
-**Updated:** 04 August 2026  
+**Updated:** 06 August 2026  
 **Tracking:** Issue #3  
 **Result:** **PASS for the Stage 1 Cluster A Traceability Matrix only**  
 **Final User Flow status:** **Open**
@@ -20,14 +20,14 @@
 
 ## Requirement and state correctness
 
-- [x] `FR-01` is marked **Partial** and maps to UF-01 + UF-02 + UF-03 + UF-04.
+- [x] `FR-01` is complete at User Flow specification level across UF-01 + UF-02 + UF-03 + UF-04; TS-06 executed evidence remains open.
 - [x] Two-slide onboarding includes Continue, Skip, interrupted resume, and non-mutating replay.
 - [x] Replay preserves permission, verified library, queue, and service-owned active playback state.
 - [x] Six-command education contains exactly `PLAY`, `PAUSE`, `NEXT`, `PREVIOUS`, `SEEK_BACK`, and `PLAY_ARTIST`.
 - [x] Home / Library is one top-level destination with Songs, Artists, Albums, and Folders internal views.
 - [x] Verified current Ready/Empty returning state bypasses unnecessary visible Scanning.
 - [x] Scanning, Empty, Ready, recoverable failure, and revoked/reconciled states are explicit.
-- [ ] UF-04 completes Songs/Artists/Albums/Folders browsing and search behavior.
+- [x] UF-04 completes Songs/Artists/Albums/Folders browsing, local Search Result/No Result/Error, recovery, and acknowledged playback-start handoff at specification level.
 
 ## Permission, provider, and recovery correctness
 
@@ -57,15 +57,16 @@
 
 ## Governance and open evidence
 
-- [x] Every ADR is mapped as an influence without false acceptance.
-- [ ] Issue #2 records explicit Accepted or Revised outcomes for ADR-0001 through ADR-0006.
-- [ ] ADR register synchronized with Issue #2.
+- [x] Every ADR is mapped as an influence and the current GitHub Accepted status is used for new/current records.
+- [x] Issue #2 records explicit Accepted outcomes for ADR-0001 through ADR-0006 after review revisions.
+- [x] ADR register is synchronized with Issue #2 as of 06 August 2026.
 - [ ] TS-01 notification/foreground-media evidence completed.
 - [ ] TS-03 provider/language/network/processing/consent/retention/fallback evidence completed.
 - [ ] TS-06 permission/scoped-storage/move/delete/reconciliation/rebuild evidence completed.
-- [ ] UF-04 through UF-13 completed and reviewed.
+- [x] UF-04 completed at specification/traceability level; Figma and role review remain open.
+- [ ] UF-05 through UF-13 completed and reviewed.
 - [ ] Issue #3 acceptance criteria satisfied and issue closed.
 
 ## Exit decision
 
-The Stage 1 Traceability Matrix is passed and may feed continued User Flow and Golden Scenario drafting. The unchecked items remain real blockers for their affected later claims. This checklist does not authorize Wireframes, final Software Architecture, implementation, or final User Flow approval.
+The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 now also passes at User Flow specification and traceability level, completing FR-01 at that documentation level. The unchecked items remain real blockers for their affected later claims. This checklist does not authorize Cluster B completion, Figma parity, Wireframes, final Software Architecture, implementation, or final User Flow approval.
