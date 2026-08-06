@@ -6,11 +6,14 @@
 **Authority:** GitHub `main` only  
 **Figma dependency:** None  
 **Protocol readiness:** **PASS**  
-**Executed evidence:** **BLOCKED**
+**Harness implementation:** **IN REVIEW**  
+**Executed protocol evidence:** **BLOCKED**
 
 ## Repository audit
 
-The repository has product, ADR, User Flow, Mermaid, and review documents, but no Android application or executable test target: no Gradle Android project, manifest, `src/main`, `src/androidTest`, MediaSessionService, persistence implementation, APK, emulator trace, or physical-device result. Therefore TS-01/02/06/08 cannot honestly be marked executed or PASS.
+The four controlled protocols and result-bundle contract are complete. An isolated, non-production Android project now exists at `spikes/android-validation/` to exercise service-owned Media3 playback, lifecycle/controller boundaries, MediaStore reconciliation, and versioned Paused Restore. It is a focused pre-architecture technical spike, not Issue #4's engineering foundation and not approval of Issue #16.
+
+Build, unit, lint, and AOSP API 29/31/34 instrumentation are automated by `.github/workflows/cluster-b-android-spikes.yml`. Until the workflow passes and its outputs are recorded in immutable redacted bundles, automated execution remains unproven. Samsung/One UI, Xiaomi/MIUI or HyperOS, physical-device process loss, task removal, permission presentation, and Android/QA sign-off remain mandatory device work.
 
 ## Controlled protocols
 
@@ -21,7 +24,11 @@ The repository has product, ADR, User Flow, Mermaid, and review documents, but n
 | TS-06 | [MediaStore reconciliation](TS-06_MEDIASTORE_RECONCILIATION.md) | Permission/revocation/add/move/delete/corrupt/rebuild/5,000 files | BLOCKED |
 | TS-08 | [Paused restore](TS-08_PAUSED_RESTORE.md) | Versioned contract, migration/error, real process-loss proof | BLOCKED |
 
-## Required result layout
+## Harness and result contract
+
+- [Android spike harness boundary](ANDROID_SPIKE_HARNESS.md)
+- [Harness implementation and commands](../../../spikes/android-validation/README.md)
+- [Result bundle contract](results/README.md)
 
 ```text
 docs/user-flows/evidence/results/<TS-ID>/<YYYY-MM-DD>-<build-sha>/
@@ -33,4 +40,4 @@ docs/user-flows/evidence/results/<TS-ID>/<YYYY-MM-DD>-<build-sha>/
     └── screenshots-or-screen-recording/
 ```
 
-[Result bundle contract](results/README.md) is binding. A design, protocol, screenshot without trace, or emulator-only OEM claim is not execution evidence. Cluster B spike evidence passes only when every mandatory row passes or has an approved N/A, required matrix coverage exists, P0/P1 remain separate, no duplicate player/false state/stale playability/crash/ANR/privacy leak occurs, and Android/QA decisions link to immutable bundles in Issue #3. Figma is not a source, dependency, or exit criterion.
+A design, protocol, successful compile, screenshot without trace, or emulator-only OEM claim is not executed protocol evidence. Cluster B spike evidence passes only when every mandatory row passes or has an approved N/A, required matrix coverage exists, P0/P1 remain separate, no duplicate player/false state/stale playability/crash/ANR/privacy leak occurs, and Android/QA decisions link to immutable bundles in Issue #3. Figma is not a source, dependency, or exit criterion.
