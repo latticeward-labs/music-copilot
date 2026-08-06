@@ -19,7 +19,6 @@
 - [x] A shared Cluster B Traceability Matrix maps requirements, screens/surfaces, every CB state, authority, failure/recovery, handoffs, and open evidence.
 - [x] One explicit ten-field traceability record and synchronized Markdown/Mermaid pair exist for UF-06.
 - [x] The official English PRD/MVP remain product authorities.
-- [ ] Figma synchronized with the corrected repository records.
 - [ ] Final Product, Design, Android, QA, Privacy, and Governance sign-off recorded.
 
 ## Requirement and state correctness
@@ -41,7 +40,7 @@
 - [x] The canonical connected Cluster B path passes seam, recovery, P0/P1, authority, handoff, and MVP-scope review.
 - [x] Shared State Inventory coverage is complete: UF-04 14/14, UF-05 10/10, and UF-06 13/13 source states normalized into CB-01 through CB-33.
 - [x] Shared Traceability coverage is complete with no unowned Cluster B state or undocumented cross-flow recovery.
-- [ ] Figma synchronization and cross-role sign-off remain open.
+- [ ] Cross-role sign-off remains open.
 
 ## Permission, provider, and recovery correctness
 
@@ -80,20 +79,28 @@
 - [x] Every ADR is mapped as an influence and the current GitHub Accepted status is used for new/current records.
 - [x] Issue #2 records explicit Accepted outcomes for ADR-0001 through ADR-0006 after review revisions.
 - [x] ADR register is synchronized with Issue #2 as of 06 August 2026.
-- [ ] TS-01 notification/foreground-media evidence completed.
-- [ ] TS-02 UI/service/task/process lifecycle boundary evidence completed.
+- [x] TS-01 executable protocol/matrix/output/PASS criteria recorded.
+- [ ] TS-01 required Android/OEM evidence executed.
+- [x] TS-02 lifecycle/P0-P1 protocol recorded.
+- [ ] TS-02 lifecycle evidence executed.
 - [ ] TS-03 provider/language/network/processing/consent/retention/fallback evidence completed.
-- [ ] TS-06 permission/scoped-storage/move/delete/reconciliation/rebuild evidence completed.
-- [ ] TS-08 local queue/position restore representation, migration/error behavior, and paused-restore evidence completed.
+- [x] TS-06 MediaStore/rebuild/scale protocol recorded.
+- [ ] TS-06 device evidence executed.
+- [x] TS-08 logical snapshot/migration/error protocol recorded.
+- [ ] TS-08 persistence/process-death evidence executed.
 - [x] UF-04 completed at specification/traceability level; Figma and role review remain open.
-- [x] UF-05 completed at specification/traceability level; TS-02/TS-06/TS-08, numeric `T_PREVIOUS`, Figma, and role review remain open.
-- [x] UF-06 completed at specification/traceability level; TS-01/TS-02/TS-08, Issue #16 mechanics, Figma, and role review remain open.
+- [x] UF-05 completed at specification/traceability level; TS-02/TS-06/TS-08, numeric `T_PREVIOUS`, and role review remain open.
+- [x] UF-06 completed at specification/traceability level; TS-01/TS-02/TS-08, Issue #16 mechanics, and role review remain open.
 - [ ] UF-07 through UF-13 completed and reviewed.
 - [x] Formal connected Cluster B diagram integration review recorded.
 - [x] Formal shared Cluster B State Inventory and Traceability decisions recorded.
-- [ ] Cluster B Figma synchronization and Product/Design/Android/QA/Privacy sign-off recorded.
+- [ ] Cluster B Product/Design/Android/QA/Privacy sign-off recorded.
 - [ ] Issue #3 acceptance criteria satisfied and issue closed.
+
+## Technical Spike execution boundary
+
+The [evidence pack](evidence/README.md) is complete. No executable Android project/APK/instrumentation/device result exists, so protocol readiness is PASS and execution is BLOCKED. Figma is not part of this User Flow stage.
 
 ## Exit decision
 
-The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 and UF-06 now pass at that level for P0 manual Player/Queue plus background/screen-off/system-control behavior and the separate user-visible P1 Paused Restore branch, completing FR-02 documentation coverage. All three Cluster B constituent flows are drafted and traceable; their canonical connected diagram, normalized shared State Inventory, and shared Traceability Matrix pass repository review. The unchecked items remain real blockers for formal Cluster B exit: executed Android/OEM evidence, Figma parity, cross-role sign-off, remaining flows, Wireframes, final Software Architecture, implementation, and final User Flow approval.
+The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 and UF-06 now pass at that level for P0 manual Player/Queue plus background/screen-off/system-control behavior and the separate user-visible P1 Paused Restore branch, completing FR-02 documentation coverage. All three Cluster B constituent flows are drafted and traceable; their canonical connected diagram, normalized shared State Inventory, and shared Traceability Matrix pass repository review. The unchecked items remain real blockers for formal Cluster B exit: executed Android/OEM evidence, cross-role sign-off, remaining flows, Wireframes, final Software Architecture, implementation, and final User Flow approval.

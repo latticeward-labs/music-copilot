@@ -24,11 +24,11 @@ Controlled inputs:
 
 | Product requirement / story | Priority | Flow coverage | Canonical states / transitions | Recovery and handoff | Documentation result | Remaining evidence |
 |---|---:|---|---|---|---|---|
-| US-02 account-free local library precondition and lawful local-media use | P0 | UF-04, with UF-03 upstream | CB-01 through CB-13 | Revoked → UF-02; empty/stale/unknown → UF-03 | PASS | TS-06; Figma; role review |
+| US-02 account-free local library precondition and lawful local-media use | P0 | UF-04, with UF-03 upstream | CB-01 through CB-13 | Revoked → UF-02; empty/stale/unknown → UF-03 | PASS | TS-06; role review |
 | PRD/MVP Library browse by Songs, Artists, Albums and Folders; FR-01 completion with UF-01/02/03 | P0 | UF-04 | CB-01 through CB-08; track selection → CB-13 | Query/index recovery; UF-02/03 | PASS at User Flow specification level | TS-06; Issue #15/#16 |
 | PRD/MVP local Search with Result, No Result and Error | P0 | UF-04 | CB-09 through CB-13 | Preserve query/library; no remote fallback; UF-02/03 when truth changes | PASS at User Flow specification level | TS-06; ranking/presentation in Issue #15/#16 |
 | FR-02 Basic Player and manual controls: Play, Pause, Next, Previous, Seek and Queue | P0 | UF-05 | CB-14 through CB-21 | CB-19 controlled skip; CB-21 reconnect; UF-02/03/04/11 handoffs | PASS at User Flow specification level | TS-02/06/08; numeric T_PREVIOUS; Issue #15/#16 |
-| US-03 truthful service-owned playback and synchronized visible state | P0 | UF-05 + UF-06 | CB-14 through CB-31 | Reconnect via CB-21; lifecycle loss only → CB-32/33 | PASS at User Flow specification level | TS-01/02; Figma; role review |
+| US-03 truthful service-owned playback and synchronized visible state | P0 | UF-05 + UF-06 | CB-14 through CB-31 | Reconnect via CB-21; lifecycle loss only → CB-32/33 | PASS at User Flow specification level | TS-01/02; role review |
 | FR-02 active background/screen-off playback and system controls | P0 | UF-06 | CB-22 through CB-31 | Unsupported/absent surfaces remain truthful; interruptions/routes → UF-11 | PASS at User Flow specification level | TS-01/02; Issue #16 |
 | FR-08 queue/current-item/position restoration after active lifecycle loss | P1 | UF-05 + UF-06 | CB-25 → CB-32/33; explicit Resume → CB-14/15 | Invalid snapshot → CB-33 → CB-01/UF-04 | PASS for user-visible contract only | TS-08 representation/migration/error proof |
 | FR-03 call, Audio Focus and route recovery boundary | P0, downstream | UF-06 handoff; full behavior belongs to UF-11 | CB-28 route event → UF-11 | UF-11 must define pause/duck/resume and no-speaker-leak policy | Correctly bounded; not complete in Cluster B | UF-11 plus Android/QA evidence |
@@ -120,20 +120,23 @@ Controlled inputs:
 
 | Gate | Owner | Current state | What remains |
 |---|---|---|---|
-| TS-01 | Android + QA | OPEN | Notification/foreground-media, permission/exemption and OEM evidence |
-| TS-02 | Android + QA | OPEN | UI closure/recreation, task removal, service lifetime, reconnect and process-death evidence |
-| TS-06 | Android + QA | OPEN | Permission/MediaStore move-delete/reconciliation/rebuild/scale evidence |
-| TS-08 | Android | OPEN | Restore representation, validation, migration/error and Paused Restore proof |
+| TS-01 | Android + QA | BLOCKED | [Protocol complete](evidence/TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md); execution absent |
+| TS-02 | Android + QA | BLOCKED | [Protocol complete](evidence/TS-02_LIFECYCLE_BOUNDARIES.md); execution absent |
+| TS-06 | Android + QA | BLOCKED | [Protocol complete](evidence/TS-06_MEDIASTORE_RECONCILIATION.md); execution absent |
+| TS-08 | Android + QA | BLOCKED | [Contract/protocol complete](evidence/TS-08_PAUSED_RESTORE.md); execution absent |
 | Issue #15 | Product Design | OPEN | Wireframes, hierarchy, presentation, accessibility interaction details |
 | Issue #16 | Product + Android | OPEN | Numeric T_PREVIOUS; query, service/controller, lifecycle and persistence mechanics |
-| Figma synchronization | Product Design | OPEN | Copy reviewed repository behavior, inventory and matrix into controlled workfile |
 | Cross-role sign-off | Product, Design, Android, QA, Privacy | OPEN | Record actual reviewers, dates and decision |
 | Connected-flow integration review | Repository review | PASS | Already recorded in CLUSTER_B_CONNECTED_REVIEW.md |
 | Shared State Inventory | Repository review | PASS | CB-01 through CB-33 complete |
 | Shared Traceability Matrix | Repository review | PASS | Requirement, screen, state, authority, recovery and evidence mappings complete |
 
+## Technical Spike evidence mapping
+
+The [evidence index](evidence/README.md) is canonical: protocol PASS, execution BLOCKED. Figma is not a User Flow source or exit criterion.
+
 ## Decision
 
 **PASS — Cluster B now has a formal shared Traceability Matrix with no unowned UF-04/05/06 state, missing connected-flow seam, or unrecorded recovery boundary.**
 
-This decision closes only the shared Traceability documentation gap. It does not grant Figma parity, executed Technical Spike evidence, cross-role approval, formal Cluster B exit, complete Issue #3 acceptance, Wireframe approval, final Software Architecture approval, or implementation approval.
+This decision closes only the shared Traceability documentation gap. It does not grant executed Technical Spike evidence, cross-role approval, formal Cluster B exit, complete Issue #3 acceptance, Wireframe approval, final Software Architecture approval, or implementation approval.

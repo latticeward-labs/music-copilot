@@ -71,11 +71,14 @@ Reviewed inputs:
 | TS-06 | Permission, MediaStore move/delete, reconciliation, rebuild, and scale behavior still require device evidence. |
 | TS-08 | Queue/position restore representation, migration/error, and paused-restore behavior still require evidence. |
 | Issue #16 | Numeric `T_PREVIOUS` and service/controller/lifecycle/persistence mechanics remain architecture decisions. |
-| Figma synchronization | The reviewed repository diagram has not yet been copied to the controlled Figma workfile. |
 | Cross-role sign-off | Product, Design, Android, QA, and Privacy reviewers have not recorded approval. |
+
+## Technical Spike protocol decision
+
+**PASS — execution specifications are complete.** See the [evidence index](evidence/README.md). **Execution is BLOCKED** because no Android implementation/APK/instrumentation/device evidence exists. Figma is not part of this gate.
 
 ## Decision
 
 **PASS — the connected Cluster B diagram, normalized shared State Inventory, and shared Traceability Matrix are complete and internally coherent for UF-04/UF-05/UF-06.**
 
-This closes the repository documentation gaps for the connected review, shared State Inventory, and shared Traceability. It does not grant formal Cluster B exit, Figma parity, cross-role sign-off, executed Technical Spike evidence, Wireframe/final Software Architecture/implementation approval, or Issue #3 completion.
+This closes the repository documentation gaps for the connected review, shared State Inventory, and shared Traceability. It does not grant formal Cluster B exit, cross-role sign-off, executed Technical Spike evidence, Wireframe/final Software Architecture/implementation approval, or Issue #3 completion.
