@@ -2,7 +2,7 @@
 
 **Updated:** 06 August 2026  
 **Tracking:** Issue #3  
-**Result:** **PASS for Stage 1 Cluster A plus UF-04, UF-05, and UF-06 specification/traceability records**  
+**Result:** **PASS for Stage 1 Cluster A, UF-04/UF-05/UF-06 specification records, and Cluster B connected-flow integration review**  
 **Final User Flow status:** **Open**
 
 ## Canonical documentation evidence
@@ -14,6 +14,7 @@
 - [x] State inventory, requirement status, ADR influence, and open evidence exist in 01.6.
 - [x] Limited Stage 1 decision and approval boundary exist in 01.7.
 - [x] Corrected Markdown/Mermaid pairs are synchronized for the Stage 1 canonical records.
+- [x] The Cluster B connected diagram has synchronized Markdown and raw `.mmd` sources plus a controlled review record.
 - [x] One explicit ten-field traceability record and synchronized Markdown/Mermaid pair exist for UF-06.
 - [x] The official English PRD/MVP remain product authorities.
 - [ ] Figma synchronized with the corrected repository records.
@@ -34,7 +35,9 @@
 - [x] UF-05 defines Play, Pause, Next, Previous, Seek, queue-item selection, natural completion, Back, and downstream handoffs without approving a Wireframe.
 - [x] UF-06 covers app background/UI closure/recreation, screen off/lock, notification/system media controls, lock-screen controls, Bluetooth/headset/vehicle media keys, system-command acknowledgement, controller reconnect, unavailable surfaces, and P1 Paused Restore.
 - [x] `FR-02` is complete at User Flow specification level across UF-05 + UF-06; TS-01/TS-02 executed evidence remains open.
-- [x] Cluster B constituent drafting coverage (UF-04 + UF-05 + UF-06) is complete; formal connected review and sign-off remain open.
+- [x] Cluster B constituent drafting coverage (UF-04 + UF-05 + UF-06) is complete.
+- [x] The canonical connected Cluster B path passes seam, recovery, P0/P1, authority, handoff, and MVP-scope review.
+- [ ] Figma synchronization and cross-role sign-off remain open.
 
 ## Permission, provider, and recovery correctness
 
@@ -82,9 +85,10 @@
 - [x] UF-05 completed at specification/traceability level; TS-02/TS-06/TS-08, numeric `T_PREVIOUS`, Figma, and role review remain open.
 - [x] UF-06 completed at specification/traceability level; TS-01/TS-02/TS-08, Issue #16 mechanics, Figma, and role review remain open.
 - [ ] UF-07 through UF-13 completed and reviewed.
-- [ ] Formal connected Cluster B review/Figma synchronization and Product/Design/Android/QA/Privacy sign-off recorded.
+- [x] Formal connected Cluster B diagram integration review recorded.
+- [ ] Cluster B Figma synchronization and Product/Design/Android/QA/Privacy sign-off recorded.
 - [ ] Issue #3 acceptance criteria satisfied and issue closed.
 
 ## Exit decision
 
-The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 and UF-06 now pass at that level for P0 manual Player/Queue plus background/screen-off/system-control behavior and the separate user-visible P1 Paused Restore branch, completing FR-02 documentation coverage. All three Cluster B constituent flows are drafted and traceable. The unchecked items remain real blockers for formal connected Cluster B sign-off, executed Android/OEM evidence, Figma parity, remaining flows, Wireframes, final Software Architecture, implementation, and final User Flow approval.
+The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 and UF-06 now pass at that level for P0 manual Player/Queue plus background/screen-off/system-control behavior and the separate user-visible P1 Paused Restore branch, completing FR-02 documentation coverage. All three Cluster B constituent flows are drafted and traceable, and their canonical connected diagram passes integration review. The unchecked items remain real blockers for formal Cluster B exit: executed Android/OEM evidence, Figma parity, cross-role sign-off, remaining flows, Wireframes, final Software Architecture, implementation, and final User Flow approval.

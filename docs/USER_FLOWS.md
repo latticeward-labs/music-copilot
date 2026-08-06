@@ -1,6 +1,6 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress - Phase 0, Cluster A, and UF-04 through UF-06 complete at specification/traceability level
+- **Status:** In progress - Phase 0, Cluster A, UF-04 through UF-06, and the Cluster B connected-flow integration review are complete at documentation level
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Workfile:** [Music Copilot - MVP v1.0](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF)
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
@@ -48,10 +48,13 @@ The active drafting cluster is **Cluster B: UF-04 Browse/Search, UF-05 Manual Pl
 
 **Flows:** UF-04 Browse and Search Local Music; UF-05 Manual Playback and Queue Control; UF-06 Background, Screen-off, and System Controls  
 **Decision date:** 06 August 2026  
-**Status boundary:** UF-04, UF-05, and UF-06 each pass at User Flow specification and traceability level. Cluster B drafting coverage is complete, but formal connected review, Figma synchronization, executed Technical Spike evidence, and cross-role sign-off remain open.
+**Status boundary:** UF-04, UF-05, and UF-06 each pass at User Flow specification and traceability level. The canonical connected diagram and integration review now pass. Formal Cluster B exit remains open for Figma synchronization, executed Technical Spike evidence, and cross-role sign-off.
 
 ### Repository records
 
+- [Cluster B connected review record](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
+- [Cluster B canonical connected diagram](user-flows/mermaid/CLUSTER_B_CONNECTED_FLOW.md)
+- [Cluster B raw connected Mermaid source](user-flows/mermaid/CLUSTER_B_CONNECTED_FLOW.mmd)
 - [UF-04 - Browse and Search Local Music](user-flows/UF-04_BROWSE_AND_SEARCH.md)
 - [UF-04 canonical Mermaid](user-flows/mermaid/UF-04_BROWSE_AND_SEARCH.md)
 - [UF-04 raw Mermaid source](user-flows/mermaid/UF-04_BROWSE_AND_SEARCH.mmd)
@@ -62,7 +65,7 @@ The active drafting cluster is **Cluster B: UF-04 Browse/Search, UF-05 Manual Pl
 - [UF-06 canonical Mermaid](user-flows/mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)
 - [UF-06 raw Mermaid source](user-flows/mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.mmd)
 
-UF-04 covers browse/search and the acknowledged playback-start handoff. UF-05 defines deterministic service-owned queue/manual playback behavior and the user-visible P1 Paused Restore branch. UF-06 now defines P0 background/screen-off continuity; synchronized notification, lock-screen, Bluetooth/headset, vehicle media-key, and returning-UI controllers; truthful reconnect and unavailable-surface recovery; the evidence-safe notification permission/exemption branch; and the separate P1 Paused Restore route. FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 is complete at that level across UF-05 and UF-06. FR-03 interruption/route behavior remains UF-11. TS-01, TS-02, TS-06, TS-08, numeric `T_PREVIOUS`, formal Cluster B review/Figma synchronization, role review, and final Issue #3 approval remain open.
+UF-04 covers browse/search and the acknowledged playback-start handoff. UF-05 defines deterministic service-owned queue/manual playback behavior and the user-visible P1 Paused Restore branch. UF-06 now defines P0 background/screen-off continuity; synchronized notification, lock-screen, Bluetooth/headset, vehicle media-key, and returning-UI controllers; truthful reconnect and unavailable-surface recovery; the evidence-safe notification permission/exemption branch; and the separate P1 Paused Restore route. FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 is complete at that level across UF-05 and UF-06. FR-03 interruption/route behavior remains UF-11. TS-01, TS-02, TS-06, TS-08, numeric `T_PREVIOUS`, Figma synchronization, cross-role sign-off, and final Issue #3 approval remain open. The connected-flow integration review is no longer open.
 
 ## Required flow catalog
 
@@ -110,7 +113,9 @@ Every state must record:
 - [x] UF-04 completes Songs/Artists/Albums/Folders browse and local Search behavior at specification level, with recovery and UF-05 handoff explicit.
 - [x] UF-05 completes the P0 manual Player/Queue behavior and the user-visible P1 Paused Restore branch at specification level, with UF-06/UF-11 handoffs explicit.
 - [x] UF-06 completes P0 background/screen-off and synchronized system-control behavior plus the separate P1 Paused Restore branch at specification level; FR-02 documentation coverage is complete.
-- [x] Cluster B constituent drafting coverage (UF-04/UF-05/UF-06) is complete; formal connected review, Figma synchronization, spikes, and role sign-off remain open.
+- [x] Cluster B constituent drafting coverage (UF-04/UF-05/UF-06) is complete.
+- [x] Cluster B canonical connected diagram and integration review pass; no UF-04/05/06 handoff gap remains.
+- [ ] Cluster B Figma synchronization, executed spikes, and cross-role sign-off remain open.
 - [ ] P0/P1/P2 scope is explicit across the complete flow set.
 - [ ] Product and Android reviewers approve the complete flow set and state inventory.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
@@ -122,5 +127,7 @@ Every state must record:
 - [UF-04 - Browse and Search Local Music](user-flows/UF-04_BROWSE_AND_SEARCH.md) - specification/traceability PASS; downstream evidence open
 - [UF-05 - Manual Playback and Queue Control](user-flows/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md) - specification/traceability PASS; downstream evidence open
 - [UF-06 - Background, Screen-off, and System Controls](user-flows/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md) - specification/traceability PASS; TS-01/TS-02/TS-08/Figma/reviewer evidence open
-- Complete UF-07 through UF-13 diagrams, formal Cluster B review, and final review date - _to be completed by Issue #3_
+- [Cluster B connected review](user-flows/CLUSTER_B_CONNECTED_REVIEW.md) - connected-flow integration PASS; formal exit gates open
+- [Cluster B connected diagram](user-flows/mermaid/CLUSTER_B_CONNECTED_FLOW.md) and [raw source](user-flows/mermaid/CLUSTER_B_CONNECTED_FLOW.mmd) - canonical pair
+- Complete UF-07 through UF-13 diagrams, Cluster B Figma/role review, and final review date - _to be completed by Issue #3_
 
