@@ -3,7 +3,7 @@
 **Product:** Music Copilot MVP v1.0  
 **Priority:** P0 - Beta blocking; P1 restore branch  
 **Updated:** 06 August 2026  
-**Status:** User Flow specification and traceability - **PASS**; TS-01, TS-02, TS-08, Figma synchronization, and reviewer evidence remain open  
+**Status:** User Flow specification and traceability - **PASS**; TS-01, TS-02, TS-08, and reviewer evidence remain open  
 **Tracking:** GitHub Issue #3  
 **Canonical diagram:** [`mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md`](mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)  
 **Raw Mermaid source:** [`mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.mmd`](mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.mmd)
@@ -29,7 +29,7 @@ This flow approves user-visible continuity, synchronization, command routing, pe
 | Influencing ADRs | ADR-0001 Accepted - native Android/system behavior; ADR-0002 Accepted - service/MediaSession owns player, queue, position, commands, and external synchronization; ADR-0003 Accepted - local-only rebuildable/app-owned restore boundaries; ADR-0006 Accepted - no account, backend, sync, catalog, streaming, upload, or download. |
 | Failure and recovery | Missing/unavailable system surface does not fabricate playback failure; unsupported/rejected command preserves verified state; UI reconnect refreshes the complete service snapshot; notification denial where applicable is non-blocking and has optional Settings recovery; active lifecycle loss enters P1 validation rather than surprise auto-resume; access/media failure hands off to UF-02/03/05; route/interruption events hand off to UF-11. |
 | Data and permissions | Playback service/MediaSession is authoritative for current item, queue, index, Playing/Paused/Ended, duration, position, and supported actions. Android/system surfaces are controllers only. Platform notification state is authoritative where a non-exempt permission applies. P1 restore is local app-owned data only; representation remains open. Personal media metadata and precise position are prohibited from telemetry. |
-| Open assumptions or evidence | TS-01 notification/foreground-media behavior on Android 10/12/14+ and OEMs; TS-02 UI close/recreation/task removal/service/process boundaries; TS-08 restore contract; Issue #16 service/controller, command, lifecycle, foreground-service, and persistence mechanics; Issue #15 reconnect/permission/error presentation; UF-11 route/interruption policy; Figma synchronization; Product/Design/Android/QA/Privacy review. ADR status itself is not open. |
+| Open assumptions or evidence | TS-01 notification/foreground-media behavior on Android 10/12/14+ and OEMs; TS-02 UI close/recreation/task removal/service/process boundaries; TS-08 restore contract; Issue #16 service/controller, command, lifecycle, foreground-service, and persistence mechanics; Issue #15 reconnect/permission/error presentation; UF-11 route/interruption policy; Product/Design/Android/QA/Privacy review. ADR status itself is not open. |
 
 ## Preconditions and entry routes
 
@@ -165,7 +165,6 @@ Persisted fields, save timing, expiry, migration/error behavior, task-removal/pr
 | Issue #15 | Product Design | Connecting/Reconnecting, permission explanation, unavailable system surface, P1 restore, error presentation, return-to-app, accessibility, and link-opening behavior | Blocks Wireframe approval, not UF-06 traceability |
 | Issue #16 | Product + Android | Exact Media3 service/controller and foreground-service design, command ordering/acknowledgement, notification integration, lifecycle/stop policy, process-death limits, and persistence mechanics | Blocks final architecture/implementation approval |
 | UF-11 | Product + Android + QA | Calls, Audio Focus, Bluetooth/headset disconnect/reconnect, Audio Route changes, conditional resume, and no-speaker-leak policy | Blocks FR-03 and route-safety completion, not UF-06 background continuity |
-| Figma synchronization | Product Design | Repository behavior copied into the controlled User Flows / State Inventory workfile | Visual parity and formal Cluster B review remain open |
 | Role review | Product, Design, Android, QA, Privacy | Review against PRD/MVP, accepted ADRs, Android evidence, recovery, privacy, accessibility, and P0/P1 separation | Final Cluster B/Issue #3 approval remains open |
 
 ## Exit checklist and decision
@@ -185,10 +184,10 @@ Persisted fields, save timing, expiry, migration/error behavior, task-removal/pr
 - [x] Privacy, analytics, accessibility, Driving Mode, Android Auto, and outside-MVP boundaries are explicit.
 - [x] FR-02 is complete at User Flow specification level across UF-05 and UF-06.
 - [x] UF-04, UF-05, and UF-06 are each complete at specification/traceability level; Cluster B drafting coverage is complete.
-- [ ] Figma synchronization and connected Cluster B review/exit evidence recorded.
+- [ ] and connected Cluster B review/exit evidence recorded.
 - [ ] TS-01, TS-02, and TS-08 executed evidence recorded.
 - [ ] Final service/controller/foreground-service/lifecycle/persistence mechanics approved in Issue #16.
 - [ ] Product/Design/Android/QA/Privacy review recorded.
 - [ ] Issue #3 complete flow-set acceptance criteria satisfied.
 
-**Decision:** UF-06 is complete and passes at the User Flow specification and traceability level. FR-02 and the three constituent Cluster B flows are complete at that documentation level. This decision does not claim executed Android/OEM evidence, Figma parity, formal Cluster B sign-off, FR-03 route/interruption completion, Wireframes, final Software Architecture, implementation, or closure of Issue #3.
+**Decision:** UF-06 is complete and passes at the User Flow specification and traceability level. FR-02 and the three constituent Cluster B flows are complete at that documentation level. This decision does not claim executed Android/OEM evidence, formal Cluster B sign-off, FR-03 route/interruption completion, Wireframes, final Software Architecture, implementation, or closure of Issue #3.

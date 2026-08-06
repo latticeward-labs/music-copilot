@@ -87,4 +87,4 @@ Controlled inputs:
 
 **PASS — Cluster B now has one formal, normalized, complete shared State Inventory for UF-04, UF-05, and UF-06.**
 
-This decision closes only the shared State Inventory documentation gap. It does not claim Figma parity, executed TS-01/02/06/08 evidence, numeric T_PREVIOUS approval, Issue #16 implementation mechanics, cross-role sign-off, formal Cluster B exit, or Issue #3 completion.
+This decision closes only the shared State Inventory documentation gap. It does not claim, executed TS-01/02/06/08 evidence, numeric T_PREVIOUS approval, Issue #16 implementation mechanics, cross-role sign-off, formal Cluster B exit, or Issue #3 completion.

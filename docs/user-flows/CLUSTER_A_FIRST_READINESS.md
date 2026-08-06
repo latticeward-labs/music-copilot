@@ -12,7 +12,7 @@
 
 Cluster A connects first launch, permission recovery, and local-library readiness. The PASS means that each Cluster A flow has a complete ten-field traceability record and the corrected connected logic is suitable for continued documentation work.
 
-The PASS does **not** mean that FR-01, ADR governance, Technical Spikes, Figma synchronization, UF-04 through UF-13, final role review, Wireframes, final architecture, or implementation is complete.
+The PASS does **not** mean that FR-01, ADR governance, Technical Spikes, UF-04 through UF-13, final role review, Wireframes, final architecture, or implementation is complete.
 
 ## Controlled authority
 
@@ -21,7 +21,7 @@ The PASS does **not** mean that FR-01, ADR governance, Technical Spikes, Figma s
 3. Phase 0 Foundation — approved UF catalog, drafting decisions, and evidence routing.
 4. ADR-0001 through ADR-0006 — architectural influence only; every ADR remains Proposed pending Issue #2.
 5. System Architecture and Technical Documentation — technical interpretation only; cannot expand PRD/MVP scope.
-6. Corrected repository records — canonical current User Flow documentation until Figma is synchronized.
+6. Corrected repository records — canonical current User Flow documentation .
 
 ## Artifact register
 
@@ -34,7 +34,6 @@ The PASS does **not** mean that FR-01, ADR governance, Technical Spikes, Figma s
 | [01.6 Traceability](mermaid/01_6_STATE_INVENTORY_AND_TRACEABILITY.md) | Canonical ten-field matrix and requirement/ADR/open-gate record | Stage 1 PASS |
 | [01.7 Review Record](mermaid/01_7_REVIEW_AND_APPROVAL_RECORD.md) | Limited gate decision | PASS only for Stage 1 matrix |
 
-Figma URLs remain useful references, but Figma synchronization is **Open**. No older visual snapshot may override the corrected repository behavior or serve as final approval evidence.
 
 ## Connected behavior
 
@@ -92,7 +91,6 @@ Issue #2 must record explicit Accepted or Revised outcomes before any ADR is tre
 | TS-01 | Open | Blocks final notification/foreground-media behavior in UF-06 |
 | TS-03 | Open | Blocks provider-specific Voice/cloud claims and final Voice approval |
 | TS-06 | Open | Blocks final storage/reconciliation implementation claims |
-| Figma synchronization | Open | Visual snapshots are non-canonical until updated |
 | UF-04 through UF-13 / Issue #3 | Open | Blocks complete User Flow approval |
 | Final reviewer sign-off | Not recorded | No role approval is inferred from document completeness |
 

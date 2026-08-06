@@ -3,7 +3,7 @@
 **Product:** Music Copilot MVP v1.0  
 **Priority:** P0 - Beta blocking; P1 restore branch  
 **Updated:** 06 August 2026  
-**Status:** User Flow specification and traceability - **PASS**; TS-02, TS-06, TS-08, Figma synchronization, and reviewer evidence remain open  
+**Status:** User Flow specification and traceability - **PASS**; TS-02, TS-06, TS-08, and reviewer evidence remain open  
 **Tracking:** GitHub Issue #3  
 **Canonical diagram:** [`mermaid/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md`](mermaid/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md)  
 **Raw Mermaid source:** [`mermaid/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.mmd`](mermaid/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.mmd)
@@ -29,7 +29,7 @@ This flow approves user-visible playback and queue behavior, not visual layout, 
 | Influencing ADRs | ADR-0001 Accepted - native Android observable state; ADR-0002 Accepted - service/MediaSession owns player, queue, position, commands, acknowledgement, and controller synchronization; ADR-0003 Accepted - MediaStore authority and local-only rebuildable/app-owned persistence boundaries; ADR-0006 Accepted - no account, backend, sync, catalog, streaming, upload, or download. |
 | Failure and recovery | Start/command acknowledgement failure preserves last verified state; controller loss shows Reconnecting and refreshes full state; moved/deleted/inaccessible media is reconciled; corrupt items are skipped while playable items remain; an exhausted queue ends paused/completed with a concise error; revoked access hands off to UF-02/UF-03; invalid P1 restore never auto-plays. |
 | Data and permissions | Playback service/MediaSession is authoritative for current item, queue, current index, playing/paused/completed state, duration, and position. Android permission and MediaStore remain authoritative for access and existence. P1 restore is local app-owned data only; representation is open. Personal media metadata is prohibited from telemetry. |
-| Open assumptions or evidence | TS-02 lifecycle/process evidence; TS-06 access/move/delete evidence; TS-08 restore contract/evidence; Issue #16 numeric `T_PREVIOUS`, command serialization, controller/error contracts, and persistence mechanics; Issue #15 Full Player/Queue/mini-player Wireframes; UF-06 and UF-11 handoffs; Figma synchronization; Product/Design/Android/QA/Privacy review. ADR status itself is not open. |
+| Open assumptions or evidence | TS-02 lifecycle/process evidence; TS-06 access/move/delete evidence; TS-08 restore contract/evidence; Issue #16 numeric `T_PREVIOUS`, command serialization, controller/error contracts, and persistence mechanics; Issue #15 Full Player/Queue/mini-player Wireframes; UF-06 and UF-11 handoffs; Product/Design/Android/QA/Privacy review. ADR status itself is not open. |
 
 ## Preconditions and entry routes
 
@@ -164,7 +164,6 @@ The exact persisted fields, schema, migration behavior, save timing, expiry, tas
 | Issue #16 | Product + Android | Numeric `T_PREVIOUS`; command ordering/acknowledgement; service/controller contracts; error hierarchy; queue/persistence implementation; process-death limits | Blocks final architecture/implementation approval |
 | UF-06 | Product + Design + Android | Notification, lock screen, Bluetooth/head-unit, screen-off/background, and system-control synchronization | Blocks FR-02 and Cluster B completion, not UF-05 manual-flow handoff |
 | UF-11 | Product + Android + QA | Calls, Audio Focus, disconnect/reconnect, route changes, and conditional resume | Blocks FR-03 completion, not UF-05 manual controls |
-| Figma synchronization | Product Design | Repository behavior copied into the controlled User Flows / State Inventory workfile | Visual parity remains open |
 | Role review | Product, Design, Android, QA, Privacy | Review against PRD/MVP, accepted ADRs, recovery, privacy, accessibility, and P0/P1 boundaries | Final Issue #3 approval remains open |
 
 ## Exit checklist and decision
@@ -183,10 +182,10 @@ The exact persisted fields, schema, migration behavior, save timing, expiry, tas
 - [x] Current GitHub Accepted ADR status is used.
 - [x] Privacy, analytics, accessibility, navigation, and Driving Mode exclusions are explicit.
 - [x] No outside-MVP playback, queue, platform, or service capability was introduced.
-- [ ] Figma synchronization recorded.
+- [ ] recorded.
 - [ ] TS-02, TS-06, and TS-08 executed evidence recorded.
 - [ ] Numeric `T_PREVIOUS` and final service/controller/persistence mechanics approved in Issue #16.
 - [ ] Product/Design/Android/QA/Privacy review recorded.
 - [ ] UF-06 completed and Cluster B exit decision recorded.
 
-**Decision:** UF-05 is complete and passes at the User Flow specification and traceability level. The P0 Basic Player manual behavior and the user-visible P1 paused-restore branch are fully mapped. This decision does not approve executed lifecycle/storage evidence, the numeric Previous threshold, Figma parity, Cluster B, Wireframes, final Software Architecture, implementation, or closure of Issue #3.
+**Decision:** UF-05 is complete and passes at the User Flow specification and traceability level. The P0 Basic Player manual behavior and the user-visible P1 paused-restore branch are fully mapped. This decision does not approve executed lifecycle/storage evidence, the numeric Previous threshold, Cluster B, Wireframes, final Software Architecture, implementation, or closure of Issue #3.

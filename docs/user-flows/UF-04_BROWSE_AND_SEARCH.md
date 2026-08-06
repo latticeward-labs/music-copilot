@@ -3,7 +3,7 @@
 **Product:** Music Copilot MVP v1.0  
 **Priority:** P0 - Beta blocking  
 **Updated:** 06 August 2026  
-**Status:** User Flow specification and traceability - **PASS**; TS-06, Figma synchronization, and reviewer evidence remain open  
+**Status:** User Flow specification and traceability - **PASS**; TS-06, and reviewer evidence remain open  
 **Tracking:** GitHub Issue #3  
 **Canonical diagram:** [`mermaid/UF-04_BROWSE_AND_SEARCH.md`](mermaid/UF-04_BROWSE_AND_SEARCH.md)  
 **Raw Mermaid source:** [`mermaid/UF-04_BROWSE_AND_SEARCH.mmd`](mermaid/UF-04_BROWSE_AND_SEARCH.mmd)
@@ -29,7 +29,7 @@ This flow does not approve visual layout, list density, artwork treatment, defau
 | Influencing ADRs | ADR-0001 Accepted - native Android observable UI state; ADR-0002 Accepted - service/MediaSession owns playback and acknowledges selection; ADR-0003 Accepted - MediaStore authority plus derived/rebuildable browse/search index; ADR-0006 Accepted - no account, backend, sync, catalog, streaming, upload, or download. |
 | Failure and recovery | Empty library returns to UF-03; revoked access returns to UF-02; stale/moved/deleted selection is reconciled and remains recoverable; No Result preserves the query; Search Error preserves the query and verified library and offers Retry; failed playback acknowledgement never fabricates Playing and permits another selection. |
 | Data and permissions | Android media access is authoritative for permission; MediaStore is authoritative for accessible media identity/existence; the local relational index is a derived/rebuildable browse/search projection; playback service/MediaSession is authoritative after selection; no personal media metadata is approved for telemetry. |
-| Open assumptions or evidence | TS-06 device evidence; Issue #15 visual/navigation decisions; Issue #16 query/repository contracts; UF-05 queue population/order and manual playback behavior; Figma synchronization; Product/Design/Android/QA/Privacy review. ADR status itself is not open. |
+| Open assumptions or evidence | TS-06 device evidence; Issue #15 visual/navigation decisions; Issue #16 query/repository contracts; UF-05 queue population/order and manual playback behavior; Product/Design/Android/QA/Privacy review. ADR status itself is not open. |
 
 ## Preconditions and entry
 
@@ -121,7 +121,6 @@ UF-04 deliberately does not decide whether the surrounding browse/search result 
 | Issue #15 | Product Design | Exact information hierarchy, row content, grouping, sort controls, Search presentation, loading feedback, empty/error copy, and Back behavior | Blocks Wireframe approval, not UF-04 traceability |
 | Issue #16 | Android + Product | Query normalization/ranking contract, folder projection, repository/use-case boundaries, refresh/invalidation, controller acknowledgement, and performance/concurrency behavior | Blocks final architecture/implementation approval |
 | UF-05 | Product + Design + Android | Whether the selected context replaces/appends/forms the queue, queue ordering, and manual playback recovery after ownership begins | Blocks Cluster B completion, not UF-04 browse/search handoff |
-| Figma synchronization | Product Design | Repository behavior copied into the controlled User Flows / State Inventory workfile | Visual parity remains open |
 | Role review | Product, Design, Android, QA, Privacy | Review against PRD/MVP, accepted ADRs, recovery, privacy, and accessibility | Final Issue #3 approval remains open |
 
 ## Exit checklist and decision
@@ -138,9 +137,9 @@ UF-04 deliberately does not decide whether the surrounding browse/search result 
 - [x] No account/backend/sync/catalog/streaming/upload/download/Android Auto/iOS/v1.1 scope was introduced.
 - [x] Privacy, accessibility, and Driving Mode exclusions are explicit.
 - [x] The Markdown diagram and raw Mermaid source are logically identical.
-- [ ] Figma synchronization recorded.
+- [ ] recorded.
 - [ ] TS-06 executed evidence recorded.
 - [ ] Product/Design/Android/QA/Privacy review recorded.
 - [ ] UF-05 and UF-06 completed; Cluster B exit decision recorded.
 
-**Decision:** UF-04 is complete and passes at the User Flow specification and traceability level. This decision completes FR-01 only at that documentation level. It does not approve the Cluster B set, Figma parity, Technical Spike evidence, Wireframes, final Software Architecture, implementation, or closure of Issue #3.
+**Decision:** UF-04 is complete and passes at the User Flow specification and traceability level. This decision completes FR-01 only at that documentation level. It does not approve the Cluster B set, Technical Spike evidence, Wireframes, final Software Architecture, implementation, or closure of Issue #3.

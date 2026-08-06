@@ -5,7 +5,6 @@
 **Status:** Phase 0 complete - approved for User Flow drafting  
 **Product version:** Music Copilot MVP v1.0  
 **Tracking:** GitHub Issue #3  
-**Workfile:** Figma - `User Flows / State Inventory`  
 **Product authority:** English PRD v1.0 and English MVP v1.0
 
 > This artifact completes the input, scope, state, assumption, conflict, decision, and coverage foundation required before drawing MVP v1.0 User Flows. It authorizes flow drafting. It does not approve final User Flows, low-fidelity Wireframes, the final Software Architecture baseline, or implementation.
@@ -68,7 +67,7 @@ Phase 0 is **complete** because every identified question now has one of four co
 
 ### 1.2 Conflict rule
 
-If an ADR, architecture document, technical document, repository document, Issue, Figma artifact, or implementation proposal conflicts with P1/P2, **P1/P2 win**. A derived artifact may narrow an implementation choice but may not add product scope.
+If an ADR, architecture document, technical document, repository document, Issue, or implementation proposal conflicts with P1/P2, **P1/P2 win**. A derived artifact may narrow an implementation choice but may not add product scope.
 
 ### 1.3 Evidence snapshot
 
@@ -398,7 +397,6 @@ Quality-service outage must not block library browsing, manual playback, Driving
 | Cloud/network-assisted STT is not hidden or mislabeled offline. | Pass with routed evidence | D-016, C-006, TS-03. |
 | No outside-MVP capability entered the flow catalog. | Pass | Scope exclusions and Flow Matrix. |
 | Conflict register is explicit. | Pass | C-001 through C-010. |
-| Figma has a dedicated `User Flows / State Inventory` Phase 0 section. | Pass | Figma section `00 / Phase 0 Foundation`. |
 | GitHub has a durable Phase 0 record linked from the User Flow index. | Pass after repository writeback | `docs/user-flows/PHASE_0_FOUNDATION.md`. |
 
 ### Exit decision

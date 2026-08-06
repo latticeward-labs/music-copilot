@@ -7,7 +7,7 @@
 **Final User Flow status:** **Not approved; Issue #3 remains open**  
 **Tracking:** GitHub Issue #3
 
-> This document records a limited documentation gate. It does not approve complete FR-01, ADR outcomes, Technical Spike evidence, Figma parity, the complete UF-01 through UF-13 set, Wireframes, final Software Architecture, or implementation.
+> This document records a limited documentation gate. It does not approve complete FR-01, ADR outcomes, Technical Spike evidence, the complete UF-01 through UF-13 set, Wireframes, final Software Architecture, or implementation.
 
 ## 1. Controlled authority
 
@@ -18,7 +18,7 @@
 | 3 | Phase 0 Foundation | Approved UF catalog, fixed drafting decisions, contradiction handling, and Technical Spike routing |
 | 4 | ADR-0001 through ADR-0006 | Architectural influence only; every source remains Proposed, including revised proposals ADR-0001/0003 |
 | 5 | System Architecture and Technical Documentation | Technical interpretation and source-of-truth seams; cannot expand PRD/MVP scope |
-| 6 | Corrected repository records | Canonical current Cluster A and Stage 1 evidence until Figma synchronization |
+| 6 | Corrected repository records | Canonical current Cluster A and Stage 1 evidence until |
 
 The earlier Phase 1 readiness document was not evidence for the traceability corrections. This repository edition is synchronized from the corrected canonical records rather than using the old document to validate itself.
 
@@ -32,7 +32,6 @@ The earlier Phase 1 readiness document was not evidence for the traceability cor
 | FR-01 | **Partial** | Cluster A covers consent, scan, index, readiness, and recovery; UF-04 must complete browsing/search |
 | Issue #2 / ADR governance | **Open** | All six ADRs remain Proposed until explicit Accepted/Revised outcomes are recorded |
 | TS-01 / TS-03 / TS-06 | **Open** | No executed evidence is inferred |
-| Figma synchronization | **Open** | Repository behavior is canonical until visual artifacts match |
 | Issue #3 / complete User Flow | **Open** | UF-04 through UF-13 and final review remain unfinished |
 | Wireframes / final architecture / code | **Not authorized** | Separate downstream gates |
 
@@ -64,9 +63,9 @@ The earlier Phase 1 readiness document was not evidence for the traceability cor
 
 | Flow ID | User goal | Priority | User Story | Functional Requirement | Screens/states | Influencing ADRs | Failure/recovery | Data/permissions | Open assumptions/evidence |
 |---|---|---|---|---|---|---|---|---|---|
-| UF-01 | Understand the product, finish/skip education, reach truthful readiness, retain manual control | P0 | US-01, US-02 | First-use journey; FR-01 partial; UF-04 required | S-01, S-02, S-04 handoff, CA-01, CA-02 | ADR-0001..0006 as mapped influences; all Proposed | Startup Retry, resume, non-mutating replay, permission/scan recovery, Voice fallback | Local flags; Android state; MediaStore; playback service observation; sensitive telemetry excluded | TS-03, Issue #2, Figma sync, final review |
-| UF-02 | Recover from permission/provider/consent failure without crash, coercion, or manual-control loss | P0 | US-01 | FR-01 access precondition partial; FR-05 mic precondition only | S-03, CA-02, SYS-01..05, Empty/manual fallback | ADR-0001/0002/0003/0004/0006; all Proposed | Retry/Not now; Settings three-way return; provider/consent fallback; revocation reconciliation | Android permission authority; MediaStore vs derived index; JIT mic; deferred notification; local consent if applicable | TS-01/03/06, Issue #2, Figma sync, final review |
-| UF-03 | Build/reconcile an account-free library and see truthful readiness | P0 | US-02 | FR-01 scan/index/readiness partial; UF-04 required | S-04 and UF-02 handoff | ADR-0001/0002/0003/0006; all Proposed | Initial/incremental work, Retry, preserve verified state, reconcile inaccessible media | MediaStore authority; derived index; Android access; playback service; non-authoritative telemetry | TS-06, Issue #2, UF-04, Figma sync, final review |
+| UF-01 | Understand the product, finish/skip education, reach truthful readiness, retain manual control | P0 | US-01, US-02 | First-use journey; FR-01 partial; UF-04 required | S-01, S-02, S-04 handoff, CA-01, CA-02 | ADR-0001..0006 as mapped influences; all Proposed | Startup Retry, resume, non-mutating replay, permission/scan recovery, Voice fallback | Local flags; Android state; MediaStore; playback service observation; sensitive telemetry excluded | TS-03, Issue #2, final review |
+| UF-02 | Recover from permission/provider/consent failure without crash, coercion, or manual-control loss | P0 | US-01 | FR-01 access precondition partial; FR-05 mic precondition only | S-03, CA-02, SYS-01..05, Empty/manual fallback | ADR-0001/0002/0003/0004/0006; all Proposed | Retry/Not now; Settings three-way return; provider/consent fallback; revocation reconciliation | Android permission authority; MediaStore vs derived index; JIT mic; deferred notification; local consent if applicable | TS-01/03/06, Issue #2, final review |
+| UF-03 | Build/reconcile an account-free library and see truthful readiness | P0 | US-02 | FR-01 scan/index/readiness partial; UF-04 required | S-04 and UF-02 handoff | ADR-0001/0002/0003/0006; all Proposed | Initial/incremental work, Retry, preserve verified state, reconcile inaccessible media | MediaStore authority; derived index; Android access; playback service; non-authoritative telemetry | TS-06, Issue #2, UF-04, final review |
 
 ## 6. Requirement status
 
@@ -101,7 +100,6 @@ Traceability PASS does not convert any ADR to Accepted or Revised. Issue #2 must
 | TS-03 | Open | Provider-specific Voice/cloud behavior and copy |
 | TS-06 | Open | Final storage/reconciliation implementation claims |
 | Issue #2 / ADR register | Open | Approved-architecture claims |
-| Figma sync | Open | Visual approval evidence |
 | UF-04 through UF-13 / Issue #3 | Open | Complete User Flow approval |
 | Final Product/Design/Android/QA/Privacy/Governance sign-off | Not recorded | No role approval may be inferred |
 

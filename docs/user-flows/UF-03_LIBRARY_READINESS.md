@@ -6,7 +6,6 @@
 **Status:** Stage 1 Traceability Matrix — PASS for this flow; TS-06 and complete FR-01 remain open  
 **Tracking:** GitHub Issue #3  
 **Canonical diagram:** [`mermaid/UF-03_LIBRARY_READINESS.md`](mermaid/UF-03_LIBRARY_READINESS.md)  
-**Figma reference:** [UF-03 - Local Scan and Library Readiness](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=23-28) — synchronization with the corrected repository record remains open
 
 ## Authority and boundary
 
@@ -27,7 +26,7 @@ This flow does not approve scanner implementation, Room schema, migration strate
 | Influencing ADRs | ADR-0001 observable Android state; ADR-0002 service-owned playback during routing; ADR-0003 MediaStore authority/derived index; ADR-0006 local-only/no account/backend/streaming. All remain Proposed pending Issue #2. |
 | Failure and recovery | Initial/incremental scan; Retry after recoverable failure; preserve verified prior state where possible; reconcile moved/deleted/inaccessible media; never require reinstall by default. |
 | Data and permissions | MediaStore = accessible media existence/identity; local DB index = derived/rebuildable; Android media access authoritative; telemetry non-authoritative and excludes personal media metadata. |
-| Open assumptions or evidence | TS-06 storage/reconciliation evidence; Issue #2 ADR outcomes; UF-04 for complete FR-01; Figma synchronization; final reviewer sign-off. |
+| Open assumptions or evidence | TS-06 storage/reconciliation evidence; Issue #2 ADR outcomes; UF-04 for complete FR-01; final reviewer sign-off. |
 
 ## Entry and returning-state decision
 
@@ -82,7 +81,6 @@ After rechecking media access, do not force every returning user through visible
 - Stage 1 traceability completeness: **PASS**.
 - FR-01: **Partial until UF-04**.
 - TS-06: **Open**.
-- Product Design/Figma synchronization: **Open**.
 - ADR governance: **Open; all six ADRs remain Proposed**.
 - Final role sign-off and Issue #3 closure: **Not recorded / not granted**.
 - This record does not authorize Wireframes, final architecture, or implementation.

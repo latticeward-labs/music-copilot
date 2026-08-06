@@ -6,7 +6,6 @@
 **Status:** Stage 1 Traceability Matrix — PASS for this flow; TS-01, TS-03, and TS-06 remain open  
 **Tracking:** GitHub Issue #3  
 **Canonical diagram:** [`mermaid/UF-02_PERMISSION_DENIAL_AND_SETTINGS_RECOVERY.md`](mermaid/UF-02_PERMISSION_DENIAL_AND_SETTINGS_RECOVERY.md)  
-**Figma reference:** [UF-02 - Permission Recovery](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=23-27) — synchronization with the corrected repository record remains open
 
 ## Authority and boundary
 
@@ -27,7 +26,7 @@ It does not invent version-specific behavior routed to Technical Spikes, choose 
 | Influencing ADRs | ADR-0001 Android permission surfaces; ADR-0002 playback remains service-owned/truthful; ADR-0003 revocation reconciliation; ADR-0004 provider/consent/failure isolation; ADR-0006 no forced cloud/backend. All remain Proposed pending Issue #2. |
 | Failure and recovery | Denied-requestable: Retry/Not now; permanent denial: Open Settings/Not now; Settings return: three outcomes; provider unavailable and consent decline: manual fallback; revocation: reconcile false playability. |
 | Data and permissions | Android permission state authoritative; MediaStore existence separated from derived index; microphone requested JIT; notification deferred; cloud consent stored locally only if applicable. |
-| Open assumptions or evidence | TS-01 notification behavior; TS-03 provider/cloud behavior; TS-06 storage/revocation behavior; Issue #2 ADR outcomes; Figma synchronization; final reviewer sign-off. |
+| Open assumptions or evidence | TS-01 notification behavior; TS-03 provider/cloud behavior; TS-06 storage/revocation behavior; Issue #2 ADR outcomes; final reviewer sign-off. |
 
 ## Global rules
 
@@ -94,7 +93,6 @@ When previously granted media access is revoked, recheck Android state, reconcil
 
 - Stage 1 traceability completeness: **PASS**.
 - TS-01, TS-03, and TS-06: **Open**.
-- Product Design/Figma synchronization: **Open**.
 - ADR governance: **Open; all six ADRs remain Proposed**.
 - Final Product, Design, Android, QA, Privacy, and Governance sign-off: **Not recorded**.
 - This record does not close Issue #3 or authorize implementation.

@@ -6,11 +6,10 @@
 **Status:** Stage 1 Traceability Matrix — PASS for this flow; final User Flow approval not granted  
 **Tracking:** GitHub Issue #3  
 **Canonical diagram:** [`mermaid/UF-01_FIRST_LAUNCH_AND_EDUCATION.md`](mermaid/UF-01_FIRST_LAUNCH_AND_EDUCATION.md)  
-**Figma reference:** [UF-01 - First Launch and Education](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=23-26) — synchronization with the corrected repository record remains open
 
 ## Authority and boundary
 
-The official English PRD v1.0 and MVP v1.0 are the product authorities. Phase 0, the six Proposed ADRs, System Architecture, Technical Documentation, GitHub, and Figma may constrain interpretation but may not add product scope or manufacture approval evidence.
+The official English PRD v1.0 and MVP v1.0 are the product authorities. Phase 0, the six Proposed ADRs, System Architecture, Technical Documentation, GitHub may constrain interpretation but may not add product scope or manufacture approval evidence.
 
 UF-01 defines first entry, interrupted-first-use resume, non-mutating education replay, readiness handoff, six-command education, and optional practice. It does not approve Wireframes, final visual design, architecture, provider selection, or implementation.
 
@@ -27,7 +26,7 @@ UF-01 defines first entry, interrupted-first-use resume, non-mutating education 
 | Influencing ADRs | ADR-0001 native Android/state; ADR-0002 active playback authority; ADR-0003 local data boundaries; ADR-0004 replaceable provider; ADR-0005 exactly six intents; ADR-0006 no account/backend/streaming. All remain Proposed pending Issue #2. |
 | Failure and recovery | Startup Retry; resume actual pending step; non-mutating replay; permission/scan recovery; microphone denial, provider unavailability, or cloud-consent decline returns to manual controls. |
 | Data and permissions | Local onboarding/education flags; Android media/microphone state; MediaStore/readiness observation; playback service observation; no account data; no raw audio, transcript, or personal-media telemetry. |
-| Open assumptions or evidence | TS-03 provider/disclosure evidence; Issue #2 ADR outcomes; Figma synchronization; final reviewer sign-off; completion of remaining flows. |
+| Open assumptions or evidence | TS-03 provider/disclosure evidence; Issue #2 ADR outcomes; final reviewer sign-off; completion of remaining flows. |
 
 ## Entry states
 
@@ -82,7 +81,6 @@ Replay never starts a fresh scan, clears data, requests permissions automaticall
 ## Review boundary
 
 - Stage 1 traceability completeness: **PASS**.
-- Product Design/Figma synchronization: **Open**.
 - TS-03 evidence: **Open**.
 - ADR governance: **Open; all six ADRs remain Proposed**.
 - Final role sign-off and Issue #3 closure: **Not recorded / not granted**.
