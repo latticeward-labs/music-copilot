@@ -1,6 +1,6 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress - Phase 0, Cluster A (UF-01 through UF-03), UF-04, and UF-05 complete at specification/traceability level
+- **Status:** In progress - Phase 0, Cluster A, and UF-04 through UF-06 complete at specification/traceability level
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Workfile:** [Music Copilot - MVP v1.0](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF)
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
@@ -19,7 +19,7 @@ This document is the repository index for User Flow artifacts. Until Issue #3 is
 
 **Flows:** UF-01, UF-02, UF-03  
 **Decision date:** 01 August 2026  
-**Status boundary:** Cluster A is complete and registered. Issue #3 remains open because UF-06 through UF-13, Cluster B completion, and final cross-role approval are not complete.
+**Status boundary:** Cluster A is complete and registered. Issue #3 remains open because UF-07 through UF-13, formal Cluster B review/Figma synchronization, and final cross-role approval are not complete.
 
 ### Repository records
 
@@ -44,11 +44,11 @@ Cluster A covers first launch, two-slide onboarding, Skip/Replay, contextual med
 
 The active drafting cluster is **Cluster B: UF-04 Browse/Search, UF-05 Manual Playback, UF-06 Background/System Controls**.
 
-## Cluster B progress - UF-04 and UF-05 complete
+## Cluster B drafting coverage - UF-04 through UF-06 complete
 
-**Flows:** UF-04 Browse and Search Local Music; UF-05 Manual Playback and Queue Control  
+**Flows:** UF-04 Browse and Search Local Music; UF-05 Manual Playback and Queue Control; UF-06 Background, Screen-off, and System Controls  
 **Decision date:** 06 August 2026  
-**Status boundary:** UF-04 and UF-05 pass at User Flow specification and traceability level. Cluster B remains open because UF-06 is not complete.
+**Status boundary:** UF-04, UF-05, and UF-06 each pass at User Flow specification and traceability level. Cluster B drafting coverage is complete, but formal connected review, Figma synchronization, executed Technical Spike evidence, and cross-role sign-off remain open.
 
 ### Repository records
 
@@ -58,8 +58,11 @@ The active drafting cluster is **Cluster B: UF-04 Browse/Search, UF-05 Manual Pl
 - [UF-05 - Manual Playback and Queue Control](user-flows/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md)
 - [UF-05 canonical Mermaid](user-flows/mermaid/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md)
 - [UF-05 raw Mermaid source](user-flows/mermaid/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.mmd)
+- [UF-06 - Background, Screen-off, and System Controls](user-flows/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)
+- [UF-06 canonical Mermaid](user-flows/mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)
+- [UF-06 raw Mermaid source](user-flows/mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.mmd)
 
-UF-04 covers browse/search and the acknowledged playback-start handoff. UF-05 now defines deterministic queue replacement from the visible selection context; service-owned Playing/Paused/Completed state; Play/Pause/Next/Previous/Seek and queue-item selection; end-of-queue; corrupt/inaccessible recovery; controller reconnect; Back/mini-player behavior; and the P1 paused-restore branch. FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 and Cluster B remain open until UF-06; FR-03 interruption/route behavior remains UF-11. TS-02, TS-06, TS-08, numeric `T_PREVIOUS`, Figma synchronization, role review, and final Issue #3 approval remain open.
+UF-04 covers browse/search and the acknowledged playback-start handoff. UF-05 defines deterministic service-owned queue/manual playback behavior and the user-visible P1 Paused Restore branch. UF-06 now defines P0 background/screen-off continuity; synchronized notification, lock-screen, Bluetooth/headset, vehicle media-key, and returning-UI controllers; truthful reconnect and unavailable-surface recovery; the evidence-safe notification permission/exemption branch; and the separate P1 Paused Restore route. FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 is complete at that level across UF-05 and UF-06. FR-03 interruption/route behavior remains UF-11. TS-01, TS-02, TS-06, TS-08, numeric `T_PREVIOUS`, formal Cluster B review/Figma synchronization, role review, and final Issue #3 approval remain open.
 
 ## Required flow catalog
 
@@ -70,7 +73,7 @@ UF-04 covers browse/search and the acknowledged playback-start handoff. UF-05 no
 | UF-03 | Local scan and library readiness | P0 | Complete for Cluster A review; TS-06 evidence open | Scanning, Empty, Ready, recoverable error/revocation |
 | UF-04 | Browse and search local music | P0 | Complete at specification/traceability level; TS-06/Figma/reviewer evidence open | Result, No Result, Error, acknowledged playback start |
 | UF-05 | Manual playback and queue control | P0 / P1 restore branch | Complete at specification/traceability level; TS-02/TS-06/TS-08/Figma/reviewer evidence and numeric `T_PREVIOUS` open | Playing, Paused, End of Queue, corrupt/inaccessible recovery, controller reconnect, Paused Restore |
-| UF-06 | Background, screen-off and system controls | P0 / P1 restore branch | Not started | synchronized notification/lock-screen/Bluetooth state |
+| UF-06 | Background, screen-off and system controls | P0 / P1 restore branch | Complete at specification/traceability level; TS-01/TS-02/TS-08/Figma/reviewer evidence open | Synchronized background/screen-off playback, system surfaces, controller reconnect, Paused Restore |
 | UF-07 | Driving Mode entry, use and exit | P0 / P1 entry hint | Not started | Playing, Paused, No Track, immediate exit |
 | UF-08 | Direct Voice command | P0 | Not started | Listening, Processing, Executed, Failed |
 | UF-09 | Ambiguous or missing artist | P0 | Not started | Confirming, confirmed execution, not found |
@@ -106,6 +109,8 @@ Every state must record:
 - [x] Cluster A Figma sections and repository records are linked.
 - [x] UF-04 completes Songs/Artists/Albums/Folders browse and local Search behavior at specification level, with recovery and UF-05 handoff explicit.
 - [x] UF-05 completes the P0 manual Player/Queue behavior and the user-visible P1 Paused Restore branch at specification level, with UF-06/UF-11 handoffs explicit.
+- [x] UF-06 completes P0 background/screen-off and synchronized system-control behavior plus the separate P1 Paused Restore branch at specification level; FR-02 documentation coverage is complete.
+- [x] Cluster B constituent drafting coverage (UF-04/UF-05/UF-06) is complete; formal connected review, Figma synchronization, spikes, and role sign-off remain open.
 - [ ] P0/P1/P2 scope is explicit across the complete flow set.
 - [ ] Product and Android reviewers approve the complete flow set and state inventory.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
@@ -116,5 +121,6 @@ Every state must record:
 - [Cluster A - First Readiness](user-flows/CLUSTER_A_FIRST_READINESS.md) - complete for review
 - [UF-04 - Browse and Search Local Music](user-flows/UF-04_BROWSE_AND_SEARCH.md) - specification/traceability PASS; downstream evidence open
 - [UF-05 - Manual Playback and Queue Control](user-flows/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md) - specification/traceability PASS; downstream evidence open
-- Complete UF-06 through UF-13 diagrams and final review date - _to be completed by Issue #3_
+- [UF-06 - Background, Screen-off, and System Controls](user-flows/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md) - specification/traceability PASS; TS-01/TS-02/TS-08/Figma/reviewer evidence open
+- Complete UF-07 through UF-13 diagrams, formal Cluster B review, and final review date - _to be completed by Issue #3_
 

@@ -1,0 +1,107 @@
+flowchart TB
+
+    subgraph ENTRY["UF-06 ENTRY"]
+        direction TB
+        E0["UF-05 verified Playing / Paused state\nUI background, screen off, recreation, or system surface command"]
+        E1{"Does the active playback service / MediaSession still exist?"}
+        E2["P0 active continuity\nKeep one service-owned player, queue, item, state, and position"]
+        E3["Active lifecycle lost\nEvaluate P1 local restore only\nNever auto-play"]
+        E0 --> E1
+        E1 -->|"Yes"| E2
+        E1 -->|"No"| E3
+    end
+
+    subgraph P0["P0 BACKGROUND AND SCREEN-OFF"]
+        direction TB
+        B0{"UI / device transition?"}
+        B1["App background or UI closed/recreated\nPlayback continues when actual state is Playing\nUI controller may disconnect without stopping service"]
+        B2["Screen off / device locked\nPlayback continues when actual state is Playing\nNo UI lifecycle ownership"]
+        B3["Task removed or OEM/system lifecycle event\nDo not assume stop or survival\nObserve actual service/session outcome\nExact boundary remains TS-02"]
+        E2 --> B0
+        B0 -->|"Background / recreate"| B1
+        B0 -->|"Screen off / lock"| B2
+        B0 -->|"Task/system event"| B3
+    end
+
+    B1 --> S0
+    B2 --> S0
+    B3 --> S0
+
+    subgraph SURFACES["ONE AUTHORITATIVE MEDIASESSION, MANY CONTROLLERS"]
+        direction TB
+        S0["Publish actual current item, Playing / Paused / Ended, position, and supported actions"]
+        S1["Media Notification / system media controls\nActual state only"]
+        S2["Lock-screen media controls\nActual state only when platform exposes them"]
+        S3["Bluetooth headset / vehicle head-unit media keys\nControl only; no Android Auto scope"]
+        S4{"System action received and supported?"}
+        S5["Route Play / Pause / Next / Previous\nand any advertised seek through the same MediaSession"]
+        S6["Reject / ignore unsupported action safely\nKeep last verified state\nNo optimistic surface update"]
+        S7["Service acknowledges command\nAll connected surfaces refresh from actual state"]
+        S0 --> S1
+        S0 --> S2
+        S0 --> S3
+        S1 --> S4
+        S2 --> S4
+        S3 --> S4
+        S4 -->|"Yes"| S5
+        S4 -->|"No / unavailable"| S6
+        S5 --> S7
+        S6 --> S0
+        S7 --> S0
+    end
+
+    subgraph NOTICE["NOTIFICATION VISIBILITY / PERMISSION"]
+        direction TB
+        N0{"Platform/build requires a non-exempt notification permission path?"}
+        N1["Media-session notification exemption applies\nDo not create a blocking permission gate\nValidate platform/OEM behavior in TS-01"]
+        N2["After playback value is demonstrated\nExplain the non-exempt notification benefit\nRequest only where applicable"]
+        N3{"User grants?"}
+        N4["Granted\nExpose applicable non-exempt notification behavior"]
+        N5["Denied / Not now\nPlayback and MediaSession remain truthful\nOffer later Settings recovery without coercion"]
+        S0 -.-> N0
+        N0 -->|"No / exempt media session"| N1
+        N0 -->|"Yes"| N2
+        N2 --> N3
+        N3 -->|"Yes"| N4
+        N3 -->|"No"| N5
+    end
+
+    subgraph RETURN["RETURN TO APP / CONTROLLER RECOVERY"]
+        direction TB
+        R0["User returns or UI is recreated"]
+        R1{"Controller connected with complete snapshot?"}
+        R2["Connecting / Reconnecting\nPreserve last verified state\nNever fabricate Paused, Stopped, empty queue, or zero position"]
+        R3["Refresh current item, queue, index\nPlaying / Paused / Ended, duration, and position"]
+        R4["Full Player / mini-player shows the same actual state\nNo restart and no second player"]
+        R0 --> R1
+        R1 -->|"No"| R2
+        R2 -->|"Retry / reconnect"| R1
+        R1 -->|"Yes"| R3
+        R3 --> R4
+    end
+
+    S0 -.-> R0
+
+    subgraph P1["P1 PAUSED RESTORE AFTER ACTIVE LIFECYCLE LOSS"]
+        direction TB
+        E3 --> P10{"Valid playable local snapshot exists?"}
+        P10 -->|"Yes or partial"| P11["Validate queue/current item/position\nDrop or reconcile invalid entries\nPreserve remaining order"]
+        P11 --> P12["Paused Restore\nExplicit Resume required\nNever surprise auto-play"]
+        P12 -->|"Resume"| P13["Playback service accepts restored state\nBecomes sole live authority"]
+        P13 --> S0
+        P10 -->|"No"| P14["Discard unusable app-owned restore state only\nHome / Library -> UF-04\nDo not delete user media"]
+    end
+
+    subgraph HANDOFF["CONTROLLED HANDOFFS"]
+        direction TB
+        H1["Call / Audio Focus / headset or Bluetooth disconnect\nAudio Route change -> UF-11"]
+        H2["Media access revoked or item unavailable\nUF-02 / UF-03 / UF-05 recovery"]
+        H3["Driving Mode remains an in-app surface -> UF-07\nNo Android Auto integration"]
+    end
+
+    S0 -.->|"Interruption / route event"| H1
+    S0 -.->|"Access / item failure"| H2
+    R4 -.->|"Enter Driving Mode"| H3
+
+    I0["Invariant\nPlayback Service / MediaSession is the sole live owner\nSystem surfaces and app UI are controllers only\nNo personal media metadata in telemetry"]
+    S0 -.-> I0

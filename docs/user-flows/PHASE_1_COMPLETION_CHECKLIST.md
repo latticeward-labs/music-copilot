@@ -2,7 +2,7 @@
 
 **Updated:** 06 August 2026  
 **Tracking:** Issue #3  
-**Result:** **PASS for Stage 1 Cluster A plus UF-04 and UF-05 specification/traceability records**  
+**Result:** **PASS for Stage 1 Cluster A plus UF-04, UF-05, and UF-06 specification/traceability records**  
 **Final User Flow status:** **Open**
 
 ## Canonical documentation evidence
@@ -14,6 +14,7 @@
 - [x] State inventory, requirement status, ADR influence, and open evidence exist in 01.6.
 - [x] Limited Stage 1 decision and approval boundary exist in 01.7.
 - [x] Corrected Markdown/Mermaid pairs are synchronized for the Stage 1 canonical records.
+- [x] One explicit ten-field traceability record and synchronized Markdown/Mermaid pair exist for UF-06.
 - [x] The official English PRD/MVP remain product authorities.
 - [ ] Figma synchronized with the corrected repository records.
 - [ ] Final Product, Design, Android, QA, Privacy, and Governance sign-off recorded.
@@ -31,6 +32,9 @@
 - [x] UF-05 defines deterministic queue replacement from the visible selection context only after service acknowledgement.
 - [x] UF-05 covers Full Player and mini-player entry, Playing, Paused, Preparing, End of Queue, Queue view, Corrupt/Inaccessible recovery, Controller Reconnecting, and P1 Paused Restore.
 - [x] UF-05 defines Play, Pause, Next, Previous, Seek, queue-item selection, natural completion, Back, and downstream handoffs without approving a Wireframe.
+- [x] UF-06 covers app background/UI closure/recreation, screen off/lock, notification/system media controls, lock-screen controls, Bluetooth/headset/vehicle media keys, system-command acknowledgement, controller reconnect, unavailable surfaces, and P1 Paused Restore.
+- [x] `FR-02` is complete at User Flow specification level across UF-05 + UF-06; TS-01/TS-02 executed evidence remains open.
+- [x] Cluster B constituent drafting coverage (UF-04 + UF-05 + UF-06) is complete; formal connected review and sign-off remain open.
 
 ## Permission, provider, and recovery correctness
 
@@ -43,7 +47,7 @@
 - [x] Provider unavailable is distinct from permission denial.
 - [x] Cloud-processing consent is separate and truthful if remote processing is selected.
 - [x] Voice denial/failure preserves manual controls, queue, and service-owned playback.
-- [x] Notification permission remains deferred to UF-06/TS-01.
+- [x] UF-06 defines notification permission/exemption as contextual, evidence-safe, non-blocking, and non-coercive; TS-01 executed Android/OEM evidence remains open.
 - [x] Permission revocation reconciles stale entries and false playability.
 - [x] Corrupt/unreadable/moved/deleted items use bounded controlled skip; the queue ends Paused/Completed with a concise error if no playable item remains.
 - [x] NEXT at queue end and natural final completion do not wrap or invent Repeat.
@@ -57,6 +61,7 @@
 - [x] MediaStore is authoritative for accessible media existence and platform identity.
 - [x] The local index is derived and rebuildable.
 - [x] Playback service/MediaSession is authoritative for active playback.
+- [x] Notification, lock screen, Bluetooth/headset, vehicle media keys, and returning UI remain controllers for the same MediaSession and never create independent playback state.
 - [x] No new UF-05 command/queue analytics event is approved; only reviewed coarse `player_error` fields remain allowed.
 - [x] Raw audio, full transcript, and personal media metadata are excluded from telemetry by default.
 - [x] Recovery controls, scalable text, TalkBack order, and non-color-only state meaning are recorded.
@@ -75,9 +80,11 @@
 - [ ] TS-08 local queue/position restore representation, migration/error behavior, and paused-restore evidence completed.
 - [x] UF-04 completed at specification/traceability level; Figma and role review remain open.
 - [x] UF-05 completed at specification/traceability level; TS-02/TS-06/TS-08, numeric `T_PREVIOUS`, Figma, and role review remain open.
-- [ ] UF-06 through UF-13 completed and reviewed.
+- [x] UF-06 completed at specification/traceability level; TS-01/TS-02/TS-08, Issue #16 mechanics, Figma, and role review remain open.
+- [ ] UF-07 through UF-13 completed and reviewed.
+- [ ] Formal connected Cluster B review/Figma synchronization and Product/Design/Android/QA/Privacy sign-off recorded.
 - [ ] Issue #3 acceptance criteria satisfied and issue closed.
 
 ## Exit decision
 
-The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 now also passes at User Flow specification and traceability level for P0 manual Player/Queue behavior and the user-visible P1 Paused Restore branch. The unchecked items remain real blockers for their affected later claims. This checklist does not authorize FR-02 completion, Cluster B completion, Figma parity, Wireframes, final Software Architecture, implementation, or final User Flow approval.
+The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 and UF-06 now pass at that level for P0 manual Player/Queue plus background/screen-off/system-control behavior and the separate user-visible P1 Paused Restore branch, completing FR-02 documentation coverage. All three Cluster B constituent flows are drafted and traceable. The unchecked items remain real blockers for formal connected Cluster B sign-off, executed Android/OEM evidence, Figma parity, remaining flows, Wireframes, final Software Architecture, implementation, and final User Flow approval.
