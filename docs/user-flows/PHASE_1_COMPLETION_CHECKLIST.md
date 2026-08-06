@@ -2,7 +2,7 @@
 
 **Updated:** 06 August 2026  
 **Tracking:** Issue #3  
-**Result:** **PASS for the Stage 1 Cluster A Traceability Matrix only**  
+**Result:** **PASS for Stage 1 Cluster A plus UF-04 and UF-05 specification/traceability records**  
 **Final User Flow status:** **Open**
 
 ## Canonical documentation evidence
@@ -28,6 +28,9 @@
 - [x] Verified current Ready/Empty returning state bypasses unnecessary visible Scanning.
 - [x] Scanning, Empty, Ready, recoverable failure, and revoked/reconciled states are explicit.
 - [x] UF-04 completes Songs/Artists/Albums/Folders browsing, local Search Result/No Result/Error, recovery, and acknowledged playback-start handoff at specification level.
+- [x] UF-05 defines deterministic queue replacement from the visible selection context only after service acknowledgement.
+- [x] UF-05 covers Full Player and mini-player entry, Playing, Paused, Preparing, End of Queue, Queue view, Corrupt/Inaccessible recovery, Controller Reconnecting, and P1 Paused Restore.
+- [x] UF-05 defines Play, Pause, Next, Previous, Seek, queue-item selection, natural completion, Back, and downstream handoffs without approving a Wireframe.
 
 ## Permission, provider, and recovery correctness
 
@@ -42,6 +45,11 @@
 - [x] Voice denial/failure preserves manual controls, queue, and service-owned playback.
 - [x] Notification permission remains deferred to UF-06/TS-01.
 - [x] Permission revocation reconciles stale entries and false playability.
+- [x] Corrupt/unreadable/moved/deleted items use bounded controlled skip; the queue ends Paused/Completed with a concise error if no playable item remains.
+- [x] NEXT at queue end and natural final completion do not wrap or invent Repeat.
+- [x] PREVIOUS uses the symbolic `T_PREVIOUS` branch; the numeric value remains honestly open for Issue #16.
+- [x] Controller loss/reconnect never fabricates Stopped/Paused/empty Queue or a second player.
+- [x] P0 active continuity and P1 Paused Restore are distinct; P1 always requires explicit Resume.
 
 ## Data, privacy, accessibility, and scope
 
@@ -49,7 +57,7 @@
 - [x] MediaStore is authoritative for accessible media existence and platform identity.
 - [x] The local index is derived and rebuildable.
 - [x] Playback service/MediaSession is authoritative for active playback.
-- [x] No new Cluster A analytics event is approved outside the allowlist.
+- [x] No new UF-05 command/queue analytics event is approved; only reviewed coarse `player_error` fields remain allowed.
 - [x] Raw audio, full transcript, and personal media metadata are excluded from telemetry by default.
 - [x] Recovery controls, scalable text, TalkBack order, and non-color-only state meaning are recorded.
 - [x] No account, backend, sync, catalog, streaming, upload/download, Android Auto, iOS, or v1.1 scope is introduced.
@@ -61,12 +69,15 @@
 - [x] Issue #2 records explicit Accepted outcomes for ADR-0001 through ADR-0006 after review revisions.
 - [x] ADR register is synchronized with Issue #2 as of 06 August 2026.
 - [ ] TS-01 notification/foreground-media evidence completed.
+- [ ] TS-02 UI/service/task/process lifecycle boundary evidence completed.
 - [ ] TS-03 provider/language/network/processing/consent/retention/fallback evidence completed.
 - [ ] TS-06 permission/scoped-storage/move/delete/reconciliation/rebuild evidence completed.
+- [ ] TS-08 local queue/position restore representation, migration/error behavior, and paused-restore evidence completed.
 - [x] UF-04 completed at specification/traceability level; Figma and role review remain open.
-- [ ] UF-05 through UF-13 completed and reviewed.
+- [x] UF-05 completed at specification/traceability level; TS-02/TS-06/TS-08, numeric `T_PREVIOUS`, Figma, and role review remain open.
+- [ ] UF-06 through UF-13 completed and reviewed.
 - [ ] Issue #3 acceptance criteria satisfied and issue closed.
 
 ## Exit decision
 
-The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 now also passes at User Flow specification and traceability level, completing FR-01 at that documentation level. The unchecked items remain real blockers for their affected later claims. This checklist does not authorize Cluster B completion, Figma parity, Wireframes, final Software Architecture, implementation, or final User Flow approval.
+The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 now also passes at User Flow specification and traceability level for P0 manual Player/Queue behavior and the user-visible P1 Paused Restore branch. The unchecked items remain real blockers for their affected later claims. This checklist does not authorize FR-02 completion, Cluster B completion, Figma parity, Wireframes, final Software Architecture, implementation, or final User Flow approval.
