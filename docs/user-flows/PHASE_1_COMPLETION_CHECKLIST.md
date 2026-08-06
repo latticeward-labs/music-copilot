@@ -2,7 +2,7 @@
 
 **Updated:** 06 August 2026  
 **Tracking:** Issue #3  
-**Result:** **PASS for Stage 1 Cluster A, UF-04/UF-05/UF-06 specification records, and Cluster B connected-flow integration review**  
+**Result:** **PASS for Stage 1 Cluster A and for Cluster B constituent specifications, connected-flow review, shared State Inventory, and shared Traceability**  
 **Final User Flow status:** **Open**
 
 ## Canonical documentation evidence
@@ -15,6 +15,8 @@
 - [x] Limited Stage 1 decision and approval boundary exist in 01.7.
 - [x] Corrected Markdown/Mermaid pairs are synchronized for the Stage 1 canonical records.
 - [x] The Cluster B connected diagram has synchronized Markdown and raw `.mmd` sources plus a controlled review record.
+- [x] A normalized shared Cluster B State Inventory assigns CB-01 through CB-33 with every required field and no duplicate identity.
+- [x] A shared Cluster B Traceability Matrix maps requirements, screens/surfaces, every CB state, authority, failure/recovery, handoffs, and open evidence.
 - [x] One explicit ten-field traceability record and synchronized Markdown/Mermaid pair exist for UF-06.
 - [x] The official English PRD/MVP remain product authorities.
 - [ ] Figma synchronized with the corrected repository records.
@@ -37,6 +39,8 @@
 - [x] `FR-02` is complete at User Flow specification level across UF-05 + UF-06; TS-01/TS-02 executed evidence remains open.
 - [x] Cluster B constituent drafting coverage (UF-04 + UF-05 + UF-06) is complete.
 - [x] The canonical connected Cluster B path passes seam, recovery, P0/P1, authority, handoff, and MVP-scope review.
+- [x] Shared State Inventory coverage is complete: UF-04 14/14, UF-05 10/10, and UF-06 13/13 source states normalized into CB-01 through CB-33.
+- [x] Shared Traceability coverage is complete with no unowned Cluster B state or undocumented cross-flow recovery.
 - [ ] Figma synchronization and cross-role sign-off remain open.
 
 ## Permission, provider, and recovery correctness
@@ -86,9 +90,10 @@
 - [x] UF-06 completed at specification/traceability level; TS-01/TS-02/TS-08, Issue #16 mechanics, Figma, and role review remain open.
 - [ ] UF-07 through UF-13 completed and reviewed.
 - [x] Formal connected Cluster B diagram integration review recorded.
+- [x] Formal shared Cluster B State Inventory and Traceability decisions recorded.
 - [ ] Cluster B Figma synchronization and Product/Design/Android/QA/Privacy sign-off recorded.
 - [ ] Issue #3 acceptance criteria satisfied and issue closed.
 
 ## Exit decision
 
-The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 and UF-06 now pass at that level for P0 manual Player/Queue plus background/screen-off/system-control behavior and the separate user-visible P1 Paused Restore branch, completing FR-02 documentation coverage. All three Cluster B constituent flows are drafted and traceable, and their canonical connected diagram passes integration review. The unchecked items remain real blockers for formal Cluster B exit: executed Android/OEM evidence, Figma parity, cross-role sign-off, remaining flows, Wireframes, final Software Architecture, implementation, and final User Flow approval.
+The Stage 1 Cluster A Traceability Matrix remains passed. UF-04 passes at User Flow specification and traceability level, completing FR-01 at that documentation level. UF-05 and UF-06 now pass at that level for P0 manual Player/Queue plus background/screen-off/system-control behavior and the separate user-visible P1 Paused Restore branch, completing FR-02 documentation coverage. All three Cluster B constituent flows are drafted and traceable; their canonical connected diagram, normalized shared State Inventory, and shared Traceability Matrix pass repository review. The unchecked items remain real blockers for formal Cluster B exit: executed Android/OEM evidence, Figma parity, cross-role sign-off, remaining flows, Wireframes, final Software Architecture, implementation, and final User Flow approval.

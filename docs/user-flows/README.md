@@ -6,7 +6,7 @@ This directory contains the durable User Flow artifacts for Music Copilot MVP v1
 - **Official product authorities:** [PRD v1.0](../PRD.md) and [MVP v1.0](../MVP.md)
 - **Official source filenames:** `Music_Copilot_PRD_v1_EN_Clarified.pdf` and `Music_Copilot_MVP_v1_EN.pdf`
 - **Repository-level index:** [User Flows and State Inventory](../USER_FLOWS.md)
-- **Current gate:** UF-04/UF-05/UF-06 specification and traceability plus the Cluster B connected-flow integration review - **PASS**; formal exit evidence remains open
+- **Current gate:** UF-04/UF-05/UF-06 specifications, connected-flow review, shared State Inventory, and shared Traceability - **PASS**; formal exit evidence remains open
 - **Complete User Flow approval:** **Not granted**; UF-07 through UF-13, open Technical Spikes, Cluster B Figma synchronization, and final reviewer sign-off remain open.
 
 If an artifact conflicts with the official English PRD or MVP, the PRD/MVP v1.0 authorities win. Issue #2 completed on 06 August 2026, and the current [ADR register](../adr/README.md) records ADR-0001 through ADR-0006 as **Accepted**. Older attached PDFs and dated Phase 0/Cluster A snapshots may preserve their earlier Proposed status, but they do not override the current GitHub register.
@@ -22,7 +22,7 @@ Stage names describe workflow gates. User Flows and Golden Scenarios remain dura
 
 ## Direct artifact register
 
-These are the twelve files stored directly in `docs/user-flows/`:
+These are the fourteen files stored directly in `docs/user-flows/`:
 
 | Artifact | Purpose | Controlled status |
 |---|---|---|
@@ -34,10 +34,12 @@ These are the twelve files stored directly in `docs/user-flows/`:
 | [`UF-04_BROWSE_AND_SEARCH.md`](UF-04_BROWSE_AND_SEARCH.md) | Songs/Artists/Albums/Folders browsing, local Search, recovery, and playback-start handoff | Specification/traceability PASS; TS-06/Figma/reviewer gates open |
 | [`UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md`](UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md) | Queue formation, manual controls, end/corrupt recovery, controller reconnect, and P1 Paused Restore | Specification/traceability PASS; TS-02/TS-06/TS-08/Figma/reviewer/Issue #16 gates open |
 | [`UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md`](UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md) | Background/screen-off continuity, synchronized system surfaces, controller return, notification branch, and P1 Paused Restore | Specification/traceability PASS; TS-01/TS-02/TS-08/Figma/reviewer/Issue #16 gates open |
-| [`CLUSTER_B_CONNECTED_REVIEW.md`](CLUSTER_B_CONNECTED_REVIEW.md) | Connected UF-04/05/06 path, seam matrix, invariants, open evidence, and bounded decision | Connected-flow integration PASS; formal Cluster B exit open |
+| [`CLUSTER_B_CONNECTED_REVIEW.md`](CLUSTER_B_CONNECTED_REVIEW.md) | Connected UF-04/05/06 path, seam matrix, invariants, open evidence, and bounded decision | Connected-flow, shared inventory, and shared traceability review PASS; formal exit open |
+| [`CLUSTER_B_STATE_INVENTORY.md`](CLUSTER_B_STATE_INVENTORY.md) | Normalized CB-01 through CB-33 state records with all required fields | Shared State Inventory PASS; downstream evidence open |
+| [`CLUSTER_B_TRACEABILITY_MATRIX.md`](CLUSTER_B_TRACEABILITY_MATRIX.md) | Requirement, screen, state, authority, recovery, handoff, and evidence mappings | Shared Traceability PASS; downstream evidence open |
 | [`CLUSTER_A_FIRST_READINESS.md`](CLUSTER_A_FIRST_READINESS.md) | Connected UF-01/02/03 contract and limited Cluster A decision | Stage 1 matrix PASS; not final approval |
 | [`PHASE_1_FIRST_READINESS.md`](PHASE_1_FIRST_READINESS.md) | Controlled Phase 1 gate record synchronized with corrected repository evidence | Stage 1 matrix PASS; open gates retained |
-| [`PHASE_1_COMPLETION_CHECKLIST.md`](PHASE_1_COMPLETION_CHECKLIST.md) | Evidence-based pass/open checklist | Cluster A, UF-04/05/06, and connected Cluster B integration review PASS; later gates open |
+| [`PHASE_1_COMPLETION_CHECKLIST.md`](PHASE_1_COMPLETION_CHECKLIST.md) | Evidence-based pass/open checklist | Cluster A and Cluster B documentation gates PASS; later evidence gates open |
 
 ## Required flow catalog
 
@@ -71,7 +73,8 @@ These are the twelve files stored directly in `docs/user-flows/`:
 10. Preserve `Not now`, manual controls, and non-crashing recovery; never create a coercive Settings or permission loop.
 11. Do not add account, backend, sync, catalog, streaming, upload/download, Android Auto, iOS, or v1.1 scope.
 12. Use the current GitHub ADR register for ADR status. The canonical connected Cluster B diagram must preserve every UF-04/05/06 seam and open-evidence boundary.
-13. Do not claim Figma parity, Technical Spike evidence, role approval, implementation completion, formal Cluster B exit, or final User Flow approval until the corresponding evidence is recorded.
+13. Use CB-01 through CB-33 as the canonical shared Cluster B state identities; update the shared Traceability Matrix whenever a constituent state or seam changes.
+14. Do not claim Figma parity, Technical Spike evidence, role approval, implementation completion, formal Cluster B exit, or final User Flow approval until the corresponding evidence is recorded.
 
 ## Workflow
 
