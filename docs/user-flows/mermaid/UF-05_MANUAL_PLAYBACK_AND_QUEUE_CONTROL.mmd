@@ -1,0 +1,102 @@
+flowchart TB
+
+    subgraph ENTRY["UF-05 ENTRY"]
+        direction TB
+        E0["UF-04 acknowledged selection\nExisting mini-player / in-app return\nP1 restorable snapshot"]
+        E1{"Entry type?"}
+        E2["New selection\nReplace queue with the visible local track collection\nKeep visible order; selected track = current\nOnly after service acknowledgement"]
+        E3["Existing active service state\nConnect and refresh full controller snapshot\nNever restart or duplicate playback"]
+        E4["P1 snapshot\nValidate local queue/current item/position\nNever auto-play"]
+        E0 --> E1
+        E1 -->|"New selection"| E2
+        E1 -->|"Existing live state"| E3
+        E1 -->|"P1 restore"| E4
+    end
+
+    E2 --> V
+    E3 --> C
+    E4 --> R0{"Playable restored item exists?"}
+    R0 -->|"No"| R1["Discard unusable app restore state\nHome / Library -> UF-04\nDo not delete user media"]
+    R0 -->|"Yes or partial"| R2["Paused Restore\nDrop/reconcile invalid entries\nPreserve remaining order\nExplicit Resume required"]
+    R2 -->|"Resume"| V
+
+    subgraph AUTH["AUTHORITATIVE ACCEPTANCE"]
+        direction TB
+        V{"Access and candidate playable?"}
+        V1["Permission revoked\nStop affected attempt\nUF-02 permission recovery\nUF-03 reconciliation"]
+        V2["Corrupt / moved / deleted / inaccessible\nTyped non-sensitive error"]
+        V3{"Playable following item remains?"}
+        V4["Controlled forward skip\nNo wrap\nService acknowledges next item"]
+        V5["No playable item remains\nPaused / Completed + concise error\nQueue or Library recovery"]
+        V6["Service / MediaSession acknowledges\nQueue, current item, state and position"]
+        V -->|"Access revoked"| V1
+        V -->|"Invalid item"| V2
+        V2 --> V3
+        V3 -->|"Yes"| V4
+        V3 -->|"No"| V5
+        V -->|"Valid"| V6
+        V4 --> V6
+    end
+
+    subgraph CONTROL["FULL PLAYER / MINI-PLAYER"]
+        direction TB
+        C{"Controller ready with complete state?"}
+        C1["Connecting / Reconnecting\nPreserve last verified state\nNever fake stop, empty queue, or zero position"]
+        C2["Refresh current item, queue, index\nPlaying / Paused / Completed\nDuration and position"]
+        P["Full Player actual state\nMini-player observes same state"]
+        A{"Manual action?"}
+        C -->|"No"| C1
+        C1 -->|"Retry / reconnect"| C
+        C -->|"Yes"| C2
+        C2 --> P
+        P --> A
+    end
+
+    V6 --> C
+
+    subgraph COMMANDS["SHARED PLAYBACK COMMANDS"]
+        direction TB
+        A1["Play / Pause\nIdempotent; service acknowledgement\nEnd + Play restarts final item"]
+        A2["Seek\nClamp 0..duration\nPaused seek remains Paused"]
+        A3{"Previous position?"}
+        A4["Before T_PREVIOUS\nPrevious playable item\nAt first item restart at zero"]
+        A5["At / after T_PREVIOUS\nRestart current item at zero\nNumeric threshold remains open"]
+        A6{"Next playable item?"}
+        A7["Advance after validation\nNo wrap"]
+        A8["End of Queue\nPaused / Completed\nNo Repeat"]
+        A9["Open Queue\nObserve authoritative order/current item\nSelect an item; no reorder/remove/shuffle/repeat"]
+        A -->|"Play / Pause"| A1
+        A -->|"Seek"| A2
+        A -->|"Previous"| A3
+        A3 -->|"Before"| A4
+        A3 -->|"At / after"| A5
+        A -->|"Next / natural completion"| A6
+        A6 -->|"Yes"| A7
+        A6 -->|"No"| A8
+        A -->|"Queue"| A9
+    end
+
+    A1 --> V6
+    A2 --> V6
+    A4 --> V
+    A5 --> V6
+    A7 --> V
+    A8 --> P
+    A9 -->|"Select item"| V
+    A9 -->|"Back"| P
+
+    subgraph HANDOFF["CONTROLLED EXITS / HANDOFFS"]
+        direction TB
+        H1["Back\nPrior non-driving surface\nFallback Home / Library\nPlayback continues"]
+        H2["UI close / recreation / background / screen off\nUF-06\nP0 active continuity"]
+        H3["Enter Driving Mode\nUF-07"]
+        H4["Call / Audio Focus / disconnect / route change\nUF-11"]
+    end
+
+    A -->|"Back"| H1
+    A -->|"UI/system transition"| H2
+    A -->|"Driving Mode"| H3
+    P -.->|"Interruption / route event"| H4
+
+    N1["Playback Service / MediaSession is sole live owner\nUI, Queue view, mini-player and restore data observe only\nNo personal media metadata in telemetry"]
+    P -.-> N1
