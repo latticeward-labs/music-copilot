@@ -1,6 +1,6 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress - Phase 0 and Cluster A (UF-01 through UF-03) complete
+- **Status:** In progress - Phase 0, Cluster A (UF-01 through UF-03), and UF-04 complete at specification/traceability level
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Workfile:** [Music Copilot - MVP v1.0](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF)
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
@@ -13,13 +13,13 @@ This document is the repository index for User Flow artifacts. Until Issue #3 is
 - **Detailed record:** [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md)
 - **Figma section:** [00 / Phase 0 Foundation](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF?node-id=14-2)
 - **Boundary:** Phase 0 completed input, scope, state, decision, conflict, terminology, spike, and coverage preparation. It did not approve the final flow set, low-fidelity Wireframes, final Software Architecture, or implementation.
-- **ADR dependency:** Issue #2 and the ADR register must align on explicit reviewed outcomes before the complete User Flow set is marked Approved.
+- **ADR governance:** Issue #2 completed on 06 August 2026; ADR-0001 through ADR-0006 are Accepted in the current ADR register. Dated Phase 0/Cluster A snapshots do not override that current status.
 
 ## Phase 1 - Cluster A First Readiness - complete for review
 
 **Flows:** UF-01, UF-02, UF-03  
 **Decision date:** 01 August 2026  
-**Status boundary:** Cluster A is complete and registered. Issue #3 remains open because UF-04 through UF-13 and final cross-role approval are not complete.
+**Status boundary:** Cluster A is complete and registered. Issue #3 remains open because UF-05 through UF-13, Cluster B completion, and final cross-role approval are not complete.
 
 ### Repository records
 
@@ -42,7 +42,21 @@ This document is the repository index for User Flow artifacts. Until Issue #3 is
 
 Cluster A covers first launch, two-slide onboarding, Skip/Replay, contextual media access, Denied/Permanently Denied recovery, Android Settings return and recheck, permission revocation, initial/incremental scanning, Scanning/Empty/Ready/error states, six-command education, and just-in-time microphone access.
 
-The next drafting cluster is **Cluster B: UF-04 Browse/Search, UF-05 Manual Playback, UF-06 Background/System Controls**.
+The active drafting cluster is **Cluster B: UF-04 Browse/Search, UF-05 Manual Playback, UF-06 Background/System Controls**.
+
+## Cluster B progress - UF-04 complete
+
+**Flow:** UF-04 Browse and Search Local Music  
+**Decision date:** 06 August 2026  
+**Status boundary:** UF-04 passes at User Flow specification and traceability level. Cluster B remains open because UF-05 and UF-06 are not complete.
+
+### Repository records
+
+- [UF-04 - Browse and Search Local Music](user-flows/UF-04_BROWSE_AND_SEARCH.md)
+- [UF-04 canonical Mermaid](user-flows/mermaid/UF-04_BROWSE_AND_SEARCH.md)
+- [UF-04 raw Mermaid source](user-flows/mermaid/UF-04_BROWSE_AND_SEARCH.mmd)
+
+UF-04 covers Songs, Artists, Albums, and Folders browse paths; Search Idle/Result/No Result/Error; stale, inaccessible, moved/deleted, and revoked-access recovery; local-only data authority; and an acknowledged playback-start handoff to UF-05. FR-01 is complete at User Flow specification level across UF-01 through UF-04. TS-06 executed evidence, Figma synchronization, role review, UF-05/UF-06, and final Issue #3 approval remain open.
 
 ## Required flow catalog
 
@@ -51,7 +65,7 @@ The next drafting cluster is **Cluster B: UF-04 Browse/Search, UF-05 Manual Play
 | UF-01 | First launch and education | P0 | Complete for Cluster A review | Home Ready, permission recovery, Empty Library, manual fallback |
 | UF-02 | Permission denial and Settings recovery | P0 | Complete for Cluster A review; TS-01/TS-06 evidence open | Granted, Denied, Permanently Denied, manual fallback |
 | UF-03 | Local scan and library readiness | P0 | Complete for Cluster A review; TS-06 evidence open | Scanning, Empty, Ready, recoverable error/revocation |
-| UF-04 | Browse and search local music | P0 | Not started | Result, No Result, Error, playback start |
+| UF-04 | Browse and search local music | P0 | Complete at specification/traceability level; TS-06/Figma/reviewer evidence open | Result, No Result, Error, acknowledged playback start |
 | UF-05 | Manual playback and queue control | P0 / P1 restore branch | Not started | Playing, Paused, end/queue behavior, corrupt item recovery |
 | UF-06 | Background, screen-off and system controls | P0 / P1 restore branch | Not started | synchronized notification/lock-screen/Bluetooth state |
 | UF-07 | Driving Mode entry, use and exit | P0 / P1 entry hint | Not started | Playing, Paused, No Track, immediate exit |
@@ -87,12 +101,14 @@ Every state must record:
 - [x] Cluster A P0 scope and recovery behavior are explicit.
 - [x] Cluster A open architecture questions are routed rather than silently decided in Figma.
 - [x] Cluster A Figma sections and repository records are linked.
+- [x] UF-04 completes Songs/Artists/Albums/Folders browse and local Search behavior at specification level, with recovery and UF-05 handoff explicit.
 - [ ] P0/P1/P2 scope is explicit across the complete flow set.
 - [ ] Product and Android reviewers approve the complete flow set and state inventory.
-- [ ] Issue #2 and the ADR register align on explicit reviewed outcomes.
+- [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
 
 ## Artifact links
 
 - [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md) - approved for User Flow drafting
 - [Cluster A - First Readiness](user-flows/CLUSTER_A_FIRST_READINESS.md) - complete for review
-- Complete UF-04 through UF-13 diagrams and final review date - _to be completed by Issue #3_
+- [UF-04 - Browse and Search Local Music](user-flows/UF-04_BROWSE_AND_SEARCH.md) - specification/traceability PASS; downstream evidence open
+- Complete UF-05 through UF-13 diagrams and final review date - _to be completed by Issue #3_
