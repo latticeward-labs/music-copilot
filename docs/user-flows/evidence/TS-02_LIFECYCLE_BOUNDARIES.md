@@ -1,6 +1,6 @@
 # TS-02 — UI, Service, Task, and Process Lifecycle Evidence Protocol
 
-**Status:** **BLOCKED — no executable Android implementation/device evidence**  
+**Status:** **PARTIAL — automated AOSP evidence PASS; mandatory physical-device rows and Android/QA sign-off remain BLOCKED**  
 **Owner:** Android + QA  
 **Blocks:** Final UF-05/UF-06 and Issue #16  
 **Result root:** `docs/user-flows/evidence/results/TS-02/`
