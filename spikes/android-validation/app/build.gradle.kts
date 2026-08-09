@@ -42,6 +42,8 @@ android {
     lint {
         warningsAsErrors = true
         abortOnError = true
+        // The spike pins one verified toolchain. Version-availability checks are not correctness defects.
+        disable += setOf("AndroidGradlePluginVersion", "GradleDependency")
     }
 
     packaging {
