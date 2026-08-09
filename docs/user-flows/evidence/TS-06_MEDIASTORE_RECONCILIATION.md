@@ -1,6 +1,6 @@
 # TS-06 — MediaStore, Permission, and Reconciliation Evidence Protocol
 
-**Status:** **BLOCKED — no executable Android implementation/device evidence**  
+**Status:** **PARTIAL — automated AOSP evidence PASS; mandatory physical-device rows and Android/QA sign-off remain BLOCKED**  
 **Owner:** Android + QA  
 **Blocks:** Final UF-02/UF-03/UF-05 and Issue #16  
 **Result root:** `docs/user-flows/evidence/results/TS-06/`
