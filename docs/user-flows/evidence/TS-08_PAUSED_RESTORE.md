@@ -1,6 +1,6 @@
 # TS-08 — Versioned Paused-Restore Evidence Protocol
 
-**Status:** **BLOCKED — no executable Android implementation/device evidence**  
+**Status:** **PARTIAL — automated AOSP evidence PASS; mandatory physical-device rows and Android/QA sign-off remain BLOCKED**  
 **Owner:** Android; QA verifies  
 **Blocks:** Final P1 branch and Issue #16  
 **Result root:** `docs/user-flows/evidence/results/TS-08/`
