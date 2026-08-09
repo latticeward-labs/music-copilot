@@ -80,14 +80,18 @@
 - [x] Issue #2 records explicit Accepted outcomes for ADR-0001 through ADR-0006 after review revisions.
 - [x] ADR register is synchronized with Issue #2 as of 06 August 2026.
 - [x] TS-01 executable protocol/matrix/output/PASS criteria recorded.
-- [ ] TS-01 required Android/OEM evidence executed.
+- [x] TS-01 automated AOSP service/session subset executed on API 29/31/34.
+- [ ] TS-01 complete notification/permission and physical Android/OEM matrix executed.
 - [x] TS-02 lifecycle/P0-P1 protocol recorded.
-- [ ] TS-02 lifecycle evidence executed.
+- [x] TS-02 automated two-controller/service-ownership subset executed on API 29/31/34.
+- [ ] TS-02 complete lifecycle, task-removal, real process-loss, and physical OEM evidence executed.
 - [ ] TS-03 provider/language/network/processing/consent/retention/fallback evidence completed.
 - [x] TS-06 MediaStore/rebuild/scale protocol recorded.
-- [ ] TS-06 device evidence executed.
+- [x] TS-06 automated synthetic MediaStore round-trip plus host reconciliation/5,000-record checks executed.
+- [ ] TS-06 complete permission/move/delete/removable-volume and physical OEM evidence executed.
 - [x] TS-08 logical snapshot/migration/error protocol recorded.
-- [ ] TS-08 persistence/process-death evidence executed.
+- [x] TS-08 automated atomic store plus host snapshot/migration/error checks executed.
+- [ ] TS-08 real process-death and complete paused-restore evidence executed.
 - [x] UF-04 completed at specification/traceability level; Figma and role review remain open.
 - [x] UF-05 completed at specification/traceability level; TS-02/TS-06/TS-08, numeric `T_PREVIOUS`, and role review remain open.
 - [x] UF-06 completed at specification/traceability level; TS-01/TS-02/TS-08, Issue #16 mechanics, and role review remain open.
@@ -99,7 +103,7 @@
 
 ## Technical Spike execution boundary
 
-The [evidence pack](evidence/README.md) and an isolated non-production Android spike harness are complete at specification/implementation-review level. No build, AOSP-emulator, physical-device, OEM, or signed result bundle is counted yet, so protocol readiness remains PASS and executed protocol evidence remains BLOCKED. The harness is not Issue #4's engineering foundation. Figma is not part of this User Flow stage.
+The [evidence pack](evidence/README.md) and isolated non-production Android spike harness are complete. Build, strict lint, host unit tests, and 9/9 AOSP instrumentation executions on API 29/31/34 pass in [workflow run #6](https://github.com/latticeward-labs/music-copilot/actions/runs/31322420324), and the harness is merged to `main`. Automated execution is PASS; full protocol execution remains PARTIAL/BLOCKED on the mandatory physical Pixel/Samsung/Xiaomi matrices, real process-loss/manual rows, immutable signed bundles, and Android/QA decisions. The harness is not Issue #4's engineering foundation. Figma is not part of this User Flow stage.
 
 ## Exit decision
 
