@@ -1,6 +1,6 @@
 # TS-01 — Notification and Foreground-Media Evidence Protocol
 
-**Status:** **BLOCKED — no executable Android implementation/device evidence**  
+**Status:** **PARTIAL — automated AOSP evidence PASS; mandatory physical-device rows and Android/QA sign-off remain BLOCKED**  
 **Owner:** Android + QA  
 **Blocks:** Final UF-02/UF-06 and Issue #16  
 **Result root:** `docs/user-flows/evidence/results/TS-01/`
