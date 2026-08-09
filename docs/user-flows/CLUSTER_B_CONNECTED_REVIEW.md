@@ -75,7 +75,7 @@ Reviewed inputs:
 
 ## Technical Spike protocol decision
 
-**PASS — execution specifications are complete.** See the [evidence index](evidence/README.md). **Execution is BLOCKED** because no Android implementation/APK/instrumentation/device evidence exists. Figma is not part of this gate.
+**PASS — execution specifications are complete.** See the [evidence index](evidence/README.md). An isolated non-production Android spike harness is now under review; **executed protocol evidence remains BLOCKED** until build/AOSP results and the mandatory physical Pixel/Samsung/Xiaomi rows are recorded in immutable redacted bundles with Android/QA decisions. The harness is not Issue #4's engineering foundation. Figma is not part of this gate.
 
 ## Decision
 

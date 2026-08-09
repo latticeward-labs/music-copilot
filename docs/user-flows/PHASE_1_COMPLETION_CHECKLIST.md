@@ -99,7 +99,7 @@
 
 ## Technical Spike execution boundary
 
-The [evidence pack](evidence/README.md) is complete. No executable Android project/APK/instrumentation/device result exists, so protocol readiness is PASS and execution is BLOCKED. Figma is not part of this User Flow stage.
+The [evidence pack](evidence/README.md) and an isolated non-production Android spike harness are complete at specification/implementation-review level. No build, AOSP-emulator, physical-device, OEM, or signed result bundle is counted yet, so protocol readiness remains PASS and executed protocol evidence remains BLOCKED. The harness is not Issue #4's engineering foundation. Figma is not part of this User Flow stage.
 
 ## Exit decision
 
