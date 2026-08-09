@@ -3,6 +3,7 @@ package com.latticeward.musiccopilot.spike.playback
 import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -160,7 +161,7 @@ class SpikePlaybackService : MediaSessionService() {
 
         val surviving = withContext(Dispatchers.IO) {
             snapshot.queueReferences.mapIndexedNotNull { originalIndex, reference ->
-                val uri = Uri.parse(reference)
+                val uri = reference.toUri()
                 val readable = runCatching {
                     contentResolver.openFileDescriptor(uri, "r")?.use { true } ?: false
                 }.getOrDefault(false)
