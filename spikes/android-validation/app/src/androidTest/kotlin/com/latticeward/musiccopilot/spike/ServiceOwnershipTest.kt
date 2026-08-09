@@ -44,8 +44,10 @@ class ServiceOwnershipTest {
                 assertTrue(!first.playWhenReady)
             }
         } finally {
-            MediaController.releaseFuture(firstFuture)
-            MediaController.releaseFuture(secondFuture)
+            onMain {
+                MediaController.releaseFuture(firstFuture)
+                MediaController.releaseFuture(secondFuture)
+            }
             SyntheticMedia.delete(context, uri)
         }
     }
