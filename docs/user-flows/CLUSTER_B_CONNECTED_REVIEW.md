@@ -66,16 +66,16 @@ Reviewed inputs:
 
 | Open gate | Why it remains open |
 |---|---|
-| TS-01 | Notification/foreground-media behavior still requires supported Android/OEM evidence. |
-| TS-02 | UI closure, task removal, service lifetime, and process-death boundaries still require execution evidence. |
-| TS-06 | Permission, MediaStore move/delete, reconciliation, rebuild, and scale behavior still require device evidence. |
-| TS-08 | Queue/position restore representation, migration/error, and paused-restore behavior still require evidence. |
+| TS-01 | Automated AOSP service/session coverage passes; notification/permission and physical Android/OEM rows remain open. |
+| TS-02 | Automated two-controller/service-ownership coverage passes; task removal, real process loss, and physical OEM rows remain open. |
+| TS-06 | Automated synthetic MediaStore round-trip and host 5,000-record checks pass; the complete permission/move/delete/OEM matrix remains open. |
+| TS-08 | Automated atomic-store and host migration/error checks pass; real process-loss and complete restore rows remain open. |
 | Issue #16 | Numeric `T_PREVIOUS` and service/controller/lifecycle/persistence mechanics remain architecture decisions. |
 | Cross-role sign-off | Product, Design, Android, QA, and Privacy reviewers have not recorded approval. |
 
 ## Technical Spike protocol decision
 
-**PASS — execution specifications are complete.** See the [evidence index](evidence/README.md). An isolated non-production Android spike harness is now under review; **executed protocol evidence remains BLOCKED** until build/AOSP results and the mandatory physical Pixel/Samsung/Xiaomi rows are recorded in immutable redacted bundles with Android/QA decisions. The harness is not Issue #4's engineering foundation. Figma is not part of this gate.
+**PASS — execution specifications are complete.** See the [evidence index](evidence/README.md). An isolated non-production Android spike harness is merged and its build, strict lint, host tests, and AOSP API 29/31/34 instrumentation are **PASS** in [workflow run #6](https://github.com/latticeward-labs/music-copilot/actions/runs/31322420324). **Full executed protocol evidence remains PARTIAL/BLOCKED** until every mandatory physical Pixel/Samsung/Xiaomi row is recorded in immutable redacted bundles with Android/QA decisions. The harness is not Issue #4's engineering foundation. Figma is not part of this gate.
 
 ## Decision
 
