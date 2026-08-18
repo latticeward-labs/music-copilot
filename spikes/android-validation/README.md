@@ -43,3 +43,5 @@ Instrumentation retains synthetic MediaStore/service checks and adds a platform 
 5. Review and redact before committing. Never commit titles, artists, albums, folders, paths, content URIs/IDs, audio, transcripts, provider hypotheses, accounts, tokens, or unrelated logcat.
 
 A successful build/emulator run alone never approves production provider enablement, final numeric thresholds, a real-device quality KPI, Issue #10/#11/#13, or Issue #16.
+
+Cluster D reference contracts were first validated in PR #26 workflow run #8 on code head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`: build/lint/host tests PASS and AOSP API 29/31/34 instrumentation 12/12 PASS.
