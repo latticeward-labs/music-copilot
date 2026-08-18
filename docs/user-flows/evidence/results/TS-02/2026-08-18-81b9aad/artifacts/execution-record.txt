@@ -1,0 +1,20 @@
+TS-02 EXECUTION RECORD
+Date recorded: 2026-08-18
+Evidence type: project-owner/operator attestation based on completed physical lifecycle testing
+
+SCENARIO RESULT
+L01-L12: PASS — operator confirmed.
+
+PHYSICAL COVERAGE CONFIRMED BY OPERATOR
+- Pixel / stock Android: PASS
+- Samsung / One UI: PASS
+- Xiaomi / MIUI or HyperOS: PASS
+
+VALIDATED BEHAVIOR SCOPE
+Lifecycle/controller boundaries including UI recreation, UI close/backgrounding, task removal, service/controller reconnection and process-loss handling were reported executed and passing. No duplicate-player or false playback-state failure was reported in the completed matrix.
+
+AUTOMATED BASELINE
+Cluster B automated AOSP validation is PASS and is indexed separately in the repository CI evidence record.
+
+BOUNDARY
+No raw timestamped state-trace or logcat capture was supplied in the conversation for these physical runs. This record therefore preserves the operator-confirmed execution result without inventing raw telemetry, timestamps, device identifiers not supplied, or reviewer signatures.
