@@ -1,6 +1,6 @@
-# Technical Spike Evidence Index — Completed Clusters B and D
+# Technical Spike Evidence Index - Completed Clusters B, D, and E
 
-**Scope:** Cluster B UF-04 through UF-06; Cluster D UF-08 through UF-10  
+**Scope:** Cluster B UF-04 through UF-06; Cluster D UF-08 through UF-10; Cluster E UF-11 through UF-12  
 **Date:** 06 August 2026; formal evidence closeout 18 August 2026  
 **Tracking:** Issue #3  
 **Authority:** `MSM2.rar` English baseline + GitHub `main` only  
@@ -14,7 +14,8 @@
 **Android review:** **PASS — project-owner attestation recorded**  
 **QA review:** **PASS — project-owner attestation recorded**  
 **Formal Cluster B Technical Spike evidence gate:** **PASS**  
-**Cluster D executable spike-contract gate:** **PASS — TS-03/TS-07/TS-09; final workflow run #17**
+**Cluster D executable spike-contract gate:** **PASS — TS-03/TS-07/TS-09; final workflow run #17**  
+**Cluster E executable reference-contract gate:** **PASS — TS-04/TS-05/TS-10; workflow run #21**
 
 ## Source boundary
 
@@ -87,6 +88,18 @@ Android and QA review decisions are recorded as PASS by project-owner attestatio
 
 This evidence closes deterministic User Flow and safe-fallback decisions only. It does not claim a physical OEM speech provider, cloud processor/legal disclosure, real microphone/library/road-noise result, final numeric production adoption, or Beta KPI. Those remain Issues #10/#11/#12/#13/#16.
 
+## Cluster E executable reference contracts
+
+| Spike | Protocol | Result |
+|---|---|---|
+| TS-04 | [Conditional Audio Focus/call recovery](TS-04_AUDIO_FOCUS_POLICY.md) | **PASS at deterministic reference-policy level** — four resume guards, manual-pause/permanent-loss/route-change safe pause |
+| TS-05 | [Route safety](TS-05_ROUTE_SAFETY.md) | **PASS at deterministic reference-policy level** — immediate disconnect pause, route invalidation, no reconnect auto-resume, idempotency |
+| TS-10 | [Retention and deletion](TS-10_RETENTION_DELETION.md) | **PASS at privacy-plan level** — selected confirmed clear, protected categories, provider partial result, fail-closed retention |
+
+[Cluster E evidence summary](CLUSTER_E_EVIDENCE_SUMMARY_2026-08-18.md) records workflow run #21 on code head `8c0cddd298932f7499a69b0ee0ea391ea46583e4`: build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 PASS.
+
+This closes executable User Flow policy/testability only. Physical OEM calls/routes, audible leakage, vehicles, exact retention, provider/legal/deletion, and production implementation remain #8/#12/#13/#16.
+
 ## Result contract and privacy boundary
 
 - [Android spike harness boundary](ANDROID_SPIKE_HARNESS.md)
@@ -97,6 +110,6 @@ No personal titles, artists, albums, folders, paths, URIs, MediaStore IDs, raw a
 
 ## Decision
 
-**Cluster B Technical Spike execution gate and Cluster D executable spike-contract gate: PASS / SOURCE-ALIGNED.**
+**Cluster B Technical Spike execution gate plus Cluster D and E executable reference-contract gates: PASS / SOURCE-ALIGNED.**
 
-This decision retains Cluster B TS-01/TS-02/TS-06/TS-08 closure and closes the Cluster D TS-03/TS-07/TS-09 User Flow/reference-contract evidence under the English MSM2/GitHub authority policy. It does not close Issue #3, approve UF-11 through UF-13, enable an unverified speech provider, or approve final Software Architecture/implementation.
+This decision retains Cluster B TS-01/TS-02/TS-06/TS-08 closure and closes the Cluster D TS-03/TS-07/TS-09 User Flow/reference-contract evidence under the English MSM2/GitHub authority policy. It does not close Issue #3, approve optional UF-13 or the final complete-set gate, enable an unverified provider, claim physical route/vehicle behavior, or approve final Software Architecture/implementation.
