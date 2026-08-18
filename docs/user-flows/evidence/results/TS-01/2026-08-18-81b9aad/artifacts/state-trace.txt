@@ -1,0 +1,23 @@
+TS-01 — Notification / Foreground Media
+Evidence type: DERIVED EXECUTION TRACE FROM CONFIRMED PHYSICAL TEST RESULTS
+Execution date: 2026-08-18
+Harness build SHA: 81b9aadcb67cbfcb7e7fcc849a4892755d5b891a
+Physical device: Samsung SM-M325FV / Android 13 (API 33) / One UI 5.1
+Raw runtime timestamps: not retained; waived by CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md
+
+N01 First playback -> one service-owned player/session -> notification/system state matched actual -> PASS
+N02 Home/background while Playing -> playback/position continued -> PASS
+N03 Screen off/lock -> audio continued and system state matched session -> PASS
+N04 Notification commands -> Play/Pause/Next/Previous converged on one MediaSession -> PASS
+N05 Runtime notification permission -> no duplicate service/session -> PASS
+N06 Deny/Not now -> no crash/coercion/false state; app controls remained recoverable -> PASS
+N07 Settings notification OFF/return -> Samsung stopped active media control/playback; same behavior reproduced across comparison music players on this OEM; classification accepted as OEM/platform-consistent; explicit Play restored playback -> PASS by approved OEM classification
+N08 Task removal while Playing -> no second player/session created -> PASS
+N09 Controller reconnect -> authoritative queue/item/state snapshot restored -> PASS
+N10 Pause/complete with UI absent -> correct transition; no unexpected duplicate restart -> PASS
+
+Automated companion evidence: connectedDebugAndroidTest 3/3 PASS on SM-M325FV/API 33; AOSP API 29/31/34 automated suite PASS.
+Pixel/stock physical row: Approved N/A / Waived.
+Xiaomi/MIUI-HyperOS physical row: Approved N/A / Waived.
+
+No personal media titles, artists, albums, folders, paths, URIs, or MediaStore IDs are recorded in this derived trace.
