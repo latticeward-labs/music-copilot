@@ -2,7 +2,7 @@
 
 **Scope:** TS-03, TS-07, TS-09 supporting UF-08/UF-09/UF-10  
 **Date:** 18 August 2026  
-**Current automated result:** **PASS — workflow run #8 on code head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`**
+**Current automated result:** **PASS — final workflow run #17 on code head `f0cee7606dd1c2899b7a145ea072c747041da444`**
 
 ## Evidence matrix
 
@@ -17,8 +17,8 @@
 
 ## Executed workflow
 
-- GitHub Actions run: #8 / `32152607787`
-- Code head: `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`
+- GitHub Actions run: #17 / `32154062200`
+- Code head: `f0cee7606dd1c2899b7a145ea072c747041da444`
 - Build, strict lint, host unit tests, and debug APK: PASS
 - AOSP API 29: 4/4 instrumentation tests PASS
 - AOSP API 31: 4/4 instrumentation tests PASS
