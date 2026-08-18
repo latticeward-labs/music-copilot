@@ -2,7 +2,7 @@
 
 **Blocks:** final UF-09 contract and production threshold adoption in Issue #16  
 **Date:** 18 August 2026  
-**Automated result:** `PENDING_PR_CI`
+**Automated result:** **PASS — workflow run #8 on head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`**
 
 ## Fixed algorithm under test
 
@@ -48,9 +48,9 @@ Only synthetic labels and stable IDs are used. No personal library data, titles,
 - [x] Fixed synthetic corpus covers supported, ambiguous, missing, unknown, unsupported, and boundary behavior.
 - [x] Direct/ambiguous/not-found boundaries are explicit and never default to top match.
 - [x] History is only a secondary ordering input and cannot turn an unsafe tie into direct execution.
-- [ ] Host unit tests PASS on the PR head, including 100-repeat determinism and zero direct execution in negative rows.
+- [x] Host unit tests PASS, including 100-repeat determinism and zero direct execution in negative rows.
 - [x] Final numeric adoption and field quality remain Issues #11/#13/#16.
 
 ## Decision boundary
 
-Passing this spike closes UF-09's deterministic behavior and testability; it does not claim real accent/noise accuracy or the production KPI sample.
+**PASS at the deterministic reference-corpus level.** This closes UF-09 behavior/testability; it does not claim real accent/noise accuracy or the production KPI sample.
