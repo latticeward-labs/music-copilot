@@ -1,7 +1,7 @@
-# Technical Spike Evidence Index - Completed Clusters B, D, and E
+# Technical Spike Evidence Index - Completed Clusters B, D, E, and UF-13
 
-**Scope:** Cluster B UF-04 through UF-06; Cluster D UF-08 through UF-10; Cluster E UF-11 through UF-12  
-**Date:** 06 August 2026; formal evidence closeout 18 August 2026  
+**Scope:** Cluster B UF-04 through UF-06; Cluster D UF-08 through UF-10; Cluster E UF-11 through UF-12; optional P2 UF-13  
+**Date:** 06 August 2026; formal evidence closeout 18–19 August 2026  
 **Tracking:** Issue #3  
 **Authority:** `MSM2.rar` English baseline + GitHub `main` only  
 **Authority record:** [`../CLUSTER_B_SOURCE_AUTHORITY.md`](../CLUSTER_B_SOURCE_AUTHORITY.md)  
@@ -15,7 +15,8 @@
 **QA review:** **PASS — project-owner attestation recorded**  
 **Formal Cluster B Technical Spike evidence gate:** **PASS**  
 **Cluster D executable spike-contract gate:** **PASS — TS-03/TS-07/TS-09; final workflow run #17**  
-**Cluster E executable reference-contract gate:** **PASS — TS-04/TS-05/TS-10; workflow run #21**
+**Cluster E executable reference-contract gate:** **PASS — TS-04/TS-05/TS-10; workflow run #21**  
+**UF-13 executable reference-contract gate:** **PASS — eight Like/Liked Songs host tests; workflow run #25**
 
 ## Source boundary
 
@@ -100,6 +101,19 @@ This evidence closes deterministic User Flow and safe-fallback decisions only. I
 
 This closes executable User Flow policy/testability only. Physical OEM calls/routes, audible leakage, vehicles, exact retention, provider/legal/deletion, and production implementation remain #8/#12/#13/#16.
 
+## UF-13 executable reference contract
+
+| Contract | Coverage | Result |
+|---|---|---|
+| Like / Unlike | Idempotent Like, duplicate collapse, selected-only Unlike | PASS |
+| Projection | P2 removed, Empty, Ready, repository order | PASS |
+| Reconciliation | Missing/inaccessible items excluded and reported stale | PASS |
+| Playback plan | Play list, selected index, stale-selection rejection | PASS |
+
+[UF-13 evidence summary](UF-13_EVIDENCE_SUMMARY_2026-08-19.md) records workflow run #25 on code head `9134e90e923343d3551258cbb3c756ae4cc7db2e`: build, host unit tests, strict lint, debug artifact, and AOSP API 29/31/34 instrumentation jobs PASS.
+
+This closes deterministic UF-13 User Flow policy/testability only. Production storage/schema/migration, UI, Media3 integration, physical/OEM evidence, and capacity inclusion remain downstream.
+
 ## Result contract and privacy boundary
 
 - [Android spike harness boundary](ANDROID_SPIKE_HARNESS.md)
@@ -110,6 +124,6 @@ No personal titles, artists, albums, folders, paths, URIs, MediaStore IDs, raw a
 
 ## Decision
 
-**Cluster B Technical Spike execution gate plus Cluster D and E executable reference-contract gates: PASS / SOURCE-ALIGNED.**
+**Cluster B Technical Spike execution gate plus Cluster D, E, and UF-13 executable reference-contract gates: PASS / SOURCE-ALIGNED.**
 
-This decision retains Cluster B TS-01/TS-02/TS-06/TS-08 closure and closes the Cluster D TS-03/TS-07/TS-09 User Flow/reference-contract evidence under the English MSM2/GitHub authority policy. It does not close Issue #3, approve optional UF-13 or the final complete-set gate, enable an unverified provider, claim physical route/vehicle behavior, or approve final Software Architecture/implementation.
+This decision retains Cluster B TS-01/TS-02/TS-06/TS-08 closure and closes the Cluster D TS-03/TS-07/TS-09, Cluster E TS-04/TS-05/TS-10, and UF-13 User Flow/reference-contract evidence under the English MSM2/GitHub authority policy. It does not close Issue #3 or the final complete-set approval gate, enable an unverified provider, claim physical route/vehicle/Like persistence behavior, or approve final Software Architecture/implementation.
