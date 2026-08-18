@@ -14,7 +14,7 @@
 **Android review:** **PASS — project-owner attestation recorded**  
 **QA review:** **PASS — project-owner attestation recorded**  
 **Formal Cluster B Technical Spike evidence gate:** **PASS**  
-**Cluster D executable spike-contract gate:** **PASS — TS-03/TS-07/TS-09; workflow run #8**
+**Cluster D executable spike-contract gate:** **PASS — TS-03/TS-07/TS-09; final workflow run #17**
 
 ## Source boundary
 
@@ -83,7 +83,7 @@ Android and QA review decisions are recorded as PASS by project-owner attestatio
 | TS-07 | [Artist matching](TS-07_ARTIST_MATCHING.md) | **PASS at deterministic reference-corpus level** — fixed mapper/corpus, stable ordering, zero direct execution in negative rows |
 | TS-09 | [Confidence default](TS-09_CONFIDENCE_DEFAULT.md) | **PASS at safe-default/fallback level** — build candidate, bounded remote validation, last-valid/default fallback |
 
-[Cluster D evidence summary](CLUSTER_D_EVIDENCE_SUMMARY_2026-08-18.md) records workflow run #8 on code head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`: build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 PASS.
+[Cluster D evidence summary](CLUSTER_D_EVIDENCE_SUMMARY_2026-08-18.md) records final workflow run #17 on code head `f0cee7606dd1c2899b7a145ea072c747041da444`: build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 PASS.
 
 This evidence closes deterministic User Flow and safe-fallback decisions only. It does not claim a physical OEM speech provider, cloud processor/legal disclosure, real microphone/library/road-noise result, final numeric production adoption, or Beta KPI. Those remain Issues #10/#11/#12/#13/#16.
 
