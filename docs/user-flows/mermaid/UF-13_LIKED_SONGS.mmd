@@ -1,0 +1,28 @@
+flowchart TD
+    A[Home or Library] --> B{P2 ships?}
+    B -- No --> C[No entry or Like control\nP0 and P1 unaffected]
+    B -- Yes --> D[Open Liked Songs]
+    D --> E[Load acknowledged likes]
+    E --> F[Reconcile with accessible MediaStore projection]
+    F --> G{Accessible liked items?}
+    G -- No --> H[Empty\nExplanation and Back]
+    G -- Yes --> I[Ready\nRows, Play list, Unlike, Back]
+    I --> J{Action}
+    J -- Play list --> K[Submit accessible queue\nstart index 0]
+    J -- Select row --> L[Submit same queue\nselected start index]
+    K --> M{Service acknowledges?}
+    L --> M
+    M -- Yes --> N[Full Player observes Playing]
+    M -- Stale or rejected --> O[Reconcile again\nno false Playing]
+    O --> G
+    J -- Unlike --> P[Remove only local Like record]
+    P --> Q{Write acknowledged?}
+    Q -- Yes --> F
+    Q -- No --> R[Keep previous acknowledged state\nRetry or dismiss]
+    R --> I
+    S[Full Player] --> T[Like or Unlike]
+    T --> U{Local write acknowledged?}
+    U -- Yes --> V[Observable Like state updated]
+    U -- No --> W[Previous state retained\nRetry outside Driving Mode]
+    H --> A
+    I --> A
