@@ -1,0 +1,21 @@
+TS-06 EXECUTION RECORD
+Date recorded: 2026-08-18
+Evidence type: project-owner/operator attestation based on completed MediaStore/reconciliation testing
+
+SCENARIO RESULT
+M01-M14: PASS — operator confirmed.
+
+COVERAGE CONFIRMED
+Permission grant/denial/revocation and recovery; add/incremental scan; external delete; move/rename; corrupt/unreadable queue item; removable-volume availability; derived-index rebuild; 5,000-file initial scan; 5,000-file no-change incremental scan; incomplete metadata handling.
+
+PHYSICAL COVERAGE
+Required physical-device coverage was reported completed and passing by the operator.
+
+AUTOMATED BASELINE
+Cluster B automated AOSP validation is PASS and is indexed separately in the repository CI evidence record.
+
+M12/M13 MEASUREMENT NOTE
+The operator confirmed the M12/M13 scenarios passed, but exact measured timing and changed-count values were not supplied in the conversation. No numeric values are invented in this record.
+
+BOUNDARY
+This is an execution-result record. It does not claim unavailable raw logcat/state-trace captures, exact measurements that were not supplied, or reviewer signatures.
