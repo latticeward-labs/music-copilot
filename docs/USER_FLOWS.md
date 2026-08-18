@@ -68,13 +68,16 @@ FR-01 is complete at User Flow specification level across UF-01 through UF-04. F
 
 **Flow:** UF-07 Driving Mode entry, use, and exit  
 **Documentation decision date:** 18 August 2026  
-**Status:** **COMPLETE / PASS at User Flow specification level**
+**Formal evidence/sign-off closeout:** 18 August 2026  
+**Status:** **COMPLETE / PASS / SOURCE-ALIGNED at User Flow stage**
 
-Cluster C passes source-authority, detailed flow, shared State Inventory, Traceability Matrix, canonical Mermaid parity, connected-flow integration, privacy/safety/accessibility review, and formal User Flow exit gates. Manual entry is P0; the selected-device Bluetooth suggestion is a separable P1 branch and never opens Driving Mode automatically.
+Cluster C passes source-authority, detailed flow, shared State Inventory, Traceability Matrix, canonical Mermaid parity, connected-flow integration, privacy/safety/accessibility review, Technical Spike applicability, final cross-role sign-off, and formal User Flow exit gates. No Phase 0 Technical Spike is assigned directly as a UF-07 exit blocker; application/device/vehicle execution remains truthfully routed to Issues #9 and #13. Manual entry is P0; the selected-device Bluetooth suggestion is a separable P1 branch and never opens Driving Mode automatically.
 
 ### Repository records
 
 - [Cluster C connected review and exit record](user-flows/CLUSTER_C_CONNECTED_REVIEW.md)
+- [Cluster C final cross-role sign-off](user-flows/CLUSTER_C_SIGNOFF_2026-08-18.md)
+- [Cluster C evidence applicability record](user-flows/CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md)
 - [Cluster C source authority](user-flows/CLUSTER_C_SOURCE_AUTHORITY.md)
 - [Cluster C shared State Inventory](user-flows/CLUSTER_C_STATE_INVENTORY.md)
 - [Cluster C Traceability Matrix](user-flows/CLUSTER_C_TRACEABILITY_MATRIX.md)
@@ -143,7 +146,9 @@ Every state must record:
 - [x] **Formal Cluster B exit PASS / COMPLETE.**
 - [x] UF-07 manual P0 entry, optional P1 Bluetooth suggestion, Playing/Paused/No Track, one-layer controls, immediate Exit, privacy, accessibility, and downstream handoffs are complete.
 - [x] Cluster C source authority, State Inventory, Traceability, Mermaid parity, and connected review PASS.
-- [x] **Formal Cluster C User Flow exit PASS / COMPLETE.**
+- [x] Cluster C Technical Spike applicability review records no new UF-07 spike blocker and routes implementation evidence to Issues #9/#13.
+- [x] Cluster C Product/Design/Android-contract/QA-testability/Privacy/Governance sign-off PASS.
+- [x] **Formal Cluster C User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
 - [ ] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
 - [ ] Product and Android reviewers approve the complete Issue #3 flow set and state inventory.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
@@ -155,6 +160,8 @@ Every state must record:
 - [Cluster B connected review / final exit](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
 - [Cluster B final cross-role sign-off](user-flows/CLUSTER_B_SIGNOFF_2026-08-18.md)
 - [Cluster C connected review / exit](user-flows/CLUSTER_C_CONNECTED_REVIEW.md)
+- [Cluster C final cross-role sign-off](user-flows/CLUSTER_C_SIGNOFF_2026-08-18.md)
+- [Cluster C evidence applicability](user-flows/CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md)
 - [UF-07 Driving Mode](user-flows/UF-07_DRIVING_MODE.md)
 - [Cluster C State Inventory](user-flows/CLUSTER_C_STATE_INVENTORY.md)
 - [Cluster C Traceability Matrix](user-flows/CLUSTER_C_TRACEABILITY_MATRIX.md)
