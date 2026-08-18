@@ -4,6 +4,7 @@
 **Scope:** UF-04 Browse/Search → UF-05 Manual Playback/Queue → UF-06 Background/System Controls  
 **Review date:** 06 August 2026  
 **Formal evidence closeout:** 18 August 2026  
+**Authority re-audit:** 18 August 2026 against `MSM2.rar` English baseline + GitHub `main`  
 **Tracking:** GitHub Issue #3  
 **Connected-flow integration decision:** **PASS**  
 **Shared State Inventory decision:** **PASS**  
@@ -16,10 +17,17 @@
 
 ## Authority and controlled artifacts
 
-The official English PRD/MVP are product authorities. The current GitHub ADR register is the architecture-status authority; ADR-0001 through ADR-0006 are Accepted. Older PDF/RAR snapshots do not override the current repository record.
+Cluster B is controlled by [`CLUSTER_B_SOURCE_AUTHORITY.md`](CLUSTER_B_SOURCE_AUTHORITY.md).
+
+The approved source basis is the **English MSM2 baseline** supplied in `MSM2.rar` together with current GitHub `main` records. The packaged baseline includes the English clarified PRD v1.0, English MVP v1.0, English System Architecture, English Code and Technical Documentation, English Phase 0/Phase 1 User Flow records, and ADR-0001 through ADR-0006.
+
+For current repository operation, `docs/PRD.md` and `docs/MVP.md` are controlled repository representations of the authoritative English PRD/MVP; the current GitHub ADR register controls ADR status; and GitHub User Flow/evidence records control current workflow state.
+
+**Persian/Farsi PRD, MVP, architecture, technical, ADR, User Flow, or translated snapshots are explicitly excluded as Cluster B authorities.** They must not be used to change, justify, reopen, or invalidate Cluster B.
 
 Reviewed inputs:
 
+- [`CLUSTER_B_SOURCE_AUTHORITY.md`](CLUSTER_B_SOURCE_AUTHORITY.md)
 - [`UF-04_BROWSE_AND_SEARCH.md`](UF-04_BROWSE_AND_SEARCH.md)
 - [`UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md`](UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md)
 - [`UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md`](UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)
@@ -30,6 +38,23 @@ Reviewed inputs:
 - [`evidence/README.md`](evidence/README.md)
 - [`evidence/CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md`](evidence/CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md)
 - TS-01 / TS-02 / TS-06 / TS-08 accepted result bundles under `evidence/results/`
+
+## Source-alignment re-audit
+
+The final Cluster B outcome remains aligned with the English source baseline:
+
+| Source constraint | Cluster B alignment | Result |
+|---|---|---|
+| Android 10+ MVP | Cluster B remains Android-only | PASS |
+| Local lawful music only | UF-04/05/06 never require online catalog or streaming | PASS |
+| Browse/Search local library | UF-04 covers Songs, Artists, Albums, Folders and local Search | PASS |
+| Basic Player | UF-05 covers Play/Pause/Next/Previous/Seek/Queue | PASS |
+| Background/screen-off/system state | UF-06 preserves truthful service-owned playback and MediaSession surfaces | PASS |
+| Service-owned Media3 | No UI-owned second player or playback authority is introduced | PASS |
+| Local-first data boundary | MediaStore authority and rebuildable local index are preserved | PASS |
+| P0/P1 separation | Active continuity remains P0; paused restore remains distinct P1 behavior | PASS |
+| FR-03 interruption/route scope | Calls/Audio Focus/route recovery remain routed to UF-11 | PASS |
+| MVP exclusions | No Android Auto, Cast, iOS, backend, account, sync, streaming, download, or v1.1 behavior is added | PASS |
 
 ## Connected path under review
 
@@ -55,6 +80,8 @@ Reviewed inputs:
 | Failure and recovery | PASS |
 | Downstream handoffs | PASS |
 | MVP scope | PASS |
+| English-source authority | PASS |
+| Persian-source exclusion | PASS |
 | Mermaid parity | PASS |
 | Shared state normalization | PASS |
 | Shared traceability | PASS |
@@ -76,6 +103,7 @@ Reviewed inputs:
 - Notification permission behavior is contextual and non-blocking where applicable; Samsung OEM behavior was reviewed and accepted as platform-consistent for the tested matrix.
 - P1 restore is Paused and always requires explicit Resume.
 - Personal media metadata is not approved for telemetry or evidence payloads.
+- Current Cluster B records must remain within the English MSM2/GitHub authority boundary defined above.
 
 ## Technical Spike evidence closeout
 
@@ -83,12 +111,12 @@ Build, strict lint, host tests, and AOSP API 29/31/34 instrumentation are PASS. 
 
 Some historical raw capture files were not retained before the later immutable-bundle contract was finalized. The project owner approved a one-time retrospective evidence-retention waiver for this Cluster B run only. The bundles therefore contain derived `state-trace.txt`, retrospective `logcat-redacted.txt`, visual-evidence indexes, artifact Git object IDs, and Android/QA approval attestations. Missing historical raw values are explicitly waived and are not fabricated.
 
-Issue #16 architecture mechanics remain downstream architecture decisions and are **not a blocker to the completed Cluster B User Flow/evidence exit**.
+Issue #16 architecture mechanics remain downstream architecture decisions and are **not a blocker to the completed Cluster B User Flow/evidence exit**. They also may not silently alter the English MVP/ADR constraints already accepted for Cluster B.
 
 ## Decision
 
-**PASS — Cluster B is formally complete.**
+**PASS — Cluster B is formally complete and source-aligned.**
 
-UF-04, UF-05, and UF-06 specifications, the canonical connected diagram, shared State Inventory, shared Traceability Matrix, Technical Spike execution/evidence, and accepted review decisions are complete for this stage.
+UF-04, UF-05, and UF-06 specifications, the canonical connected diagram, shared State Inventory, shared Traceability Matrix, Technical Spike execution/evidence, source-authority audit, and accepted review decisions are complete for this stage.
 
 This completion does not close Issue #3 as a whole. UF-07 through UF-13 remain to be completed and reviewed. The next active User Flow stage is **Cluster C beginning with UF-07 Driving Mode**.
