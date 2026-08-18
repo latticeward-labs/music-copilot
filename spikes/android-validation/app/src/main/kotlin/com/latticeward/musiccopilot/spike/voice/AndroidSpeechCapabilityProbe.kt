@@ -11,6 +11,7 @@ data class SpeechCapabilitySnapshot(
     val englishSupport: SupportState,
 ) {
     enum class SupportState {
+        READY,
         UNKNOWN_UNTIL_PROVIDER_CALLBACK,
         NOT_AVAILABLE,
     }
@@ -59,8 +60,13 @@ object AndroidSpeechCapabilityProbe {
         disclosure: CloudDisclosure?,
         cloudConsentGranted: Boolean,
     ): ApprovedSpeechMode = when {
-        snapshot.onDeviceRecognitionAvailable -> ApprovedSpeechMode.ON_DEVICE
-        snapshot.recognitionServiceAvailable && disclosure?.isComplete == true && cloudConsentGranted ->
+        snapshot.onDeviceRecognitionAvailable &&
+            snapshot.englishSupport == SpeechCapabilitySnapshot.SupportState.READY ->
+            ApprovedSpeechMode.ON_DEVICE
+        snapshot.recognitionServiceAvailable &&
+            snapshot.englishSupport == SpeechCapabilitySnapshot.SupportState.READY &&
+            disclosure?.isComplete == true &&
+            cloudConsentGranted ->
             ApprovedSpeechMode.NETWORK_ASSISTED_WITH_CONSENT
         else -> ApprovedSpeechMode.MANUAL_ONLY
     }
