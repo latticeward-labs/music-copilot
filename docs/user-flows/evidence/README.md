@@ -3,7 +3,9 @@
 **Scope:** UF-04 → UF-05 → UF-06  
 **Date:** 06 August 2026; formal evidence closeout 18 August 2026  
 **Tracking:** Issue #3  
-**Authority:** GitHub `main` only  
+**Authority:** `MSM2.rar` English baseline + GitHub `main` only  
+**Authority record:** [`../CLUSTER_B_SOURCE_AUTHORITY.md`](../CLUSTER_B_SOURCE_AUTHORITY.md)  
+**Persian/Farsi source policy:** **EXCLUDED — Persian/Farsi PRD, MVP, architecture, technical, ADR, User Flow, and translated snapshots are not evidence authorities**  
 **Figma dependency:** None  
 **Protocol readiness:** **PASS**  
 **Harness implementation:** **PASS — merged to main**  
@@ -12,6 +14,10 @@
 **Android review:** **PASS — project-owner attestation recorded**  
 **QA review:** **PASS — project-owner attestation recorded**  
 **Formal Cluster B Technical Spike evidence gate:** **PASS**
+
+## Source boundary
+
+Technical Spike interpretation is bounded by the English MSM2/GitHub source set. In particular, the evidence must preserve service-owned Media3 playback, Android-only/local-first data boundaries, MediaStore authority, no backend/account/streaming, truthful lifecycle/system-control behavior, and the separation of P0 live continuity from P1 restore. Evidence may validate these constraints; it may not silently redefine product scope or architecture.
 
 ## Repository audit
 
@@ -78,6 +84,6 @@ No personal titles, artists, albums, folders, paths, URIs, MediaStore IDs, audio
 
 ## Decision
 
-**Cluster B Technical Spike execution and formal evidence gate: PASS.**
+**Cluster B Technical Spike execution and formal evidence gate: PASS / SOURCE-ALIGNED.**
 
-This decision closes the Cluster B TS-01/TS-02/TS-06/TS-08 evidence requirement and allows User Flow work to proceed to Cluster C / UF-07. It does not close Issue #3 as a whole, approve UF-07 through UF-13, or approve final Software Architecture/implementation.
+This decision closes the Cluster B TS-01/TS-02/TS-06/TS-08 evidence requirement under the English MSM2/GitHub authority policy and allows User Flow work to proceed to Cluster C / UF-07. It does not close Issue #3 as a whole, approve UF-07 through UF-13, or approve final Software Architecture/implementation.
