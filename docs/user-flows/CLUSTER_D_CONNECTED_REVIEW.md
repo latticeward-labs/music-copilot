@@ -60,7 +60,7 @@
 
 ## CI and evidence truth
 
-Workflow run #8 (`32152607787`) passed on code head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`: build, strict lint, host unit tests, debug APK, and 4/4 AOSP instrumentation tests on each of API 29, 31, and 34 (12/12 total).
+Final workflow run #17 (`32154062200`) passed on code head `f0cee7606dd1c2899b7a145ea072c747041da444`: build, strict lint, host unit tests, debug APK, and 4/4 AOSP instrumentation tests on each of API 29, 31, and 34 (12/12 total). The final run includes regression coverage for English-readiness fail-closed provider selection and stale-attempt callback rejection.
 
 No physical/OEM provider availability, audio capture quality, processing destination/retention, real-library artist accuracy, road noise, vehicle, or Beta KPI is inferred from host/AOSP automation. Production enablement remains fail-closed and routed to Issues #10/#11/#12/#13/#16.
 
