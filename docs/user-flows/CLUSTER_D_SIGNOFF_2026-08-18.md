@@ -11,7 +11,7 @@
 | Product | Six fixed intents, direct/confirm/not-found/one-retry behavior, short feedback, manual fallback, and MVP exclusions | PASS |
 | Design | Overlay-only state, one bounded confirmation, no long list/keyboard/loop, immediate manual/Exit recovery | PASS |
 | Android contract | Replaceable STT/TTS/coordinator, service-owned playback, typed failures, stale-callback rejection, provider capability boundary | PASS |
-| QA/testability | CD-01 through CD-24; host/build/lint PASS; AOSP API 29/31/34 12/12 PASS in run #8 | PASS |
+| QA/testability | CD-01 through CD-24; host/build/lint PASS; AOSP API 29/31/34 12/12 PASS in final run #17 | PASS |
 | Privacy | Explicit mic, no raw-audio storage, no transcript/media telemetry, cloud disclosure/consent fail-closed | PASS |
 | Governance | English source authority, official Android primary references, spike candidates clearly separated from #16 production adoption | PASS |
 
