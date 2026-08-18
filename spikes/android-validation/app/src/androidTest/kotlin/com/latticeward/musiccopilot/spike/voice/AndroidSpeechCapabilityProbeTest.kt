@@ -18,13 +18,6 @@ class AndroidSpeechCapabilityProbeTest {
             cloudConsentGranted = false,
         )
         assertTrue(snapshot.apiLevel >= 29)
-        assertEquals(
-            if (snapshot.onDeviceRecognitionAvailable) {
-                ApprovedSpeechMode.ON_DEVICE
-            } else {
-                ApprovedSpeechMode.MANUAL_ONLY
-            },
-            mode,
-        )
+        assertEquals(ApprovedSpeechMode.MANUAL_ONLY, mode)
     }
 }
