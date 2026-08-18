@@ -1,24 +1,24 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress - Phase 0, Cluster A, UF-04 through UF-06, and Cluster B connected review/shared inventory/shared traceability are complete at documentation level
+- **Status:** In progress — Phase 0, Cluster A, and **Cluster B (UF-04 through UF-06) are complete; active stage is Cluster C beginning with UF-07 Driving Mode**
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Evidence authority:** GitHub repository artifacts only
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
 
-This document is the repository index for User Flow artifacts. Until Issue #3 is approved, the complete flow set is not implementation-ready.
+This document is the repository index for User Flow artifacts. Issue #3 remains open until the complete UF-01 through UF-13 flow set and final issue-level approval are complete.
 
 ## Phase 0 foundation - complete
 
 - **Decision:** Approved for User Flow drafting on 01 August 2026
 - **Detailed record:** [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md)
 - **Boundary:** Phase 0 completed input, scope, state, decision, conflict, terminology, spike, and coverage preparation. It did not approve the final flow set, low-fidelity Wireframes, final Software Architecture, or implementation.
-- **ADR governance:** Issue #2 completed on 06 August 2026; ADR-0001 through ADR-0006 are Accepted in the current ADR register. Dated Phase 0/Cluster A snapshots do not override that current status.
+- **ADR governance:** Issue #2 completed on 06 August 2026; ADR-0001 through ADR-0006 are Accepted in the current ADR register.
 
-## Phase 1 - Cluster A First Readiness - complete for review
+## Phase 1 - Cluster A First Readiness - complete
 
 **Flows:** UF-01, UF-02, UF-03  
 **Decision date:** 01 August 2026  
-**Status boundary:** Cluster A is complete and registered. Issue #3 remains open because UF-07 through UF-13, Cluster B executed evidence synchronization, and final cross-role approval are not complete.
+**Status boundary:** Cluster A is complete. Issue #3 remains open because later User Flow clusters are not yet complete.
 
 ### Repository records
 
@@ -27,50 +27,62 @@ This document is the repository index for User Flow artifacts. Until Issue #3 is
 - [UF-02 - Permission Denial and Settings Recovery](user-flows/UF-02_PERMISSION_RECOVERY.md)
 - [UF-03 - Local Scan and Library Readiness](user-flows/UF-03_LIBRARY_READINESS.md)
 
-
-
-### Cluster A exit decision
-
-Cluster A covers first launch, two-slide onboarding, Skip/Replay, contextual media access, Denied/Permanently Denied recovery, Android Settings return and recheck, permission revocation, initial/incremental scanning, Scanning/Empty/Ready/error states, six-command education, and just-in-time microphone access.
-
-The active drafting cluster is **Cluster B: UF-04 Browse/Search, UF-05 Manual Playback, UF-06 Background/System Controls**.
-
-## Cluster B drafting coverage - UF-04 through UF-06 complete
+## Cluster B - UF-04 through UF-06 - COMPLETE / PASS
 
 **Flows:** UF-04 Browse and Search Local Music; UF-05 Manual Playback and Queue Control; UF-06 Background, Screen-off, and System Controls  
-**Decision date:** 06 August 2026  
-**Status boundary:** UF-04, UF-05, and UF-06 each pass at User Flow specification and traceability level. The canonical connected diagram, integration review, normalized shared State Inventory, and shared Traceability Matrix pass. Formal Cluster B exit remains open for executed Technical Spike evidence and cross-role sign-off.
+**Documentation decision date:** 06 August 2026  
+**Formal evidence closeout:** 18 August 2026  
+**Status:** **COMPLETE / PASS**
+
+Cluster B passes at User Flow specification, traceability, connected-flow integration, shared State Inventory, shared Traceability, Technical Spike execution/evidence, and cross-role sign-off levels.
 
 ### Repository records
 
-- [Cluster B connected review record](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
+- [Cluster B connected review and final exit record](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
+- [Cluster B final cross-role sign-off](user-flows/CLUSTER_B_SIGNOFF_2026-08-18.md)
 - [Cluster B shared State Inventory](user-flows/CLUSTER_B_STATE_INVENTORY.md)
 - [Cluster B shared Traceability Matrix](user-flows/CLUSTER_B_TRACEABILITY_MATRIX.md)
 - [Cluster B canonical connected diagram](user-flows/mermaid/CLUSTER_B_CONNECTED_FLOW.md)
 - [Cluster B raw connected Mermaid source](user-flows/mermaid/CLUSTER_B_CONNECTED_FLOW.mmd)
 - [UF-04 - Browse and Search Local Music](user-flows/UF-04_BROWSE_AND_SEARCH.md)
-- [UF-04 canonical Mermaid](user-flows/mermaid/UF-04_BROWSE_AND_SEARCH.md)
-- [UF-04 raw Mermaid source](user-flows/mermaid/UF-04_BROWSE_AND_SEARCH.mmd)
 - [UF-05 - Manual Playback and Queue Control](user-flows/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md)
-- [UF-05 canonical Mermaid](user-flows/mermaid/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md)
-- [UF-05 raw Mermaid source](user-flows/mermaid/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.mmd)
 - [UF-06 - Background, Screen-off, and System Controls](user-flows/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)
-- [UF-06 canonical Mermaid](user-flows/mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)
-- [UF-06 raw Mermaid source](user-flows/mermaid/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.mmd)
+- [Cluster B Technical Spike evidence index](user-flows/evidence/README.md)
+- [Cluster B retrospective evidence-retention waiver](user-flows/evidence/CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md)
 
-UF-04 covers browse/search and the acknowledged playback-start handoff. UF-05 defines deterministic service-owned queue/manual playback behavior and the user-visible P1 Paused Restore branch. UF-06 now defines P0 background/screen-off continuity; synchronized notification, lock-screen, Bluetooth/headset, vehicle media-key, and returning-UI controllers; truthful reconnect and unavailable-surface recovery; the evidence-safe notification permission/exemption branch; and the separate P1 Paused Restore route. FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 is complete at that level across UF-05 and UF-06. FR-03 interruption/route behavior remains UF-11. TS-01, TS-02, TS-06, TS-08, numeric `T_PREVIOUS`, cross-role sign-off, and final Issue #3 approval remain open. The connected-flow integration review and the shared State Inventory/Traceability documentation gates are no longer open.
+### Cluster B Technical Spike result
+
+- **TS-01:** PASS — Samsung N01-N10 physical execution + AOSP automated evidence; Pixel/Xiaomi TS-01 physical rows approved N/A/waived.
+- **TS-02:** PASS — L01-L12 lifecycle execution and required physical coverage accepted.
+- **TS-06:** PASS — M01-M14 MediaStore/reconciliation execution accepted; unavailable historical M12/M13 raw measurements covered by the approved retrospective retention waiver.
+- **TS-08:** PASS — R01-R12 real process-loss/Paused-Restore execution accepted.
+- **Android review:** PASS — project-owner attestation recorded.
+- **QA review:** PASS — project-owner attestation recorded.
+- **Product/Design/Privacy/Governance Cluster B sign-off:** PASS.
+
+The immutable result bundles contain manifests, matrices, review sign-offs, execution records, derived state traces, retrospective redacted log evidence, visual-evidence indexes, and artifact Git object IDs. Unavailable historical raw captures are explicitly waived rather than fabricated.
+
+FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 is complete across UF-05 and UF-06. FR-03 interruption/route behavior remains assigned to UF-11. Numeric `T_PREVIOUS` and implementation mechanics remain downstream Issue #16 architecture decisions and are not Cluster B User Flow exit blockers.
+
+## Active stage — Cluster C
+
+The next active User Flow stage is **Cluster C**, beginning with:
+
+**UF-07 — Driving Mode entry, use, and exit.**
+
+Cluster B no longer blocks UF-07 drafting/review.
 
 ## Required flow catalog
 
 | ID | Flow | Priority | Status | Required terminal states |
 |---|---|---:|---|---|
-| UF-01 | First launch and education | P0 | Complete for Cluster A review | Home Ready, permission recovery, Empty Library, manual fallback |
-| UF-02 | Permission denial and Settings recovery | P0 | Complete for Cluster A review; TS-01/TS-06 evidence open | Granted, Denied, Permanently Denied, manual fallback |
-| UF-03 | Local scan and library readiness | P0 | Complete for Cluster A review; TS-06 evidence open | Scanning, Empty, Ready, recoverable error/revocation |
-| UF-04 | Browse and search local music | P0 | Complete at specification/traceability level; TS-06/reviewer evidence open | Result, No Result, Error, acknowledged playback start |
-| UF-05 | Manual playback and queue control | P0 / P1 restore branch | Complete at specification/traceability level; TS-02/TS-06/TS-08/reviewer evidence and numeric `T_PREVIOUS` open | Playing, Paused, End of Queue, corrupt/inaccessible recovery, controller reconnect, Paused Restore |
-| UF-06 | Background, screen-off and system controls | P0 / P1 restore branch | Complete at specification/traceability level; TS-01/TS-02/TS-08/reviewer evidence open | Synchronized background/screen-off playback, system surfaces, controller reconnect, Paused Restore |
-| UF-07 | Driving Mode entry, use and exit | P0 / P1 entry hint | Not started | Playing, Paused, No Track, immediate exit |
+| UF-01 | First launch and education | P0 | Complete | Home Ready, permission recovery, Empty Library, manual fallback |
+| UF-02 | Permission denial and Settings recovery | P0 | Complete for completed clusters | Granted, Denied, Permanently Denied, manual fallback |
+| UF-03 | Local scan and library readiness | P0 | Complete for completed clusters | Scanning, Empty, Ready, recoverable error/revocation |
+| UF-04 | Browse and search local music | P0 | **Complete — Cluster B PASS** | Result, No Result, Error, acknowledged playback start |
+| UF-05 | Manual playback and queue control | P0 / P1 restore branch | **Complete — Cluster B PASS** | Playing, Paused, End of Queue, corrupt/inaccessible recovery, controller reconnect, Paused Restore |
+| UF-06 | Background, screen-off and system controls | P0 / P1 restore branch | **Complete — Cluster B PASS** | Synchronized background/screen-off playback, system surfaces, controller reconnect, Paused Restore |
+| UF-07 | Driving Mode entry, use and exit | P0 / P1 entry hint | **NEXT / Cluster C** | Playing, Paused, No Track, immediate exit |
 | UF-08 | Direct Voice command | P0 | Not started | Listening, Processing, Executed, Failed |
 | UF-09 | Ambiguous or missing artist | P0 | Not started | Confirming, confirmed execution, not found |
 | UF-10 | Voice timeout and retry | P0 | Not started | one retry, manual fallback, playback preserved |
@@ -96,42 +108,33 @@ Every state must record:
 
 ## Approval checklist
 
-- [ ] Every PRD/MVP P0 requirement maps to at least one completed User Flow.
-- [ ] Every flow includes happy, empty, error and recovery behavior where applicable.
-- [ ] UI closure, recreation, background playback and route interruptions are covered.
+- [ ] Every PRD/MVP P0 requirement maps to at least one completed User Flow across the full UF-01–UF-13 set.
+- [ ] Every flow includes happy, empty, error and recovery behavior where applicable across the full set.
 - [ ] Voice certainty, ambiguity, timeout, retry and not-found behavior are covered.
-- [x] Cluster A P0 scope and recovery behavior are explicit.
-- [x] Cluster A open architecture questions are routed rather than silently decided in Figma.
-- [x] Cluster A Figma sections and repository records are linked.
-- [x] UF-04 completes Songs/Artists/Albums/Folders browse and local Search behavior at specification level, with recovery and UF-05 handoff explicit.
-- [x] UF-05 completes the P0 manual Player/Queue behavior and the user-visible P1 Paused Restore branch at specification level, with UF-06/UF-11 handoffs explicit.
-- [x] UF-06 completes P0 background/screen-off and synchronized system-control behavior plus the separate P1 Paused Restore branch at specification level; FR-02 documentation coverage is complete.
-- [x] Cluster B constituent drafting coverage (UF-04/UF-05/UF-06) is complete.
-- [x] Cluster B canonical connected diagram and integration review pass; no UF-04/05/06 handoff gap remains.
-- [x] Cluster B shared State Inventory passes with CB-01 through CB-33 and all required state fields.
-- [x] Cluster B shared Traceability Matrix passes for requirements, screens, states, authority, recovery, handoffs, and open evidence.
-- [ ] Cluster B executed spikes and cross-role sign-off remain open.
-- [ ] P0/P1/P2 scope is explicit across the complete flow set.
-- [ ] Product and Android reviewers approve the complete flow set and state inventory.
+- [x] Cluster A scope/recovery behavior is complete.
+- [x] UF-04 completes Songs/Artists/Albums/Folders browse and local Search behavior.
+- [x] UF-05 completes P0 manual Player/Queue behavior and P1 Paused Restore branch.
+- [x] UF-06 completes P0 background/system controls and separate P1 Paused Restore branch.
+- [x] Cluster B constituent drafting coverage is complete.
+- [x] Cluster B canonical connected diagram and integration review pass.
+- [x] Cluster B shared State Inventory passes.
+- [x] Cluster B shared Traceability Matrix passes.
+- [x] **Cluster B Technical Spike execution/evidence and Cluster B cross-role sign-off PASS.**
+- [x] **Formal Cluster B exit PASS / COMPLETE.**
+- [ ] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
+- [ ] Product and Android reviewers approve the complete Issue #3 flow set and state inventory.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
 
 ## Artifact links
 
-- [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md) - approved for User Flow drafting
-- [Cluster A - First Readiness](user-flows/CLUSTER_A_FIRST_READINESS.md) - complete for review
-- [UF-04 - Browse and Search Local Music](user-flows/UF-04_BROWSE_AND_SEARCH.md) - specification/traceability PASS; downstream evidence open
-- [UF-05 - Manual Playback and Queue Control](user-flows/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md) - specification/traceability PASS; downstream evidence open
-- [UF-06 - Background, Screen-off, and System Controls](user-flows/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md) - specification/traceability PASS; TS-01/TS-02/TS-08/reviewer evidence open
-- [Cluster B connected review](user-flows/CLUSTER_B_CONNECTED_REVIEW.md) - connected-flow integration plus shared inventory/traceability review PASS; formal exit gates open
-- [Cluster B shared State Inventory](user-flows/CLUSTER_B_STATE_INVENTORY.md) - CB-01 through CB-33 PASS
-- [Cluster B shared Traceability Matrix](user-flows/CLUSTER_B_TRACEABILITY_MATRIX.md) - complete repository traceability PASS
-- [Cluster B connected diagram](user-flows/mermaid/CLUSTER_B_CONNECTED_FLOW.md) and [raw source](user-flows/mermaid/CLUSTER_B_CONNECTED_FLOW.mmd) - canonical pair
-- Complete UF-07 through UF-13 diagrams, Cluster B role review, and final review date - _to be completed by Issue #3_
+- [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md)
+- [Cluster A - First Readiness](user-flows/CLUSTER_A_FIRST_READINESS.md)
+- [Cluster B connected review / final exit](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
+- [Cluster B final cross-role sign-off](user-flows/CLUSTER_B_SIGNOFF_2026-08-18.md)
+- [Cluster B evidence index](user-flows/evidence/README.md)
+- [TS-01](user-flows/evidence/TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md)
+- [TS-02](user-flows/evidence/TS-02_LIFECYCLE_BOUNDARIES.md)
+- [TS-06](user-flows/evidence/TS-06_MEDIASTORE_RECONCILIATION.md)
+- [TS-08](user-flows/evidence/TS-08_PAUSED_RESTORE.md)
 
-
-## Cluster B Technical Spike execution pack
-
-- [Evidence index](user-flows/evidence/README.md) — protocol PASS; execution BLOCKED until Android build/device evidence exists
-- [TS-01](user-flows/evidence/TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md), [TS-02](user-flows/evidence/TS-02_LIFECYCLE_BOUNDARIES.md), [TS-06](user-flows/evidence/TS-06_MEDIASTORE_RECONCILIATION.md), [TS-08](user-flows/evidence/TS-08_PAUSED_RESTORE.md)
-
-Figma is not a User Flow source, dependency, or exit criterion. Only GitHub result bundles count as executed spike evidence.
+Figma is not a User Flow source, dependency, or exit criterion. GitHub is the canonical evidence authority for this stage.
