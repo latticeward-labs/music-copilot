@@ -12,6 +12,8 @@
 - [`UF-07_DRIVING_MODE.md`](UF-07_DRIVING_MODE.md)
 - [`CLUSTER_C_STATE_INVENTORY.md`](CLUSTER_C_STATE_INVENTORY.md)
 - [`CLUSTER_C_TRACEABILITY_MATRIX.md`](CLUSTER_C_TRACEABILITY_MATRIX.md)
+- [`CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md`](CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md)
+- [`CLUSTER_C_SIGNOFF_2026-08-18.md`](CLUSTER_C_SIGNOFF_2026-08-18.md)
 - [`mermaid/UF-07_DRIVING_MODE.md`](mermaid/UF-07_DRIVING_MODE.md)
 - [`mermaid/UF-07_DRIVING_MODE.mmd`](mermaid/UF-07_DRIVING_MODE.mmd)
 
@@ -49,6 +51,8 @@
 | MVP exclusions | No Android Auto, motion detection, streaming, backend, account, sync, or v1.1 | PASS |
 | Mermaid parity | Markdown embedded graph equals raw `.mmd` source | PASS |
 | State/traceability completeness | CC-01 through CC-18 and all mapped authorities | PASS |
+| Technical Spike applicability | No Phase 0 spike is assigned directly as a UF-07 exit blocker; implementation evidence remains Issues #9/#13 | PASS / N/A for a new UF-07 spike |
+| Cross-role User Flow sign-off | Product, Design, Android-contract, QA-testability, Privacy, and Governance decisions recorded | PASS |
 
 ## Invariants confirmed
 
@@ -63,11 +67,11 @@
 
 ## Verification boundary
 
-Cluster C is a User Flow gate. Source alignment, state coverage, traceability, Mermaid parity, and connected handoffs are verified here. Application implementation, exact Compose design, Android Bluetooth mechanics, stationary/in-car testing, accessibility instrumentation, and release evidence remain Issues #9, #13, #15, and #16. The absence of implementation evidence does not permit those later gates to be marked complete.
+Cluster C is a User Flow gate. Source alignment, state coverage, traceability, Mermaid parity, connected handoffs, Technical Spike applicability, and cross-role sign-off are verified here. Application implementation, exact Compose design, Android Bluetooth mechanics, stationary/in-car testing, accessibility instrumentation, and release evidence remain Issues #9, #13, #15, and #16. The absence of implementation evidence does not permit those later gates to be marked complete.
 
 ## Exit decision
 
-**PASS - Cluster C / UF-07 is formally complete and source-aligned at the User Flow stage.**
+**PASS - Cluster C / UF-07 is formally COMPLETE / SOURCE-ALIGNED at the User Flow stage, with evidence applicability and final cross-role sign-off recorded.**
 
 This completion does not close Issue #3. The next drafting stage is **Cluster D - UF-08 Direct Command, UF-09 Ambiguity/Not Found, and UF-10 Timeout/Unavailable/Retry**. Final product/Android approval of the complete UF-01 through UF-13 set remains open.
 
