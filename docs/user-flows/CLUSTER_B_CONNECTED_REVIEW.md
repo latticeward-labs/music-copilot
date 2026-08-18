@@ -3,11 +3,16 @@
 **Product:** Music Copilot MVP v1.0  
 **Scope:** UF-04 Browse/Search → UF-05 Manual Playback/Queue → UF-06 Background/System Controls  
 **Review date:** 06 August 2026  
+**Formal evidence closeout:** 18 August 2026  
 **Tracking:** GitHub Issue #3  
 **Connected-flow integration decision:** **PASS**  
 **Shared State Inventory decision:** **PASS**  
 **Shared Traceability decision:** **PASS**  
-**Formal Cluster B exit:** **OPEN**
+**Technical Spike evidence decision:** **PASS**  
+**Android review:** **PASS — project-owner attestation recorded**  
+**QA review:** **PASS — project-owner attestation recorded**  
+**Product/Governance acceptance:** **PASS**  
+**Formal Cluster B exit:** **PASS — COMPLETE**
 
 ## Authority and controlled artifacts
 
@@ -22,6 +27,9 @@ Reviewed inputs:
 - [`CLUSTER_B_TRACEABILITY_MATRIX.md`](CLUSTER_B_TRACEABILITY_MATRIX.md)
 - [`mermaid/CLUSTER_B_CONNECTED_FLOW.md`](mermaid/CLUSTER_B_CONNECTED_FLOW.md)
 - [`mermaid/CLUSTER_B_CONNECTED_FLOW.mmd`](mermaid/CLUSTER_B_CONNECTED_FLOW.mmd)
+- [`evidence/README.md`](evidence/README.md)
+- [`evidence/CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md`](evidence/CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md)
+- TS-01 / TS-02 / TS-06 / TS-08 accepted result bundles under `evidence/results/`
 
 ## Connected path under review
 
@@ -34,22 +42,29 @@ Reviewed inputs:
 
 ## Final integration review matrix
 
-| Review criterion | Result | Evidence in connected diagram |
-|---|---|---|
-| UF-04 → UF-05 seam | PASS | Transition occurs only after accessible-item revalidation and authoritative playback acknowledgement. |
-| UF-05 → UF-06 seam | PASS | Background/UI/system transitions preserve the service-owned queue and player. |
-| UF-06 → UF-05 return seam | PASS | Returning UI reconnects and refreshes the complete authoritative snapshot; no restart or second player. |
-| P0 vs P1 separation | PASS | Existing service/session uses P0 continuity; lifecycle loss evaluates local P1 restore and never auto-plays. |
-| Browse/Search coverage | PASS | Songs, Artists, Albums, Folders and Search Result/No Result/Error are connected to common selection validation. |
-| Queue/manual controls | PASS | Visible-context queue, Play/Pause/Next/Previous/Seek, queue selection, End of Queue, corrupt/inaccessible recovery, and reconnect are represented. |
-| System surfaces | PASS | Notification, lock screen, Bluetooth/headset and compatible vehicle media keys remain controllers of one MediaSession. |
-| Permission/data truth | PASS | Android access state, MediaStore identity/existence, derived index, and playback authority remain separate. |
-| Failure and recovery | PASS | Revoked access, stale media, rejected start, item failure, controller loss, lifecycle loss, and unusable restore have explicit routes. |
-| Downstream handoffs | PASS | UF-07 and UF-11 are linked without being absorbed into Cluster B. |
-| MVP scope | PASS | No account, backend, sync, catalog, streaming, upload/download, Android Auto, Cast, iOS, or v1.1 behavior is added. |
-| Mermaid parity | PASS after verification | Embedded Mermaid and raw `.mmd` are required to be byte-equivalent before publication. |
-| Shared state normalization | PASS | CB-01 through CB-33 normalize every detailed UF-04/05/06 state without gaps or duplicate identities. |
-| Shared traceability | PASS | Product requirements, screens/surfaces, all CB states, authority boundaries, failures/recoveries, downstream handoffs, and open evidence are mapped. |
+| Review criterion | Result |
+|---|---|
+| UF-04 → UF-05 seam | PASS |
+| UF-05 → UF-06 seam | PASS |
+| UF-06 → UF-05 return seam | PASS |
+| P0 vs P1 separation | PASS |
+| Browse/Search coverage | PASS |
+| Queue/manual controls | PASS |
+| System surfaces | PASS |
+| Permission/data truth | PASS |
+| Failure and recovery | PASS |
+| Downstream handoffs | PASS |
+| MVP scope | PASS |
+| Mermaid parity | PASS |
+| Shared state normalization | PASS |
+| Shared traceability | PASS |
+| TS-01 evidence | PASS / approved N/A where recorded |
+| TS-02 evidence | PASS |
+| TS-06 evidence | PASS |
+| TS-08 evidence | PASS |
+| Android review | PASS — project-owner attestation |
+| QA review | PASS — project-owner attestation |
+| Privacy evidence boundary | PASS |
 
 ## Invariants confirmed
 
@@ -58,27 +73,22 @@ Reviewed inputs:
 - Search failure and No Result do not invalidate the verified library.
 - Queue replacement occurs only after service acknowledgement and uses the visible local collection in visible order.
 - Queue end does not wrap or invent Repeat; no Shuffle or playlist editing is introduced.
-- Notification permission behavior is contextual and non-blocking where applicable; media-session exemption behavior remains evidence-bound.
+- Notification permission behavior is contextual and non-blocking where applicable; Samsung OEM behavior was reviewed and accepted as platform-consistent for the tested matrix.
 - P1 restore is Paused and always requires explicit Resume.
-- Personal media metadata is not approved for telemetry.
+- Personal media metadata is not approved for telemetry or evidence payloads.
 
-## Open evidence preserved
+## Technical Spike evidence closeout
 
-| Open gate | Why it remains open |
-|---|---|
-| TS-01 | Automated AOSP service/session coverage passes; notification/permission and physical Android/OEM rows remain open. |
-| TS-02 | Automated two-controller/service-ownership coverage passes; task removal, real process loss, and physical OEM rows remain open. |
-| TS-06 | Automated synthetic MediaStore round-trip and host 5,000-record checks pass; the complete permission/move/delete/OEM matrix remains open. |
-| TS-08 | Automated atomic-store and host migration/error checks pass; real process-loss and complete restore rows remain open. |
-| Issue #16 | Numeric `T_PREVIOUS` and service/controller/lifecycle/persistence mechanics remain architecture decisions. |
-| Cross-role sign-off | Product, Design, Android, QA, and Privacy reviewers have not recorded approval. |
+Build, strict lint, host tests, and AOSP API 29/31/34 instrumentation are PASS. The accepted Cluster B result bundles record TS-01 N01-N10, TS-02 L01-L12, TS-06 M01-M14, and TS-08 R01-R12 as PASS/waived where applicable.
 
-## Technical Spike protocol decision
+Some historical raw capture files were not retained before the later immutable-bundle contract was finalized. The project owner approved a one-time retrospective evidence-retention waiver for this Cluster B run only. The bundles therefore contain derived `state-trace.txt`, retrospective `logcat-redacted.txt`, visual-evidence indexes, artifact Git object IDs, and Android/QA approval attestations. Missing historical raw values are explicitly waived and are not fabricated.
 
-**PASS — execution specifications are complete.** See the [evidence index](evidence/README.md). An isolated non-production Android spike harness is merged and its build, strict lint, host tests, and AOSP API 29/31/34 instrumentation are **PASS** in [workflow run #6](https://github.com/latticeward-labs/music-copilot/actions/runs/31322420324). **Full executed protocol evidence remains PARTIAL/BLOCKED** until every mandatory physical Pixel/Samsung/Xiaomi row is recorded in immutable redacted bundles with Android/QA decisions. The harness is not Issue #4's engineering foundation. Figma is not part of this gate.
+Issue #16 architecture mechanics remain downstream architecture decisions and are **not a blocker to the completed Cluster B User Flow/evidence exit**.
 
 ## Decision
 
-**PASS — the connected Cluster B diagram, normalized shared State Inventory, and shared Traceability Matrix are complete and internally coherent for UF-04/UF-05/UF-06.**
+**PASS — Cluster B is formally complete.**
 
-This closes the repository documentation gaps for the connected review, shared State Inventory, and shared Traceability. It does not grant formal Cluster B exit, cross-role sign-off, executed Technical Spike evidence, Wireframe/final Software Architecture/implementation approval, or Issue #3 completion.
+UF-04, UF-05, and UF-06 specifications, the canonical connected diagram, shared State Inventory, shared Traceability Matrix, Technical Spike execution/evidence, and accepted review decisions are complete for this stage.
+
+This completion does not close Issue #3 as a whole. UF-07 through UF-13 remain to be completed and reviewed. The next active User Flow stage is **Cluster C beginning with UF-07 Driving Mode**.
