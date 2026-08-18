@@ -8,17 +8,19 @@
 **Protocol readiness:** **PASS**  
 **Harness implementation:** **PASS — merged to main**  
 **Automated CI validation:** **PASS**  
-**Executed protocol evidence:** **PARTIAL — TS-01 Samsung physical execution PASS with Pixel/Xiaomi TS-01 waivers; TS-02 physical lifecycle matrix PASS by operator confirmation; immutable result bundles and Android/QA sign-off remain OPEN**
+**Executed protocol evidence:** **PARTIAL — TS-01 Samsung physical execution PASS with Pixel/Xiaomi TS-01 waivers; TS-02 physical lifecycle matrix PASS; TS-06 physical MediaStore matrix M01-M14 PASS by operator confirmation; immutable result bundles and Android/QA sign-off remain OPEN**
 
 ## Repository audit
 
 The four controlled protocols and result-bundle contract are complete. An isolated, non-production Android project exists at `spikes/android-validation/` to exercise service-owned Media3 playback, lifecycle/controller boundaries, MediaStore reconciliation, and versioned Paused Restore. It is a focused pre-architecture technical spike, not Issue #4's engineering foundation and not approval of Issue #16.
 
-Build, unit, lint, and AOSP API 29/31/34 instrumentation are automated by `.github/workflows/cluster-b-android-spikes.yml`. [Workflow run #6](https://github.com/latticeward-labs/music-copilot/actions/runs/31322420324) passed on head `fbd6fcc2a3f8c5a378d7eb598d487762ce829a5e` and was squash-merged to main as `81b9aadcb67cbfcb7e7fcc849a4892755d5b891a`. Build, strict lint, host unit tests, and 9/9 AOSP instrumentation executions passed. See [automated CI evidence](AUTOMATED_CI_EVIDENCE_2026-08-09.md).
+Build, unit, lint, and AOSP API 29/31/34 instrumentation are automated by `.github/workflows/cluster-b-android-spikes.yml`. Workflow run #6 passed on head `fbd6fcc2a3f8c5a378d7eb598d487762ce829a5e` and was squash-merged to main as `81b9aadcb67cbfcb7e7fcc849a4892755d5b891a`. Build, strict lint, host unit tests, and 9/9 AOSP instrumentation executions passed. See `AUTOMATED_CI_EVIDENCE_2026-08-09.md`.
 
 For TS-01, Samsung/One UI physical N01-N10 execution is recorded PASS. Pixel/stock and Xiaomi/MIUI or HyperOS physical TS-01 rows are **Approved N/A / Waived** by explicit project-owner decision dated 18 August 2026. This waiver removes those two rows only as TS-01 blockers.
 
-For TS-02, the project operator reports complete lifecycle execution across the required physical-device coverage, including Pixel/stock, Samsung/One UI, and Xiaomi/MIUI or HyperOS, with L01-L12 passing. The TS-02 **physical execution matrix is therefore recorded PASS at operator-confirmation level**. Formal TS-02 closure still requires immutable result bundles and Android/QA reviewer sign-off; no missing artifact or approval is being fabricated.
+For TS-02, the project operator reports complete lifecycle execution across the required physical-device coverage, including Pixel/stock, Samsung/One UI, and Xiaomi/MIUI or HyperOS, with L01-L12 passing. The TS-02 **physical execution matrix is recorded PASS at operator-confirmation level**. Formal closure still requires immutable result bundles and Android/QA reviewer sign-off.
+
+For TS-06, the project operator reports complete MediaStore/permission/reconciliation execution for M01-M14 and required physical-device coverage, with all scenarios passing. The TS-06 **physical execution matrix is recorded PASS at operator-confirmation level**. This includes the scale scenarios M12/M13 as execution PASS; formal evidence still needs the measured timings/changed counts and device/build metadata in the immutable result bundle. Formal closure also requires Android/QA reviewer sign-off.
 
 ## Controlled protocols
 
@@ -26,7 +28,7 @@ For TS-02, the project operator reports complete lifecycle execution across the 
 |---|---|---|---|
 | TS-01 | [Notification/foreground media](TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md) | Android 10/12/14+ automated AOSP coverage; Samsung physical permission/background/Settings/controller N01-N10; Pixel/Xiaomi physical rows waived | PARTIAL — automated PASS + Samsung physical PASS; OEM waivers recorded; evidence bundle/sign-off open |
 | TS-02 | [Lifecycle boundaries](TS-02_LIFECYCLE_BOUNDARIES.md) | Recreation, UI close, task removal, service/reconnect/process death | PARTIAL — automated PASS + physical lifecycle matrix PASS by operator confirmation; evidence bundle/sign-off open |
-| TS-06 | [MediaStore reconciliation](TS-06_MEDIASTORE_RECONCILIATION.md) | Permission/revocation/add/move/delete/corrupt/rebuild/5,000 files | PARTIAL — automated subset PASS; physical rows open |
+| TS-06 | [MediaStore reconciliation](TS-06_MEDIASTORE_RECONCILIATION.md) | Permission/revocation/add/move/delete/corrupt/rebuild/5,000 files | PARTIAL — automated PASS + physical M01-M14 PASS by operator confirmation; measured evidence bundle/sign-off open |
 | TS-08 | [Paused restore](TS-08_PAUSED_RESTORE.md) | Versioned contract, migration/error, real process-loss proof | PARTIAL — automated subset PASS; real process-loss rows open |
 
 ## Harness and result contract
