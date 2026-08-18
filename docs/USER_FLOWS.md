@@ -18,7 +18,7 @@ This document is the repository index for User Flow artifacts. Every individual 
 
 **Flows:** UF-01, UF-02, UF-03  
 **Decision date:** 01 August 2026  
-**Status boundary:** Cluster A is complete. Issue #3 remains open because later User Flow clusters are not yet complete.
+**Status boundary:** Cluster A is complete. At its 01 August decision, later clusters were still pending; they are now individually complete, while Issue #3 remains open for final complete-set approval.
 
 ### Repository records
 
@@ -62,7 +62,7 @@ Cluster B passes at User Flow specification, traceability, connected-flow integr
 
 The immutable result bundles contain manifests, matrices, review sign-offs, execution records, derived state traces, retrospective redacted log evidence, visual-evidence indexes, and artifact Git object IDs. Unavailable historical raw captures are explicitly waived rather than fabricated.
 
-FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 is complete across UF-05 and UF-06. FR-03 interruption/route behavior remains assigned to UF-11. Numeric `T_PREVIOUS` and implementation mechanics remain downstream Issue #16 architecture decisions and are not Cluster B User Flow exit blockers.
+FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 is complete across UF-05 and UF-06. FR-03 interruption/route behavior is complete in UF-11. Numeric `T_PREVIOUS` and implementation mechanics remain downstream Issue #16 architecture decisions and are not Cluster B User Flow exit blockers.
 
 ## Cluster C - UF-07 - COMPLETE / PASS
 
@@ -103,7 +103,7 @@ Cluster C passes source-authority, detailed flow, shared State Inventory, Tracea
 - [UF-07 canonical diagram](user-flows/mermaid/UF-07_DRIVING_MODE.md)
 - [UF-07 raw Mermaid source](user-flows/mermaid/UF-07_DRIVING_MODE.mmd)
 
-Cluster C completion is implementation-independent. It does not claim Issue #9 implementation, stationary/in-car QA, low-fidelity Wireframes, final Software Architecture, later voice/recovery flows, or Issue #3 as a whole are complete.
+Cluster C completion is implementation-independent. At its 18 August decision it did not claim later voice/recovery flows; those are now individually complete. It still does not claim Issue #9 implementation, stationary/in-car QA, low-fidelity Wireframes, final Software Architecture, or Issue #3 complete-set approval.
 
 ## Cluster D - UF-08 through UF-10 - COMPLETE / PASS
 
