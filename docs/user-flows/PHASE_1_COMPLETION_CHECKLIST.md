@@ -2,8 +2,8 @@
 
 **Updated:** 18 August 2026  
 **Tracking:** Issue #3  
-**Result:** **PASS for Stage 1 Cluster A and COMPLETE/PASS for Cluster B UF-04/UF-05/UF-06, connected review, shared State Inventory, shared Traceability, Technical Spike evidence, and Cluster B cross-role sign-off**  
-**Final User Flow status:** **Open — UF-08 through UF-13 remain; Cluster C UF-07 is complete**
+**Result:** **PASS for Cluster A and COMPLETE/PASS for Clusters B, C, and D through UF-10; Cluster D includes TS-03/TS-07/TS-09 executable reference evidence and cross-role sign-off**  
+**Final User Flow status:** **Open — UF-11 through UF-13 and final complete-set approval remain; Cluster D UF-08 through UF-10 is complete**
 
 ## Canonical documentation evidence
 
@@ -21,6 +21,7 @@
 - [x] Cluster B Technical Spike evidence bundles are registered under `docs/user-flows/evidence/results/`.
 - [x] Cluster B retrospective evidence-retention waiver is recorded without fabricating unavailable historical raw captures.
 - [x] Cluster B final cross-role sign-off is recorded in `CLUSTER_B_SIGNOFF_2026-08-18.md`.
+- [x] Cluster D UF-08/09/10, CD-01 through CD-24 inventory, Traceability, connected Mermaid, TS-03/07/09 evidence, and sign-off are recorded.
 - [x] The official English PRD/MVP remain product authorities.
 - [ ] Final complete-flow-set Product/Design/Android/QA/Privacy/Governance sign-off recorded for Issue #3 as a whole.
 
@@ -44,6 +45,10 @@
 - [x] Shared State Inventory coverage is complete: UF-04 14/14, UF-05 10/10, and UF-06 13/13 source states normalized into CB-01 through CB-33.
 - [x] Shared Traceability coverage is complete with no unowned Cluster B state or undocumented cross-flow recovery.
 - [x] Cluster B cross-role sign-off is complete.
+- [x] UF-08 certain supported commands execute directly only after acknowledgement; exactly six English intents exist.
+- [x] UF-09 covers one bounded confirmation, missing artist, unknown, unsupported, and Not Found without approximate execution.
+- [x] UF-10 covers six-second Listening, typed provider/language/network failures, one explicit retry, terminal manual fallback, and playback preservation.
+- [x] Cluster D CD-01 through CD-24, Traceability, connected review, and cross-role sign-off are complete.
 
 ## Permission, provider, and recovery correctness
 
@@ -88,7 +93,7 @@
 - [x] TS-02 lifecycle/P0-P1 protocol recorded.
 - [x] TS-02 automated two-controller/service-ownership subset executed on API 29/31/34.
 - [x] TS-02 complete lifecycle/task-removal/process-loss/physical execution accepted; evidence bundle/sign-off accepted.
-- [ ] TS-03 provider/language/network/processing/consent/retention/fallback evidence completed.
+- [x] TS-03 provider/language/network/processing/consent/retention/fallback policy evidence PASS; unverified real providers remain Manual Only and downstream.
 - [x] TS-06 MediaStore/rebuild/scale protocol recorded.
 - [x] TS-06 automated synthetic MediaStore round-trip plus host reconciliation/5,000-record checks executed.
 - [x] TS-06 complete permission/move/delete/removable-volume/physical execution accepted; M12/M13 raw historical measurement retention formally waived; evidence bundle/sign-off accepted.
@@ -100,7 +105,10 @@
 - [x] UF-06 completed at specification/traceability level with TS-01/TS-02/TS-08 Cluster B evidence closed.
 - [x] UF-07 Cluster C completed and reviewed at User Flow specification level.
 - [x] Cluster C evidence applicability and final cross-role sign-off recorded; no implementation/field evidence is claimed at this gate.
-- [ ] UF-08 through UF-13 completed and reviewed.
+- [x] TS-07 deterministic artist reference corpus and zero negative-row direct execution PASS.
+- [x] TS-09 safe build-default/range/last-valid fallback policy PASS; numeric production adoption remains #16.
+- [x] UF-08 through UF-10 Cluster D completed and reviewed; workflow run #8 build/lint/host PASS and AOSP API 29/31/34 12/12 PASS.
+- [ ] UF-11 through UF-13 completed and reviewed.
 - [x] Formal connected Cluster B diagram integration review recorded.
 - [x] Formal shared Cluster B State Inventory and Traceability decisions recorded.
 - [x] Cluster B Product/Design/Android/QA/Privacy/Governance sign-off recorded.
@@ -109,10 +117,10 @@
 
 ## Technical Spike execution boundary
 
-The [evidence pack](evidence/README.md) and isolated non-production Android spike harness are complete. Build, strict lint, host unit tests, and 9/9 AOSP instrumentation executions on API 29/31/34 pass. TS-01, TS-02, TS-06, and TS-08 execution/evidence are accepted as PASS/waived where applicable through immutable attestation bundles and the one-time retrospective evidence-retention waiver. No unavailable raw artifact is fabricated. The harness is not Issue #4's engineering foundation. Figma is not part of this User Flow stage.
+The [evidence pack](evidence/README.md) and isolated non-production Android spike harness cover completed Cluster B and Cluster D contracts. Cluster B retains its accepted TS-01/02/06/08 evidence. Cluster D workflow run #8 passed build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 for TS-03/07/09 reference contracts. No physical/OEM provider, cloud processor, real audio/library, road-noise, vehicle, or Beta KPI is fabricated. The harness is not Issue #4's engineering foundation. Figma is not part of this User Flow stage.
 
 ## Exit decision
 
 **Cluster B is formally COMPLETE / PASS.** UF-04, UF-05, and UF-06 are complete at specification/traceability level; the canonical connected diagram, normalized State Inventory, Traceability Matrix, required Technical Spike execution/evidence, and Cluster B cross-role sign-off are closed for this stage.
 
-Issue #3 remains open because later User Flow work and final complete-set approval are still outstanding. Cluster C UF-07 is complete at User Flow specification level. The next active stage is **Cluster D beginning with UF-08 Direct Command**.
+Issue #3 remains open because UF-11 through UF-13 and final complete-set approval are still outstanding. Cluster D UF-08 through UF-10 is complete at User Flow and executable spike-contract level. The next active stage is **Cluster E beginning with UF-11 interruptions and route changes**.
