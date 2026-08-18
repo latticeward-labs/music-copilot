@@ -99,6 +99,7 @@
 - [x] UF-05 completed at specification/traceability level with TS-02/TS-06/TS-08 Cluster B evidence closed; numeric `T_PREVIOUS` remains downstream architecture detail.
 - [x] UF-06 completed at specification/traceability level with TS-01/TS-02/TS-08 Cluster B evidence closed.
 - [x] UF-07 Cluster C completed and reviewed at User Flow specification level.
+- [x] Cluster C evidence applicability and final cross-role sign-off recorded; no implementation/field evidence is claimed at this gate.
 - [ ] UF-08 through UF-13 completed and reviewed.
 - [x] Formal connected Cluster B diagram integration review recorded.
 - [x] Formal shared Cluster B State Inventory and Traceability decisions recorded.
