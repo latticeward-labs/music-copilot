@@ -1,6 +1,6 @@
-# Cluster B — Technical Spike Evidence Index
+# Technical Spike Evidence Index — Completed Clusters B and D
 
-**Scope:** UF-04 → UF-05 → UF-06  
+**Scope:** Cluster B UF-04 through UF-06; Cluster D UF-08 through UF-10  
 **Date:** 06 August 2026; formal evidence closeout 18 August 2026  
 **Tracking:** Issue #3  
 **Authority:** `MSM2.rar` English baseline + GitHub `main` only  
@@ -13,7 +13,8 @@
 **Executed protocol evidence:** **PASS — TS-01/TS-02/TS-06/TS-08 accepted with immutable attestation bundles; unavailable historical raw captures are covered by an explicit retrospective evidence-retention waiver**  
 **Android review:** **PASS — project-owner attestation recorded**  
 **QA review:** **PASS — project-owner attestation recorded**  
-**Formal Cluster B Technical Spike evidence gate:** **PASS**
+**Formal Cluster B Technical Spike evidence gate:** **PASS**  
+**Cluster D executable spike-contract gate:** **PASS — TS-03/TS-07/TS-09; workflow run #8**
 
 ## Source boundary
 
@@ -74,16 +75,28 @@ Android and QA review decisions are recorded as PASS by project-owner attestatio
 | TS-06 | [MediaStore reconciliation](TS-06_MEDIASTORE_RECONCILIATION.md) | **PASS** — automated PASS + M01-M14 physical execution PASS + accepted retrospective measurement waiver + sign-off |
 | TS-08 | [Paused restore](TS-08_PAUSED_RESTORE.md) | **PASS** — automated PASS + R01-R12/process-loss execution PASS + accepted evidence bundle/sign-off |
 
+## Cluster D executable spike contracts
+
+| Spike | Protocol | Result |
+|---|---|---|
+| TS-03 | [Speech provider feasibility](TS-03_SPEECH_PROVIDER_FEASIBILITY.md) | **PASS at User Flow/provider-policy level** — fail-closed on-device/network/manual policy; host + AOSP fallback tests PASS; physical/provider/legal enablement downstream |
+| TS-07 | [Artist matching](TS-07_ARTIST_MATCHING.md) | **PASS at deterministic reference-corpus level** — fixed mapper/corpus, stable ordering, zero direct execution in negative rows |
+| TS-09 | [Confidence default](TS-09_CONFIDENCE_DEFAULT.md) | **PASS at safe-default/fallback level** — build candidate, bounded remote validation, last-valid/default fallback |
+
+[Cluster D evidence summary](CLUSTER_D_EVIDENCE_SUMMARY_2026-08-18.md) records workflow run #8 on code head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`: build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 PASS.
+
+This evidence closes deterministic User Flow and safe-fallback decisions only. It does not claim a physical OEM speech provider, cloud processor/legal disclosure, real microphone/library/road-noise result, final numeric production adoption, or Beta KPI. Those remain Issues #10/#11/#12/#13/#16.
+
 ## Result contract and privacy boundary
 
 - [Android spike harness boundary](ANDROID_SPIKE_HARNESS.md)
 - [Harness implementation and commands](../../../spikes/android-validation/README.md)
 - [Result bundle contract](results/README.md)
 
-No personal titles, artists, albums, folders, paths, URIs, MediaStore IDs, audio, voice, accounts, tokens, or unrelated logs are authorized in the evidence packets.
+No personal titles, artists, albums, folders, paths, URIs, MediaStore IDs, raw audio, transcripts, provider hypotheses, accounts, tokens, or unrelated logs are authorized in evidence.
 
 ## Decision
 
-**Cluster B Technical Spike execution and formal evidence gate: PASS / SOURCE-ALIGNED.**
+**Cluster B Technical Spike execution gate and Cluster D executable spike-contract gate: PASS / SOURCE-ALIGNED.**
 
-This decision closes the Cluster B TS-01/TS-02/TS-06/TS-08 evidence requirement under the English MSM2/GitHub authority policy and allows User Flow work to proceed to Cluster C / UF-07. It does not close Issue #3 as a whole, approve UF-07 through UF-13, or approve final Software Architecture/implementation.
+This decision retains Cluster B TS-01/TS-02/TS-06/TS-08 closure and closes the Cluster D TS-03/TS-07/TS-09 User Flow/reference-contract evidence under the English MSM2/GitHub authority policy. It does not close Issue #3, approve UF-11 through UF-13, enable an unverified speech provider, or approve final Software Architecture/implementation.
