@@ -1,6 +1,6 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress — Phase 0 and **Clusters A-D (UF-01 through UF-10) are complete; active stage is Cluster E beginning with UF-11 interruptions and route changes**
+- **Status:** In progress — Phase 0 and **Clusters A-E (UF-01 through UF-12) are complete; remaining flow is optional P2 UF-13 plus final complete-set approval**
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Evidence authority:** GitHub repository artifacts only
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
@@ -77,6 +77,13 @@ Cluster C passes source-authority, detailed flow, shared State Inventory, Tracea
 
 - [Cluster C connected review and exit record](user-flows/CLUSTER_C_CONNECTED_REVIEW.md)
 - [Cluster C final cross-role sign-off](user-flows/CLUSTER_C_SIGNOFF_2026-08-18.md)
+- [Cluster D connected review / exit](user-flows/CLUSTER_D_CONNECTED_REVIEW.md)
+- [Cluster D final cross-role sign-off](user-flows/CLUSTER_D_SIGNOFF_2026-08-18.md)
+- [Cluster E connected review / exit](user-flows/CLUSTER_E_CONNECTED_REVIEW.md)
+- [Cluster E final cross-role sign-off](user-flows/CLUSTER_E_SIGNOFF_2026-08-18.md)
+- [UF-11 Interruption and Audio Route](user-flows/UF-11_INTERRUPTION_AUDIO_ROUTE.md)
+- [UF-12 Settings and Privacy](user-flows/UF-12_SETTINGS_PRIVACY.md)
+- [Cluster E evidence summary](user-flows/evidence/CLUSTER_E_EVIDENCE_SUMMARY_2026-08-18.md)
 - [Cluster C evidence applicability record](user-flows/CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md)
 - [Cluster C source authority](user-flows/CLUSTER_C_SOURCE_AUTHORITY.md)
 - [Cluster C shared State Inventory](user-flows/CLUSTER_C_STATE_INVENTORY.md)
@@ -121,11 +128,34 @@ Cluster D passes English-source authority, detailed flow contracts, CD-01 throug
 
 This completion does not claim production Voice implementation, a selected cloud provider/legal disclosure, physical/OEM/road-noise accuracy, Beta KPIs, or Issue #16 numeric adoption. Unverified speech-provider paths remain Manual Only.
 
-## Active stage — Cluster E
+## Cluster E - UF-11 and UF-12 - COMPLETE / PASS
 
-The next active User Flow stage is **Cluster E**, beginning with **UF-11 — Calls, Audio Focus, headset/Bluetooth disconnect, and route changes**.
+**Flows:** UF-11 Calls, Audio Focus, routes, and corrupt recovery; UF-12 Settings, Bluetooth selection, Privacy, Consent, and Data Clearing  
+**Documentation and executable evidence closeout:** 18 August 2026  
+**Status:** **COMPLETE / PASS / SOURCE-ALIGNED at User Flow and executable reference-contract level**
 
-Cluster D no longer blocks UF-11 drafting/review.
+Cluster E passes English-source authority, detailed flow contracts, CE-01 through CE-26 shared State Inventory, Traceability Matrix, canonical Mermaid parity, connected review, privacy/accessibility/driving-safety review, TS-04/TS-05/TS-10 executable reference contracts, and cross-role sign-off. Workflow run #21 passed build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 on code head `8c0cddd298932f7499a69b0ee0ea391ea46583e4`.
+
+### Repository records
+
+- [Cluster E connected review and exit](user-flows/CLUSTER_E_CONNECTED_REVIEW.md)
+- [Cluster E final cross-role sign-off](user-flows/CLUSTER_E_SIGNOFF_2026-08-18.md)
+- [Cluster E source authority](user-flows/CLUSTER_E_SOURCE_AUTHORITY.md)
+- [Cluster E shared State Inventory](user-flows/CLUSTER_E_STATE_INVENTORY.md)
+- [Cluster E Traceability Matrix](user-flows/CLUSTER_E_TRACEABILITY_MATRIX.md)
+- [UF-11 Interruption and Audio Route](user-flows/UF-11_INTERRUPTION_AUDIO_ROUTE.md)
+- [UF-12 Settings and Privacy](user-flows/UF-12_SETTINGS_PRIVACY.md)
+- [Cluster E connected Mermaid](user-flows/mermaid/CLUSTER_E_RECOVERY_CONTROL_FLOW.md)
+- [Cluster E evidence summary](user-flows/evidence/CLUSTER_E_EVIDENCE_SUMMARY_2026-08-18.md)
+- [TS-04 Audio Focus policy](user-flows/evidence/TS-04_AUDIO_FOCUS_POLICY.md)
+- [TS-05 Route safety](user-flows/evidence/TS-05_ROUTE_SAFETY.md)
+- [TS-10 Retention and deletion](user-flows/evidence/TS-10_RETENTION_DELETION.md)
+
+This completion does not claim production implementation, physical Pixel/Samsung/Xiaomi call/route behavior, audible speaker-leak proof, any vehicle/head unit, provider deletion/legal completion, or exact retention durations. Those remain Issues #8/#12/#13/#16.
+
+## Remaining User Flow stage - UF-13 and final approval
+
+The remaining catalog item is optional P2 **UF-13 Liked Songs**, followed by complete-set Product/Android approval and the Issue #3 exit decision.
 
 ## Required flow catalog
 
@@ -141,8 +171,8 @@ Cluster D no longer blocks UF-11 drafting/review.
 | UF-08 | Direct Voice command | P0 | **Complete — Cluster D PASS** | Listening, Processing, Executed, Failed |
 | UF-09 | Ambiguous or missing artist | P0 | **Complete — Cluster D PASS** | Confirming, confirmed execution, not found |
 | UF-10 | Voice timeout and retry | P0 | **Complete — Cluster D PASS** | one retry, manual fallback, playback preserved |
-| UF-11 | Calls, Audio Focus and route changes | P0 | **NEXT / Cluster E** | deterministic pause/duck/recovery; no unintended speaker output |
-| UF-12 | Settings, privacy and data clearing | P0 control surface | Not started | Updated, cleared, consent-aware states |
+| UF-11 | Calls, Audio Focus and route changes | P0 | **Complete — Cluster E PASS** | deterministic pause/duck/recovery; no unintended speaker output |
+| UF-12 | Settings, privacy and data clearing | P0 control surface | **Complete — Cluster E PASS** | Updated, cleared, consent-aware states |
 | UF-13 | Liked Songs | P2 | Not started / first complete cut | Empty, Ready; removable from schedule |
 
 ## State record template
@@ -186,6 +216,11 @@ Every state must record:
 - [x] TS-03/TS-07/TS-09 reference implementations and tests PASS; build/lint/host and AOSP API 29/31/34 12/12 PASS.
 - [x] Cluster D Product/Design/Android-contract/QA-testability/Privacy/Governance sign-off PASS.
 - [x] **Formal Cluster D User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
+- [x] UF-11 call/focus/route/corrupt recovery and UF-12 Settings/Bluetooth/privacy/consent/clearing behavior are complete.
+- [x] Cluster E source authority, CE-01 through CE-26 State Inventory, Traceability, Mermaid parity, and connected review PASS.
+- [x] TS-04/TS-05/TS-10 reference contracts PASS; build/lint/host and AOSP API 29/31/34 12/12 PASS.
+- [x] Cluster E Product/Design/Android-contract/QA-testability/Privacy/Governance sign-off PASS.
+- [x] **Formal Cluster E User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
 - [ ] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
 - [ ] Product and Android reviewers approve the complete Issue #3 flow set and state inventory.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
