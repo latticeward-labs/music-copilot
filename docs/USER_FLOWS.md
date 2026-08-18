@@ -1,6 +1,6 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress — Phase 0 and **Clusters A-C (UF-01 through UF-07) are complete; active stage is Cluster D beginning with UF-08 Direct Command**
+- **Status:** In progress — Phase 0 and **Clusters A-D (UF-01 through UF-10) are complete; active stage is Cluster E beginning with UF-11 interruptions and route changes**
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Evidence authority:** GitHub repository artifacts only
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
@@ -81,19 +81,51 @@ Cluster C passes source-authority, detailed flow, shared State Inventory, Tracea
 - [Cluster C source authority](user-flows/CLUSTER_C_SOURCE_AUTHORITY.md)
 - [Cluster C shared State Inventory](user-flows/CLUSTER_C_STATE_INVENTORY.md)
 - [Cluster C Traceability Matrix](user-flows/CLUSTER_C_TRACEABILITY_MATRIX.md)
+- [Cluster D connected review / exit](user-flows/CLUSTER_D_CONNECTED_REVIEW.md)
+- [Cluster D final cross-role sign-off](user-flows/CLUSTER_D_SIGNOFF_2026-08-18.md)
+- [UF-08 Direct Voice](user-flows/UF-08_DIRECT_VOICE.md)
+- [UF-09 Ambiguity/Not Found](user-flows/UF-09_AMBIGUITY_NOT_FOUND.md)
+- [UF-10 Timeout/Retry](user-flows/UF-10_TIMEOUT_RETRY.md)
+- [Cluster D State Inventory](user-flows/CLUSTER_D_STATE_INVENTORY.md)
+- [Cluster D Traceability Matrix](user-flows/CLUSTER_D_TRACEABILITY_MATRIX.md)
+- [Cluster D evidence summary](user-flows/evidence/CLUSTER_D_EVIDENCE_SUMMARY_2026-08-18.md)
+- [TS-03](user-flows/evidence/TS-03_SPEECH_PROVIDER_FEASIBILITY.md)
+- [TS-07](user-flows/evidence/TS-07_ARTIST_MATCHING.md)
+- [TS-09](user-flows/evidence/TS-09_CONFIDENCE_DEFAULT.md)
 - [UF-07 - Driving Mode Entry, Use, and Exit](user-flows/UF-07_DRIVING_MODE.md)
 - [UF-07 canonical diagram](user-flows/mermaid/UF-07_DRIVING_MODE.md)
 - [UF-07 raw Mermaid source](user-flows/mermaid/UF-07_DRIVING_MODE.mmd)
 
 Cluster C completion is implementation-independent. It does not claim Issue #9 implementation, stationary/in-car QA, low-fidelity Wireframes, final Software Architecture, later voice/recovery flows, or Issue #3 as a whole are complete.
 
-## Active stage — Cluster D
+## Cluster D - UF-08 through UF-10 - COMPLETE / PASS
 
-The next active User Flow stage is **Cluster D**, beginning with:
+**Flows:** UF-08 Direct Voice; UF-09 Ambiguity/Not Found; UF-10 Timeout/Unavailable/Retry  
+**Documentation and executable evidence closeout:** 18 August 2026  
+**Status:** **COMPLETE / PASS / SOURCE-ALIGNED at User Flow and executable spike-contract level**
 
-**UF-08 — Direct Voice Command**, followed by UF-09 Ambiguity/Not Found and UF-10 Timeout/Unavailable/Retry.
+Cluster D passes English-source authority, detailed flow contracts, CD-01 through CD-24 shared State Inventory, Traceability Matrix, canonical Mermaid parity, connected review, privacy/accessibility/safety review, TS-03/TS-07/TS-09 executable reference evidence, and cross-role sign-off. Workflow run #8 passed build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 on the validated code head.
 
-Cluster C no longer blocks Cluster D drafting/review.
+### Repository records
+
+- [Cluster D connected review and exit](user-flows/CLUSTER_D_CONNECTED_REVIEW.md)
+- [Cluster D final cross-role sign-off](user-flows/CLUSTER_D_SIGNOFF_2026-08-18.md)
+- [Cluster D source authority](user-flows/CLUSTER_D_SOURCE_AUTHORITY.md)
+- [Cluster D shared State Inventory](user-flows/CLUSTER_D_STATE_INVENTORY.md)
+- [Cluster D Traceability Matrix](user-flows/CLUSTER_D_TRACEABILITY_MATRIX.md)
+- [UF-08 Direct Voice](user-flows/UF-08_DIRECT_VOICE.md)
+- [UF-09 Ambiguity/Not Found](user-flows/UF-09_AMBIGUITY_NOT_FOUND.md)
+- [UF-10 Timeout/Retry](user-flows/UF-10_TIMEOUT_RETRY.md)
+- [Cluster D connected Mermaid](user-flows/mermaid/CLUSTER_D_VOICE_FLOW.md)
+- [Cluster D evidence summary](user-flows/evidence/CLUSTER_D_EVIDENCE_SUMMARY_2026-08-18.md)
+
+This completion does not claim production Voice implementation, a selected cloud provider/legal disclosure, physical/OEM/road-noise accuracy, Beta KPIs, or Issue #16 numeric adoption. Unverified speech-provider paths remain Manual Only.
+
+## Active stage — Cluster E
+
+The next active User Flow stage is **Cluster E**, beginning with **UF-11 — Calls, Audio Focus, headset/Bluetooth disconnect, and route changes**.
+
+Cluster D no longer blocks UF-11 drafting/review.
 
 ## Required flow catalog
 
@@ -106,10 +138,10 @@ Cluster C no longer blocks Cluster D drafting/review.
 | UF-05 | Manual playback and queue control | P0 / P1 restore branch | **Complete — Cluster B PASS** | Playing, Paused, End of Queue, corrupt/inaccessible recovery, controller reconnect, Paused Restore |
 | UF-06 | Background, screen-off and system controls | P0 / P1 restore branch | **Complete — Cluster B PASS** | Synchronized background/screen-off playback, system surfaces, controller reconnect, Paused Restore |
 | UF-07 | Driving Mode entry, use and exit | P0 / P1 entry hint | **Complete — Cluster C PASS** | Playing, Paused, No Track, immediate exit |
-| UF-08 | Direct Voice command | P0 | Not started | Listening, Processing, Executed, Failed |
-| UF-09 | Ambiguous or missing artist | P0 | Not started | Confirming, confirmed execution, not found |
-| UF-10 | Voice timeout and retry | P0 | Not started | one retry, manual fallback, playback preserved |
-| UF-11 | Calls, Audio Focus and route changes | P0 | Not started | deterministic pause/duck/recovery; no unintended speaker output |
+| UF-08 | Direct Voice command | P0 | **Complete — Cluster D PASS** | Listening, Processing, Executed, Failed |
+| UF-09 | Ambiguous or missing artist | P0 | **Complete — Cluster D PASS** | Confirming, confirmed execution, not found |
+| UF-10 | Voice timeout and retry | P0 | **Complete — Cluster D PASS** | one retry, manual fallback, playback preserved |
+| UF-11 | Calls, Audio Focus and route changes | P0 | **NEXT / Cluster E** | deterministic pause/duck/recovery; no unintended speaker output |
 | UF-12 | Settings, privacy and data clearing | P0 control surface | Not started | Updated, cleared, consent-aware states |
 | UF-13 | Liked Songs | P2 | Not started / first complete cut | Empty, Ready; removable from schedule |
 
@@ -133,7 +165,7 @@ Every state must record:
 
 - [ ] Every PRD/MVP P0 requirement maps to at least one completed User Flow across the full UF-01–UF-13 set.
 - [ ] Every flow includes happy, empty, error and recovery behavior where applicable across the full set.
-- [ ] Voice certainty, ambiguity, timeout, retry and not-found behavior are covered.
+- [x] Voice certainty, ambiguity, timeout, retry and not-found behavior are covered.
 - [x] Cluster A scope/recovery behavior is complete.
 - [x] UF-04 completes Songs/Artists/Albums/Folders browse and local Search behavior.
 - [x] UF-05 completes P0 manual Player/Queue behavior and P1 Paused Restore branch.
@@ -149,6 +181,11 @@ Every state must record:
 - [x] Cluster C Technical Spike applicability review records no new UF-07 spike blocker and routes implementation evidence to Issues #9/#13.
 - [x] Cluster C Product/Design/Android-contract/QA-testability/Privacy/Governance sign-off PASS.
 - [x] **Formal Cluster C User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
+- [x] UF-08/UF-09/UF-10 direct, ambiguity/not-found, timeout/unavailable, one-retry, manual fallback, and privacy behavior are complete.
+- [x] Cluster D source authority, CD-01 through CD-24 State Inventory, Traceability, Mermaid parity, and connected review PASS.
+- [x] TS-03/TS-07/TS-09 reference implementations and tests PASS; build/lint/host and AOSP API 29/31/34 12/12 PASS.
+- [x] Cluster D Product/Design/Android-contract/QA-testability/Privacy/Governance sign-off PASS.
+- [x] **Formal Cluster D User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
 - [ ] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
 - [ ] Product and Android reviewers approve the complete Issue #3 flow set and state inventory.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
