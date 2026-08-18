@@ -1,6 +1,6 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress — Phase 0, Cluster A, and **Cluster B (UF-04 through UF-06) are complete; active stage is Cluster C beginning with UF-07 Driving Mode**
+- **Status:** In progress — Phase 0 and **Clusters A-C (UF-01 through UF-07) are complete; active stage is Cluster D beginning with UF-08 Direct Command**
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Evidence authority:** GitHub repository artifacts only
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
@@ -64,13 +64,33 @@ The immutable result bundles contain manifests, matrices, review sign-offs, exec
 
 FR-01 is complete at User Flow specification level across UF-01 through UF-04. FR-02 is complete across UF-05 and UF-06. FR-03 interruption/route behavior remains assigned to UF-11. Numeric `T_PREVIOUS` and implementation mechanics remain downstream Issue #16 architecture decisions and are not Cluster B User Flow exit blockers.
 
-## Active stage — Cluster C
+## Cluster C - UF-07 - COMPLETE / PASS
 
-The next active User Flow stage is **Cluster C**, beginning with:
+**Flow:** UF-07 Driving Mode entry, use, and exit  
+**Documentation decision date:** 18 August 2026  
+**Status:** **COMPLETE / PASS at User Flow specification level**
 
-**UF-07 — Driving Mode entry, use, and exit.**
+Cluster C passes source-authority, detailed flow, shared State Inventory, Traceability Matrix, canonical Mermaid parity, connected-flow integration, privacy/safety/accessibility review, and formal User Flow exit gates. Manual entry is P0; the selected-device Bluetooth suggestion is a separable P1 branch and never opens Driving Mode automatically.
 
-Cluster B no longer blocks UF-07 drafting/review.
+### Repository records
+
+- [Cluster C connected review and exit record](user-flows/CLUSTER_C_CONNECTED_REVIEW.md)
+- [Cluster C source authority](user-flows/CLUSTER_C_SOURCE_AUTHORITY.md)
+- [Cluster C shared State Inventory](user-flows/CLUSTER_C_STATE_INVENTORY.md)
+- [Cluster C Traceability Matrix](user-flows/CLUSTER_C_TRACEABILITY_MATRIX.md)
+- [UF-07 - Driving Mode Entry, Use, and Exit](user-flows/UF-07_DRIVING_MODE.md)
+- [UF-07 canonical diagram](user-flows/mermaid/UF-07_DRIVING_MODE.md)
+- [UF-07 raw Mermaid source](user-flows/mermaid/UF-07_DRIVING_MODE.mmd)
+
+Cluster C completion is implementation-independent. It does not claim Issue #9 implementation, stationary/in-car QA, low-fidelity Wireframes, final Software Architecture, later voice/recovery flows, or Issue #3 as a whole are complete.
+
+## Active stage — Cluster D
+
+The next active User Flow stage is **Cluster D**, beginning with:
+
+**UF-08 — Direct Voice Command**, followed by UF-09 Ambiguity/Not Found and UF-10 Timeout/Unavailable/Retry.
+
+Cluster C no longer blocks Cluster D drafting/review.
 
 ## Required flow catalog
 
@@ -82,7 +102,7 @@ Cluster B no longer blocks UF-07 drafting/review.
 | UF-04 | Browse and search local music | P0 | **Complete — Cluster B PASS** | Result, No Result, Error, acknowledged playback start |
 | UF-05 | Manual playback and queue control | P0 / P1 restore branch | **Complete — Cluster B PASS** | Playing, Paused, End of Queue, corrupt/inaccessible recovery, controller reconnect, Paused Restore |
 | UF-06 | Background, screen-off and system controls | P0 / P1 restore branch | **Complete — Cluster B PASS** | Synchronized background/screen-off playback, system surfaces, controller reconnect, Paused Restore |
-| UF-07 | Driving Mode entry, use and exit | P0 / P1 entry hint | **NEXT / Cluster C** | Playing, Paused, No Track, immediate exit |
+| UF-07 | Driving Mode entry, use and exit | P0 / P1 entry hint | **Complete — Cluster C PASS** | Playing, Paused, No Track, immediate exit |
 | UF-08 | Direct Voice command | P0 | Not started | Listening, Processing, Executed, Failed |
 | UF-09 | Ambiguous or missing artist | P0 | Not started | Confirming, confirmed execution, not found |
 | UF-10 | Voice timeout and retry | P0 | Not started | one retry, manual fallback, playback preserved |
@@ -121,6 +141,9 @@ Every state must record:
 - [x] Cluster B shared Traceability Matrix passes.
 - [x] **Cluster B Technical Spike execution/evidence and Cluster B cross-role sign-off PASS.**
 - [x] **Formal Cluster B exit PASS / COMPLETE.**
+- [x] UF-07 manual P0 entry, optional P1 Bluetooth suggestion, Playing/Paused/No Track, one-layer controls, immediate Exit, privacy, accessibility, and downstream handoffs are complete.
+- [x] Cluster C source authority, State Inventory, Traceability, Mermaid parity, and connected review PASS.
+- [x] **Formal Cluster C User Flow exit PASS / COMPLETE.**
 - [ ] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
 - [ ] Product and Android reviewers approve the complete Issue #3 flow set and state inventory.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
@@ -131,6 +154,10 @@ Every state must record:
 - [Cluster A - First Readiness](user-flows/CLUSTER_A_FIRST_READINESS.md)
 - [Cluster B connected review / final exit](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
 - [Cluster B final cross-role sign-off](user-flows/CLUSTER_B_SIGNOFF_2026-08-18.md)
+- [Cluster C connected review / exit](user-flows/CLUSTER_C_CONNECTED_REVIEW.md)
+- [UF-07 Driving Mode](user-flows/UF-07_DRIVING_MODE.md)
+- [Cluster C State Inventory](user-flows/CLUSTER_C_STATE_INVENTORY.md)
+- [Cluster C Traceability Matrix](user-flows/CLUSTER_C_TRACEABILITY_MATRIX.md)
 - [Cluster B evidence index](user-flows/evidence/README.md)
 - [TS-01](user-flows/evidence/TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md)
 - [TS-02](user-flows/evidence/TS-02_LIFECYCLE_BOUNDARIES.md)
