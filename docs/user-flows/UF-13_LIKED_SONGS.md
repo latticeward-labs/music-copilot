@@ -3,7 +3,7 @@
 **Stage:** Optional scope closeout (not a new cluster)  
 **Priority:** P2 — first schedule cut  
 **Updated:** 19 August 2026  
-**Status:** Candidate complete; executable evidence and final sign-off recorded separately  
+**Status:** **PASS / COMPLETE at User Flow and executable reference-contract level**  
 **Tracking:** Issues #3, #6, #15, #16, #17
 
 ## Ten-field traceability record
