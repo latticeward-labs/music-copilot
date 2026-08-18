@@ -6,7 +6,7 @@ This directory contains the durable User Flow artifacts for Music Copilot MVP v1
 - **Official product authorities:** [PRD v1.0](../PRD.md) and [MVP v1.0](../MVP.md)
 - **Official source filenames:** `Music_Copilot_PRD_v1_EN_Clarified.pdf` and `Music_Copilot_MVP_v1_EN.pdf`
 - **Repository-level index:** [User Flows and State Inventory](../USER_FLOWS.md)
-- **Current gate:** **Cluster C UF-07 — PASS / COMPLETE at User Flow specification level**
+- **Current gate:** **Cluster C UF-07 — PASS / COMPLETE / SOURCE-ALIGNED at User Flow stage**
 - **Active stage:** **Cluster D — UF-08/UF-09/UF-10 Voice**
 - **Complete User Flow approval:** Not yet granted; UF-08 through UF-13 and final Issue #3 approval remain open.
 
@@ -55,6 +55,8 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 | [`CLUSTER_C_STATE_INVENTORY.md`](CLUSTER_C_STATE_INVENTORY.md) | CC-01 through CC-18 normalized Driving Mode states | PASS |
 | [`CLUSTER_C_TRACEABILITY_MATRIX.md`](CLUSTER_C_TRACEABILITY_MATRIX.md) | FR-04/FR-07/US-04/ADR/state/safety traceability | PASS |
 | [`CLUSTER_C_CONNECTED_REVIEW.md`](CLUSTER_C_CONNECTED_REVIEW.md) | Cluster C connected review and User Flow exit decision | **PASS / COMPLETE** |
+| [`CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md`](CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md) | Phase 0 spike audit, truthful CI/execution boundary, and downstream evidence routing | PASS / new UF-07 spike N/A |
+| [`CLUSTER_C_SIGNOFF_2026-08-18.md`](CLUSTER_C_SIGNOFF_2026-08-18.md) | Product/Design/Android-contract/QA-testability/Privacy/Governance final sign-off | **PASS / COMPLETE** |
 | [`PHASE_1_FIRST_READINESS.md`](PHASE_1_FIRST_READINESS.md) | Controlled Phase 1 gate record | Historical stage record |
 | [`PHASE_1_COMPLETION_CHECKLIST.md`](PHASE_1_COMPLETION_CHECKLIST.md) | Evidence-based pass/open checklist | **Cluster B formal exit PASS; later flows open** |
 
@@ -97,7 +99,7 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 
 1. Maintain requirement-to-flow traceability and Markdown/Mermaid parity.
 2. Preserve the completed Cluster B evidence/sign-off records as immutable historical closeout artifacts.
-3. Preserve the completed Cluster C UF-07 records as the controlled Driving Mode User Flow contract.
+3. Preserve the completed Cluster C UF-07 records, evidence-applicability decision, and final cross-role sign-off as the controlled Driving Mode User Flow contract.
 4. Proceed to **Cluster D / UF-08, UF-09, and UF-10 Voice flows**, then complete UF-11 through UF-13 in sequence.
 5. Produce any later Technical Spike evidence required by those flows, including TS-03 where applicable.
 6. Keep ADR references synchronized and route material architecture changes through Issue #16/new ADRs.
