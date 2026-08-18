@@ -10,7 +10,7 @@ class SpeechProviderPolicyTest {
             apiLevel = 34,
             recognitionServiceAvailable = true,
             onDeviceRecognitionAvailable = true,
-            englishSupport = SpeechCapabilitySnapshot.SupportState.UNKNOWN_UNTIL_PROVIDER_CALLBACK,
+            englishSupport = SpeechCapabilitySnapshot.SupportState.READY,
         )
         assertEquals(
             ApprovedSpeechMode.ON_DEVICE,
@@ -24,7 +24,7 @@ class SpeechProviderPolicyTest {
             apiLevel = 29,
             recognitionServiceAvailable = true,
             onDeviceRecognitionAvailable = false,
-            englishSupport = SpeechCapabilitySnapshot.SupportState.UNKNOWN_UNTIL_PROVIDER_CALLBACK,
+            englishSupport = SpeechCapabilitySnapshot.SupportState.READY,
         )
         assertEquals(
             ApprovedSpeechMode.MANUAL_ONLY,
@@ -38,7 +38,7 @@ class SpeechProviderPolicyTest {
             apiLevel = 34,
             recognitionServiceAvailable = true,
             onDeviceRecognitionAvailable = false,
-            englishSupport = SpeechCapabilitySnapshot.SupportState.UNKNOWN_UNTIL_PROVIDER_CALLBACK,
+            englishSupport = SpeechCapabilitySnapshot.SupportState.READY,
         )
         val disclosure = CloudDisclosure("reviewed provider", "speech transcription", "reviewed retention")
         assertEquals(
@@ -48,6 +48,20 @@ class SpeechProviderPolicyTest {
         assertEquals(
             ApprovedSpeechMode.NETWORK_ASSISTED_WITH_CONSENT,
             AndroidSpeechCapabilityProbe.approveMode(snapshot, disclosure, cloudConsentGranted = true),
+        )
+    }
+
+    @Test
+    fun onDeviceServiceWithUnknownEnglishSupportFailsClosed() {
+        val snapshot = SpeechCapabilitySnapshot(
+            apiLevel = 34,
+            recognitionServiceAvailable = true,
+            onDeviceRecognitionAvailable = true,
+            englishSupport = SpeechCapabilitySnapshot.SupportState.UNKNOWN_UNTIL_PROVIDER_CALLBACK,
+        )
+        assertEquals(
+            ApprovedSpeechMode.MANUAL_ONLY,
+            AndroidSpeechCapabilityProbe.approveMode(snapshot, null, cloudConsentGranted = false),
         )
     }
 }
