@@ -3,7 +3,7 @@
 **Updated:** 18 August 2026  
 **Tracking:** Issue #3  
 **Result:** **PASS for Stage 1 Cluster A and COMPLETE/PASS for Cluster B UF-04/UF-05/UF-06, connected review, shared State Inventory, shared Traceability, Technical Spike evidence, and Cluster B cross-role sign-off**  
-**Final User Flow status:** **Open — UF-07 through UF-13 remain**
+**Final User Flow status:** **Open — UF-08 through UF-13 remain; Cluster C UF-07 is complete**
 
 ## Canonical documentation evidence
 
@@ -98,7 +98,8 @@
 - [x] UF-04 completed at specification/traceability level with Cluster B downstream evidence closed.
 - [x] UF-05 completed at specification/traceability level with TS-02/TS-06/TS-08 Cluster B evidence closed; numeric `T_PREVIOUS` remains downstream architecture detail.
 - [x] UF-06 completed at specification/traceability level with TS-01/TS-02/TS-08 Cluster B evidence closed.
-- [ ] UF-07 through UF-13 completed and reviewed.
+- [x] UF-07 Cluster C completed and reviewed at User Flow specification level.
+- [ ] UF-08 through UF-13 completed and reviewed.
 - [x] Formal connected Cluster B diagram integration review recorded.
 - [x] Formal shared Cluster B State Inventory and Traceability decisions recorded.
 - [x] Cluster B Product/Design/Android/QA/Privacy/Governance sign-off recorded.
@@ -113,4 +114,4 @@ The [evidence pack](evidence/README.md) and isolated non-production Android spik
 
 **Cluster B is formally COMPLETE / PASS.** UF-04, UF-05, and UF-06 are complete at specification/traceability level; the canonical connected diagram, normalized State Inventory, Traceability Matrix, required Technical Spike execution/evidence, and Cluster B cross-role sign-off are closed for this stage.
 
-Issue #3 remains open only because later User Flow work is still outstanding. The next active stage is **Cluster C beginning with UF-07 Driving Mode**.
+Issue #3 remains open because later User Flow work and final complete-set approval are still outstanding. Cluster C UF-07 is complete at User Flow specification level. The next active stage is **Cluster D beginning with UF-08 Direct Command**.
