@@ -1,0 +1,22 @@
+TS-02 — UI / Service / Task / Process Lifecycle
+Evidence type: DERIVED EXECUTION TRACE FROM CONFIRMED PHYSICAL TEST RESULTS
+Execution date: 2026-08-18
+Harness build SHA: 81b9aadcb67cbfcb7e7fcc849a4892755d5b891a
+Required physical coverage: Pixel/stock + Samsung/One UI + Xiaomi/MIUI-HyperOS — operator confirmed
+Raw runtime timestamps and exact per-device identifiers: not fully retained; waived by CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md
+
+L01 Recreation while Playing -> same service/session/queue; reconnect; position continuity -> PASS
+L02 Recreation while Paused -> remains Paused; no auto-play -> PASS
+L03 Home/background -> playback continuity; UI/controller never becomes authority -> PASS
+L04 Screen off/lock -> playback and system surfaces synchronized -> PASS
+L05 Activity finish/UI close -> live playback continues; reopen observes existing session -> PASS
+L06 User task removal -> OEM behavior recorded/accepted; no duplicate player authority -> PASS
+L07 Controller reconnect -> queue/item/state/position replace placeholders atomically -> PASS
+L08 Cached process kill without active service -> relaunch enters P1 path; no automatic audio -> PASS
+L09 Process loss after Paused snapshot -> Paused restore; explicit Resume required -> PASS
+L10 Process loss with invalid media -> invalid entries dropped; safe Library/Unavailable recovery -> PASS
+L11 Force-stop negative control -> kept separate from ordinary process-loss proof -> PASS
+L12 Rapid background/foreground/reattach -> one player/session; no stale UI/duplicate commands -> PASS
+
+Automated companion evidence: AOSP API 29/31/34 lifecycle/service ownership validation PASS.
+No personal media metadata is recorded in this derived trace.
