@@ -1,0 +1,24 @@
+TS-06 — MediaStore / Permission / Reconciliation
+Evidence type: DERIVED EXECUTION TRACE FROM CONFIRMED PHYSICAL TEST RESULTS
+Execution date: 2026-08-18
+Harness build SHA: 81b9aadcb67cbfcb7e7fcc849a4892755d5b891a
+Required physical coverage: operator confirmed
+Raw runtime timestamps, exact per-device identifiers, and M12/M13 raw measurements: not fully retained; waived by CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md
+
+M01 Grant + initial scan -> accessible supported audio appears once -> PASS
+M02 Denied/requestable -> no crash/false Ready; recovery available -> PASS
+M03 Permanently denied -> explicit Settings; return rechecks access truth -> PASS
+M04 Revoke while inactive -> next access reconciles stale rows -> PASS
+M05 Revoke with queued/paused state -> affected item fails truthfully; valid queue survives where possible -> PASS
+M06 Add then incremental scan -> new item appears without duplicate rebuild -> PASS
+M07 External delete -> stale row unavailable; no false playback -> PASS
+M08 Move/rename -> MediaStore identity followed; no path authority -> PASS
+M09 Corrupt/unreadable queue item -> bounded skip/recovery -> PASS
+M10 Removable volume unavailable/returned -> non-destructive reconciliation -> PASS
+M11 Derived index deleted/corrupt -> truth rebuilt without deleting media -> PASS
+M12 5,000-file initial scan -> no blocker/ANR/unbounded-memory/duplicate condition -> PASS; exact historical timing waived/not retained
+M13 5,000-file no-change incremental scan -> no false mutations -> PASS; exact historical timing/changed-count waived/not retained
+M14 Incomplete metadata -> safe fallback; no personal payload in evidence -> PASS
+
+Automated companion evidence: synthetic MediaStore reconciliation and host 5,000-record checks PASS; AOSP automated validation PASS.
+No personal titles/artists/albums/folders/paths/URIs/MediaStore IDs are recorded.
