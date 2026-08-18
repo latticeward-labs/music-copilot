@@ -2,7 +2,7 @@
 
 **Blocks:** final UF-08, UF-10, UF-12 contract and Voice Beta provider enablement  
 **Date:** 18 August 2026  
-**Automated result:** `PENDING_PR_CI`  
+**Automated result:** **PASS — workflow run #8 on head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`**  
 **Provider/device result:** No physical/OEM provider claim; safe default is Manual Only unless capability and disclosure gates pass
 
 ## Question
@@ -50,9 +50,9 @@ The workflow runs the host tests plus AOSP API 29/31/34 instrumentation. AOSP av
 - [x] Provider/capability matrix records availability, language, network, processing, consent, retention, and fallback decisions.
 - [x] Copy contract is truthful: no generic offline claim; network mode needs destination/provider, purpose, retention, and separate consent.
 - [x] On-device/network-assisted/manual-only selection is deterministic and fail-closed.
-- [ ] Host and AOSP policy/fallback tests PASS on the PR head.
+- [x] Host policy tests and the AOSP fallback assertion PASS; AOSP API 29/31/34 each completed 4/4 instrumentation tests in workflow run #8.
 - [x] Missing real provider/OEM evidence is routed to Issues #10/#13/#16 and cannot silently enable Voice.
 
 ## Decision boundary
 
-TS-03 can close the User Flow decision after automated policy/fallback evidence passes because every unverified provider case resolves to Manual Only. It cannot approve a particular OEM/provider, cloud processor, consent copy, or Voice Beta readiness without the downstream physical/legal evidence.
+**PASS at the User Flow/provider-policy level.** Every unverified provider case resolves to Manual Only. This does not approve a particular OEM/provider, cloud processor, consent copy, or Voice Beta readiness without the downstream physical/legal evidence.
