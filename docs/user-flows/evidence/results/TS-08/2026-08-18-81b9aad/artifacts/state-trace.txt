@@ -1,0 +1,26 @@
+TS-08 — Versioned Paused Restore / Process Loss
+Evidence type: DERIVED EXECUTION TRACE FROM CONFIRMED PHYSICAL TEST RESULTS
+Execution date: 2026-08-18
+Harness build SHA: 81b9aadcb67cbfcb7e7fcc849a4892755d5b891a
+Raw runtime timestamps and exact process-loss capture timestamps: not retained; waived by CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md
+
+R01 Valid snapshot after real process loss -> restores once Paused; explicit Resume plays -> PASS
+R02 Captured while Playing -> relaunch remains Paused; no automatic audio -> PASS
+R03 Current item invalid -> deterministic survivor or Unavailable/Library recovery -> PASS
+R04 Some non-current invalid -> invalid entries removed; survivor order preserved -> PASS
+R05 All invalid/revoked -> no fabricated player; recovery to UF-02/UF-03 -> PASS
+R06 Invalid position -> negative rejected; clamp only to verified duration -> PASS
+R07 Torn/corrupt snapshot -> fail closed safely -> PASS
+R08 Supported old migration -> deterministic and idempotent -> PASS
+R09 Unsupported future version -> fail closed; no unrelated loss/audio -> PASS
+R10 Repeated relaunch -> no duplicate queue/player/position compounding/auto-play -> PASS
+R11 Live service exists -> live MediaSession wins over snapshot -> PASS
+R12 Interrupted atomic write -> last complete snapshot or none; never partial -> PASS
+
+Confirmed invariants:
+- restore output is Paused,
+- explicit Resume is required before audio,
+- live service/session remains authoritative,
+- no personal media payload is stored in the evidence record.
+
+Automated companion evidence: atomic-store and host snapshot/migration/error tests PASS; AOSP automated validation PASS.
