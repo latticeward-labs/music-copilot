@@ -2,7 +2,7 @@
 
 **Blocks:** final UF-09 contract and production threshold adoption in Issue #16  
 **Date:** 18 August 2026  
-**Automated result:** **PASS — workflow run #8 on head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`**
+**Automated result:** **PASS — final workflow run #17 on code head `f0cee7606dd1c2899b7a145ea072c747041da444`**
 
 ## Fixed algorithm under test
 
