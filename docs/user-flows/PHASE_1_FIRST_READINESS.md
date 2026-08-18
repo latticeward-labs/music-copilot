@@ -1,110 +1,61 @@
-# Music Copilot - User Flow Phase 1 First Readiness
+# Phase 1 - First Readiness
 
-**Version:** 1.0 — corrected repository edition  
-**Updated:** 04 August 2026  
 **Product:** Music Copilot MVP v1.0  
-**Decision:** Stage 1 Traceability Matrix for Cluster A — **PASS**  
-**Final User Flow status:** **Not approved; Issue #3 remains open**  
-**Tracking:** GitHub Issue #3
+**Tracking:** GitHub Issue #3  
+**Phase 1 scope:** Cluster A (UF-01/UF-02/UF-03) followed by Cluster B (UF-04/UF-05/UF-06)  
+**Cluster A decision:** PASS  
+**Cluster B formal closeout:** **PASS / COMPLETE on 18 August 2026**
 
-> This document records a limited documentation gate. It does not approve complete FR-01, ADR outcomes, Technical Spike evidence, the complete UF-01 through UF-13 set, Wireframes, final Software Architecture, or implementation.
+## Authority
 
-## 1. Controlled authority
+The official English PRD/MVP are the product authorities. The current GitHub ADR register is the architecture-status authority; ADR-0001 through ADR-0006 are Accepted.
 
-| Rank | Source | Controlled use |
-|---:|---|---|
-| 1 | `Music_Copilot_PRD_v1_EN_Clarified.pdf` | Official product problem, first-use journey, FR-01, privacy, accessibility, and scope authority |
-| 2 | `Music_Copilot_MVP_v1_EN.pdf` | Official priority, User Story, required-state, acceptance, QA, and release authority |
-| 3 | Phase 0 Foundation | Approved UF catalog, fixed drafting decisions, contradiction handling, and Technical Spike routing |
-| 4 | ADR-0001 through ADR-0006 | Architectural influence only; every source remains Proposed, including revised proposals ADR-0001/0003 |
-| 5 | System Architecture and Technical Documentation | Technical interpretation and source-of-truth seams; cannot expand PRD/MVP scope |
-| 6 | Corrected repository records | Canonical current Cluster A and Stage 1 evidence until |
+## Cluster A
 
-The earlier Phase 1 readiness document was not evidence for the traceability corrections. This repository edition is synchronized from the corrected canonical records rather than using the old document to validate itself.
+Cluster A remains complete for first launch, permission recovery, and local-library readiness. Its controlled records are `CLUSTER_A_FIRST_READINESS.md`, `UF-01_FIRST_LAUNCH_AND_EDUCATION.md`, `UF-02_PERMISSION_RECOVERY.md`, and `UF-03_LIBRARY_READINESS.md`.
 
-## 2. Gate decision
+## Cluster B
 
-| Gate | Current state | Correct meaning |
-|---|---|---|
-| Product scope / Issue #1 | Done | English PRD/MVP v1.0 scope remains locked |
-| Phase 0 Foundation | Complete for drafting | UF catalog, decisions, and evidence routing exist |
-| Stage 1 Traceability Matrix | **PASS** | UF-01, UF-02, and UF-03 each contain all ten required fields |
-| FR-01 | **Partial** | Cluster A covers consent, scan, index, readiness, and recovery; UF-04 must complete browsing/search |
-| Issue #2 / ADR governance | **Open** | All six ADRs remain Proposed until explicit Accepted/Revised outcomes are recorded |
-| TS-01 / TS-03 / TS-06 | **Open** | No executed evidence is inferred |
-| Issue #3 / complete User Flow | **Open** | UF-04 through UF-13 and final review remain unfinished |
-| Wireframes / final architecture / code | **Not authorized** | Separate downstream gates |
+Cluster B covers:
 
-## 3. Canonical artifact register
+- UF-04 Browse and Search Local Music
+- UF-05 Manual Playback and Queue Control
+- UF-06 Background, Screen-off, and System Controls
 
-| Artifact | Repository path | Result |
-|---|---|---|
-| UF-01 | [Direct record](UF-01_FIRST_LAUNCH_AND_EDUCATION.md) / [diagram](mermaid/UF-01_FIRST_LAUNCH_AND_EDUCATION.md) | Ten-field traceability and replay invariants synchronized |
-| UF-02 | [Direct record](UF-02_PERMISSION_RECOVERY.md) / [diagram](mermaid/UF-02_PERMISSION_DENIAL_AND_SETTINGS_RECOVERY.md) | Three-way Settings return, Not now, provider separation, manual fallback |
-| UF-03 | [Direct record](UF-03_LIBRARY_READINESS.md) / [diagram](mermaid/UF-03_LIBRARY_READINESS.md) | Returning current-state bypass, truthful readiness, reconciliation |
-| 01.5 | [Combined Cluster A Flow](mermaid/01_5_COMBINED_CLUSTER_A_FLOW.md) | Canonical connected behavior |
-| 01.6 | [State Inventory and Traceability](mermaid/01_6_STATE_INVENTORY_AND_TRACEABILITY.md) | Ten-field matrix, Partial/Open states, Stage 1 PASS |
-| 01.7 | [Review and Approval Record](mermaid/01_7_REVIEW_AND_APPROVAL_RECORD.md) | Limited PASS without false role/final approval |
+The following gates are complete:
 
-## 4. Corrected state and recovery contract
+- constituent UF-04/UF-05/UF-06 specification and traceability: PASS
+- connected-flow integration review: PASS
+- shared State Inventory CB-01 through CB-33: PASS
+- shared Traceability Matrix: PASS
+- TS-01 Notification/Foreground Media: PASS / approved N/A where recorded
+- TS-02 Lifecycle Boundaries: PASS
+- TS-06 MediaStore Reconciliation: PASS
+- TS-08 Versioned Paused Restore: PASS
+- Android review: PASS by project-owner attestation
+- QA review: PASS by project-owner attestation
+- Product/Design/Privacy/Governance Cluster B sign-off: PASS
+- formal Cluster B exit: **PASS / COMPLETE**
 
-| ID | Surface/boundary | Controlled behavior |
-|---|---|---|
-| S-01 | Splash | Loading/Migration Error; Retry; never fabricate library or playback state |
-| S-02 | Onboarding | First Run/Incomplete Resume/Skip/Replay; replay preserves permissions, library, queue, and active playback |
-| S-03 | Permissions | Granted, Denied-requestable, Permanently Denied; Retry/Not now; explicit Settings |
-| S-04 | Home / Library | Scanning, Empty, Ready, Recoverable Failure, Revoked-Reconciled; verified current Ready/Empty bypasses unnecessary scan |
-| CA-01 | Six-Command Education | Exactly PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST |
-| CA-02 | Voice Access Boundary | Permission, provider availability, and cloud consent are distinct; all failures preserve manual controls |
-| SYS-04 | Android Settings | On return: Granted, Denied-requestable, or Still permanently denied; no automatic loop |
-| SYS-05 | Speech provider/cloud | Provider unavailable is not permission failure; cloud processing requires separate truthful consent if applicable |
+See:
 
-## 5. Per-flow traceability matrix
+- `CLUSTER_B_CONNECTED_REVIEW.md`
+- `CLUSTER_B_SIGNOFF_2026-08-18.md`
+- `CLUSTER_B_STATE_INVENTORY.md`
+- `CLUSTER_B_TRACEABILITY_MATRIX.md`
+- `evidence/README.md`
+- `evidence/CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md`
+- `evidence/results/TS-01/2026-08-18-81b9aad/`
+- `evidence/results/TS-02/2026-08-18-81b9aad/`
+- `evidence/results/TS-06/2026-08-18-81b9aad/`
+- `evidence/results/TS-08/2026-08-18-81b9aad/`
 
-| Flow ID | User goal | Priority | User Story | Functional Requirement | Screens/states | Influencing ADRs | Failure/recovery | Data/permissions | Open assumptions/evidence |
-|---|---|---|---|---|---|---|---|---|---|
-| UF-01 | Understand the product, finish/skip education, reach truthful readiness, retain manual control | P0 | US-01, US-02 | First-use journey; FR-01 partial; UF-04 required | S-01, S-02, S-04 handoff, CA-01, CA-02 | ADR-0001..0006 as mapped influences; all Proposed | Startup Retry, resume, non-mutating replay, permission/scan recovery, Voice fallback | Local flags; Android state; MediaStore; playback service observation; sensitive telemetry excluded | TS-03, Issue #2, final review |
-| UF-02 | Recover from permission/provider/consent failure without crash, coercion, or manual-control loss | P0 | US-01 | FR-01 access precondition partial; FR-05 mic precondition only | S-03, CA-02, SYS-01..05, Empty/manual fallback | ADR-0001/0002/0003/0004/0006; all Proposed | Retry/Not now; Settings three-way return; provider/consent fallback; revocation reconciliation | Android permission authority; MediaStore vs derived index; JIT mic; deferred notification; local consent if applicable | TS-01/03/06, Issue #2, final review |
-| UF-03 | Build/reconcile an account-free library and see truthful readiness | P0 | US-02 | FR-01 scan/index/readiness partial; UF-04 required | S-04 and UF-02 handoff | ADR-0001/0002/0003/0006; all Proposed | Initial/incremental work, Retry, preserve verified state, reconcile inaccessible media | MediaStore authority; derived index; Android access; playback service; non-authoritative telemetry | TS-06, Issue #2, UF-04, final review |
+## Evidence boundary
 
-## 6. Requirement status
+Some historical raw runtime captures were not retained before the later immutable-result contract was finalized. The project owner approved a one-time retrospective retention waiver for the completed Cluster B run. Derived traces, retrospective redacted log records, visual-evidence indexes, and project-owner-attested review decisions are stored transparently; unavailable raw logs/timestamps/media/measurements/identities are not fabricated.
 
-| Requirement/story | Mapping | Status after Stage 1 |
-|---|---|---|
-| PRD first-use journey | UF-01, UF-02, UF-03 | Covered at flow/specification level |
-| FR-01 | UF-01, UF-02, UF-03, **UF-04** | **Partial** until UF-04 completes Songs/Artists/Albums/Folders browsing/search |
-| US-01 | UF-01, UF-02 | Covered at flow/specification level; platform/provider evidence remains open |
-| US-02 | UF-01, UF-03 | Covered at flow/specification level; TS-06 remains open |
+## Current workflow position
 
-No claim is made that FR-02 through FR-09 are complete.
+Phase 1 work completed through Cluster B. Issue #3 remains open because UF-07 through UF-13 are not yet complete.
 
-## 7. ADR influence and governance
-
-| ADR | Influence | Governance state |
-|---|---|---|
-| ADR-0001 | Native Android/state/platform permission surfaces | Proposed - Revised source |
-| ADR-0002 | Playback service owns active playback | Proposed |
-| ADR-0003 | MediaStore authority and derived/rebuildable index | Proposed - Revised source |
-| ADR-0004 | Replaceable provider and failure/consent isolation | Proposed |
-| ADR-0005 | Exactly six deterministic Voice intents | Proposed |
-| ADR-0006 | No account/backend/sync/catalog/streaming/upload/download | Proposed |
-
-Traceability PASS does not convert any ADR to Accepted or Revised. Issue #2 must record the reviewed outcomes and synchronize the ADR register.
-
-## 8. Open evidence and review register
-
-| Item | State | Blocking effect |
-|---|---|---|
-| UF-04 | Open | Complete FR-01 |
-| TS-01 | Open | Final UF-06 notification/foreground behavior |
-| TS-03 | Open | Provider-specific Voice/cloud behavior and copy |
-| TS-06 | Open | Final storage/reconciliation implementation claims |
-| Issue #2 / ADR register | Open | Approved-architecture claims |
-| UF-04 through UF-13 / Issue #3 | Open | Complete User Flow approval |
-| Final Product/Design/Android/QA/Privacy/Governance sign-off | Not recorded | No role approval may be inferred |
-
-## 9. Correct interpretation of PASS
-
-The matrix is complete, explicit, internally consistent, and suitable for continuing controlled User Flow and Golden Scenario drafting. Stage 2 records remain Draft/Planned until their own gate is passed.
-
-The PASS does not authorize Wireframes, final architecture, foundation implementation, production code, or Issue #3 closure.
+The next active User Flow stage is **Cluster C beginning with UF-07 Driving Mode**.
