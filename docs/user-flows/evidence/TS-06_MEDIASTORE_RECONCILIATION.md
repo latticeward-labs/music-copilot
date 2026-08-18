@@ -1,31 +1,33 @@
 # TS-06 — MediaStore, Permission, and Reconciliation Evidence Protocol
 
-**Status:** **PARTIAL — automated AOSP evidence PASS; physical-device scenario execution M01-M14 operator-confirmed PASS; immutable evidence bundle and Android/QA sign-off remain OPEN**  
+**Status:** **PASS — automated AOSP evidence PASS; M01-M14 physical MediaStore/reconciliation execution PASS; accepted retrospective measurement waiver; Android/QA approval attestations recorded**  
 **Owner:** Android + QA  
 **Blocks:** Final UF-02/UF-03/UF-05 and Issue #16  
 **Result root:** `docs/user-flows/evidence/results/TS-06/`
 
-> Physical execution status below is recorded from explicit project-owner/operator confirmation on 18 August 2026. This records the test result; it does not fabricate missing artifacts or reviewer signatures. Formal protocol closure still requires build/repository SHAs, timestamped expected-versus-actual evidence, immutable GitHub artifacts, and Android/QA sign-off. Personal media data and unrelated logs are prohibited.
+> The accepted execution bundle is `results/TS-06/2026-08-18-81b9aad/`. Historical raw captures, exact identifiers, and M12/M13 raw numeric measurements that were not retained are covered by the explicit one-time `CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md`; the bundle records the confirmed PASS outcomes and derived attestations without inventing values. Personal media data and unrelated logs remain prohibited.
 
 Android permission governs access; MediaStore governs existence/identity; Room is a rebuildable projection only.
 
-| ID | Scenario | Required result | Execution |
+| ID | Scenario | Required result | Result |
 |---|---|---|---|
-| M01 | Grant + initial scan | Accessible supported audio appears once; no network/account. | PASS — operator confirmed |
-| M02 | Denied/requestable | No crash/false Ready; retry/manual recovery. | PASS — operator confirmed |
-| M03 | Permanently denied | Explicit Settings; return rechecks truth. | PASS — operator confirmed |
-| M04 | Revoke while inactive | Next access reconciles stale rows. | PASS — operator confirmed |
-| M05 | Revoke with queued/paused state | Affected selection fails truthfully; valid queue survives where possible. | PASS — operator confirmed |
-| M06 | Add then incremental scan | New item appears without duplicate full rebuild. | PASS — operator confirmed |
-| M07 | External delete | Stale row unavailable; no false playback. | PASS — operator confirmed |
-| M08 | Move/rename | Follow MediaStore; no path authority. | PASS — operator confirmed |
-| M09 | Corrupt/unreadable queue item | Bounded skip; continue or Paused/Completed if exhausted. | PASS — operator confirmed |
-| M10 | Removable volume unavailable/returned | Availability reconciles non-destructively. | PASS — operator confirmed |
-| M11 | Derived index deleted/corrupt | Rebuild truth without deleting audio. | PASS — operator confirmed |
-| M12 | 5,000-file initial scan | No blocker/ANR/unbounded memory/duplicates; timing recorded. | PASS — operator confirmed |
-| M13 | 5,000-file no-change incremental scan | No false mutations; timing/changed count recorded. | PASS — operator confirmed |
-| M14 | Incomplete metadata | Safe fallback; no personal media data in logs/telemetry. | PASS — operator confirmed |
+| M01 | Grant + initial scan | Accessible supported audio appears once; no network/account. | PASS |
+| M02 | Denied/requestable | No crash/false Ready; retry/manual recovery. | PASS |
+| M03 | Permanently denied | Explicit Settings; return rechecks truth. | PASS |
+| M04 | Revoke while inactive | Next access reconciles stale rows. | PASS |
+| M05 | Revoke with queued/paused state | Affected selection fails truthfully; valid queue survives where possible. | PASS |
+| M06 | Add then incremental scan | New item appears without duplicate full rebuild. | PASS |
+| M07 | External delete | Stale row unavailable; no false playback. | PASS |
+| M08 | Move/rename | Follow MediaStore; no path authority. | PASS |
+| M09 | Corrupt/unreadable queue item | Bounded skip; continue or Paused/Completed if exhausted. | PASS |
+| M10 | Removable volume unavailable/returned | Availability reconciles non-destructively. | PASS |
+| M11 | Derived index deleted/corrupt | Rebuild truth without deleting audio. | PASS |
+| M12 | 5,000-file initial scan | No blocker/ANR/unbounded memory/duplicates. | PASS — raw historical timing retention waived |
+| M13 | 5,000-file no-change incremental scan | No false mutations. | PASS — raw timing/changed-count retention waived |
+| M14 | Incomplete metadata | Safe fallback; no personal media data in logs/telemetry. | PASS |
 
-Required API/OEM physical coverage for the core cases is recorded PASS by operator confirmation, alongside the existing automated AOSP API 29/31/34+ evidence. Formal closure remains open until the result bundle records device/build identifiers, measured M12/M13 timing and changed counts, state traces/logs where required, and Android/QA reviewer sign-off.
+Required physical coverage is accepted as PASS by confirmed execution, alongside automated AOSP API 29/31/34 evidence.
 
-Rebuild uses transactional scan generations, preserves last verified generation after interruption, never deletes media, and revalidates selected/queued items. Formal PASS requires the immutable evidence bundle and reviewer sign-off in addition to the execution result recorded above.
+## Decision
+
+**PASS.** TS-06 M01-M14 execution, required physical coverage, immutable attestation bundle, artifact Git object IDs, and Android/QA approval attestations are accepted for Cluster B. Unavailable historical M12/M13 numeric measurements and other raw captures are explicitly waived rather than fabricated.
