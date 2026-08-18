@@ -8,7 +8,7 @@
 **Protocol readiness:** **PASS**  
 **Harness implementation:** **PASS — merged to main**  
 **Automated CI validation:** **PASS**  
-**Executed protocol evidence:** **PARTIAL — execution scenarios for TS-01, TS-02, TS-06, and TS-08 are recorded PASS/waived as applicable; immutable result bundles and Android/QA sign-off remain OPEN**
+**Executed protocol evidence:** **PARTIAL — execution scenarios for TS-01, TS-02, TS-06, and TS-08 are recorded PASS/waived as applicable; operator-attestation manifest/matrix packets now exist; raw capture artifacts and Android/QA sign-off remain OPEN**
 
 ## Repository audit
 
@@ -22,16 +22,27 @@ For TS-02, complete lifecycle execution across required physical-device coverage
 
 For TS-06, complete MediaStore/permission/reconciliation execution for M01-M14 and required physical-device coverage is recorded PASS at operator-confirmation level. Formal evidence still needs measured M12/M13 timings/changed counts and device/build metadata.
 
-For TS-08, the project operator explicitly confirms completion of the versioned Paused-Restore/process-loss scenarios R01-R12, including real process-loss restore, no auto-play after restore, explicit Resume, invalid/corrupt snapshot handling, repeated relaunch, live-service precedence, and interrupted-write recovery. The TS-08 **execution matrix is recorded PASS at operator-confirmation level**. Formal closure still requires immutable process-loss evidence bundles and Android/QA reviewer sign-off.
+For TS-08, the project operator explicitly confirms completion of the versioned Paused-Restore/process-loss scenarios R01-R12, including real process-loss restore, no auto-play after restore, explicit Resume, invalid/corrupt snapshot handling, repeated relaunch, live-service precedence, and interrupted-write recovery. The TS-08 execution matrix is recorded PASS at operator-confirmation level.
+
+## Evidence packet preparation — 2026-08-18
+
+Operator-attestation `manifest.md` and `matrix.md` packets have been created under:
+
+- `results/TS-01/2026-08-18-81b9aad/`
+- `results/TS-02/2026-08-18-81b9aad/`
+- `results/TS-06/2026-08-18-81b9aad/`
+- `results/TS-08/2026-08-18-81b9aad/`
+
+These packets deliberately identify any missing exact device identifiers, M12/M13 measurements, raw state traces/logcat/recordings, and Android/QA decisions as PENDING rather than fabricating them. They are preparation records and become formally closable only when the remaining contract fields/artifacts and reviewer decisions are supplied.
 
 ## Controlled protocols
 
 | Spike | Protocol | Required execution | State |
 |---|---|---|---|
-| TS-01 | [Notification/foreground media](TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md) | Android 10/12/14+ automated AOSP coverage; Samsung physical permission/background/Settings/controller N01-N10; Pixel/Xiaomi physical rows waived | PARTIAL — automated PASS + Samsung physical PASS; OEM waivers recorded; evidence bundle/sign-off open |
-| TS-02 | [Lifecycle boundaries](TS-02_LIFECYCLE_BOUNDARIES.md) | Recreation, UI close, task removal, service/reconnect/process death | PARTIAL — automated PASS + physical lifecycle matrix PASS by operator confirmation; evidence bundle/sign-off open |
-| TS-06 | [MediaStore reconciliation](TS-06_MEDIASTORE_RECONCILIATION.md) | Permission/revocation/add/move/delete/corrupt/rebuild/5,000 files | PARTIAL — automated PASS + physical M01-M14 PASS by operator confirmation; measured evidence bundle/sign-off open |
-| TS-08 | [Paused restore](TS-08_PAUSED_RESTORE.md) | Versioned contract, migration/error, real process-loss proof | PARTIAL — automated PASS + R01-R12/process-loss execution PASS by operator confirmation; evidence bundle/sign-off open |
+| TS-01 | [Notification/foreground media](TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md) | Android 10/12/14+ automated AOSP coverage; Samsung physical permission/background/Settings/controller N01-N10; Pixel/Xiaomi physical rows waived | PARTIAL — execution PASS/waived + manifest/matrix prepared; raw artifacts/sign-off open |
+| TS-02 | [Lifecycle boundaries](TS-02_LIFECYCLE_BOUNDARIES.md) | Recreation, UI close, task removal, service/reconnect/process death | PARTIAL — execution PASS + manifest/matrix prepared; raw artifacts/sign-off open |
+| TS-06 | [MediaStore reconciliation](TS-06_MEDIASTORE_RECONCILIATION.md) | Permission/revocation/add/move/delete/corrupt/rebuild/5,000 files | PARTIAL — execution PASS + manifest/matrix prepared; M12/M13 measurements/raw artifacts/sign-off open |
+| TS-08 | [Paused restore](TS-08_PAUSED_RESTORE.md) | Versioned contract, migration/error, real process-loss proof | PARTIAL — execution PASS + manifest/matrix prepared; process-loss raw artifacts/sign-off open |
 
 ## Harness and result contract
 
