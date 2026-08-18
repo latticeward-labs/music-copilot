@@ -65,7 +65,11 @@ enum class RecognitionFailure {
 
 sealed interface VoiceEffect {
     data class SetDucking(val enabled: Boolean) : VoiceEffect
-    data class StartListening(val timeoutMillis: Long, val attempt: Int) : VoiceEffect
+    data class StartListening(
+        val timeoutMillis: Long,
+        val attempt: Int,
+        val sessionToken: Long,
+    ) : VoiceEffect
     data class Execute(val candidate: IntentCandidate) : VoiceEffect
     data class Speak(val sentence: String) : VoiceEffect
     data object ShowManualControls : VoiceEffect
