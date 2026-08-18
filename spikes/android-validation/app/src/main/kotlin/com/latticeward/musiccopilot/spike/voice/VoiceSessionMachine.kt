@@ -1,6 +1,11 @@
 package com.latticeward.musiccopilot.spike.voice
 
 class VoiceSessionMachine {
+    private var generation: Long = 0
+
+    var activeToken: Long = 0
+        private set
+
     var state: VoiceState = VoiceState.IDLE
         private set
 
@@ -18,14 +23,16 @@ class VoiceSessionMachine {
         attempt = 1
         retryAvailable = false
         terminalFailure = null
+        activeToken = ++generation
         state = VoiceState.LISTENING
         return listOf(
             VoiceEffect.SetDucking(true),
-            VoiceEffect.StartListening(LISTENING_TIMEOUT_MILLIS, attempt),
+            VoiceEffect.StartListening(LISTENING_TIMEOUT_MILLIS, attempt, activeToken),
         )
     }
 
-    fun onMapping(result: MappingResult): List<VoiceEffect> {
+    fun onMapping(sessionToken: Long, result: MappingResult): List<VoiceEffect> {
+        if (sessionToken != activeToken) return emptyList()
         check(state == VoiceState.LISTENING)
         state = VoiceState.PROCESSING
         return when (result) {
@@ -46,7 +53,11 @@ class VoiceSessionMachine {
         }
     }
 
-    fun onRecognitionFailure(failure: RecognitionFailure): List<VoiceEffect> {
+    fun onRecognitionFailure(
+        sessionToken: Long,
+        failure: RecognitionFailure,
+    ): List<VoiceEffect> {
+        if (sessionToken != activeToken) return emptyList()
         check(state == VoiceState.LISTENING || state == VoiceState.PROCESSING)
         val retryable = failure in RETRYABLE_FAILURES && attempt == 1
         return failSafely(failure, allowRetry = retryable)
@@ -57,10 +68,11 @@ class VoiceSessionMachine {
         attempt = 2
         retryAvailable = false
         terminalFailure = null
+        activeToken = ++generation
         state = VoiceState.LISTENING
         return listOf(
             VoiceEffect.SetDucking(true),
-            VoiceEffect.StartListening(LISTENING_TIMEOUT_MILLIS, attempt),
+            VoiceEffect.StartListening(LISTENING_TIMEOUT_MILLIS, attempt, activeToken),
         )
     }
 
