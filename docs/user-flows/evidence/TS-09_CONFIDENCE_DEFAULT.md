@@ -2,7 +2,7 @@
 
 **Blocks:** final UF-08/UF-09 contract and Issue #16  
 **Date:** 18 August 2026  
-**Automated result:** `PENDING_PR_CI`
+**Automated result:** **PASS — workflow run #8 on head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`**
 
 ## Problem
 
@@ -37,8 +37,8 @@ The product target of >=85% command success is not used as the confidence thresh
 - [x] Range validation rejects invalid, NaN, infinite, and out-of-range values.
 - [x] Last-valid/build-default fallback is deterministic and non-blocking.
 - [x] Remote config cannot widen scope or bypass confirmation.
-- [ ] Host unit tests PASS on the PR head.
+- [x] Host unit tests PASS on the validated code head.
 
 ## Decision boundary
 
-Passing TS-09 closes the safe-when-remote-unavailable contract for UF-08/UF-09. Issue #16 must formally adopt or evidence-adjust numeric values before production, while preserving the fail-closed behavior.
+**PASS at the safe-default/fallback contract level.** Issue #16 must formally adopt or evidence-adjust numeric values before production, while preserving the fail-closed behavior.
