@@ -1,0 +1,99 @@
+flowchart TB
+
+    subgraph ENTRY["UF-07 ENTRY"]
+        direction TB
+        E0["Home / Library, Full Player, or synchronized UF-06 surface"]
+        E1{"Entry source?"}
+        E2["P0 manual Enter"]
+        E3["P1 selected Bluetooth device connects"]
+        E4{"User explicitly accepts suggestion?"}
+        E5["Remain on non-driving surface\nPlayback unchanged\nNever auto-open"]
+        E6["Connect to existing service / MediaSession\nRequest complete authoritative snapshot\nExit / Cancel remains available"]
+        E7{"Complete snapshot available?"}
+        E8["Connecting / Reconnecting\nNo fabricated item, queue, state, or position"]
+        E0 --> E1
+        E1 -->|"Manual"| E2
+        E1 -->|"Bluetooth P1"| E3
+        E2 --> E6
+        E3 --> E4
+        E4 -->|"No / dismiss"| E5
+        E4 -->|"Yes"| E6
+        E6 --> E7
+        E7 -->|"No"| E8
+        E8 -->|"Retry"| E7
+    end
+
+    subgraph MODE["ONE-LAYER DRIVING MODE"]
+        direction TB
+        M0{"Authoritative playback state?"}
+        M1["PLAYING\nTitle + artist + artwork / placeholder\nPrevious | Pause | Next | Seek Back\nMicrophone | immediate Exit"]
+        M2["PAUSED / ENDED\nTitle + artist + artwork / placeholder\nPrevious | Play | Next | Seek Back\nMicrophone | immediate Exit\nNever auto-resume"]
+        M3["NO TRACK\nConcise message\nNo list, typing, Search, Queue, or Settings\nMicrophone | immediate Exit"]
+        E7 -->|"Yes"| M0
+        M0 -->|"Playing"| M1
+        M0 -->|"Paused / Ended"| M2
+        M0 -->|"No current playable item"| M3
+    end
+
+    subgraph COMMAND["MANUAL COMMAND ACKNOWLEDGEMENT"]
+        direction TB
+        C0["Submit Previous, Play / Pause, Next, or Seek Back\nthrough the same service command boundary"]
+        C1["Command pending\nKeep last verified state\nExit remains enabled"]
+        C2{"Service acknowledges with complete refresh?"}
+        C3["Replace UI with actual item, state, position capability, and supported actions"]
+        C4["Rejected / timeout / stale action\nShort recovery\nRefresh actual snapshot\nNever create a second player"]
+        M1 -->|"Manual control"| C0
+        M2 -->|"Manual control"| C0
+        C0 --> C1
+        C1 --> C2
+        C2 -->|"Yes"| C3
+        C2 -->|"No"| C4
+        C3 --> M0
+        C4 --> E7
+    end
+
+    subgraph EMPTY["NO TRACK BOUNDED RECOVERY"]
+        direction TB
+        N0{"One valid accessible last local item exists?"}
+        N1["Offer one Play fallback\nRevalidate before service command"]
+        N2["No playable fallback\nKeep concise state and immediate Exit"]
+        M3 --> N0
+        N0 -->|"Yes"| N1
+        N1 --> C0
+        N0 -->|"No"| N2
+    end
+
+    subgraph HANDOFF["CONTROLLED HANDOFFS"]
+        direction TB
+        H1["Explicit microphone tap\nVoice Overlay / session -> UF-08 and UF-10\nReturn context remains Driving Mode"]
+        H2["Call, Audio Focus, disconnect, or route change\nPolicy -> UF-11\nReflect service state and keep Exit"]
+        H3["Media access / item failure\nUF-02 / UF-03 / UF-05 recovery after Exit"]
+        M1 -.->|"Microphone"| H1
+        M2 -.->|"Microphone"| H1
+        M3 -.->|"Microphone"| H1
+        M1 -.->|"System event"| H2
+        M2 -.->|"System event"| H2
+        M3 -.->|"Access failure"| H3
+    end
+
+    subgraph EXIT["IMMEDIATE EXIT / SYSTEM BACK"]
+        direction TB
+        X0["Exit or Back from every pending or Driving state"]
+        X1["Return to last valid non-driving surface\nFallback Home / Library"]
+        X2["Playback unchanged\nNo Stop, Pause, Play, restart, queue clear, or rebuild"]
+        X0 --> X1 --> X2
+    end
+
+    E8 -->|"Exit / Cancel"| X0
+    M1 -->|"Exit / Back"| X0
+    M2 -->|"Exit / Back"| X0
+    M3 -->|"Exit / Back"| X0
+    C1 -->|"Exit"| X0
+    C4 -->|"Exit"| X0
+    N2 --> X0
+    H1 -.->|"Voice terminal / cancel"| M0
+    H2 -.->|"Service state resolved"| M0
+    H3 --> X0
+
+    I0["Invariant\nService / MediaSession is sole playback authority\nNo automatic Driving Mode launch\nNo personal media, Bluetooth identity, raw audio, or transcript in telemetry"]
+    M0 -.-> I0
