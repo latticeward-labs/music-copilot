@@ -1,11 +1,11 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress — Phase 0 and **Clusters A-E (UF-01 through UF-12) are complete; remaining flow is optional P2 UF-13 plus final complete-set approval**
+- **Status:** In progress — Phase 0 and **all individual flows UF-01 through UF-13 are COMPLETE / PASS; only final complete-set Product/Android approval remains**
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Evidence authority:** GitHub repository artifacts only
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
 
-This document is the repository index for User Flow artifacts. Issue #3 remains open until the complete UF-01 through UF-13 flow set and final issue-level approval are complete.
+This document is the repository index for User Flow artifacts. Every individual flow UF-01 through UF-13 is complete. Issue #3 remains open only for the separate complete-set Product/Android approval and final issue-level exit decision.
 
 ## Phase 0 foundation - complete
 
@@ -153,9 +153,26 @@ Cluster E passes English-source authority, detailed flow contracts, CE-01 throug
 
 This completion does not claim production implementation, physical Pixel/Samsung/Xiaomi call/route behavior, audible speaker-leak proof, any vehicle/head unit, provider deletion/legal completion, or exact retention durations. Those remain Issues #8/#12/#13/#16.
 
-## Remaining User Flow stage - UF-13 and final approval
+## UF-13 - optional P2 scope - COMPLETE / PASS
 
-The remaining catalog item is optional P2 **UF-13 Liked Songs**, followed by complete-set Product/Android approval and the Issue #3 exit decision.
+**Flow:** Like and Liked Songs  
+**Documentation and executable evidence closeout:** 19 August 2026  
+**Status:** **COMPLETE / PASS / SOURCE-ALIGNED at User Flow and executable reference-contract level**
+
+UF-13 passes English-source authority, FR-09/S-09/D-027 traceability, UL-01 through UL-14 State Inventory, canonical Mermaid parity, local Like/MediaStore ownership separation, Empty/Ready and stale-item reconciliation, service-owned playback handoff, privacy/accessibility review, eight host reference tests, and cross-role sign-off. Workflow run #25 passed build, host unit tests, strict lint, artifact creation, and AOSP API 29/31/34 instrumentation jobs on validated code head `9134e90e923343d3551258cbb3c756ae4cc7db2e`.
+
+### Repository records
+
+- [UF-13 connected review and exit](user-flows/UF-13_CONNECTED_REVIEW.md)
+- [UF-13 final cross-role sign-off](user-flows/UF-13_SIGNOFF_2026-08-19.md)
+- [UF-13 source authority](user-flows/UF-13_SOURCE_AUTHORITY.md)
+- [UF-13 detailed flow](user-flows/UF-13_LIKED_SONGS.md)
+- [UF-13 State Inventory](user-flows/UF-13_STATE_INVENTORY.md)
+- [UF-13 Traceability Matrix](user-flows/UF-13_TRACEABILITY_MATRIX.md)
+- [UF-13 canonical Mermaid](user-flows/mermaid/UF-13_LIKED_SONGS.md)
+- [UF-13 evidence summary](user-flows/evidence/UF-13_EVIDENCE_SUMMARY_2026-08-19.md)
+
+This completion does not claim production storage/UI/Media3 implementation, final sorting/schema/migration, physical-device evidence, Sprint capacity inclusion, Wireframes, final Software Architecture, or complete-set Issue #3 approval.
 
 ## Required flow catalog
 
@@ -173,7 +190,7 @@ The remaining catalog item is optional P2 **UF-13 Liked Songs**, followed by com
 | UF-10 | Voice timeout and retry | P0 | **Complete — Cluster D PASS** | one retry, manual fallback, playback preserved |
 | UF-11 | Calls, Audio Focus and route changes | P0 | **Complete — Cluster E PASS** | deterministic pause/duck/recovery; no unintended speaker output |
 | UF-12 | Settings, privacy and data clearing | P0 control surface | **Complete — Cluster E PASS** | Updated, cleared, consent-aware states |
-| UF-13 | Liked Songs | P2 | Not started / first complete cut | Empty, Ready; removable from schedule |
+| UF-13 | Liked Songs | P2 | **Complete — UF-13 PASS** | Empty, Ready, playback acknowledged, missing item reconciled; removable from schedule |
 
 ## State record template
 
@@ -193,8 +210,8 @@ Every state must record:
 
 ## Approval checklist
 
-- [ ] Every PRD/MVP P0 requirement maps to at least one completed User Flow across the full UF-01–UF-13 set.
-- [ ] Every flow includes happy, empty, error and recovery behavior where applicable across the full set.
+- [x] Every PRD/MVP P0 requirement maps to at least one completed User Flow across the full UF-01–UF-13 set.
+- [x] Every flow includes happy, empty, error and recovery behavior where applicable across the full set.
 - [x] Voice certainty, ambiguity, timeout, retry and not-found behavior are covered.
 - [x] Cluster A scope/recovery behavior is complete.
 - [x] UF-04 completes Songs/Artists/Albums/Folders browse and local Search behavior.
@@ -221,7 +238,11 @@ Every state must record:
 - [x] TS-04/TS-05/TS-10 reference contracts PASS; build/lint/host and AOSP API 29/31/34 12/12 PASS.
 - [x] Cluster E Product/Design/Android-contract/QA-testability/Privacy/Governance sign-off PASS.
 - [x] **Formal Cluster E User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
-- [ ] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
+- [x] UF-13 Like/Liked Songs Empty/Ready, playback acknowledgement, missing-item reconciliation, local ownership, privacy/accessibility, and P2 removability are complete.
+- [x] UF-13 source authority, UL-01 through UL-14 State Inventory, Traceability, Mermaid parity, connected review, and cross-role sign-off PASS.
+- [x] UF-13 eight host reference tests plus build/lint and AOSP API 29/31/34 jobs PASS in workflow #25.
+- [x] **Formal UF-13 User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
+- [x] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
 - [ ] Product and Android reviewers approve the complete Issue #3 flow set and state inventory.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
 
@@ -237,6 +258,10 @@ Every state must record:
 - [UF-07 Driving Mode](user-flows/UF-07_DRIVING_MODE.md)
 - [Cluster C State Inventory](user-flows/CLUSTER_C_STATE_INVENTORY.md)
 - [Cluster C Traceability Matrix](user-flows/CLUSTER_C_TRACEABILITY_MATRIX.md)
+- [UF-13 connected review / final exit](user-flows/UF-13_CONNECTED_REVIEW.md)
+- [UF-13 final cross-role sign-off](user-flows/UF-13_SIGNOFF_2026-08-19.md)
+- [UF-13 detailed flow](user-flows/UF-13_LIKED_SONGS.md)
+- [UF-13 evidence summary](user-flows/evidence/UF-13_EVIDENCE_SUMMARY_2026-08-19.md)
 - [Cluster B evidence index](user-flows/evidence/README.md)
 - [TS-01](user-flows/evidence/TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md)
 - [TS-02](user-flows/evidence/TS-02_LIFECYCLE_BOUNDARIES.md)
