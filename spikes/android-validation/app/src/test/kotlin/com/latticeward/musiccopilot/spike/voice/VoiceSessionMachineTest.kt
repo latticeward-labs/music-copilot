@@ -17,7 +17,7 @@ class VoiceSessionMachineTest {
         assertEquals(
             listOf(
                 VoiceEffect.SetDucking(true),
-                VoiceEffect.StartListening(6_000L, 1),
+                VoiceEffect.StartListening(6_000L, 1, machine.activeToken),
             ),
             effects,
         )
@@ -27,7 +27,7 @@ class VoiceSessionMachineTest {
     fun directIntentExecutesWithoutNavigationOrConfirmation() {
         val machine = VoiceSessionMachine()
         machine.start()
-        val effects = machine.onMapping(MappingResult.Recognized(next))
+        val effects = machine.onMapping(machine.activeToken, MappingResult.Recognized(next))
         assertEquals(VoiceState.PROCESSING, machine.state)
         assertTrue(effects.contains(VoiceEffect.Execute(next)))
     }
@@ -36,16 +36,16 @@ class VoiceSessionMachineTest {
     fun firstTimeoutOffersExactlyOneRetry() {
         val machine = VoiceSessionMachine()
         machine.start()
-        machine.onRecognitionFailure(RecognitionFailure.TIMEOUT)
+        machine.onRecognitionFailure(machine.activeToken, RecognitionFailure.TIMEOUT)
         assertEquals(VoiceState.FAILED, machine.state)
         assertTrue(machine.retryAvailable)
 
         val effects = machine.retry()
         assertEquals(VoiceState.LISTENING, machine.state)
         assertEquals(2, machine.attempt)
-        assertEquals(VoiceEffect.StartListening(6_000L, 2), effects.last())
+        assertEquals(VoiceEffect.StartListening(6_000L, 2, machine.activeToken), effects.last())
 
-        machine.onRecognitionFailure(RecognitionFailure.TIMEOUT)
+        machine.onRecognitionFailure(machine.activeToken, RecognitionFailure.TIMEOUT)
         assertFalse(machine.retryAvailable)
         assertEquals(VoiceState.FAILED, machine.state)
     }
@@ -55,6 +55,7 @@ class VoiceSessionMachineTest {
         val machine = VoiceSessionMachine()
         machine.start()
         val effects = machine.onMapping(
+            machine.activeToken,
             MappingResult.Unknown(MappingFailureReason.ARTIST_NOT_FOUND),
         )
         assertEquals(VoiceState.FAILED, machine.state)
@@ -72,6 +73,7 @@ class VoiceSessionMachineTest {
             0.84,
         )
         val effects = machine.onMapping(
+            machine.activeToken,
             MappingResult.Ambiguous(listOf(candidate), MappingFailureReason.LOW_CONFIDENCE),
         )
         assertEquals(VoiceState.CONFIRMING, machine.state)
@@ -85,7 +87,10 @@ class VoiceSessionMachineTest {
     fun unclearConfirmationFailsToManualControls() {
         val machine = VoiceSessionMachine()
         machine.start()
-        machine.onMapping(MappingResult.Ambiguous(listOf(next), MappingFailureReason.LOW_CONFIDENCE))
+        machine.onMapping(
+            machine.activeToken,
+            MappingResult.Ambiguous(listOf(next), MappingFailureReason.LOW_CONFIDENCE),
+        )
         val effects = machine.confirm(null)
         assertEquals(VoiceState.FAILED, machine.state)
         assertTrue(effects.contains(VoiceEffect.ShowManualControls))
@@ -95,7 +100,7 @@ class VoiceSessionMachineTest {
     fun ttsFailureNeverRollsBackExecutedCommand() {
         val machine = VoiceSessionMachine()
         machine.start()
-        machine.onMapping(MappingResult.Recognized(next))
+        machine.onMapping(machine.activeToken, MappingResult.Recognized(next))
         machine.onCommandAcknowledged("Next track")
         assertEquals(VoiceState.EXECUTED, machine.state)
         assertTrue(machine.onTtsFailure().isEmpty())
@@ -110,5 +115,19 @@ class VoiceSessionMachineTest {
         assertEquals(RecognitionFailure.CANCELLED, machine.terminalFailure)
         assertTrue(effects.contains(VoiceEffect.SetDucking(false)))
         assertTrue(effects.contains(VoiceEffect.ShowManualControls))
+    }
+
+    @Test
+    fun staleAttemptOneCallbackCannotExecuteDuringAttemptTwo() {
+        val machine = VoiceSessionMachine()
+        machine.start()
+        val attemptOneToken = machine.activeToken
+        machine.onRecognitionFailure(attemptOneToken, RecognitionFailure.TIMEOUT)
+        machine.retry()
+
+        val staleEffects = machine.onMapping(attemptOneToken, MappingResult.Recognized(next))
+        assertTrue(staleEffects.isEmpty())
+        assertEquals(VoiceState.LISTENING, machine.state)
+        assertTrue(machine.activeToken != attemptOneToken)
     }
 }
