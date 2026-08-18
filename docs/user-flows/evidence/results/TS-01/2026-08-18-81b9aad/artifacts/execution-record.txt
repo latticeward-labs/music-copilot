@@ -1,0 +1,35 @@
+TS-01 EXECUTION RECORD
+Date recorded: 2026-08-18
+Evidence type: operator-confirmed execution record + preserved console results
+
+AUTOMATED VALIDATION
+Command:
+  .\gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug --no-configuration-cache
+Observed result supplied by operator:
+  BUILD SUCCESSFUL in 1m 49s
+  53 actionable tasks: 30 executed, 23 up-to-date
+Result: PASS
+
+SAMSUNG CONNECTED INSTRUMENTATION
+Device: Samsung SM-M325FV
+Android: 13
+One UI: 5.1
+Command:
+  .\gradlew.bat :app:connectedDebugAndroidTest --no-build-cache --no-configuration-cache
+Observed result supplied by operator:
+  Starting 3 tests on SM-M325FV - 13
+  Finished 3 tests on SM-M325FV - 13
+  BUILD SUCCESSFUL in 31s
+  67 actionable tasks: 1 executed, 66 up-to-date
+Result: PASS
+
+PHYSICAL TS-01 MATRIX
+Samsung SM-M325FV / Android 13 / One UI 5.1: N01-N10 PASS by operator confirmation.
+Pixel/stock TS-01 physical row: Approved N/A / Waived by project-owner decision 2026-08-18.
+Xiaomi/MIUI/HyperOS TS-01 physical row: Approved N/A / Waived by project-owner decision 2026-08-18.
+
+OEM OBSERVATION
+Disabling Allow notifications while playback was active stopped playback on the tested Samsung. The operator compared this behavior with other music-player applications on the same environment and reported matching behavior. The project owner accepted this behavior for the TS-01 matrix.
+
+BOUNDARY
+This file records only outputs and decisions actually supplied/confirmed during execution. It is not a reconstructed timestamped state trace or logcat capture and contains no fabricated raw telemetry.
