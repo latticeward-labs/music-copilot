@@ -7,13 +7,11 @@
 
 ## Source policy
 
-Cluster B must be evaluated, maintained, and reviewed only against the **English MSM2 baseline** and the current controlled GitHub repository records.
-
-**Persian/Farsi PRD, MVP, architecture, technical, ADR, User Flow, or other translated snapshots are not Cluster B authorities and must not be used to change, justify, reopen, or invalidate Cluster B decisions.**
+Cluster B must be evaluated, maintained, and reviewed against the **English MSM2 baseline** and the current controlled GitHub repository records.
 
 ## MSM2 baseline
 
-The project-owner supplied archive `MSM2.rar` is the packaged baseline for this review. Its controlled English source set is:
+The project-owner supplied archive `MSM2.rar` is the packaged baseline for this review. Its controlled source set is:
 
 1. `Music_Copilot_PRD_v1_EN_Clarified.pdf`
 2. `Music_Copilot_MVP_v1_EN.pdf`
@@ -32,18 +30,18 @@ The project-owner supplied archive `MSM2.rar` is the packaged baseline for this 
 
 GitHub `main` is the current operational record and status authority. For Cluster B, the relevant controlled repository authorities are:
 
-- `docs/PRD.md` — repository representation of the authoritative English PRD v1.0.
-- `docs/MVP.md` — repository representation of the authoritative English MVP v1.0.
+- `docs/PRD.md` — repository representation of the authoritative PRD v1.0.
+- `docs/MVP.md` — repository representation of the authoritative MVP v1.0.
 - `docs/TECHNICAL_DECISIONS.md` and `docs/adr/` — accepted ADR decision/status record.
 - `docs/SOFTWARE_ARCHITECTURE.md` — downstream architecture baseline; open Issue #16 mechanics must not silently rewrite approved User Flow behavior.
 - `docs/USER_FLOWS.md` and `docs/user-flows/` — canonical User Flow, State Inventory, Traceability, review, and evidence records.
 - `docs/user-flows/evidence/` — Cluster B Technical Spike protocols and accepted evidence bundles.
 
-When an older packaged snapshot and current GitHub status metadata differ, the **English product/technical content remains bounded by the MSM2 baseline, while current GitHub decision/status records control present workflow state**. A later GitHub change may alter the baseline only through the project's explicit product/ADR/governance process; it may not silently introduce v1.1 or out-of-scope behavior.
+When an older packaged snapshot and current GitHub status metadata differ, product/technical content remains bounded by the MSM2 baseline, while current GitHub decision/status records control present workflow state. A later GitHub change may alter the baseline only through the project's explicit product/ADR/governance process; it may not silently introduce v1.1 or out-of-scope behavior.
 
 ## Cluster B source-derived constraints
 
-The Cluster B records must preserve the following English-source constraints:
+The Cluster B records must preserve the following source constraints:
 
 - Android 10+ only for MVP v1.0.
 - Lawful local audio only; no online catalog, streaming, download, account, backend, or sync.
