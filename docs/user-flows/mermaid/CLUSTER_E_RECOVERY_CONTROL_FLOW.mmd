@@ -1,0 +1,23 @@
+flowchart TD
+    A[Service playback snapshot] --> B{System or user event}
+    B -->|Call or transient focus loss| C[Cancel Voice and pause or duck]
+    C --> D{Four resume guards pass?}
+    D -->|Yes| E[Service acknowledges Resume]
+    D -->|No| F[Remain safe Paused]
+    B -->|Headset or Bluetooth disconnect| G[Invalidate route and pause immediately]
+    G --> H[Reconnect remains Paused]
+    H -->|Explicit Resume on valid route| E
+    B -->|Corrupt item| I{Playable next item?}
+    I -->|Yes| J[Controlled service skip]
+    I -->|No| K[End queue and manual recovery]
+    B -->|Open Settings outside driving| L[Settings and Privacy]
+    L --> M{Selected action}
+    M -->|Permission or provider| N[Android Settings then recheck]
+    M -->|Bluetooth P1| O[Save suggestion-only device]
+    M -->|Consent| P[Accept decline or revoke]
+    M -->|Clear data| Q[Select categories and confirm]
+    Q --> R[Clear selected local/provider boundaries]
+    R --> S[Cleared partial or retryable result]
+    E --> A
+    F --> A
+    J --> A
