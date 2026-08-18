@@ -107,7 +107,7 @@
 - [x] Cluster C evidence applicability and final cross-role sign-off recorded; no implementation/field evidence is claimed at this gate.
 - [x] TS-07 deterministic artist reference corpus and zero negative-row direct execution PASS.
 - [x] TS-09 safe build-default/range/last-valid fallback policy PASS; numeric production adoption remains #16.
-- [x] UF-08 through UF-10 Cluster D completed and reviewed; workflow run #8 build/lint/host PASS and AOSP API 29/31/34 12/12 PASS.
+- [x] UF-08 through UF-10 Cluster D completed and reviewed; final workflow run #17 build/lint/host PASS and AOSP API 29/31/34 12/12 PASS.
 - [ ] UF-11 through UF-13 completed and reviewed.
 - [x] Formal connected Cluster B diagram integration review recorded.
 - [x] Formal shared Cluster B State Inventory and Traceability decisions recorded.
@@ -117,7 +117,7 @@
 
 ## Technical Spike execution boundary
 
-The [evidence pack](evidence/README.md) and isolated non-production Android spike harness cover completed Cluster B and Cluster D contracts. Cluster B retains its accepted TS-01/02/06/08 evidence. Cluster D workflow run #8 passed build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 for TS-03/07/09 reference contracts. No physical/OEM provider, cloud processor, real audio/library, road-noise, vehicle, or Beta KPI is fabricated. The harness is not Issue #4's engineering foundation. Figma is not part of this User Flow stage.
+The [evidence pack](evidence/README.md) and isolated non-production Android spike harness cover completed Cluster B and Cluster D contracts. Cluster B retains its accepted TS-01/02/06/08 evidence. Cluster D final workflow run #17 passed build, strict lint, host unit tests, and AOSP API 29/31/34 instrumentation 12/12 for TS-03/07/09 reference contracts. No physical/OEM provider, cloud processor, real audio/library, road-noise, vehicle, or Beta KPI is fabricated. The harness is not Issue #4's engineering foundation. Figma is not part of this User Flow stage.
 
 ## Exit decision
 
