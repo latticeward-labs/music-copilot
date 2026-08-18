@@ -2,7 +2,7 @@
 
 **Scope:** TS-04, TS-05, TS-10 reference contracts  
 **Date:** 18 August 2026  
-**Status:** Pending PR workflow before final closeout
+**Status:** **PASS at executable reference-contract and AOSP regression level**
 
 ## Included seams
 
@@ -11,9 +11,17 @@
 - Host unit tests for deterministic positive, negative, stale, duplicate, and partial-failure rows.
 - Existing build/lint/AOSP instrumentation regression matrix remains active.
 
-## Required final record
+## Final workflow record
 
-After the PR workflow completes, record the validated code head, workflow run ID, build/lint/unit result, and AOSP API 29/31/34 regression result here. No physical/OEM/provider result may be inferred from CI.
+Workflow run #21 (`32189320160`) passed on code head `8c0cddd298932f7499a69b0ee0ea391ea46583e4`:
+
+- build, strict lint, host unit tests, and debug APK: PASS;
+- AOSP API 29 instrumentation: 4/4 PASS;
+- AOSP API 31 instrumentation: 4/4 PASS;
+- AOSP API 34 instrumentation: 4/4 PASS;
+- total AOSP regression executions: 12/12 PASS.
+
+The host suite includes the new TS-04/TS-05/TS-10 deterministic rows. AOSP instrumentation is retained regression coverage and does not simulate telephony, an audible route, an external diagnostic processor, or a vehicle.
 
 ## Truth boundary
 
