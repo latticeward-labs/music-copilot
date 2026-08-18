@@ -1,0 +1,22 @@
+TS-08 EXECUTION RECORD
+Date recorded: 2026-08-18
+Evidence type: project-owner/operator attestation based on completed paused-restore/process-loss testing
+
+SCENARIO RESULT
+R01-R12: PASS — operator confirmed.
+
+COVERAGE CONFIRMED
+Valid restore after real process loss; captured-while-playing restore to Paused; invalid current/non-current items; all-invalid/revoked recovery; invalid position handling; corrupt/torn snapshot fail-closed behavior; supported old migration; unsupported future version; repeated relaunch; live-service precedence; interrupted atomic write.
+
+CORE RESTORE CONTRACT RESULT
+- Restore output remains Paused.
+- No automatic playback after restore.
+- Explicit Resume is required to play.
+- Live MediaSessionService state wins when a live service exists.
+Result: PASS — operator confirmed.
+
+AUTOMATED BASELINE
+Cluster B automated AOSP validation is PASS and is indexed separately in the repository CI evidence record.
+
+BOUNDARY
+Raw timestamped process-loss traces/logcat were not supplied in the conversation. This file records the completed scenario result without manufacturing raw telemetry or reviewer signatures.
