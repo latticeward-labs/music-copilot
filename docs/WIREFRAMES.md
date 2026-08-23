@@ -2,7 +2,7 @@
 
 - **Status:** **READY FOR ISSUE #15 - User Flow/State/Golden synchronization PASS; Wireframes not yet approved**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) and [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
+- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), and [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md)
 - **Canonical workspace:** [`docs/wireframes/`](wireframes/)  
 - **Figma:** **N/A / Not Required**
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
@@ -63,4 +63,4 @@ Every frame must identify:
 - [Synchronized UF/State/GS design input](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
 - [GitHub-native Design Delivery Plan](DESIGN_DELIVERY_PLAN.md)
 
-No individual Wireframe is approved yet; Issue #15 must populate and review the workspace.
+The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. No individual Wireframe is approved yet; Issue #15 must populate and review the workspace.
