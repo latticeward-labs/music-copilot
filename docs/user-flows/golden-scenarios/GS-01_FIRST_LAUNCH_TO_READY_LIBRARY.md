@@ -6,6 +6,7 @@
 **Primary flows:** [UF-01](../UF-01_FIRST_LAUNCH_AND_EDUCATION.md) -> [UF-02](../UF-02_PERMISSION_RECOVERY.md) when needed -> [UF-03](../UF-03_LIBRARY_READINESS.md)  
 **Downstream handoff:** [UF-04](../UF-04_BROWSE_AND_SEARCH.md) / `CB-01`  
 **Canonical diagram:** [GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.mmd](GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.mmd)
+**Cross-scenario validation:** [PASS - connected handoffs, recovery and authority](CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 
 ## User goal and MVP boundary
 
