@@ -6,9 +6,9 @@ This directory contains the durable User Flow artifacts for Music Copilot MVP v1
 - **Official product authorities:** [PRD v1.0](../PRD.md) and [MVP v1.0](../MVP.md)
 - **Official source filenames:** `Music_Copilot_PRD_v1_EN_Clarified.pdf` and `Music_Copilot_MVP_v1_EN.pdf`
 - **Repository-level index:** [User Flows and State Inventory](../USER_FLOWS.md)
-- **Current gate:** **Cluster C UF-07 — PASS / COMPLETE / SOURCE-ALIGNED at User Flow stage**
-- **Active stage:** **Cluster D — UF-08/UF-09/UF-10 Voice**
-- **Complete User Flow approval:** Not yet granted; UF-08 through UF-13 and final Issue #3 approval remain open.
+- **Current gate:** **Phase 1 complete-set — PASS / COMPLETE / SOURCE-ALIGNED**
+- **Active stage:** **Issue #3 closeout; next gates are low-fidelity Wireframes and final Software Architecture**
+- **Complete User Flow approval:** Granted on 23 August 2026 for UF-01 through UF-13 and the complete State Inventory.
 
 If an artifact conflicts with the official English PRD or MVP, the PRD/MVP v1.0 authorities win. Issue #2 completed on 06 August 2026, and the current [ADR register](../adr/README.md) records ADR-0001 through ADR-0006 as **Accepted**.
 
@@ -29,9 +29,9 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 
 | Path | Purpose | Current status |
 |---|---|---|
-| [`mermaid/`](mermaid/) | Canonical diagrams for completed Clusters A-C, including UF-07 Driving Mode | Cluster A PASS; Cluster B PASS; Cluster C UF-07 parity PASS |
-| [`golden-scenarios/`](golden-scenarios/) | Stage 2 workspace for traceable Golden Scenario drafts | Initialized; scenario approval not granted |
-| [`evidence/`](evidence/) | Technical Spike protocols, accepted result bundles, and evidence governance | **Cluster B evidence PASS** |
+| [`mermaid/`](mermaid/) | Canonical diagrams for the completed UF-01 through UF-13 set | Cluster A/B/C/D/E and UF-13 parity records PASS |
+| [`golden-scenarios/`](golden-scenarios/) | Stage 2 workspace for traceable Golden Scenario drafts | Initialized; scenario approval remains a separate gate |
+| [`evidence/`](evidence/) | Technical Spike protocols, accepted result bundles, and evidence governance | **TS-01 through TS-10 mapped; recorded evidence gates PASS at their stated levels** |
 
 ## Direct artifact register
 
@@ -57,26 +57,28 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 | [`CLUSTER_C_CONNECTED_REVIEW.md`](CLUSTER_C_CONNECTED_REVIEW.md) | Cluster C connected review and User Flow exit decision | **PASS / COMPLETE** |
 | [`CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md`](CLUSTER_C_EVIDENCE_APPLICABILITY_2026-08-18.md) | Phase 0 spike audit, truthful CI/execution boundary, and downstream evidence routing | PASS / new UF-07 spike N/A |
 | [`CLUSTER_C_SIGNOFF_2026-08-18.md`](CLUSTER_C_SIGNOFF_2026-08-18.md) | Product/Design/Android-contract/QA-testability/Privacy/Governance final sign-off | **PASS / COMPLETE** |
-| [`PHASE_1_FIRST_READINESS.md`](PHASE_1_FIRST_READINESS.md) | Controlled Phase 1 gate record | Historical stage record |
-| [`PHASE_1_COMPLETION_CHECKLIST.md`](PHASE_1_COMPLETION_CHECKLIST.md) | Evidence-based pass/open checklist | **Cluster B formal exit PASS; later flows open** |
+| [`PHASE_1_FIRST_READINESS.md`](PHASE_1_FIRST_READINESS.md) | Controlled early Phase 1 checkpoint | Historical stage record; current status linked inside |
+| [`PHASE_1_TRACEABILITY_MATRIX.md`](PHASE_1_TRACEABILITY_MATRIX.md) | Complete US/FR/State/Recovery/Permission/ADR/Spike crosswalk | **PASS / COMPLETE** |
+| [`PHASE_1_SIGNOFF_2026-08-23.md`](PHASE_1_SIGNOFF_2026-08-23.md) | Complete-set cross-role consolidation and Issue #3 exit | **PASS / COMPLETE** |
+| [`PHASE_1_COMPLETION_CHECKLIST.md`](PHASE_1_COMPLETION_CHECKLIST.md) | Final evidence-based completion checklist | **PASS / COMPLETE** |
 
 ## Required flow catalog
 
 | ID | Flow | Priority | Status |
 |---|---|---:|---|
 | UF-01 | First launch and education | P0 | Complete |
-| UF-02 | Permission denial and Settings recovery | P0 | Complete for completed stages |
-| UF-03 | Local scan and library readiness | P0 | Complete for completed stages |
+| UF-02 | Permission denial and Settings recovery | P0 | Complete |
+| UF-03 | Local scan and library readiness | P0 | Complete |
 | UF-04 | Browse and search local music | P0 | **Complete — Cluster B PASS** |
 | UF-05 | Manual playback and queue control | P0 / P1 restore branch | **Complete — Cluster B PASS** |
 | UF-06 | Background, screen-off and system controls | P0 / P1 restore branch | **Complete — Cluster B PASS** |
 | UF-07 | Driving Mode entry, use and exit | P0 / P1 entry hint | **Complete — Cluster C PASS** |
-| UF-08 | Direct Voice command | P0 | Not complete |
-| UF-09 | Ambiguous or missing artist | P0 | Not complete |
-| UF-10 | Voice timeout and retry | P0 | Not complete |
-| UF-11 | Calls, Audio Focus and route changes | P0 | Not complete |
-| UF-12 | Settings, privacy and data clearing | P0 control surface | Not complete |
-| UF-13 | Liked Songs | P2 | Not complete / removable from schedule |
+| UF-08 | Direct Voice command | P0 | **Complete — Cluster D PASS** |
+| UF-09 | Ambiguous or missing artist | P0 | **Complete — Cluster D PASS** |
+| UF-10 | Voice timeout and retry | P0 | **Complete — Cluster D PASS** |
+| UF-11 | Calls, Audio Focus and route changes | P0 | **Complete — Cluster E PASS** |
+| UF-12 | Settings, privacy and data clearing | P0 control surface | **Complete — Cluster E PASS** |
+| UF-13 | Liked Songs | P2 | **Complete — UF-13 PASS; removable from release schedule** |
 
 ## Artifact rules
 
@@ -93,15 +95,14 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 11. Use the current GitHub ADR register for ADR status.
 12. Use CB-01 through CB-33 as the canonical shared Cluster B state identities.
 13. Use CC-01 through CC-18 as the canonical Cluster C state identities; preserve manual P0 entry, suggestion-only P1 Bluetooth entry, one-layer controls, immediate Exit, and service-owned playback truth.
-14. Do not claim later-flow, implementation, stationary/in-car QA, or final Issue #3 approval until corresponding evidence is recorded.
+14. Preserve the complete-set approval while keeping implementation, stationary/in-car QA, final provider/legal enablement, Wireframes, and final Software Architecture as separate downstream gates.
 
 ## Workflow
 
-1. Maintain requirement-to-flow traceability and Markdown/Mermaid parity.
-2. Preserve the completed Cluster B evidence/sign-off records as immutable historical closeout artifacts.
-3. Preserve the completed Cluster C UF-07 records, evidence-applicability decision, and final cross-role sign-off as the controlled Driving Mode User Flow contract.
-4. Proceed to **Cluster D / UF-08, UF-09, and UF-10 Voice flows**, then complete UF-11 through UF-13 in sequence.
-5. Produce any later Technical Spike evidence required by those flows, including TS-03 where applicable.
-6. Keep ADR references synchronized and route material architecture changes through Issue #16/new ADRs.
-7. Obtain final issue-level cross-role approval after the complete UF-01–UF-13 set is finished.
-8. Close Issue #3 only when its full acceptance criteria are satisfied.
+1. Preserve the complete [Phase 1 Traceability Matrix](PHASE_1_TRACEABILITY_MATRIX.md) and [complete-set sign-off](PHASE_1_SIGNOFF_2026-08-23.md) as the Issue #3 exit records.
+2. Keep Cluster/UF historical sign-offs and evidence boundaries intact; do not rewrite unavailable raw evidence.
+3. Route low-fidelity Wireframes to Issue #15 and final Software Architecture/mechanics to Issue #16.
+4. Record any material architecture change through a new/superseding ADR; do not silently rewrite Accepted ADR history.
+5. Keep P2 UF-13 removable from release capacity without reopening P0/P1 User Flow approval.
+6. Use GitHub as the canonical current-state and evidence authority for this stage.
+

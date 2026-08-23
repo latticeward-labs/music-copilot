@@ -5,7 +5,7 @@
 **Traceability date:** 06 August 2026  
 **Tracking:** GitHub Issue #3  
 **Shared Traceability decision:** **PASS**  
-**Formal Cluster B exit:** **OPEN**
+**Formal Cluster B exit:** **PASS / COMPLETE on 18 August 2026**
 
 ## Authority and controlled inputs
 
@@ -24,16 +24,16 @@ Controlled inputs:
 
 | Product requirement / story | Priority | Flow coverage | Canonical states / transitions | Recovery and handoff | Documentation result | Remaining evidence |
 |---|---:|---|---|---|---|---|
-| US-02 account-free local library precondition and lawful local-media use | P0 | UF-04, with UF-03 upstream | CB-01 through CB-13 | Revoked → UF-02; empty/stale/unknown → UF-03 | PASS | TS-06; role review |
-| PRD/MVP Library browse by Songs, Artists, Albums and Folders; FR-01 completion with UF-01/02/03 | P0 | UF-04 | CB-01 through CB-08; track selection → CB-13 | Query/index recovery; UF-02/03 | PASS at User Flow specification level | TS-06; Issue #15/#16 |
+| US-02 account-free local library precondition and lawful local-media use | P0 | UF-04, with UF-03 upstream | CB-01 through CB-13 | Revoked → UF-02; empty/stale/unknown → UF-03 | PASS | TS-06 PASS; cross-role review PASS |
+| PRD/MVP Library browse by Songs, Artists, Albums and Folders; FR-01 completion with UF-01/02/03 | P0 | UF-04 | CB-01 through CB-08; track selection → CB-13 | Query/index recovery; UF-02/03 | PASS at User Flow specification level | TS-06 PASS; presentation/mechanics remain Issue #15/#16 |
 | PRD/MVP local Search with Result, No Result and Error | P0 | UF-04 | CB-09 through CB-13 | Preserve query/library; no remote fallback; UF-02/03 when truth changes | PASS at User Flow specification level | TS-06; ranking/presentation in Issue #15/#16 |
-| FR-02 Basic Player and manual controls: Play, Pause, Next, Previous, Seek and Queue | P0 | UF-05 | CB-14 through CB-21 | CB-19 controlled skip; CB-21 reconnect; UF-02/03/04/11 handoffs | PASS at User Flow specification level | TS-02/06/08; numeric T_PREVIOUS; Issue #15/#16 |
-| US-03 truthful service-owned playback and synchronized visible state | P0 | UF-05 + UF-06 | CB-14 through CB-31 | Reconnect via CB-21; lifecycle loss only → CB-32/33 | PASS at User Flow specification level | TS-01/02; role review |
-| FR-02 active background/screen-off playback and system controls | P0 | UF-06 | CB-22 through CB-31 | Unsupported/absent surfaces remain truthful; interruptions/routes → UF-11 | PASS at User Flow specification level | TS-01/02; Issue #16 |
-| FR-08 queue/current-item/position restoration after active lifecycle loss | P1 | UF-05 + UF-06 | CB-25 → CB-32/33; explicit Resume → CB-14/15 | Invalid snapshot → CB-33 → CB-01/UF-04 | PASS for user-visible contract only | TS-08 representation/migration/error proof |
-| FR-03 call, Audio Focus and route recovery boundary | P0, downstream | UF-06 handoff; full behavior belongs to UF-11 | CB-28 route event → UF-11 | UF-11 must define pause/duck/resume and no-speaker-leak policy | Correctly bounded; not complete in Cluster B | UF-11 plus Android/QA evidence |
-| Driving Mode entry boundary | P0/P1 hint, downstream | UF-05 handoff; UI behavior belongs to UF-07 | CB-15/16 → UF-07 | Immediate exit/manual return remains UF-07 | Correctly bounded; not complete in Cluster B | UF-07 |
-| No account/backend/sync/catalog/streaming/upload/download/Android Auto/Cast/iOS/v1.1 | Locked exclusion | UF-04 + UF-05 + UF-06 | Applies to CB-01 through CB-33 | No alternate out-of-scope recovery | PASS | Governance review remains open |
+| FR-02 Basic Player and manual controls: Play, Pause, Next, Previous, Seek and Queue | P0 | UF-05 | CB-14 through CB-21 | CB-19 controlled skip; CB-21 reconnect; UF-02/03/04/11 handoffs | PASS at User Flow specification level | TS-02/06/08 PASS; numeric T_PREVIOUS and implementation mechanics remain Issue #15/#16 |
+| US-03 truthful service-owned playback and synchronized visible state | P0 | UF-05 + UF-06 | CB-14 through CB-31 | Reconnect via CB-21; lifecycle loss only → CB-32/33 | PASS at User Flow specification level | TS-01/02 PASS; cross-role review PASS |
+| FR-02 active background/screen-off playback and system controls | P0 | UF-06 | CB-22 through CB-31 | Unsupported/absent surfaces remain truthful; interruptions/routes → UF-11 | PASS at User Flow specification level | TS-01/02 PASS; implementation mechanics remain Issue #16 |
+| FR-08 queue/current-item/position restoration after active lifecycle loss | P1 | UF-05 + UF-06 | CB-25 → CB-32/33; explicit Resume → CB-14/15 | Invalid snapshot → CB-33 → CB-01/UF-04 | PASS for user-visible contract only | TS-08 PASS; production mechanics remain Issue #16 |
+| FR-03 call, Audio Focus and route recovery boundary | P0, downstream | UF-06 handoff; full behavior belongs to UF-11 | CB-28 route event → UF-11 | UF-11 defines pause/duck/resume and route-safety policy | Boundary-only within Cluster B; completed in UF-11 | UF-11 complete; physical/OEM evidence remains downstream |
+| Driving Mode entry boundary | P0/P1 hint, downstream | UF-05 handoff; UI behavior belongs to UF-07 | CB-15/16 → UF-07 | Immediate exit/manual return is defined by UF-07 | Boundary-only within Cluster B; completed in UF-07 | UF-07 complete |
+| No account/backend/sync/catalog/streaming/upload/download/Android Auto/Cast/iOS/v1.1 | Locked exclusion | UF-04 + UF-05 + UF-06 | Applies to CB-01 through CB-33 | No alternate out-of-scope recovery | PASS | Governance review PASS |
 
 ## Screen and surface coverage
 
@@ -95,7 +95,7 @@ Controlled inputs:
 | Accessible media identity/existence | MediaStore | ADR-0003 | CB-01 through CB-13, CB-19/32/33 | PASS |
 | Browse/Search projection | Derived, rebuildable local index | ADR-0003 | CB-01 through CB-12 | PASS |
 | Live player, queue, current item, state and position | Playback Service/MediaSession | ADR-0002 | CB-14 through CB-31 | PASS |
-| P1 local restore snapshot | App-owned local data after validation | ADR-0003 | CB-25/32/33 | PASS for user-visible boundary; TS-08 open |
+| P1 local restore snapshot | App-owned local data after validation | ADR-0003 | CB-25/32/33 | PASS; TS-08 evidence closed |
 | Native Android/UI and system surfaces | Android platform + controller snapshots | ADR-0001, ADR-0002 | CB-20 through CB-31 | PASS at specification level |
 | No backend/account/streaming | Product boundary | ADR-0006 | CB-01 through CB-33 | PASS |
 | Replaceable voice provider and six-intent mapper | Not exercised by Cluster B; later UF-08/09/10 | ADR-0004, ADR-0005 | No Cluster B state | Correctly excluded; no false coverage claim |
@@ -120,23 +120,23 @@ Controlled inputs:
 
 | Gate | Owner | Current state | What remains |
 |---|---|---|---|
-| TS-01 | Android + QA | BLOCKED | [Protocol complete](evidence/TS-01_NOTIFICATION_AND_FOREGROUND_MEDIA.md); execution absent |
-| TS-02 | Android + QA | BLOCKED | [Protocol complete](evidence/TS-02_LIFECYCLE_BOUNDARIES.md); execution absent |
-| TS-06 | Android + QA | BLOCKED | [Protocol complete](evidence/TS-06_MEDIASTORE_RECONCILIATION.md); execution absent |
-| TS-08 | Android + QA | BLOCKED | [Contract/protocol complete](evidence/TS-08_PAUSED_RESTORE.md); execution absent |
-| Issue #15 | Product Design | OPEN | Wireframes, hierarchy, presentation, accessibility interaction details |
-| Issue #16 | Product + Android | OPEN | Numeric T_PREVIOUS; query, service/controller, lifecycle and persistence mechanics |
-| Cross-role sign-off | Product, Design, Android, QA, Privacy | OPEN | Record actual reviewers, dates and decision |
+| TS-01 | Android + QA | PASS / approved N/A where recorded | Accepted immutable evidence bundle and sign-off |
+| TS-02 | Android + QA | PASS | Accepted immutable evidence bundle and sign-off |
+| TS-06 | Android + QA | PASS | Accepted immutable evidence bundle and retrospective raw-measurement waiver where recorded |
+| TS-08 | Android + QA | PASS | Accepted immutable evidence bundle and sign-off |
+| Issue #15 | Product Design | OPEN downstream | Wireframes, hierarchy, presentation, accessibility interaction details; not a Cluster B exit blocker |
+| Issue #16 | Product + Android | OPEN downstream | Numeric T_PREVIOUS; query, service/controller, lifecycle and persistence mechanics; not a Cluster B exit blocker |
+| Cross-role sign-off | Product, Design, Android, QA, Privacy, Governance | PASS | Recorded in `CLUSTER_B_SIGNOFF_2026-08-18.md` |
 | Connected-flow integration review | Repository review | PASS | Already recorded in CLUSTER_B_CONNECTED_REVIEW.md |
 | Shared State Inventory | Repository review | PASS | CB-01 through CB-33 complete |
 | Shared Traceability Matrix | Repository review | PASS | Requirement, screen, state, authority, recovery and evidence mappings complete |
 
 ## Technical Spike evidence mapping
 
-The [evidence index](evidence/README.md) is canonical: protocol PASS, execution BLOCKED. Figma is not a User Flow source or exit criterion.
+The [evidence index](evidence/README.md) is canonical: TS-01/02/06/08 execution/evidence and Cluster B sign-off are PASS at their recorded levels. Figma is not a User Flow source or exit criterion.
 
 ## Decision
 
 **PASS — Cluster B now has a formal shared Traceability Matrix with no unowned UF-04/05/06 state, missing connected-flow seam, or unrecorded recovery boundary.**
 
-This decision closes only the shared Traceability documentation gap. It does not grant executed Technical Spike evidence, cross-role approval, formal Cluster B exit, complete Issue #3 acceptance, Wireframe approval, final Software Architecture approval, or implementation approval.
+Executed Technical Spike evidence, cross-role approval, and the formal Cluster B exit were subsequently completed on 18 August 2026. This matrix still does not approve Wireframes, final Software Architecture, or production implementation; complete Issue #3 status is controlled by `PHASE_1_TRACEABILITY_MATRIX.md` and `PHASE_1_SIGNOFF_2026-08-23.md`.

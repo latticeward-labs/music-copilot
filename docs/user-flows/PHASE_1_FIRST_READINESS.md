@@ -1,3 +1,5 @@
+> **Historical checkpoint notice:** This file records the early Cluster A/B readiness checkpoint. The current UF-01 through UF-13 status is controlled by [`PHASE_1_TRACEABILITY_MATRIX.md`](PHASE_1_TRACEABILITY_MATRIX.md), [`PHASE_1_SIGNOFF_2026-08-23.md`](PHASE_1_SIGNOFF_2026-08-23.md), and [`../USER_FLOWS.md`](../USER_FLOWS.md).
+
 # Phase 1 - First Readiness
 
 **Product:** Music Copilot MVP v1.0  
@@ -56,6 +58,5 @@ Some historical raw runtime captures were not retained before the later immutabl
 
 ## Current workflow position
 
-Phase 1 work completed through Cluster B. Issue #3 remains open because UF-07 through UF-13 are not yet complete.
+At the date of this historical checkpoint, work had completed through Cluster B. Since then, Clusters C/D/E and UF-13 were completed and signed off. The phase-wide matrix and complete-set sign-off now record **PASS / COMPLETE**, and Issue #3 is approved for closure.
 
-The next active User Flow stage is **Cluster C beginning with UF-07 Driving Mode**.

@@ -1,3 +1,5 @@
+> **Historical checkpoint notice:** This review closed Cluster B on 18 August 2026. Later flows that were open at that time are now complete; current complete-set status is controlled by [`PHASE_1_TRACEABILITY_MATRIX.md`](PHASE_1_TRACEABILITY_MATRIX.md) and [`PHASE_1_SIGNOFF_2026-08-23.md`](PHASE_1_SIGNOFF_2026-08-23.md).
+
 # Cluster B — Connected Flow Review Record
 
 **Product:** Music Copilot MVP v1.0  
@@ -119,4 +121,4 @@ Issue #16 architecture mechanics remain downstream architecture decisions and ar
 
 UF-04, UF-05, and UF-06 specifications, the canonical connected diagram, shared State Inventory, shared Traceability Matrix, Technical Spike execution/evidence, source-authority audit, and accepted review decisions are complete for this stage.
 
-This completion does not close Issue #3 as a whole. UF-07 through UF-13 remain to be completed and reviewed. The next active User Flow stage is **Cluster C beginning with UF-07 Driving Mode**.
+At the time of this Cluster B checkpoint, the decision did not close Issue #3 because UF-07 through UF-13 still remained. Those later flows are now complete; the current issue-level decision is recorded in `PHASE_1_SIGNOFF_2026-08-23.md`.

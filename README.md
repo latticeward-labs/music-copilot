@@ -18,7 +18,7 @@ If a derived artifact conflicts with PRD v1.0 or MVP v1.0, the v1.0 product docu
 
 - Issue #1 — PRD/MVP scope lock: **Done**
 - Issue #2 — preliminary technical baseline and ADR review: **Done**
-- Issue #3 — User Flows and state inventory: **In Progress**
+- Issue #3 — User Flows and state inventory: **Done — complete-set approval recorded 23 August 2026**
 - Low-fidelity Wireframes and final Software Architecture approval follow before implementation foundation work.
 
 See the complete [Delivery Workflow and Approval Gates](docs/DELIVERY_WORKFLOW.md).
@@ -91,3 +91,4 @@ Development begins only from an Issue that satisfies the Definition of Ready in 
 - Consequential architecture changes require a new or superseding ADR
 
 Built by **Latticeward Labs**.
+

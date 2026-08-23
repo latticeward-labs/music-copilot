@@ -1,11 +1,11 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** In progress — Phase 0 and **all individual flows UF-01 through UF-13 are COMPLETE / PASS; only final complete-set Product/Android approval remains**
+- **Status:** **COMPLETE / PASS — UF-01 through UF-13 and the complete State Inventory were approved as a source-aligned set on 23 August 2026**
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Evidence authority:** GitHub repository artifacts only
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
 
-This document is the repository index for User Flow artifacts. Every individual flow UF-01 through UF-13 is complete. Issue #3 remains open only for the separate complete-set Product/Android approval and final issue-level exit decision.
+This document is the repository index for User Flow artifacts. Every individual flow UF-01 through UF-13 is complete, the phase-wide traceability audit has passed, and Issue #3 is approved for closure as completed. See the [complete Phase 1 Traceability Matrix](user-flows/PHASE_1_TRACEABILITY_MATRIX.md) and [complete flow-set sign-off](user-flows/PHASE_1_SIGNOFF_2026-08-23.md).
 
 ## Phase 0 foundation - complete
 
@@ -18,7 +18,7 @@ This document is the repository index for User Flow artifacts. Every individual 
 
 **Flows:** UF-01, UF-02, UF-03  
 **Decision date:** 01 August 2026  
-**Status boundary:** Cluster A is complete. At its 01 August decision, later clusters were still pending; they are now individually complete, while Issue #3 remains open for final complete-set approval.
+**Status boundary:** Cluster A is complete. At its 01 August decision, later clusters were still pending; they are now individually complete and the 23 August complete-set approval closes the Issue #3 User Flow gate.
 
 ### Repository records
 
@@ -243,12 +243,14 @@ Every state must record:
 - [x] UF-13 eight host reference tests plus build/lint and AOSP API 29/31/34 jobs PASS in workflow #25.
 - [x] **Formal UF-13 User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
 - [x] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
-- [ ] Product and Android reviewers approve the complete Issue #3 flow set and state inventory.
+- [x] Product/Design/Android-contract/QA-testability/Privacy/Governance complete-set approval is recorded in `PHASE_1_SIGNOFF_2026-08-23.md`.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
 
 ## Artifact links
 
 - [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md)
+- [Phase 1 complete Traceability Matrix](user-flows/PHASE_1_TRACEABILITY_MATRIX.md)
+- [Phase 1 complete flow-set sign-off](user-flows/PHASE_1_SIGNOFF_2026-08-23.md)
 - [Cluster A - First Readiness](user-flows/CLUSTER_A_FIRST_READINESS.md)
 - [Cluster B connected review / final exit](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
 - [Cluster B final cross-role sign-off](user-flows/CLUSTER_B_SIGNOFF_2026-08-18.md)
