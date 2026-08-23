@@ -4,7 +4,8 @@
 **Decision date:** 23 August 2026  
 **Scope:** GS-01 through GS-05; P0/P1 Golden Scenario definition  
 **Input gate:** [Phase 1 complete-set](../PHASE_1_TRACEABILITY_MATRIX.md) - PASS / COMPLETE  
-**Decision:** **PASS / COMPLETE / SOURCE-ALIGNED at scenario-contract level**
+**Decision:** **PASS / COMPLETE / SOURCE-ALIGNED at scenario-contract level**  
+**Connected validation:** [Cross-scenario handoff, recovery and authority audit](CROSS_SCENARIO_VALIDATION_2026-08-23.md) — **PASS**
 
 ## Authority and interpretation
 
@@ -92,8 +93,9 @@ Every meaningful primary-path failure has a linked recovery owner and a non-cras
 | GS-03 | Present | Present | PASS |
 | GS-04 | Present | Present | PASS |
 | GS-05 | Present | Present | PASS |
+| Connected GS-01..05 validation | Present | Present | PASS |
 
 ## Stage 2 decision
 
-**PASS / COMPLETE / SOURCE-ALIGNED.** The five required Golden Scenarios are defined, traceable to every P0/P1 User Story and Functional Requirement, connected to explicit State/Recovery/Permission/ADR/Spike contracts, and bounded against unsupported evidence claims. Proceed to low-fidelity Wireframes (Issue #15) and final Software Architecture (Issue #16) as separate gates.
+**PASS / COMPLETE / SOURCE-ALIGNED.** The five required Golden Scenarios are defined, cross-scenario handoffs/recovery/authority have passed the connected validation, and the set is traceable to every P0/P1 User Story and Functional Requirement, connected to explicit State/Recovery/Permission/ADR/Spike contracts, and bounded against unsupported evidence claims. Proceed to low-fidelity Wireframes (Issue #15) and final Software Architecture (Issue #16) as separate gates.
 
