@@ -44,6 +44,7 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 | [`golden-scenarios/CROSS_SCENARIO_VALIDATION_2026-08-23.md`](golden-scenarios/CROSS_SCENARIO_VALIDATION_2026-08-23.md) | GS-01..05 parity, handoff, recovery-loop and source-of-truth validation | **PASS / COMPLETE** |
 | [`golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md`](golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md) | Consolidated Stage 2 cross-role decision and non-claim boundary | **PASS / APPROVED** |
 | [`design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md`](design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md) | 13 UF / 126 State / 5 GS / 10-screen synchronization; external-workfile disposition | **PASS / COMPLETE; Figma N/A** |
+| [`design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md`](design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md) | Named Product/UX/Android/QA/Privacy evidence review and findings | **PASS for synchronized input; downstream holds preserved** |
 | [`PHASE_0_FOUNDATION.md`](PHASE_0_FOUNDATION.md) | Phase 0 terminology, decision, contradiction, and evidence-routing foundation | Complete |
 | [`CLUSTER_A_FIRST_READINESS.md`](CLUSTER_A_FIRST_READINESS.md) | Connected UF-01/02/03 contract and limited Cluster A decision | Complete |
 | [`UF-01_FIRST_LAUNCH_AND_EDUCATION.md`](UF-01_FIRST_LAUNCH_AND_EDUCATION.md) | First launch, resume, replay, education, readiness handoff | Complete for completed stage |
