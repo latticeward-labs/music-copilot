@@ -1,0 +1,13 @@
+flowchart TD
+    A["CB-15 Playing: service-owned session"] --> B["CB-22 active-session handoff"]
+    B --> C["CB-23 app background / UI absent"]
+    C --> D["CB-24 screen off or device locked"]
+    D --> E["CB-26/27/28 compatible system controller"]
+    E --> F["CB-29 command pending"]
+    F -- Acknowledged --> G["Service updates actual state and all surfaces"]
+    F -- Rejected or stale --> R["Refresh; preserve last verified state"]
+    R --> E
+    G --> H["CB-21 app return and complete snapshot reconnect"]
+    H --> I["Success: UI and system surfaces converge"]
+    C -- Active lifecycle lost --> Q["CB-32 valid Paused Restore or CB-33 unavailable"]
+    Q --> H
