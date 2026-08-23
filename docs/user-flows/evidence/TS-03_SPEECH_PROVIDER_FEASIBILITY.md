@@ -3,7 +3,8 @@
 **Blocks:** final UF-08, UF-10, UF-12 contract and Voice Beta provider enablement  
 **Date:** 18 August 2026  
 **Automated result:** **PASS — final workflow run #17 on code head `f0cee7606dd1c2899b7a145ea072c747041da444`**  
-**Provider/device result:** No physical/OEM provider claim; safe default is Manual Only unless capability and disclosure gates pass
+**Provider/device result:** No physical/OEM provider claim; safe default is Manual Only unless capability and disclosure gates pass  
+**Latest automated revalidation:** **PASS — [workflow run #32](https://github.com/latticeward-labs/music-copilot/actions/runs/32640155802); 4/4 host provider-policy tests and the AOSP platform probe on API 29/31/34 passed; see the [23 August record](TS-01_TS-03_TS-06_REVALIDATION_2026-08-23.md)**
 
 ## Question
 
