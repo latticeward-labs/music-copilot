@@ -12,6 +12,7 @@
 - UF-01 through UF-13: PASS / COMPLETE / SOURCE-ALIGNED.
 - TS-01 through TS-10: mapped and closed at their explicitly recorded evidence/reference-policy levels.
 - Five paired Markdown/Mermaid Golden Scenario records with primary success, recovery, privacy, accessibility and non-claim boundaries.
+- [Cross-scenario validation](CROSS_SCENARIO_VALIDATION_2026-08-23.md): 5/5 scenario parity, 8/8 handoffs, 6/6 recovery families and 6/6 source-of-truth contracts PASS.
 
 This record consolidates the already-approved Phase 1 role contracts plus the project owner's explicit instruction to complete Stage 2. It does not invent individual reviewer names, meetings, device runs or field evidence.
 
@@ -37,7 +38,8 @@ This record consolidates the already-approved Phase 1 role contracts plus the pr
 | Permission/consent/data boundaries are explicit | PASS |
 | Accepted ADR influence and TS-01..10 boundaries remain visible | PASS |
 | Analytics/privacy and accessibility/driving constraints are represented | PASS |
-| Embedded Mermaid and paired `.mmd` sources are logically identical | PASS |
+| Embedded Mermaid and paired `.mmd` sources are logically identical | PASS — five scenario pairs plus connected-validation pair |
+| Cross-scenario handoffs, recovery loops and authority ownership are conflict-free | PASS |
 | Scope exclusions and P2 removability remain intact | PASS |
 | Review basis and decision date are recorded without fabricated identities/evidence | PASS |
 
