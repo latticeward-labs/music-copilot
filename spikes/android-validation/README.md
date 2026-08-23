@@ -46,6 +46,8 @@ A successful build/emulator run alone never approves production provider enablem
 
 Cluster D reference contracts were first validated in PR #26 workflow run #8 on code head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`: build/lint/host tests PASS and AOSP API 29/31/34 instrumentation 12/12 PASS.
 
-## 23 August 2026 revalidation trigger
+## 23 August 2026 revalidation
 
-This documentation-only harness marker requests a fresh GitHub Actions execution against the current post-Phase-1 code state. The run revalidates the automated portions of TS-01, TS-03, and TS-06 together with the complete regression suite. It does not replace historical physical/OEM evidence, waive a new requirement, or claim a production speech provider.
+PR [#29](https://github.com/latticeward-labs/music-copilot/pull/29) triggered [workflow run #32](https://github.com/latticeward-labs/music-copilot/actions/runs/32640155802) against code head `c9f3f56619102a2a634211360a09d8beb2a826f4`; all jobs passed. The run produced 59/59 passing host tests, zero lint issues, a debug APK, and 12/12 passing AOSP API 29/31/34 instrumentation checks.
+
+The detailed TS-01/TS-03/TS-06 outcomes, artifact IDs/digests, and non-claim boundaries are recorded in [`TS-01_TS-03_TS-06_REVALIDATION_2026-08-23.md`](../../docs/user-flows/evidence/TS-01_TS-03_TS-06_REVALIDATION_2026-08-23.md). This run does not replace historical physical/OEM evidence, waive a new requirement, or claim a production speech provider.
