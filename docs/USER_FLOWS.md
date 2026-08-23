@@ -18,6 +18,7 @@ The five scenarios compose UF-01 through UF-12 into controlled end-to-end outcom
 
 - [Golden Scenario index](user-flows/golden-scenarios/README.md)
 - [Stage 2 traceability matrix](user-flows/golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md)
+- [Cross-scenario validation](user-flows/golden-scenarios/CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 - [Stage 2 sign-off](user-flows/golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md)
 
 ## Phase 0 foundation - complete
@@ -256,6 +257,7 @@ Every state must record:
 - [x] UF-13 eight host reference tests plus build/lint and AOSP API 29/31/34 jobs PASS in workflow #25.
 - [x] **Formal UF-13 User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
 - [x] GS-01 through GS-05 are approved with paired Markdown/Mermaid artifacts and complete recovery/authority boundaries.
+- [x] Cross-scenario validation passes 5/5 scenario parity, 8/8 handoffs, 6/6 recovery families and 6/6 source-of-truth contracts.
 - [x] Stage 2 maps every P0 User Story and FR plus separable P1 contracts; P2 UF-13 remains explicitly non-blocking.
 - [x] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
 - [x] Product/Design/Android-contract/QA-testability/Privacy/Governance complete-set approval is recorded in `PHASE_1_SIGNOFF_2026-08-23.md`.
@@ -268,6 +270,7 @@ Every state must record:
 - [Phase 1 complete flow-set sign-off](user-flows/PHASE_1_SIGNOFF_2026-08-23.md)
 - [Stage 2 Golden Scenario index](user-flows/golden-scenarios/README.md)
 - [Stage 2 Traceability Matrix](user-flows/golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md)
+- [Stage 2 Cross-scenario Validation](user-flows/golden-scenarios/CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 - [Stage 2 sign-off](user-flows/golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md)
 - [Cluster A - First Readiness](user-flows/CLUSTER_A_FIRST_READINESS.md)
 - [Cluster B connected review / final exit](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
