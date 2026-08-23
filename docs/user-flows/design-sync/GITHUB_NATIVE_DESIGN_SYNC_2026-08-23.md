@@ -116,7 +116,7 @@ No external design service is required. If a design service is introduced later,
 | System-only transitions identified without invented screens | PASS |
 | Permission/consent, playback, provider and route authorities conflict-free | PASS |
 | P0/P1/P2 separation and UF-13 removability preserved | PASS |
-| Repository relative-link audit | `LINK_AUDIT_PLACEHOLDER` |
+| Repository relative-link audit | PASS — 9 control documents, 223 link occurrences, 100 unique relative targets (including 5 repository-directory targets), 0 broken |
 | Figma account/file/page/node dependency | N/A / none |
 | Unsupported product/runtime/physical claim audit | PASS |
 
