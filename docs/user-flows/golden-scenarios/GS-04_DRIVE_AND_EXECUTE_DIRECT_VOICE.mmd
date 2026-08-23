@@ -1,0 +1,17 @@
+flowchart TD
+    A["CC-01 non-driving source with verified service state"] --> B["CC-02 manual Driving Mode entry"]
+    B --> C["CC-05/06/07 truthful one-layer Driving state"]
+    C --> D["Explicit mic tap: CC-14 / CD-02"]
+    D -- Unavailable --> R["CD-21/22/23 Manual Only; UF-12 outside driving"]
+    R --> C
+    D -- Ready --> E["CD-03 Listening; duck; six-second limit"]
+    E --> F["CD-05 deterministic processing"]
+    F -- Ambiguous --> Q["UF-09 one bounded confirmation"]
+    Q -- Confirmed candidate --> G
+    Q -- Rejected or not found --> M["Manual state preserved"]
+    M --> C
+    F -- Failure --> P["UF-10 one Retry then manual fallback"]
+    P --> C
+    F -- Certain NEXT --> G["CD-06 submit exactly one command"]
+    G --> H["CD-07 acknowledged execution and short response"]
+    H --> I["CC-05 refreshed next track; no new screen"]
