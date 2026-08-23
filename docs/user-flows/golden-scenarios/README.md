@@ -22,6 +22,7 @@ The durable `golden-scenarios` workspace composes approved User Flows into five 
 Supporting controls:
 
 - [Stage 2 traceability matrix](STAGE_2_TRACEABILITY_MATRIX.md)
+- [Cross-scenario validation](CROSS_SCENARIO_VALIDATION_2026-08-23.md) — **PASS; 8 handoffs, 6 recovery families and 6 source-of-truth contracts validated**
 - [Stage 2 sign-off](STAGE_2_SIGNOFF_2026-08-23.md)
 - [Phase 1 complete-set sign-off](../PHASE_1_SIGNOFF_2026-08-23.md)
 - [Technical Spike evidence index](../evidence/README.md)
@@ -61,7 +62,7 @@ GS-##_OUTCOME_NAME.md
 GS-##_OUTCOME_NAME.mmd
 ```
 
-The embedded Mermaid block is logically identical to the paired `.mmd` source. Parity was validated for all five pairs at the Stage 2 gate.
+The embedded Mermaid block is logically identical to the paired `.mmd` source. Parity was validated for all five scenario pairs at the Stage 2 gate. The connected [Cross-scenario Validation](CROSS_SCENARIO_VALIDATION_2026-08-23.md) and its [raw Mermaid source](CROSS_SCENARIO_VALIDATION_2026-08-23.mmd) form a sixth parity-checked pair.
 
 ## Source-of-truth invariants
 
@@ -83,7 +84,8 @@ The embedded Mermaid block is logically identical to the paired `.mmd` source. P
 | Explicit success authorities and recovery seams | PASS |
 | Permission, consent, privacy and accessibility coverage | PASS |
 | ADR/spike status and non-claim boundaries | PASS |
-| Markdown/Mermaid parity | PASS |
+| Markdown/Mermaid parity | PASS — 5/5 scenario pairs plus connected validation pair |
+| Cross-scenario handoff/recovery/authority validation | PASS — 8/8 handoffs, 6/6 recovery families, 6/6 authorities |
 | Scope/P1/P2 separation | PASS |
 | Consolidated review decision and date | PASS |
 
