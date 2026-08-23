@@ -1,7 +1,7 @@
 # Technical Spike Evidence Index - Completed Clusters B, D, E, and UF-13
 
 **Scope:** Cluster B UF-04 through UF-06; Cluster D UF-08 through UF-10; Cluster E UF-11 through UF-12; optional P2 UF-13  
-**Date:** 06 August 2026; formal evidence closeout 18–19 August 2026  
+**Date:** 06 August 2026; formal evidence closeout 18–19 August 2026; current-main revalidation 23 August 2026  
 **Tracking:** Issue #3  
 **Authority:** `MSM2.rar` English baseline + GitHub `main` only  
 **Authority record:** [`../CLUSTER_B_SOURCE_AUTHORITY.md`](../CLUSTER_B_SOURCE_AUTHORITY.md)  
@@ -16,7 +16,14 @@
 **Formal Cluster B Technical Spike evidence gate:** **PASS**  
 **Cluster D executable spike-contract gate:** **PASS — TS-03/TS-07/TS-09; final workflow run #17**  
 **Cluster E executable reference-contract gate:** **PASS — TS-04/TS-05/TS-10; workflow run #21**  
-**UF-13 executable reference-contract gate:** **PASS — eight Like/Liked Songs host tests; workflow run #25**
+**UF-13 executable reference-contract gate:** **PASS — eight Like/Liked Songs host tests; workflow run #25**  
+**Latest TS-01/TS-03/TS-06 automated revalidation:** **PASS — workflow run #32 on validated head `c9f3f56619102a2a634211360a09d8beb2a826f4`; 59/59 host tests, zero lint issues, debug APK, and 12/12 AOSP instrumentation checks passed**
+
+## 23 August 2026 current-main revalidation
+
+[TS-01 / TS-03 / TS-06 automated revalidation record](TS-01_TS-03_TS-06_REVALIDATION_2026-08-23.md) records PR #29 and [workflow run #32](https://github.com/latticeward-labs/music-copilot/actions/runs/32640155802) against validated head `c9f3f56619102a2a634211360a09d8beb2a826f4`, merged to main as `c8f7e585ea54f530b021aa48c1891f04243de131`. Build, 59/59 host tests, strict lint with zero issues, the debug APK, and 12/12 AOSP API 29/31/34 instrumentation checks passed.
+
+The run freshly validates TS-01 service ownership, TS-03 fail-closed provider policy/platform probing, and TS-06 synthetic MediaStore/reconciliation contracts. It does not re-run or replace historical physical/OEM evidence and waivers, approve a speech provider/legal disclosure, or claim fresh real-device 5,000-file performance measurements.
 
 ## Source boundary
 
@@ -126,4 +133,4 @@ No personal titles, artists, albums, folders, paths, URIs, MediaStore IDs, raw a
 
 **Cluster B Technical Spike execution gate plus Cluster D, E, and UF-13 executable reference-contract gates: PASS / SOURCE-ALIGNED.**
 
-This decision retains Cluster B TS-01/TS-02/TS-06/TS-08 closure and closes the Cluster D TS-03/TS-07/TS-09, Cluster E TS-04/TS-05/TS-10, and UF-13 User Flow/reference-contract evidence under the English MSM2/GitHub authority policy. It does not close Issue #3 or the final complete-set approval gate, enable an unverified provider, claim physical route/vehicle/Like persistence behavior, or approve final Software Architecture/implementation.
+This decision retains Cluster B TS-01/TS-02/TS-06/TS-08 closure and closes the Cluster D TS-03/TS-07/TS-09, Cluster E TS-04/TS-05/TS-10, and UF-13 User Flow/reference-contract evidence under the English MSM2/GitHub authority policy. Issue #3 was subsequently closed by the Phase 1 complete-set sign-off. This revalidation does not enable an unverified provider, create new physical/OEM/performance claims, claim physical route/vehicle/Like persistence behavior, or approve final Software Architecture/implementation.
