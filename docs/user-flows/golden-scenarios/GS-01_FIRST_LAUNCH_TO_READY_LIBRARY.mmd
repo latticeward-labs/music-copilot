@@ -1,0 +1,14 @@
+flowchart TD
+    A["S-01 Splash: verified startup"] --> B["S-02 Onboarding: continue or skip"]
+    B --> C["Explain local-media access"]
+    C --> D{"P-MEDIA granted?"}
+    D -- No --> R["UF-02: Retry, Not now, or explicit Settings"]
+    R --> D
+    D -- Yes --> E["S-04: consented MediaStore scan"]
+    E --> F{"Verified result"}
+    F -- Recoverable failure --> Q["UF-03: retry or reconcile"]
+    Q --> E
+    F -- Empty --> H["Truthful Empty library"]
+    F -- Ready --> G["Ready local library / CB-01 handoff"]
+    G --> I["CA-01 six-command education; Practice optional"]
+    I --> J["Success: account-free manual library ready"]
