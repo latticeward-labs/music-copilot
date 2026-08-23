@@ -9,7 +9,7 @@ Music Copilot MVP v1.0 is an Android 10+ application that plays lawful audio alr
 1. [PRD v1.0](docs/PRD.md) — approved product requirements
 2. [MVP v1.0](docs/MVP.md) — execution and validation plan
 3. Accepted [Architecture Decision Records](docs/adr/README.md)
-4. Approved [Software Architecture baseline](docs/SOFTWARE_ARCHITECTURE.md)
+4. Current [Technical Decisions baseline](docs/TECHNICAL_DECISIONS.md); final Software Architecture remains a separate approval gate
 5. Derived User Flows, Wireframes, design artifacts and GitHub Issues
 
 If a derived artifact conflicts with PRD v1.0 or MVP v1.0, the v1.0 product documents win.
@@ -75,7 +75,7 @@ Streaming, downloads, accounts, backend, cloud sync, advanced playlists/social, 
 
 10. [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
 11. [ADR Register](docs/adr/README.md)
-12. [Software Architecture Baseline](docs/SOFTWARE_ARCHITECTURE.md)
+12. [Architecture gate and current boundary](docs/DESIGN_DELIVERY_PLAN.md#gate-c---architecture-feasibility)
 13. [Voice Contract](docs/VOICE_CONTRACT.md)
 14. [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
 15. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
