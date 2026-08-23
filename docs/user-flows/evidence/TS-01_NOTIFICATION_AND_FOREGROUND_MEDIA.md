@@ -3,7 +3,8 @@
 **Status:** **PASS — automated AOSP evidence PASS; Samsung physical N01-N10 PASS; Pixel/stock and Xiaomi/MIUI-HyperOS physical TS-01 rows APPROVED N/A / WAIVED; accepted evidence bundle and Android/QA approval attestations recorded**  
 **Owner:** Android + QA  
 **Blocks:** Final UF-02/UF-06 and Issue #16  
-**Result root:** `docs/user-flows/evidence/results/TS-01/`
+**Result root:** `docs/user-flows/evidence/results/TS-01/`  
+**Latest automated revalidation:** **PASS — [workflow run #32](https://github.com/latticeward-labs/music-copilot/actions/runs/32640155802); service-ownership instrumentation passed on AOSP API 29/31/34; see the [23 August record](TS-01_TS-03_TS-06_REVALIDATION_2026-08-23.md)**
 
 > The accepted execution bundle is `results/TS-01/2026-08-18-81b9aad/`. Historical raw captures that were not retained are covered by the explicit one-time `CLUSTER_B_EVIDENCE_RETENTION_WAIVER_2026-08-18.md`; the bundle records derived attestations rather than inventing raw data. Personal media data and unrelated logs remain prohibited.
 
