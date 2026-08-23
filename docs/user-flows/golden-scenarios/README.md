@@ -1,83 +1,90 @@
-# Stage 2 — Golden Scenarios
+# Stage 2 - Golden Scenarios
 
-This directory is the Stage 2 workspace for Golden Scenarios. The directory uses the durable artifact name `golden-scenarios` instead of a generic `Phase-2` name so the scenarios remain discoverable and reusable during Wireframes, QA and implementation.
+**Product:** Music Copilot MVP v1.0  
+**Status:** **PASS / APPROVED / COMPLETE / SOURCE-ALIGNED**  
+**Decision date:** 23 August 2026  
+**Input gate:** [Phase 1 UF-01 through UF-13](../PHASE_1_TRACEABILITY_MATRIX.md) - PASS / COMPLETE  
+**Tracking context:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) is closed for the complete User Flow set  
+**Authorities:** [English PRD v1.0](../../PRD.md), [English MVP v1.0](../../MVP.md), current GitHub User Flows, Accepted ADR register and Technical Spike evidence
 
-- **Input gate:** Stage 1 Cluster A Traceability Matrix — **PASS**
-- **Overall User Flow status:** In progress
-- **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
-- **Authorities:** [PRD v1.0](../../PRD.md), [MVP v1.0](../../MVP.md), and the [User Flow workspace rules](../README.md)
-- **Canonical Stage 1 evidence:** [State Inventory and Traceability](../mermaid/01_6_STATE_INVENTORY_AND_TRACEABILITY.md) and [Review Record](../mermaid/01_7_REVIEW_AND_APPROVAL_RECORD.md)
+The durable `golden-scenarios` workspace composes approved User Flows into five primary end-to-end outcomes for Wireframes, Software Architecture and QA planning. Persian/Farsi PRD/MVP translations are excluded as product authorities.
 
-Creating this workspace does not mark Stage 2 complete, approve UF-04 through UF-13, accept the proposed ADRs, close Issue #3, or authorize Wireframes or implementation.
+## Approved scenario set
 
-## Purpose
+| Scenario | Primary outcome | Flow coverage | Priority | Status |
+|---|---|---|---:|---|
+| [GS-01 - First Launch to Ready Library](GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md) | New user reaches a truthful account-free Ready local library | UF-01 -> UF-02 as needed -> UF-03; UF-04 handoff | P0 | APPROVED |
+| [GS-02 - Find Music and Start Playback](GS-02_FIND_MUSIC_AND_START_PLAYBACK.md) | Ready user finds accessible local music and begins acknowledged playback | UF-04 -> UF-05; UF-02/03 recovery | P0 | APPROVED |
+| [GS-03 - Continue Playback Outside the App](GS-03_CONTINUE_PLAYBACK_OUTSIDE_APP.md) | Background/screen-off/system controllers converge on one MediaSession | UF-05 -> UF-06; UF-11 handoff | P0 + P1 restore | APPROVED |
+| [GS-04 - Drive and Execute a Direct Voice Command](GS-04_DRIVE_AND_EXECUTE_DIRECT_VOICE.md) | Explicit Driving Mode + mic tap executes one direct NEXT command | UF-07 -> UF-08; UF-09/10/11/12 recovery | P0 + optional P1 hint | APPROVED |
+| [GS-05 - Recover Safely from an Interruption](GS-05_RECOVER_SAFELY_FROM_INTERRUPTION.md) | Calls/focus/routes settle to conditional Resume or Safe Paused | UF-11 with UF-05/06; UF-12 recovery | P0 | APPROVED |
 
-A Golden Scenario describes a primary successful end-to-end user outcome. It must stay connected to its source User Flows and requirements, and it must reference valid recovery branches at every meaningful failure point.
+Supporting controls:
 
-A Golden Scenario is not:
+- [Stage 2 traceability matrix](STAGE_2_TRACEABILITY_MATRIX.md)
+- [Stage 2 sign-off](STAGE_2_SIGNOFF_2026-08-23.md)
+- [Phase 1 complete-set sign-off](../PHASE_1_SIGNOFF_2026-08-23.md)
+- [Technical Spike evidence index](../evidence/README.md)
 
-- a replacement for the complete User Flow set;
-- a happy-path-only screen list;
-- a Wireframe or visual design;
-- an implementation specification;
-- evidence that an ADR or technical spike has been approved.
+## Coverage decision
+
+- `US-01` through `US-07`: covered.
+- P0 `FR-01` through `FR-06`: covered.
+- P1 `FR-07` and `FR-08`: covered and remain separable/removable where specified.
+- P2 `FR-09` / UF-13: already approved at User Flow/reference-contract level but intentionally not a required Golden Scenario; release inclusion remains capacity-dependent and non-blocking.
+- UF-01 through UF-12: represented as a primary chain, handoff or mandatory recovery owner.
+- ADR-0001 through ADR-0006: Accepted and mapped without changing their decisions.
+- TS-01 through TS-10: mapped at their recorded evidence levels; no reference-policy result is promoted into an unperformed physical/OEM/provider/legal/vehicle/Beta claim.
 
 ## Required scenario record
 
-Every `GS-##` document must include:
+Every `GS-##` document contains:
 
-| Field | Required content |
+| Field | Controlled content |
 |---|---|
-| Scenario ID and title | Stable `GS-##` identifier and outcome-oriented name |
-| User goal | The value the user is trying to obtain |
-| Priority and scope | P0/P1/P2 and explicit MVP v1.0 boundary |
-| Entry state | Verified preconditions and source-of-truth state |
-| Covered flows | Exact `UF-##` chain |
-| Requirement mapping | User Stories, FRs and acceptance criteria |
-| Primary success path | Numbered user/system sequence |
-| Success state | Observable terminal state and authoritative owner |
-| Recovery references | Links to denial, empty, error, interruption and retry branches |
-| Data and permissions | MediaStore/index/playback/permission/consent boundaries |
-| ADR influence | Relevant ADRs with their actual governance status |
-| Open evidence | Technical spikes, unresolved decisions and review blockers |
-| Analytics/privacy | Allowed measurement without personal media or raw Voice data |
-| Accessibility/driving | Applicable non-visual, touch-target and distraction constraints |
-| Review status | Draft, In Review or Approved, with reviewer/date when real |
+| Identity and goal | Stable ID, outcome-oriented title and user value |
+| Scope | P0/P1/P2 boundary and explicit exclusions |
+| Entry / success | Verified preconditions, terminal state and source of truth |
+| Traceability | Exact UF, US, FR, State, Permission/Consent, ADR and Spike mapping |
+| Primary sequence | Numbered user/system path with acknowledgement boundaries |
+| Recovery | Denial, empty, error, interruption, retry and terminal-safe references |
+| Data/privacy | MediaStore/index/service/provider boundaries and prohibited payloads |
+| Accessibility/driving | TalkBack, contrast, scalable text, 48dp and distraction limits |
+| Review | Decision, date, evidence basis and non-claim boundary |
 
-## Initial scenario backlog
+## Artifact convention and parity
 
-These are planning candidates, not approved scenario definitions.
-
-| Candidate | Intended outcome | Expected flow coverage | Status |
-|---|---|---|---|
-| GS-01 — First Launch to Ready Library | A new user reaches a truthful Ready or Empty local library without an account | UF-01 → UF-02 as needed → UF-03; UF-04 remains required for full browse behavior | Planned |
-| GS-02 — Find Music and Start Playback | A ready user finds local music and begins authoritative playback | UF-04 → UF-05 | Blocked until UF-04/UF-05 are drafted |
-| GS-03 — Continue Playback Outside the App | Playback remains synchronized in background, screen-off and system controls | UF-05 → UF-06 | Blocked until UF-05/UF-06 and TS-01 evidence |
-| GS-04 — Drive and Execute a Direct Voice Command | A user enters Driving Mode and completes an allowed push-to-talk command | UF-07 → UF-08; UF-09/UF-10 referenced for recovery | Blocked until Voice flows and TS-03 evidence |
-| GS-05 — Recover Safely from an Interruption | Playback responds deterministically to calls, Audio Focus or route changes | UF-11 with UF-05/UF-06 state | Blocked until UF-11 is drafted |
-
-## File convention
-
-Use paired files when a scenario includes Mermaid:
+Each scenario has a reviewable Markdown record and a canonical raw Mermaid source:
 
 ```text
-GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md
-GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.mmd
+GS-##_OUTCOME_NAME.md
+GS-##_OUTCOME_NAME.mmd
 ```
 
-The `.md` file is the reviewable scenario record. The `.mmd` file is the canonical raw diagram source. The Mermaid block embedded in Markdown must remain logically identical to the paired `.mmd` file.
+The embedded Mermaid block is logically identical to the paired `.mmd` source. Parity was validated for all five pairs at the Stage 2 gate.
+
+## Source-of-truth invariants
+
+1. Android permission state controls access.
+2. MediaStore controls accessible media existence/identity; the local index is derived/rebuildable.
+3. Playback Service/MediaSession alone controls live queue, item, state and position.
+4. Voice recognition/provider/TTS/analytics never become playback authority.
+5. P0 live service continuity is distinct from P1 Paused Restore; restore requires explicit Resume.
+6. Route disconnect pauses immediately; reconnect never auto-resumes.
+7. Remote speech processing requires complete truthful disclosure and separate consent; otherwise Manual Only.
+8. No account, backend, cloud sync, online catalog, streaming, upload/download, Android Auto, Cast, iOS or v1.1 capability is introduced.
 
 ## Stage 2 exit gate
 
-Stage 2 can be marked complete only when:
+| Criterion | Result |
+|---|---|
+| Five agreed Golden Scenario records | PASS |
+| Exact US/FR/UF/state traceability | PASS |
+| Explicit success authorities and recovery seams | PASS |
+| Permission, consent, privacy and accessibility coverage | PASS |
+| ADR/spike status and non-claim boundaries | PASS |
+| Markdown/Mermaid parity | PASS |
+| Scope/P1/P2 separation | PASS |
+| Consolidated review decision and date | PASS |
 
-- the required Golden Scenario set is agreed and documented;
-- every scenario maps to explicit User Stories, FRs and `UF-##` records;
-- success states and sources of truth are explicit;
-- every meaningful failure point references a valid recovery path;
-- open ADR/spike/Figma dependencies remain visible;
-- Markdown/Mermaid parity is validated;
-- scope exclusions remain intact;
-- the required reviewers and decision date are recorded.
-
-Until then, all scenario entries remain Draft or Planned.
+**Final gate:** **PASS / APPROVED / COMPLETE.** These scenario contracts may proceed to Issue #15 low-fidelity Wireframes and Issue #16 final Software Architecture. They do not approve production implementation, physical vehicle execution, Release Candidate or Closed Beta results.
