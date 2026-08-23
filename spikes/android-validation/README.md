@@ -45,3 +45,7 @@ Instrumentation retains synthetic MediaStore/service checks and adds a platform 
 A successful build/emulator run alone never approves production provider enablement, final numeric thresholds, a real-device quality KPI, Issue #10/#11/#13, or Issue #16.
 
 Cluster D reference contracts were first validated in PR #26 workflow run #8 on code head `38d71c7a3bf14b6a0afc99e507b07fdad5399a86`: build/lint/host tests PASS and AOSP API 29/31/34 instrumentation 12/12 PASS.
+
+## 23 August 2026 revalidation trigger
+
+This documentation-only harness marker requests a fresh GitHub Actions execution against the current post-Phase-1 code state. The run revalidates the automated portions of TS-01, TS-03, and TS-06 together with the complete regression suite. It does not replace historical physical/OEM evidence, waive a new requirement, or claim a production speech provider.
