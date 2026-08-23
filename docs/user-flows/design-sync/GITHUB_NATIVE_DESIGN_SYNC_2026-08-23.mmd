@@ -1,0 +1,11 @@
+flowchart TD
+    A["English PRD/MVP authority"] --> B["GitHub-native design-sync baseline"]
+    C["UF-01..13 and 126 canonical states"] --> B
+    D["GS-01..05 plus cross-scenario validation"] --> B
+    E["Accepted ADRs and TS evidence boundaries"] --> B
+    F["Figma account/workfile: N/A"] -. No dependency .-> B
+    B --> G["Issue #15: repository-native low-fidelity wireframes"]
+    B --> H["Issue #16: final Software Architecture input"]
+    G --> I["Issue #17: repository-native UI system/prototype"]
+    H --> I
+    I --> J["Implementation handoff after separate approvals"]
