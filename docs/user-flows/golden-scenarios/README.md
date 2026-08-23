@@ -26,6 +26,7 @@ Supporting controls:
 - [Stage 2 sign-off](STAGE_2_SIGNOFF_2026-08-23.md)
 - [Phase 1 complete-set sign-off](../PHASE_1_SIGNOFF_2026-08-23.md)
 - [Technical Spike evidence index](../evidence/README.md)
+- [GitHub-native UF/State/GS Design Sync](../design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md) — **PASS; Figma N/A / Not Required**
 
 ## Coverage decision
 

@@ -5,6 +5,7 @@
 - **Evidence authority:** GitHub repository artifacts only
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
 - **Golden Scenario gate:** **PASS / APPROVED / COMPLETE — 23 August 2026**
+- **Design synchronization gate:** **PASS / COMPLETE — GitHub-native; Figma N/A / Not Required**
 
 This document is the repository index for User Flow artifacts. Every individual flow UF-01 through UF-13 is complete, the phase-wide traceability audit has passed, Issue #3 is closed, and the five Stage 2 Golden Scenario contracts are approved. See the [complete Phase 1 Traceability Matrix](user-flows/PHASE_1_TRACEABILITY_MATRIX.md), [flow-set sign-off](user-flows/PHASE_1_SIGNOFF_2026-08-23.md), and [Stage 2 Golden Scenario index](user-flows/golden-scenarios/README.md).
 
@@ -20,6 +21,7 @@ The five scenarios compose UF-01 through UF-12 into controlled end-to-end outcom
 - [Stage 2 traceability matrix](user-flows/golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md)
 - [Cross-scenario validation](user-flows/golden-scenarios/CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 - [Stage 2 sign-off](user-flows/golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md)
+- [GitHub-native UF/State/GS Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
 
 ## Phase 0 foundation - complete
 
@@ -291,4 +293,4 @@ Every state must record:
 - [TS-06](user-flows/evidence/TS-06_MEDIASTORE_RECONCILIATION.md)
 - [TS-08](user-flows/evidence/TS-08_PAUSED_RESTORE.md)
 
-Figma is not a User Flow source, dependency, or exit criterion. GitHub is the canonical evidence authority for this stage.
+Figma is formally N/A / Not Required and is not a User Flow source, dependency or exit criterion. [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md) is the canonical handoff to repository-native Wireframes and downstream design/architecture gates.
