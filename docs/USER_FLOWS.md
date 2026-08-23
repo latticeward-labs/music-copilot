@@ -21,7 +21,6 @@ The five scenarios compose UF-01 through UF-12 into controlled end-to-end outcom
 - [Stage 2 traceability matrix](user-flows/golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md)
 - [Cross-scenario validation](user-flows/golden-scenarios/CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 - [Stage 2 sign-off](user-flows/golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md)
-- [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
 - [GitHub-native UF/State/GS Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
 
 ## Phase 0 foundation - complete
