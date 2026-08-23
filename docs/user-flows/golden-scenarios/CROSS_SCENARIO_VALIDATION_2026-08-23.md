@@ -88,7 +88,7 @@ The five scenario pairs are canonical. This connected validation also has a pair
 | Handoff validations | 8/8 PASS |
 | Recovery-family validations | 6/6 PASS |
 | Source-of-truth validations | 6/6 PASS |
-| Relative Markdown file links | `LINK_AUDIT_PLACEHOLDER` |
+| Relative Markdown file links | 87 unique targets checked; 0 broken |
 | Unsupported-scope/provider/physical claim audit | PASS |
 
 ## Canonical connected flow
