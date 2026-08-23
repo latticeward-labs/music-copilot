@@ -1,0 +1,12 @@
+flowchart TD
+    A["CB-01 Ready local library"] --> B["Choose Songs, Artist, Album, Folder, or Search"]
+    B --> C["Verified visible local collection"]
+    C --> D["Select a track"]
+    D --> E["CB-13 access and MediaStore revalidation"]
+    E -- Invalid --> R["UF-02/UF-03 recovery; preserve browse context"]
+    R --> A
+    E -- Valid --> F["CB-14 submit visible collection and selected index"]
+    F -- Rejected --> Q["Keep prior queue and source context"]
+    Q --> C
+    F -- Service acknowledged --> G["CB-15 Full Player Playing"]
+    G --> H["Success: one service-owned queue and actual state"]

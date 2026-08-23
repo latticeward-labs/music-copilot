@@ -6,8 +6,8 @@ This directory contains the durable User Flow artifacts for Music Copilot MVP v1
 - **Official product authorities:** [PRD v1.0](../PRD.md) and [MVP v1.0](../MVP.md)
 - **Official source filenames:** `Music_Copilot_PRD_v1_EN_Clarified.pdf` and `Music_Copilot_MVP_v1_EN.pdf`
 - **Repository-level index:** [User Flows and State Inventory](../USER_FLOWS.md)
-- **Current gate:** **Phase 1 complete-set — PASS / COMPLETE / SOURCE-ALIGNED**
-- **Active stage:** **Issue #3 closeout; next gates are low-fidelity Wireframes and final Software Architecture**
+- **Current gate:** **Stage 2 Golden Scenarios — PASS / APPROVED / COMPLETE / SOURCE-ALIGNED**
+- **Active stage:** **Stage 2 complete; next gates are Issue #15 low-fidelity Wireframes and Issue #16 final Software Architecture**
 - **Complete User Flow approval:** Granted on 23 August 2026 for UF-01 through UF-13 and the complete State Inventory.
 
 If an artifact conflicts with the official English PRD or MVP, the PRD/MVP v1.0 authorities win. Issue #2 completed on 06 August 2026, and the current [ADR register](../adr/README.md) records ADR-0001 through ADR-0006 as **Accepted**.
@@ -30,7 +30,7 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 | Path | Purpose | Current status |
 |---|---|---|
 | [`mermaid/`](mermaid/) | Canonical diagrams for the completed UF-01 through UF-13 set | Cluster A/B/C/D/E and UF-13 parity records PASS |
-| [`golden-scenarios/`](golden-scenarios/) | Stage 2 workspace for traceable Golden Scenario drafts | Initialized; scenario approval remains a separate gate |
+| [`golden-scenarios/`](golden-scenarios/) | Stage 2 GS-01 through GS-05 scenario contracts, Mermaid, traceability and sign-off | **PASS / APPROVED / COMPLETE** |
 | [`evidence/`](evidence/) | Technical Spike protocols, accepted result bundles, and evidence governance | **TS-01 through TS-10 mapped; recorded evidence gates PASS at their stated levels** |
 
 ## Direct artifact register
@@ -38,6 +38,9 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 | Artifact | Purpose | Controlled status |
 |---|---|---|
 | [`README.md`](README.md) | Workspace index, authority, catalog, and artifact rules | Current |
+| [`golden-scenarios/README.md`](golden-scenarios/README.md) | GS-01 through GS-05 Stage 2 scenario index and exit gate | **PASS / COMPLETE** |
+| [`golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md`](golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md) | GS/UF/US/FR/State/Permission/ADR/Spike crosswalk | **PASS / COMPLETE** |
+| [`golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md`](golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md) | Consolidated Stage 2 cross-role decision and non-claim boundary | **PASS / APPROVED** |
 | [`PHASE_0_FOUNDATION.md`](PHASE_0_FOUNDATION.md) | Phase 0 terminology, decision, contradiction, and evidence-routing foundation | Complete |
 | [`CLUSTER_A_FIRST_READINESS.md`](CLUSTER_A_FIRST_READINESS.md) | Connected UF-01/02/03 contract and limited Cluster A decision | Complete |
 | [`UF-01_FIRST_LAUNCH_AND_EDUCATION.md`](UF-01_FIRST_LAUNCH_AND_EDUCATION.md) | First launch, resume, replay, education, readiness handoff | Complete for completed stage |
@@ -100,9 +103,10 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 ## Workflow
 
 1. Preserve the complete [Phase 1 Traceability Matrix](PHASE_1_TRACEABILITY_MATRIX.md) and [complete-set sign-off](PHASE_1_SIGNOFF_2026-08-23.md) as the Issue #3 exit records.
-2. Keep Cluster/UF historical sign-offs and evidence boundaries intact; do not rewrite unavailable raw evidence.
-3. Route low-fidelity Wireframes to Issue #15 and final Software Architecture/mechanics to Issue #16.
-4. Record any material architecture change through a new/superseding ADR; do not silently rewrite Accepted ADR history.
-5. Keep P2 UF-13 removable from release capacity without reopening P0/P1 User Flow approval.
-6. Use GitHub as the canonical current-state and evidence authority for this stage.
+2. Use the approved [Stage 2 Golden Scenarios](golden-scenarios/README.md), [traceability matrix](golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md), and [sign-off](golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md) as controlled input to Issues #15/#16; release-level vehicle execution remains downstream.
+3. Keep Cluster/UF historical sign-offs and evidence boundaries intact; do not rewrite unavailable raw evidence.
+4. Route low-fidelity Wireframes to Issue #15 and final Software Architecture/mechanics to Issue #16.
+5. Record any material architecture change through a new/superseding ADR; do not silently rewrite Accepted ADR history.
+6. Keep P2 UF-13 removable from release capacity without reopening P0/P1 User Flow approval.
+7. Use GitHub as the canonical current-state and evidence authority for this stage.
 

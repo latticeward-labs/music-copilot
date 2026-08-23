@@ -1,0 +1,13 @@
+flowchart TD
+    A["CE-01 Stable Playing on valid route"] --> B{"Platform event"}
+    B -- Transient call/focus loss --> C["CE-02 cancel Voice and pause or duck"]
+    C --> D["CE-03 resume-eligible Pause or CE-04 Duck"]
+    D --> E{"All four resume guards pass?"}
+    E -- Yes --> F["CE-05 one service-owned Resume acknowledgement"]
+    F --> G["CE-01 synchronized Playing"]
+    E -- No --> H["CE-06 Safe Paused; explicit Resume only"]
+    B -- Route disconnect --> I["CE-07 immediate Pause and route invalidation"]
+    I --> J["CE-08 disconnected Safe Paused"]
+    J --> K["CE-09 reconnect remains Paused"]
+    K --> H
+    H -- Valid route and explicit Resume --> G
