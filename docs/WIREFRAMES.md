@@ -1,9 +1,10 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** Blocked by User Flow approval
+- **Status:** **READY FOR ISSUE #15 - User Flow/State/Golden synchronization PASS; Wireframes not yet approved**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Depends on:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
-- **Workfile:** [Music Copilot — MVP v1.0](https://www.figma.com/design/MKQWSMNkUFG5H6GNRU7GYF)
+- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) and [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
+- **Canonical workspace:** [`docs/wireframes/`](wireframes/)  
+- **Figma:** **N/A / Not Required**
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
 
 Wireframes validate structure, navigation, information hierarchy, controls, feedback and recovery. They do not approve final color, typography, illustration or animation.
@@ -54,8 +55,12 @@ Every frame must identify:
 - [ ] Voice ambiguity and failure states are understandable without a new complex screen.
 - [ ] Background and interruption handoffs are annotated.
 - [ ] Product, Design and Android feasibility review is complete.
-- [ ] Approved Figma page links and review date are recorded below.
+- [ ] Approved repository artifact links, source UF/State/GS IDs and review date are recorded below.
 
-## Approved artifact links
+## Repository-native artifact locations
 
-_To be completed by Issue #15._
+- [Wireframe workspace and artifact convention](wireframes/README.md)
+- [Synchronized UF/State/GS design input](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
+- [GitHub-native Design Delivery Plan](DESIGN_DELIVERY_PLAN.md)
+
+No individual Wireframe is approved yet; Issue #15 must populate and review the workspace.
