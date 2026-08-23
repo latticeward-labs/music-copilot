@@ -6,6 +6,7 @@
 **Primary flows:** [UF-04](../UF-04_BROWSE_AND_SEARCH.md) -> [UF-05](../UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md)  
 **Recovery owners:** [UF-02](../UF-02_PERMISSION_RECOVERY.md), [UF-03](../UF-03_LIBRARY_READINESS.md)  
 **Canonical diagram:** [GS-02_FIND_MUSIC_AND_START_PLAYBACK.mmd](GS-02_FIND_MUSIC_AND_START_PLAYBACK.mmd)
+**Cross-scenario validation:** [PASS - connected handoffs, recovery and authority](CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 
 ## User goal and MVP boundary
 

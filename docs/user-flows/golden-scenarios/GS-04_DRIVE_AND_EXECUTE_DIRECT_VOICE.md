@@ -6,6 +6,7 @@
 **Primary flows:** [UF-07](../UF-07_DRIVING_MODE.md) -> [UF-08](../UF-08_DIRECT_VOICE.md)  
 **Required recovery flows:** [UF-09](../UF-09_AMBIGUITY_NOT_FOUND.md), [UF-10](../UF-10_TIMEOUT_RETRY.md), [UF-11](../UF-11_INTERRUPTION_AUDIO_ROUTE.md), [UF-12](../UF-12_SETTINGS_PRIVACY.md)  
 **Canonical diagram:** [GS-04_DRIVE_AND_EXECUTE_DIRECT_VOICE.mmd](GS-04_DRIVE_AND_EXECUTE_DIRECT_VOICE.mmd)
+**Cross-scenario validation:** [PASS - connected handoffs, recovery and authority](CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 
 ## User goal and MVP boundary
 

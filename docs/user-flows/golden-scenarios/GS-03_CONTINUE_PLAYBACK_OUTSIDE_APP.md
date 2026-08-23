@@ -6,6 +6,7 @@
 **Primary flows:** [UF-05](../UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md) -> [UF-06](../UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)  
 **Route/interruption handoff:** [UF-11](../UF-11_INTERRUPTION_AUDIO_ROUTE.md)  
 **Canonical diagram:** [GS-03_CONTINUE_PLAYBACK_OUTSIDE_APP.mmd](GS-03_CONTINUE_PLAYBACK_OUTSIDE_APP.mmd)
+**Cross-scenario validation:** [PASS - connected handoffs, recovery and authority](CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 
 ## User goal and MVP boundary
 

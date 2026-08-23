@@ -6,6 +6,7 @@
 **Primary flow:** [UF-11](../UF-11_INTERRUPTION_AUDIO_ROUTE.md) with state from [UF-05](../UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md) / [UF-06](../UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md)  
 **Control/recovery surface:** [UF-12](../UF-12_SETTINGS_PRIVACY.md) where an explicit setting or platform recheck is required  
 **Canonical diagram:** [GS-05_RECOVER_SAFELY_FROM_INTERRUPTION.mmd](GS-05_RECOVER_SAFELY_FROM_INTERRUPTION.mmd)
+**Cross-scenario validation:** [PASS - connected handoffs, recovery and authority](CROSS_SCENARIO_VALIDATION_2026-08-23.md)
 
 ## User goal and MVP boundary
 

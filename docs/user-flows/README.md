@@ -40,6 +40,7 @@ Protocol readiness, harness implementation, automated validation, physical/manua
 | [`README.md`](README.md) | Workspace index, authority, catalog, and artifact rules | Current |
 | [`golden-scenarios/README.md`](golden-scenarios/README.md) | GS-01 through GS-05 Stage 2 scenario index and exit gate | **PASS / COMPLETE** |
 | [`golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md`](golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md) | GS/UF/US/FR/State/Permission/ADR/Spike crosswalk | **PASS / COMPLETE** |
+| [`golden-scenarios/CROSS_SCENARIO_VALIDATION_2026-08-23.md`](golden-scenarios/CROSS_SCENARIO_VALIDATION_2026-08-23.md) | GS-01..05 parity, handoff, recovery-loop and source-of-truth validation | **PASS / COMPLETE** |
 | [`golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md`](golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md) | Consolidated Stage 2 cross-role decision and non-claim boundary | **PASS / APPROVED** |
 | [`PHASE_0_FOUNDATION.md`](PHASE_0_FOUNDATION.md) | Phase 0 terminology, decision, contradiction, and evidence-routing foundation | Complete |
 | [`CLUSTER_A_FIRST_READINESS.md`](CLUSTER_A_FIRST_READINESS.md) | Connected UF-01/02/03 contract and limited Cluster A decision | Complete |

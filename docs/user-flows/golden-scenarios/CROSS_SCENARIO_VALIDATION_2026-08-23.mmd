@@ -1,0 +1,14 @@
+flowchart TD
+    A["GS-01 success: S-04 Ready / CB-01"] -->|Verified local library| B["GS-02 entry: CB-01 Browse/Search"]
+    B -->|CB-14 service acknowledgement -> CB-15| C["GS-03 live service continuity"]
+    C -->|Complete MediaSession snapshot via CC-01/02| D["GS-04 Driving Mode and direct Voice"]
+    C -->|Call, focus, or route event| E["GS-05 interruption and route recovery"]
+    D -->|CC-16 interruption handoff| E
+    D -->|CC-13 Exit; service state preserved| C
+    E -->|CE-01 Playing or CE-06/09 Safe Paused| C
+    E -->|CE-14 no playable item| B
+    A -. Empty, denied, or scan failure .-> R1["UF-02/03 recovery before GS-02"]
+    B -. Stale selection or start rejection .-> R2["Preserve source context and prior queue"]
+    C -. Lifecycle loss .-> R3["CB-32 Paused Restore or CB-33 Library"]
+    D -. Ambiguity, timeout, or unavailable .-> R4["UF-09/10/12; Manual Only and playback preserved"]
+    E -. Unsafe route or failed guard .-> R5["Safe Paused; explicit Resume only"]
