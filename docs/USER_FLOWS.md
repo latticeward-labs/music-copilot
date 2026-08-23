@@ -1,11 +1,24 @@
 # User Flows and State Inventory - MVP v1.0
 
-- **Status:** **COMPLETE / PASS — UF-01 through UF-13 and the complete State Inventory were approved as a source-aligned set on 23 August 2026**
+- **Status:** **COMPLETE / PASS — UF-01 through UF-13, the complete State Inventory, and Stage 2 GS-01 through GS-05 are approved as a source-aligned set**
 - **Tracking:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3)
 - **Evidence authority:** GitHub repository artifacts only
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
+- **Golden Scenario gate:** **PASS / APPROVED / COMPLETE — 23 August 2026**
 
-This document is the repository index for User Flow artifacts. Every individual flow UF-01 through UF-13 is complete, the phase-wide traceability audit has passed, and Issue #3 is approved for closure as completed. See the [complete Phase 1 Traceability Matrix](user-flows/PHASE_1_TRACEABILITY_MATRIX.md) and [complete flow-set sign-off](user-flows/PHASE_1_SIGNOFF_2026-08-23.md).
+This document is the repository index for User Flow artifacts. Every individual flow UF-01 through UF-13 is complete, the phase-wide traceability audit has passed, Issue #3 is closed, and the five Stage 2 Golden Scenario contracts are approved. See the [complete Phase 1 Traceability Matrix](user-flows/PHASE_1_TRACEABILITY_MATRIX.md), [flow-set sign-off](user-flows/PHASE_1_SIGNOFF_2026-08-23.md), and [Stage 2 Golden Scenario index](user-flows/golden-scenarios/README.md).
+
+## Stage 2 - Golden Scenarios - COMPLETE / PASS
+
+**Scenarios:** GS-01 First Launch to Ready Library; GS-02 Find Music and Start Playback; GS-03 Continue Playback Outside the App; GS-04 Drive and Execute a Direct Voice Command; GS-05 Recover Safely from an Interruption  
+**Decision date:** 23 August 2026  
+**Status:** **PASS / APPROVED / COMPLETE / SOURCE-ALIGNED at scenario-contract level**
+
+The five scenarios compose UF-01 through UF-12 into controlled end-to-end outcomes with explicit US/FR/State/Recovery/Permission/ADR/Technical-Spike mapping. UF-13/FR-09 remains a completed but optional P2 extension and does not block the required set. Stage 2 approval is implementation-independent and does not claim Wireframes, final architecture, production provider/legal enablement, physical three-vehicle execution, Release Candidate or Beta results.
+
+- [Golden Scenario index](user-flows/golden-scenarios/README.md)
+- [Stage 2 traceability matrix](user-flows/golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md)
+- [Stage 2 sign-off](user-flows/golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md)
 
 ## Phase 0 foundation - complete
 
@@ -242,6 +255,8 @@ Every state must record:
 - [x] UF-13 source authority, UL-01 through UL-14 State Inventory, Traceability, Mermaid parity, connected review, and cross-role sign-off PASS.
 - [x] UF-13 eight host reference tests plus build/lint and AOSP API 29/31/34 jobs PASS in workflow #25.
 - [x] **Formal UF-13 User Flow exit PASS / COMPLETE / SOURCE-ALIGNED.**
+- [x] GS-01 through GS-05 are approved with paired Markdown/Mermaid artifacts and complete recovery/authority boundaries.
+- [x] Stage 2 maps every P0 User Story and FR plus separable P1 contracts; P2 UF-13 remains explicitly non-blocking.
 - [x] P0/P1/P2 scope is explicit across the complete UF-01–UF-13 flow set.
 - [x] Product/Design/Android-contract/QA-testability/Privacy/Governance complete-set approval is recorded in `PHASE_1_SIGNOFF_2026-08-23.md`.
 - [x] Issue #2 and the ADR register align: ADR-0001 through ADR-0006 are Accepted.
@@ -251,6 +266,9 @@ Every state must record:
 - [Phase 0 Foundation](user-flows/PHASE_0_FOUNDATION.md)
 - [Phase 1 complete Traceability Matrix](user-flows/PHASE_1_TRACEABILITY_MATRIX.md)
 - [Phase 1 complete flow-set sign-off](user-flows/PHASE_1_SIGNOFF_2026-08-23.md)
+- [Stage 2 Golden Scenario index](user-flows/golden-scenarios/README.md)
+- [Stage 2 Traceability Matrix](user-flows/golden-scenarios/STAGE_2_TRACEABILITY_MATRIX.md)
+- [Stage 2 sign-off](user-flows/golden-scenarios/STAGE_2_SIGNOFF_2026-08-23.md)
 - [Cluster A - First Readiness](user-flows/CLUSTER_A_FIRST_READINESS.md)
 - [Cluster B connected review / final exit](user-flows/CLUSTER_B_CONNECTED_REVIEW.md)
 - [Cluster B final cross-role sign-off](user-flows/CLUSTER_B_SIGNOFF_2026-08-18.md)
