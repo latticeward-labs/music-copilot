@@ -1,18 +1,18 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 IN PROGRESS — Phase 2 single-page Figma structure PASS; individual Wireframes not yet approved**
+- **Status:** **ISSUE #15 IN PROGRESS — GitHub-native Phase 3 Foundations PASS; individual Wireframes not yet approved**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
 - **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), and [126-state Wireframe Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), plus [Phase 2 Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
-- **Official editable visual workfile:** [Figma — Music Copilot — MVP v1.0](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
-- **Figma file key / verified page:** `CC6I0e23Zwe6qMhRGaqRrT` / `0:1`
-- **Figma verification date:** 25 August 2026
-- **Active contract:** [Figma Wireframe Contract Addendum — 25 August 2026](user-flows/design-sync/FIGMA_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
+- **Official editable visual workfile:** [`docs/wireframes/`](wireframes/) — Markdown + SVG + JSON
+- **Stable workspace index:** [GitHub-native Workspace Index](wireframes/WORKSPACE_INDEX.md)
+- **Active contract:** [GitHub-native Wireframe Contract Addendum — 25 August 2026](wireframes/GITHUB_NATIVE_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
+- **Historical Figma reference:** [Music Copilot — MVP v1.0](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1) (`CC6I0e23Zwe6qMhRGaqRrT`, page `0:1`)
 - **Authority:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
 
 Wireframes validate structure, navigation, information hierarchy, controls, feedback and recovery. They do not approve final color, typography, illustration or animation.
 
-GitHub controls behavior, traceability, review and approval. Figma is the official editable visual workfile. A Figma frame becomes reviewable only when its stable node URL and owning UF/State/GS identifiers are recorded in the corresponding repository `WF-##_SCREEN_STATE.md` artifact.
+GitHub controls behavior, low-fidelity visuals, traceability, review and approval. A repository SVG becomes reviewable only when its stable path and owning UF/State/GS identifiers are recorded in the paired `WF-##_SCREEN_STATE.md` artifact.
 
 ## Phase 1 coverage manifest
 
@@ -39,6 +39,16 @@ The official workfile uses one physical Page, `0:1`, now named `00_Index`. Under
 
 This is a physical organization accommodation only; the 126-state Coverage Manifest and GitHub behavioral authority remain unchanged.
 
+## Phase 3 GitHub-native Foundations
+
+The repository-native foundation set is complete and validated:
+
+- [Foundations specification](wireframes/foundations/README.md)
+- [Rendered SVG board](wireframes/foundations/FOUNDATIONS_BOARD.svg)
+- [Machine-readable design tokens](wireframes/foundations/tokens.json)
+- [Phase 3 validation evidence](wireframes/foundations/FOUNDATIONS_VALIDATION.md)
+
+It defines the Android 360×800 reference frame, seven-step grayscale palette, four hierarchy-only typography roles, 11 component families, 48dp minimum targets, TalkBack order, scalable-text and non-color-only state contracts. This PASS authorizes construction of `WF-*` artifacts; it does not approve any individual screen.
 ## Required screen/state matrix
 
 | Screen | Required states |
@@ -82,11 +92,11 @@ Every frame must identify:
 - No typing, deep navigation, nested menu or long result list
 - Short feedback and immediate return to manual control after Voice failure
 
-## Figma/GitHub synchronization gate
+## GitHub-native synchronization gate
 
-- A structural Figma change is not behaviorally approved until the repository record is updated and reviewed.
-- A repository Wireframe record is not visually complete until it links the intended Figma node or records an explicit system-only transition.
-- If Figma and GitHub conflict, the approved GitHub UF/State/GS contract controls.
+- A structural SVG change is not behaviorally approved until the paired Markdown record is updated and reviewed.
+- A repository Wireframe record is not visually complete until it links its paired SVG or records an explicit system-only transition.
+- If SVG and Markdown conflict, the approved GitHub UF/State/GS behavioral contract controls.
 - The historical [23 August 2026 no-Figma synchronization record](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md) remains unchanged; the dated addendum controls Issue #15 from 25 August 2026 onward.
 
 ## Approval checklist
@@ -96,7 +106,7 @@ Every frame must identify:
 - [ ] Navigation is explicit and consistent.
 - [ ] Voice ambiguity and failure states are understandable without a new complex screen.
 - [ ] Background and interruption handoffs are annotated.
-- [ ] Stable Figma node links match repository `WF-*` identifiers and UF/State/GS ownership.
+- [ ] Stable SVG paths match repository `WF-*` identifiers and UF/State/GS ownership.
 - [ ] Product, Design and Android feasibility review is complete.
 - [ ] Approved repository artifact links, source UF/State/GS IDs and review date are recorded below.
 
@@ -104,11 +114,14 @@ Every frame must identify:
 
 - [Wireframe workspace and artifact convention](wireframes/README.md)
 - [126-state Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
-- [Phase 2 single-page Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
+- [Historical Phase 2 single-page Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
+- [GitHub-native workspace index](wireframes/WORKSPACE_INDEX.md)
+- [Phase 3 Foundations](wireframes/foundations/README.md)
 - [Synchronized UF/State/GS design input](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
-- [Active Figma contract addendum](user-flows/design-sync/FIGMA_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
+- [Active GitHub-native contract addendum](wireframes/GITHUB_NATIVE_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
+- [Historical Figma contract addendum](user-flows/design-sync/FIGMA_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
 - [Design Delivery Plan](DESIGN_DELIVERY_PLAN.md)
 - [Figma Design Plan](FIGMA_DESIGN_PLAN.md)
 - [Official Figma workfile](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 
-The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. No individual Wireframe is approved yet; Issue #15 must populate, synchronize and review both workspaces.
+The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. No individual Wireframe is approved yet; Issue #15 must populate, pair and review each Markdown/SVG artifact in GitHub.
