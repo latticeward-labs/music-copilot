@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2250" viewBox="0 0 1600 2250" role="img" aria-labelledby="title desc">
+  <title id="title">Music Copilot low-fidelity foundations board</title>
+  <desc id="desc">Android device frame, grayscale tokens, typography hierarchy, base components, 48dp touch targets and accessibility annotations.</desc>
+  <defs>
+    <style>
+      text{font-family:Inter,Arial,sans-serif;fill:#171717}.title{font-size:34px;font-weight:700}.h1{font-size:24px;font-weight:600}.h2{font-size:20px;font-weight:600}.body{font-size:16px;font-weight:400}.label{font-size:14px;font-weight:600}.note{font-size:13px;fill:#4A4A4A}.muted{fill:#8A8A8A}.surface{fill:#FFFFFF;stroke:#C7C7C7;stroke-width:2}.subtle{fill:#EEEEEE}.inverse{fill:#171717}.inverseText{fill:#FFFFFF}.touch{fill:none;stroke:#4A4A4A;stroke-width:1.5;stroke-dasharray:5 4}.system{fill:#F7F7F7;stroke:#4A4A4A;stroke-width:2;stroke-dasharray:8 6}.divider{stroke:#C7C7C7;stroke-width:2}.measure{font-size:12px;fill:#4A4A4A}
+    </style>
+  </defs>
+  <rect width="1600" height="2250" fill="#F7F7F7"/>
+  <text x="60" y="65" class="title">Music Copilot — Low-fidelity Foundations</text>
+  <text x="60" y="98" class="body">Issue #15 · GitHub-native Phase 3 · hierarchy and behavior only · 25 August 2026</text>
+
+  <g id="palette" transform="translate(60 135)">
+    <rect width="1480" height="180" rx="8" class="surface"/>
+    <text x="24" y="38" class="h2">Grayscale palette</text>
+    <g transform="translate(24 58)">
+      <g><rect width="120" height="70" fill="#FFFFFF" stroke="#C7C7C7"/><text x="8" y="94" class="label">000 · #FFFFFF</text></g>
+      <g transform="translate(150)"><rect width="120" height="70" fill="#F7F7F7" stroke="#C7C7C7"/><text x="8" y="94" class="label">050 · #F7F7F7</text></g>
+      <g transform="translate(300)"><rect width="120" height="70" fill="#EEEEEE"/><text x="8" y="94" class="label">100 · #EEEEEE</text></g>
+      <g transform="translate(450)"><rect width="120" height="70" fill="#C7C7C7"/><text x="8" y="94" class="label">300 · #C7C7C7</text></g>
+      <g transform="translate(600)"><rect width="120" height="70" fill="#8A8A8A"/><text x="8" y="94" class="label">500 · #8A8A8A</text></g>
+      <g transform="translate(750)"><rect width="120" height="70" fill="#4A4A4A"/><text x="8" y="94" class="label">700 · #4A4A4A</text></g>
+      <g transform="translate(900)"><rect width="120" height="70" fill="#171717"/><text x="8" y="94" class="label">900 · #171717</text></g>
+      <text x="1080" y="28" class="body">Semantic roles</text><text x="1080" y="54" class="note">canvas · surface · subtle · inverse</text><text x="1080" y="78" class="note">text primary/secondary/muted</text><text x="1080" y="102" class="note">border · border strong</text>
+    </g>
+  </g>
+
+  <g id="android-device-frame" transform="translate(60 355)">
+    <text x="0" y="0" class="h1">Android Device Frame</text><text x="240" y="0" class="note">360 × 800dp reference</text>
+    <rect y="20" width="360" height="800" rx="18" class="surface"/>
+    <rect y="20" width="360" height="24" rx="18" class="subtle"/><text x="16" y="38" class="measure">SYSTEM STATUS · 24</text>
+    <rect y="44" width="360" height="56" fill="#FFFFFF" stroke="#C7C7C7"/><rect x="8" y="48" width="48" height="48" class="touch"/><text x="20" y="78" class="label">Back</text><text x="72" y="78" class="h2">Screen title</text>
+    <rect y="100" width="360" height="632" fill="#F7F7F7"/><text x="98" y="390" class="body muted">Responsive app content</text>
+    <rect y="732" width="360" height="64" fill="#FFFFFF" stroke="#C7C7C7"/><text x="112" y="770" class="label">BOTTOM NAV · 64</text>
+    <rect y="796" width="360" height="24" class="subtle"/><text x="95" y="813" class="measure">SYSTEM NAV · 24</text>
+    <line x1="380" y1="20" x2="380" y2="820" stroke="#4A4A4A"/><text x="390" y="430" class="measure">800dp</text>
+    <line x1="0" y1="840" x2="360" y2="840" stroke="#4A4A4A"/><text x="155" y="858" class="measure">360dp</text>
+  </g>
+
+  <g id="typography" transform="translate(500 355)">
+    <rect width="1040" height="190" rx="8" class="surface"/>
+    <text x="24" y="38" class="h1">Typography hierarchy</text>
+    <text x="24" y="84" class="h1">Title · 24/32 Semi Bold</text>
+    <text x="24" y="122" class="h2">Heading · 20/28 Semi Bold</text>
+    <text x="520" y="84" class="body">Body · 16/24 Regular — content reflows under scaling.</text>
+    <text x="520" y="122" class="label">Label · 14/20 Semi Bold</text>
+    <text x="24" y="164" class="note">Hierarchy only; final font, branding and visual polish are not approved.</text>
+  </g>
+
+  <g id="app-bar" transform="translate(500 575)">
+    <text y="0" class="h2">App Bar</text><rect y="18" width="520" height="56" class="surface"/><rect x="4" y="22" width="48" height="48" class="touch"/><text x="14" y="52" class="label">Back</text><text x="72" y="54" class="h2">Library</text><rect x="468" y="22" width="48" height="48" class="touch"/><text x="476" y="52" class="label">More</text><text x="540" y="53" class="note">TB: Back → Title → More</text>
+  </g>
+
+  <g id="bottom-navigation" transform="translate(500 690)">
+    <text y="0" class="h2">Bottom Navigation</text><rect y="18" width="520" height="64" class="surface"/>
+    <g transform="translate(0 18)"><rect width="130" height="64" class="touch"/><text x="40" y="38" class="label">Home · selected</text></g><g transform="translate(130 18)"><rect width="130" height="64" class="touch"/><text x="42" y="38" class="label">Search</text></g><g transform="translate(260 18)"><rect width="130" height="64" class="touch"/><text x="40" y="38" class="label">Player</text></g><g transform="translate(390 18)"><rect width="130" height="64" class="touch"/><text x="38" y="38" class="label">Settings</text></g>
+    <text x="540" y="55" class="note">Selected = marker + label + announced state</text>
+  </g>
+
+  <g id="track-row" transform="translate(500 810)">
+    <text y="0" class="h2">Track Row</text><rect y="18" width="520" height="64" class="surface"/><rect x="8" y="26" width="48" height="48" class="subtle"/><text x="70" y="47" class="label">Track title</text><text x="70" y="68" class="note">Artist · 03:42</text><rect x="464" y="26" width="48" height="48" class="touch"/><text x="474" y="56" class="label">Play</text><text x="540" y="55" class="note">TB: title → artist → action</text>
+  </g>
+
+  <g id="button" transform="translate(500 930)">
+    <text y="0" class="h2">Primary / Secondary Button</text><rect y="18" width="220" height="48" rx="4" class="inverse"/><text x="78" y="49" class="label inverseText">Primary action</text><rect x="240" y="18" width="220" height="48" rx="4" class="surface"/><text x="310" y="49" class="label">Secondary action</text><rect x="480" y="18" width="48" height="48" class="touch"/><text x="540" y="49" class="note">Every action ≥48dp high</text>
+  </g>
+
+  <g id="playback-controls" transform="translate(500 1035)">
+    <text y="0" class="h2">Playback Controls</text><g transform="translate(0 18)"><rect width="48" height="48" class="surface"/><text x="8" y="30" class="label">Prev</text></g><g transform="translate(64 18)"><rect width="48" height="48" class="inverse"/><text x="10" y="30" class="label inverseText">Play</text></g><g transform="translate(128 18)"><rect width="48" height="48" class="surface"/><text x="8" y="30" class="label">Next</text></g><text x="210" y="48" class="note">TB: Previous → Play/Pause → Next · label and glyph both change</text>
+  </g>
+
+  <g id="permission-rationale" transform="translate(500 1140)">
+    <text y="0" class="h2">Permission Rationale Block</text><rect y="18" width="650" height="172" rx="8" class="surface"/><text x="20" y="52" class="h2">Allow access to local music</text><text x="20" y="82" class="body">Used only to index and play audio stored on this device.</text><rect x="20" y="112" width="180" height="48" rx="4" class="inverse"/><text x="72" y="143" class="label inverseText">Continue</text><rect x="216" y="112" width="180" height="48" rx="4" class="surface"/><text x="274" y="143" class="label">Not now</text><text x="420" y="132" class="note">TB: heading → purpose → Continue → Not now</text>
+  </g>
+
+  <g id="status-block" transform="translate(500 1375)">
+    <text y="0" class="h2">Error / Empty / Loading Block</text>
+    <g transform="translate(0 18)"><rect width="300" height="150" rx="8" class="surface"/><text x="18" y="34" class="h2">! Error</text><text x="18" y="65" class="body">Could not load music.</text><rect x="18" y="84" width="120" height="48" class="surface"/><text x="54" y="114" class="label">Retry</text></g>
+    <g transform="translate(320 18)"><rect width="300" height="150" rx="8" class="surface"/><text x="18" y="34" class="h2">□ Empty</text><text x="18" y="65" class="body">No local tracks found.</text><text x="18" y="102" class="note">Label + symbol; no color-only state</text></g>
+    <g transform="translate(640 18)"><rect width="300" height="150" rx="8" class="surface"/><text x="18" y="34" class="h2">… Loading</text><text x="18" y="65" class="body">Scanning device music.</text><text x="18" y="102" class="note">Announce once; keep navigation available</text></g>
+  </g>
+
+  <g id="voice-overlay" transform="translate(500 1595)">
+    <text y="0" class="h2">Voice Overlay</text><rect y="18" width="650" height="174" rx="8" class="surface"/><text x="20" y="54" class="h2">Listening</text><text x="20" y="84" class="body">“Play songs by Aurora”</text><rect x="20" y="110" width="200" height="48" class="subtle"/><text x="62" y="141" class="label">Processing…</text><rect x="580" y="110" width="48" height="48" class="touch"/><text x="588" y="141" class="label">Cancel</text><text x="250" y="138" class="note">State is always written: Listening / Processing / Confirming / Executed / Failed</text>
+  </g>
+
+  <g id="confirmation-choices" transform="translate(500 1835)">
+    <text y="0" class="h2">Confirmation Choices</text><rect y="18" width="650" height="186" rx="8" class="surface"/><text x="20" y="52" class="h2">Which artist did you mean?</text><rect x="20" y="72" width="290" height="48" class="surface"/><text x="38" y="102" class="label">1 · Aurora</text><rect x="330" y="72" width="290" height="48" class="surface"/><text x="348" y="102" class="label">2 · Aurora Aksnes</text><rect x="20" y="132" width="120" height="48" class="surface"/><text x="50" y="162" class="label">Cancel</text><text x="170" y="161" class="note">TB: prompt → choice 1 → choice 2 → Cancel</text>
+  </g>
+
+  <g id="system-only-annotation" transform="translate(500 2080)">
+    <text y="0" class="h2">System-only Annotation</text><rect y="18" width="650" height="100" rx="8" class="system"/><text x="20" y="52" class="label">[ANDROID / SYSTEM] Permission dialog or Settings handoff</text><text x="20" y="82" class="body">Not an app destination. Document outgoing intent, return path and recheck behavior.</text>
+  </g>
+
+  <g id="accessibility" transform="translate(60 1265)">
+    <rect width="380" height="790" rx="8" class="surface"/><text x="24" y="42" class="h1">Accessibility annotations</text>
+    <text x="24" y="92" class="h2">48dp minimum</text><rect x="24" y="110" width="48" height="48" class="touch"/><text x="86" y="140" class="body">All interactive controls</text>
+    <line x1="24" y1="186" x2="356" y2="186" class="divider"/>
+    <text x="24" y="228" class="h2">TalkBack order</text><text x="24" y="260" class="body">1. Task context / heading</text><text x="24" y="290" class="body">2. Primary information</text><text x="24" y="320" class="body">3. Primary action</text><text x="24" y="350" class="body">4. Secondary / exit action</text>
+    <line x1="24" y1="382" x2="356" y2="382" class="divider"/>
+    <text x="24" y="424" class="h2">Scalable text</text><text x="24" y="456" class="body">Support up to 200%.</text><text x="24" y="486" class="body">Reflow and grow vertically.</text><text x="24" y="516" class="body">Never clip labels or recovery.</text>
+    <line x1="24" y1="548" x2="356" y2="548" class="divider"/>
+    <text x="24" y="590" class="h2">Non-color-only state</text><text x="24" y="622" class="body">State word + icon/shape</text><text x="24" y="652" class="body">+ accessible announcement.</text><text x="24" y="698" class="note">Applies to selected, disabled,</text><text x="24" y="722" class="note">loading, Empty, error, permission</text><text x="24" y="746" class="note">and every Voice state.</text>
+  </g>
+  <text x="60" y="2208" class="note">Low-fidelity only · no final palette, branding, illustration, animation or high-fidelity typography.</text>
+</svg>
