@@ -1,6 +1,6 @@
 # Figma Design Plan — Issue #15 Low-fidelity Wireframes
 
-**Status:** **ACTIVE FOR ISSUE #15 LOW-FIDELITY WIREFRAMES**  
+**Status:** **HISTORICAL / SUPERSEDED FOR ACTIVE ISSUE #15 DELIVERY**  
 **Activation date:** 25 August 2026  
 **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)  
 **Official workfile:** [Music Copilot — MVP v1.0](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)  
@@ -10,6 +10,8 @@
 **Verification result:** PASS — authenticated design-file access confirmed  
 **Contract addendum:** [Figma Wireframe Contract Addendum — 25 August 2026](user-flows/design-sync/FIGMA_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)  
 **Delivery plan:** [Design Delivery Plan](DESIGN_DELIVERY_PLAN.md)
+
+> **Active decision:** On 25 August 2026 the project owner moved all executable low-fidelity work to the repository. See the [GitHub-native Wireframe Contract Addendum](wireframes/GITHUB_NATIVE_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md), [Workspace Index](wireframes/WORKSPACE_INDEX.md) and [Foundations](wireframes/foundations/README.md). The Figma file and this plan remain historical evidence; no Figma page/node/quota is an Issue #15 acceptance dependency.
 
 ## Purpose
 
