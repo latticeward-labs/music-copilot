@@ -41,7 +41,8 @@ The historical synchronization and Figma records remain unchanged. The active ad
 - Workspace topology: [WORKSPACE_INDEX.md](wireframes/WORKSPACE_INDEX.md)
 - Foundations: [specification](wireframes/foundations/README.md), [SVG board](wireframes/foundations/FOUNDATIONS_BOARD.svg), [tokens](wireframes/foundations/tokens.json)
 - App states: [32-frame register](wireframes/app-states/README.md), [machine register](wireframes/app-states/FRAME_REGISTER.json), [validation](wireframes/app-states/PHASE_4_VALIDATION.md)
-- Status: **IN PROGRESS; Phase 4 32/32 App State Frames PASS; cross-role approval pending**
+- Recovery/System transitions: [13-transition register](wireframes/recovery-system/README.md), [machine register](wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json), [terminal matrix](wireframes/recovery-system/RECOVERY_TERMINAL_MATRIX.md), [validation](wireframes/recovery-system/PHASE_5_VALIDATION.md)
+- Status: **IN PROGRESS; Phase 5 Recovery/System-only construction PASS; cross-role approval pending**
 - Output: paired grayscale SVG structures and Markdown specifications covering navigation, hierarchy, ownership, feedback, recovery and accessibility.
 
 Each app-visible artifact must link UF/State/GS IDs and use a stable `WF-*` identifier in both Markdown and SVG. System-only surfaces must be documented explicitly without inventing app screens. Markdown controls behavior; SVG controls low-fidelity visual structure; both are reviewed together.
@@ -63,7 +64,7 @@ GitHub-native low-fidelity delivery for Issue #15 does not automatically approve
 
 ## Required ten-screen coverage
 
-Splash; Onboarding; Permissions; Home/Library; Search; Full Player; Driving Mode; Voice Overlay; Liked Songs (P2); Settings. System notification/lock/external controls and platform dialogs remain annotated system-only surfaces rather than invented app destinations.
+Splash; Onboarding; Permissions; Home/Library; Search; Full Player; Driving Mode; Voice Overlay; Liked Songs (P2); Settings. System notification/lock/external controls, platform dialogs, Settings handoff, lifecycle reconnect and interruption/route recovery are now paired ownership-separated transition records rather than invented app destinations.
 
 ## Synchronization and review rules
 
