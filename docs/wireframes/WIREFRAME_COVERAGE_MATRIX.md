@@ -2,12 +2,12 @@
 
 **Issue:** [#15 — Create and approve low-fidelity Wireframes](https://github.com/latticeward-labs/music-copilot/issues/15)  
 **Inventory/sync date:** 25 August 2026  
-**Status:** **PASS — 126-state manifest complete; Phase 4 app-state construction 32/32 PASS; variant/system review pending**  
+**Status:** **PASS — 126-state manifest complete; Phase 4 app-state 32/32 PASS; Phase 5 System-only 20/20 PASS; variant review pending**  
 **Canonical count:** **126/126 states classified; 0 missing; 0 duplicate; 0 unassigned**
 
 ## Authority and classification contract
 
-This manifest was regenerated from the current GitHub-controlled UF-01 through UF-13 records, normalized State Inventories, and GS-01 through GS-05. GitHub remains the canonical behavioral, visual, traceability and approval authority. The official editable low-fidelity workfile is [`docs/wireframes/`](README.md), with paired Markdown/SVG artifacts under [app-states](app-states/README.md). Historical external design records are not active acceptance dependencies.
+This manifest was regenerated from the current GitHub-controlled UF-01 through UF-13 records, normalized State Inventories, and GS-01 through GS-05. GitHub remains the canonical behavioral, visual, traceability and approval authority. The official editable low-fidelity workfile is [`docs/wireframes/`](README.md), with paired Markdown/SVG artifacts under [app-states](app-states/README.md) and [recovery-system](recovery-system/README.md). Historical external design records are not active acceptance dependencies.
 
 Every canonical State ID is assigned exactly one coverage class:
 
@@ -230,6 +230,13 @@ The counts below are strict references found in the approved GS Markdown records
 The [32-frame register](app-states/README.md) realizes the required app-visible Phase 4 set as 32 stable Markdown/SVG pairs across `WF-01` through `WF-10`. [Automated validation](app-states/PHASE_4_VALIDATION.md) passes counts, pairing, package totals, XML, required behavior fields, accessibility annotations and P2 isolation.
 
 This attachment does not reclassify any of the 126 canonical states. Variant/annotation and Android/System-only rows remain explicit downstream review inputs and are not promoted into invented app screens.
+
+## Phase 5 recovery/system construction attachment
+
+The [13-transition register](recovery-system/README.md) realizes all **20/20** canonical Android/System-only rows as ownership-separated Markdown/SVG transition pairs. The [machine register](recovery-system/SYSTEM_TRANSITION_REGISTER.json) has 13 unique IDs, 0 missing system states and 0 unexpected system states. Permission/Settings, notification/lock/external controls, UI recreation, call/Audio Focus, wired/Bluetooth route recovery, Cloud Voice consent and Driving Voice one-Retry fallback are explicit.
+
+The [terminal matrix](recovery-system/RECOVERY_TERMINAL_MATRIX.md) restricts every failed or ambiguous recovery to reachable Manual Playback controls or service-owned Safe Paused. [Phase 5 validation](recovery-system/PHASE_5_VALIDATION.md) is PASS. This attachment does not reclassify variants or fabricate an Android surface as an app screen.
+
 ## Validation and exit decision
 
 **Automated manifest checks: PASS**

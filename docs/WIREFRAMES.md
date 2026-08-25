@@ -1,8 +1,8 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 IN PROGRESS — Phase 4 32/32 App State Frames PASS; cross-role approval pending**
+- **Status:** **ISSUE #15 IN PROGRESS — Phase 5 Recovery/System-only construction PASS; cross-role approval pending**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), and [Phase 4 32-frame register](wireframes/app-states/README.md)
+- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), [Phase 4 32-frame register](wireframes/app-states/README.md), and [Phase 5 Recovery/System register](wireframes/recovery-system/README.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
 - **Official editable visual workfile:** [`docs/wireframes/`](wireframes/) — Markdown + SVG + JSON
 - **Stable workspace index:** [GitHub-native Workspace Index](wireframes/WORKSPACE_INDEX.md)
@@ -59,6 +59,18 @@ It defines the Android 360×800 reference frame, seven-step grayscale palette, f
 - P2 isolation: both Liked Songs frames visibly carry `P2 / Removable`.
 
 **Decision:** Phase 4 construction PASS / COMPLETE. Individual artifacts are reviewable but are not yet cross-role approved.
+
+## Phase 5 — Recovery and System-only Transitions
+
+- Register: [13 paired transition records/diagrams](wireframes/recovery-system/README.md)
+- Machine traceability: [SYSTEM_TRANSITION_REGISTER.json](wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json)
+- Safe-return proof: [RECOVERY_TERMINAL_MATRIX.md](wireframes/recovery-system/RECOVERY_TERMINAL_MATRIX.md) and [overview SVG](wireframes/recovery-system/RECOVERY_TERMINAL_OVERVIEW.svg)
+- Validation: [PHASE_5_VALIDATION.md](wireframes/recovery-system/PHASE_5_VALIDATION.md)
+- Coverage: 20/20 canonical Android/System-only states; 0 missing; 0 unexpected.
+- Terminals: Manual Playback or service-owned Safe Paused only.
+
+**Decision:** Phase 5 construction/repository validation PASS / COMPLETE. System surfaces are ownership-separated transitions, not invented app screens. Cross-frame navigation and Product/Design/Android/QA approval remain pending.
+
 ## Required screen/state matrix
 
 | Screen | Required states |
@@ -81,7 +93,7 @@ Android permission dialogs, explicit Android Settings handoff, notification/lock
 Every frame must identify:
 
 - Stable `WF-##_SCREEN_STATE` identifier
-- Figma page/node URL
+- Stable paired Markdown/SVG repository paths
 - Owning UF, canonical State and GS IDs
 - User goal and primary action
 - Entry and exit paths
@@ -125,6 +137,9 @@ Every frame must identify:
 - [Wireframe workspace and artifact convention](wireframes/README.md)
 - [Phase 4 — 32 App State Frames](wireframes/app-states/README.md)
 - [Phase 4 validation](wireframes/app-states/PHASE_4_VALIDATION.md)
+- [Phase 5 — Recovery and System-only Transitions](wireframes/recovery-system/README.md)
+- [Phase 5 terminal matrix](wireframes/recovery-system/RECOVERY_TERMINAL_MATRIX.md)
+- [Phase 5 validation](wireframes/recovery-system/PHASE_5_VALIDATION.md)
 - [126-state Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
 - [Historical Phase 2 single-page Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
 - [GitHub-native workspace index](wireframes/WORKSPACE_INDEX.md)
@@ -136,4 +151,4 @@ Every frame must identify:
 - [Figma Design Plan](FIGMA_DESIGN_PLAN.md)
 - [Official Figma workfile](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 
-The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. The 32 app-state pairs are populated and construction-validated. Issue #15 must still review variant/system-only coverage, cross-frame navigation and named Product/Design/Android/QA approval.
+The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. The 32 app-state pairs and all 20 canonical system-only states are populated and construction-validated. Issue #15 must still review remaining variant annotations, cross-frame navigation and named Product/Design/Android/QA approval.

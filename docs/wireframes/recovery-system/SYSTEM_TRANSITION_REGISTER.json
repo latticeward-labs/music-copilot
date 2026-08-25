@@ -1,0 +1,428 @@
+{
+  "version": "1.0.0",
+  "date": "2026-08-25",
+  "count": 13,
+  "canonicalSystemOnlyCount": 20,
+  "canonicalSystemOnly": [
+    "SYS-01",
+    "SYS-02",
+    "SYS-03",
+    "SYS-04",
+    "SYS-05",
+    "CB-22",
+    "CB-23",
+    "CB-24",
+    "CB-25",
+    "CB-26",
+    "CB-27",
+    "CB-28",
+    "CB-29",
+    "CB-30",
+    "CC-16",
+    "CE-07",
+    "CE-08",
+    "CE-09",
+    "CE-10",
+    "CE-18"
+  ],
+  "terminalEnum": [
+    "MANUAL_PLAYBACK",
+    "SAFE_PAUSED",
+    "MANUAL_PLAYBACK / SAFE_PAUSED"
+  ],
+  "transitions": [
+    {
+      "id": "WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG",
+      "title": "Android media permission dialog",
+      "classification": "Android/System-only transition",
+      "states": "SYS-01, S-03",
+      "systemStates": [
+        "SYS-01"
+      ],
+      "uf": "UF-02 / UF-03",
+      "gs": "GS-01",
+      "priority": "P0",
+      "actors": [
+        "App rationale",
+        "Android permission",
+        "Library / Playback"
+      ],
+      "trigger": "Local media access is first required after a one-purpose explanation.",
+      "handoff": "App launches the Android-owned media permission request; the OS result is authoritative.",
+      "service": "Existing valid Playback Service state is preserved; no false library readiness is created.",
+      "returnPath": "Granted resumes scan/readiness. Denied returns to app recovery with Retry and Not now.",
+      "terminal": "MANUAL_PLAYBACK",
+      "retry": "A requestable denial may be retried explicitly; permanent denial uses the separate Settings handoff.",
+      "privacy": "No media name, URI, path or content enters telemetry.",
+      "driving": "Never shown as a Driving Mode page.",
+      "talkback": "Purpose → Continue/Not now → Android dialog → returned result.",
+      "source": "../../user-flows/mermaid/01_6_STATE_INVENTORY_AND_TRACEABILITY.md",
+      "markdown": "WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG.md",
+      "svg": "WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG.svg"
+    },
+    {
+      "id": "WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG",
+      "title": "Android microphone permission dialog",
+      "classification": "Android/System-only transition",
+      "states": "SYS-02, S-03, CA-02, CD-21",
+      "systemStates": [
+        "SYS-02"
+      ],
+      "uf": "UF-02 / UF-08 / UF-10",
+      "gs": "GS-04 recovery",
+      "priority": "P0",
+      "actors": [
+        "Explicit mic action",
+        "Android permission",
+        "Manual Playback"
+      ],
+      "trigger": "The user explicitly taps Mic or chooses Voice practice; never on app or Driving Mode entry.",
+      "handoff": "App launches the Android-owned microphone dialog after purpose text.",
+      "service": "Playback remains service-owned and usable; capture starts only after a fresh Granted result.",
+      "returnPath": "Granted continues capability check. Denied returns to manual controls; permanent denial offers Settings only outside Driving Mode.",
+      "terminal": "MANUAL_PLAYBACK",
+      "retry": "Requestable denial may retry. No automatic dialog loop and no capture during Retry choice.",
+      "privacy": "Raw audio/transcript is absent before grant and prohibited from evidence/telemetry.",
+      "driving": "In Driving Mode, denial returns immediately to fixed manual controls and Exit.",
+      "talkback": "Mic purpose → Continue/Not now → Android dialog → returned result → manual controls.",
+      "source": "../../user-flows/mermaid/01_6_STATE_INVENTORY_AND_TRACEABILITY.md",
+      "markdown": "WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG.md",
+      "svg": "WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG.svg"
+    },
+    {
+      "id": "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY",
+      "title": "Notification permission and visibility boundary",
+      "classification": "Android/System-only transition",
+      "states": "SYS-03, CB-30",
+      "systemStates": [
+        "SYS-03",
+        "CB-30"
+      ],
+      "uf": "UF-06 / UF-12",
+      "gs": "GS-03 recovery",
+      "priority": "P0",
+      "actors": [
+        "App after playback value",
+        "Android notification boundary",
+        "Playback Service"
+      ],
+      "trigger": "Only after acknowledged playback/background-control value exists.",
+      "handoff": "Android permission/visibility result controls surface availability, not playback truth.",
+      "service": "Playback and MediaSession continue when notification access is denied where platform policy permits.",
+      "returnPath": "Granted enables the surface; denied returns to app controls with truthful visibility status.",
+      "terminal": "MANUAL_PLAYBACK",
+      "retry": "Settings recovery is explicit and outside Driving Mode; no repeated prompt.",
+      "privacy": "Notification content follows approved media-surface privacy; denial is coarse state only.",
+      "driving": "No permission or Settings setup surface is opened in active Driving Mode.",
+      "talkback": "Notification purpose → system handoff → result → Continue with manual playback.",
+      "source": "../../user-flows/CLUSTER_B_STATE_INVENTORY.md",
+      "markdown": "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY.md",
+      "svg": "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY.svg"
+    },
+    {
+      "id": "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF",
+      "title": "Android Settings handoff and recheck",
+      "classification": "Android/System-only transition",
+      "states": "SYS-04, CE-18, CE-19",
+      "systemStates": [
+        "SYS-04",
+        "CE-18"
+      ],
+      "uf": "UF-02 / UF-10 / UF-12",
+      "gs": "GS-01 / GS-05 recovery",
+      "priority": "P0",
+      "actors": [
+        "App recovery notice",
+        "Android Settings",
+        "Fresh capability recheck"
+      ],
+      "trigger": "The user explicitly chooses Open Settings for permanent permission/provider recovery.",
+      "handoff": "The app leaves through an explicit Android Settings intent and assumes no success.",
+      "service": "Active playback is preserved; Settings never becomes playback authority.",
+      "returnPath": "On return, the app rechecks Granted, requestable denial, or still permanent/unavailable as distinct outcomes.",
+      "terminal": "MANUAL_PLAYBACK",
+      "retry": "No automatic loop back into Settings; Not now and Back return to manual control.",
+      "privacy": "No settings value or device identity is emitted as telemetry.",
+      "driving": "Open Settings is never offered or launched from active Driving Mode.",
+      "talkback": "Leaving-app notice → Open Settings/Not now → system surface → Checking → result/manual controls.",
+      "source": "../../user-flows/CLUSTER_E_STATE_INVENTORY.md",
+      "markdown": "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF.md",
+      "svg": "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF.svg"
+    },
+    {
+      "id": "WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING",
+      "title": "Cloud Voice consent outside Driving Mode",
+      "classification": "App/provider boundary recovery",
+      "states": "SYS-05, CD-23, CE-21, CE-22",
+      "systemStates": [
+        "SYS-05"
+      ],
+      "uf": "UF-02 / UF-10 / UF-12",
+      "gs": "GS-04 recovery",
+      "priority": "P0",
+      "actors": [
+        "Settings / Privacy",
+        "Voice provider boundary",
+        "Manual Playback"
+      ],
+      "trigger": "An approved network-assisted Voice adapter is selected and complete disclosure exists.",
+      "handoff": "App shows purpose, processing destination and retention disclosure outside Driving Mode; this is consent, not Android permission.",
+      "service": "Decline or missing disclosure keeps Voice Manual Only and never affects local playback.",
+      "returnPath": "Accept/Decline/Revoke persists a versioned local decision and returns to Settings/manual playback.",
+      "terminal": "MANUAL_PLAYBACK",
+      "retry": "No coercive countdown, preselection or repeated prompt; future change is user-initiated in Settings.",
+      "privacy": "Raw audio/transcript destination and retention must be truthful; no dark pattern.",
+      "driving": "Consent UI is prohibited in active Driving Mode; immediately return to manual controls.",
+      "talkback": "Cloud processing heading → purpose/destination/retention → Accept → Decline → Back.",
+      "source": "../../user-flows/CLUSTER_D_STATE_INVENTORY.md",
+      "markdown": "WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING.md",
+      "svg": "WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING.svg"
+    },
+    {
+      "id": "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+      "title": "Media Notification controls",
+      "classification": "Android/System-only transition",
+      "states": "CB-22, CB-26, CB-29, CB-30, CB-31",
+      "systemStates": [
+        "CB-22",
+        "CB-26",
+        "CB-29",
+        "CB-30"
+      ],
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "actors": [
+        "Android notification",
+        "MediaSession command",
+        "Playback Service"
+      ],
+      "trigger": "A valid active MediaSession exposes the platform notification surface.",
+      "handoff": "Play/Pause/Next/Previous commands travel through Android MediaSession; the surface waits for acknowledgement.",
+      "service": "Service owns queue/player/state and refreshes all app/system surfaces from one snapshot.",
+      "returnPath": "Acknowledged command updates notification and app. Unavailable surface returns control to the app without fabricating stop.",
+      "terminal": "MANUAL_PLAYBACK",
+      "retry": "A pending command is serialized; rejection/timeout refreshes truth before any safe retry.",
+      "privacy": "No notification command or media identity is copied into project evidence.",
+      "driving": "System controls do not auto-open Driving Mode.",
+      "talkback": "Track/state → Previous → Play/Pause → Next → open app; pending/failure announced by the system.",
+      "source": "../../user-flows/CLUSTER_B_STATE_INVENTORY.md",
+      "markdown": "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS.md",
+      "svg": "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS.svg"
+    },
+    {
+      "id": "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS",
+      "title": "Lock-screen media controls",
+      "classification": "Android/System-only transition",
+      "states": "CB-24, CB-27, CB-29, CB-31",
+      "systemStates": [
+        "CB-24",
+        "CB-27",
+        "CB-29"
+      ],
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "actors": [
+        "Screen off / locked",
+        "MediaSession surface",
+        "Playback Service"
+      ],
+      "trigger": "Device locks or screen turns off while a valid MediaSession exists.",
+      "handoff": "Android renders lock-screen controls; the app does not invent or own this screen.",
+      "service": "Playback continues from service truth; commands remain pending until acknowledgement.",
+      "returnPath": "Unlock/app return reconnects to the complete current snapshot; surface absence is not playback failure.",
+      "terminal": "MANUAL_PLAYBACK",
+      "retry": "Rejected/system-unavailable command refreshes state and restores reachable app controls.",
+      "privacy": "Platform surface follows approved metadata policy; no lock state or media identity telemetry.",
+      "driving": "Lock-screen surface is never represented as an in-app Driving destination.",
+      "talkback": "Android owns focus order and labels; app documents only handoff, command and return.",
+      "source": "../../user-flows/CLUSTER_B_STATE_INVENTORY.md",
+      "markdown": "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS.md",
+      "svg": "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS.svg"
+    },
+    {
+      "id": "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS",
+      "title": "External media keys and controller handoff",
+      "classification": "Android/System-only transition",
+      "states": "CB-28, CB-29, CB-31",
+      "systemStates": [
+        "CB-28",
+        "CB-29"
+      ],
+      "uf": "UF-06 / UF-11",
+      "gs": "GS-03 / GS-05",
+      "priority": "P0",
+      "actors": [
+        "Headset / vehicle key",
+        "Android MediaSession",
+        "Playback Service"
+      ],
+      "trigger": "A supported Bluetooth/headset/vehicle media key issues a MediaSession command.",
+      "handoff": "Android routes the command; no separate app player or queue is created.",
+      "service": "The shared service validates, serializes and acknowledges the command.",
+      "returnPath": "All visible surfaces refresh from the authoritative snapshot; unsupported/unavailable returns to app manual controls.",
+      "terminal": "MANUAL_PLAYBACK",
+      "retry": "No optimistic duplicate command; safe retry only after refresh.",
+      "privacy": "External device name/address and media payload are prohibited from telemetry.",
+      "driving": "A media-key command never auto-enters Driving Mode.",
+      "talkback": "System controller labels are platform-owned; app feedback reflects acknowledged state only.",
+      "source": "../../user-flows/CLUSTER_B_STATE_INVENTORY.md",
+      "markdown": "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS.md",
+      "svg": "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS.svg"
+    },
+    {
+      "id": "WF-06_UI_RECREATION_SERVICE_RECONNECT",
+      "title": "UI recreation and Playback Service reconnect",
+      "classification": "App recovery transition",
+      "states": "CB-21, CB-22, CB-23, CB-25, CB-32, CB-33",
+      "systemStates": [
+        "CB-22",
+        "CB-23",
+        "CB-25"
+      ],
+      "uf": "UF-05 / UF-06",
+      "gs": "GS-03",
+      "priority": "P0 + P1 paused restore",
+      "actors": [
+        "Recreated / returned UI",
+        "Controller reconnect",
+        "Playback Service"
+      ],
+      "trigger": "UI recreation, return from background, task/OEM event or controller loss.",
+      "handoff": "UI shows bounded Connecting and requests one complete service snapshot; it creates no replacement player.",
+      "service": "Service remains authority for item, queue, state, position and supported actions.",
+      "returnPath": "Complete snapshot restores truthful Playing/Paused/Completed. Missing lifecycle may use validated P1 Paused Restore only.",
+      "terminal": "MANUAL_PLAYBACK / SAFE_PAUSED",
+      "retry": "Repeated reconnect failure exposes Retry/Back; invalid restore routes to Library and never auto-plays.",
+      "privacy": "No personal media snapshot enters telemetry; only coarse connection failure may be approved.",
+      "driving": "Driving reconnect keeps Exit enabled and never fabricates metadata or Playing.",
+      "talkback": "Connecting status → Retry/Back → refreshed player state and actions.",
+      "source": "../../user-flows/CLUSTER_B_STATE_INVENTORY.md",
+      "markdown": "WF-06_UI_RECREATION_SERVICE_RECONNECT.md",
+      "svg": "WF-06_UI_RECREATION_SERVICE_RECONNECT.svg"
+    },
+    {
+      "id": "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS",
+      "title": "Phone Call and Audio Focus interruption",
+      "classification": "Android/System-only transition",
+      "states": "CC-16, CE-02, CE-03, CE-04, CE-05, CE-06, CE-10, CE-11",
+      "systemStates": [
+        "CC-16",
+        "CE-10"
+      ],
+      "uf": "UF-11 / UF-07",
+      "gs": "GS-05",
+      "priority": "P0",
+      "actors": [
+        "Call / focus event",
+        "Audio policy guards",
+        "Playback Service"
+      ],
+      "trigger": "Transient/permanent Audio Focus loss, call, duck request or focus callback error.",
+      "handoff": "Android supplies focus/call category only; Voice is canceled and no call identity is read.",
+      "service": "Service pauses or ducks. Resume occurs only when all four guards pass and service acknowledges it.",
+      "returnPath": "Valid transient gain may return to actual Playing; any failed guard or permanent loss remains Safe Paused with manual Resume.",
+      "terminal": "SAFE_PAUSED",
+      "retry": "No hidden auto-retry. Manual Resume rechecks route/focus before command.",
+      "privacy": "No phone number, contact, call identity or personal media identity is stored.",
+      "driving": "Driving surface shows concise Interrupted/Safe Paused and fixed manual controls/Exit.",
+      "talkback": "Interrupted/Paused status → manual Resume if safe → Exit; no unexpected speech or audio.",
+      "source": "../../user-flows/CLUSTER_E_STATE_INVENTORY.md",
+      "markdown": "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS.md",
+      "svg": "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS.svg"
+    },
+    {
+      "id": "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+      "title": "Wired/headset disconnect and reconnect",
+      "classification": "Android/System-only transition",
+      "states": "CC-16, CE-07, CE-08, CE-09",
+      "systemStates": [
+        "CC-16",
+        "CE-07",
+        "CE-08",
+        "CE-09"
+      ],
+      "uf": "UF-11 / UF-07",
+      "gs": "GS-05",
+      "priority": "P0",
+      "actors": [
+        "Wired route event",
+        "Route generation guard",
+        "Playback Service"
+      ],
+      "trigger": "Wired/headset route disconnects or reconnects.",
+      "handoff": "Android route change invalidates the previous route generation immediately.",
+      "service": "Service pauses at disconnect, cancels Voice and prevents speaker leakage.",
+      "returnPath": "Reconnect rechecks route but never auto-resumes; explicit Play may resume after acknowledgement.",
+      "terminal": "SAFE_PAUSED",
+      "retry": "Manual Play is the only resume attempt; a new loss returns immediately to Safe Paused.",
+      "privacy": "No route/device identity or address is logged.",
+      "driving": "Driving Mode remains one layer with Safe Paused, manual Play and Exit.",
+      "talkback": "Route disconnected → Safe Paused → route available → explicit Play/Exit.",
+      "source": "../../user-flows/CLUSTER_E_STATE_INVENTORY.md",
+      "markdown": "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY.md",
+      "svg": "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY.svg"
+    },
+    {
+      "id": "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY",
+      "title": "Bluetooth route loss and reconnect",
+      "classification": "Android/System-only transition",
+      "states": "CB-28, CC-16, CE-07, CE-08, CE-09",
+      "systemStates": [
+        "CB-28",
+        "CC-16",
+        "CE-07",
+        "CE-08",
+        "CE-09"
+      ],
+      "uf": "UF-06 / UF-07 / UF-11",
+      "gs": "GS-03 / GS-05",
+      "priority": "P0",
+      "actors": [
+        "Bluetooth route event",
+        "Android route state",
+        "Playback Service"
+      ],
+      "trigger": "Selected/current Bluetooth output route disconnects or reconnects.",
+      "handoff": "Android route truth controls output; connection alone never opens Driving Mode.",
+      "service": "Service immediately pauses on loss, invalidates the route and prevents speaker fallback leakage.",
+      "returnPath": "Reconnect produces Safe Paused. Explicit manual Play revalidates route and waits for service acknowledgement.",
+      "terminal": "SAFE_PAUSED",
+      "retry": "No automatic Resume. Failed manual Play stays Safe Paused with Exit/manual controls.",
+      "privacy": "Bluetooth device name, address and stable identity are excluded from telemetry.",
+      "driving": "No suggestion/setup during active recovery; fixed Play and Exit remain reachable.",
+      "talkback": "Bluetooth disconnected → Safe Paused → reconnected → explicit Play/Exit.",
+      "source": "../../user-flows/CLUSTER_E_STATE_INVENTORY.md",
+      "markdown": "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY.md",
+      "svg": "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY.svg"
+    },
+    {
+      "id": "WF-08_DRIVING_VOICE_RETRY_MANUAL_FALLBACK",
+      "title": "Driving Voice one-Retry manual fallback",
+      "classification": "App recovery transition",
+      "states": "CC-14, CD-17, CD-18, CD-19, CD-20, CD-24",
+      "systemStates": [],
+      "uf": "UF-07 / UF-08 / UF-10",
+      "gs": "GS-04 recovery",
+      "priority": "P0",
+      "actors": [
+        "Driving Mode controls",
+        "Voice coordinator",
+        "Playback Service"
+      ],
+      "trigger": "The first explicit Voice attempt settles as timeout/no-match/provider/language/network/audio failure.",
+      "handoff": "Voice releases capture/duck and shows Retry once plus Manual/Exit; no auto-capture.",
+      "service": "Underlying Playback Service state remains unchanged unless a command was acknowledged.",
+      "returnPath": "Retry starts attempt two. Any second failure immediately dismisses to fixed manual controls; a new session needs a new mic tap.",
+      "terminal": "MANUAL_PLAYBACK / SAFE_PAUSED",
+      "retry": "Exactly one explicit Retry; no third attempt, countdown coercion or Settings detour.",
+      "privacy": "Only coarse allowlisted failure may be recorded; no audio/transcript/candidate/media identity.",
+      "driving": "Manual Previous/Play-Pause/Next/Seek Back and Exit are immediately reachable after failure.",
+      "talkback": "Failure reason → Retry once → Manual controls → Exit; focus returns to the initiating control.",
+      "source": "../../user-flows/CLUSTER_D_STATE_INVENTORY.md",
+      "markdown": "WF-08_DRIVING_VOICE_RETRY_MANUAL_FALLBACK.md",
+      "svg": "WF-08_DRIVING_VOICE_RETRY_MANUAL_FALLBACK.svg"
+    }
+  ]
+}
