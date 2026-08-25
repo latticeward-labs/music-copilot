@@ -1,8 +1,8 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 IN PROGRESS — Phase 1 coverage manifest PASS; individual Wireframes not yet approved**
+- **Status:** **ISSUE #15 IN PROGRESS — Phase 2 single-page Figma structure PASS; individual Wireframes not yet approved**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), and [126-state Wireframe Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
+- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), and [126-state Wireframe Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), plus [Phase 2 Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
 - **Official editable visual workfile:** [Figma — Music Copilot — MVP v1.0](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 - **Figma file key / verified page:** `CC6I0e23Zwe6qMhRGaqRrT` / `0:1`
@@ -26,6 +26,18 @@ The [Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md) is the 
 - P1 and P2 states remain explicitly isolated; UF-13 remains P2 and non-blocking for P0.
 
 This PASS authorizes frame construction only; it does not approve any visual frame.
+
+## Phase 2 Figma structure
+
+The official workfile uses one physical Page, `0:1`, now named `00_Index`. Under the user-approved Starter-tier accommodation, all original logical Page names are represented by 14 non-overlapping top-level Sections; four additional Sections define `P0`, `P1`, `P2`, and `System-only` lanes.
+
+- Test text `Hello`: removed.
+- Required naming contract: `WF-##_SCREEN_STATE`.
+- Example: `WF-01_SPLASH_LOADING`.
+- Structure audit: 18/18 Sections, 0 missing, 0 extra, 0 duplicate, 0 overlap, 0 invalid existing `WF-*` names.
+- Evidence: [Figma Structure — Issue #15 Phase 2](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md).
+
+This is a physical organization accommodation only; the 126-state Coverage Manifest and GitHub behavioral authority remain unchanged.
 
 ## Required screen/state matrix
 
@@ -92,6 +104,7 @@ Every frame must identify:
 
 - [Wireframe workspace and artifact convention](wireframes/README.md)
 - [126-state Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
+- [Phase 2 single-page Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
 - [Synchronized UF/State/GS design input](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
 - [Active Figma contract addendum](user-flows/design-sync/FIGMA_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
 - [Design Delivery Plan](DESIGN_DELIVERY_PLAN.md)
