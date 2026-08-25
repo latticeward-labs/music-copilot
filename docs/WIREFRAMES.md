@@ -1,8 +1,8 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 IN PROGRESS — Figma contract active; individual Wireframes not yet approved**
+- **Status:** **ISSUE #15 IN PROGRESS — Phase 1 coverage manifest PASS; individual Wireframes not yet approved**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), and [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md)
+- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), and [126-state Wireframe Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
 - **Official editable visual workfile:** [Figma — Music Copilot — MVP v1.0](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 - **Figma file key / verified page:** `CC6I0e23Zwe6qMhRGaqRrT` / `0:1`
@@ -13,6 +13,19 @@
 Wireframes validate structure, navigation, information hierarchy, controls, feedback and recovery. They do not approve final color, typography, illustration or animation.
 
 GitHub controls behavior, traceability, review and approval. Figma is the official editable visual workfile. A Figma frame becomes reviewable only when its stable node URL and owning UF/State/GS identifiers are recorded in the corresponding repository `WF-##_SCREEN_STATE.md` artifact.
+
+## Phase 1 coverage manifest
+
+The [Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md) is the controlling construction manifest for this gate.
+
+- 126/126 canonical State IDs classified; 0 missing, 0 duplicate, 0 unassigned.
+- 45 App-visible Wireframe states.
+- 61 variants/annotations inside a Wireframe.
+- 20 Android/System-only transitions.
+- GS-01 through GS-05 are connected to planned `WF-01` through `WF-10` packages.
+- P1 and P2 states remain explicitly isolated; UF-13 remains P2 and non-blocking for P0.
+
+This PASS authorizes frame construction only; it does not approve any visual frame.
 
 ## Required screen/state matrix
 
@@ -78,6 +91,7 @@ Every frame must identify:
 ## Repository and workfile locations
 
 - [Wireframe workspace and artifact convention](wireframes/README.md)
+- [126-state Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
 - [Synchronized UF/State/GS design input](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md)
 - [Active Figma contract addendum](user-flows/design-sync/FIGMA_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
 - [Design Delivery Plan](DESIGN_DELIVERY_PLAN.md)
