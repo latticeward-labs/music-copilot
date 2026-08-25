@@ -1,13 +1,24 @@
 # Repository-native Low-fidelity Wireframe Workspace
 
-**Status:** **ISSUE #15 IN PROGRESS — Phase 1 coverage manifest PASS; no visual frames approved yet**  
+**Status:** **ISSUE #15 IN PROGRESS — Phase 2 single-page Figma structure PASS; no visual frames approved yet**  
 **Official editable workfile:** [Figma — Music Copilot — MVP v1.0](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)  
 **Figma file key / verified page:** `CC6I0e23Zwe6qMhRGaqRrT` / `0:1`  
 **Gate index:** [WIREFRAMES.md](../WIREFRAMES.md)  
 **Coverage manifest:** [WIREFRAME_COVERAGE_MATRIX.md](WIREFRAME_COVERAGE_MATRIX.md)  
+**Figma structure evidence:** [FIGMA_STRUCTURE_PHASE_2_2026-08-25.md](FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)  
+**Physical Figma layout:** one Page `0:1` named `00_Index`; 14 logical workspace Sections + `P0`, `P1`, `P2`, `System-only`  
 **Active contract:** [Figma Wireframe Contract Addendum — 25 August 2026](../user-flows/design-sync/FIGMA_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
 
 This directory is the canonical GitHub workspace for low-fidelity behavioral records; Figma is the official editable visual workfile. It will contain reviewable Markdown frame specifications and, where useful, repository-stored SVG/PNG companions. The coverage manifest classifies all 126 canonical states before frame construction. A visual asset cannot override its linked UF/State/GS behavior.
+
+## Single-page Figma structure
+
+The Starter-tier Page limit is handled through the user-approved single-page layout recorded in [the Phase 2 evidence](FIGMA_STRUCTURE_PHASE_2_2026-08-25.md). The original logical Page names are top-level Sections inside `00_Index`; no product behavior or coverage mapping changed.
+
+- Logical workspaces: `00_Index` through `13_Review`.
+- Priority/ownership lanes: `P0`, `P1`, `P2`, `System-only`.
+- Required future node pattern: `WF-##_SCREEN_STATE`.
+- Example: `WF-01_SPLASH_LOADING`.
 
 ## Planned artifact convention
 
