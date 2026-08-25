@@ -2,12 +2,12 @@
 
 **Issue:** [#15 — Create and approve low-fidelity Wireframes](https://github.com/latticeward-labs/music-copilot/issues/15)  
 **Inventory/sync date:** 25 August 2026  
-**Status:** **PASS — coverage manifest complete; visual WF artifacts remain pending**  
+**Status:** **PASS — 126-state manifest complete; Phase 4 app-state construction 32/32 PASS; variant/system review pending**  
 **Canonical count:** **126/126 states classified; 0 missing; 0 duplicate; 0 unassigned**
 
 ## Authority and classification contract
 
-This manifest was regenerated from the current GitHub-controlled UF-01 through UF-13 records, normalized State Inventories, and GS-01 through GS-05. GitHub remains the canonical behavioral/traceability/approval authority. [Figma — Music Copilot — MVP v1.0](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1) is the official editable low-fidelity visual workfile.
+This manifest was regenerated from the current GitHub-controlled UF-01 through UF-13 records, normalized State Inventories, and GS-01 through GS-05. GitHub remains the canonical behavioral, visual, traceability and approval authority. The official editable low-fidelity workfile is [`docs/wireframes/`](README.md), with paired Markdown/SVG artifacts under [app-states](app-states/README.md). Historical external design records are not active acceptance dependencies.
 
 Every canonical State ID is assigned exactly one coverage class:
 
@@ -225,6 +225,11 @@ The counts below are strict references found in the approved GS Markdown records
 | UF-13 | — (not on GS-01..05 path) | `UL-13` | Missing item reconciliation | P2 | UF-13 · Liked Songs | UF-13 | App | Variant/annotation inside a Wireframe | `WF-09` |
 | UF-13 | — (not on GS-01..05 path) | `UL-14` | UI recreation | P2 | UF-13 · Liked Songs | UF-13 | App | Variant/annotation inside a Wireframe | `WF-09` |
 
+## Phase 4 app-state construction attachment
+
+The [32-frame register](app-states/README.md) realizes the required app-visible Phase 4 set as 32 stable Markdown/SVG pairs across `WF-01` through `WF-10`. [Automated validation](app-states/PHASE_4_VALIDATION.md) passes counts, pairing, package totals, XML, required behavior fields, accessibility annotations and P2 isolation.
+
+This attachment does not reclassify any of the 126 canonical states. Variant/annotation and Android/System-only rows remain explicit downstream review inputs and are not promoted into invented app screens.
 ## Validation and exit decision
 
 **Automated manifest checks: PASS**

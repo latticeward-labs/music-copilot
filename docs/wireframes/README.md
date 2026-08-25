@@ -1,12 +1,13 @@
 # Repository-native Low-fidelity Wireframe Workspace
 
-**Status:** **ISSUE #15 IN PROGRESS — GitHub-native Phase 3 Foundations PASS; individual Wireframes pending**  
+**Status:** **ISSUE #15 IN PROGRESS — Phase 4 32/32 App State Frames PASS; cross-role approval pending**  
 **Official editable visual workfile:** this directory (`docs/wireframes/`)  
 **Gate index:** [WIREFRAMES.md](../WIREFRAMES.md)  
 **Workspace topology:** [WORKSPACE_INDEX.md](WORKSPACE_INDEX.md)  
 **Coverage manifest:** [WIREFRAME_COVERAGE_MATRIX.md](WIREFRAME_COVERAGE_MATRIX.md)  
 **Active contract:** [GitHub-native Wireframe Contract Addendum](GITHUB_NATIVE_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)  
-**Foundations:** [specification](foundations/README.md) · [SVG board](foundations/FOUNDATIONS_BOARD.svg) · [tokens](foundations/tokens.json) · [validation](foundations/FOUNDATIONS_VALIDATION.md)
+**Foundations:** [specification](foundations/README.md) · [SVG board](foundations/FOUNDATIONS_BOARD.svg) · [tokens](foundations/tokens.json) · [validation](foundations/FOUNDATIONS_VALIDATION.md)  
+**Phase 4 App States:** [32-frame register](app-states/README.md) · [machine register](app-states/FRAME_REGISTER.json) · [validation](app-states/PHASE_4_VALIDATION.md)
 
 This directory is both the canonical behavioral workspace and the active editable low-fidelity visual workfile. Markdown controls behavior and traceability; text-based SVG controls visual structure; JSON controls shared tokens. Pull requests provide rendering, diffs, review and approval history.
 
@@ -35,8 +36,13 @@ The completed foundation set defines:
 - non-color-only state communication;
 - explicit Android/system-only annotation styling.
 
-Phase 3 PASS authorizes individual Wireframe construction; it does not approve a screen or close Issue #15.
+Phase 3 PASS authorized construction. Phase 4 now supplies the 32 app-state pairs; neither pass fabricates reviewer approval or closes Issue #15.
 
+## Phase 4 — App State Frames
+
+The [Phase 4 register](app-states/README.md) contains exactly 32 paired Markdown/SVG artifacts across `WF-01` through `WF-10`. Automated checks pass for stable pairing, package totals, XML validity, required behavioral fields, 159 interactive targets at 48dp minimum, TalkBack/scalable-text/non-color state annotations and both `P2 / Removable` Liked Songs frames.
+
+Phase 4 construction is complete. Product, Design, Android and QA approval remains deliberately unchecked; Issue #15 stays open.
 ## Required artifact record
 
 Each Markdown record must identify:

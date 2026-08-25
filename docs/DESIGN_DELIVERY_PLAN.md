@@ -40,7 +40,8 @@ The historical synchronization and Figma records remain unchanged. The active ad
 - Visual workfile: [`docs/wireframes/`](wireframes/)
 - Workspace topology: [WORKSPACE_INDEX.md](wireframes/WORKSPACE_INDEX.md)
 - Foundations: [specification](wireframes/foundations/README.md), [SVG board](wireframes/foundations/FOUNDATIONS_BOARD.svg), [tokens](wireframes/foundations/tokens.json)
-- Status: **IN PROGRESS; Phase 3 Foundations PASS; individual Wireframes not yet approved**
+- App states: [32-frame register](wireframes/app-states/README.md), [machine register](wireframes/app-states/FRAME_REGISTER.json), [validation](wireframes/app-states/PHASE_4_VALIDATION.md)
+- Status: **IN PROGRESS; Phase 4 32/32 App State Frames PASS; cross-role approval pending**
 - Output: paired grayscale SVG structures and Markdown specifications covering navigation, hierarchy, ownership, feedback, recovery and accessibility.
 
 Each app-visible artifact must link UF/State/GS IDs and use a stable `WF-*` identifier in both Markdown and SVG. System-only surfaces must be documented explicitly without inventing app screens. Markdown controls behavior; SVG controls low-fidelity visual structure; both are reviewed together.

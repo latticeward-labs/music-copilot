@@ -1,8 +1,8 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 IN PROGRESS — GitHub-native Phase 3 Foundations PASS; individual Wireframes not yet approved**
+- **Status:** **ISSUE #15 IN PROGRESS — Phase 4 32/32 App State Frames PASS; cross-role approval pending**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), and [126-state Wireframe Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), plus [Phase 2 Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
+- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), and [Phase 4 32-frame register](wireframes/app-states/README.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
 - **Official editable visual workfile:** [`docs/wireframes/`](wireframes/) — Markdown + SVG + JSON
 - **Stable workspace index:** [GitHub-native Workspace Index](wireframes/WORKSPACE_INDEX.md)
@@ -49,6 +49,16 @@ The repository-native foundation set is complete and validated:
 - [Phase 3 validation evidence](wireframes/foundations/FOUNDATIONS_VALIDATION.md)
 
 It defines the Android 360×800 reference frame, seven-step grayscale palette, four hierarchy-only typography roles, 11 component families, 48dp minimum targets, TalkBack order, scalable-text and non-color-only state contracts. This PASS authorizes construction of `WF-*` artifacts; it does not approve any individual screen.
+## Phase 4 — 32 App State Frames
+
+- Register: [32 paired Markdown/SVG artifacts](wireframes/app-states/README.md)
+- Machine-readable traceability: [FRAME_REGISTER.json](wireframes/app-states/FRAME_REGISTER.json)
+- Validation: [PHASE_4_VALIDATION.md](wireframes/app-states/PHASE_4_VALIDATION.md)
+- Totals: 32 Markdown + 32 SVG; 32 stable pairs; 0 duplicate; 32/32 valid SVG/XML.
+- Accessibility: 159 interactive targets checked at 48dp minimum; 32/32 TalkBack, scalable-text and non-color-only annotations.
+- P2 isolation: both Liked Songs frames visibly carry `P2 / Removable`.
+
+**Decision:** Phase 4 construction PASS / COMPLETE. Individual artifacts are reviewable but are not yet cross-role approved.
 ## Required screen/state matrix
 
 | Screen | Required states |
@@ -113,6 +123,8 @@ Every frame must identify:
 ## Repository and workfile locations
 
 - [Wireframe workspace and artifact convention](wireframes/README.md)
+- [Phase 4 — 32 App State Frames](wireframes/app-states/README.md)
+- [Phase 4 validation](wireframes/app-states/PHASE_4_VALIDATION.md)
 - [126-state Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
 - [Historical Phase 2 single-page Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
 - [GitHub-native workspace index](wireframes/WORKSPACE_INDEX.md)
@@ -124,4 +136,4 @@ Every frame must identify:
 - [Figma Design Plan](FIGMA_DESIGN_PLAN.md)
 - [Official Figma workfile](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 
-The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. No individual Wireframe is approved yet; Issue #15 must populate, pair and review each Markdown/SVG artifact in GitHub.
+The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. The 32 app-state pairs are populated and construction-validated. Issue #15 must still review variant/system-only coverage, cross-frame navigation and named Product/Design/Android/QA approval.
