@@ -29,7 +29,9 @@
     "majorOpen": 0,
     "minorOpen": 2,
     "evidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
-    "geometryCorrectionCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
+    "geometryCorrectionCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785",
+    "reviewPr": "https://github.com/latticeward-labs/music-copilot/pull/42",
+    "evidenceCommit": "475089654254c96b6adda27c19b697e26dfe798d"
   },
   "sourceRegisters": [
     "docs/wireframes/app-states/FRAME_REGISTER.json",

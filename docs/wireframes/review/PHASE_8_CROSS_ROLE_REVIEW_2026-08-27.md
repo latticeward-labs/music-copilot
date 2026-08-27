@@ -16,7 +16,7 @@ The authenticated repository actor is `latticeward-labs`. That account records t
 
 ## Source authorities reviewed
 
-- [Repository PRD](../../../PRD.md) and [MVP](../../../MVP.md), which mirror the attached official English PRD/MVP.
+- [Repository PRD](../../PRD.md) and [MVP](../../MVP.md), which mirror the attached official English PRD/MVP.
 - ADR-0001…ADR-0006 and repository Architecture/Technical contracts.
 - [45-pair artifact index](../README.md) and [machine register](../ARTIFACT_REGISTER.json).
 - [Phase 7 traceability](../PHASE_7_TRACEABILITY_VALIDATION.md), navigation and link audits.
@@ -57,4 +57,4 @@ Figma Nodes are not an acceptance dependency. The stable `WF-*.md` path is the b
 
 ## Exit decision
 
-The complete repository-native Wireframe set is feasible and internally consistent after correction. There is no open P0 Wireframe gap, invented Android screen, navigation contradiction, Blocker or Major. Phase 8 is **PASS / COMPLETE**, and Issue #15 is ready to close after the Phase 8 PR is merged and linked.
+The complete repository-native Wireframe set is feasible and internally consistent after correction. There is no open P0 Wireframe gap, invented Android screen, navigation contradiction, Blocker or Major. Phase 8 is **PASS / COMPLETE**. Review changes are carried by [PR #42](https://github.com/latticeward-labs/music-copilot/pull/42); the immutable evidence commit is [`475089654254c96b6adda27c19b697e26dfe798d`](https://github.com/latticeward-labs/music-copilot/commit/475089654254c96b6adda27c19b697e26dfe798d). Issue #15 is ready to close after merge.
