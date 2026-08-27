@@ -1,0 +1,21 @@
+flowchart LR
+    USER["Driver / user"]
+    APP["Music Copilot\nNative Android 10+ app"]
+    MEDIA["User-authorized local audio\nAndroid MediaStore"]
+    PLATFORM["Android platform services\nPermissions • MediaSession • Audio Focus • routes"]
+    VEHICLE["Bluetooth / headset / vehicle head unit\nMedia controls + audio route"]
+    SPEECH["Replaceable speech boundary\nAndroid STT/TTS or separately approved provider"]
+    QUALITY["Optional quality boundary\nprivacy-safe crash / analytics / config adapter"]
+    EXCLUDED["Explicitly absent from MVP v1.0\nbackend • account • cloud sync • streaming • online catalog"]
+
+    USER --> APP
+    APP <--> PLATFORM
+    APP --> MEDIA
+    PLATFORM <--> VEHICLE
+    APP -->|"push-to-talk through replaceable port"| SPEECH
+    APP -->|"allowlisted typed events only"| QUALITY
+
+    EXCLUDED --- APP
+
+    classDef excluded fill:#fff,stroke:#333,stroke-dasharray: 5 5;
+    class EXCLUDED excluded;
