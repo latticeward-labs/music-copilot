@@ -3,18 +3,39 @@
 - **Status:** Accepted
 - **Date:** 2026-08-27
 - **Reviewed:** 2026-08-27
-- **Authority:** [PRD v1.0](../PRD.md), [MVP v1.0](../MVP.md), accepted [ADR-0002](0002-service-owned-media3-playback.md), accepted [ADR-0003](0003-local-first-data-boundaries.md)
-- **Review evidence:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16), [Phase 3 Decision/Spike Register](../architecture/DECISION_AND_SPIKE_REGISTER.md), TS-01/02/03/04/05/06/08/09
+- **Source revalidation:** 2026-08-27 against the directly attached English `MSM2(2).rar`
+- **Authority:** attached English `Music_Copilot_PRD_v1_EN_Clarified.pdf`, attached English `Music_Copilot_MVP_v1_EN.pdf`, current Accepted [ADR-0002](0002-service-owned-media3-playback.md) and [ADR-0003](0003-local-first-data-boundaries.md)
+- **Review evidence:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16), [Source/Authority Register](../architecture/SOURCE_AND_AUTHORITY_REGISTER.md), [Phase 3 Decision/Spike Register](../architecture/DECISION_AND_SPIKE_REGISTER.md), TS-01/02/03/04/05/06/08/09
 - **Relationship:** Elaborates ADR-0002 and ADR-0003. It does **not** supersede either ADR.
 - **Outcome:** Accepted as the implementation contract for Issue #16 Phase 4
 
+## Attached-source identity and boundary
+
+This ADR was revalidated directly against the attached archive bytes supplied for Issue #16 Phase 4:
+
+- `MSM2(2).rar` SHA-256: `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
+- `Music_Copilot_PRD_v1_EN_Clarified.pdf`: `486fbd5057e4abf570cd1a4865b6243ee5e31d26a48596414903916d6d81e9cf`
+- `Music_Copilot_MVP_v1_EN.pdf`: `98e89a1c9d530f4eb878af94f4f480fc8d4669ce2ed5193ba71f201b032d47b0`
+- `ADR-0002_Service_Owned_Media3_Playback.pdf`: `f9ba6adfac14d5c04a33de55cf845abc56dee06ea0301ae7e66f926e83e729c9`
+- `ADR-0003_Local_First_Data_Boundaries_Revised.pdf`: `1ceff4cd1f8d4021dd0e1c5ea3aec91c46b0b121d3f87919f913f3f53ce644a4`
+- `Music_Copilot_System_Architecture_MVP_v1_EN.pdf`: `b056e3b8d3125e6660c2fd9431f4f883128673ed5ad1a7f3f5184dd179715bfb`
+- `Music_Copilot_Code_and_Technical_Documentation_MVP_v1_EN.pdf`: `1d776396a88aebacbdb8b813fe8c6fe82418c951f301762ac594c55a7cd22cf3`
+
+No Persian/Farsi PRD or MVP is used as authority or evidence in this ADR.
+
+The attached English sources establish the binding direction but intentionally leave several final choices open. In particular, the English System Architecture identifies exact coroutine scopes/dispatchers, process-death behavior, queue/position representation and same-process versus separate-process service as Issue #16 decisions; the English Technical Blueprint repeats those as final-gate decisions. Therefore the detailed choices below are not presented as if they came from the older PDF synthesis. They are the current GitHub Phase 3 resolutions, checked for compatibility with the attached English sources and then formalized here.
+
 ## Context
 
-ADR-0002 established that Media3 playback and MediaSession are service-owned and independent of UI lifecycle, while deliberately deferring the exact service process, lifecycle, controller contract, process-death limits, coroutine ownership and command serialization to Issue #16. ADR-0003 established local-first persistence boundaries while leaving queue/position restoration details for later architecture work.
+The attached English PRD establishes that playback must continue in the background and with the screen off, the system Media Session must remain current, interruption/route behavior must recover safely, and FR-08 queue/position persistence is P1. Its proposed architecture also states that the player is independent of UI lifecycle and managed in a Service.
+
+The attached English MVP requires stable background/lock-screen/Bluetooth playback, shows that UI rotation/closure must leave Player state synchronized with the Service, and keeps incomplete P0 Player/Voice/Driving/Stability work as a Beta blocker.
+
+ADR-0002 established that Media3 playback and MediaSession are service-owned and independent of UI lifecycle, while deliberately deferring exact service process, controller contract, process-death limits, coroutine ownership and command serialization to Issue #16. ADR-0003 established local-first persistence boundaries while leaving exact queue/position restoration mechanics open.
 
 The approved User Flows, Golden Scenarios and Wireframes require P0 playback and interruption recovery to survive UI recreation/closure, synchronize with Android system surfaces, avoid duplicate player ownership and return safely after calls, Audio Focus changes and route loss. FR-08 queue/position restoration remains P1 and must not be promoted into a hidden P0 requirement.
 
-Phase 3 closed the implementation-blocking runtime decisions D-01 through D-08 and D-15 using the accepted spike evidence. Those choices are consequential because changing any of them would alter process topology, service lifetime, state authority, command ordering, cancellation behavior, recovery semantics or persistence contracts.
+Phase 3 closed the implementation-blocking runtime decisions D-01 through D-08 and D-15 using the accepted repository evidence. Those choices are consequential because changing any of them would alter process topology, service lifetime, state authority, command ordering, cancellation behavior, recovery semantics or persistence contracts.
 
 ## Decision drivers
 
@@ -35,11 +56,13 @@ Run the production playback service in the **same Android application process** 
 
 UI lifecycle independence is provided by `MediaSessionService` ownership, not by a second process. No custom Binder/IPC protocol or cross-process state replication is introduced for MVP v1.0.
 
+This resolves an explicit open decision in the attached English System Architecture/Technical Blueprint; it does not rewrite ADR-0002.
+
 ### 2. Service startup, foreground lifetime and shutdown
 
 - Do not autoplay at boot or ordinary app startup.
 - Create the Player and MediaSession in service `onCreate` when the service is legitimately created by app/system media interaction.
-- Enter the foreground-media lifecycle only from an accepted user/system Play or Resume path, following Media3/platform requirements.
+- Enter the foreground-media lifecycle only from an accepted user/system Play or Resume path, following the approved service contract.
 - On task removal, keep the service only while playback is legitimately ongoing; otherwise stop it.
 - Explicit Stop, a deliberately cleared queue, or a terminal unrecoverable playback state may stop the service.
 - Release Player, MediaSession and service-owned resources in `onDestroy`.
@@ -63,6 +86,8 @@ P0 guarantees UI recreation/closure and active service continuity within support
 
 On cold start, a live MediaSession always wins over persisted restoration data. Force-stop is treated as a negative control, not a P0 restoration requirement.
 
+This preserves the attached-source distinction between P0 active playback continuity and P1 FR-08 restoration.
+
 ### 5. Playback command serialization
 
 All playback commands from UI, Android system controls and Voice converge on one service-owned `PlaybackCommandProcessor`.
@@ -75,6 +100,8 @@ All playback commands from UI, Android system controls and Voice converge on one
 - The command channel is bounded at **32** pending commands.
 - Overflow returns a typed `Busy` failure; an accepted command is never silently dropped.
 
+The exact bounded capacity is a Phase 3 repository decision, not a numeric claim from the attached PDFs.
+
 ### 6. Structured concurrency and dispatchers
 
 - `GlobalScope` is forbidden.
@@ -86,6 +113,8 @@ All playback commands from UI, Android system controls and Voice converge on one
 - `Dispatchers.IO` boundary: MediaStore, Room, DataStore and blocking provider/storage adapters.
 - `Dispatchers.Default` boundary: normalization, deterministic matching and CPU-bound pure transformations.
 - Main boundary: UI state publication and Player/MediaSession mutation.
+
+The attached English architecture requires structured concurrency, no unmanaged global scope, service-owned long-running playback and no blocking scan/database work on main; it intentionally leaves these exact scope/dispatcher assignments to Issue #16.
 
 ### 7. Voice overlap and cancellation
 
@@ -119,6 +148,8 @@ Write atomically when the queue/current item/pause state changes and with a debo
 5. prepare the restored queue in **Paused** state only;
 6. never autoplay merely because a snapshot exists.
 
+The attached English sources require FR-08 restoration to remain P1 and explicitly leave the representation/restoration limits open. Proto DataStore, the snapshot schema and checkpoint policy are therefore current Issue #16 decisions, not historical-source facts.
+
 ### 9. Interruption, focus and route recovery
 
 Automatic resume is allowed only when **all** guards remain true:
@@ -129,6 +160,8 @@ Automatic resume is allowed only when **all** guards remain true:
 4. no manual Pause occurred after the interruption began.
 
 Permanent focus loss safe-pauses. Headset/Bluetooth route disconnect immediately pauses playback, cancels Voice and increments route generation. Reconnect remains Paused until explicit Resume. Duplicate or stale interruption/route events must be idempotent.
+
+The attached English MVP requires immediate pause on Bluetooth disconnect and no unintended speaker playback; the exact post-call/focus resume guards were an explicit Issue #16 policy decision and are formalized here from the repository evidence.
 
 ## Consequences
 
@@ -151,16 +184,23 @@ Permanent focus loss safe-pauses. Headset/Bluetooth route disconnect immediately
 
 ## Alternatives considered
 
-- **Dedicated playback process:** rejected for MVP because it adds IPC, state replication, DI and debugging complexity without an approved product requirement for process isolation.
+- **Dedicated playback process:** rejected for MVP because it adds IPC, state replication, dependency-wiring and debugging complexity without an approved product requirement for process isolation.
 - **UI-owned Player or queue:** rejected by ADR-0002 and the P0 background/system-control requirements.
 - **Unbounded or parallel playback commands:** rejected because order races can create duplicate/stale playback behavior.
-- **`GlobalScope` for long-running work:** rejected because lifecycle ownership and cancellation become implicit and hard to test.
+- **Unmanaged global coroutine scope for long-running work:** rejected because lifecycle ownership and cancellation become implicit and hard to test.
 - **Room as active queue authority:** rejected because live playback authority belongs to the MediaSession service and Room is not required for transient queue mutation.
 - **Automatic resume after any reconnect/focus gain:** rejected because it can violate manual pause and route-safety expectations.
 - **Restore and autoplay after cold start:** rejected because FR-08 is P1 and a persisted snapshot is not proof of current user intent.
 - **Store title/artist/path in restoration payload:** rejected as unnecessary personal media metadata.
 
 ## Validation
+
+### Source-conformance validation
+
+- Attached English PRD/MVP scope remains Android/local/Push-to-Talk and does not gain backend, account, streaming or new P0 restoration scope.
+- ADR-0002 remains the service-owned playback authority; ADR-0003 remains the local-first data authority.
+- P0 active playback continuity remains distinct from P1 queue/position restoration.
+- Decisions that the attached System Architecture/Technical Blueprint marked open are explicitly identified as current Issue #16 decisions rather than attributed back to those PDFs.
 
 ### Architecture/contract validation
 
