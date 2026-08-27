@@ -1,0 +1,96 @@
+{
+  "version": "1.0.0",
+  "date": "2026-08-27",
+  "issue": "https://github.com/latticeward-labs/music-copilot/issues/15",
+  "authority": "GitHub-native Markdown/SVG/JSON; no active Figma dependency",
+  "reviewer": {
+    "name": "OpenAI Codex",
+    "type": "AI-assisted cross-role evidence reviewer",
+    "roles": [
+      "Product",
+      "Design/UX",
+      "Android feasibility",
+      "Accessibility",
+      "Privacy"
+    ],
+    "authenticatedRepositoryActor": "latticeward-labs",
+    "identityNote": "No human identity, independent signature, Legal approval or physical-device execution is claimed."
+  },
+  "summary": {
+    "blocker": {
+      "found": 0,
+      "resolved": 0,
+      "open": 0
+    },
+    "major": {
+      "found": 2,
+      "resolved": 2,
+      "open": 0
+    },
+    "minor": {
+      "found": 2,
+      "resolved": 0,
+      "open": 2
+    }
+  },
+  "findings": [
+    {
+      "id": "PH8-MAJ-001",
+      "severity": "Major",
+      "areas": [
+        "Design/UX",
+        "Android feasibility",
+        "Accessibility"
+      ],
+      "status": "RESOLVED",
+      "title": "Inner Android frame contradicted the 360x800dp Foundations contract",
+      "observed": "32/32 App SVGs used a 360x820 inner device frame while Foundations and tokens require 360x800.",
+      "resolution": "Corrected device, content, bottom-navigation and system-navigation geometry in all 32 App SVGs.",
+      "evidenceCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
+    },
+    {
+      "id": "PH8-MAJ-002",
+      "severity": "Major",
+      "areas": [
+        "Review governance",
+        "Product",
+        "Design/UX",
+        "Android feasibility",
+        "Accessibility",
+        "Privacy"
+      ],
+      "status": "RESOLVED",
+      "title": "Artifact-level cross-role disposition and evidence were missing",
+      "observed": "45/45 paired records were still marked approval pending and no Phase 8 findings/evidence package existed.",
+      "resolution": "Added dated named AI-assisted review metadata to 45/45 records plus a findings register, validation record and five rendered evidence SVGs."
+    },
+    {
+      "id": "PH8-MIN-001",
+      "severity": "Minor",
+      "areas": [
+        "Accessibility",
+        "Android feasibility"
+      ],
+      "status": "OPEN_DOWNSTREAM_NON_BLOCKING",
+      "title": "Static Wireframes cannot execute Compose accessibility behavior",
+      "observed": "TalkBack order, 48dp targets, scalable text and non-color-only states are specified and visually audited, but runtime semantics, focus and 200 percent font scaling require implementation tests.",
+      "owner": "Issue #16/#17 implementation and QA"
+    },
+    {
+      "id": "PH8-MIN-002",
+      "severity": "Minor",
+      "areas": [
+        "Privacy"
+      ],
+      "status": "OPEN_DOWNSTREAM_NON_BLOCKING",
+      "title": "Wireframe privacy review is not Legal approval",
+      "observed": "Consent, raw-audio prohibition, local deletion boundaries and Driving Mode restrictions are consistent, but provider-specific destination/retention copy requires named human Product/Legal approval before release.",
+      "owner": "Product + Legal release gate"
+    }
+  ],
+  "figmaReplacement": {
+    "activeFigmaDependencies": 0,
+    "nodeEquivalent": "Each WF Markdown path plus paired repository SVG and immutable commit URL",
+    "reviewScreenshots": "docs/wireframes/review/*.svg"
+  }
+}

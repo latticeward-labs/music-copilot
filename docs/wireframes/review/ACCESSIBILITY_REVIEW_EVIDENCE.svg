@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">Phase 8 Accessibility Review evidence</title><desc id="desc">Low-fidelity accessibility specification. Reviewer OpenAI Codex, 27 August 2026. Result PASS.</desc>
+<style>text{font-family:Inter,Arial,sans-serif;fill:#171717}.title{font-size:42px;font-weight:700}.h2{font-size:24px;font-weight:650}.body{font-size:21px}.meta{font-size:17px;fill:#4A4A4A}.pass{fill:#171717}.passText{fill:#fff;font-size:22px;font-weight:700}.card{fill:#fff;stroke:#c7c7c7;stroke-width:2}.line{stroke:#c7c7c7}.chip{font-size:16px;font-weight:700}</style>
+<rect width="1200" height="675" fill="#f7f7f7"/><rect x="48" y="48" width="1104" height="579" rx="18" class="card"/>
+<text x="80" y="115" class="meta">ISSUE #15 · PHASE 8 · 27 AUGUST 2026</text>
+<text x="80" y="178" class="title">Accessibility Review</text><text x="80" y="216" class="h2">Low-fidelity accessibility specification</text>
+<rect x="940" y="92" width="156" height="64" rx="8" class="pass"/><text x="1018" y="133" text-anchor="middle" class="passText">PASS</text>
+<line x1="80" y1="250" x2="1120" y2="250" class="line"/><text x="80" y="300" class="body">159/159 interactive targets remain at least 48dp.</text><text x="80" y="348" class="body">TalkBack order, 200% scaling and non-color-only state are annotated.</text><text x="80" y="396" class="body">45/45 SVG visuals contain accessible title and description.</text>
+<line x1="80" y1="535" x2="1120" y2="535" class="line"/>
+<text x="80" y="575" class="meta">Reviewer: OpenAI Codex · AI-assisted cross-role evidence reviewer</text>
+<text x="80" y="606" class="meta">Open Blocker: 0 · Open Major: 0 · Minor: Compose runtime semantics/focus/reflow downstream</text>
+</svg>

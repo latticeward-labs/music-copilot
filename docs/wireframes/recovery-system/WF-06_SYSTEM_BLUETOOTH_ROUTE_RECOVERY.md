@@ -1,7 +1,8 @@
 # WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY — Bluetooth route loss and reconnect
 
 **Phase:** 5 — Recovery and System-only Transitions  
-**Construction status:** **PASS / REVIEWABLE — approval pending**  
+**Construction status:** **PASS / COMPLETE**  
+**Phase 8 review:** **CROSS-ROLE FEASIBILITY PASS — 27 August 2026**  
 **Diagram:** [WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY.svg](WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY.svg)  
 **Classification:** **Android/System-only transition**  
 **Priority:** **P0**
@@ -47,4 +48,4 @@
 - [x] Return, retry and safe terminal are explicit.
 - [x] Privacy, accessibility and Driving restrictions are explicit.
 - [x] Recovery ends in Manual Playback or Safe Paused.
-- [ ] Product, Design, Android and QA reviewers record approval in GitHub.
+- [x] Product, Design/UX, Android feasibility, Accessibility and Privacy reviewed in GitHub — [Phase 8 review evidence](../review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md).

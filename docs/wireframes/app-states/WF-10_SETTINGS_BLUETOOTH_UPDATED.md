@@ -1,7 +1,8 @@
 # WF-10_SETTINGS_BLUETOOTH_UPDATED — Settings: Bluetooth / Updated
 
 **Phase:** 4 — App State Frames  
-**Construction status:** **PASS / REVIEWABLE — approval pending**  
+**Construction status:** **PASS / COMPLETE**  
+**Phase 8 review:** **CROSS-ROLE FEASIBILITY PASS — 27 August 2026**  
 **Visual:** [WF-10_SETTINGS_BLUETOOTH_UPDATED.svg](WF-10_SETTINGS_BLUETOOTH_UPDATED.svg)  
 **Package:** `WF-10`  
 **Priority:** **P1 / Removable preference**  
@@ -11,10 +12,11 @@
 
 - **Behavioral record (current `main`):** [WF-10_SETTINGS_BLUETOOTH_UPDATED.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.md)
 - **Low-fidelity visual (current `main`):** [WF-10_SETTINGS_BLUETOOTH_UPDATED.svg](https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg)
-- **Node-equivalent immutable visual URL:** [SVG at construction commit](https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg)
+- **Node-equivalent immutable visual URL:** [SVG after Phase 8 geometry correction](https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg)
 - **Construction provenance:** [PR #38](https://github.com/latticeward-labs/music-copilot/pull/38) · [`47f6b91194aa088783e62034e0a773d1fb0dc37f`](https://github.com/latticeward-labs/music-copilot/commit/47f6b91194aa088783e62034e0a773d1fb0dc37f)
+- **Phase 8 geometry correction:** [`7480843ce01ee7b8054f6d1313d6f58d88de0785`](https://github.com/latticeward-labs/music-copilot/commit/7480843ce01ee7b8054f6d1313d6f58d88de0785) — approved 360×800dp inner Android frame.
 - **Visual format:** Editable, text-based repository SVG; no Figma dependency.
-- **Review disposition:** Construction PASS / reviewable; named Product, Design, Android and QA approval pending.
+- **Review disposition:** Phase 8 Product, Design/UX, Android feasibility, Accessibility and Privacy review PASS on 27 August 2026; no open Blocker or Major.
 - **Empty/Error/Denial/Retry disposition:** Permission/unavailable routes to explicit outside-driving recovery; failure is textual. Conditions not owned by this frame are not fabricated; they route to the owning `WF-*` record or system transition.
 - **Driving restriction:** This frame is not a Driving Mode setup destination. Active Driving Mode remains on its single fixed-control layer; permission, Settings, consent, typing, deep navigation and long lists are prohibited.
 
@@ -65,4 +67,4 @@ Connection alone never launches Driving Mode; platform identity remains protecte
 - [x] Entry, exit, Back, source of truth, recovery and persistence are explicit.
 - [x] 48dp, TalkBack, scalable text and non-color-only rules are annotated.
 - [x] No backend, account, streaming, Android Auto, iOS or v1.1 scope is introduced.
-- [ ] Product, Design, Android and QA reviewers record approval in GitHub.
+- [x] Product, Design/UX, Android feasibility, Accessibility and Privacy reviewed in GitHub — [Phase 8 review evidence](../review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md).

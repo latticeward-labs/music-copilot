@@ -5,6 +5,7 @@
 **Coverage authority:** [WIREFRAME_COVERAGE_MATRIX.md](WIREFRAME_COVERAGE_MATRIX.md)  
 **Phase 4 frame register:** [app-states/README.md](app-states/README.md)  
 **Phase 5 transition register:** [recovery-system/README.md](recovery-system/README.md)  
+**Phase 8 review:** [review/README.md](review/README.md)  
 **Active contract:** [GitHub-native Wireframe Contract Addendum](GITHUB_NATIVE_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
 
 This index is the repository equivalent of the former single-page Figma topology. Logical workspaces are directories or indexed artifact groups, while priority and ownership lanes are metadata fields rather than canvas position.
@@ -24,7 +25,7 @@ This index is the repository equivalent of the former single-page Figma topology
 | `10_Liked_Songs_P2` | `app-states/WF-09_*` | Phase 4 PASS / P2 |
 | `11_Settings_Privacy` | `app-states/WF-10_*` | Phase 4 PASS |
 | `12_System_Transitions` | `recovery-system/WF-*_SYSTEM_*` paired records/diagrams | Phase 5 PASS / 20 System-only states |
-| `13_Review` | PR evidence, Phase 4/5 validation records and Issue #15 | Active / approval pending |
+| `13_Review` | `review/` evidence, findings, validation, Phase 8 PR/commit and Issue #15 | Phase 8 PASS |
 
 ## Phase 5 recovery contract
 
