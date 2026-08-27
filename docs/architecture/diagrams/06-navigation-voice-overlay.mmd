@@ -1,0 +1,30 @@
+flowchart LR
+    BOOT["Bootstrap"] --> ONB["Onboarding"]
+    ONB --> PERM["Permissions"]
+    PERM --> HOME["Home / Library"]
+    HOME --> SEARCH["Search"]
+    HOME --> PLAYER["Full Player"]
+    SEARCH --> PLAYER
+    PLAYER --> DRIVE["Driving Mode"]
+    HOME --> SETTINGS["Settings"]
+    HOME -. "P2 removable" .-> LIKED["Liked Songs"]
+    LIKED --> PLAYER
+
+    PLAYER -->|"push-to-talk"| OVERLAY["Voice overlay\nListening → Processing → Confirming / Executed / Failed"]
+    DRIVE -->|"push-to-talk"| OVERLAY
+    OVERLAY --> ORIGIN["Recorded Player / Driving origin\nVoiceSessionCoordinator"]
+    ORIGIN --> PLAYER
+    ORIGIN --> DRIVE
+
+    BACK["Back while overlay active"] --> CANCEL["Cancel Voice first"]
+    CANCEL --> ORIGIN
+    EXIT["Driving Back / Exit"] --> RETURN["Immediate return to recorded origin"]
+    RETURN --> PLAYER
+    RETURN --> HOME
+
+    PERM -->|"explicit external handoff"| SYSTEM["Android Settings / permission surface"]
+    SETTINGS -->|"when required"| SYSTEM
+    SYSTEM -->|"return + fresh capability re-check"| PERM
+
+    NOTE["Voice is overlay state, not a destination.\nSystem surfaces are external handoffs, not app screens.\nDriving stays one interaction layer with immediate Exit."]
+    NOTE --- DRIVE
