@@ -34,7 +34,7 @@ The official workfile uses one physical Page, `0:1`, now named `00_Index`. Under
 - Test text `Hello`: removed.
 - Required naming contract: `WF-##_SCREEN_STATE`.
 - Example: `WF-01_SPLASH_LOADING`.
-- Structure audit: 18/18 Sections, 0 missing, 0 extra, 0 duplicate, 0 overlap, 0 invalid existing `WF-*` names.
+- Structure audit: 19/19 Sections, 0 missing, 0 extra, 0 duplicate, 0 overlap, 0 invalid existing `WF-*` names.
 - Evidence: [Figma Structure — Issue #15 Phase 2](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md).
 
 This is a physical organization accommodation only; the 126-state Coverage Manifest and GitHub behavioral authority remain unchanged.
@@ -211,7 +211,7 @@ Phase 8 reviewed the complete 45-pair repository-native Wireframe set. All Block
 - [Phase 9 Link and Traceability Audit](wireframes/PHASE_9_LINK_TRACEABILITY_AUDIT.md): PASS.
 - [Phase 9 Merge and Closeout Record](wireframes/PHASE_9_MERGE_CLOSEOUT_2026-08-27.md): PASS.
 - [Machine-readable closeout register](wireframes/PHASE_9_CLOSEOUT_REGISTER.json).
-- Issue #15: 18/18 Acceptance Criteria checked and closed as Completed.
+- Issue #15: 19/19 Acceptance Criteria checked and closed as Completed.
 - GitHub Project status: `Done`; the project activity records the automation move from `In Progress` to `Done`.
 - GitHub-native editable workfile and repository artifacts are synchronized on `main`; active Figma dependencies remain 0.
 - Downstream handoff: #16 is ready after its completed dependencies; #17 is unblocked by #15 while retaining #16 as its remaining architecture gate.
