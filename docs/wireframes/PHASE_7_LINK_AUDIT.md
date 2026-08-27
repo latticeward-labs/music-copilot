@@ -6,10 +6,10 @@
 
 | Check | Observed | Broken/active failure | Result |
 |---|---:|---:|---|
-| Markdown files scanned | 59 | 0 unreadable | PASS |
-| Internal relative-link occurrences | 533 | 0 | PASS |
-| Unique internal targets | 125 | 0 | PASS |
-| Same-repository GitHub URL occurrences | 170 | 0 invalid blob/tree paths | PASS |
+| Markdown files scanned | 62 | 0 unreadable | PASS |
+| Internal relative-link occurrences | 555 | 0 | PASS |
+| Unique internal targets | 130 | 0 | PASS |
+| Same-repository GitHub URL occurrences | 171 | 0 invalid blob/tree paths | PASS |
 | Unique same-repository GitHub URLs | 100 | 0 | PASS |
 | Figma URL occurrences | 3 | 0 inside active `WF-*` artifacts | PASS |
 | Unique Figma URLs | 1 | 0 active dependencies | PASS |
