@@ -111,5 +111,5 @@ Phase 8 cross-role feasibility review is PASS. No Blocker or Major remains open;
 - [Merge and Closeout Record](PHASE_9_MERGE_CLOSEOUT_2026-08-27.md): PASS.
 - [Machine closeout register](PHASE_9_CLOSEOUT_REGISTER.json).
 - Wireframe PR [#42](https://github.com/latticeward-labs/music-copilot/pull/42) is merged; repository-native workfile and artifacts are synchronized on `main`.
-- Issue #15 has 18/18 checked criteria, Project status `Done`, and closed reason `Completed`.
+- Issue #15 has 19/19 checked criteria, Project status `Done`, and closed reason `Completed`.
 - #16 is released to architecture work; #17 has the #15 Wireframe gate cleared and continues to wait only for #16.

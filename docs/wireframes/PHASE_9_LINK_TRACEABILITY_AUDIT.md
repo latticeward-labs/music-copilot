@@ -40,7 +40,7 @@ Source registers: [Coverage Matrix](WIREFRAME_COVERAGE_MATRIX.md), [Artifact Reg
 
 ## Exit criteria audit
 
-- Acceptance Criteria in Issue #15: **18/18 checked**, **0 unchecked**.
+- Acceptance Criteria in Issue #15: **19/19 checked**, **0 unchecked**.
 - Phase 8 findings: **0 Blocker open**, **0 Major open**.
 - Phase 9 closeout PR: [#43](https://github.com/latticeward-labs/music-copilot/pull/43).
 - Wireframe delivery PR: [#42](https://github.com/latticeward-labs/music-copilot/pull/42), merged at [`5cec884`](https://github.com/latticeward-labs/music-copilot/commit/5cec884359b158ca8d504b5dd6fce08e9d4607bf).
