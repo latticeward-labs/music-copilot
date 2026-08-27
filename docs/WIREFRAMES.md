@@ -1,8 +1,8 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 IN PROGRESS — Phase 7 traceability/validation PASS; named cross-role approval pending**
+- **Status:** **ISSUE #15 PHASE 8 PASS — cross-role feasibility review complete; ready to close**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), [Phase 4 32-frame register](wireframes/app-states/README.md), [Phase 5 Recovery/System register](wireframes/recovery-system/README.md), and [Phase 6 complete artifact index](wireframes/README.md)
+- **Completed input:** [Phase 8 cross-role review](wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md), [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), [Phase 4 32-frame register](wireframes/app-states/README.md), [Phase 5 Recovery/System register](wireframes/recovery-system/README.md), and [Phase 6 complete artifact index](wireframes/README.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
 - **Official editable visual workfile:** [`docs/wireframes/`](wireframes/) — Markdown + SVG + JSON
 - **Stable workspace index:** [GitHub-native Workspace Index](wireframes/WORKSPACE_INDEX.md)
@@ -98,6 +98,22 @@ It defines the Android 360×800 reference frame, seven-step grayscale palette, f
 
 **Decision:** Phase 7 Traceability and Validation PASS / COMPLETE. Named Product/Design/Android/QA approval remains pending.
 
+## Phase 8 — Review and correction
+
+- [Cross-role review record](wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md)
+- [Machine-readable findings](wireframes/review/PHASE_8_FINDINGS_REGISTER.json)
+- [Phase 8 validation](wireframes/review/PHASE_8_VALIDATION.md)
+- [Phase 8 PR #42](https://github.com/latticeward-labs/music-copilot/pull/42) · [evidence commit `475089654254c96b6adda27c19b697e26dfe798d`](https://github.com/latticeward-labs/music-copilot/commit/475089654254c96b6adda27c19b697e26dfe798d)
+- Reviewer: **OpenAI Codex**; type: **AI-assisted cross-role evidence reviewer**; date: **27 August 2026**.
+- Product, Design/UX, Android feasibility, Accessibility and Privacy: **PASS at Wireframe feasibility level**.
+- Blocker: 0 found / 0 open.
+- Major: 2 found / 2 resolved / 0 open.
+- Minor: 2 recorded as downstream implementation/legal validation / 2 open.
+- Major geometry correction: all 32 app-state SVGs changed from an inconsistent 360×820 inner frame to the approved 360×800dp Foundations contract.
+- Review screenshots are repository-rendered SVG evidence; stable Markdown/SVG paths and the Phase 8 commit/PR replace Figma Node links.
+
+**Decision:** Phase 8 review PASS / COMPLETE. No Wireframe Blocker or Major remains open.
+
 ## Required screen/state matrix
 
 | Screen | Required states |
@@ -156,7 +172,7 @@ Every frame must identify:
 - [x] Voice certainty, ambiguity, not-found, timeout and one-Retry failure states are covered without a new complex screen.
 - [x] Background, recreation, interruption and route handoffs are annotated and service-authoritative.
 - [x] Stable SVG paths match repository `WF-*` identifiers and UF/State/GS ownership.
-- [ ] Product, Design and Android feasibility review is complete.
+- [x] Product, Design/UX, Android feasibility, Accessibility and Privacy review is complete — [Phase 8 evidence](wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md).
 - [x] Repository artifact links, source UF/State/GS IDs, construction provenance, validation date and current review disposition are recorded below.
 
 ## Repository and workfile locations
@@ -173,6 +189,9 @@ Every frame must identify:
 - [Phase 7 Navigation and Behavioral Audit](wireframes/PHASE_7_NAVIGATION_BEHAVIOR_AUDIT.md)
 - [Phase 7 Link Audit](wireframes/PHASE_7_LINK_AUDIT.md)
 - [Phase 7 combined validation](wireframes/PHASE_7_TRACEABILITY_VALIDATION.md)
+- [Phase 8 cross-role review](wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md)
+- [Phase 8 findings register](wireframes/review/PHASE_8_FINDINGS_REGISTER.json)
+- [Phase 8 validation](wireframes/review/PHASE_8_VALIDATION.md)
 - [126-state Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
 - [Historical Phase 2 single-page Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
 - [GitHub-native workspace index](wireframes/WORKSPACE_INDEX.md)
@@ -184,4 +203,4 @@ Every frame must identify:
 - [Figma Design Plan](FIGMA_DESIGN_PLAN.md)
 - [Official Figma workfile](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 
-The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. Phase 7 validates all 126 State dispositions, all 61 variant annotations, all 20 System-only transitions, cross-frame navigation/handoffs and active links. Issue #15 now remains open only for named Product/Design/Android/QA artifact approval.
+Phase 8 reviewed the complete 45-pair repository-native Wireframe set. All Blocker/Major findings are closed, every artifact has a dated review disposition, and GitHub paths/commits provide the controlling visual evidence. Issue #15 satisfies its Wireframe exit gate; downstream Compose/device/vehicle and Legal checks are not misrepresented as completed.

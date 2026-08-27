@@ -13,8 +13,25 @@
   },
   "review": {
     "construction": "PASS",
-    "crossRole": "PENDING",
-    "issue15": "OPEN_IN_PROGRESS"
+    "crossRole": "PASS_AI_ASSISTED",
+    "issue15": "READY_TO_CLOSE",
+    "reviewDate": "2026-08-27",
+    "reviewerName": "OpenAI Codex",
+    "reviewerType": "AI-assisted cross-role evidence reviewer",
+    "roles": [
+      "Product",
+      "Design/UX",
+      "Android feasibility",
+      "Accessibility",
+      "Privacy"
+    ],
+    "blockerOpen": 0,
+    "majorOpen": 0,
+    "minorOpen": 2,
+    "evidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+    "geometryCorrectionCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785",
+    "reviewPr": "https://github.com/latticeward-labs/music-copilot/pull/42",
+    "evidenceCommit": "475089654254c96b6adda27c19b697e26dfe798d"
   },
   "sourceRegisters": [
     "docs/wireframes/app-states/FRAME_REGISTER.json",
@@ -43,10 +60,14 @@
       "svgPath": "docs/wireframes/app-states/WF-01_SPLASH_LOADING.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-01_SPLASH_LOADING.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-01_SPLASH_LOADING.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-01_SPLASH_LOADING.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-01_SPLASH_LOADING.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-01_SPLASH_STARTUP_MIGRATION_ERROR",
@@ -70,10 +91,14 @@
       "svgPath": "docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-02_ONBOARDING_SLIDE_1",
@@ -97,10 +122,14 @@
       "svgPath": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE",
@@ -124,10 +153,14 @@
       "svgPath": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-03_PERMISSIONS_RATIONALE_REQUEST",
@@ -151,10 +184,14 @@
       "svgPath": "docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-03_PERMISSIONS_GRANTED",
@@ -178,10 +215,14 @@
       "svgPath": "docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-03_PERMISSIONS_DENIED",
@@ -205,10 +246,14 @@
       "svgPath": "docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-03_PERMISSIONS_PERMANENTLY_DENIED",
@@ -232,10 +277,14 @@
       "svgPath": "docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-04_HOME_LIBRARY_SCANNING",
@@ -259,10 +308,14 @@
       "svgPath": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-04_HOME_LIBRARY_EMPTY",
@@ -286,10 +339,14 @@
       "svgPath": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-04_HOME_LIBRARY_READY",
@@ -313,10 +370,14 @@
       "svgPath": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR",
@@ -340,10 +401,14 @@
       "svgPath": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-05_SEARCH_RESULTS",
@@ -367,10 +432,14 @@
       "svgPath": "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-05_SEARCH_RESULTS.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-05_SEARCH_NO_RESULTS",
@@ -394,10 +463,14 @@
       "svgPath": "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-05_SEARCH_ERROR",
@@ -421,10 +494,14 @@
       "svgPath": "docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-05_SEARCH_ERROR.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-06_FULL_PLAYER_PLAYING",
@@ -448,10 +525,14 @@
       "svgPath": "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-06_FULL_PLAYER_PAUSED",
@@ -475,10 +556,14 @@
       "svgPath": "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
@@ -502,10 +587,14 @@
       "svgPath": "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-07_DRIVING_MODE_PLAYING",
@@ -529,10 +618,14 @@
       "svgPath": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-07_DRIVING_MODE_PAUSED",
@@ -556,10 +649,14 @@
       "svgPath": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-07_DRIVING_MODE_NO_TRACK",
@@ -583,10 +680,14 @@
       "svgPath": "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-08_VOICE_LISTENING",
@@ -610,10 +711,14 @@
       "svgPath": "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_LISTENING.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-08_VOICE_PROCESSING",
@@ -637,10 +742,14 @@
       "svgPath": "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_PROCESSING.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-08_VOICE_CONFIRMING",
@@ -664,10 +773,14 @@
       "svgPath": "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-08_VOICE_EXECUTED",
@@ -691,10 +804,14 @@
       "svgPath": "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_EXECUTED.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-08_VOICE_FAILED_RETRY",
@@ -718,10 +835,14 @@
       "svgPath": "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-09_LIKED_SONGS_EMPTY",
@@ -745,10 +866,14 @@
       "svgPath": "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-09_LIKED_SONGS_READY",
@@ -772,10 +897,14 @@
       "svgPath": "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-10_SETTINGS_DEFAULT",
@@ -799,10 +928,14 @@
       "svgPath": "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-10_SETTINGS_BLUETOOTH_UPDATED",
@@ -826,10 +959,14 @@
       "svgPath": "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
@@ -853,10 +990,14 @@
       "svgPath": "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS",
@@ -880,10 +1021,14 @@
       "svgPath": "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg",
       "markdownUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.md",
       "svgUrl": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg",
-      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg",
+      "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/7480843ce01ee7b8054f6d1313d6f58d88de0785/docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/38",
       "constructionCommit": "47f6b91194aa088783e62034e0a773d1fb0dc37f",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md",
+      "phase8GeometryCommit": "7480843ce01ee7b8054f6d1313d6f58d88de0785"
     },
     {
       "id": "WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG",
@@ -910,7 +1055,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG",
@@ -937,7 +1085,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY",
@@ -965,7 +1116,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF",
@@ -993,7 +1147,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING",
@@ -1020,7 +1177,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
@@ -1050,7 +1210,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS",
@@ -1079,7 +1242,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-06_SYSTEM_LOCK_SCREEN_CONTROLS.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS",
@@ -1107,7 +1273,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-06_UI_RECREATION_SERVICE_RECONNECT",
@@ -1136,7 +1305,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-06_UI_RECREATION_SERVICE_RECONNECT.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS",
@@ -1164,7 +1336,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
@@ -1194,7 +1369,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY",
@@ -1225,7 +1403,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     },
     {
       "id": "WF-08_DRIVING_VOICE_RETRY_MANUAL_FALLBACK",
@@ -1250,7 +1431,10 @@
       "immutableSvgUrl": "https://github.com/latticeward-labs/music-copilot/blob/c42cc54e932f37d3bdd9aecb712c88fa3689b0bd/docs/wireframes/recovery-system/WF-08_DRIVING_VOICE_RETRY_MANUAL_FALLBACK.svg",
       "constructionPr": "https://github.com/latticeward-labs/music-copilot/pull/39",
       "constructionCommit": "c42cc54e932f37d3bdd9aecb712c88fa3689b0bd",
-      "reviewStatus": "CONSTRUCTION_PASS_CROSS_ROLE_PENDING"
+      "reviewStatus": "PHASE_8_CROSS_ROLE_PASS_2026_08_27",
+      "phase8Reviewer": "OpenAI Codex — AI-assisted cross-role evidence reviewer",
+      "phase8ReviewDate": "2026-08-27",
+      "phase8EvidencePath": "docs/wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md"
     }
   ]
 }
