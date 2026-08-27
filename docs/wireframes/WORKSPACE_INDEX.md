@@ -6,6 +6,7 @@
 **Phase 4 frame register:** [app-states/README.md](app-states/README.md)  
 **Phase 5 transition register:** [recovery-system/README.md](recovery-system/README.md)  
 **Phase 8 review:** [review/README.md](review/README.md)  
+**Phase 9 closeout:** [PHASE_9_MERGE_CLOSEOUT_2026-08-27.md](PHASE_9_MERGE_CLOSEOUT_2026-08-27.md)  
 **Active contract:** [GitHub-native Wireframe Contract Addendum](GITHUB_NATIVE_WIREFRAME_CONTRACT_ADDENDUM_2026-08-25.md)
 
 This index is the repository equivalent of the former single-page Figma topology. Logical workspaces are directories or indexed artifact groups, while priority and ownership lanes are metadata fields rather than canvas position.
@@ -25,7 +26,7 @@ This index is the repository equivalent of the former single-page Figma topology
 | `10_Liked_Songs_P2` | `app-states/WF-09_*` | Phase 4 PASS / P2 |
 | `11_Settings_Privacy` | `app-states/WF-10_*` | Phase 4 PASS |
 | `12_System_Transitions` | `recovery-system/WF-*_SYSTEM_*` paired records/diagrams | Phase 5 PASS / 20 System-only states |
-| `13_Review` | `review/` evidence, findings, validation, Phase 8 PR/commit and Issue #15 | Phase 8 PASS |
+| `13_Review` | `review/` evidence, findings, validation, Phase 8 PR/commit and Issue #15 | Phase 8 PASS; Phase 9 merged/closed |
 
 ## Phase 5 recovery contract
 
@@ -44,3 +45,8 @@ WF-##_SCREEN_STATE.svg
 
 The Markdown file controls behavior and the SVG controls low-fidelity visual structure. Both are reviewed in the same PR.
 
+
+
+## Phase 9 closeout gate
+
+The [Phase 9 Link and Traceability Audit](PHASE_9_LINK_TRACEABILITY_AUDIT.md) and [Merge and Closeout Record](PHASE_9_MERGE_CLOSEOUT_2026-08-27.md) are the final repository-native evidence for Issue #15. The controlling editable workfile is synchronized on `main`, Project status is `Done`, and the issue is closed as Completed with 18/18 criteria checked.

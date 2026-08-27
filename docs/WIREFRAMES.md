@@ -1,6 +1,6 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 PHASE 8 PASS — cross-role feasibility review complete; ready to close**
+- **Status:** **ISSUE #15 PHASE 9 PASS — merged, synchronized, Project Done, issue closed**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
 - **Completed input:** [Phase 8 cross-role review](wireframes/review/PHASE_8_CROSS_ROLE_REVIEW_2026-08-27.md), [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), [Phase 4 32-frame register](wireframes/app-states/README.md), [Phase 5 Recovery/System register](wireframes/recovery-system/README.md), and [Phase 6 complete artifact index](wireframes/README.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
@@ -204,3 +204,16 @@ Every frame must identify:
 - [Official Figma workfile](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 
 Phase 8 reviewed the complete 45-pair repository-native Wireframe set. All Blocker/Major findings are closed, every artifact has a dated review disposition, and GitHub paths/commits provide the controlling visual evidence. Issue #15 satisfies its Wireframe exit gate; downstream Compose/device/vehicle and Legal checks are not misrepresented as completed.
+
+## Phase 9 — Merge and formal closeout
+
+- Wireframe delivery PR: [#42](https://github.com/latticeward-labs/music-copilot/pull/42), merged to `main` at [`5cec884`](https://github.com/latticeward-labs/music-copilot/commit/5cec884359b158ca8d504b5dd6fce08e9d4607bf).
+- [Phase 9 Link and Traceability Audit](wireframes/PHASE_9_LINK_TRACEABILITY_AUDIT.md): PASS.
+- [Phase 9 Merge and Closeout Record](wireframes/PHASE_9_MERGE_CLOSEOUT_2026-08-27.md): PASS.
+- [Machine-readable closeout register](wireframes/PHASE_9_CLOSEOUT_REGISTER.json).
+- Issue #15: 18/18 Acceptance Criteria checked and closed as Completed.
+- GitHub Project status: `Done`; the project activity records the automation move from `In Progress` to `Done`.
+- GitHub-native editable workfile and repository artifacts are synchronized on `main`; active Figma dependencies remain 0.
+- Downstream handoff: #16 is ready after its completed dependencies; #17 is unblocked by #15 while retaining #16 as its remaining architecture gate.
+
+**Decision:** Phase 9 PASS / COMPLETE. Issue #15 was closed only after the delivery merge and all recorded gates passed.
