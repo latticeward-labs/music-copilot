@@ -1,8 +1,8 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 IN PROGRESS — Phase 5 Recovery/System-only construction PASS; cross-role approval pending**
+- **Status:** **ISSUE #15 IN PROGRESS — Phase 6 repository artifact packaging PASS; cross-role approval pending**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), [Phase 4 32-frame register](wireframes/app-states/README.md), and [Phase 5 Recovery/System register](wireframes/recovery-system/README.md)
+- **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), [Phase 4 32-frame register](wireframes/app-states/README.md), [Phase 5 Recovery/System register](wireframes/recovery-system/README.md), and [Phase 6 complete artifact index](wireframes/README.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
 - **Official editable visual workfile:** [`docs/wireframes/`](wireframes/) — Markdown + SVG + JSON
 - **Stable workspace index:** [GitHub-native Workspace Index](wireframes/WORKSPACE_INDEX.md)
@@ -71,6 +71,17 @@ It defines the Android 360×800 reference frame, seven-step grayscale palette, f
 
 **Decision:** Phase 5 construction/repository validation PASS / COMPLETE. System surfaces are ownership-separated transitions, not invented app screens. Cross-frame navigation and Product/Design/Android/QA approval remain pending.
 
+## Phase 6 — Repository Artifacts
+
+- Complete human-readable index: [45 Markdown/SVG pairs](wireframes/README.md)
+- Machine-readable index: [ARTIFACT_REGISTER.json](wireframes/ARTIFACT_REGISTER.json)
+- Validation: [PHASE_6_REPOSITORY_ARTIFACT_VALIDATION.md](wireframes/PHASE_6_REPOSITORY_ARTIFACT_VALIDATION.md)
+- App Frame schema: 32/32 records contain all required behavioral, navigation, authority, persistence, recovery, accessibility, Driving and priority fields.
+- Provenance: every artifact records current-main paths, immutable SVG URL, construction PR/commit and truthful review disposition.
+- Naming integrity: 0 renamed, 0 duplicated, 45/45 unique IDs.
+
+**Decision:** Phase 6 repository artifact production PASS / COMPLETE. Named cross-role approval remains pending.
+
 ## Required screen/state matrix
 
 | Screen | Required states |
@@ -128,9 +139,9 @@ Every frame must identify:
 - [ ] Navigation is explicit and consistent.
 - [ ] Voice ambiguity and failure states are understandable without a new complex screen.
 - [ ] Background and interruption handoffs are annotated.
-- [ ] Stable SVG paths match repository `WF-*` identifiers and UF/State/GS ownership.
+- [x] Stable SVG paths match repository `WF-*` identifiers and UF/State/GS ownership.
 - [ ] Product, Design and Android feasibility review is complete.
-- [ ] Approved repository artifact links, source UF/State/GS IDs and review date are recorded below.
+- [x] Repository artifact links, source UF/State/GS IDs, construction provenance, validation date and current review disposition are recorded below.
 
 ## Repository and workfile locations
 
@@ -140,6 +151,8 @@ Every frame must identify:
 - [Phase 5 — Recovery and System-only Transitions](wireframes/recovery-system/README.md)
 - [Phase 5 terminal matrix](wireframes/recovery-system/RECOVERY_TERMINAL_MATRIX.md)
 - [Phase 5 validation](wireframes/recovery-system/PHASE_5_VALIDATION.md)
+- [Phase 6 machine-readable artifact index](wireframes/ARTIFACT_REGISTER.json)
+- [Phase 6 validation](wireframes/PHASE_6_REPOSITORY_ARTIFACT_VALIDATION.md)
 - [126-state Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
 - [Historical Phase 2 single-page Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
 - [GitHub-native workspace index](wireframes/WORKSPACE_INDEX.md)
@@ -151,4 +164,4 @@ Every frame must identify:
 - [Figma Design Plan](FIGMA_DESIGN_PLAN.md)
 - [Official Figma workfile](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 
-The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. The 32 app-state pairs and all 20 canonical system-only states are populated and construction-validated. Issue #15 must still review remaining variant annotations, cross-frame navigation and named Product/Design/Android/QA approval.
+The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. The 32 app-state pairs and 13 System/Recovery pairs are now packaged in a complete 45-pair repository index with provenance and Phase 6 validation. Issue #15 must still review remaining variant annotations, cross-frame navigation and named Product/Design/Android/QA approval.

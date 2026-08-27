@@ -7,6 +7,17 @@
 **Priority:** **P0**  
 **Ownership:** App
 
+## Phase 6 repository artifact
+
+- **Behavioral record (current `main`):** [WF-02_ONBOARDING_SLIDE_1.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.md)
+- **Low-fidelity visual (current `main`):** [WF-02_ONBOARDING_SLIDE_1.svg](https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg)
+- **Node-equivalent immutable visual URL:** [SVG at construction commit](https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg)
+- **Construction provenance:** [PR #38](https://github.com/latticeward-labs/music-copilot/pull/38) · [`47f6b91194aa088783e62034e0a773d1fb0dc37f`](https://github.com/latticeward-labs/music-copilot/commit/47f6b91194aa088783e62034e0a773d1fb0dc37f)
+- **Visual format:** Editable, text-based repository SVG; no Figma dependency.
+- **Review disposition:** Construction PASS / reviewable; named Product, Design, Android and QA approval pending.
+- **Empty/Error/Denial/Retry disposition:** Interrupted onboarding resumes the actual pending step. Conditions not owned by this frame are not fabricated; they route to the owning `WF-*` record or system transition.
+- **Driving restriction:** This frame is not a Driving Mode setup destination. Active Driving Mode remains on its single fixed-control layer; permission, Settings, consent, typing, deep navigation and long lists are prohibited.
+
 ## Identity and traceability
 
 | Field | Value |

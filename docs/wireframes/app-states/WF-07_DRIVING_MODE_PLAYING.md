@@ -7,6 +7,17 @@
 **Priority:** **P0**  
 **Ownership:** App + Playback Service
 
+## Phase 6 repository artifact
+
+- **Behavioral record (current `main`):** [WF-07_DRIVING_MODE_PLAYING.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.md)
+- **Low-fidelity visual (current `main`):** [WF-07_DRIVING_MODE_PLAYING.svg](https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg)
+- **Node-equivalent immutable visual URL:** [SVG at construction commit](https://github.com/latticeward-labs/music-copilot/blob/47f6b91194aa088783e62034e0a773d1fb0dc37f/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg)
+- **Construction provenance:** [PR #38](https://github.com/latticeward-labs/music-copilot/pull/38) · [`47f6b91194aa088783e62034e0a773d1fb0dc37f`](https://github.com/latticeward-labs/music-copilot/commit/47f6b91194aa088783e62034e0a773d1fb0dc37f)
+- **Visual format:** Editable, text-based repository SVG; no Figma dependency.
+- **Review disposition:** Construction PASS / reviewable; named Product, Design, Android and QA approval pending.
+- **Empty/Error/Denial/Retry disposition:** Pending/rejected commands refresh actual state; route events hand off to UF-11. Conditions not owned by this frame are not fabricated; they route to the owning `WF-*` record or system transition.
+- **Driving restriction:** Single fixed-control layer with immediate Exit only; no typing, deep navigation, nested menus, long lists, permission prompts, Settings handoffs or consent UI.
+
 ## Identity and traceability
 
 | Field | Value |
