@@ -1,6 +1,6 @@
 # Repository-native Low-fidelity Wireframe Index
 
-**Status:** **ISSUE #15 IN PROGRESS — Phase 6 repository artifact packaging PASS; cross-role approval pending**  
+**Status:** **ISSUE #15 IN PROGRESS — Phase 7 traceability/validation PASS; named cross-role approval pending**  
 **Official editable workfile:** `docs/wireframes/` — Markdown + SVG + JSON  
 **Complete count:** **45 Markdown + 45 SVG = 45 stable pairs / 90 files**  
 **App frames:** **32**  
@@ -80,6 +80,13 @@ This file is the complete active index for every repository-native low-fidelity 
 - [Phase 4 source register](app-states/FRAME_REGISTER.json) and [validation](app-states/PHASE_4_VALIDATION.md)
 - [Phase 5 source register](recovery-system/SYSTEM_TRANSITION_REGISTER.json), [terminal matrix](recovery-system/RECOVERY_TERMINAL_MATRIX.md) and [validation](recovery-system/PHASE_5_VALIDATION.md)
 
+## Phase 7 traceability and validation
+
+- [Machine traceability register](PHASE_7_TRACEABILITY_REGISTER.json): UF 13/13, GS 5/5, screen families 10/10, State dispositions 126/126 and P0 106/106.
+- [Navigation and Behavioral Audit](PHASE_7_NAVIGATION_BEHAVIOR_AUDIT.md): Entry/Exit/Back 32/32, System return paths 13/13, handoffs 8/8, Voice/Driving/playback PASS.
+- [Link Audit](PHASE_7_LINK_AUDIT.md): 0 broken internal paths, 0 invalid validated GitHub repository paths and 0 active Figma dependencies.
+- [Combined validation](PHASE_7_TRACEABILITY_VALIDATION.md): PASS / COMPLETE at repository validation level.
+
 ## Review gate
 
-Phase 6 repository packaging is PASS. Issue #15 remains open until remaining variant annotations, cross-frame navigation and named Product, Design, Android and QA review are recorded.
+Phase 7 traceability and connected-behavior validation is PASS. All 126 State dispositions, variants, navigation/handoffs and active links are validated. Issue #15 remains open only until named Product, Design, Android and QA review is recorded.

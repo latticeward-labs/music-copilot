@@ -237,6 +237,12 @@ The [13-transition register](recovery-system/README.md) realizes all **20/20** c
 
 The [terminal matrix](recovery-system/RECOVERY_TERMINAL_MATRIX.md) restricts every failed or ambiguous recovery to reachable Manual Playback controls or service-owned Safe Paused. [Phase 5 validation](recovery-system/PHASE_5_VALIDATION.md) is PASS. This attachment does not reclassify variants or fabricate an Android surface as an app screen.
 
+## Phase 7 traceability/validation attachment
+
+The [Phase 7 machine register](PHASE_7_TRACEABILITY_REGISTER.json) maps all 126 unique State IDs to explicit evidence artifacts: 45 App-visible, 61 variant/annotation and 20 System-only dispositions. P0 coverage is 106/106 with 0 gaps. UF coverage is 13/13, GS coverage is 5/5 and planned screen-family coverage is 10/10.
+
+[Navigation/Behavior validation](PHASE_7_NAVIGATION_BEHAVIOR_AUDIT.md), [Link Audit](PHASE_7_LINK_AUDIT.md) and [combined validation](PHASE_7_TRACEABILITY_VALIDATION.md) are PASS. This attachment changes no State classification, priority or `WF-*` identifier.
+
 ## Validation and exit decision
 
 **Automated manifest checks: PASS**
