@@ -1,6 +1,6 @@
 # Repository-native Low-fidelity Wireframe Index
 
-**Status:** **ISSUE #15 PHASE 8 PASS — cross-role feasibility review complete; ready to close**  
+**Status:** **ISSUE #15 PHASE 9 PASS — merged, synchronized, Project Done, issue closed**  
 **Official editable workfile:** `docs/wireframes/` — Markdown + SVG + JSON  
 **Complete count:** **45 Markdown + 45 SVG = 45 stable pairs / 90 files**  
 **App frames:** **32**  
@@ -102,4 +102,14 @@ This file is the complete active index for every repository-native low-fidelity 
 
 ## Review gate
 
-Phase 8 cross-role feasibility review is PASS. No Blocker or Major remains open; Issue #15 satisfies the Wireframe review gate and is ready to close. Human Legal approval, Compose accessibility execution and physical device/vehicle testing remain downstream release gates.
+Phase 8 cross-role feasibility review is PASS. No Blocker or Major remains open; Issue #15 satisfies the Wireframe review gate and is closed as Completed after the Phase 9 exit checks. Human Legal approval, Compose accessibility execution and physical device/vehicle testing remain downstream release gates.
+
+
+## Phase 9 merge and closeout
+
+- [Link and Traceability Audit](PHASE_9_LINK_TRACEABILITY_AUDIT.md): PASS.
+- [Merge and Closeout Record](PHASE_9_MERGE_CLOSEOUT_2026-08-27.md): PASS.
+- [Machine closeout register](PHASE_9_CLOSEOUT_REGISTER.json).
+- Wireframe PR [#42](https://github.com/latticeward-labs/music-copilot/pull/42) is merged; repository-native workfile and artifacts are synchronized on `main`.
+- Issue #15 has 18/18 checked criteria, Project status `Done`, and closed reason `Completed`.
+- #16 is released to architecture work; #17 has the #15 Wireframe gate cleared and continues to wait only for #16.
