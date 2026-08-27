@@ -1,0 +1,50 @@
+flowchart TB
+    subgraph F1["F1 — Library scan and presentation"]
+        F1A["MediaStore scan"] --> F1B["normalize + reconcile"] --> F1C["Room rebuildable projection"] --> F1D["Library/Search UI projection"]
+    end
+
+    subgraph F2["F2 — Track selection and playback authority"]
+        F2A["Track selection"] --> F2B["PlaybackGateway / queue command"] --> F2C["MediaSessionService live queue"] --> F2D["ExoPlayer"] --> F2E["authoritative PlaybackSnapshot"]
+    end
+
+    subgraph F3["F3 — Manual playback command"]
+        F3A["UI / system manual command"] --> F3B["PlaybackControllerConnection"] --> F3C["PlaybackCommandProcessor"] --> F3D["MediaSessionService"] --> F3E["synchronized UI + notification + lock screen + external controls"]
+    end
+
+    subgraph F4["F4 — Voice execution / confirmation"]
+        F4A["Push-to-talk"] --> F4B["STT port"] --> F4C["deterministic mapper + candidate resolver"] --> F4D{"direct certainty?"}
+        F4D -->|"yes"| F4E["serialized PlaybackGateway command"]
+        F4D -->|"ambiguous"| F4F["one bounded confirmation"] --> F4E
+        F4D -->|"not found / timeout"| F4G["one Retry then manual fallback"]
+        F4E --> F4H["authoritative playback acknowledgement"] --> F4I["short TTS result"]
+    end
+
+    subgraph F5["F5 — Call / focus / route interruption"]
+        F5A["Android call / focus / route event"] --> F5B["Interruption safety policy"] --> F5C{"resume guards all true?"}
+        F5C -->|"yes"| F5D["conditional resume"] --> F5F["synchronize service + UI + system surfaces"]
+        F5C -->|"no"| F5E["Safe Paused"] --> F5F
+        F5G["route disconnect"] --> F5H["pause + cancel Voice + increment route generation"] --> F5E
+    end
+
+    subgraph F6["F6 — Privacy-safe telemetry"]
+        F6A["typed allowlisted event"] --> F6B["TelemetryPrivacyGate"] --> F6C{"schema + prohibited-data check"}
+        F6C -->|"pass"| F6D["NoOp or approved optional quality adapter"]
+        F6C -->|"reject"| F6E["drop / typed local diagnostic only"]
+    end
+
+    subgraph F7["F7 — Permission revocation and truthful recovery"]
+        F7A["permission / capability revoked"] --> F7B["fresh Android/provider truth re-check"] --> F7C["MediaStore index reconciliation"] --> F7D["remove / invalidate stale Room projection"] --> F7E["truthful Library UI: denied / empty / recoverable"] --> F7F["Retry or explicit Settings handoff"]
+    end
+
+    subgraph F8["F8 — Corrupt media item"]
+        F8A["ExoPlayer reports corrupt / unplayable item"] --> F8B["typed MediaItem/Playback error"] --> F8C["controlled bounded skip"] --> F8D{"next valid queue item?"}
+        F8D -->|"yes"| F8E["continue queue"]
+        F8D -->|"no"| F8F["Safe Paused / queue end with recoverable UI"]
+    end
+
+    subgraph F9["F9 — P1 cold restoration"]
+        F9A["versioned Proto DataStore snapshot"] --> F9B["schema validation"] --> F9C["MediaStore re-query"] --> F9D["drop invalid + clamp position"] --> F9E["prepare queue Paused only"]
+    end
+
+    RULE["All playback mutation converges on MediaSessionService authority.\nRoom is never live queue truth. Persisted restore never autoplays.\nVoice/telemetry never persist raw audio or transcripts."]
+    RULE --- F2
