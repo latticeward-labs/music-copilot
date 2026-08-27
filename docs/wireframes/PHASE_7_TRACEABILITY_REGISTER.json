@@ -1,0 +1,3347 @@
+{
+  "version": "1.0.0",
+  "date": "2026-08-27",
+  "phase": 7,
+  "authority": "GitHub-native; Figma is historical and not an acceptance dependency",
+  "source": {
+    "coverageMatrix": "docs/wireframes/WIREFRAME_COVERAGE_MATRIX.md",
+    "artifactRegister": "docs/wireframes/ARTIFACT_REGISTER.json"
+  },
+  "counts": {
+    "userFlows": 13,
+    "goldenScenarios": 5,
+    "screenFamilies": 10,
+    "states": 126,
+    "uniqueStates": 126,
+    "p0": 106,
+    "p0DispositionPass": 106,
+    "appVisible": 45,
+    "variants": 61,
+    "systemOnly": 20
+  },
+  "userFlows": [
+    {
+      "id": "UF-01",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-02",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-03",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-04",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-05",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-06",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-07",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-08",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-09",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-10",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-11",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-12",
+      "status": "PASS"
+    },
+    {
+      "id": "UF-13",
+      "status": "PASS"
+    }
+  ],
+  "goldenScenarios": [
+    {
+      "id": "GS-01",
+      "status": "PASS"
+    },
+    {
+      "id": "GS-02",
+      "status": "PASS"
+    },
+    {
+      "id": "GS-03",
+      "status": "PASS"
+    },
+    {
+      "id": "GS-04",
+      "status": "PASS"
+    },
+    {
+      "id": "GS-05",
+      "status": "PASS"
+    }
+  ],
+  "screenFamilies": [
+    {
+      "id": "WF-01",
+      "surface": "Splash / startup",
+      "artifactIds": [
+        "WF-01_SPLASH_LOADING",
+        "WF-01_SPLASH_STARTUP_MIGRATION_ERROR"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-02",
+      "surface": "Onboarding / education",
+      "artifactIds": [
+        "WF-02_ONBOARDING_SLIDE_1",
+        "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-03",
+      "surface": "Permissions / capability recovery",
+      "artifactIds": [
+        "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+        "WF-03_PERMISSIONS_GRANTED",
+        "WF-03_PERMISSIONS_DENIED",
+        "WF-03_PERMISSIONS_PERMANENTLY_DENIED"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-04",
+      "surface": "Home / Library / browse",
+      "artifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-05",
+      "surface": "Search",
+      "artifactIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-06",
+      "surface": "Full Player / Queue / playback surfaces",
+      "artifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-07",
+      "surface": "Driving Mode",
+      "artifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-08",
+      "surface": "Voice overlay",
+      "artifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-09",
+      "surface": "Liked Songs (P2)",
+      "artifactIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "WF-10",
+      "surface": "Settings / Privacy",
+      "artifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "states": [
+    {
+      "uf": "UF-01",
+      "gs": "GS-01",
+      "stateId": "S-01",
+      "state": "Splash - Loading, Migration Error",
+      "priority": "P0",
+      "screenOwner": "UF-01 · Splash",
+      "recoveryOwner": "UF-01",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-01`",
+      "plannedPackages": [
+        "WF-01"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-01_SPLASH_LOADING",
+          "WF-01_SPLASH_STARTUP_MIGRATION_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-01",
+      "gs": "GS-01",
+      "stateId": "S-02",
+      "state": "Onboarding - First Run, Incomplete Resume, Skip, Replay",
+      "priority": "P0",
+      "screenOwner": "UF-01 · Onboarding/Education",
+      "recoveryOwner": "UF-01",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-02`",
+      "plannedPackages": [
+        "WF-02"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-02_ONBOARDING_SLIDE_1",
+          "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-02",
+      "gs": "GS-01",
+      "stateId": "S-03",
+      "state": "Permissions - Granted, Denied-requestable, Permanently Denied",
+      "priority": "P0",
+      "screenOwner": "UF-02 · Permission recovery",
+      "recoveryOwner": "UF-02",
+      "ownership": "Hybrid",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-03`",
+      "plannedPackages": [
+        "WF-03"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+          "WF-03_PERMISSIONS_GRANTED",
+          "WF-03_PERMISSIONS_DENIED",
+          "WF-03_PERMISSIONS_PERMANENTLY_DENIED"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-03",
+      "gs": "GS-01",
+      "stateId": "S-04",
+      "state": "Home / Library - Scanning, Empty, Ready, Recoverable Failure, Revoked-Reconciled",
+      "priority": "P0",
+      "screenOwner": "UF-03 · Home/Library readiness",
+      "recoveryOwner": "UF-03",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-01",
+      "gs": "GS-01",
+      "stateId": "CA-01",
+      "state": "Six-Command Education - View, Skip, Replay, Practice Choice",
+      "priority": "P0",
+      "screenOwner": "UF-01 · Onboarding/Education",
+      "recoveryOwner": "UF-01",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-02`",
+      "plannedPackages": [
+        "WF-02"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-02_ONBOARDING_SLIDE_1",
+          "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-02",
+      "gs": "GS-01",
+      "stateId": "CA-02",
+      "state": "Voice Access Boundary - Mic Purpose, Granted, Denied-requestable, Permanently Denied, Provider Unavailable, Cloud Consent",
+      "priority": "P0",
+      "screenOwner": "UF-02 · Voice access boundary",
+      "recoveryOwner": "UF-02 / UF-10",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-03`",
+      "plannedPackages": [
+        "WF-03"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+          "WF-03_PERMISSIONS_GRANTED",
+          "WF-03_PERMISSIONS_DENIED",
+          "WF-03_PERMISSIONS_PERMANENTLY_DENIED"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-02",
+      "gs": "GS-01",
+      "stateId": "SYS-01",
+      "state": "Android media permission dialog",
+      "priority": "P0",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "ownership": "Android/System",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-03 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-03"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-02",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "SYS-02",
+      "state": "Android microphone permission dialog",
+      "priority": "P0",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "ownership": "Android/System",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-03 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-03"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "SYS-03",
+      "state": "Notification permission boundary",
+      "priority": "P0",
+      "screenOwner": "Android notification permission",
+      "recoveryOwner": "UF-06 / UF-12",
+      "ownership": "Android/System",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-02",
+      "gs": "GS-01",
+      "stateId": "SYS-04",
+      "state": "Android Settings",
+      "priority": "P0",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "ownership": "Android/System",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-03 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-03"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-02 / UF-10 / UF-12",
+      "gs": "GS-01",
+      "stateId": "SYS-05",
+      "state": "Speech provider/cloud-processing boundary",
+      "priority": "P0",
+      "screenOwner": "Speech provider / consent boundary",
+      "recoveryOwner": "UF-10 / UF-12",
+      "ownership": "Android/System + provider",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-03 (boundary annotation)`",
+      "plannedPackages": [
+        "WF-03"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "GS-01, GS-02",
+      "stateId": "CB-01",
+      "state": "Home / Library Ready",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Home/Library",
+      "recoveryOwner": "UF-03 / UF-04",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "GS-02",
+      "stateId": "CB-02",
+      "state": "Songs",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-03",
+      "state": "Artists",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-04",
+      "state": "Artist tracks",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-05",
+      "state": "Albums",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-06",
+      "state": "Album tracks",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-07",
+      "state": "Folders",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-08",
+      "state": "Folder tracks",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04`",
+      "plannedPackages": [
+        "WF-04"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-09",
+      "state": "Search Idle / Query",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Search",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-05`",
+      "plannedPackages": [
+        "WF-05"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-05_SEARCH_RESULTS",
+          "WF-05_SEARCH_NO_RESULTS",
+          "WF-05_SEARCH_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-10",
+      "state": "Search Result",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Search",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-05`",
+      "plannedPackages": [
+        "WF-05"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-05_SEARCH_RESULTS",
+          "WF-05_SEARCH_NO_RESULTS",
+          "WF-05_SEARCH_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "GS-02",
+      "stateId": "CB-11",
+      "state": "Search No Result",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Search",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-05`",
+      "plannedPackages": [
+        "WF-05"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-05_SEARCH_RESULTS",
+          "WF-05_SEARCH_NO_RESULTS",
+          "WF-05_SEARCH_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "GS-02",
+      "stateId": "CB-12",
+      "state": "Search Error",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Search",
+      "recoveryOwner": "UF-04",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-05`",
+      "plannedPackages": [
+        "WF-05"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-05_SEARCH_RESULTS",
+          "WF-05_SEARCH_NO_RESULTS",
+          "WF-05_SEARCH_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04",
+      "gs": "GS-02",
+      "stateId": "CB-13",
+      "state": "Selection Validation",
+      "priority": "P0",
+      "screenOwner": "UF-04 · Browse/Search selection",
+      "recoveryOwner": "UF-02 / UF-03 / UF-04",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04 / WF-05`",
+      "plannedPackages": [
+        "WF-04",
+        "WF-05"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR",
+          "WF-05_SEARCH_RESULTS",
+          "WF-05_SEARCH_NO_RESULTS",
+          "WF-05_SEARCH_ERROR"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-04 → UF-05",
+      "gs": "GS-02",
+      "stateId": "CB-14",
+      "state": "Playback Start / Queue Acceptance / Preparing",
+      "priority": "P0",
+      "screenOwner": "UF-05 · Full Player",
+      "recoveryOwner": "UF-05",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05",
+      "gs": "GS-02, GS-03",
+      "stateId": "CB-15",
+      "state": "Full Player Playing",
+      "priority": "P0",
+      "screenOwner": "UF-05 · Full Player/Queue",
+      "recoveryOwner": "UF-05",
+      "ownership": "App + Playback Service",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05",
+      "gs": "GS-03",
+      "stateId": "CB-16",
+      "state": "Full Player Paused",
+      "priority": "P0",
+      "screenOwner": "UF-05 · Full Player/Queue",
+      "recoveryOwner": "UF-05",
+      "ownership": "App + Playback Service",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-17",
+      "state": "End of Queue / Paused-Completed",
+      "priority": "P0",
+      "screenOwner": "UF-05 · Full Player/Queue",
+      "recoveryOwner": "UF-05",
+      "ownership": "App + Playback Service",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-18",
+      "state": "Queue View",
+      "priority": "P0",
+      "screenOwner": "UF-05 · Full Player/Queue",
+      "recoveryOwner": "UF-05",
+      "ownership": "App + Playback Service",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05",
+      "gs": "GS-02",
+      "stateId": "CB-19",
+      "state": "Corrupt / Inaccessible Item Recovery",
+      "priority": "P0",
+      "screenOwner": "UF-05 · Full Player",
+      "recoveryOwner": "UF-03 / UF-05 / UF-11",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-20",
+      "state": "Home Mini-player",
+      "priority": "P0",
+      "screenOwner": "UF-05 · Mini-player on Home",
+      "recoveryOwner": "UF-05 / UF-06",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-04 / WF-06`",
+      "plannedPackages": [
+        "WF-04",
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-04_HOME_LIBRARY_SCANNING",
+          "WF-04_HOME_LIBRARY_EMPTY",
+          "WF-04_HOME_LIBRARY_READY",
+          "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR",
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05 / UF-06",
+      "gs": "GS-02, GS-03",
+      "stateId": "CB-21",
+      "state": "Controller Connecting / Reconnecting",
+      "priority": "P0",
+      "screenOwner": "UF-05/06 · Controller connection",
+      "recoveryOwner": "UF-06",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-22",
+      "state": "Active Session Handoff",
+      "priority": "P0",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (lifecycle annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+          "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-23",
+      "state": "App Background / UI Absent",
+      "priority": "P0",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (lifecycle annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-24",
+      "state": "Screen Off / Device Locked",
+      "priority": "P0",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (lifecycle annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-25",
+      "state": "Task / OEM Lifecycle Event",
+      "priority": "P0",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (lifecycle annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-26",
+      "state": "Media Notification / System Controls",
+      "priority": "P0",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "ownership": "Android/System + MediaSession",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (system-surface annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-27",
+      "state": "Lock-screen Controls",
+      "priority": "P0",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "ownership": "Android/System + MediaSession",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (system-surface annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-28",
+      "state": "Bluetooth / Headset / Vehicle Media Keys",
+      "priority": "P0",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "ownership": "Android/System + MediaSession",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (system-surface annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS",
+          "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-29",
+      "state": "System Command Pending",
+      "priority": "P0",
+      "screenOwner": "System command handoff",
+      "recoveryOwner": "UF-06",
+      "ownership": "Android/System + MediaSession",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (command annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+          "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS",
+          "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-30",
+      "state": "Notification Permission / Visibility Evaluation",
+      "priority": "P0",
+      "screenOwner": "Notification permission/visibility",
+      "recoveryOwner": "UF-06 / UF-12",
+      "ownership": "Android/System",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 (permission annotation)`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY",
+          "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-06",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CB-31",
+      "state": "System Surface Unavailable",
+      "priority": "P0",
+      "screenOwner": "UF-06 · System-surface fallback",
+      "recoveryOwner": "UF-06",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05 / UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-32",
+      "state": "P1 Paused Restore",
+      "priority": "P1",
+      "screenOwner": "UF-05/06 · Paused restore",
+      "recoveryOwner": "UF-03 / UF-05 / UF-06",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-05 / UF-06",
+      "gs": "GS-03",
+      "stateId": "CB-33",
+      "state": "Restore Unavailable",
+      "priority": "P1",
+      "screenOwner": "UF-05/06 · Paused restore",
+      "recoveryOwner": "UF-03 / UF-05 / UF-06",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06`",
+      "plannedPackages": [
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "stateId": "CC-01",
+      "state": "Non-driving source",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving entry",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "stateId": "CC-02",
+      "state": "Manual entry pending",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving entry",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "stateId": "CC-03",
+      "state": "Controller reconnecting",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving entry",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-04",
+      "state": "Entry cancelled/failed",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving entry",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "stateId": "CC-05",
+      "state": "Driving Playing",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving Mode",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "stateId": "CC-06",
+      "state": "Driving Paused/Ended",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving Mode",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "stateId": "CC-07",
+      "state": "Driving No Track",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving Mode",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-08",
+      "state": "Playback command pending",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving controls",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-09",
+      "state": "Command rejected/timeout",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving controls",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-10",
+      "state": "Acknowledged refresh",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving controls",
+      "recoveryOwner": "UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07 / UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-11",
+      "state": "P1 selected-device connected",
+      "priority": "P1",
+      "screenOwner": "UF-07 · Entry suggestion",
+      "recoveryOwner": "UF-07 / UF-12",
+      "ownership": "Hybrid",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-12",
+      "state": "Bluetooth suggestion accepted",
+      "priority": "P1",
+      "screenOwner": "UF-07 · Entry suggestion",
+      "recoveryOwner": "UF-07",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-13",
+      "state": "Exit/back return",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Exit/Back",
+      "recoveryOwner": "UF-07",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07 → UF-08",
+      "gs": "GS-04",
+      "stateId": "CC-14",
+      "state": "Microphone handoff",
+      "priority": "P0",
+      "screenOwner": "UF-08 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-10",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-15",
+      "state": "Item unavailable / access failure",
+      "priority": "P0",
+      "screenOwner": "UF-07 · Driving failure",
+      "recoveryOwner": "UF-03 / UF-05 / UF-07",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07 → UF-11",
+      "gs": "GS-04, GS-05",
+      "stateId": "CC-16",
+      "state": "Interruption/route handoff",
+      "priority": "P0",
+      "screenOwner": "Android interruption/route",
+      "recoveryOwner": "UF-11",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-07 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS",
+          "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+          "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CC-17",
+      "state": "Suggestion declined/dismissed",
+      "priority": "P1",
+      "screenOwner": "UF-07 · Entry suggestion",
+      "recoveryOwner": "UF-07",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "stateId": "CC-18",
+      "state": "Analytics unavailable",
+      "priority": "P0",
+      "screenOwner": "Telemetry fail-safe",
+      "recoveryOwner": "UF-07",
+      "ownership": "System adapter",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07 (non-visible annotation)`",
+      "plannedPackages": [
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08 / UF-10",
+      "gs": "GS-04",
+      "stateId": "CD-01",
+      "state": "Idle/manual surface",
+      "priority": "P0",
+      "screenOwner": "Initiating manual surface",
+      "recoveryOwner": "UF-08 / UF-10",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-07 / WF-06`",
+      "plannedPackages": [
+        "WF-07",
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08 / UF-10",
+      "gs": "GS-04",
+      "stateId": "CD-02",
+      "state": "Capability check",
+      "priority": "P0",
+      "screenOwner": "UF-08 · Voice overlay",
+      "recoveryOwner": "UF-02 / UF-10 / UF-12",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08",
+      "gs": "GS-04",
+      "stateId": "CD-03",
+      "state": "Listening attempt 1",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-04",
+      "state": "Listening attempt 2",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08",
+      "gs": "GS-04",
+      "stateId": "CD-05",
+      "state": "Processing",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08",
+      "gs": "GS-04",
+      "stateId": "CD-06",
+      "state": "Direct command pending",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08",
+      "gs": "GS-04",
+      "stateId": "CD-07",
+      "state": "Executed",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-08",
+      "state": "Execution failed-safe",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-09",
+      "state": "Confirming one candidate",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-10",
+      "state": "Confirming two artists",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-11",
+      "state": "Confirmed command pending",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-12",
+      "state": "Confirmation failed-safe",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-13",
+      "state": "Artist not found",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-14",
+      "state": "Unknown phrase",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-15",
+      "state": "Unsupported request",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-16",
+      "state": "Missing artist",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-17",
+      "state": "Attempt-one failure",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-18",
+      "state": "Retry available",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-19",
+      "state": "Attempt-two terminal failure",
+      "priority": "P0",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08 / UF-09 / UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-20",
+      "state": "Manual fallback",
+      "priority": "P0",
+      "screenOwner": "Initiating manual surface",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-10 / UF-12",
+      "gs": "GS-04",
+      "stateId": "CD-21",
+      "state": "Permission denied/revoked",
+      "priority": "P0",
+      "screenOwner": "Permission recovery / Voice overlay",
+      "recoveryOwner": "UF-02 / UF-12",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-03 / WF-08`",
+      "plannedPackages": [
+        "WF-03",
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+          "WF-03_PERMISSIONS_GRANTED",
+          "WF-03_PERMISSIONS_DENIED",
+          "WF-03_PERMISSIONS_PERMANENTLY_DENIED",
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-10 / UF-12",
+      "gs": "GS-04",
+      "stateId": "CD-22",
+      "state": "Provider/language unavailable",
+      "priority": "P0",
+      "screenOwner": "Voice availability / Settings",
+      "recoveryOwner": "UF-10 / UF-12",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-08 / WF-10`",
+      "plannedPackages": [
+        "WF-08",
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY",
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-10 / UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CD-23",
+      "state": "Cloud consent required/declined",
+      "priority": "P0",
+      "screenOwner": "Settings · Cloud consent",
+      "recoveryOwner": "UF-12",
+      "ownership": "App + provider boundary",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-08 / UF-09 / UF-10",
+      "gs": "GS-04",
+      "stateId": "CD-24",
+      "state": "Cancelled/Exit",
+      "priority": "P0",
+      "screenOwner": "Voice overlay return/exit",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "ownership": "App + Voice coordinator",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-08`",
+      "plannedPackages": [
+        "WF-08"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-08_VOICE_LISTENING",
+          "WF-08_VOICE_PROCESSING",
+          "WF-08_VOICE_CONFIRMING",
+          "WF-08_VOICE_EXECUTED",
+          "WF-08_VOICE_FAILED_RETRY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-01",
+      "state": "Stable Playing",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-02",
+      "state": "Transient focus/call handling",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-03",
+      "state": "Interrupted Paused / resume eligible",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-04",
+      "state": "Temporarily Ducked",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-05",
+      "state": "Conditional Resume acknowledged",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-06",
+      "state": "Safe Paused / manual resume",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-07",
+      "state": "Route Disconnect handling",
+      "priority": "P0",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 / WF-07 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+          "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-08",
+      "state": "Disconnected Safe Paused",
+      "priority": "P0",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 / WF-07 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+          "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-09",
+      "state": "Reconnected Safe Paused",
+      "priority": "P0",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 / WF-07 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+          "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-10",
+      "state": "Permanent Focus Loss",
+      "priority": "P0",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "ownership": "Android/System + Playback Service",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-06 / WF-07 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-11",
+      "state": "Interruption Policy Error",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-12",
+      "state": "Corrupt Current Item",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-13",
+      "state": "Controlled Skip",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "stateId": "CE-14",
+      "state": "Queue Ended by Corruption",
+      "priority": "P0",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-07`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-07"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-07_DRIVING_MODE_PLAYING",
+          "WF-07_DRIVING_MODE_PAUSED",
+          "WF-07_DRIVING_MODE_NO_TRACK"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-15",
+      "state": "Settings Default",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Settings",
+      "recoveryOwner": "UF-12",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-16",
+      "state": "Setting Update Pending",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Settings result",
+      "recoveryOwner": "UF-12",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-17",
+      "state": "Settings Updated / Error",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Settings result",
+      "recoveryOwner": "UF-12",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "GS-05",
+      "stateId": "CE-18",
+      "state": "Android Settings Handoff",
+      "priority": "P0",
+      "screenOwner": "Android Settings",
+      "recoveryOwner": "UF-12",
+      "ownership": "Android/System",
+      "coverageClass": "Android/System-only transition",
+      "plannedWf": "`WF-10 (handoff annotation)`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "system-transition",
+        "evidenceArtifactIds": [
+          "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-19",
+      "state": "Platform Recheck",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Platform recheck",
+      "recoveryOwner": "UF-12",
+      "ownership": "Hybrid",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-20",
+      "state": "Bluetooth Selection",
+      "priority": "P1",
+      "screenOwner": "UF-12 · Bluetooth selection",
+      "recoveryOwner": "UF-12",
+      "ownership": "Hybrid",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-21",
+      "state": "Privacy Details",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Privacy/data controls",
+      "recoveryOwner": "UF-12",
+      "ownership": "App + provider boundary",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-22",
+      "state": "Consent Decision",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Privacy/data controls",
+      "recoveryOwner": "UF-12",
+      "ownership": "App + provider boundary",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-23",
+      "state": "Clear Selection",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Privacy/data controls",
+      "recoveryOwner": "UF-12",
+      "ownership": "App + provider boundary",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-24",
+      "state": "Clear Confirmation",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Clear data",
+      "recoveryOwner": "UF-12",
+      "ownership": "App + provider boundary",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-25",
+      "state": "Clearing",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Clear data",
+      "recoveryOwner": "UF-12",
+      "ownership": "App + provider boundary",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "CE-26",
+      "state": "Clear Result",
+      "priority": "P0",
+      "screenOwner": "UF-12 · Clear data",
+      "recoveryOwner": "UF-12",
+      "ownership": "App + provider boundary",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-10`",
+      "plannedPackages": [
+        "WF-10"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-10_SETTINGS_DEFAULT",
+          "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+          "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+          "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-01",
+      "state": "P2 not shipped",
+      "priority": "P2",
+      "screenOwner": "Scope/release configuration",
+      "recoveryOwner": "UF-13",
+      "ownership": "App build/scope",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-09 (scope annotation)`",
+      "plannedPackages": [
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-02",
+      "state": "Entry loading",
+      "priority": "P2",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-09`",
+      "plannedPackages": [
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-03",
+      "state": "Empty",
+      "priority": "P2",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-09`",
+      "plannedPackages": [
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-04",
+      "state": "Ready",
+      "priority": "P2",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "ownership": "App",
+      "coverageClass": "App-visible Wireframe",
+      "plannedWf": "`WF-09`",
+      "plannedPackages": [
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "app-frame",
+        "evidenceArtifactIds": [
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-05",
+      "state": "Like write pending",
+      "priority": "P2",
+      "screenOwner": "Like control on player/list",
+      "recoveryOwner": "UF-13",
+      "ownership": "App + local user-state repository",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-09`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-06",
+      "state": "Like acknowledged",
+      "priority": "P2",
+      "screenOwner": "Like control on player/list",
+      "recoveryOwner": "UF-13",
+      "ownership": "App + local user-state repository",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-09`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-07",
+      "state": "Mutation failed",
+      "priority": "P2",
+      "screenOwner": "Like control on player/list",
+      "recoveryOwner": "UF-13",
+      "ownership": "App + local user-state repository",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-09`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-08",
+      "state": "Unlike write pending",
+      "priority": "P2",
+      "screenOwner": "Like control on player/list",
+      "recoveryOwner": "UF-13",
+      "ownership": "App + local user-state repository",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-06 / WF-09`",
+      "plannedPackages": [
+        "WF-06",
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13 → UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-09",
+      "state": "Playback command pending",
+      "priority": "P2",
+      "screenOwner": "Liked Songs playback",
+      "recoveryOwner": "UF-05 / UF-13",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-09 / WF-06`",
+      "plannedPackages": [
+        "WF-09",
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13 → UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-10",
+      "state": "Playback acknowledged",
+      "priority": "P2",
+      "screenOwner": "Liked Songs playback",
+      "recoveryOwner": "UF-05 / UF-13",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-09 / WF-06`",
+      "plannedPackages": [
+        "WF-09",
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13 → UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-11",
+      "state": "Playback rejected/stale",
+      "priority": "P2",
+      "screenOwner": "Liked Songs playback",
+      "recoveryOwner": "UF-05 / UF-13",
+      "ownership": "App + Playback Service",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-09 / WF-06`",
+      "plannedPackages": [
+        "WF-09",
+        "WF-06"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-06_FULL_PLAYER_PLAYING",
+          "WF-06_FULL_PLAYER_PAUSED",
+          "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-12",
+      "state": "Load/reconcile failure",
+      "priority": "P2",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-09`",
+      "plannedPackages": [
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-13",
+      "state": "Missing item reconciliation",
+      "priority": "P2",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-09`",
+      "plannedPackages": [
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    },
+    {
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "stateId": "UL-14",
+      "state": "UI recreation",
+      "priority": "P2",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "ownership": "App",
+      "coverageClass": "Variant/annotation inside a Wireframe",
+      "plannedWf": "`WF-09`",
+      "plannedPackages": [
+        "WF-09"
+      ],
+      "disposition": {
+        "type": "variant-annotation",
+        "evidenceArtifactIds": [
+          "WF-09_LIKED_SONGS_EMPTY",
+          "WF-09_LIKED_SONGS_READY"
+        ],
+        "status": "PASS"
+      }
+    }
+  ],
+  "result": "PASS"
+}

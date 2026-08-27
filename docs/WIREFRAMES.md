@@ -1,6 +1,6 @@
 # Low-fidelity Wireframes — MVP v1.0
 
-- **Status:** **ISSUE #15 IN PROGRESS — Phase 6 repository artifact packaging PASS; cross-role approval pending**
+- **Status:** **ISSUE #15 IN PROGRESS — Phase 7 traceability/validation PASS; named cross-role approval pending**
 - **Tracking:** [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
 - **Completed input:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3), [GitHub-native Design Sync](user-flows/design-sync/GITHUB_NATIVE_DESIGN_SYNC_2026-08-23.md), [named Product/UX/Android/QA/Privacy input review](user-flows/design-sync/CROSS_ROLE_EVIDENCE_REVIEW_2026-08-23.md), [126-state Coverage Manifest](wireframes/WIREFRAME_COVERAGE_MATRIX.md), [Phase 3 Foundations](wireframes/foundations/README.md), [Phase 4 32-frame register](wireframes/app-states/README.md), [Phase 5 Recovery/System register](wireframes/recovery-system/README.md), and [Phase 6 complete artifact index](wireframes/README.md)
 - **Canonical behavioral and approval workspace:** GitHub — [`docs/wireframes/`](wireframes/)
@@ -82,6 +82,22 @@ It defines the Android 360×800 reference frame, seven-step grayscale palette, f
 
 **Decision:** Phase 6 repository artifact production PASS / COMPLETE. Named cross-role approval remains pending.
 
+## Phase 7 — Traceability and Validation
+
+- [Machine traceability register](wireframes/PHASE_7_TRACEABILITY_REGISTER.json)
+- [Navigation and Behavioral Audit](wireframes/PHASE_7_NAVIGATION_BEHAVIOR_AUDIT.md)
+- [Link and Active-workfile Audit](wireframes/PHASE_7_LINK_AUDIT.md)
+- [Combined validation](wireframes/PHASE_7_TRACEABILITY_VALIDATION.md)
+- UF 13/13; GS 5/5; screen families 10/10; State dispositions 126/126.
+- P0 disposition 106/106; variant annotations 61/61; System-only states 20/20.
+- Entry/Exit/Back 32/32; system return/authority 13/13; connected handoffs 8/8.
+- Voice certainty, ambiguity, not-found, timeout and one-Retry recovery PASS.
+- Driving one-layer/immediate Exit/no typing/no long list PASS.
+- Background playback/UI recreation authority and safe-resume rules PASS.
+- Internal broken links 0; invalid validated GitHub paths 0; active Figma dependencies 0.
+
+**Decision:** Phase 7 Traceability and Validation PASS / COMPLETE. Named Product/Design/Android/QA approval remains pending.
+
 ## Required screen/state matrix
 
 | Screen | Required states |
@@ -134,11 +150,11 @@ Every frame must identify:
 
 ## Approval checklist
 
-- [ ] Every approved User Flow step maps to a repository Wireframe or documented system-only transition.
-- [ ] No P0 state is missing.
-- [ ] Navigation is explicit and consistent.
-- [ ] Voice ambiguity and failure states are understandable without a new complex screen.
-- [ ] Background and interruption handoffs are annotated.
+- [x] Every approved User Flow step maps to a repository Wireframe, variant annotation or documented system-only transition.
+- [x] No P0 state is missing — 106/106 dispositions PASS.
+- [x] Navigation, Back, Exit and connected handoffs are explicit and consistent.
+- [x] Voice certainty, ambiguity, not-found, timeout and one-Retry failure states are covered without a new complex screen.
+- [x] Background, recreation, interruption and route handoffs are annotated and service-authoritative.
 - [x] Stable SVG paths match repository `WF-*` identifiers and UF/State/GS ownership.
 - [ ] Product, Design and Android feasibility review is complete.
 - [x] Repository artifact links, source UF/State/GS IDs, construction provenance, validation date and current review disposition are recorded below.
@@ -153,6 +169,10 @@ Every frame must identify:
 - [Phase 5 validation](wireframes/recovery-system/PHASE_5_VALIDATION.md)
 - [Phase 6 machine-readable artifact index](wireframes/ARTIFACT_REGISTER.json)
 - [Phase 6 validation](wireframes/PHASE_6_REPOSITORY_ARTIFACT_VALIDATION.md)
+- [Phase 7 machine traceability register](wireframes/PHASE_7_TRACEABILITY_REGISTER.json)
+- [Phase 7 Navigation and Behavioral Audit](wireframes/PHASE_7_NAVIGATION_BEHAVIOR_AUDIT.md)
+- [Phase 7 Link Audit](wireframes/PHASE_7_LINK_AUDIT.md)
+- [Phase 7 combined validation](wireframes/PHASE_7_TRACEABILITY_VALIDATION.md)
 - [126-state Wireframe Coverage Matrix](wireframes/WIREFRAME_COVERAGE_MATRIX.md)
 - [Historical Phase 2 single-page Figma structure evidence](wireframes/FIGMA_STRUCTURE_PHASE_2_2026-08-25.md)
 - [GitHub-native workspace index](wireframes/WORKSPACE_INDEX.md)
@@ -164,4 +184,4 @@ Every frame must identify:
 - [Figma Design Plan](FIGMA_DESIGN_PLAN.md)
 - [Official Figma workfile](https://www.figma.com/design/CC6I0e23Zwe6qMhRGaqRrT/Music-Copilot-%E2%80%94-MVP-v1.0?node-id=0-1)
 
-The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. The 32 app-state pairs and 13 System/Recovery pairs are now packaged in a complete 45-pair repository index with provenance and Phase 6 validation. Issue #15 must still review remaining variant annotations, cross-frame navigation and named Product/Design/Android/QA approval.
+The synchronized input passed the named cross-role evidence review, but that review does not satisfy the unchecked Wireframe-artifact approvals above. Phase 7 validates all 126 State dispositions, all 61 variant annotations, all 20 System-only transitions, cross-frame navigation/handoffs and active links. Issue #15 now remains open only for named Product/Design/Android/QA artifact approval.
