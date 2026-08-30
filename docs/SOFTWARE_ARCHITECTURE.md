@@ -1,18 +1,20 @@
 # Software Architecture Baseline — MVP v1.0
 
-- **Status:** In progress — **Phase 5 Architecture Views PASS / source-corrected**, final Issue #16 approval still pending
+- **Status:** In progress — **Phase 7 Runtime Policies PASS / runtime-implementation-ready**, final Issue #16 approval still pending
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Depends on:** [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2), [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) and [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
 - **Attached product authority:** `Music_Copilot_PRD_v1_EN_Clarified.pdf` and `Music_Copilot_MVP_v1_EN.pdf` from the directly attached `MSM2(2).rar`
 - **Current architecture authority:** accepted [ADRs](adr/README.md) plus Issue #16 approved evidence
 - **Phase 4 evidence:** [ADR Decision Audit](architecture/ADR_PHASE4_AUDIT.md), [Decision/Spike Register](architecture/DECISION_AND_SPIKE_REGISTER.md), [Source/Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md)
 - **Phase 5 evidence:** [Architecture View Audit](architecture/PHASE5_ARCHITECTURE_VIEW_AUDIT.md) and independent Mermaid sources under [`docs/architecture/diagrams/`](architecture/diagrams/)
+- **Phase 6 evidence:** [Implementation Structure and Public Contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md) and [Implementation Readiness Audit](architecture/PHASE6_IMPLEMENTATION_READINESS_AUDIT.md)
+- **Phase 7 evidence:** [Runtime Policies](architecture/RUNTIME_POLICIES.md) and [Runtime Policy Audit](architecture/PHASE7_RUNTIME_POLICY_AUDIT.md)
 
 This file is the controlling pre-implementation architecture baseline. Text is authoritative over diagrams when interpreting a decision; diagrams must visualize, not invent or alter, the approved architecture. Missing details must not be invented inside feature implementation.
 
 ## 0. Direct attached-source verification
 
-The Phase 4/5 baseline is bound to the user-attached English archive:
+The Phase 4–7 baseline is bound to the user-attached English archive:
 
 - `MSM2(2).rar` SHA-256: `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
 - English PRD SHA-256: `486fbd5057e4abf570cd1a4865b6243ee5e31d26a48596414903916d6d81e9cf`
@@ -21,7 +23,7 @@ The Phase 4/5 baseline is bound to the user-attached English archive:
 - English Code/Technical Blueprint SHA-256: `1d776396a88aebacbdb8b813fe8c6fe82418c951f301762ac594c55a7cd22cf3`
 - the six attached English ADR PDFs match the identities recorded in the [Source/Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md)
 
-**Source exclusion:** no Persian/Farsi PRD or MVP is used as product authority, architecture evidence or Phase 5 validation input.
+**Source exclusion:** no Persian/Farsi PRD or MVP is used as product authority, architecture evidence or Phase 4–7 validation input.
 
 The attached English System Architecture and Technical Blueprint are engineering inputs, not final Issue #16 approval. They establish the high-level native Android, service-owned playback, local-first data, replaceable Voice and privacy boundaries while deliberately leaving several final ownership, lifecycle, navigation, concurrency and physical-module choices to Issue #16. Those final choices are recorded textually in ADR-0007/0008 and this baseline before they are illustrated below.
 
@@ -516,7 +518,7 @@ The diagrams above are constrained by these non-negotiable textual rules:
 
 ### Concurrency
 
-The diagrams do not add concurrency policy beyond ADR-0007: injected scopes/dispatchers, no `GlobalScope`, one service command consumer, one active Voice generation and stale-callback suppression. Long-running work that must survive a screen is not owned by a UI scope.
+The normative [Phase 7 Runtime Policies](architecture/RUNTIME_POLICIES.md) operationalize ADR-0007 and the [Phase 6 public contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md): injected scopes/dispatchers, no `GlobalScope`, one service command consumer, one active Voice generation and stale-callback suppression. Long-running work that must survive a screen is not owned by a UI scope.
 
 ### Persistence
 
@@ -558,7 +560,8 @@ The authoritative ADR register is [docs/adr/README.md](adr/README.md).
 - [x] ADR-0001..0008 and the Phase 4 decisions are represented without contradiction or silent supersession.
 - [x] Approved Wireframe navigation, Voice-overlay, recovery and system-surface ownership are represented without contradiction.
 - [x] Dependency direction, lifecycle/background/restoration and privacy/telemetry boundaries are diagrammed.
-- [ ] Phase 6 final public contract/package/concurrency/persistence/error/testing specification is complete.
+- [x] Phase 6 public contracts, package/dependency boundaries, DI ownership and module-extraction rules are complete.
+- [x] Phase 7 lifecycle, concurrency, persistence, navigation, typed recovery and privacy runtime policies are complete.
 - [ ] Product, Android, Design and QA approve the complete baseline.
 - [ ] Final Issue #16 review/merge/exit gate passes.
 
@@ -571,5 +574,13 @@ The authoritative ADR register is [docs/adr/README.md](adr/README.md).
 ### Phase 5
 
 **PASS / COMPLETE / SOURCE-ALIGNED.** All eight required architecture view families exist both inline and as independent Mermaid `.mmd` sources. The Critical Data Flow view covers every required Phase 5 path plus the existing P1 cold-restoration contract. Cross-checks against ADR-0001..0008, the Phase 2 architecture paths and approved Wireframe behavior found **0 material contradictions** and **0 important decisions hidden only in diagrams**.
+
+### Phase 6
+
+**PASS / COMPLETE / IMPLEMENTATION-READY CONTRACT.** Six boundary responsibilities and all ten requested public-contract groups are explicit. Dependency direction, composition-root ownership, the one-`:app` package tree and anti-module-explosion criteria require **0 new boundary or ownership inventions** from the Android foundation.
+
+### Phase 7
+
+**PASS / COMPLETE / RUNTIME-IMPLEMENTATION-READY.** All **18/18** requested Runtime requirements are fixed across lifecycle, concurrency, persistence, navigation/Voice Overlay, typed recovery and privacy/telemetry. Analytics or Remote Config failure cannot stop Playback or replace service-owned authority. Exact unsupported controller timeout duration remains an implementation/test parameter; its typed failure/no-fabricated-success outcome is fixed.
 
 This is **not** final Issue #16 approval and does not unblock Issue #4 by itself.
