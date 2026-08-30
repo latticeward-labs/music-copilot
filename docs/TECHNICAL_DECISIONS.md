@@ -1,13 +1,14 @@
 # Technical Decisions — MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** Accepted technical baseline; synchronized with Issue #16 through Phase 10
+- **Status:** **Accepted final technical baseline; Issue #16 Phase 11 PASS / merged**
 - **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
-- **Authority:** [PRD v1.0](PRD.md), [MVP v1.0](MVP.md), accepted [ADRs](adr/README.md) and the current [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md)
+- **Authority:** [PRD v1.0](PRD.md), [MVP v1.0](MVP.md), accepted [ADRs](adr/README.md) and the final [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md)
 - **Phase 10 review:** [Cross-role Review](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md) · [Findings Register](architecture/review/ISSUE_16_FINDINGS_REGISTER.json) · [Reviewed Contract Corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md)
+- **Phase 11 exit:** [Final Acceptance Audit](architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md) · [PR #46](https://github.com/latticeward-labs/music-copilot/pull/46) · [merge commit `0d3b889`](https://github.com/latticeward-labs/music-copilot/commit/0d3b8890ee37bd19ccbd2a7b0658f5b5d5745f2b)
 
-This file is the compact decision index. It does not replace `SOFTWARE_ARCHITECTURE.md`; when this index and a detailed architecture artifact differ in level of detail, the accepted ADRs and the current Software Architecture baseline control implementation. The two Phase 10 corrections are binding refinements of Phase 6 public-contract declarations and do not change ADR ownership/topology.
+This file is the compact decision index. It does not replace `SOFTWARE_ARCHITECTURE.md`; when this index and a detailed architecture artifact differ in level of detail, the accepted ADRs and the final Software Architecture baseline control implementation. The two Phase 10 corrections are binding refinements of Phase 6 public-contract declarations and do not change ADR ownership/topology.
 
 ## Accepted baseline
 
@@ -33,6 +34,7 @@ UI/Presentation, Application/Domain, Playback, Voice, Data and Quality/Diagnosti
 - [Runtime Policies](architecture/RUNTIME_POLICIES.md)
 - [Architecture Traceability Matrix](architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md)
 - [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md)
+- [Phase 11 Final Acceptance Audit](architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md)
 
 ## Binding runtime and ownership rules
 
@@ -85,6 +87,8 @@ The test architecture is controlled by [ISSUE_16_VALIDATION.md](architecture/ISS
 
 Phase 10 additionally requires Voice ambiguity tests to consume only current `Confirming.options` and corrupt/interruption tests to observe service-authored typed runtime errors without a second UI error authority.
 
+Final Issue #16 validation run [`33319820646`](https://github.com/latticeward-labs/music-copilot/actions/runs/33319820646) passed architecture/link, traceability, review-register, scope and Mermaid gates before merge.
+
 ## Cross-role review status
 
 Phase 10 review result: **PASS / COMPLETE**.
@@ -106,9 +110,9 @@ No independent human signature or Legal approval is claimed by this AI-assisted 
 1. **Issue #2:** **Done** — ADR-0001..0006 reviewed and Accepted.
 2. **Issue #3:** **Done / Closed** — User Flows/state inventory approved 23 August 2026.
 3. **Issue #15:** **Done / Closed** — low-fidelity Wireframes approved and closed 27 August 2026.
-4. **Issue #16:** **In Progress** — Phases 4–10 PASS; cross-role approval recorded; final acceptance/merge/closeout gate remains.
-5. **Issue #4:** **Blocked** until final Issue #16 exit.
+4. **Issue #16:** **Done / Phase 11 PASS** — 14/14 Acceptance Criteria evidenced; PR #46 merged; final architecture baseline approved.
+5. **Issue #4:** **UNBLOCKED / READY** — implementation foundation may start from the final architecture baseline.
 
 ## Change-control rule
 
-ADR-0001..0008 are Accepted. Phase 10 created **no new ADR** and changed no Accepted ADR decision. If a future material choice conflicts with an Accepted ADR, preserve history and add a new ADR explicitly marked `Supersedes ADR-xxxx` rather than rewriting the accepted record.
+ADR-0001..0008 are Accepted. Phases 10–11 created **no new ADR** and changed no Accepted ADR decision. If a future material choice conflicts with an Accepted ADR, preserve history and add a new ADR explicitly marked `Supersedes ADR-xxxx` rather than rewriting the accepted record.
