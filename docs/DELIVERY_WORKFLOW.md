@@ -1,30 +1,40 @@
 # Delivery Workflow and Approval Gates — MVP v1.0
 
+- **Version:** MVP v1.0
+- **Status:** Current through Issue #16 Phase 9
+- **Updated:** 30 August 2026
+- **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
+
 > Product authority: [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md). This document controls sequencing only; it does not add product scope.
 
 ## Current position
 
 - Issue #1 — PRD/MVP scope lock: **Done**
-- Issue #2 — preliminary technical baseline and ADR review: **Done (2026-08-06)**
-- Issue #3 — User Flows and state inventory: **In Progress**
-- Implementation has **not** started and must remain blocked until the final Software Architecture gate.
+- Issue #2 — preliminary technical baseline and ADR review: **Done (6 August 2026)**
+- Issue #3 — User Flows and state inventory: **Done / Closed (23 August 2026)**
+- Issue #15 — low-fidelity Wireframes: **Done / Closed (27 August 2026)**
+- Issue #16 — Software Architecture: **In Progress; Phase 9 repository synchronization PASS; final cross-role review and exit/merge gate pending**
+- Issue #4 — Android foundation: **Blocked until final Issue #16 approval**
+
+The implementation-facing architecture baseline is [docs/SOFTWARE_ARCHITECTURE.md](SOFTWARE_ARCHITECTURE.md). Phase 9 synchronization does not by itself approve Issue #16 or release Issue #4.
 
 ## Pre-build sequence
 
-| Gate | Issue | Required output | Exit condition |
+| Gate | Issue | Required output | Current state / exit condition |
 |---|---:|---|---|
-| Product scope | #1 | Locked PRD v1.0 / MVP v1.0 | Done |
-| Preliminary architecture | #2 | ADR-0001…0006 accepted; open evidence recorded | Done |
-| UX discovery | #3 | Approved User Flows and complete state inventory | Every P0 requirement has happy, failure and recovery paths |
-| UX structure | #15 | Approved low-fidelity Wireframes | No P0 flow requires an invented screen/state/navigation rule |
-| Software Architecture | #16 | Implementation-ready architecture baseline and diagrams | Responsibilities, state ownership, lifecycle and dependencies approved |
-| Product design | #17 | High-fidelity UI system and clickable prototype | Design handoff approved; golden scenario testable |
-| Engineering foundation | #4 | Buildable Android foundation and CI | Clean checkout and two-device build pass |
+| Product scope | #1 | Locked PRD v1.0 / MVP v1.0 | **Done** |
+| Preliminary architecture | #2 | ADR-0001…0006 accepted; open evidence recorded | **Done** |
+| UX discovery | #3 | Approved User Flows and complete state inventory | **Done / Closed** |
+| UX structure | #15 | Approved low-fidelity Wireframes | **Done / Closed** |
+| Software Architecture | #16 | Implementation-ready architecture baseline, diagrams, contracts, runtime policy and validation seams | **In Progress — baseline synchronized through Phase 9; final review/merge pending** |
+| Product design | #17 | High-fidelity UI system and clickable prototype | Separate downstream gate |
+| Engineering foundation | #4 | Buildable Android foundation and CI | **Blocked by #16 final exit gate** |
 
 ## Allowed overlap
 
-- Issue #3 proceeds using the accepted Issue #2 constraints.
-- Issue #4 and Issue #17 may run in parallel only after Issue #16 is approved.
+- Historical overlap rules for Issues #3 and #15 are satisfied because both are complete.
+- Issue #4 may not begin until Issue #16 is formally approved.
+- Issue #17 remains a separate design gate; any implementation dependency on its handoff must still be respected.
 - UI-heavy implementation Issues #5, #6, #9 and #10 require both #4 and the relevant #17 handoff.
 - Service/data work may begin from #4 when its architecture and contracts are approved, without waiting for decorative UI polish.
 
@@ -35,25 +45,36 @@ An implementation Issue is Ready only when:
 1. Its PRD/MVP requirement and priority are explicit.
 2. Required User Flow and states are approved.
 3. Required Wireframes or system-only transitions are approved.
-4. State ownership, dependencies and service contracts are defined in the Software Architecture baseline.
+4. State ownership, dependencies and service contracts are defined in the [Software Architecture baseline](SOFTWARE_ARCHITECTURE.md).
 5. Acceptance criteria include success, failure, recovery, accessibility, privacy and tests where applicable.
 6. Dependencies are complete and no unresolved P0 decision is hidden in the Issue.
+7. Issue #16 final review/merge/exit gate has passed for work blocked by architecture.
 
 ## Change control
 
-- PRD v1.0 and MVP v1.0 remain authoritative.
+- PRD v1.0 and MVP v1.0 remain authoritative product sources.
 - A new capability enters v1.0 only through formal scope review and only when it directly tests a Beta hypothesis or removes a P0 delivery blocker.
 - P0 Player, Voice, Driving and Stability work cannot be traded for P1/P2 features.
-- Accepted ADRs are not silently rewritten. A materially different decision requires a new ADR that supersedes the previous one.
+- Accepted ADRs are not silently rewritten. A materially different decision requires a new ADR that explicitly supersedes the previous one.
 - Structural UX changes return to User Flow/Wireframe review; they must not be buried inside code implementation.
 - P2 Like/Liked Songs and the P1 Bluetooth suggestion are first scope cuts if the schedule slips.
+- Dated phase documents are historical evidence; current architecture status is controlled by `README.md`, this workflow, `TECHNICAL_DECISIONS.md`, the ADR Register and `SOFTWARE_ARCHITECTURE.md`.
 
 ## Evidence expected at each gate
 
 - **Product:** scope, metrics and exclusions
 - **UX:** flow diagrams, state inventory and review notes
-- **Wireframes:** annotated screen/state coverage and navigation
-- **Architecture:** context/component/data-flow/state-ownership views and ADR links
+- **Wireframes:** annotated screen/state coverage, navigation and recovery
+- **Architecture:** context/component/data-flow/state-ownership views, public contracts, runtime policy, ADR links, test seams and traceability
 - **Design:** components, tokens, accessibility notes and prototype
 - **Engineering:** build, CI, tests and architecture-conformance evidence
 - **Release:** device/vehicle matrix, telemetry reliability, privacy approval and rollback
+
+## Current architecture evidence
+
+- [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md)
+- [Architecture Traceability Matrix](architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md)
+- [Implementation Structure and Public Contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md)
+- [Runtime Policies](architecture/RUNTIME_POLICIES.md)
+- [Validation and Test Architecture](architecture/ISSUE_16_VALIDATION.md)
+- [ADR Register](adr/README.md)

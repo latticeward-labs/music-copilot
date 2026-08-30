@@ -13,6 +13,15 @@ TRACE = ROOT / "docs/architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md"
 SOFTWARE = ROOT / "docs/SOFTWARE_ARCHITECTURE.md"
 BASE_SHA = os.environ.get("ISSUE16_BASE_SHA", "281e1abda39a78ee0d80051c154ed6eb4af33361")
 
+CURRENT_DOCS = [
+    ROOT / "README.md",
+    ROOT / "docs/DELIVERY_WORKFLOW.md",
+    ROOT / "docs/TECHNICAL_DECISIONS.md",
+    ROOT / "docs/DESIGN_DELIVERY_PLAN.md",
+    ROOT / "docs/adr/README.md",
+    SOFTWARE,
+]
+
 REQUIRED_MERMAID = [
     ROOT / "docs/architecture/diagrams/01-system-context.mmd",
     ROOT / "docs/architecture/diagrams/02-container-component-architecture.mmd",
@@ -22,6 +31,28 @@ REQUIRED_MERMAID = [
     ROOT / "docs/architecture/diagrams/06-navigation-voice-overlay.mmd",
     ROOT / "docs/architecture/diagrams/07-critical-data-flows.mmd",
     ROOT / "docs/architecture/diagrams/08-privacy-telemetry-boundary.mmd",
+]
+
+REQUIRED_SOFTWARE_LINKS = [
+    "architecture/SOURCE_AND_AUTHORITY_REGISTER.md",
+    "architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md",
+    "architecture/DECISION_AND_SPIKE_REGISTER.md",
+    "architecture/ADR_PHASE4_AUDIT.md",
+    "architecture/PHASE5_ARCHITECTURE_VIEW_AUDIT.md",
+    "architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
+    "architecture/PHASE6_IMPLEMENTATION_READINESS_AUDIT.md",
+    "architecture/RUNTIME_POLICIES.md",
+    "architecture/PHASE7_RUNTIME_POLICY_AUDIT.md",
+    "architecture/ISSUE_16_VALIDATION.md",
+    "architecture/PHASE9_REPOSITORY_SYNC_AUDIT.md",
+    "architecture/diagrams/01-system-context.mmd",
+    "architecture/diagrams/02-container-component-architecture.mmd",
+    "architecture/diagrams/03-dependency-direction.mmd",
+    "architecture/diagrams/04-state-ownership.mmd",
+    "architecture/diagrams/05-playback-ownership-lifecycle.mmd",
+    "architecture/diagrams/06-navigation-voice-overlay.mmd",
+    "architecture/diagrams/07-critical-data-flows.mmd",
+    "architecture/diagrams/08-privacy-telemetry-boundary.mmd",
 ]
 
 errors: list[str] = []
@@ -131,12 +162,15 @@ def markdown_link_target(raw_target: str) -> str | None:
 
 
 def validate_links() -> None:
-    active_files = [SOFTWARE]
+    active_files = list(CURRENT_DOCS)
     active_files += sorted((ROOT / "docs/architecture").glob("*.md"))
     active_files += sorted((ROOT / "docs/adr").glob("*.md"))
+    active_files = list(dict.fromkeys(active_files))
     link_re = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
     checked = 0
     unique_targets: set[str] = set()
+    github_links = 0
+    wrong_repo_links = 0
 
     for path in active_files:
         if not path.is_file():
@@ -144,7 +178,13 @@ def validate_links() -> None:
             continue
         text = path.read_text(encoding="utf-8")
         for match in link_re.finditer(text):
-            rel = markdown_link_target(match.group(1))
+            raw = match.group(1).strip()
+            if raw.startswith("https://github.com/"):
+                github_links += 1
+                if not raw.startswith("https://github.com/latticeward-labs/music-copilot/"):
+                    wrong_repo_links += 1
+                    fail(f"{path.relative_to(ROOT)}: unexpected GitHub repository link -> {raw}")
+            rel = markdown_link_target(raw)
             if rel is None:
                 continue
             checked += 1
@@ -156,9 +196,61 @@ def validate_links() -> None:
             unique_targets.add(str(resolved))
             if not resolved.exists():
                 line = text.count("\n", 0, match.start()) + 1
-                fail(f"{path.relative_to(ROOT)}:{line}: broken relative link -> {match.group(1)}")
+                fail(f"{path.relative_to(ROOT)}:{line}: broken relative link -> {raw}")
 
-    print(f"LINK_AUDIT relative_links={checked} unique_targets={len(unique_targets)} broken={sum('broken relative link' in e for e in errors)}")
+    print(
+        f"LINK_AUDIT relative_links={checked} unique_targets={len(unique_targets)} "
+        f"github_links={github_links} wrong_repo_links={wrong_repo_links} "
+        f"broken={sum('broken relative link' in e for e in errors)}"
+    )
+
+
+def validate_repository_status() -> None:
+    missing_docs = [str(p.relative_to(ROOT)) for p in CURRENT_DOCS if not p.is_file()]
+    if missing_docs:
+        fail(f"current status documents missing: {missing_docs}")
+        return
+
+    texts = {str(p.relative_to(ROOT)): p.read_text(encoding="utf-8") for p in CURRENT_DOCS}
+    combined = "\n".join(texts.values())
+
+    required_tokens = {
+        "README.md": ["docs/SOFTWARE_ARCHITECTURE.md", "Issue #15", "Done / Closed", "Issue #16", "In Progress"],
+        "docs/DELIVERY_WORKFLOW.md": ["Issue #3", "Done / Closed", "Issue #15", "Issue #16", "Phase 9"],
+        "docs/TECHNICAL_DECISIONS.md": ["ADR-0007", "ADR-0008", "SOFTWARE_ARCHITECTURE.md", "Phase 9"],
+        "docs/DESIGN_DELIVERY_PLAN.md": ["PASS / COMPLETE / CLOSED", "Gate C", "Phase 9"],
+        "docs/adr/README.md": ["ADR-0007", "ADR-0008", "Phase 9", "no new ADR"],
+        "docs/SOFTWARE_ARCHITECTURE.md": ["Version:", "Status:", "Updated:", "Tracking:", "PHASE9_REPOSITORY_SYNC_AUDIT.md"],
+    }
+    for rel, tokens in required_tokens.items():
+        text = texts[rel]
+        for token in tokens:
+            if token not in text:
+                fail(f"{rel}: missing current-status token {token!r}")
+
+    stale_patterns = [
+        r"Issue #3[^\n]*\*\*In Progress\*\*",
+        r"Issue #15[^\n]*(Ready; not yet approved|IN PROGRESS|approval pending)",
+        r"Issue #15 remains open",
+        r"Intentionally open until Issue #16",
+        r"final Software Architecture remains a separate approval gate",
+    ]
+    stale_hits: list[str] = []
+    for pattern in stale_patterns:
+        if re.search(pattern, combined, re.I):
+            stale_hits.append(pattern)
+    if stale_hits:
+        fail(f"current documents contain stale status patterns: {stale_hits}")
+
+    software = texts["docs/SOFTWARE_ARCHITECTURE.md"]
+    missing_links = [target for target in REQUIRED_SOFTWARE_LINKS if target not in software]
+    if missing_links:
+        fail(f"SOFTWARE_ARCHITECTURE.md missing required diagram/matrix links: {missing_links}")
+
+    print(
+        f"REPOSITORY_STATUS_AUDIT current_docs={len(CURRENT_DOCS)} "
+        f"stale_hits={len(stale_hits)} required_arch_links={len(REQUIRED_SOFTWARE_LINKS)-len(missing_links)}/{len(REQUIRED_SOFTWARE_LINKS)}"
+    )
 
 
 def validate_traceability() -> None:
@@ -180,21 +272,16 @@ def validate_traceability() -> None:
     for _, headers, rows in iter_tables(text):
         if "Recovery" not in headers or "Test" not in headers:
             continue
-
         has_priority = "Priority" in headers
         for line_no, row in rows:
             path_cell = row.get("Architecture path", row.get("Path", ""))
             ids = set(re.findall(r"\bAP-\d{2}\b", path_cell))
             referenced_ids.update(ids)
-
             if row.get("Path", "").startswith("AP-") and not has_priority:
-                pid = row["Path"]
-                catalog[pid] = row
-
+                catalog[row["Path"]] = row
             if has_priority and ids:
                 trace_rows += 1
-                is_p0 = "P0" in row.get("Priority", "")
-                if is_p0:
+                if "P0" in row.get("Priority", ""):
                     p0_rows += 1
                     p0_ids.update(ids)
                 if not nonempty(row.get("Recovery", "")) or not nonempty(row.get("Test", "")):
@@ -204,11 +291,9 @@ def validate_traceability() -> None:
     expected_catalog = {f"AP-{i:02d}" for i in range(1, 13)}
     if set(catalog) != expected_catalog:
         fail(f"architecture path catalog mismatch: expected {sorted(expected_catalog)}, found {sorted(catalog)}")
-
     unknown = referenced_ids - set(catalog)
     if unknown:
         fail(f"traceability references unknown Architecture IDs: {sorted(unknown)}")
-
     for pid in sorted(p0_ids):
         row = catalog.get(pid)
         if not row:
@@ -218,7 +303,6 @@ def validate_traceability() -> None:
             fail(f"P0 Architecture path {pid} has no Recovery assertion")
         if not nonempty(row.get("Test", "")):
             fail(f"P0 Architecture path {pid} has no Test seam")
-
     if expected_rows is not None and trace_rows != expected_rows:
         fail(f"traceability row count mismatch: document says {expected_rows}, parser found {trace_rows}")
 
@@ -233,40 +317,30 @@ def validate_traceability() -> None:
 def validate_scope_diff() -> None:
     try:
         changed = subprocess.check_output(
-            ["git", "diff", "--name-only", f"{BASE_SHA}...HEAD"],
-            cwd=ROOT,
-            text=True,
-            stderr=subprocess.STDOUT,
+            ["git", "diff", "--name-only", f"{BASE_SHA}...HEAD"], cwd=ROOT, text=True, stderr=subprocess.STDOUT
         ).splitlines()
     except subprocess.CalledProcessError as exc:
         fail(f"scope diff could not run against {BASE_SHA}: {exc.output.strip()}")
         return
 
-    allowed_extra = {
-        ".github/workflows/issue-16-architecture-validation.yml",
-        "scripts/validate_issue16_architecture.py",
-    }
-    unauthorized = [p for p in changed if not p.startswith("docs/") and p not in allowed_extra]
+    allowed_extra = {".github/workflows/issue-16-architecture-validation.yml", "scripts/validate_issue16_architecture.py"}
+    unauthorized = [p for p in changed if not p.startswith("docs/") and p != "README.md" and p not in allowed_extra]
     if unauthorized:
         fail(f"scope diff contains non-document/non-validation changes: {unauthorized}")
 
     forbidden = re.compile(
-        r"\b(Android Auto|CarPlay|iOS|backend|account|cloud sync|streaming|online catalog|"
-        r"wake word|always[- ]listening|LLM|humming|recommendations?)\b",
+        r"\b(Android Auto|CarPlay|iOS|backend|account|cloud sync|streaming|online catalog|wake word|always[- ]listening|LLM|humming|recommendations?)\b",
         re.I,
     )
     negative = re.compile(
-        r"\b(no|not|never|forbid(?:den)?|prohibit(?:ed)?|exclude(?:d)?|absent|"
-        r"out[- ]of[- ]scope|non[- ]goal|disabled|without|must not|may not)\b",
+        r"\b(no|not|never|forbid(?:den)?|prohibit(?:ed)?|exclude(?:d)?|absent|out[- ]of[- ]scope|non[- ]goal|disabled|without|must not|may not|blocked)\b",
         re.I,
     )
     suspicious: list[str] = []
     try:
         diff = subprocess.check_output(
-            ["git", "diff", "--unified=0", f"{BASE_SHA}...HEAD", "--", "docs"],
-            cwd=ROOT,
-            text=True,
-            stderr=subprocess.STDOUT,
+            ["git", "diff", "--unified=0", f"{BASE_SHA}...HEAD", "--", "README.md", "docs"],
+            cwd=ROOT, text=True, stderr=subprocess.STDOUT,
         )
         for line in diff.splitlines():
             if not line.startswith("+") or line.startswith("+++"):
@@ -281,10 +355,10 @@ def validate_scope_diff() -> None:
         return
 
     known_negative_context = re.compile(
-        r"(introducing backend/account/streaming|open-ended/LLM intent expansion|"
-        r"generic backend/account/streaming clients|generic core/data -> backend/account/streaming client|"
-        r"provider credentials, account identifiers|Explicit exclusions|Future discovery.*after Beta)",
-        re.I,
+        r"(introducing backend/account/streaming|open-ended/LLM intent expansion|generic backend/account/streaming clients|"
+        r"generic core/data -> backend/account/streaming client|provider credentials, account identifiers|Explicit exclusions|"
+        r"Future discovery.*after Beta|Out of scope|Streaming, downloads, accounts|No backend/account/streaming|"
+        r"No product backend|No product services|Android Auto/iOS platform expansion)", re.I,
     )
     unreviewed = [line for line in suspicious if not known_negative_context.search(line)]
     if unreviewed:
@@ -300,6 +374,7 @@ def validate_scope_diff() -> None:
 def main() -> int:
     validate_mermaid_sources()
     validate_links()
+    validate_repository_status()
     validate_traceability()
     validate_scope_diff()
 

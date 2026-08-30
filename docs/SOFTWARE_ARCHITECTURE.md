@@ -1,139 +1,212 @@
 # Software Architecture Baseline — MVP v1.0
 
-- **Status:** In progress — **Phase 8 Test Architecture PASS / validation-architecture-ready**, final Issue #16 approval still pending
+- **Version:** MVP v1.0
+- **Status:** **BASELINE COMPLETE THROUGH PHASE 9 / FINAL REVIEW PENDING**
+- **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
-- **Depends on:** [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2), [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) and [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
-- **Attached product authority:** `Music_Copilot_PRD_v1_EN_Clarified.pdf` and `Music_Copilot_MVP_v1_EN.pdf` from the directly attached `MSM2(2).rar`
-- **Current architecture authority:** accepted [ADRs](adr/README.md) plus Issue #16 approved evidence
-- **Phase 4 evidence:** [ADR Decision Audit](architecture/ADR_PHASE4_AUDIT.md), [Decision/Spike Register](architecture/DECISION_AND_SPIKE_REGISTER.md), [Source/Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md)
-- **Phase 5 evidence:** [Architecture View Audit](architecture/PHASE5_ARCHITECTURE_VIEW_AUDIT.md) and independent Mermaid sources under [`docs/architecture/diagrams/`](architecture/diagrams/)
-- **Phase 6 evidence:** [Implementation Structure and Public Contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md) and [Implementation Readiness Audit](architecture/PHASE6_IMPLEMENTATION_READINESS_AUDIT.md)
-- **Phase 7 evidence:** [Runtime Policies](architecture/RUNTIME_POLICIES.md) and [Runtime Policy Audit](architecture/PHASE7_RUNTIME_POLICY_AUDIT.md)
-- **Phase 8 evidence:** [Issue #16 Validation and Test Architecture](architecture/ISSUE_16_VALIDATION.md), repeatable [`validate_issue16_architecture.py`](../scripts/validate_issue16_architecture.py) and [validation workflow](../.github/workflows/issue-16-architecture-validation.yml)
+- **Upstream gates:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) **Done / Closed**; [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15) **Done / Closed**
+- **Downstream gate:** Issue #4 remains blocked until final Issue #16 review/merge/exit
+- **Source package:** user-attached English `MSM2(2).rar`, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
 
-This file is the controlling pre-implementation architecture baseline. Text is authoritative over diagrams when interpreting a decision; diagrams must visualize, not invent or alter, the approved architecture. Missing details must not be invented inside feature implementation.
+This document is the single current implementation-facing Software Architecture baseline for Music Copilot MVP v1.0. Accepted ADRs remain the decision-history authority; this file integrates those decisions with approved User Flows, Wireframes, public contracts, runtime policies, diagrams and validation seams. Dated phase/history files retain historical status only and do not override the current status stated here.
 
-## 0. Direct attached-source verification
+**No Persian/Farsi PRD or MVP is used as architecture authority.** The controlling product sources are the English PRD/MVP members in the attached source package as recorded in the [Source and Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md).
 
-The Phase 4–8 baseline is bound to the user-attached English archive:
+## 1. Current repository state
 
-- `MSM2(2).rar` SHA-256: `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
-- English PRD SHA-256: `486fbd5057e4abf570cd1a4865b6243ee5e31d26a48596414903916d6d81e9cf`
-- English MVP SHA-256: `98e89a1c9d530f4eb878af94f4f480fc8d4669ce2ed5193ba71f201b032d47b0`
-- English System Architecture SHA-256: `b056e3b8d3125e6660c2fd9431f4f883128673ed5ad1a7f3f5184dd179715bfb`
-- English Code/Technical Blueprint SHA-256: `1d776396a88aebacbdb8b813fe8c6fe82418c951f301762ac594c55a7cd22cf3`
-- the six attached English ADR PDFs match the identities recorded in the [Source/Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md)
+| Item | Current state |
+|---|---|
+| Issue #3 — User Flows/state inventory | **Done / Closed — 23 August 2026** |
+| Issue #15 — Low-fidelity Wireframes | **Done / Closed — 27 August 2026** |
+| Issue #16 — Software Architecture | **In Progress — Phase 9 PASS; final cross-role review and exit/merge gate pending** |
+| Issue #4 — Android foundation | **Blocked by final Issue #16 exit gate** |
+| ADR-0001..0008 | **Accepted** |
+| P2 Liked Songs | **Removable / non-blocking** |
 
-**Source exclusion:** no Persian/Farsi PRD or MVP is used as product authority, architecture evidence or Phase 4–8 validation input.
+## 2. Architecture evidence index
 
-The attached English System Architecture and Technical Blueprint are engineering inputs, not final Issue #16 approval. They establish the high-level native Android, service-owned playback, local-first data, replaceable Voice and privacy boundaries while deliberately leaving several final ownership, lifecycle, navigation, concurrency and physical-module choices to Issue #16. Those final choices are recorded textually in ADR-0007/0008 and this baseline before they are illustrated below.
+### Core matrices and registers
 
-## 1. Baseline constraints established by the attached English sources and Accepted ADRs
+- [Source and Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md)
+- [Architecture Traceability Matrix](architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md)
+- [Decision and Technical Spike Register](architecture/DECISION_AND_SPIKE_REGISTER.md)
+- [Phase 4 ADR Audit](architecture/ADR_PHASE4_AUDIT.md)
+- [Phase 5 Architecture View Audit](architecture/PHASE5_ARCHITECTURE_VIEW_AUDIT.md)
+- [Phase 6 Implementation Structure and Public Contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md)
+- [Phase 6 Implementation Readiness Audit](architecture/PHASE6_IMPLEMENTATION_READINESS_AUDIT.md)
+- [Phase 7 Runtime Policies](architecture/RUNTIME_POLICIES.md)
+- [Phase 7 Runtime Policy Audit](architecture/PHASE7_RUNTIME_POLICY_AUDIT.md)
+- [Phase 8 Validation and Test Architecture](architecture/ISSUE_16_VALIDATION.md)
+- [Phase 9 Repository Synchronization Audit](architecture/PHASE9_REPOSITORY_SYNC_AUDIT.md)
+- [ADR Register](adr/README.md)
+
+### Architecture diagrams
+
+1. [System Context](architecture/diagrams/01-system-context.mmd)
+2. [Container / Component Architecture](architecture/diagrams/02-container-component-architecture.mmd)
+3. [Allowed and Forbidden Dependency Direction](architecture/diagrams/03-dependency-direction.mmd)
+4. [State Ownership](architecture/diagrams/04-state-ownership.mmd)
+5. [Playback Ownership and Lifecycle](architecture/diagrams/05-playback-ownership-lifecycle.mmd)
+6. [Navigation and Voice Overlay](architecture/diagrams/06-navigation-voice-overlay.mmd)
+7. [Critical Data Flows](architecture/diagrams/07-critical-data-flows.mmd)
+8. [Privacy and Telemetry Boundary](architecture/diagrams/08-privacy-telemetry-boundary.mmd)
+
+The standalone `.mmd` sources must remain byte-equivalent to the eight inline Mermaid blocks below.
+
+## 3. Binding baseline constraints
 
 - Native Android 10+ with Kotlin and Jetpack Compose.
-- Lawful local audio only; no backend, account, cloud sync, online catalog or streaming.
-- Media3 playback is independent of UI lifecycle and owned by a service.
-- MediaStore is the authority for device media existence/identity.
+- Media3/ExoPlayer playback is service-owned and independent of Activity/ViewModel lifecycle.
+- UI observes authoritative playback state and submits commands; it never owns Player, queue or live position truth.
+- MediaStore is the authority for local device-media existence and identity.
 - Room is a rebuildable derived library/search projection plus only explicitly approved app-owned records.
 - DataStore owns settings/consent and the non-authoritative P1 Safe-Paused restoration snapshot.
-- Push-to-talk Voice is behind a replaceable STT/TTS boundary.
-- Executable Voice behavior is restricted to the deterministic six-intent contract with bounded confirmation/retry.
-- Raw voice/transcripts and prohibited personal media metadata never enter telemetry.
-- P0 active background/screen-off continuity is distinct from P1 FR-08 queue/position restoration.
-- Android 10/12/14+, Pixel/Samsung/Xiaomi and at least three vehicle/head-unit models remain the downstream QA target matrix.
+- Voice is push-to-talk behind replaceable STT/TTS ports.
+- Executable Voice behavior is restricted to exactly six deterministic MVP intents with bounded ambiguity, confirmation and retry behavior.
+- Raw audio, transcript and prohibited personal media/identity data never enter telemetry.
+- No product backend, account, cloud sync, streaming or online catalog is introduced.
+- P0 UI recreation/closure continuity is distinct from P1 cold restoration; persisted restoration never autoplays.
+- Android 10/12/14+, Pixel/Samsung/Xiaomi and 3+ real vehicle/head-unit models remain downstream QA/Field gates.
 
-## 2. Phase 4 finalized consequential decisions
+## 4. Accepted ADR integration
 
-### 2.1 Runtime, lifecycle and concurrency — ADR-0007
+- [ADR-0001](adr/0001-native-android-platform.md) — Native Android platform baseline.
+- [ADR-0002](adr/0002-service-owned-media3-playback.md) — service-owned Media3 playback.
+- [ADR-0003](adr/0003-local-first-data-boundaries.md) — MediaStore/Room/DataStore boundaries.
+- [ADR-0004](adr/0004-replaceable-voice-provider.md) — replaceable Voice provider.
+- [ADR-0005](adr/0005-deterministic-intent-mapping.md) — restricted deterministic intent mapping.
+- [ADR-0006](adr/0006-no-backend-account-streaming.md) — no backend/account/streaming product service.
+- [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md) — same-process service runtime, structured concurrency, serialized commands and Safe-Paused restoration.
+- [ADR-0008](adr/0008-minimal-modular-monolith-and-dependency-enforcement.md) — one initial `:app` modular monolith with enforced dependency/state/data ownership and evidence-driven extraction.
 
-See [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md).
+ADR-0007 and ADR-0008 elaborate the earlier Accepted ADRs; neither silently supersedes them. A future material incompatible choice requires a new ADR explicitly stating `Supersedes ADR-xxxx`.
 
-- Playback uses a same-application-process `MediaSessionService`; no playback `android:process` is configured.
-- Player and MediaSession are service-owned and never UI-owned.
-- No boot/app-start autoplay is introduced.
-- One application-scoped `PlaybackControllerConnection` exposes connection state and the observed authoritative `PlaybackSnapshot`.
-- All UI/system/Voice playback mutations converge on one service-owned sequential `PlaybackCommandProcessor`, bounded to 32 pending commands with typed `Busy` overflow; accepted commands are never silently dropped.
-- `GlobalScope` is forbidden. UI work uses `viewModelScope`; Playback uses a service-owned `SupervisorJob`; Voice owns one cancellable child session job; repository/application scopes own restartable work that must outlive screens.
-- Main/player looper owns Player/MediaSession mutation; IO owns MediaStore/Room/DataStore/blocking adapters; Default owns normalization/matching.
-- `VoiceSessionCoordinator` owns one active Voice generation and pending confirmation; invalidating events cancel prior work and stale callbacks are ignored.
-- P0 does not promise force-stop or guaranteed process-death survival. P1 restore uses a versioned Proto DataStore snapshot, revalidates MediaStore and prepares **Paused only**, never autoplay.
-- Conditional call/focus resume requires all four guards: prior Playing, focus returned, unchanged valid route generation and no manual Pause. Route disconnect immediately pauses, cancels Voice and invalidates route generation; reconnect remains Paused until explicit Resume.
+## 5. Boundary responsibilities
 
-### 2.2 Minimal modular monolith and dependency enforcement — ADR-0008
+| Boundary | Owns | Must not own |
+|---|---|---|
+| UI / Presentation | destination presentation state, user intent, rendering, navigation requests | Player, live queue, MediaStore/Room concrete access, provider SDKs |
+| Application / Domain | use cases, coordinators, typed ports/results/errors | Android concrete adapters or duplicated shared authority |
+| Playback | `MediaSessionService`, Player, MediaSession, live queue/current item/position, command serialization | UI state or repository truth |
+| Voice | STT/TTS ports, deterministic mapper, candidate/confirmation policy, one active session generation | Player authority, persistent transcript/audio |
+| Data | MediaStore scan/re-query, normalization, Room projection, DataStore preferences/consent/P1 snapshot | live playback authority or UI state |
+| Quality | typed allowlisted diagnostics, privacy gate, optional non-authoritative sink/config adapters | product/safety decisions, raw personal payloads |
 
-See [ADR-0008](adr/0008-minimal-modular-monolith-and-dependency-enforcement.md).
+## 6. State ownership
 
-Production begins as one `:app` Gradle module with enforced logical packages:
-
-```text
-:app
-└── com.latticeward.musiccopilot
-    ├── app/                 # Application, Activity, NavHost, DI composition root
-    ├── core/                # shared models, AppResult/AppError, dispatcher qualifiers
-    ├── feature/             # onboarding, library, search, player, driving, settings, liked(P2)
-    ├── playback/            # api, Media3 service, controller, command processor, restore
-    ├── voice/               # api, provider adapter, mapper, session coordinator
-    ├── data/                # api, MediaStore, Room, DataStore
-    └── quality/             # api, privacy filter, NoOp/approved adapters
-
-spikes/android-validation/   # isolated non-production evidence harness
-```
-
-`app/` is the composition root. UI/features depend on models, use cases and ports, not concrete Android/provider/storage implementations. Hilt remains a replaceable implementation choice; the binding decision is the dependency/ownership contract, not Hilt itself. Module extraction is evidence-driven and cannot introduce v1.1 scope.
-
-## 3. Compatible finalized policies recorded textually
-
-### Navigation and Voice overlay
-
-- Single-activity Compose `NavHost`.
-- Destinations: Bootstrap, Onboarding, Permission recovery, Home/Library, Search, Full Player, Driving, Settings and optional P2 Liked Songs.
-- Voice is overlay/state owned by the initiating Player/Driving origin plus `VoiceSessionCoordinator`, never an independent navigation branch.
-- Back cancels Voice first when active; Driving Back/Exit immediately returns to its recorded origin.
-- Android Settings/permission surfaces are external handoffs followed by a fresh capability re-check, not invented app screens.
-
-### Typed error and recovery model
-
-Use sealed `AppError` categories: Permission, Library, MediaItem, Playback, Controller, Voice, Interruption, Storage, Privacy and Quality. Each exposes a stable non-sensitive code, recoverability and one `RecoveryAction`: `Retry`, `OpenSettings`, `Rebuild`, `Skip`, `ManualFallback`, `ManualResume` or `None`. Throwables remain inside infrastructure boundaries; UI receives typed state.
-
-### Data/state authority
-
-- playback/current media/live queue/position → `MediaSessionService` Playback boundary;
-- active Voice state/pending confirmation → `VoiceSessionCoordinator`;
-- media existence/identity → MediaStore;
-- derived library/search projection → Room repository;
-- settings/Bluetooth preference/consent → DataStore repository;
-- destination presentation state → destination ViewModel;
-- navigation/Voice-overlay origin → root navigation state holder;
-- quality/diagnostic session state → application-scoped Quality boundary;
-- P1 cold-restore snapshot → Proto DataStore as a non-authoritative Safe-Paused aid.
+- Playback/current media/live queue/position → `MediaSessionService`.
+- Active Voice state/pending confirmation → `VoiceSessionCoordinator`.
+- Device media existence/identity → Android MediaStore.
+- Derived library/search projection → Room repository.
+- Settings/Bluetooth preference/consent → DataStore repository.
+- Destination presentation state → destination ViewModel.
+- Navigation and Voice-overlay origin → root navigation state holder.
+- Quality/diagnostic session state → application-scoped Quality boundary.
+- P1 restorable queue snapshot → Proto DataStore as a non-authoritative aid.
 
 Duplicated authoritative state is forbidden.
 
-### Numeric interaction and Voice policy
+## 7. Runtime, lifecycle and concurrency policy
 
-- seek-back: **10 seconds**;
-- Voice listening timeout: **6 seconds**;
-- retry: **one**;
-- PREVIOUS: restart current track when position is **> 3 seconds**, otherwise move to previous item;
-- direct-execution provider confidence `T_DIRECT`: **0.90**;
-- future validated tuning range: **0.80..0.98**;
-- artist clear similarity: **0.88**;
-- plausible similarity: **0.72**;
-- minimum top-two separation: **0.08**.
+- Production playback uses a same-application-process `MediaSessionService`; no dedicated playback `android:process` is configured.
+- Service lifecycle creates and owns Player/MediaSession. UI recreation or closure never constructs a replacement Player.
+- One application-scoped `PlaybackControllerConnection` exposes `Disconnected`, `Connecting`, `Ready` and `RecoverableError` plus a complete observed `PlaybackSnapshot`.
+- Complete snapshot replacement occurs before connection becomes `Ready`.
+- Every UI/system/Voice playback mutation converges on one `PlaybackCommandProcessor` with a single sequential consumer and bounded capacity 32; overflow returns typed Busy and accepted commands are never silently dropped.
+- `GlobalScope` is forbidden. UI uses `viewModelScope`; Playback uses a service-owned `SupervisorJob`; Voice owns one cancellable session child job; application/repository work that must outlive a screen uses an injected longer-lived scope.
+- Main/player looper owns Player/MediaSession mutation; IO owns MediaStore/Room/DataStore/blocking adapters; Default owns normalization/matching.
+- Voice owns one active generation token; cancellation/navigation/interruption invalidates prior work and stale callbacks are ignored.
+- Playback acknowledgement precedes successful Voice/TTS completion state.
 
-Missing/invalid confidence never direct-executes. Tuning cannot add intents, widen grammar or bypass confirmation.
+## 8. Persistence and restoration policy
 
-### Provider/quality foundation defaults and Beta guard
+- Live playback and queue are service-owned memory/MediaSession state.
+- Room never becomes live queue truth.
+- P1 restoration uses a versioned `RestorableQueueSnapshot` in Proto DataStore with stable media references, no title/artist/path payload.
+- Snapshot writes are atomic and bounded/debounced by the approved runtime policy.
+- Cold restore re-queries MediaStore, drops invalid items, validates schema and clamps position.
+- A live MediaSession always wins over persisted restore.
+- A valid cold restore prepares **Paused only**; it never autoplays.
+- Invalid/corrupt/future-schema snapshot is ignored/discarded safely and falls back to Library/Safe Paused.
 
-Speech remains behind ADR-0004's replaceable port. Cloud speech is disabled by default. Foundation configuration may be Manual Only and quality adapters NoOp while provider/legal/retention evidence is missing, but those safe defaults do **not** satisfy final P0 Voice or Closed Beta measurement requirements. The required six-command Voice path and privacy-safe MVP measurement events must be enabled and validated before Beta completion.
+## 9. Navigation and Voice overlay
 
-## 4. Phase 5 Architecture Views
+- Single-activity Compose `NavHost`.
+- App-visible destinations: Bootstrap, Onboarding, Permissions recovery, Home/Library, Search, Full Player, Driving, Settings and optional P2 Liked Songs.
+- Voice is overlay/state associated with Player or Driving origin; it is not an independent navigation branch.
+- Back cancels Voice first when active.
+- Driving Back/Exit returns immediately to the recorded origin.
+- Android Settings and permission surfaces are external system handoffs followed by a fresh capability re-check; they are not invented app screens.
 
-Every view below is embedded as Mermaid in this controlling document and stored byte-for-byte as an independent `.mmd` source. The [Phase 5 Architecture View Audit](architecture/PHASE5_ARCHITECTURE_VIEW_AUDIT.md) checks each view against ADR-0001..0008, the Phase 2 traceability paths, approved Wireframes and the attached English MSM2 source boundary.
+## 10. Error and recovery model
 
-### 4.1 System Context
+`AppError` categories are Permission, Library, MediaItem, Playback, Controller, Voice, Interruption, Storage, Privacy and Quality. UI receives typed recoverability and one approved `RecoveryAction`: `Retry`, `OpenSettings`, `Rebuild`, `Skip`, `ManualFallback`, `ManualResume` or `None`.
 
-Independent source: [`01-system-context.mmd`](architecture/diagrams/01-system-context.mmd)
+Key recovery rules:
+
+- permission denial/revocation → truthful unavailable state, Retry/Not now or explicit Settings handoff, then fresh platform re-check;
+- corrupt/unplayable item → typed error and bounded skip; if no valid item remains, Safe Paused/queue end;
+- controller reconnect failure → recoverable controller state without fabricated playback truth;
+- call/focus interruption → automatic resume only when prior Playing, focus returned, route generation unchanged/valid and no manual Pause;
+- route disconnect → immediate pause, cancel Voice, invalidate route generation; reconnect alone never auto-resumes;
+- Voice timeout → six seconds, one explicit Retry, second failure terminal to manual fallback;
+- ambiguity → one bounded confirmation; unsupported/not-found never guesses;
+- privacy/quality failure → diagnostic event may be dropped; product/safety behavior continues.
+
+## 11. Numeric interaction policy
+
+- Seek Back: **10 seconds**.
+- Previous: if position is **> 3 seconds**, restart current track; otherwise move to previous valid item.
+- Voice listening timeout: **6 seconds**.
+- Retry: **one**.
+- Direct provider confidence default: **0.90**.
+- Future validated tuning range: **0.80..0.98**.
+- Artist clear similarity: **0.88**.
+- Plausible similarity: **0.72**.
+- Minimum top-two separation: **0.08**.
+
+Missing/invalid confidence never direct-executes. Configuration cannot add intents, widen grammar or bypass confirmation.
+
+## 12. Privacy and quality policy
+
+`TelemetryPrivacyGate` accepts only typed allowlisted schemas with coarse enums/buckets/counts. It rejects raw audio, transcript, artist/album/folder/title, path/content URI/MediaStore ID, search query/results, queue/library contents, precise position/location, contacts/call identity, Bluetooth/vehicle identity and credentials/tokens/secrets.
+
+Quality/analytics/configuration adapters are optional and non-authoritative. Their failure cannot delay playback acknowledgement, Voice cancellation, permission recovery, interruption handling or route safety. Any remote speech processing requires its own approved disclosure/consent/retention gate before activation.
+
+## 13. Module/package strategy
+
+Production begins as one Gradle `:app` module with logical packages:
+
+```text
+com.latticeward.musiccopilot
+├── app/        # Application, Activity, NavHost, DI composition root
+├── core/       # shared models, AppResult/AppError, dispatcher contracts
+├── feature/    # onboarding, library, search, player, driving, settings, liked(P2)
+├── playback/   # api, service, controller, command processor, restoration
+├── voice/      # api, provider adapters, mapper, session coordinator
+├── data/       # api, MediaStore, Room, DataStore
+└── quality/    # api, privacy gate, optional/NoOp adapters
+```
+
+Module extraction is allowed only when supported by ownership/reuse/build-isolation/dependency-enforcement evidence. Premature module explosion is not part of the MVP baseline.
+
+## 14. Testing architecture
+
+The normative test plan is [ISSUE_16_VALIDATION.md](architecture/ISSUE_16_VALIDATION.md). Required seams include:
+
+- Unit: deterministic Mapper, Queue, Seek, Previous, interruption reducer, Voice state machine and Privacy filter.
+- Integration: MediaSessionService/Player, MediaController/PlaybackGateway, Room, MediaStore, DataStore restoration, STT adapter and Quality fault isolation.
+- System/UI: UI↔Service synchronization, Activity/controller recreation/reconnect, P1 cold restoration, corrupt-file recovery, permission denial/revocation, Call/Audio Focus/Route, Voice timeout/one-retry/ambiguity.
+- Device/OEM: Android 10/12/14+, Pixel/Samsung/Xiaomi.
+- Field/Beta: at least 3 real vehicle/head-unit models.
+
+Every P0-referenced Architecture path has at least one named Test seam and Recovery assertion. Phase 8/9 documentation validation does not fabricate downstream physical execution.
+
+# Architecture diagrams
+
+## 15.1 System Context
+
+Source: [`01-system-context.mmd`](architecture/diagrams/01-system-context.mmd)
 
 ```mermaid
 flowchart LR
@@ -159,11 +232,9 @@ flowchart LR
     class EXCLUDED excluded;
 ```
 
-**Contract represented:** the app is native/local-first; Android/system/vehicle surfaces are external actors and observers; speech/quality processors are replaceable/optional boundaries; backend/account/cloud sync/streaming/catalog remain absent.
+## 15.2 Container / Component Architecture
 
-### 4.2 Container / Component Architecture
-
-Independent source: [`02-container-component-architecture.mmd`](architecture/diagrams/02-container-component-architecture.mmd)
+Source: [`02-container-component-architecture.mmd`](architecture/diagrams/02-container-component-architecture.mmd)
 
 ```mermaid
 flowchart TB
@@ -231,11 +302,9 @@ flowchart TB
     NOTE --- APP
 ```
 
-**Contract represented:** UI, Application/Domain, Playback, Voice, Data and Quality responsibilities remain unambiguous; concrete Player/provider/storage adapters do not become UI/domain authority.
+## 15.3 Dependency Direction
 
-### 4.3 Allowed and Forbidden Dependency Direction
-
-Independent source: [`03-dependency-direction.mmd`](architecture/diagrams/03-dependency-direction.mmd)
+Source: [`03-dependency-direction.mmd`](architecture/diagrams/03-dependency-direction.mmd)
 
 ```mermaid
 flowchart LR
@@ -271,11 +340,9 @@ flowchart LR
     RULE --- ALLOWED
 ```
 
-**Contract represented:** ADR-0008's package topology and dependency inversion are explicit, including forbidden concrete couplings and forbidden hidden product scope.
+## 15.4 State Ownership
 
-### 4.4 State Ownership
-
-Independent source: [`04-state-ownership.mmd`](architecture/diagrams/04-state-ownership.mmd)
+Source: [`04-state-ownership.mmd`](architecture/diagrams/04-state-ownership.mmd)
 
 ```mermaid
 flowchart TB
@@ -307,11 +374,9 @@ flowchart TB
     PDS -. "never overrides a live MediaSession" .-> PS
 ```
 
-**Contract represented:** each shared state has one named authority; Room/DataStore/UI never duplicate the live playback authority.
+## 15.5 Playback Ownership and Lifecycle
 
-### 4.5 Playback Ownership and Lifecycle
-
-Independent source: [`05-playback-ownership-lifecycle.mmd`](architecture/diagrams/05-playback-ownership-lifecycle.mmd)
+Source: [`05-playback-ownership-lifecycle.mmd`](architecture/diagrams/05-playback-ownership-lifecycle.mmd)
 
 ```mermaid
 flowchart TD
@@ -351,11 +416,9 @@ flowchart TD
     NOTE --- DEATH
 ```
 
-**Contract represented:** ADR-0002/0007 ownership, P0 UI-lifecycle independence, serialized commands, guarded interruption recovery and P1 Safe-Paused restoration.
+## 15.6 Navigation and Voice Overlay
 
-### 4.6 Navigation and Voice Overlay
-
-Independent source: [`06-navigation-voice-overlay.mmd`](architecture/diagrams/06-navigation-voice-overlay.mmd)
+Source: [`06-navigation-voice-overlay.mmd`](architecture/diagrams/06-navigation-voice-overlay.mmd)
 
 ```mermaid
 flowchart LR
@@ -390,11 +453,9 @@ flowchart LR
     NOTE --- DRIVE
 ```
 
-**Contract represented:** approved Wireframe screen families and recovery ownership; Voice states do not create a navigation branch, Android system UI is not invented as an app screen, and Driving keeps immediate Exit.
+## 15.7 Critical Data Flows
 
-### 4.7 Critical Data Flows
-
-Independent source: [`07-critical-data-flows.mmd`](architecture/diagrams/07-critical-data-flows.mmd)
+Source: [`07-critical-data-flows.mmd`](architecture/diagrams/07-critical-data-flows.mmd)
 
 ```mermaid
 flowchart TB
@@ -449,21 +510,9 @@ flowchart TB
     RULE --- F2
 ```
 
-This view covers all required Phase 5 paths plus the pre-existing P1 cold-restoration path:
+## 15.8 Privacy and Telemetry Boundary
 
-1. MediaStore scan → normalization/reconciliation → Room → Library/Search UI.
-2. Track selection → queue command → MediaSessionService live queue → ExoPlayer → snapshot.
-3. Manual command → controller → command processor → service → synchronized surfaces.
-4. Voice → STT → deterministic mapper/candidates → direct or one confirmation → playback acknowledgement → TTS; failure gets one Retry then manual fallback.
-5. Call/Focus/Route interruption → safety policy → conditional resume or Safe Paused → synchronized surfaces.
-6. Typed telemetry → privacy gate → optional approved/NoOp quality adapter.
-7. Permission revocation → fresh truth → index reconciliation → stale Room invalidation → truthful UI recovery.
-8. Corrupt file → typed failure → bounded skip → queue continuation or Safe Paused queue end.
-9. P1 cold restore → versioned snapshot → MediaStore validation → Paused-only preparation.
-
-### 4.8 Privacy and Telemetry Boundary
-
-Independent source: [`08-privacy-telemetry-boundary.mmd`](architecture/diagrams/08-privacy-telemetry-boundary.mmd)
+Source: [`08-privacy-telemetry-boundary.mmd`](architecture/diagrams/08-privacy-telemetry-boundary.mmd)
 
 ```mermaid
 flowchart LR
@@ -499,94 +548,33 @@ flowchart LR
     QA --- BETA
 ```
 
-**Contract represented:** only typed allowlisted coarse events may cross the privacy gate; prohibited Voice/media/identity content is rejected; quality remains non-authoritative; remote speech requires its own consent/disclosure gate; NoOp telemetry is not Beta completion.
+## 16. Phase 9 repository synchronization gate
 
-## 5. View-to-text consistency rules
+Phase 9 aligns the current repository-facing documents to this one status:
 
-The diagrams above are constrained by these non-negotiable textual rules:
+- Issue #3: Done / Closed.
+- Issue #15: Done / Closed.
+- Issue #16: In Progress; architecture baseline complete through Phase 9; final cross-role review and exit/merge pending.
+- Issue #4: blocked until final Issue #16 exit.
+- ADR-0001..0008: Accepted; no new ADR created in Phase 9.
 
-- UI is never playback or queue authority.
-- Voice provider output never bypasses the deterministic mapper/confirmation policy and never becomes playback authority.
-- MediaStore remains device-media truth; Room remains a derived/rebuildable projection.
-- P1 persisted restore never overrides a live MediaSession and never autoplays.
-- Android permission/settings, notification/lock-screen and interruption/route surfaces remain system-owned and are not invented as app destinations.
-- Driving Mode remains one interaction layer with immediate Exit, no deep menus/typing/long result lists.
-- Quality/telemetry failure never blocks product/safety behavior.
-- No backend/account/cloud sync/streaming/online catalog is introduced.
-- P2 Liked Songs remains removable and non-blocking for P0.
+The [Phase 9 Repository Synchronization Audit](architecture/PHASE9_REPOSITORY_SYNC_AUDIT.md) records the document and link checks. The repeatable validator checks active current-document consistency, architecture IDs/traceability, relative links, Mermaid parity and scope boundaries.
 
-## 6. Concurrency, persistence, error and testing interpretation
+## 17. Approval state
 
-### Concurrency
+Completed architecture construction gates:
 
-The normative [Phase 7 Runtime Policies](architecture/RUNTIME_POLICIES.md) operationalize ADR-0007 and the [Phase 6 public contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md): injected scopes/dispatchers, no `GlobalScope`, one service command consumer, one active Voice generation and stale-callback suppression. Long-running work that must survive a screen is not owned by a UI scope.
+- Phase 4 — ADR decision control: **PASS**
+- Phase 5 — architecture views: **PASS**
+- Phase 6 — implementation contracts/package boundaries: **PASS**
+- Phase 7 — runtime policy: **PASS**
+- Phase 8 — test architecture/validation: **PASS**
+- Phase 9 — repository/document synchronization: **PASS**
 
-### Persistence
+Still required before Issue #16 can close and Issue #4 can unblock:
 
-- MediaStore → authoritative device media existence/identity.
-- Room → rebuildable library/search projection; optional approved history/P2 Likes only.
-- DataStore → settings/consent and P1 non-authoritative Safe-Paused snapshot.
-- Live playback/queue → service-owned memory/MediaSession state, not Room/DataStore authority.
+- final Product, Android, Design/UX, QA, Accessibility and Privacy review with no open Blocker/Major finding;
+- final acceptance/link/traceability/Mermaid gate;
+- PR merge and Issue #16 closeout.
 
-### Error/recovery
-
-Permission revocation, empty/stale library, corrupt media, Voice timeout/ambiguity/not-found, controller failure, call/focus/route events and privacy/quality failures terminate in typed recovery rather than silent state mutation. Wireframe-visible recovery remains Manual Playback or service-owned Safe Paused where applicable.
-
-### Testing seams
-
-The normative [Phase 8 Validation and Test Architecture](architecture/ISSUE_16_VALIDATION.md) defines the executable unit, integration, UI/service, lifecycle, recovery, device/OEM and Field/Beta seams. Required seams include fake MediaStore/Room/DataStore repositories, fake PlaybackController/Player, deterministic command processor, fake STT/TTS, deterministic mapper/candidate resolver, virtual timeout clock, interruption/focus/route gateways and schema/privacy-gate tests. The repeatable validator and Mermaid CLI workflow verify documentation links, AP/traceability coverage, source parity and scope boundaries; they do not claim downstream production Android or physical OEM/vehicle tests have run.
-
-## 7. ADR control and supersession policy
-
-The authoritative ADR register is [docs/adr/README.md](adr/README.md).
-
-- ADR-0001..0006 remain Accepted and unchanged.
-- ADR-0007 and ADR-0008 elaborate existing Accepted ADRs; neither silently supersedes them.
-- A material future change to an Accepted ADR requires a new ADR explicitly stating `Supersedes ADR-xxxx`, with the prior file preserved.
-- Replacing a source-declared replaceable implementation tool such as Hilt does not require supersession when approved contracts/ownership/dependency direction remain equivalent.
-- No material decision may exist only in Mermaid/C4/sequence/state diagrams.
-
-## 8. Approval checklist
-
-- [x] Approved User Flows and Wireframes are traceable to architecture paths through the Phase 2 matrix and Phase 5 view audit.
-- [x] System Context view exists in the main document and as independent `.mmd`.
-- [x] Container/Component Architecture view exists in the main document and as independent `.mmd`.
-- [x] Allowed/Forbidden Dependency Direction view exists in the main document and as independent `.mmd`.
-- [x] State Ownership view exists in the main document and as independent `.mmd`.
-- [x] Playback Ownership/Lifecycle view exists in the main document and as independent `.mmd`.
-- [x] Navigation/Voice Overlay view exists in the main document and as independent `.mmd`.
-- [x] Critical Data Flows cover the eight Phase 5 mandatory paths plus P1 cold restore and exist as independent `.mmd`.
-- [x] Privacy/Telemetry Boundary view exists in the main document and as independent `.mmd`.
-- [x] Attached `MSM2(2).rar` English source identity remains verified; Persian/Farsi authority is excluded.
-- [x] ADR-0001..0008 and the Phase 4 decisions are represented without contradiction or silent supersession.
-- [x] Approved Wireframe navigation, Voice-overlay, recovery and system-surface ownership are represented without contradiction.
-- [x] Dependency direction, lifecycle/background/restoration and privacy/telemetry boundaries are diagrammed.
-- [x] Phase 6 public contracts, package/dependency boundaries, DI ownership and module-extraction rules are complete.
-- [x] Phase 7 lifecycle, concurrency, persistence, navigation, typed recovery and privacy runtime policies are complete.
-- [x] Phase 8 unit/integration/system test seams, Recovery assertions, device/OEM/Vehicle gates, link/traceability/scope audits and Mermaid CLI validation are complete.
-- [ ] Product, Android, Design and QA approve the complete baseline.
-- [ ] Final Issue #16 review/merge/exit gate passes.
-
-## 9. Phase results
-
-### Phase 4
-
-**PASS / COMPLETE / SOURCE-CORRECTED.** Consequential choices are explicit in ADR-0007/0008, Accepted history is preserved and source-fixed versus Issue #16-finalized choices are distinguished.
-
-### Phase 5
-
-**PASS / COMPLETE / SOURCE-ALIGNED.** All eight required architecture view families exist both inline and as independent Mermaid `.mmd` sources. The Critical Data Flow view covers every required Phase 5 path plus the existing P1 cold-restoration contract. Cross-checks against ADR-0001..0008, the Phase 2 architecture paths and approved Wireframe behavior found **0 material contradictions** and **0 important decisions hidden only in diagrams**.
-
-### Phase 6
-
-**PASS / COMPLETE / IMPLEMENTATION-READY CONTRACT.** Six boundary responsibilities and all ten requested public-contract groups are explicit. Dependency direction, composition-root ownership, the one-`:app` package tree and anti-module-explosion criteria require **0 new boundary or ownership inventions** from the Android foundation.
-
-### Phase 7
-
-**PASS / COMPLETE / RUNTIME-IMPLEMENTATION-READY.** All **18/18** requested Runtime requirements are fixed across lifecycle, concurrency, persistence, navigation/Voice Overlay, typed recovery and privacy/telemetry. Analytics or Remote Config failure cannot stop Playback or replace service-owned authority. Exact unsupported controller timeout duration remains an implementation/test parameter; its typed failure/no-fabricated-success outcome is fixed.
-
-### Phase 8
-
-**PASS / COMPLETE / TEST-ARCHITECTURE-VALIDATED.** Unit, integration and system/recovery seams are explicit; Android 10/12/14+, Pixel/Samsung/Xiaomi and three real Vehicle/Head-unit gates remain correctly separated from unexecuted physical evidence. The final Phase 8 validation run parsed **199/199** traceability rows, found **0** rows missing Test/Recovery, validated **AP-01..AP-12**, checked **236** relative links across **138** unique local targets with **0** broken, rendered **8/8** Mermaid sources, and found **0** unauthorized paths or unreviewed positive scope additions. Every P0-referenced Architecture path has at least one Test seam and Recovery assertion.
-
-This is **not** final Issue #16 approval and does not unblock Issue #4 by itself.
+**Phase 9 PASS does not itself claim final Issue #16 approval, production Android implementation, physical OEM/vehicle execution, provider/legal approval or Closed Beta completion.**
