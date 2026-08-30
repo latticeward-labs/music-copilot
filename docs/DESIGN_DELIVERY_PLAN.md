@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** Current through Issue #16 Phase 9
+- **Status:** Current through Issue #16 Phase 10
 - **Updated:** 30 August 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Canonical behavioral, traceability and approval workspace:** GitHub
@@ -10,7 +10,7 @@
 - **Historical Figma reference:** [`FIGMA_DESIGN_PLAN.md`](FIGMA_DESIGN_PLAN.md)
 - **Product authorities:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
 
-Design gates use versioned repository artifacts, stable UF/State/GS identifiers, rendered SVG previews, reviewed links and Git history. GitHub is the controlling behavioral/approval record for completed Issue #15. The current implementation-facing architecture is controlled by [Software Architecture](SOFTWARE_ARCHITECTURE.md).
+Design gates use versioned repository artifacts, stable UF/State/GS identifiers, rendered SVG previews, reviewed links and Git history. GitHub is the controlling behavioral/approval record for completed Issue #15. The current implementation-facing architecture is controlled by [Software Architecture](SOFTWARE_ARCHITECTURE.md), with Phase 10 cross-role review evidence under [`docs/architecture/review/`](architecture/review/).
 
 ## Authority model
 
@@ -20,7 +20,7 @@ Design gates use versioned repository artifacts, stable UF/State/GS identifiers,
 | User Flow, State and Golden behavior | Approved GitHub records |
 | Editable low-fidelity structure | `docs/wireframes/**/*.svg` plus paired Markdown |
 | Per-Wireframe traceability and behavior | `docs/wireframes/WF-##_SCREEN_STATE.md` |
-| Architecture ownership/dependency/runtime behavior | [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md) and Accepted ADRs |
+| Architecture ownership/dependency/runtime behavior | [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md), Accepted ADRs and [Phase 10 reviewed corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md) |
 | Review, disposition and approval | GitHub PR and Issue history |
 
 ## Gate A — User Flows, State Inventory and Golden Scenarios
@@ -47,9 +47,12 @@ Issue #15 is no longer a pending gate. Historical design/Figma checkpoint docume
 - Main baseline: [SOFTWARE_ARCHITECTURE.md](SOFTWARE_ARCHITECTURE.md)
 - Traceability: [Architecture Traceability Matrix](architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md)
 - Validation: [Issue #16 Validation/Test Architecture](architecture/ISSUE_16_VALIDATION.md)
-- Status: **IN PROGRESS — Phase 9 repository/document synchronization PASS; final cross-role review and exit/merge gate pending**
+- Cross-role review: [Phase 10 Review](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md)
+- Status: **IN PROGRESS — Phase 10 cross-role review PASS; open Blocker 0 / Major 0; final acceptance/merge/closeout gate pending**
 
-The architecture baseline now fixes ownership, lifecycle, dependency direction, runtime policy, persistence, navigation, error/recovery, privacy, test seams and package strategy. Structural corrections still route back to approved UX records; consequential incompatible decisions require a new/superseding ADR.
+The Phase 10 Design/UX and navigation review is **APPROVED — AI-assisted** after correcting the Voice confirmation presentation contract. `VoiceSessionState.Confirming` now provides the immutable one/two candidate option labels required by the approved `WF-08_VOICE_CONFIRMING` behavior without an invented repository lookup or navigation branch.
+
+The architecture baseline fixes ownership, lifecycle, dependency direction, runtime policy, persistence, navigation, error/recovery, privacy, test seams and package strategy. Structural corrections still route back to approved UX records; consequential incompatible decisions require a new/superseding ADR.
 
 ## Gate D — UI system and prototype
 
@@ -57,6 +60,8 @@ The architecture baseline now fixes ownership, lifecycle, dependency direction, 
 - Planned locations: `docs/design-system/` and `docs/prototype/`
 - Status: separate downstream gate.
 - Output: foundations, reusable component specifications, high-fidelity states and prototype/handoff after separate approval.
+
+Phase 10 architecture approval is not high-fidelity approval. Runtime Compose accessibility/reflow remains a downstream implementation/design Minor recorded as `PH10-MIN-001`.
 
 ## Required ten-screen coverage
 
@@ -70,7 +75,7 @@ Splash; Onboarding; Permissions; Home/Library; Search; Full Player; Driving Mode
 4. SVG-only structure is not approved evidence.
 5. Historical checkpoint documents are preserved and superseded through dated addenda/closeout records, not rewritten.
 6. Current Gate B status is **Closed / Complete**; historical documents may truthfully show earlier in-progress states only when clearly dated.
-7. Current Gate C status is controlled by `SOFTWARE_ARCHITECTURE.md` and Issue #16.
+7. Current Gate C status is controlled by `SOFTWARE_ARCHITECTURE.md`, the Phase 10 review and Issue #16.
 
 ## Permanent constraints
 
