@@ -1,6 +1,6 @@
 # Software Architecture Baseline — MVP v1.0
 
-- **Status:** In progress — **Phase 7 Runtime Policies PASS / runtime-implementation-ready**, final Issue #16 approval still pending
+- **Status:** In progress — **Phase 8 Test Architecture PASS / validation-architecture-ready**, final Issue #16 approval still pending
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Depends on:** [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2), [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) and [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15)
 - **Attached product authority:** `Music_Copilot_PRD_v1_EN_Clarified.pdf` and `Music_Copilot_MVP_v1_EN.pdf` from the directly attached `MSM2(2).rar`
@@ -9,12 +9,13 @@
 - **Phase 5 evidence:** [Architecture View Audit](architecture/PHASE5_ARCHITECTURE_VIEW_AUDIT.md) and independent Mermaid sources under [`docs/architecture/diagrams/`](architecture/diagrams/)
 - **Phase 6 evidence:** [Implementation Structure and Public Contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md) and [Implementation Readiness Audit](architecture/PHASE6_IMPLEMENTATION_READINESS_AUDIT.md)
 - **Phase 7 evidence:** [Runtime Policies](architecture/RUNTIME_POLICIES.md) and [Runtime Policy Audit](architecture/PHASE7_RUNTIME_POLICY_AUDIT.md)
+- **Phase 8 evidence:** [Issue #16 Validation and Test Architecture](architecture/ISSUE_16_VALIDATION.md), repeatable [`validate_issue16_architecture.py`](../scripts/validate_issue16_architecture.py) and [validation workflow](../.github/workflows/issue-16-architecture-validation.yml)
 
 This file is the controlling pre-implementation architecture baseline. Text is authoritative over diagrams when interpreting a decision; diagrams must visualize, not invent or alter, the approved architecture. Missing details must not be invented inside feature implementation.
 
 ## 0. Direct attached-source verification
 
-The Phase 4–7 baseline is bound to the user-attached English archive:
+The Phase 4–8 baseline is bound to the user-attached English archive:
 
 - `MSM2(2).rar` SHA-256: `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
 - English PRD SHA-256: `486fbd5057e4abf570cd1a4865b6243ee5e31d26a48596414903916d6d81e9cf`
@@ -23,7 +24,7 @@ The Phase 4–7 baseline is bound to the user-attached English archive:
 - English Code/Technical Blueprint SHA-256: `1d776396a88aebacbdb8b813fe8c6fe82418c951f301762ac594c55a7cd22cf3`
 - the six attached English ADR PDFs match the identities recorded in the [Source/Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md)
 
-**Source exclusion:** no Persian/Farsi PRD or MVP is used as product authority, architecture evidence or Phase 4–7 validation input.
+**Source exclusion:** no Persian/Farsi PRD or MVP is used as product authority, architecture evidence or Phase 4–8 validation input.
 
 The attached English System Architecture and Technical Blueprint are engineering inputs, not final Issue #16 approval. They establish the high-level native Android, service-owned playback, local-first data, replaceable Voice and privacy boundaries while deliberately leaving several final ownership, lifecycle, navigation, concurrency and physical-module choices to Issue #16. Those final choices are recorded textually in ADR-0007/0008 and this baseline before they are illustrated below.
 
@@ -533,7 +534,7 @@ Permission revocation, empty/stale library, corrupt media, Voice timeout/ambigui
 
 ### Testing seams
 
-Phase 5 diagrams make the seams visible but do not claim downstream production/field testing has run. Required seams include fake MediaStore/Room/DataStore repositories, fake PlaybackController/Player, deterministic command processor, fake STT/TTS, deterministic mapper/candidate resolver, virtual timeout clock, interruption/focus/route gateways and schema/privacy-gate tests. Physical OEM/vehicle, provider/legal and Beta evidence remains downstream.
+The normative [Phase 8 Validation and Test Architecture](architecture/ISSUE_16_VALIDATION.md) defines the executable unit, integration, UI/service, lifecycle, recovery, device/OEM and Field/Beta seams. Required seams include fake MediaStore/Room/DataStore repositories, fake PlaybackController/Player, deterministic command processor, fake STT/TTS, deterministic mapper/candidate resolver, virtual timeout clock, interruption/focus/route gateways and schema/privacy-gate tests. The repeatable validator and Mermaid CLI workflow verify documentation links, AP/traceability coverage, source parity and scope boundaries; they do not claim downstream production Android or physical OEM/vehicle tests have run.
 
 ## 7. ADR control and supersession policy
 
@@ -562,6 +563,7 @@ The authoritative ADR register is [docs/adr/README.md](adr/README.md).
 - [x] Dependency direction, lifecycle/background/restoration and privacy/telemetry boundaries are diagrammed.
 - [x] Phase 6 public contracts, package/dependency boundaries, DI ownership and module-extraction rules are complete.
 - [x] Phase 7 lifecycle, concurrency, persistence, navigation, typed recovery and privacy runtime policies are complete.
+- [x] Phase 8 unit/integration/system test seams, Recovery assertions, device/OEM/Vehicle gates, link/traceability/scope audits and Mermaid CLI validation are complete.
 - [ ] Product, Android, Design and QA approve the complete baseline.
 - [ ] Final Issue #16 review/merge/exit gate passes.
 
@@ -582,5 +584,9 @@ The authoritative ADR register is [docs/adr/README.md](adr/README.md).
 ### Phase 7
 
 **PASS / COMPLETE / RUNTIME-IMPLEMENTATION-READY.** All **18/18** requested Runtime requirements are fixed across lifecycle, concurrency, persistence, navigation/Voice Overlay, typed recovery and privacy/telemetry. Analytics or Remote Config failure cannot stop Playback or replace service-owned authority. Exact unsupported controller timeout duration remains an implementation/test parameter; its typed failure/no-fabricated-success outcome is fixed.
+
+### Phase 8
+
+**PASS / COMPLETE / TEST-ARCHITECTURE-VALIDATED.** Unit, integration and system/recovery seams are explicit; Android 10/12/14+, Pixel/Samsung/Xiaomi and three real Vehicle/Head-unit gates remain correctly separated from unexecuted physical evidence. The final Phase 8 validation run parsed **199/199** traceability rows, found **0** rows missing Test/Recovery, validated **AP-01..AP-12**, checked **232** relative links with **0** broken, rendered **8/8** Mermaid sources, and found **0** unauthorized paths or unreviewed positive scope additions. Every P0-referenced Architecture path has at least one Test seam and Recovery assertion.
 
 This is **not** final Issue #16 approval and does not unblock Issue #4 by itself.
