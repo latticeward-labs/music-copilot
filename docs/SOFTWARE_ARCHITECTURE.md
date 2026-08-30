@@ -1,14 +1,14 @@
 # Software Architecture Baseline — MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **BASELINE COMPLETE THROUGH PHASE 9 / FINAL REVIEW PENDING**
+- **Status:** **BASELINE REVIEWED THROUGH PHASE 10 / FINAL EXIT-MERGE PENDING**
 - **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Upstream gates:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) **Done / Closed**; [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15) **Done / Closed**
-- **Downstream gate:** Issue #4 remains blocked until final Issue #16 review/merge/exit
+- **Downstream gate:** Issue #4 remains blocked until final Issue #16 acceptance/merge/closeout
 - **Source package:** user-attached English `MSM2(2).rar`, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
 
-This document is the single current implementation-facing Software Architecture baseline for Music Copilot MVP v1.0. Accepted ADRs remain the decision-history authority; this file integrates those decisions with approved User Flows, Wireframes, public contracts, runtime policies, diagrams and validation seams. Dated phase/history files retain historical status only and do not override the current status stated here.
+This document is the single current implementation-facing Software Architecture baseline for Music Copilot MVP v1.0. Accepted ADRs remain the decision-history authority; this file integrates those decisions with approved User Flows, Wireframes, public contracts, runtime policies, diagrams, validation seams and the Phase 10 cross-role review. Dated phase/history files retain historical status only and do not override the current status stated here.
 
 **No Persian/Farsi PRD or MVP is used as architecture authority.** The controlling product sources are the English PRD/MVP members in the attached source package as recorded in the [Source and Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md).
 
@@ -18,14 +18,16 @@ This document is the single current implementation-facing Software Architecture 
 |---|---|
 | Issue #3 — User Flows/state inventory | **Done / Closed — 23 August 2026** |
 | Issue #15 — Low-fidelity Wireframes | **Done / Closed — 27 August 2026** |
-| Issue #16 — Software Architecture | **In Progress — Phase 9 PASS; final cross-role review and exit/merge gate pending** |
+| Issue #16 — Software Architecture | **In Progress — Phase 10 PASS; cross-role approvals recorded; final acceptance/merge/closeout pending** |
 | Issue #4 — Android foundation | **Blocked by final Issue #16 exit gate** |
 | ADR-0001..0008 | **Accepted** |
+| Phase 10 open Blocker / Major | **0 / 0** |
+| Phase 10 open Minor | **3 downstream / non-blocking; all owned and gated** |
 | P2 Liked Songs | **Removable / non-blocking** |
 
 ## 2. Architecture evidence index
 
-### Core matrices and registers
+### Core matrices, contracts and registers
 
 - [Source and Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md)
 - [Architecture Traceability Matrix](architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md)
@@ -38,6 +40,9 @@ This document is the single current implementation-facing Software Architecture 
 - [Phase 7 Runtime Policy Audit](architecture/PHASE7_RUNTIME_POLICY_AUDIT.md)
 - [Phase 8 Validation and Test Architecture](architecture/ISSUE_16_VALIDATION.md)
 - [Phase 9 Repository Synchronization Audit](architecture/PHASE9_REPOSITORY_SYNC_AUDIT.md)
+- [Phase 10 Cross-role Review](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md)
+- [Phase 10 Findings Register](architecture/review/ISSUE_16_FINDINGS_REGISTER.json)
+- [Phase 10 Reviewed Contract Corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md)
 - [ADR Register](adr/README.md)
 
 ### Architecture diagrams
@@ -67,6 +72,7 @@ The standalone `.mmd` sources must remain byte-equivalent to the eight inline Me
 - No product backend, account, cloud sync, streaming or online catalog is introduced.
 - P0 UI recreation/closure continuity is distinct from P1 cold restoration; persisted restoration never autoplays.
 - Android 10/12/14+, Pixel/Samsung/Xiaomi and 3+ real vehicle/head-unit models remain downstream QA/Field gates.
+- Phase 10 cross-role review corrections are binding refinements and do not create a new owner, event bus, process, persistence authority or Gradle module.
 
 ## 4. Accepted ADR integration
 
@@ -79,16 +85,16 @@ The standalone `.mmd` sources must remain byte-equivalent to the eight inline Me
 - [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md) — same-process service runtime, structured concurrency, serialized commands and Safe-Paused restoration.
 - [ADR-0008](adr/0008-minimal-modular-monolith-and-dependency-enforcement.md) — one initial `:app` modular monolith with enforced dependency/state/data ownership and evidence-driven extraction.
 
-ADR-0007 and ADR-0008 elaborate the earlier Accepted ADRs; neither silently supersedes them. A future material incompatible choice requires a new ADR explicitly stating `Supersedes ADR-xxxx`.
+ADR-0007 and ADR-0008 elaborate the earlier Accepted ADRs; neither silently supersedes them. Phase 10 created no new ADR and changed no Accepted ADR decision. A future material incompatible choice requires a new ADR explicitly stating `Supersedes ADR-xxxx`.
 
 ## 5. Boundary responsibilities
 
 | Boundary | Owns | Must not own |
 |---|---|---|
-| UI / Presentation | destination presentation state, user intent, rendering, navigation requests | Player, live queue, MediaStore/Room concrete access, provider SDKs |
+| UI / Presentation | destination presentation state, user intent, rendering, accessibility semantics, navigation requests | Player, live queue, MediaStore/Room concrete access, provider SDKs |
 | Application / Domain | use cases, coordinators, typed ports/results/errors | Android concrete adapters or duplicated shared authority |
 | Playback | `MediaSessionService`, Player, MediaSession, live queue/current item/position, command serialization | UI state or repository truth |
-| Voice | STT/TTS ports, deterministic mapper, candidate/confirmation policy, one active session generation | Player authority, persistent transcript/audio |
+| Voice | STT/TTS ports, deterministic mapper, immutable candidate/confirmation state, one active session generation | Player authority, persistent transcript/audio |
 | Data | MediaStore scan/re-query, normalization, Room projection, DataStore preferences/consent/P1 snapshot | live playback authority or UI state |
 | Quality | typed allowlisted diagnostics, privacy gate, optional non-authoritative sink/config adapters | product/safety decisions, raw personal payloads |
 
@@ -106,6 +112,28 @@ ADR-0007 and ADR-0008 elaborate the earlier Accepted ADRs; neither silently supe
 
 Duplicated authoritative state is forbidden.
 
+### 6.1 Phase 10 Voice confirmation correction
+
+The approved P0 confirmation UI requires an immutable current candidate set. The binding contract is:
+
+```kotlin
+data class VoiceConfirmationOption(
+    val optionIndex: Int,
+    val displayLabel: String,
+)
+
+data class Confirming(
+    val sessionId: VoiceSessionId,
+    val origin: VoiceOrigin,
+    val token: VoiceCandidateToken,
+    val options: List<VoiceConfirmationOption>,
+) : VoiceSessionState
+```
+
+`options.size` is 1..2. Order is immutable for the token. The UI submits only the bound `token + optionIndex`; it does not query a repository side channel to reconstruct candidates. `displayLabel` is ephemeral presentation-only personal media text and is prohibited from telemetry, persistence, crash payloads and repository evidence. Neither/Cancel remain recovery actions rather than synthetic candidate entries.
+
+This resolves **PH10-MAJ-001** without changing Voice ownership.
+
 ## 7. Runtime, lifecycle and concurrency policy
 
 - Production playback uses a same-application-process `MediaSessionService`; no dedicated playback `android:process` is configured.
@@ -117,6 +145,18 @@ Duplicated authoritative state is forbidden.
 - Main/player looper owns Player/MediaSession mutation; IO owns MediaStore/Room/DataStore/blocking adapters; Default owns normalization/matching.
 - Voice owns one active generation token; cancellation/navigation/interruption invalidates prior work and stale callbacks are ignored.
 - Playback acknowledgement precedes successful Voice/TTS completion state.
+
+### 7.1 Phase 10 Playback runtime-error correction
+
+`PlaybackSnapshot.lastError` is a typed `AppError?` projection, but only service-owned runtime families may appear there:
+
+- `AppError.MediaItem` — missing/corrupt/unplayable current item;
+- `AppError.Playback` — Player/command/runtime failure;
+- `AppError.Interruption` — typed call/focus/route Safe-Paused outcome.
+
+`AppError.Controller` remains connection/`PlaybackGateway.execute` level. Permission, Library, Storage, Privacy, Quality and Voice errors remain in their existing owners and must not be injected into Playback state. Only safe codes/recovery metadata may cross; raw exception messages, titles, paths, content URIs or provider payloads remain prohibited.
+
+This resolves **PH10-MAJ-002** and prevents implementation from inventing a second UI error authority/event bus.
 
 ## 8. Persistence and restoration policy
 
@@ -145,12 +185,12 @@ Duplicated authoritative state is forbidden.
 Key recovery rules:
 
 - permission denial/revocation → truthful unavailable state, Retry/Not now or explicit Settings handoff, then fresh platform re-check;
-- corrupt/unplayable item → typed error and bounded skip; if no valid item remains, Safe Paused/queue end;
+- corrupt/unplayable item → typed service-authored error and bounded skip; if no valid item remains, Safe Paused/queue end;
 - controller reconnect failure → recoverable controller state without fabricated playback truth;
 - call/focus interruption → automatic resume only when prior Playing, focus returned, route generation unchanged/valid and no manual Pause;
 - route disconnect → immediate pause, cancel Voice, invalidate route generation; reconnect alone never auto-resumes;
 - Voice timeout → six seconds, one explicit Retry, second failure terminal to manual fallback;
-- ambiguity → one bounded confirmation; unsupported/not-found never guesses;
+- ambiguity → one bounded confirmation populated only by the current immutable one/two options; unsupported/not-found never guesses;
 - privacy/quality failure → diagnostic event may be dropped; product/safety behavior continues.
 
 ## 11. Numeric interaction policy
@@ -173,7 +213,24 @@ Missing/invalid confidence never direct-executes. Configuration cannot add inten
 
 Quality/analytics/configuration adapters are optional and non-authoritative. Their failure cannot delay playback acknowledgement, Voice cancellation, permission recovery, interruption handling or route safety. Any remote speech processing requires its own approved disclosure/consent/retention gate before activation.
 
-## 13. Module/package strategy
+Voice confirmation `displayLabel` is app-visible session data only and is explicitly prohibited from telemetry/persistence. Runtime error projection contains safe typed codes/recovery only.
+
+## 13. Accessibility architecture
+
+Accessibility remains a UI/Presentation responsibility over the same authoritative state; it may not duplicate Playback, Voice or navigation ownership.
+
+Binding architecture/specification requirements inherited from the approved Wireframes and Definition of Done:
+
+- interactive targets are at least 48dp where specified, with larger Driving controls where practical;
+- TalkBack/semantic order follows the approved screen/state record;
+- text must remain usable at 200% scaling/reflow without hiding the primary/recovery action;
+- state is not communicated by color alone;
+- Voice confirmation semantics expose current option labels and Neither/Cancel without creating a second candidate authority;
+- asynchronous playback/route/error announcements must describe the current authoritative state rather than optimistic UI state.
+
+Runtime Compose semantics, focus traversal and actual 200% reflow cannot be proven by static architecture. They remain **PH10-MIN-001**, owned by Issue #4 UI implementation + Issue #17 design handoff and gated by implementation accessibility QA/Definition of Done.
+
+## 14. Module/package strategy
 
 Production begins as one Gradle `:app` module with logical packages:
 
@@ -190,7 +247,7 @@ com.latticeward.musiccopilot
 
 Module extraction is allowed only when supported by ownership/reuse/build-isolation/dependency-enforcement evidence. Premature module explosion is not part of the MVP baseline.
 
-## 14. Testing architecture
+## 15. Testing architecture
 
 The normative test plan is [ISSUE_16_VALIDATION.md](architecture/ISSUE_16_VALIDATION.md). Required seams include:
 
@@ -200,11 +257,16 @@ The normative test plan is [ISSUE_16_VALIDATION.md](architecture/ISSUE_16_VALIDA
 - Device/OEM: Android 10/12/14+, Pixel/Samsung/Xiaomi.
 - Field/Beta: at least 3 real vehicle/head-unit models.
 
-Every P0-referenced Architecture path has at least one named Test seam and Recovery assertion. Phase 8/9 documentation validation does not fabricate downstream physical execution.
+Phase 10 adds two review assertions to the existing seams:
+
+- Voice ambiguity rendering/selection uses only current `Confirming.options`; stale token/options cannot execute.
+- corrupt-media/interruption surfaces observe service-authored typed runtime errors from the authoritative snapshot; no second UI error authority/event bus is allowed.
+
+Every P0-referenced Architecture path has at least one named Test seam and Recovery assertion. Documentation validation does not fabricate downstream physical execution.
 
 # Architecture diagrams
 
-## 15.1 System Context
+## 16.1 System Context
 
 Source: [`01-system-context.mmd`](architecture/diagrams/01-system-context.mmd)
 
@@ -232,7 +294,7 @@ flowchart LR
     class EXCLUDED excluded;
 ```
 
-## 15.2 Container / Component Architecture
+## 16.2 Container / Component Architecture
 
 Source: [`02-container-component-architecture.mmd`](architecture/diagrams/02-container-component-architecture.mmd)
 
@@ -302,7 +364,7 @@ flowchart TB
     NOTE --- APP
 ```
 
-## 15.3 Dependency Direction
+## 16.3 Dependency Direction
 
 Source: [`03-dependency-direction.mmd`](architecture/diagrams/03-dependency-direction.mmd)
 
@@ -340,7 +402,7 @@ flowchart LR
     RULE --- ALLOWED
 ```
 
-## 15.4 State Ownership
+## 16.4 State Ownership
 
 Source: [`04-state-ownership.mmd`](architecture/diagrams/04-state-ownership.mmd)
 
@@ -374,7 +436,7 @@ flowchart TB
     PDS -. "never overrides a live MediaSession" .-> PS
 ```
 
-## 15.5 Playback Ownership and Lifecycle
+## 16.5 Playback Ownership and Lifecycle
 
 Source: [`05-playback-ownership-lifecycle.mmd`](architecture/diagrams/05-playback-ownership-lifecycle.mmd)
 
@@ -416,7 +478,7 @@ flowchart TD
     NOTE --- DEATH
 ```
 
-## 15.6 Navigation and Voice Overlay
+## 16.6 Navigation and Voice Overlay
 
 Source: [`06-navigation-voice-overlay.mmd`](architecture/diagrams/06-navigation-voice-overlay.mmd)
 
@@ -453,7 +515,7 @@ flowchart LR
     NOTE --- DRIVE
 ```
 
-## 15.7 Critical Data Flows
+## 16.7 Critical Data Flows
 
 Source: [`07-critical-data-flows.mmd`](architecture/diagrams/07-critical-data-flows.mmd)
 
@@ -510,7 +572,7 @@ flowchart TB
     RULE --- F2
 ```
 
-## 15.8 Privacy and Telemetry Boundary
+## 16.8 Privacy and Telemetry Boundary
 
 Source: [`08-privacy-telemetry-boundary.mmd`](architecture/diagrams/08-privacy-telemetry-boundary.mmd)
 
@@ -548,21 +610,44 @@ flowchart LR
     QA --- BETA
 ```
 
-## 16. Phase 9 repository synchronization gate
+## 17. Phase 9 repository synchronization gate
 
-Phase 9 aligns the current repository-facing documents to this one status:
+Phase 9 aligned the current repository-facing documents to one status and established machine checks for links, status, Mermaid parity, traceability and scope. Its [Repository Synchronization Audit](architecture/PHASE9_REPOSITORY_SYNC_AUDIT.md) remains historical evidence of that gate.
 
-- Issue #3: Done / Closed.
-- Issue #15: Done / Closed.
-- Issue #16: In Progress; architecture baseline complete through Phase 9; final cross-role review and exit/merge pending.
-- Issue #4: blocked until final Issue #16 exit.
-- ADR-0001..0008: Accepted; no new ADR created in Phase 9.
+## 18. Phase 10 cross-role review and correction
 
-The [Phase 9 Repository Synchronization Audit](architecture/PHASE9_REPOSITORY_SYNC_AUDIT.md) records the document and link checks. The repeatable validator checks active current-document consistency, architecture IDs/traceability, relative links, Mermaid parity and scope boundaries.
+The [Phase 10 Cross-role Review](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md) reviewed Product, Android architecture/feasibility, Design/UX/navigation, QA/testability, Accessibility architecture and Privacy/telemetry.
 
-## 17. Approval state
+Reviewer identity is explicitly **OpenAI GPT-5.6 Sol — AI-assisted cross-role architecture review**. The GitHub actor `latticeward-labs` is not represented as multiple human reviewers. No independent human signature, Legal approval, production Android execution, physical OEM/vehicle result or Closed Beta outcome is fabricated.
 
-Completed architecture construction gates:
+Review result:
+
+| Role | Phase 10 result |
+|---|---|
+| Product | **APPROVED — AI-assisted** |
+| Android architecture/feasibility | **APPROVED after corrections** |
+| Design/UX and navigation | **APPROVED after correction** |
+| QA/testability | **APPROVED after corrections** |
+| Accessibility architecture | **APPROVED at architecture/specification level** |
+| Privacy/telemetry | **APPROVED at architecture level** |
+
+Findings:
+
+- Blocker: **0 found / 0 open**.
+- Major: **2 found / 2 resolved / 0 open**.
+- Minor: **3 open downstream/non-blocking**, all with explicit owner and downstream gate in the [Findings Register](architecture/review/ISSUE_16_FINDINGS_REGISTER.json).
+
+The two resolved Majors are the Voice confirmation presentation-state gap and the Playback asynchronous runtime-error projection gap. Their exact binding declarations are recorded in the [Reviewed Contract Corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md) and summarized in Sections 6.1 and 7.1 above.
+
+Open Minors:
+
+- `PH10-MIN-001` — runtime Compose semantics/TalkBack/reflow; owner Issue #4 UI + Issue #17 design; implementation accessibility QA gate.
+- `PH10-MIN-002` — provider-specific remote STT disclosure/retention/Legal approval; owner Product + Privacy/Legal; remote path remains disabled until gate.
+- `PH10-MIN-003` — physical Pixel/Samsung/Xiaomi and 3+ vehicle/head-unit execution; owner QA/Field-Beta; release/Field gate.
+
+## 19. Approval state
+
+Completed Issue #16 construction/review gates:
 
 - Phase 4 — ADR decision control: **PASS**
 - Phase 5 — architecture views: **PASS**
@@ -570,11 +655,15 @@ Completed architecture construction gates:
 - Phase 7 — runtime policy: **PASS**
 - Phase 8 — test architecture/validation: **PASS**
 - Phase 9 — repository/document synchronization: **PASS**
+- Phase 10 — cross-role review/correction: **PASS**
+
+Required Product + Android + Design + QA review approvals are now recorded **4/4** as AI-assisted evidence approvals. Accessibility and Privacy reviews also pass at architecture/specification level with explicit downstream non-claims.
 
 Still required before Issue #16 can close and Issue #4 can unblock:
 
-- final Product, Android, Design/UX, QA, Accessibility and Privacy review with no open Blocker/Major finding;
-- final acceptance/link/traceability/Mermaid gate;
-- PR merge and Issue #16 closeout.
+- final Acceptance-Criteria reconciliation;
+- final link/traceability/Mermaid/review-register CI gate;
+- PR #45 finalization/merge;
+- Issue #16 closeout and explicit downstream unblock.
 
-**Phase 9 PASS does not itself claim final Issue #16 approval, production Android implementation, physical OEM/vehicle execution, provider/legal approval or Closed Beta completion.**
+**Phase 10 PASS does not itself claim production Android implementation, physical OEM/vehicle execution, provider/Legal approval or Closed Beta completion.**
