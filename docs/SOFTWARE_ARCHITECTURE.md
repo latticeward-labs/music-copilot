@@ -587,6 +587,6 @@ The authoritative ADR register is [docs/adr/README.md](adr/README.md).
 
 ### Phase 8
 
-**PASS / COMPLETE / TEST-ARCHITECTURE-VALIDATED.** Unit, integration and system/recovery seams are explicit; Android 10/12/14+, Pixel/Samsung/Xiaomi and three real Vehicle/Head-unit gates remain correctly separated from unexecuted physical evidence. The final Phase 8 validation run parsed **199/199** traceability rows, found **0** rows missing Test/Recovery, validated **AP-01..AP-12**, checked **232** relative links with **0** broken, rendered **8/8** Mermaid sources, and found **0** unauthorized paths or unreviewed positive scope additions. Every P0-referenced Architecture path has at least one Test seam and Recovery assertion.
+**PASS / COMPLETE / TEST-ARCHITECTURE-VALIDATED.** Unit, integration and system/recovery seams are explicit; Android 10/12/14+, Pixel/Samsung/Xiaomi and three real Vehicle/Head-unit gates remain correctly separated from unexecuted physical evidence. The final Phase 8 validation run parsed **199/199** traceability rows, found **0** rows missing Test/Recovery, validated **AP-01..AP-12**, checked **236** relative links across **138** unique local targets with **0** broken, rendered **8/8** Mermaid sources, and found **0** unauthorized paths or unreviewed positive scope additions. Every P0-referenced Architecture path has at least one Test seam and Recovery assertion.
 
 This is **not** final Issue #16 approval and does not unblock Issue #4 by itself.
