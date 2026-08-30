@@ -115,6 +115,7 @@ The existing corrupt-file and interruption tests must assert that observer surfa
 
 - ADR-0001..0008 remain **Accepted**.
 - No Phase 10 finding changes an Accepted ADR decision.
+- **No new ADR** is required by the Phase 10 corrections.
 - New ADRs required by these corrections: **0**.
 - A future change that alters state ownership, process topology, persistence authority, deterministic Voice scope or module strategy still requires normal ADR/supersession governance.
 
