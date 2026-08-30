@@ -1,7 +1,7 @@
 # Architecture Decision Records
 
 - **Version:** MVP v1.0
-- **Status:** Current ADR register; synchronized with Issue #16 through Phase 9
+- **Status:** Current ADR register; synchronized with Issue #16 through Phase 10
 - **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 
@@ -35,9 +35,11 @@ ADR-0001 through ADR-0006 completed preliminary review through [Issue #2](https:
 
 ## Current architecture linkage
 
-The ADRs are interpreted together with the current [Software Architecture Baseline](../SOFTWARE_ARCHITECTURE.md), [Architecture Traceability Matrix](../architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md), [Implementation Structure and Public Contracts](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Runtime Policies](../architecture/RUNTIME_POLICIES.md), and [Validation/Test Architecture](../architecture/ISSUE_16_VALIDATION.md).
+The ADRs are interpreted together with the current [Software Architecture Baseline](../SOFTWARE_ARCHITECTURE.md), [Architecture Traceability Matrix](../architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md), [Implementation Structure and Public Contracts](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Runtime Policies](../architecture/RUNTIME_POLICIES.md), [Validation/Test Architecture](../architecture/ISSUE_16_VALIDATION.md), and [Phase 10 Cross-role Review](../architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md).
 
-Phase 9 created **no new ADR** and changed **no Accepted ADR decision**. Its purpose is repository-wide synchronization of the already approved architecture evidence.
+The [Phase 10 Reviewed Contract Corrections](../architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md) resolve two public-contract mismatches without changing state ownership, process topology, persistence authority, deterministic Voice scope, product scope or module strategy.
+
+Phase 10 created **no new ADR**, superseded **no ADR**, and changed **no Accepted ADR decision**.
 
 ## Evidence routed forward
 
@@ -48,9 +50,10 @@ Phase 9 created **no new ADR** and changed **no Accepted ADR decision**. Its pur
 - STT availability, network-loss and cloud-consent evidence
 - Intent corpus, bounded threshold/fuzzy tuning and ambiguity tests
 - Physical call, Audio Focus, headset/Bluetooth and route safety validation
-- Privacy review for diagnostics, retention duration and any remote speech processor
+- Runtime Compose accessibility/TalkBack/reflow validation
+- Privacy/Legal review for provider-specific retention and any remote speech processor
 
-These are downstream implementation/QA evidence gates; they are not unresolved ADR statuses.
+These are downstream implementation/QA/release evidence gates; they are not unresolved ADR statuses.
 
 ## Architecture gates
 
@@ -58,7 +61,8 @@ These are downstream implementation/QA evidence gates; they are not unresolved A
 2. **Issue #16 Phase 4:** **PASS** — consequential-decision audit complete; ADR-0007/0008 added.
 3. **Issue #16 Phases 5–8:** **PASS** — views, implementation contracts, runtime policy and validation architecture complete.
 4. **Issue #16 Phase 9:** **PASS** — repository/document synchronization complete; no new ADR required.
-5. **Issue #16 final gate:** cross-role review plus final acceptance/merge/exit remain before Issue #4 can be unblocked.
+5. **Issue #16 Phase 10:** **PASS** — Product/Android/Design/QA approvals recorded by an explicitly AI-assisted review; Accessibility/Privacy architecture reviews pass; open Blocker 0, open Major 0; no new ADR required.
+6. **Issue #16 final gate:** final acceptance/link/traceability/Mermaid/merge/closeout remains before Issue #4 can be unblocked.
 
 ## History and supersession rule
 
