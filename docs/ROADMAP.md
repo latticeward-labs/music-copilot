@@ -1,7 +1,7 @@
 # MVP v1.0 — Delivery Roadmap
 
 - **Version:** MVP v1.0
-- **Status:** Current through Issue #16 Phase 10
+- **Status:** **Current through Issue #16 Phase 11 final architecture exit**
 - **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 
@@ -15,11 +15,11 @@
 | 2 | #2 | Preliminary technical baseline and ADR-0001…0006 review | **Done** |
 | 3 | #3 | User Flows and complete state inventory | **Done / Closed — 23 August 2026** |
 | 4 | #15 | Low-fidelity Wireframes | **Done / Closed — 27 August 2026** |
-| 5 | #16 | Software Architecture baseline | **In Progress — Phase 10 cross-role review PASS; open Blocker/Major 0/0; final acceptance/merge/closeout pending** |
+| 5 | #16 | Software Architecture baseline | **Done — Phase 11 final acceptance PASS; PR #46 merged; open Blocker/Major 0/0** |
 | 6 | #17 | High-fidelity UI system and clickable prototype | Separate downstream gate |
-| 7 | #4 | Android foundation and CI | **Blocked until final #16 exit** |
+| 7 | #4 | Android foundation and CI | **UNBLOCKED / READY by completed #16 architecture gate** |
 
-The current architecture baseline is [SOFTWARE_ARCHITECTURE.md](SOFTWARE_ARCHITECTURE.md), with [Phase 10 review evidence](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md). Phase 10 completion does not by itself release Issue #4.
+The final architecture authority is [SOFTWARE_ARCHITECTURE.md](SOFTWARE_ARCHITECTURE.md), with [Phase 10 review evidence](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md) and the [Phase 11 Final Acceptance Audit](architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md). Issue #4 is now released from the architecture dependency; Issue #17 remains a separate design/handoff gate where applicable.
 
 ## Locked 10-week implementation and validation plan
 
@@ -43,8 +43,8 @@ If week 8 slips, simple Like/Liked Songs (P2) and the Bluetooth entry suggestion
 ## Execution policy
 
 - Work starts only from an Issue that satisfies the [Definition of Ready](DELIVERY_WORKFLOW.md#definition-of-ready-for-implementation).
+- Issue #4 now starts from the final Issue #16 Ownership/Lifecycle/Dependency/Recovery contracts rather than inventing alternatives.
 - Structural UX changes return to User Flow and Wireframe review.
 - Consequential architecture changes require an ADR or a superseding ADR.
 - No v1.1 capability may be introduced through an implementation shortcut.
-- Issue #4 remains blocked until Issue #16 passes final acceptance, merge and closeout.
 - Phase 10 open Minors remain downstream-owned and do not authorize remote speech, skip runtime accessibility validation or fabricate physical OEM/vehicle evidence.
