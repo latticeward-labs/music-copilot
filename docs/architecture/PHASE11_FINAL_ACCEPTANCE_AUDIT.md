@@ -5,7 +5,8 @@
 - **Status:** **FINAL ACCEPTANCE PASS / READY TO MERGE — merge and closeout pending**
 - **Date:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
-- **Delivery PR:** [PR #45](https://github.com/latticeward-labs/music-copilot/pull/45)
+- **Final delivery PR:** [PR #46](https://github.com/latticeward-labs/music-copilot/pull/46)
+- **Historical construction/review PR:** [PR #45](https://github.com/latticeward-labs/music-copilot/pull/45)
 - **Source package:** user-attached English `MSM2(2).rar`, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
 - **Controlling source register:** [Source and Authority Register](SOURCE_AND_AUTHORITY_REGISTER.md)
 - **Current architecture:** [Software Architecture Baseline](../SOFTWARE_ARCHITECTURE.md)
