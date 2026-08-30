@@ -1,7 +1,7 @@
 # Delivery Workflow and Approval Gates — MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** Current through Issue #16 Phase 9
+- **Status:** Current through Issue #16 Phase 10
 - **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 
@@ -13,10 +13,10 @@
 - Issue #2 — preliminary technical baseline and ADR review: **Done (6 August 2026)**
 - Issue #3 — User Flows and state inventory: **Done / Closed (23 August 2026)**
 - Issue #15 — low-fidelity Wireframes: **Done / Closed (27 August 2026)**
-- Issue #16 — Software Architecture: **In Progress; Phase 9 repository synchronization PASS; final cross-role review and exit/merge gate pending**
+- Issue #16 — Software Architecture: **In Progress; Phase 10 cross-role review PASS; open Blocker 0 / open Major 0; final acceptance/merge/closeout gate pending**
 - Issue #4 — Android foundation: **Blocked until final Issue #16 approval**
 
-The implementation-facing architecture baseline is [docs/SOFTWARE_ARCHITECTURE.md](SOFTWARE_ARCHITECTURE.md). Phase 9 synchronization does not by itself approve Issue #16 or release Issue #4.
+The implementation-facing architecture baseline is [docs/SOFTWARE_ARCHITECTURE.md](SOFTWARE_ARCHITECTURE.md). The [Phase 10 Cross-role Review](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md) records Product, Android, Design/UX, QA, Accessibility and Privacy decisions. Phase 10 does not by itself close Issue #16 or release Issue #4.
 
 ## Pre-build sequence
 
@@ -26,14 +26,14 @@ The implementation-facing architecture baseline is [docs/SOFTWARE_ARCHITECTURE.m
 | Preliminary architecture | #2 | ADR-0001…0006 accepted; open evidence recorded | **Done** |
 | UX discovery | #3 | Approved User Flows and complete state inventory | **Done / Closed** |
 | UX structure | #15 | Approved low-fidelity Wireframes | **Done / Closed** |
-| Software Architecture | #16 | Implementation-ready architecture baseline, diagrams, contracts, runtime policy and validation seams | **In Progress — baseline synchronized through Phase 9; final review/merge pending** |
+| Software Architecture | #16 | Implementation-ready architecture baseline, diagrams, contracts, runtime policy, validation seams and cross-role approval | **In Progress — Phase 10 PASS; final acceptance/merge/closeout pending** |
 | Product design | #17 | High-fidelity UI system and clickable prototype | Separate downstream gate |
 | Engineering foundation | #4 | Buildable Android foundation and CI | **Blocked by #16 final exit gate** |
 
 ## Allowed overlap
 
 - Historical overlap rules for Issues #3 and #15 are satisfied because both are complete.
-- Issue #4 may not begin until Issue #16 is formally approved.
+- Issue #4 may not begin until Issue #16 is formally approved and closed through its final exit gate.
 - Issue #17 remains a separate design gate; any implementation dependency on its handoff must still be respected.
 - UI-heavy implementation Issues #5, #6, #9 and #10 require both #4 and the relevant #17 handoff.
 - Service/data work may begin from #4 when its architecture and contracts are approved, without waiting for decorative UI polish.
@@ -52,20 +52,21 @@ An implementation Issue is Ready only when:
 
 ## Change control
 
-- PRD v1.0 and MVP v1.0 remain authoritative product sources.
+- PRD v1.0 and MVP v1.0 remain authoritative product sources under the Issue #16 English source-governance register.
 - A new capability enters v1.0 only through formal scope review and only when it directly tests a Beta hypothesis or removes a P0 delivery blocker.
 - P0 Player, Voice, Driving and Stability work cannot be traded for P1/P2 features.
 - Accepted ADRs are not silently rewritten. A materially different decision requires a new ADR that explicitly supersedes the previous one.
 - Structural UX changes return to User Flow/Wireframe review; they must not be buried inside code implementation.
 - P2 Like/Liked Songs and the P1 Bluetooth suggestion are first scope cuts if the schedule slips.
 - Dated phase documents are historical evidence; current architecture status is controlled by `README.md`, this workflow, `TECHNICAL_DECISIONS.md`, the ADR Register and `SOFTWARE_ARCHITECTURE.md`.
+- Phase 10 review corrections are binding where explicitly identified and require no new ADR because they do not change ownership, topology, persistence authority or product scope.
 
 ## Evidence expected at each gate
 
 - **Product:** scope, metrics and exclusions
 - **UX:** flow diagrams, state inventory and review notes
 - **Wireframes:** annotated screen/state coverage, navigation and recovery
-- **Architecture:** context/component/data-flow/state-ownership views, public contracts, runtime policy, ADR links, test seams and traceability
+- **Architecture:** context/component/data-flow/state-ownership views, public contracts, runtime policy, ADR links, test seams, traceability and cross-role review
 - **Design:** components, tokens, accessibility notes and prototype
 - **Engineering:** build, CI, tests and architecture-conformance evidence
 - **Release:** device/vehicle matrix, telemetry reliability, privacy approval and rollback
@@ -77,4 +78,7 @@ An implementation Issue is Ready only when:
 - [Implementation Structure and Public Contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md)
 - [Runtime Policies](architecture/RUNTIME_POLICIES.md)
 - [Validation and Test Architecture](architecture/ISSUE_16_VALIDATION.md)
+- [Phase 10 Cross-role Review](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md)
+- [Phase 10 Findings Register](architecture/review/ISSUE_16_FINDINGS_REGISTER.json)
+- [Phase 10 Reviewed Contract Corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md)
 - [ADR Register](adr/README.md)
