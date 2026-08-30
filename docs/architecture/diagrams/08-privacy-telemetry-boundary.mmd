@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph PRODUCT["Product/runtime boundary"]
+        EVT["Typed product events\nintent / latency bucket / error code / route type / counts"]
+        VOICE["Push-to-talk Voice session"]
+        MEDIA["Personal local media + library"]
+    end
+
+    subgraph PRIVACY["Privacy enforcement boundary"]
+        GATE["TelemetryPrivacyGate\nallowlist + schema + coarse enums/buckets"]
+        CONSENT["Consent / disclosure gate\nfor any remote speech processing"]
+        CLEAR["Explicit category-scoped clear controls"]
+    end
+
+    subgraph OPTIONAL["Optional external/support adapters"]
+        QA["NoOp by default or approved crash / analytics / config adapter"]
+        STT["Replaceable speech provider\nremote path disabled until approved"]
+    end
+
+    EVT --> GATE --> QA
+    VOICE --> CONSENT --> STT
+    CLEAR --> QA
+
+    BLOCKED["PROHIBITED from telemetry / crash / repository evidence\nraw audio • transcript • artist/album/folder/title • path/content URI/MediaStore ID\nsearch query/results • queue contents • precise position/location\ncontacts/call identity • Bluetooth/vehicle identity • credentials/tokens/secrets"]
+    BLOCKED -->|"must be rejected"| GATE
+    MEDIA -->|"never copied into telemetry payload"| GATE
+
+    FAILSAFE["Quality failure is non-authoritative and non-blocking.\nIt cannot delay playback acknowledgement, Voice cancellation, permission recovery, interruption handling or route safety."]
+    QA --- FAILSAFE
+
+    BETA["Closed Beta guard\nNoOp telemetry is a safe foundation default only; required MVP measurement events must be enabled and validated before Beta completion."]
+    QA --- BETA

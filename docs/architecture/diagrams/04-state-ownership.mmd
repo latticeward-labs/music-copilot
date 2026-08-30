@@ -1,0 +1,27 @@
+flowchart TB
+    ROOT["Single-source-of-truth rule\nNo duplicated authoritative state"]
+
+    PLAY["Playback / current media / live queue / position"] --> PS["MediaSessionService\nPlayback boundary"]
+    VOICE["Active Voice state / pending confirmation"] --> VS["VoiceSessionCoordinator"]
+    EXIST["Device media existence / identity"] --> MS["Android MediaStore"]
+    INDEX["Derived library/search projection"] --> ROOM["Room repository\nrebuildable"]
+    PREF["Settings / Bluetooth preference / consent"] --> DS["DataStore repository"]
+    SCREEN["Destination presentation state"] --> VM["Destination ViewModel"]
+    NAV["Navigation + Voice-overlay origin"] --> NH["Root navigation state holder"]
+    QUAL["Quality / diagnostic session state"] --> QB["Application-scoped Quality boundary"]
+    RESTORE["P1 cold-restore snapshot"] --> PDS["Proto DataStore\nnon-authoritative Safe-Paused aid"]
+
+    ROOT --> PLAY
+    ROOT --> VOICE
+    ROOT --> EXIST
+    ROOT --> INDEX
+    ROOT --> PREF
+    ROOT --> SCREEN
+    ROOT --> NAV
+    ROOT --> QUAL
+    ROOT --> RESTORE
+
+    PS -->|"observable projection"| VM
+    ROOM -->|"query projection"| VM
+    DS -->|"preference projection"| VM
+    PDS -. "never overrides a live MediaSession" .-> PS

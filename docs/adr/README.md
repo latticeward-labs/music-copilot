@@ -1,35 +1,74 @@
 # Architecture Decision Records
 
-The product authorities are [PRD v1.0](../PRD.md) and [MVP v1.0](../MVP.md).
+- **Version:** MVP v1.0
+- **Status:** Current ADR register; synchronized with Issue #16 through Phase 10
+- **Updated:** 30 August 2026
+- **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 
-ADR-0001 through ADR-0006 completed preliminary review through [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2) on 2026-08-06. All six were revised during review to make rationale, consequences, alternatives, validation evidence and deferred decisions explicit, then accepted.
+## Product/source authority
 
-| ADR | Decision | Review outcome | Status |
+The Issue #16 architecture is bound to the user-attached English `MSM2(2).rar` package, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
+
+Controlling product members:
+
+- `Music_Copilot_PRD_v1_EN_Clarified.pdf` — SHA-256 `486fbd5057e4abf570cd1a4865b6243ee5e31d26a48596414903916d6d81e9cf`
+- `Music_Copilot_MVP_v1_EN.pdf` — SHA-256 `98e89a1c9d530f4eb878af94f4f480fc8d4669ce2ed5193ba71f201b032d47b0`
+
+Repository [PRD v1.0](../PRD.md) and [MVP v1.0](../MVP.md) are controlled repository representations. The attached English archive and the [Source/Authority Register](../architecture/SOURCE_AND_AUTHORITY_REGISTER.md) govern provenance and conflict handling.
+
+**Persian/Farsi PRD or MVP attachments are not architecture authority.**
+
+## Current ADR history
+
+ADR-0001 through ADR-0006 completed preliminary review through [Issue #2](https://github.com/latticeward-labs/music-copilot/issues/2) on 6 August 2026. Issue #16 Phase 4 preserved those accepted files unchanged and added two compatible implementation-level ADRs: ADR-0007 and ADR-0008. Neither supersedes an earlier ADR.
+
+| ADR | Decision | Relationship / review outcome | Status |
 |---|---|---|---|
-| [0001](0001-native-android-platform.md) | Native Android 10+ | Revised for binding vs replaceable choices and Issue #16 boundary | Accepted |
-| [0002](0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Revised for lifecycle, P1 restoration and spike boundaries | Accepted |
-| [0003](0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore | Revised for authority, cache and privacy boundaries | Accepted |
-| [0004](0004-replaceable-voice-provider.md) | Replaceable STT/TTS provider | Revised for network, consent and offline-guarantee boundaries | Accepted |
-| [0005](0005-deterministic-intent-mapping.md) | Deterministic six-intent mapping | Revised for ambiguity, safety and bounded configuration | Accepted |
-| [0006](0006-no-backend-account-streaming.md) | No backend, account or streaming | Revised to distinguish prohibited product services from reviewed support processors | Accepted |
+| [0001](0001-native-android-platform.md) | Native Android 10+ | Preliminary baseline; revised during Issue #2 review | Accepted |
+| [0002](0002-service-owned-media3-playback.md) | Service-owned Media3 playback | Preliminary baseline; lifecycle details elaborated by ADR-0007 | Accepted |
+| [0003](0003-local-first-data-boundaries.md) | MediaStore, Room and DataStore | Preliminary baseline; runtime/persistence details elaborated by ADR-0007/0008 | Accepted |
+| [0004](0004-replaceable-voice-provider.md) | Replaceable STT/TTS provider | Preliminary baseline; provider remains replaceable | Accepted |
+| [0005](0005-deterministic-intent-mapping.md) | Deterministic six-intent mapping | Preliminary baseline; ambiguity and bounded configuration retained | Accepted |
+| [0006](0006-no-backend-account-streaming.md) | No backend, account or streaming product service | Preliminary baseline; support processors remain separately governed | Accepted |
+| [0007](0007-same-process-playback-runtime-and-safe-paused-restore.md) | Same-process MediaSessionService runtime, structured concurrency, serialized commands and Safe-Paused restoration | Added by Issue #16 Phase 4; elaborates ADR-0002/0003; does not supersede | Accepted |
+| [0008](0008-minimal-modular-monolith-and-dependency-enforcement.md) | One `:app` modular monolith with enforced dependency/state/data ownership and extraction criteria | Added by Issue #16 Phase 4; elaborates ADR-0001/0003/0006; does not supersede | Accepted |
 
-## Evidence and assumptions routed forward
+## Current architecture linkage
 
-- Android 10/12/14+, Pixel/stock, Samsung/One UI, Xiaomi/MIUI and three head-unit validation
-- Service/controller lifecycle, process-death limits and command serialization spike
-- MediaStore permission/revocation, index invalidation, migration and 5,000-file scan evidence
+The ADRs are interpreted together with the current [Software Architecture Baseline](../SOFTWARE_ARCHITECTURE.md), [Architecture Traceability Matrix](../architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md), [Implementation Structure and Public Contracts](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Runtime Policies](../architecture/RUNTIME_POLICIES.md), [Validation/Test Architecture](../architecture/ISSUE_16_VALIDATION.md), and [Phase 10 Cross-role Review](../architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md).
+
+The [Phase 10 Reviewed Contract Corrections](../architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md) resolve two public-contract mismatches without changing state ownership, process topology, persistence authority, deterministic Voice scope, product scope or module strategy.
+
+Phase 10 created **no new ADR**, superseded **no ADR**, and changed **no Accepted ADR decision**.
+
+## Evidence routed forward
+
+- Android 10/12/14+, Pixel/stock, Samsung/One UI, Xiaomi/MIUI and 3+ head-unit validation
+- Production MediaSessionService/controller integration and command-serialization tests
+- MediaStore permission/revocation, index invalidation, migration and large-library scan evidence
+- Proto DataStore Safe-Paused restoration/migration tests
 - STT availability, network-loss and cloud-consent evidence
 - Intent corpus, bounded threshold/fuzzy tuning and ambiguity tests
-- Privacy review for diagnostics and any cloud speech processor
+- Physical call, Audio Focus, headset/Bluetooth and route safety validation
+- Runtime Compose accessibility/TalkBack/reflow validation
+- Privacy/Legal review for provider-specific retention and any remote speech processor
 
-These are validation inputs to User Flows, Wireframes, QA and Issue #16, not unresolved ADR statuses.
+These are downstream implementation/QA/release evidence gates; they are not unresolved ADR statuses.
 
-## Two architecture gates
+## Architecture gates
 
-1. **Issue #2:** completed 2026-08-06; all six scope-level ADRs accepted after review revisions.
-2. **Issue #16:** final ownership, lifecycle, dependency, navigation, concurrency and module decisions after User Flows/Wireframes.
+1. **Issue #2:** **Done** — ADR-0001..0006 accepted after review.
+2. **Issue #16 Phase 4:** **PASS** — consequential-decision audit complete; ADR-0007/0008 added.
+3. **Issue #16 Phases 5–8:** **PASS** — views, implementation contracts, runtime policy and validation architecture complete.
+4. **Issue #16 Phase 9:** **PASS** — repository/document synchronization complete; no new ADR required.
+5. **Issue #16 Phase 10:** **PASS** — Product/Android/Design/QA approvals recorded by an explicitly AI-assisted review; Accessibility/Privacy architecture reviews pass; open Blocker 0, open Major 0; no new ADR required.
+6. **Issue #16 final gate:** final acceptance/link/traceability/Mermaid/merge/closeout remains before Issue #4 can be unblocked.
 
-Issue #16 may add or supersede ADRs when evidence requires a materially different decision. Accepted history must not be silently rewritten.
+## History and supersession rule
+
+Accepted history must not be silently rewritten. If a future material choice changes an Accepted ADR, create a new ADR whose relationship explicitly states **`Supersedes ADR-xxxx`**, preserve the original ADR file, and update this register.
+
+Replacing an implementation tool explicitly marked replaceable does not require supersession when the approved contracts, ownership and dependency direction remain equivalent.
 
 ## Lifecycle
 

@@ -1,0 +1,63 @@
+flowchart TB
+    subgraph UI["UI / Presentation — Compose"]
+        SCREENS["Bootstrap • Onboarding • Permissions\nLibrary/Search • Full Player • Driving • Settings"]
+        OVERLAY["Voice overlay\nstate on Player/Driving origin"]
+        VMS["Destination ViewModels"]
+        SCREENS --> VMS
+        OVERLAY --> VMS
+    end
+
+    subgraph APP["Application / Domain"]
+        USECASES["Use cases / coordinators\nPermission • Library • Driving • Interruption"]
+        PORTS["Explicit ports + typed AppResult/AppError"]
+        USECASES --> PORTS
+    end
+
+    subgraph PLAYBACK["Playback boundary"]
+        CONNECTION["PlaybackControllerConnection"]
+        COMMANDS["PlaybackCommandProcessor\nsequential • bounded 32"]
+        SERVICE["MediaSessionService\nPlayer + MediaSession authority"]
+        PLAYER["Media3 / ExoPlayer"]
+        CONNECTION --> COMMANDS --> SERVICE --> PLAYER
+    end
+
+    subgraph VOICE["Voice boundary"]
+        VSC["VoiceSessionCoordinator\none active generation"]
+        STT["SpeechToText port / adapter"]
+        MAP["Deterministic six-intent mapper\nambiguity + retry policy"]
+        TTS["TextToSpeech port / adapter"]
+        VSC --> STT --> MAP
+        MAP --> VSC
+        VSC --> TTS
+    end
+
+    subgraph DATA["Data boundary"]
+        MSCAN["MediaStore scanner"]
+        NORM["Normalization / reconciliation"]
+        ROOM["Room rebuildable library projection\noptional approved history / P2 likes"]
+        DS["DataStore\nsettings • consent • P1 safe-paused snapshot"]
+        MSCAN --> NORM --> ROOM
+    end
+
+    subgraph QUALITY["Quality / Diagnostics"]
+        EVENTS["Typed allowlisted telemetry"]
+        FILTER["TelemetryPrivacyGate"]
+        ADAPTER["NoOp or approved optional adapter"]
+        EVENTS --> FILTER --> ADAPTER
+    end
+
+    VMS --> USECASES
+    VMS --> CONNECTION
+    USECASES --> PORTS
+    PORTS --> CONNECTION
+    PORTS --> VSC
+    PORTS --> DATA
+    VSC -->|"acknowledged PlaybackGateway command"| CONNECTION
+    SERVICE -->|"authoritative PlaybackSnapshot"| CONNECTION
+    CONNECTION --> VMS
+    ROOM --> USECASES
+    DS --> USECASES
+    USECASES --> EVENTS
+
+    NOTE["Composition root: app package wires implementations.\nLogical boundaries begin in one :app Gradle module; extraction is evidence-driven."]
+    NOTE --- APP

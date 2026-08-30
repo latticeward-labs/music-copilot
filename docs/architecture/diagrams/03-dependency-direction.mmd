@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph ALLOWED["Allowed dependency direction"]
+        UIA["feature / UI"] --> CORE["core models + use-case / port contracts"]
+        APP["app composition root"] --> PB["playback implementation"]
+        APP --> VO["voice implementation"]
+        APP --> DA["data implementation"]
+        APP --> QU["quality implementation"]
+        PB --> CORE
+        VO --> CORE
+        DA --> CORE
+        QU --> CORE
+        CORE --> PPORT["Playback port"]
+        CORE --> VPORT["Voice port"]
+        CORE --> DPORT["Repository ports"]
+        CORE --> QPORT["Quality port"]
+    end
+
+    subgraph FORBIDDEN["Forbidden direct dependencies"]
+        FUI["UI / ViewModel"] -- "FORBIDDEN" --> EXO["ExoPlayer / MediaSession concrete"]
+        FUI -- "FORBIDDEN" --> DAO["Room DAO / MediaStore Cursor"]
+        FUI -- "FORBIDDEN" --> SR["SpeechRecognizer concrete"]
+        FUI -- "FORBIDDEN" --> SDK["Analytics / crash SDK"]
+        FEAT1["feature A implementation"] -- "FORBIDDEN" --> FEAT2["feature B implementation"]
+        VPROV["Voice provider"] -- "FORBIDDEN" --> PAUTH["Playback authority"]
+        QIMPL["Quality adapter"] -- "FORBIDDEN" --> PROD["Product behavior / safety decision"]
+        DATAI["Data implementation"] -- "FORBIDDEN" --> COMPOSE["Compose / UI"]
+        GENERIC["generic core/data package"] -- "FORBIDDEN" --> CLOUD["backend / account / streaming client"]
+    end
+
+    RULE["Rule: concrete Android/provider/storage types stay behind ports.\nHilt is replaceable; dependency direction is binding."]
+    RULE --- ALLOWED

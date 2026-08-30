@@ -1,0 +1,35 @@
+flowchart TD
+    ENTRY["Legitimate app/system controller interaction"] --> CREATE["MediaSessionService onCreate\ncreate Player + MediaSession"]
+    CREATE --> CONNECT["PlaybackControllerConnection\nDisconnected → Connecting → Ready"]
+    CONNECT --> CMD["PlaybackCommandProcessor\nsingle sequential consumer"]
+    CMD --> PLAYER["Media3 / ExoPlayer\nservice-owned authority"]
+    PLAYER --> SNAP["Authoritative PlaybackSnapshot"]
+    SNAP --> SURF["Compose UI • notification • lock screen • Bluetooth/head unit"]
+
+    SURF -->|"Play / Pause / Next / Previous / Seek"| CMD
+    VOICE["Acknowledged Voice playback command"] --> CMD
+
+    PLAYING{"Playback legitimately active?"}
+    PLAYER --> PLAYING
+    PLAYING -->|"yes"| FG["Foreground media lifecycle\ncontinues with UI closed/recreated"]
+    PLAYING -->|"no + Stop / cleared queue / terminal failure"| STOP["Stop service and release in onDestroy"]
+
+    UIREC["UI recreation / task UI closure"] --> RECON["Reconnect controller"]
+    RECON --> ATOMIC["Atomically replace complete snapshot before Ready"]
+    ATOMIC --> SURF
+
+    INTERRUPT["Call / focus / route event"] --> POLICY["Safety policy\nprior-playing + focus returned + same valid route generation + no manual Pause"]
+    POLICY -->|"all guards true"| RESUME["Conditional resume"]
+    POLICY -->|"otherwise"| PAUSED["Safe Paused"]
+    ROUTE["Headset/Bluetooth disconnect"] --> RPAUSE["Immediate pause + cancel Voice + increment route generation"]
+    RPAUSE --> PAUSED
+    RECONNECT["Route reconnect"] --> PAUSED
+
+    DEATH["Application process death / cold start"] --> LIVE{"Live MediaSession exists?"}
+    LIVE -->|"yes"| SNAP
+    LIVE -->|"no"| P1["Optional P1 RestorableQueueSnapshot"]
+    P1 --> VALIDATE["Re-query MediaStore • drop invalid • clamp position • validate schema"]
+    VALIDATE --> PAUSED
+
+    NOTE["P0 covers UI recreation/closure and active service continuity.\nForce-stop / guaranteed process-death survival is not P0.\nPersisted restore never autoplays."]
+    NOTE --- DEATH
