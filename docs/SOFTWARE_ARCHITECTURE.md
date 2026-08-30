@@ -1,14 +1,16 @@
 # Software Architecture Baseline — MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **BASELINE REVIEWED THROUGH PHASE 10 / FINAL EXIT-MERGE PENDING**
+- **Status:** **FINAL / APPROVED / MERGED — ISSUE #16 PHASE 11 PASS**
 - **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
+- **Final delivery PR:** [PR #46](https://github.com/latticeward-labs/music-copilot/pull/46)
+- **Merge commit:** [`0d3b8890ee37bd19ccbd2a7b0658f5b5d5745f2b`](https://github.com/latticeward-labs/music-copilot/commit/0d3b8890ee37bd19ccbd2a7b0658f5b5d5745f2b)
 - **Upstream gates:** [Issue #3](https://github.com/latticeward-labs/music-copilot/issues/3) **Done / Closed**; [Issue #15](https://github.com/latticeward-labs/music-copilot/issues/15) **Done / Closed**
-- **Downstream gate:** Issue #4 remains blocked until final Issue #16 acceptance/merge/closeout
+- **Downstream gate:** Issue #4 is released as **UNBLOCKED / READY** by the completed Issue #16 architecture gate
 - **Source package:** user-attached English `MSM2(2).rar`, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
 
-This document is the single current implementation-facing Software Architecture baseline for Music Copilot MVP v1.0. Accepted ADRs remain the decision-history authority; this file integrates those decisions with approved User Flows, Wireframes, public contracts, runtime policies, diagrams, validation seams and the Phase 10 cross-role review. Dated phase/history files retain historical status only and do not override the current status stated here.
+This document is the single current implementation-facing Software Architecture baseline for Music Copilot MVP v1.0. Accepted ADRs remain the decision-history authority; this file integrates those decisions with approved User Flows, Wireframes, public contracts, runtime policies, diagrams, validation seams, the Phase 10 cross-role review and the Phase 11 final acceptance/merge audit. Dated phase/history files retain historical status only and do not override the final current status stated here.
 
 **No Persian/Farsi PRD or MVP is used as architecture authority.** The controlling product sources are the English PRD/MVP members in the attached source package as recorded in the [Source and Authority Register](architecture/SOURCE_AND_AUTHORITY_REGISTER.md).
 
@@ -18,8 +20,8 @@ This document is the single current implementation-facing Software Architecture 
 |---|---|
 | Issue #3 — User Flows/state inventory | **Done / Closed — 23 August 2026** |
 | Issue #15 — Low-fidelity Wireframes | **Done / Closed — 27 August 2026** |
-| Issue #16 — Software Architecture | **In Progress — Phase 10 PASS; cross-role approvals recorded; final acceptance/merge/closeout pending** |
-| Issue #4 — Android foundation | **Blocked by final Issue #16 exit gate** |
+| Issue #16 — Software Architecture | **DONE — Phase 11 final acceptance PASS; PR #46 merged** |
+| Issue #4 — Android foundation | **UNBLOCKED / READY by Issue #16 architecture exit** |
 | ADR-0001..0008 | **Accepted** |
 | Phase 10 open Blocker / Major | **0 / 0** |
 | Phase 10 open Minor | **3 downstream / non-blocking; all owned and gated** |
@@ -43,6 +45,7 @@ This document is the single current implementation-facing Software Architecture 
 - [Phase 10 Cross-role Review](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md)
 - [Phase 10 Findings Register](architecture/review/ISSUE_16_FINDINGS_REGISTER.json)
 - [Phase 10 Reviewed Contract Corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md)
+- [Phase 11 Final Acceptance and Merge Audit](architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md)
 - [ADR Register](adr/README.md)
 
 ### Architecture diagrams
@@ -85,7 +88,7 @@ The standalone `.mmd` sources must remain byte-equivalent to the eight inline Me
 - [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md) — same-process service runtime, structured concurrency, serialized commands and Safe-Paused restoration.
 - [ADR-0008](adr/0008-minimal-modular-monolith-and-dependency-enforcement.md) — one initial `:app` modular monolith with enforced dependency/state/data ownership and evidence-driven extraction.
 
-ADR-0007 and ADR-0008 elaborate the earlier Accepted ADRs; neither silently supersedes them. Phase 10 created no new ADR and changed no Accepted ADR decision. A future material incompatible choice requires a new ADR explicitly stating `Supersedes ADR-xxxx`.
+ADR-0007 and ADR-0008 elaborate the earlier Accepted ADRs; neither silently supersedes them. Phase 10/11 created no new ADR and changed no Accepted ADR decision. A future material incompatible choice requires a new ADR explicitly stating `Supersedes ADR-xxxx`.
 
 ## 5. Boundary responsibilities
 
@@ -257,10 +260,7 @@ The normative test plan is [ISSUE_16_VALIDATION.md](architecture/ISSUE_16_VALIDA
 - Device/OEM: Android 10/12/14+, Pixel/Samsung/Xiaomi.
 - Field/Beta: at least 3 real vehicle/head-unit models.
 
-Phase 10 adds two review assertions to the existing seams:
-
-- Voice ambiguity rendering/selection uses only current `Confirming.options`; stale token/options cannot execute.
-- corrupt-media/interruption surfaces observe service-authored typed runtime errors from the authoritative snapshot; no second UI error authority/event bus is allowed.
+Phase 10 additionally requires Voice ambiguity tests to consume only current `Confirming.options` and corrupt/interruption tests to observe service-authored typed runtime errors without a second UI error authority.
 
 Every P0-referenced Architecture path has at least one named Test seam and Recovery assertion. Documentation validation does not fabricate downstream physical execution.
 
@@ -645,9 +645,11 @@ Open Minors:
 - `PH10-MIN-002` — provider-specific remote STT disclosure/retention/Legal approval; owner Product + Privacy/Legal; remote path remains disabled until gate.
 - `PH10-MIN-003` — physical Pixel/Samsung/Xiaomi and 3+ vehicle/head-unit execution; owner QA/Field-Beta; release/Field gate.
 
-## 19. Approval state
+## 19. Final approval and Phase 11 exit
 
-Completed Issue #16 construction/review gates:
+The [Phase 11 Final Acceptance Audit](architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md) reconciles all **14/14 Issue #16 Acceptance Criteria** to explicit repository evidence.
+
+Completed Issue #16 gates:
 
 - Phase 4 — ADR decision control: **PASS**
 - Phase 5 — architecture views: **PASS**
@@ -656,14 +658,12 @@ Completed Issue #16 construction/review gates:
 - Phase 8 — test architecture/validation: **PASS**
 - Phase 9 — repository/document synchronization: **PASS**
 - Phase 10 — cross-role review/correction: **PASS**
+- Phase 11 — final acceptance/PR/merge: **PASS**
 
-Required Product + Android + Design + QA review approvals are now recorded **4/4** as AI-assisted evidence approvals. Accessibility and Privacy reviews also pass at architecture/specification level with explicit downstream non-claims.
+Final PR-head validation: GitHub Actions run [`33319820646`](https://github.com/latticeward-labs/music-copilot/actions/runs/33319820646) — architecture audit **PASS**, Mermaid parse/render **8/8 PASS**, 435 relative links / 0 broken, wrong-repository GitHub links 0, traceability 199/199, missing P0 Test/Recovery 0, review roles 6/6, required Product/Android/Design/QA approvals 4/4, unauthorized implementation paths 0, unreviewed positive scope additions 0.
 
-Still required before Issue #16 can close and Issue #4 can unblock:
+Final delivery PR [#46](https://github.com/latticeward-labs/music-copilot/pull/46) was merged to `main` at commit [`0d3b8890ee37bd19ccbd2a7b0658f5b5d5745f2b`](https://github.com/latticeward-labs/music-copilot/commit/0d3b8890ee37bd19ccbd2a7b0658f5b5d5745f2b).
 
-- final Acceptance-Criteria reconciliation;
-- final link/traceability/Mermaid/review-register CI gate;
-- PR #45 finalization/merge;
-- Issue #16 closeout and explicit downstream unblock.
+**Architecture exit decision:** **APPROVED / IMPLEMENTATION-READY / TESTABLE / MERGED.** Issue #4 is released from the architecture dependency as `UNBLOCKED / READY`. The downstream Phase 10 Minors remain in their explicit implementation/design/privacy/field gates and are not erased by this architecture approval.
 
-**Phase 10 PASS does not itself claim production Android implementation, physical OEM/vehicle execution, provider/Legal approval or Closed Beta completion.**
+**Non-claims remain binding:** this final architecture baseline does not claim production Android implementation, physical OEM/vehicle execution, provider/Legal approval, remote cloud STT activation, Closed Beta completion or Issue #17 high-fidelity completion.
