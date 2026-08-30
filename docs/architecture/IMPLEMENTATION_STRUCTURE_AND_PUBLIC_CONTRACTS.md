@@ -411,6 +411,8 @@ interface PlaybackGateway {
 
 ### 4.4 P1 restoration support port
 
+Owner package: `com.latticeward.musiccopilot.data.api`; consumed by Playback through the public port only.
+
 This supporting port is required so Playback does not call DataStore directly:
 
 ```kotlin
@@ -745,6 +747,7 @@ The public event model is closed/typed. It must mirror the allowlist in `ANALYTI
 enum class ConfidenceBucket { Low, Medium, High }
 enum class LatencyBucket { Fast, Expected, Slow }
 enum class RouteType { BuiltIn, Wired, Bluetooth, Unknown }
+enum class TelemetryPlaybackState { Idle, Buffering, Playing, Paused, Ended, Error }
 
 sealed interface TelemetryEvent {
     data class DrivingModeStarted(
@@ -753,7 +756,7 @@ sealed interface TelemetryEvent {
     ) : TelemetryEvent
 
     data class VoiceButtonPressed(
-        val playbackState: PlaybackState,
+        val playbackState: TelemetryPlaybackState,
     ) : TelemetryEvent
 
     data class IntentDetected(
