@@ -1,7 +1,7 @@
 # Architecture Decision Records
 
 - **Version:** MVP v1.0
-- **Status:** Current ADR register; synchronized with Issue #16 through Phase 10
+- **Status:** **Current final ADR register; synchronized with Issue #16 Phase 11 PASS / merged**
 - **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 
@@ -35,11 +35,11 @@ ADR-0001 through ADR-0006 completed preliminary review through [Issue #2](https:
 
 ## Current architecture linkage
 
-The ADRs are interpreted together with the current [Software Architecture Baseline](../SOFTWARE_ARCHITECTURE.md), [Architecture Traceability Matrix](../architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md), [Implementation Structure and Public Contracts](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Runtime Policies](../architecture/RUNTIME_POLICIES.md), [Validation/Test Architecture](../architecture/ISSUE_16_VALIDATION.md), and [Phase 10 Cross-role Review](../architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md).
+The ADRs are interpreted together with the final [Software Architecture Baseline](../SOFTWARE_ARCHITECTURE.md), [Architecture Traceability Matrix](../architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md), [Implementation Structure and Public Contracts](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Runtime Policies](../architecture/RUNTIME_POLICIES.md), [Validation/Test Architecture](../architecture/ISSUE_16_VALIDATION.md), [Phase 10 Cross-role Review](../architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md), and [Phase 11 Final Acceptance Audit](../architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md).
 
 The [Phase 10 Reviewed Contract Corrections](../architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md) resolve two public-contract mismatches without changing state ownership, process topology, persistence authority, deterministic Voice scope, product scope or module strategy.
 
-Phase 10 created **no new ADR**, superseded **no ADR**, and changed **no Accepted ADR decision**.
+Phases 10–11 created **no new ADR**, superseded **no ADR**, and changed **no Accepted ADR decision**.
 
 ## Evidence routed forward
 
@@ -61,8 +61,8 @@ These are downstream implementation/QA/release evidence gates; they are not unre
 2. **Issue #16 Phase 4:** **PASS** — consequential-decision audit complete; ADR-0007/0008 added.
 3. **Issue #16 Phases 5–8:** **PASS** — views, implementation contracts, runtime policy and validation architecture complete.
 4. **Issue #16 Phase 9:** **PASS** — repository/document synchronization complete; no new ADR required.
-5. **Issue #16 Phase 10:** **PASS** — Product/Android/Design/QA approvals recorded by an explicitly AI-assisted review; Accessibility/Privacy architecture reviews pass; open Blocker 0, open Major 0; no new ADR required.
-6. **Issue #16 final gate:** final acceptance/link/traceability/Mermaid/merge/closeout remains before Issue #4 can be unblocked.
+5. **Issue #16 Phase 10:** **PASS** — Product/Android/Design/QA approvals recorded by explicitly AI-assisted review; Accessibility/Privacy architecture reviews pass; open Blocker 0, open Major 0; no new ADR required.
+6. **Issue #16 Phase 11:** **PASS / MERGED** — 14/14 Acceptance Criteria evidence-reconciled, final validation run [`33319820646`](https://github.com/latticeward-labs/music-copilot/actions/runs/33319820646) green, final delivery [PR #46](https://github.com/latticeward-labs/music-copilot/pull/46) merged at [`0d3b889`](https://github.com/latticeward-labs/music-copilot/commit/0d3b8890ee37bd19ccbd2a7b0658f5b5d5745f2b); Issue #4 released as **UNBLOCKED / READY**.
 
 ## History and supersession rule
 
