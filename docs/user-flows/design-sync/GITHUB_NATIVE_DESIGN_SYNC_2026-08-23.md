@@ -1,5 +1,7 @@
 # GitHub-native Design Synchronization - Figma N/A
 
+> **Historical record — preserved, not deleted.** This document records the valid 23 August 2026 no-Figma decision for its original synchronization gate. For **Issue #17 high-fidelity design, component library, clickable prototype and handoff**, its No-Figma statements are **superseded prospectively from 30 August 2026** by [`FIGMA_DELIVERY_CONTRACT_ADDENDUM_2026-08-30.md`](../../FIGMA_DELIVERY_CONTRACT_ADDENDUM_2026-08-30.md). GitHub remains authoritative for behavior, architecture, traceability, review evidence and approval history; Figma is now canonical for Issue #17 visual/component/prototype work.
+
 **Product:** Music Copilot MVP v1.0  
 **Decision date:** 23 August 2026  
 **Validated baseline:** `562214c70d8ab13d5ef6a145d0bfabed31335411`  
