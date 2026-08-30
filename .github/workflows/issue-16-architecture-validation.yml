@@ -7,6 +7,7 @@ on:
     paths:
       - "docs/**"
       - "scripts/validate_issue16_architecture.py"
+      - "scripts/validate_issue16_final_architecture.py"
       - ".github/workflows/issue-16-architecture-validation.yml"
   workflow_dispatch:
 
@@ -28,10 +29,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Link, traceability, source-parity and scope audit
+      - name: Final link, status, review, traceability and scope audit
         env:
           ISSUE16_BASE_SHA: 281e1abda39a78ee0d80051c154ed6eb4af33361
-        run: python scripts/validate_issue16_architecture.py
+        run: python scripts/validate_issue16_final_architecture.py
 
   mermaid-parse:
     runs-on: ubuntu-22.04
