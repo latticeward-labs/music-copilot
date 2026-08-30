@@ -1,0 +1,53 @@
+name: Issue 16 architecture validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "scripts/validate_issue16_architecture.py"
+      - ".github/workflows/issue-16-architecture-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue-16-architecture-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  architecture-audit:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Link, traceability, source-parity and scope audit
+        env:
+          ISSUE16_BASE_SHA: 281e1abda39a78ee0d80051c154ed6eb4af33361
+        run: python scripts/validate_issue16_architecture.py
+
+  mermaid-parse:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Parse and render all Issue 16 architecture Mermaid sources
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/issue16-mermaid
+          for file in docs/architecture/diagrams/0*.mmd; do
+            out="/tmp/issue16-mermaid/$(basename "${file%.mmd}").svg"
+            npx --yes @mermaid-js/mermaid-cli -i "$file" -o "$out"
+            test -s "$out"
+          done
+          test "$(find /tmp/issue16-mermaid -name '*.svg' | wc -l)" -eq 8
