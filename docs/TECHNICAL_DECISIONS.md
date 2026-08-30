@@ -1,12 +1,13 @@
 # Technical Decisions — MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** Accepted technical baseline; synchronized with Issue #16 through Phase 9
+- **Status:** Accepted technical baseline; synchronized with Issue #16 through Phase 10
 - **Updated:** 30 August 2026
 - **Tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Authority:** [PRD v1.0](PRD.md), [MVP v1.0](MVP.md), accepted [ADRs](adr/README.md) and the current [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md)
+- **Phase 10 review:** [Cross-role Review](architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md) · [Findings Register](architecture/review/ISSUE_16_FINDINGS_REGISTER.json) · [Reviewed Contract Corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md)
 
-This file is the compact decision index. It does not replace `SOFTWARE_ARCHITECTURE.md`; when this index and a detailed architecture artifact differ in level of detail, the accepted ADRs and the current Software Architecture baseline control implementation.
+This file is the compact decision index. It does not replace `SOFTWARE_ARCHITECTURE.md`; when this index and a detailed architecture artifact differ in level of detail, the accepted ADRs and the current Software Architecture baseline control implementation. The two Phase 10 corrections are binding refinements of Phase 6 public-contract declarations and do not change ADR ownership/topology.
 
 ## Accepted baseline
 
@@ -17,7 +18,7 @@ This file is the compact decision index. It does not replace `SOFTWARE_ARCHITECT
 | Playback | Service-owned Media3/ExoPlayer outside UI lifecycle | [ADR-0002](adr/0002-service-owned-media3-playback.md), [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md) |
 | Runtime | Same-process `MediaSessionService`, serialized command processor, structured concurrency and typed reconnect/recovery | [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md) |
 | Data | MediaStore authority, rebuildable Room projection/app-owned data, DataStore settings/consent and P1 Safe-Paused snapshot | [ADR-0003](adr/0003-local-first-data-boundaries.md), [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md) |
-| Voice | Replaceable STT/TTS interfaces; one active Voice session generation | [ADR-0004](adr/0004-replaceable-voice-provider.md), [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md) |
+| Voice | Replaceable STT/TTS interfaces; one active Voice session generation; immutable 1..2-option confirmation presentation state | [ADR-0004](adr/0004-replaceable-voice-provider.md), [ADR-0007](adr/0007-same-process-playback-runtime-and-safe-paused-restore.md), [Phase 10 correction](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md) |
 | Interpretation | Deterministic mapper with exactly six English executable intents and bounded ambiguity/retry policy | [ADR-0005](adr/0005-deterministic-intent-mapping.md) |
 | Product services | No product backend, account, sync, catalog or streaming | [ADR-0006](adr/0006-no-backend-account-streaming.md) |
 | Package/module strategy | One initial `:app` modular monolith with explicit logical packages and evidence-driven extraction | [ADR-0008](adr/0008-minimal-modular-monolith-and-dependency-enforcement.md) |
@@ -28,6 +29,7 @@ This file is the compact decision index. It does not replace `SOFTWARE_ARCHITECT
 UI/Presentation, Application/Domain, Playback, Voice, Data and Quality/Diagnostics are separate logical boundaries. Their responsibilities, public contracts, dependency direction, state ownership, lifecycle, concurrency and persistence rules are finalized in:
 
 - [Implementation Structure and Public Contracts](architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md)
+- [Phase 10 Reviewed Contract Corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md)
 - [Runtime Policies](architecture/RUNTIME_POLICIES.md)
 - [Architecture Traceability Matrix](architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md)
 - [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md)
@@ -40,6 +42,8 @@ UI/Presentation, Application/Domain, Playback, Voice, Data and Quality/Diagnosti
 - MediaStore is device-media existence/identity truth; Room is a rebuildable derived projection; DataStore stores settings/consent and approved non-authoritative snapshot data.
 - Voice is push-to-talk, owns one active generation, times out after six seconds and permits one explicit Retry.
 - Voice provider output never bypasses deterministic mapping/confirmation or directly owns Player state.
+- Voice `Confirming` exposes only the current immutable one/two presentation options; labels are ephemeral and prohibited from telemetry/persistence.
+- Asynchronous Playback snapshot errors may project only typed `MediaItem`, `Playback` or `Interruption` categories; Controller errors stay connection/execute-level.
 - Call/focus/route recovery uses guarded resume; route disconnect pauses and reconnect never auto-resumes by itself.
 - Raw voice/transcripts and prohibited personal media/identity data do not enter telemetry.
 - Quality/analytics/configuration failure cannot block Playback, Voice cancellation, permission recovery or route safety.
@@ -64,10 +68,10 @@ Missing or invalid confidence never direct-executes. Tuning cannot add intents o
 |---|---|
 | Navigation/back and Voice overlay ownership | Single-activity navigation; Voice is overlay state; Back cancels Voice first; Driving Exit returns to origin |
 | Screen/shared state ownership | Explicit single-source ownership in the Software Architecture and state-ownership diagram |
-| ViewModel/use-case boundaries | Explicit ports/use cases in the Phase 6 public contracts |
+| ViewModel/use-case boundaries | Explicit ports/use cases in the Phase 6 public contracts plus Phase 10 contract refinements |
 | Package/Gradle strategy | One `:app` modular monolith with package boundaries; extraction is evidence-driven |
 | P1 queue restoration | Versioned non-authoritative snapshot; MediaStore revalidation; Paused-only restore |
-| Error/concurrency policy | Typed `AppError`/`RecoveryAction`, injected scopes/dispatchers, serialized playback commands |
+| Error/concurrency policy | Typed `AppError`/`RecoveryAction`, injected scopes/dispatchers, serialized playback commands; Phase 10 closes asynchronous playback error projection gap |
 | Service/controller type and process boundary | Same-process `MediaSessionService` plus application-scoped controller connection |
 | Process-death limits | P0 does not guarantee process-death survival; P1 cold restore is separate |
 | Schemas/migrations | Explicit DataStore/Room ownership and migration/rebuild rules |
@@ -79,14 +83,32 @@ No implementation team should re-open these as local guesses. A material incompa
 
 The test architecture is controlled by [ISSUE_16_VALIDATION.md](architecture/ISSUE_16_VALIDATION.md): unit seams for mapper/queue/seek/Previous/privacy, integration seams for MediaSessionService/Controller/Room/MediaStore/STT/DataStore/Quality, UI/service synchronization, recreation/reconnect, corrupt-file, permission, call/focus/route and Voice timeout/ambiguity tests, plus Android 10/12/14+, Pixel/Samsung/Xiaomi and 3+ real vehicle/head-unit downstream gates.
 
+Phase 10 additionally requires Voice ambiguity tests to consume only current `Confirming.options` and corrupt/interruption tests to observe service-authored typed runtime errors without a second UI error authority.
+
+## Cross-role review status
+
+Phase 10 review result: **PASS / COMPLETE**.
+
+- Product: **APPROVED — AI-assisted**
+- Android architecture/feasibility: **APPROVED after corrections**
+- Design/UX and navigation: **APPROVED after correction**
+- QA/testability: **APPROVED after corrections**
+- Accessibility architecture: **APPROVED at specification level**, downstream runtime Minor retained
+- Privacy/telemetry: **APPROVED at architecture level**, provider/Legal downstream Minor retained
+- Blocker open: **0**
+- Major open: **0**
+- Open Minor: **3**, all assigned to explicit downstream owners/gates
+
+No independent human signature or Legal approval is claimed by this AI-assisted review.
+
 ## Decision stages
 
 1. **Issue #2:** **Done** — ADR-0001..0006 reviewed and Accepted.
 2. **Issue #3:** **Done / Closed** — User Flows/state inventory approved 23 August 2026.
 3. **Issue #15:** **Done / Closed** — low-fidelity Wireframes approved and closed 27 August 2026.
-4. **Issue #16:** **In Progress** — architecture decisions, diagrams, contracts, runtime policies, validation and Phase 9 repository synchronization are complete; final cross-role review and exit/merge gate remain.
-5. **Issue #4:** **Blocked** until final Issue #16 approval.
+4. **Issue #16:** **In Progress** — Phases 4–10 PASS; cross-role approval recorded; final acceptance/merge/closeout gate remains.
+5. **Issue #4:** **Blocked** until final Issue #16 exit.
 
 ## Change-control rule
 
-ADR-0001..0008 are Accepted. Phase 9 created no new ADR. If a future material choice conflicts with an Accepted ADR, preserve history and add a new ADR explicitly marked `Supersedes ADR-xxxx` rather than rewriting the accepted record.
+ADR-0001..0008 are Accepted. Phase 10 created **no new ADR** and changed no Accepted ADR decision. If a future material choice conflicts with an Accepted ADR, preserve history and add a new ADR explicitly marked `Supersedes ADR-xxxx` rather than rewriting the accepted record.
