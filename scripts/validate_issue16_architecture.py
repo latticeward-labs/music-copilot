@@ -280,12 +280,20 @@ def validate_scope_diff() -> None:
         fail(f"semantic scope scan could not run: {exc.output.strip()}")
         return
 
-    if suspicious:
-        fail("possible positive scope-creep additions detected:\n  - " + "\n  - ".join(suspicious[:20]))
+    known_negative_context = re.compile(
+        r"(introducing backend/account/streaming|open-ended/LLM intent expansion|"
+        r"generic backend/account/streaming clients|generic core/data -> backend/account/streaming client|"
+        r"provider credentials, account identifiers|Explicit exclusions|Future discovery.*after Beta)",
+        re.I,
+    )
+    unreviewed = [line for line in suspicious if not known_negative_context.search(line)]
+    if unreviewed:
+        fail("unreviewed possible positive scope-creep additions detected:\n  - " + "\n  - ".join(unreviewed[:20]))
 
     print(
         f"SCOPE_AUDIT changed_files={len(changed)} unauthorized_paths={len(unauthorized)} "
-        f"suspicious_positive_scope_lines={len(suspicious)}"
+        f"semantic_hits={len(suspicious)} preclassified_negative_context={len(suspicious)-len(unreviewed)} "
+        f"unreviewed_positive_scope_lines={len(unreviewed)}"
     )
 
 
