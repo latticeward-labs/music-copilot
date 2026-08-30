@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import json
 import os
 import re
 import subprocess
-import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 TRACE = ROOT / "docs/architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md"
 SOFTWARE = ROOT / "docs/SOFTWARE_ARCHITECTURE.md"
+REVIEW_MD = ROOT / "docs/architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md"
+FINDINGS_JSON = ROOT / "docs/architecture/review/ISSUE_16_FINDINGS_REGISTER.json"
+CORRECTIONS_MD = ROOT / "docs/architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md"
 BASE_SHA = os.environ.get("ISSUE16_BASE_SHA", "281e1abda39a78ee0d80051c154ed6eb4af33361")
 
 CURRENT_DOCS = [
@@ -45,6 +48,9 @@ REQUIRED_SOFTWARE_LINKS = [
     "architecture/PHASE7_RUNTIME_POLICY_AUDIT.md",
     "architecture/ISSUE_16_VALIDATION.md",
     "architecture/PHASE9_REPOSITORY_SYNC_AUDIT.md",
+    "architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md",
+    "architecture/review/ISSUE_16_FINDINGS_REGISTER.json",
+    "architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md",
     "architecture/diagrams/01-system-context.mmd",
     "architecture/diagrams/02-container-component-architecture.mmd",
     "architecture/diagrams/03-dependency-direction.mmd",
@@ -163,7 +169,7 @@ def markdown_link_target(raw_target: str) -> str | None:
 
 def validate_links() -> None:
     active_files = list(CURRENT_DOCS)
-    active_files += sorted((ROOT / "docs/architecture").glob("*.md"))
+    active_files += sorted((ROOT / "docs/architecture").rglob("*.md"))
     active_files += sorted((ROOT / "docs/adr").glob("*.md"))
     active_files = list(dict.fromkeys(active_files))
     link_re = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
@@ -188,10 +194,7 @@ def validate_links() -> None:
             if rel is None:
                 continue
             checked += 1
-            if rel.startswith("/"):
-                resolved = ROOT / rel.lstrip("/")
-            else:
-                resolved = path.parent / rel
+            resolved = ROOT / rel.lstrip("/") if rel.startswith("/") else path.parent / rel
             resolved = Path(os.path.normpath(resolved))
             unique_targets.add(str(resolved))
             if not resolved.exists():
@@ -215,24 +218,24 @@ def validate_repository_status() -> None:
     combined = "\n".join(texts.values())
 
     required_tokens = {
-        "README.md": ["docs/SOFTWARE_ARCHITECTURE.md", "Issue #15", "Done / Closed", "Issue #16", "In Progress"],
-        "docs/DELIVERY_WORKFLOW.md": ["Issue #3", "Done / Closed", "Issue #15", "Issue #16", "Phase 9"],
-        "docs/TECHNICAL_DECISIONS.md": ["ADR-0007", "ADR-0008", "SOFTWARE_ARCHITECTURE.md", "Phase 9"],
-        "docs/DESIGN_DELIVERY_PLAN.md": ["PASS / COMPLETE / CLOSED", "Gate C", "Phase 9"],
-        "docs/adr/README.md": ["ADR-0007", "ADR-0008", "Phase 9", "no new ADR"],
-        "docs/SOFTWARE_ARCHITECTURE.md": ["Version:", "Status:", "Updated:", "Tracking:", "PHASE9_REPOSITORY_SYNC_AUDIT.md"],
+        "README.md": ["docs/SOFTWARE_ARCHITECTURE.md", "Issue #15", "Done / Closed", "Issue #16", "Phase 10", "In Progress"],
+        "docs/DELIVERY_WORKFLOW.md": ["Issue #3", "Done / Closed", "Issue #15", "Issue #16", "Phase 10"],
+        "docs/TECHNICAL_DECISIONS.md": ["ADR-0007", "ADR-0008", "SOFTWARE_ARCHITECTURE.md", "Phase 10"],
+        "docs/DESIGN_DELIVERY_PLAN.md": ["PASS / COMPLETE / CLOSED", "Gate C", "Phase 10"],
+        "docs/adr/README.md": ["ADR-0007", "ADR-0008", "Phase 10", "no new ADR"],
+        "docs/SOFTWARE_ARCHITECTURE.md": ["Version:", "Status:", "Updated:", "Tracking:", "Phase 10", "ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md"],
     }
     for rel, tokens in required_tokens.items():
-        text = texts[rel]
         for token in tokens:
-            if token not in text:
+            if token not in texts[rel]:
                 fail(f"{rel}: missing current-status token {token!r}")
 
     stale_patterns = [
         r"Issue #3[^\n]*\*\*In Progress\*\*",
         r"Issue #15[^\n]*(Ready; not yet approved|IN PROGRESS|approval pending)",
         r"Issue #15 remains open",
-        r"Intentionally open until Issue #16",
+        r"Issue #16[^\n]*Phase 9[^\n]*(final cross-role review|review pending)",
+        r"BASELINE COMPLETE THROUGH PHASE 9 / FINAL REVIEW PENDING",
         r"final Software Architecture remains a separate approval gate",
     ]
     stale_hits: list[str] = []
@@ -245,11 +248,94 @@ def validate_repository_status() -> None:
     software = texts["docs/SOFTWARE_ARCHITECTURE.md"]
     missing_links = [target for target in REQUIRED_SOFTWARE_LINKS if target not in software]
     if missing_links:
-        fail(f"SOFTWARE_ARCHITECTURE.md missing required diagram/matrix links: {missing_links}")
+        fail(f"SOFTWARE_ARCHITECTURE.md missing required diagram/matrix/review links: {missing_links}")
 
     print(
         f"REPOSITORY_STATUS_AUDIT current_docs={len(CURRENT_DOCS)} "
         f"stale_hits={len(stale_hits)} required_arch_links={len(REQUIRED_SOFTWARE_LINKS)-len(missing_links)}/{len(REQUIRED_SOFTWARE_LINKS)}"
+    )
+
+
+def validate_phase10_review() -> None:
+    for path in (REVIEW_MD, FINDINGS_JSON, CORRECTIONS_MD):
+        if not path.is_file():
+            fail(f"Phase 10 review artifact missing: {path.relative_to(ROOT)}")
+    if errors and any("Phase 10 review artifact missing" in e for e in errors):
+        return
+
+    review_text = REVIEW_MD.read_text(encoding="utf-8")
+    corrections = CORRECTIONS_MD.read_text(encoding="utf-8")
+    try:
+        data = json.loads(FINDINGS_JSON.read_text(encoding="utf-8"))
+    except Exception as exc:
+        fail(f"{FINDINGS_JSON.relative_to(ROOT)}: invalid JSON: {exc}")
+        return
+
+    if data.get("status") != "PASS":
+        fail("Phase 10 findings register status is not PASS")
+    reviewer = data.get("reviewer", {})
+    if reviewer.get("humanIdentityClaimed") is not False or reviewer.get("independentHumanSignatureClaimed") is not False:
+        fail("Phase 10 findings register fabricates or permits a human/independent signature claim")
+    if "AI-assisted" not in str(reviewer.get("type", "")):
+        fail("Phase 10 reviewer type must explicitly say AI-assisted")
+    if data.get("source", {}).get("persianAuthorityUsed") is not False:
+        fail("Phase 10 source register must explicitly exclude Persian/Farsi product authority")
+
+    summary = data.get("summary", {})
+    if summary.get("blockerOpen") != 0:
+        fail(f"Phase 10 open Blocker count must be 0, found {summary.get('blockerOpen')}")
+    if summary.get("majorOpen") != 0:
+        fail(f"Phase 10 open Major count must be 0, found {summary.get('majorOpen')}")
+    if summary.get("majorFound") != summary.get("majorResolved"):
+        fail("Phase 10 Major found/resolved counts do not match")
+
+    required_roles = {
+        "Product",
+        "Android architecture/feasibility",
+        "Design/UX and navigation",
+        "QA/testability",
+        "Accessibility architecture",
+        "Privacy/telemetry",
+    }
+    approvals = {str(row.get("role")): str(row.get("result")) for row in data.get("approvals", [])}
+    missing_roles = required_roles - approvals.keys()
+    if missing_roles:
+        fail(f"Phase 10 missing review roles: {sorted(missing_roles)}")
+    for role in required_roles:
+        if role in approvals and not approvals[role].startswith("APPROVED_AI_ASSISTED"):
+            fail(f"Phase 10 role {role!r} is not recorded as AI-assisted approval: {approvals[role]!r}")
+
+    required_final = {"Product", "Android architecture/feasibility", "Design/UX and navigation", "QA/testability"}
+    final_approved = sum(1 for role in required_final if approvals.get(role, "").startswith("APPROVED_AI_ASSISTED"))
+    if final_approved != len(required_final):
+        fail(f"required Product/Android/Design/QA approvals are {final_approved}/{len(required_final)}")
+
+    findings = data.get("findings", [])
+    open_minors = 0
+    for finding in findings:
+        sev = finding.get("severity")
+        status = finding.get("status")
+        if sev in {"Blocker", "Major"} and status != "RESOLVED":
+            fail(f"{finding.get('id')}: open {sev} finding")
+        if sev == "Minor" and status != "RESOLVED":
+            open_minors += 1
+            if not nonempty(str(finding.get("owner", ""))):
+                fail(f"{finding.get('id')}: open Minor missing owner")
+            if not nonempty(str(finding.get("downstreamGate", ""))):
+                fail(f"{finding.get('id')}: open Minor missing downstream gate")
+
+    for token in ["PH10-MAJ-001", "PH10-MAJ-002", "Open Blockers: **0**", "Open Majors: **0**", "4/4"]:
+        if token not in review_text:
+            fail(f"{REVIEW_MD.relative_to(ROOT)}: missing gate token {token!r}")
+    for token in ["PH10-MAJ-001", "PH10-MAJ-002", "VoiceConfirmationOption", "PlaybackSnapshot", "No new ADR"]:
+        if token not in corrections:
+            fail(f"{CORRECTIONS_MD.relative_to(ROOT)}: missing correction token {token!r}")
+
+    print(
+        "PHASE10_REVIEW_AUDIT "
+        f"roles={len(approvals)}/6 required_final_approvals={final_approved}/4 "
+        f"blocker_open={summary.get('blockerOpen')} major_open={summary.get('majorOpen')} "
+        f"minor_open={open_minors} human_signature_claim={reviewer.get('independentHumanSignatureClaimed')}"
     )
 
 
@@ -358,7 +444,8 @@ def validate_scope_diff() -> None:
         r"(introducing backend/account/streaming|open-ended/LLM intent expansion|generic backend/account/streaming clients|"
         r"generic core/data -> backend/account/streaming client|provider credentials, account identifiers|Explicit exclusions|"
         r"Future discovery.*after Beta|Out of scope|Streaming, downloads, accounts|No backend/account/streaming|"
-        r"No product backend|No product services|Android Auto/iOS platform expansion)", re.I,
+        r"No product backend|No product services|Android Auto/iOS platform expansion|remote/cloud STT activation|"
+        r"provider-specific cloud STT|cloud speech remains disabled)", re.I,
     )
     unreviewed = [line for line in suspicious if not known_negative_context.search(line)]
     if unreviewed:
@@ -375,6 +462,7 @@ def main() -> int:
     validate_mermaid_sources()
     validate_links()
     validate_repository_status()
+    validate_phase10_review()
     validate_traceability()
     validate_scope_diff()
 
