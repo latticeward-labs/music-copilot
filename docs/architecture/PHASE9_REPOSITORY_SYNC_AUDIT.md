@@ -8,7 +8,7 @@
 - **Branch:** `docs/16-software-architecture`
 - **Phase 9 sync commit:** [`0f6e2e1`](https://github.com/latticeward-labs/music-copilot/commit/0f6e2e1f44085d9a43100c97834f0b43cc810706)
 - **Final validation evidence commit:** [`8b7374c`](https://github.com/latticeward-labs/music-copilot/commit/8b7374c1a321b756bdc3dc212a6b2fcea406a8b2)
-- **Final validation run:** [GitHub Actions #33317084401](https://github.com/latticeward-labs/music-copilot/actions/runs/33317084401)
+- **Final validation run:** [GitHub Actions #33317471836](https://github.com/latticeward-labs/music-copilot/actions/runs/33317471836)
 - **Source package:** user-attached English `MSM2(2).rar`, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
 
 ## 1. Result
@@ -86,7 +86,7 @@ Final validation results on evidence commit `8b7374c`:
 - relative Markdown links checked: **328**;
 - unique local targets: **151**;
 - broken relative links: **0**;
-- GitHub links found in active audit set: **50**;
+- GitHub links found in active audit set: **51**;
 - GitHub links targeting an unexpected repository: **0**;
 - required Architecture matrix/diagram links: **19/19**;
 - standalone/inline Mermaid parity: **8/8 PASS**;
