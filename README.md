@@ -3,7 +3,7 @@
 > Voice-first local music control for driving, by **Latticeward Labs**.
 
 - **Version:** MVP v1.0
-- **Repository status:** Current through Issue #16 Phase 9
+- **Repository status:** Current through Issue #16 Phase 10
 - **Updated:** 30 August 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 
@@ -27,10 +27,10 @@ If a derived artifact conflicts with the controlling English PRD/MVP source pack
 - Issue #3 — User Flows and state inventory: **Done / Closed — 23 August 2026**
 - Stage 2 Golden Scenarios and GitHub-native design synchronization: **Done**
 - Issue #15 — low-fidelity Wireframes: **Done / Closed — 27 August 2026**; Phase 8 review and Phase 9 closeout are merged
-- Issue #16 — Software Architecture: **In Progress — Phase 9 repository/document synchronization PASS; final cross-role review and exit/merge gate still pending**
+- Issue #16 — Software Architecture: **In Progress — Phase 10 cross-role review PASS; open Blocker 0, open Major 0; final acceptance/merge/closeout gate pending**
 - Issue #4 — Android foundation: **Blocked until final Issue #16 approval**
 
-See the complete [Delivery Workflow and Approval Gates](docs/DELIVERY_WORKFLOW.md) and the current [Software Architecture Baseline](docs/SOFTWARE_ARCHITECTURE.md).
+See the complete [Delivery Workflow and Approval Gates](docs/DELIVERY_WORKFLOW.md), the current [Software Architecture Baseline](docs/SOFTWARE_ARCHITECTURE.md), and the [Issue #16 Phase 10 Cross-role Review](docs/architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md).
 
 ## MVP scope
 
@@ -82,12 +82,14 @@ Streaming, downloads, accounts, backend, cloud sync, advanced playlists/social, 
 9. [Software Architecture Baseline](docs/SOFTWARE_ARCHITECTURE.md)
 10. [Architecture Traceability Matrix](docs/architecture/ARCHITECTURE_TRACEABILITY_MATRIX.md)
 11. [Issue #16 Validation and Test Architecture](docs/architecture/ISSUE_16_VALIDATION.md)
-12. [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
-13. [ADR Register](docs/adr/README.md)
-14. [Voice Contract](docs/VOICE_CONTRACT.md)
-15. [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
-16. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
-17. [Definition of Done](docs/DEFINITION_OF_DONE.md)
+12. [Issue #16 Phase 10 Cross-role Review](docs/architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md)
+13. [Phase 10 Reviewed Contract Corrections](docs/architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md)
+14. [Technical Decisions](docs/TECHNICAL_DECISIONS.md)
+15. [ADR Register](docs/adr/README.md)
+16. [Voice Contract](docs/VOICE_CONTRACT.md)
+17. [Analytics & Privacy](docs/ANALYTICS_AND_PRIVACY.md)
+18. [QA & Beta Plan](docs/QA_AND_BETA_PLAN.md)
+19. [Definition of Done](docs/DEFINITION_OF_DONE.md)
 
 Development begins only from an Issue that satisfies the Definition of Ready in the Delivery Workflow. P0 Player, Voice, Driving and Stability work cannot be traded for P1/P2 features.
 
