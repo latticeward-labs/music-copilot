@@ -1,0 +1,894 @@
+{
+  "name": "Music Copilot Component System",
+  "version": "1.0.0",
+  "date": "2026-10-03",
+  "issue": 17,
+  "phase": 3,
+  "status": "READY_FOR_GITHUB_REVIEW",
+  "source": {
+    "archiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "phase3BaseCommit": "ee7685b4520953b8bab47ce16091fb8924f053cc",
+    "foundation": "docs/design-system/foundations/FOUNDATIONS.md",
+    "foundationTokens": "docs/design-system/foundations/TOKENS.json",
+    "wireframeFoundations": "docs/wireframes/foundations/README.md",
+    "appFrameIndex": "docs/wireframes/app-states/README.md",
+    "hifiTraceability": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json",
+    "finalArchitecture": "docs/SOFTWARE_ARCHITECTURE.md",
+    "voiceCorrection": "docs/architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md"
+  },
+  "inherits": {
+    "color": "docs/design-system/foundations/TOKENS.json#color.semantic",
+    "spacing": "docs/design-system/foundations/TOKENS.json#spacing",
+    "radius": "docs/design-system/foundations/TOKENS.json#radius",
+    "typography": "docs/design-system/foundations/TOKENS.json#typography",
+    "motion": "docs/design-system/foundations/TOKENS.json#motion",
+    "state": "docs/design-system/foundations/TOKENS.json#state",
+    "accessibility": "docs/design-system/foundations/TOKENS.json#accessibility"
+  },
+  "global": {
+    "minimumTouchTargetDp": 48,
+    "textScalePercent": 200,
+    "focusRingWidthDp": 2,
+    "focusRingOffsetDp": 2,
+    "screenHorizontalPaddingDp": 16,
+    "componentGapDp": 12,
+    "controlGapDp": 8,
+    "pendingMayNotFabricateSuccess": true,
+    "nonColorOnlyRequired": true,
+    "talkBackRequired": true
+  },
+  "components": {
+    "CMP-01": {
+      "name": "ActionButton",
+      "runtimeType": "Compose",
+      "variants": [
+        "Primary",
+        "Secondary",
+        "Tonal",
+        "Destructive",
+        "Text"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Disabled",
+        "Loading"
+      ],
+      "geometry": {
+        "minHeightDp": 48,
+        "horizontalPaddingDp": 16,
+        "iconGapDp": 8,
+        "radiusDp": 12
+      },
+      "ownership": "Presentation only; callback to owning screen/use case",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Loading retains accessible action name",
+        "No optimistic domain success"
+      ],
+      "wfFamilies": [
+        "WF-01",
+        "WF-02",
+        "WF-03",
+        "WF-04",
+        "WF-05",
+        "WF-07",
+        "WF-08",
+        "WF-09",
+        "WF-10"
+      ]
+    },
+    "CMP-02": {
+      "name": "IconButton",
+      "runtimeType": "Compose",
+      "variants": [
+        "Standard",
+        "Tonal",
+        "Selected",
+        "Danger"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Selected",
+        "Disabled",
+        "Pending"
+      ],
+      "geometry": {
+        "targetDp": 48,
+        "iconDefaultDp": 24,
+        "iconPlayerDp": 32,
+        "iconDrivingDp": 36
+      },
+      "ownership": "Presentation only",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Non-decorative glyph requires content description",
+        "Play/Pause semantic label changes with action"
+      ],
+      "wfFamilies": [
+        "WF-04",
+        "WF-05",
+        "WF-06",
+        "WF-07",
+        "WF-08",
+        "WF-09",
+        "WF-10"
+      ]
+    },
+    "CMP-03": {
+      "name": "AppBar",
+      "runtimeType": "Compose",
+      "variants": [
+        "TopLevelTitle",
+        "BackTitle",
+        "BackTitleAction"
+      ],
+      "states": [
+        "Default",
+        "Focused",
+        "Disabled"
+      ],
+      "geometry": {
+        "minHeightDp": 56,
+        "actionTargetDp": 48,
+        "horizontalPaddingDp": 16
+      },
+      "ownership": "Navigation presentation only",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "May grow under 200% text",
+        "Does not create destinations"
+      ],
+      "wfFamilies": [
+        "WF-03",
+        "WF-04",
+        "WF-05",
+        "WF-06",
+        "WF-09",
+        "WF-10"
+      ]
+    },
+    "CMP-04": {
+      "name": "BottomNavigation",
+      "runtimeType": "Compose",
+      "variants": [
+        "VisibleDestination",
+        "SelectedDestination",
+        "P2DestinationHidden"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Selected",
+        "Disabled"
+      ],
+      "geometry": {
+        "minHeightDp": 64,
+        "itemTargetMinDp": 48
+      },
+      "ownership": "Approved root navigation presentation",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Item set controlled by approved wireframes",
+        "Selected state must be announced"
+      ],
+      "wfFamilies": [
+        "WF-04",
+        "WF-05",
+        "WF-09",
+        "WF-10"
+      ]
+    },
+    "CMP-05": {
+      "name": "PlaybackControls",
+      "runtimeType": "Compose",
+      "variants": [
+        "StandardTriple",
+        "DrivingQuad"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Disabled",
+        "Pending"
+      ],
+      "geometry": {
+        "standardTargetMinDp": 48,
+        "drivingTargetMinDp": 64,
+        "playerIconDp": 32,
+        "drivingIconDp": 36
+      },
+      "ownership": "PlaybackSnapshot observer + command callback; service remains authority",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "StandardTriple=Previous/PlayPause/Next",
+        "DrivingQuad adds SeekBack",
+        "Success only after authoritative acknowledgement"
+      ],
+      "wfFamilies": [
+        "WF-06",
+        "WF-07"
+      ]
+    },
+    "CMP-06": {
+      "name": "MicControl",
+      "runtimeType": "Compose",
+      "variants": [
+        "Player",
+        "Driving"
+      ],
+      "states": [
+        "Idle",
+        "Pressed",
+        "Focused",
+        "Disabled",
+        "SessionActive"
+      ],
+      "geometry": {
+        "standardTargetMinDp": 48,
+        "playerPreferredTargetDp": 56,
+        "drivingTargetMinDp": 72,
+        "standardIconDp": 24,
+        "drivingIconDp": 36
+      },
+      "ownership": "Requests VoiceSessionCoordinator start; does not own Voice state",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Push-to-Talk only",
+        "No wake word",
+        "No auto-capture",
+        "Detailed Voice state rendered by CMP-19"
+      ],
+      "wfFamilies": [
+        "WF-06",
+        "WF-07",
+        "WF-08"
+      ]
+    },
+    "CMP-07": {
+      "name": "TrackMetadata",
+      "runtimeType": "Compose",
+      "variants": [
+        "Compact",
+        "Standard",
+        "Player",
+        "Driving"
+      ],
+      "states": [
+        "Default",
+        "MutedSupporting",
+        "StateLabeled"
+      ],
+      "geometry": {
+        "maxLinesTitleNonDriving": 2,
+        "maxLinesMetaNonDriving": 2,
+        "drivingMarquee": false
+      },
+      "ownership": "Presentation of local metadata + authoritative state labels",
+      "accessibility": {
+        "supports200PercentText": true,
+        "nonColorOnly": true,
+        "talkBackRequired": true
+      },
+      "constraints": [
+        "No Driving marquee",
+        "Critical state labels never ellipsized away",
+        "Personal metadata prohibited from telemetry"
+      ],
+      "wfFamilies": [
+        "WF-04",
+        "WF-05",
+        "WF-06",
+        "WF-07",
+        "WF-09"
+      ]
+    },
+    "CMP-08": {
+      "name": "Artwork",
+      "runtimeType": "Compose",
+      "variants": [
+        "Row",
+        "MiniPlayer",
+        "FullPlayer",
+        "Driving",
+        "Placeholder"
+      ],
+      "states": [
+        "Available",
+        "Missing"
+      ],
+      "geometry": {
+        "aspectRatio": "1:1",
+        "radiusDp": 12,
+        "rowPreferredDp": 48,
+        "miniPlayerPreferredDp": 48
+      },
+      "ownership": "Presentation only",
+      "accessibility": {
+        "decorativeAllowedWhenMetadataDuplicatesMeaning": true
+      },
+      "constraints": [
+        "No dynamic theme from artwork",
+        "Driving artwork subordinate to controls/text"
+      ],
+      "wfFamilies": [
+        "WF-04",
+        "WF-05",
+        "WF-06",
+        "WF-07",
+        "WF-09"
+      ]
+    },
+    "CMP-09": {
+      "name": "MiniPlayer",
+      "runtimeType": "Compose",
+      "variants": [
+        "Playing",
+        "Paused",
+        "Connecting",
+        "Recoverable",
+        "HiddenNoItem"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Pending",
+        "Error"
+      ],
+      "geometry": {
+        "minHeightDp": 72,
+        "artworkDp": 48,
+        "playPauseTargetDp": 48,
+        "horizontalPaddingDp": 12
+      },
+      "ownership": "Observes one MediaSession/Playback authority",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Opens Full Player",
+        "No second player/queue",
+        "Reconnect preserves last verified state"
+      ],
+      "wfFamilies": [
+        "WF-04",
+        "WF-06"
+      ]
+    },
+    "CMP-10": {
+      "name": "SearchField",
+      "runtimeType": "Compose",
+      "variants": [
+        "LocalLibrarySearch"
+      ],
+      "states": [
+        "Default",
+        "Focused",
+        "QueryPresent",
+        "Disabled"
+      ],
+      "geometry": {
+        "minHeightDp": 48,
+        "horizontalPaddingDp": 12,
+        "iconTargetDp": 48,
+        "radiusDp": 12
+      },
+      "ownership": "UI query presentation state; repository controls results",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "No online catalog fallback",
+        "No query/result telemetry",
+        "Forbidden in active Driving"
+      ],
+      "wfFamilies": [
+        "WF-05"
+      ]
+    },
+    "CMP-11": {
+      "name": "MediaRow",
+      "runtimeType": "Compose",
+      "variants": [
+        "Track",
+        "QueueTrack",
+        "SearchResult",
+        "LikedTrackP2",
+        "Unavailable"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Selected",
+        "Disabled",
+        "Pending"
+      ],
+      "geometry": {
+        "minHeightDp": 64,
+        "leadingArtworkPreferredDp": 48,
+        "trailingTargetDp": 48,
+        "contentGapDp": 12
+      },
+      "ownership": "Presentation + selection callback; owning repo/service remains authority",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Current/selected uses non-color cue",
+        "Stale item routes to owning recovery",
+        "No optimistic playback success"
+      ],
+      "wfFamilies": [
+        "WF-04",
+        "WF-05",
+        "WF-06",
+        "WF-09"
+      ]
+    },
+    "CMP-12": {
+      "name": "EntityRow",
+      "runtimeType": "Compose",
+      "variants": [
+        "Artist",
+        "Album",
+        "Folder"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Disabled"
+      ],
+      "geometry": {
+        "minHeightDp": 64,
+        "leadingVisualPreferredDp": 48,
+        "trailingTargetDp": 48
+      },
+      "ownership": "Presentation + browse callback",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "No long-list use in active Driving"
+      ],
+      "wfFamilies": [
+        "WF-04"
+      ]
+    },
+    "CMP-13": {
+      "name": "ProgressSeek",
+      "runtimeType": "Compose",
+      "variants": [
+        "PlayerSeek"
+      ],
+      "states": [
+        "Enabled",
+        "Pressed",
+        "Focused",
+        "Disabled",
+        "Pending"
+      ],
+      "geometry": {
+        "interactiveBandMinHeightDp": 48,
+        "visualTrackDp": 4,
+        "thumbDp": 20
+      },
+      "ownership": "Playback position projection + seek callback; service remains position authority",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Enabled only when canSeek/duration truth permits",
+        "Precise position prohibited from telemetry"
+      ],
+      "wfFamilies": [
+        "WF-06"
+      ]
+    },
+    "CMP-14": {
+      "name": "PermissionEducationCard",
+      "runtimeType": "Compose",
+      "variants": [
+        "Rationale",
+        "DeniedRequestable",
+        "PermanentlyDenied",
+        "GrantedStatus"
+      ],
+      "states": [
+        "Default",
+        "Focused",
+        "Loading",
+        "Error"
+      ],
+      "geometry": {
+        "paddingDp": 16,
+        "actionMinHeightDp": 48,
+        "radiusDp": 16
+      },
+      "ownership": "App education/recovery; Android permission state remains authority",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Open Settings is external handoff",
+        "Never recreates Android permission dialog",
+        "Not shown in active Driving"
+      ],
+      "wfFamilies": [
+        "WF-03"
+      ]
+    },
+    "CMP-15": {
+      "name": "StatusBlock",
+      "runtimeType": "Compose",
+      "variants": [
+        "Loading",
+        "Empty",
+        "Error",
+        "Success",
+        "SafePaused",
+        "NoTrack"
+      ],
+      "states": [
+        "Default",
+        "Loading",
+        "Error"
+      ],
+      "geometry": {
+        "paddingDp": 24,
+        "actionMinHeightDp": 48,
+        "radiusDp": 16
+      },
+      "ownership": "Presentation of typed owning-state/recovery",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Written state required",
+        "Critical recovery not Snackbar-only",
+        "Empty does not invent online content"
+      ],
+      "wfFamilies": [
+        "WF-01",
+        "WF-03",
+        "WF-04",
+        "WF-05",
+        "WF-06",
+        "WF-07",
+        "WF-09",
+        "WF-10"
+      ]
+    },
+    "CMP-16": {
+      "name": "ConfirmationChoice",
+      "runtimeType": "Compose",
+      "variants": [
+        "Candidate",
+        "Neither",
+        "Cancel"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Disabled",
+        "Pending"
+      ],
+      "geometry": {
+        "minHeightDp": 48,
+        "preferredHeightDp": 56,
+        "verticalGapDp": 8,
+        "maxCandidateCount": 2
+      },
+      "ownership": "Voice confirmation presentation; VoiceSessionCoordinator owns token/options",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Candidate count 1..2",
+        "Candidate order immutable",
+        "displayLabel ephemeral",
+        "Neither/Cancel are recovery actions, not candidate objects"
+      ],
+      "wfFamilies": [
+        "WF-08"
+      ]
+    },
+    "CMP-17": {
+      "name": "SnackbarStatus",
+      "runtimeType": "Compose",
+      "variants": [
+        "Info",
+        "Success",
+        "ErrorNonBlocking"
+      ],
+      "states": [
+        "Visible",
+        "ActionFocused"
+      ],
+      "geometry": {
+        "minHeightDp": 48,
+        "horizontalPaddingDp": 16,
+        "maxActions": 1
+      },
+      "ownership": "Transient presentation only",
+      "accessibility": {
+        "talkBackRequired": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Not sole critical recovery",
+        "No hard short timeout relied upon for accessibility",
+        "No personal content in evidence"
+      ],
+      "wfFamilies": [
+        "WF-04",
+        "WF-05",
+        "WF-06",
+        "WF-08",
+        "WF-10"
+      ]
+    },
+    "CMP-18": {
+      "name": "SettingsRow",
+      "runtimeType": "Compose",
+      "variants": [
+        "Navigation",
+        "Value",
+        "Toggle",
+        "StatusAction",
+        "DestructiveAction"
+      ],
+      "states": [
+        "Default",
+        "Pressed",
+        "Focused",
+        "Selected",
+        "Disabled",
+        "Pending",
+        "Error"
+      ],
+      "geometry": {
+        "minHeightDp": 64,
+        "trailingTargetMinDp": 48,
+        "horizontalPaddingDp": 16
+      },
+      "ownership": "Preferences/platform/provider projection + callback",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Permission/provider truth is rechecked",
+        "P1 Bluetooth is hint only",
+        "No Driving auto-entry/resume"
+      ],
+      "wfFamilies": [
+        "WF-10"
+      ]
+    },
+    "CMP-19": {
+      "name": "VoiceFeedbackOverlay",
+      "runtimeType": "Compose",
+      "variants": [
+        "PlayerOrigin",
+        "DrivingOrigin"
+      ],
+      "states": [
+        "Idle",
+        "Listening",
+        "Processing",
+        "Confirming",
+        "Executed",
+        "Failed"
+      ],
+      "geometry": {
+        "cancelTargetMinDp": 48,
+        "listeningMaxMs": 6000,
+        "maxAttempts": 2,
+        "maxConfirmationCandidates": 2
+      },
+      "ownership": "VoiceSessionCoordinator is sole active Voice-state owner",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Overlay not destination",
+        "Exactly one retry after first settled failure",
+        "Executed follows playback acknowledgement",
+        "Back/Driving Exit cancels first"
+      ],
+      "wfFamilies": [
+        "WF-08",
+        "WF-06",
+        "WF-07"
+      ]
+    },
+    "CMP-20": {
+      "name": "LikeToggleP2",
+      "runtimeType": "Compose",
+      "variants": [
+        "LikeUnlike"
+      ],
+      "states": [
+        "Unliked",
+        "Liked",
+        "Pending",
+        "ErrorReverted"
+      ],
+      "geometry": {
+        "targetDp": 48,
+        "iconDp": 24
+      },
+      "ownership": "Local acknowledged P2 Like state remains authority",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "P2 removable",
+        "Failure returns to last confirmed state",
+        "Cannot block P0"
+      ],
+      "wfFamilies": [
+        "WF-06",
+        "WF-09"
+      ]
+    },
+    "CMP-21": {
+      "name": "SystemBoundaryAnnotation",
+      "runtimeType": "DocumentationOnly",
+      "variants": [
+        "AndroidSystemHandoff"
+      ],
+      "states": [
+        "Default"
+      ],
+      "geometry": {
+        "prefix": "[ANDROID / SYSTEM]"
+      },
+      "ownership": "Documentation/handoff only",
+      "accessibility": {
+        "readAfterOwningAppHandoff": true
+      },
+      "constraints": [
+        "Never a production app destination/control",
+        "Used for permission/Settings/notification/lock/vehicle/system surfaces"
+      ],
+      "wfFamilies": [
+        "WF-03",
+        "WF-06",
+        "WF-10"
+      ]
+    },
+    "CMP-22": {
+      "name": "PagerIndicator",
+      "runtimeType": "Compose",
+      "variants": [
+        "Onboarding"
+      ],
+      "states": [
+        "Current",
+        "Remaining",
+        "Completed"
+      ],
+      "geometry": {
+        "visualDotDp": 8,
+        "visualGapDp": 8
+      },
+      "ownership": "Presentation only",
+      "accessibility": {
+        "announcesPagePosition": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "Non-interactive by default",
+        "If made interactive later, target >=48dp requires reviewed change"
+      ],
+      "wfFamilies": [
+        "WF-02"
+      ]
+    },
+    "CMP-23": {
+      "name": "ConfirmationPanel",
+      "runtimeType": "Compose",
+      "variants": [
+        "DestructiveConfirmation"
+      ],
+      "states": [
+        "Default",
+        "Focused",
+        "Pending",
+        "Error"
+      ],
+      "geometry": {
+        "paddingDp": 24,
+        "radiusDp": 16,
+        "actionMinHeightDp": 48
+      },
+      "ownership": "App confirmation UI; owning use case performs actual clear/delete",
+      "accessibility": {
+        "minTouchDp": 48,
+        "supports200PercentText": true,
+        "visibleFocus": true,
+        "nonColorOnly": true
+      },
+      "constraints": [
+        "No destructive default",
+        "Back=Cancel where owning flow specifies",
+        "No remote deletion claim without provider confirmation"
+      ],
+      "wfFamilies": [
+        "WF-10"
+      ]
+    }
+  }
+}
