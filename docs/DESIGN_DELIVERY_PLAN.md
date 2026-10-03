@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 1 source/baseline freeze — PASS / COMPLETE**
+- **Status:** **Current through Issue #17 Phase 2 Design Foundations — PASS / COMPLETE**
 - **Updated:** 3 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -74,7 +74,7 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - Tracking: [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
 - Contract: [Repository-native High-Fidelity Delivery Contract Addendum](ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md)
 - Dedicated execution branch: `issue-17/repository-hifi-delivery`
-- Status: **IN PROGRESS — Phase 1 source/baseline freeze PASS / COMPLETE**
+- Status: **IN PROGRESS — Phase 2 Design Foundations PASS / COMPLETE**
 - Design System workspace: `docs/design-system/`
 - High-fidelity workspace: `docs/high-fidelity/`
 - Prototype workspace: `docs/prototype/`
@@ -91,6 +91,20 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - Frozen baseline commit: `b4ac3bb3ccf299bd282e6d1ba3600b7136dd5669`
 - Result: **PASS — 126/126 states have WF / UF / State / GS / Priority / Ownership and one initial high-fidelity disposition.**
 - Next gate: Phase 2 Design Foundations / Design Tokens. No high-fidelity screen image is approved by Phase 1.
+
+
+### Phase 2 — visual direction and Design Foundations
+
+- Visual direction: **Night Signal** — dark-first, low-distraction, high-contrast.
+- Foundation specification: [`FOUNDATIONS.md`](design-system/foundations/FOUNDATIONS.md)
+- Machine-readable tokens: [`TOKENS.json`](design-system/foundations/TOKENS.json)
+- Visual review board: [`FOUNDATIONS_BOARD.png`](design-system/foundations/FOUNDATIONS_BOARD.png)
+- Validation: [`FOUNDATIONS_VALIDATION.md`](design-system/foundations/FOUNDATIONS_VALIDATION.md)
+- Source-locked constraints preserved: Android 10+, Compose, ≥48dp targets, 200% text reflow, TalkBack, sufficient contrast, non-color-only state, limited motion and system-only boundaries.
+- Driving foundation preserved: one layer, immediate Exit, no typing/nested navigation/long lists, fixed Previous / Play-Pause / Next / Seek Back + Mic, and visible Playing / Paused / No Track + title / artist / artwork.
+- Exact colors, typography, spacing, radii, elevation and motion values are controlled by Markdown/JSON; the PNG is review evidence only.
+- Result: **PASS / COMPLETE at Design-Foundation level.**
+- Next gate: Phase 3 Component System. No final high-fidelity screen is approved by Phase 2.
 
 ### Delivery mechanism
 
