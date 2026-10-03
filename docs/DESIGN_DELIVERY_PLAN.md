@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 0 repository-native high-fidelity contract alignment**
+- **Status:** **Current through Issue #17 Phase 1 source/baseline freeze — PASS / COMPLETE**
 - **Updated:** 3 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -74,11 +74,23 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - Tracking: [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
 - Contract: [Repository-native High-Fidelity Delivery Contract Addendum](ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md)
 - Dedicated execution branch: `issue-17/repository-hifi-delivery`
-- Status: **IN PROGRESS — Phase 0 contract alignment PASS / COMPLETE**
+- Status: **IN PROGRESS — Phase 1 source/baseline freeze PASS / COMPLETE**
 - Design System workspace: `docs/design-system/`
 - High-fidelity workspace: `docs/high-fidelity/`
 - Prototype workspace: `docs/prototype/`
 - Handoff workspace: `docs/handoff/`
+
+
+
+### Phase 1 — frozen design input baseline
+
+- Source manifest: [`docs/design-system/ISSUE_17_SOURCE_MANIFEST.md`](design-system/ISSUE_17_SOURCE_MANIFEST.md)
+- Human-readable 126-state matrix: [`HIFI_TRACEABILITY_MATRIX.md`](design-system/HIFI_TRACEABILITY_MATRIX.md)
+- Machine-readable register: [`HIFI_TRACEABILITY_REGISTER.json`](design-system/HIFI_TRACEABILITY_REGISTER.json)
+- Validation: [`ISSUE_17_PHASE_1_VALIDATION.md`](design-system/ISSUE_17_PHASE_1_VALIDATION.md)
+- Frozen baseline commit: `b4ac3bb3ccf299bd282e6d1ba3600b7136dd5669`
+- Result: **PASS — 126/126 states have WF / UF / State / GS / Priority / Ownership and one initial high-fidelity disposition.**
+- Next gate: Phase 2 Design Foundations / Design Tokens. No high-fidelity screen image is approved by Phase 1.
 
 ### Delivery mechanism
 
