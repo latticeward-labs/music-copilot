@@ -6,7 +6,7 @@
 - **Result:** **PASS / COMPLETE at Design-Foundation level**
 - **Source archive SHA-256:** `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
 - **Phase 1 merge:** `c36ea45824f90a6a9992460f7ac54fcc904111bd`
-- **Board SHA-256:** `6063273800fd85eeddb415a10958038c2c40493a36d11c2e21a7c761560996bd`
+- **Repository board Git blob:** `9eb01095e5fc5740a38b73a69f69d0c4402a372d` (7,586 bytes)
 
 ## Validation matrix
 
@@ -37,7 +37,7 @@
 | Theme setting invented | 0 | **PASS — none introduced** |
 | Backend/account/streaming scope introduced | 0 | **PASS — none introduced** |
 | Machine-readable token file | Valid JSON structure | **PASS** |
-| Visual board | PNG review evidence | **PASS — 800×950 PNG; SHA-256 `6063273800fd85eeddb415a10958038c2c40493a36d11c2e21a7c761560996bd`** |
+| Visual board | PNG review evidence | **PASS — repository blob `9eb01095e5fc5740a38b73a69f69d0c4402a372d`** |
 
 ## Contrast checks
 
