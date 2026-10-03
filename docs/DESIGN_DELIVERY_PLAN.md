@@ -1,16 +1,19 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #16 Phase 11 final architecture exit**
-- **Updated:** 30 August 2026
+- **Status:** **Current through Issue #17 Phase 0 repository-native high-fidelity contract alignment**
+- **Updated:** 3 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
-- **Canonical behavioral, traceability and approval workspace:** GitHub
+- **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
+- **Canonical delivery workspace:** GitHub repository `latticeward-labs/music-copilot`
+- **Active Issue #17 contract:** [Repository-native High-Fidelity Delivery Contract Addendum](ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md)
 - **Official low-fidelity visual workfile:** [`docs/wireframes/`](wireframes/) — Markdown + SVG + JSON
-- **Workspace index:** [GitHub-native Wireframe Workspace Index](wireframes/WORKSPACE_INDEX.md)
-- **Historical Figma reference:** [`FIGMA_DESIGN_PLAN.md`](FIGMA_DESIGN_PLAN.md)
 - **Product authorities:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
+- **Final architecture authority:** [Software Architecture](SOFTWARE_ARCHITECTURE.md) + Accepted ADRs
+- **Attached English source package SHA-256:** `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
+- **Historical Figma records:** retained as provenance only; not active Issue #17 acceptance dependencies
 
-Design gates use versioned repository artifacts, stable UF/State/GS identifiers, rendered SVG previews, reviewed links and Git history. GitHub is the controlling behavioral/approval record for completed Issue #15. The final implementation-facing architecture is controlled by [Software Architecture](SOFTWARE_ARCHITECTURE.md), with Phase 10 review evidence under [`docs/architecture/review/`](architecture/review/) and final acceptance in the [Phase 11 Audit](architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md).
+> GitHub is the canonical delivery, behavior, architecture, traceability, review and approval workspace for Issue #17. Repository-stored high-fidelity images plus paired Markdown/JSON specifications are the canonical visual-delivery evidence. Image-generation tooling is a production method, not an authority.
 
 ## Authority model
 
@@ -18,10 +21,20 @@ Design gates use versioned repository artifacts, stable UF/State/GS identifiers,
 |---|---|
 | Product scope and priority | Controlling English PRD/MVP source package represented in GitHub |
 | User Flow, State and Golden behavior | Approved GitHub records |
-| Editable low-fidelity structure | `docs/wireframes/**/*.svg` plus paired Markdown |
-| Per-Wireframe traceability and behavior | `docs/wireframes/WF-##_SCREEN_STATE.md` |
-| Architecture ownership/dependency/runtime behavior | final [Software Architecture Baseline](SOFTWARE_ARCHITECTURE.md), Accepted ADRs and [Phase 10 reviewed corrections](architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md) |
-| Review, disposition and approval | GitHub PR and Issue history |
+| Low-fidelity structure | Completed Issue #15 artifacts under `docs/wireframes/` |
+| Architecture ownership/dependency/runtime behavior | Final `docs/SOFTWARE_ARCHITECTURE.md`, Accepted ADRs and reviewed corrections |
+| Visual foundations and Design System | Repository specs/tokens + approved visual evidence under `docs/design-system/` |
+| High-fidelity screens and critical app-visible states | Paired repository image/spec artifacts under `docs/high-fidelity/` |
+| Interactive prototype | Repository-native prototype source/routes under `docs/prototype/` |
+| Engineering handoff | Repository specifications under `docs/handoff/` |
+| Behavioral/component traceability and acceptance evidence | GitHub |
+| Review, findings and approval history | GitHub PR/Issue/review records |
+
+### Conflict rule
+
+If a high-fidelity artifact conflicts with an approved GitHub behavioral, architecture, traceability or acceptance record, the approved source record controls until a reviewed change resolves the conflict.
+
+Structural UX changes route back to the Wireframe/User Flow gate. Consequential architecture changes route to Issue #16 or a new/superseding ADR. Product-scope changes require PRD/MVP governance. Generated images may not silently introduce new behavior or v1.1 scope.
 
 ## Gate A — User Flows, State Inventory and Golden Scenarios
 
@@ -37,9 +50,9 @@ Design gates use versioned repository artifacts, stable UF/State/GS identifiers,
 - Status: **PASS / COMPLETE / CLOSED — 27 August 2026**
 - Phase 8 review/corrections: [PR #42](https://github.com/latticeward-labs/music-copilot/pull/42)
 - Phase 9 closeout: [PR #43](https://github.com/latticeward-labs/music-copilot/pull/43)
-- Acceptance: all required paired Markdown/SVG artifacts and system/recovery records are synchronized; open Blocker/Major findings are zero.
+- Acceptance: complete paired Markdown/SVG artifacts and system/recovery records; open Blocker/Major findings are zero.
 
-Issue #15 is no longer a pending gate. Historical design/Figma checkpoint documents remain dated evidence only and do not override the closed/current disposition.
+Issue #15 remains the approved structural baseline. Issue #17 may style and specify it, but may not silently restructure it.
 
 ## Gate C — Software Architecture
 
@@ -52,41 +65,82 @@ Issue #15 is no longer a pending gate. Historical design/Figma checkpoint docume
 - Final delivery: [PR #46](https://github.com/latticeward-labs/music-copilot/pull/46)
 - Status: **PASS / COMPLETE / MERGED — Phase 11; open Blocker 0 / Major 0**
 
-The Phase 10 Design/UX and navigation review is **APPROVED — AI-assisted** after correcting the Voice confirmation presentation contract. `VoiceSessionState.Confirming` provides the immutable one/two candidate option labels required by approved `WF-08_VOICE_CONFIRMING` behavior without an invented repository lookup or navigation branch.
+The final architecture fixes ownership, lifecycle, dependency direction, runtime policy, persistence, navigation, error/recovery, privacy, test seams and package strategy.
 
-Phase 11 reconciled 14/14 Issue #16 Acceptance Criteria with linked evidence and merged the architecture baseline to `main`. Gate C is no longer pending. Issue #4 is released from the architecture dependency as **UNBLOCKED / READY**.
+`VoiceSessionState.Confirming` exposes the immutable one/two candidate labels required by `WF-08_VOICE_CONFIRMING`. Runtime Compose semantics/TalkBack/focus/reflow remain downstream proof under `PH10-MIN-001`, jointly owned by implementation and Issue #17 handoff.
 
-The final architecture baseline fixes ownership, lifecycle, dependency direction, runtime policy, persistence, navigation, error/recovery, privacy, test seams and package strategy. Structural corrections still route back to approved UX records; consequential incompatible decisions require a new/superseding ADR.
-
-## Gate D — UI system and prototype
+## Gate D — Design System, high-fidelity design, prototype and handoff
 
 - Tracking: [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
-- Planned locations: `docs/design-system/` and `docs/prototype/`
-- Status: separate downstream gate.
-- Output: foundations, reusable component specifications, high-fidelity states and prototype/handoff after separate approval.
+- Contract: [Repository-native High-Fidelity Delivery Contract Addendum](ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md)
+- Dedicated execution branch: `issue-17/repository-hifi-delivery`
+- Status: **IN PROGRESS — Phase 0 contract alignment PASS / COMPLETE**
+- Design System workspace: `docs/design-system/`
+- High-fidelity workspace: `docs/high-fidelity/`
+- Prototype workspace: `docs/prototype/`
+- Handoff workspace: `docs/handoff/`
 
-Issue #16 architecture approval is not high-fidelity approval. Runtime Compose accessibility/reflow remains a downstream implementation/design Minor recorded as `PH10-MIN-001`.
+### Delivery mechanism
 
-## Required ten-screen coverage
+High-fidelity visuals are produced as images and committed to GitHub. Each approved app-visible high-fidelity artifact must be paired with a Markdown specification and stable traceability. Machine-readable JSON is used where needed for tokens, route definitions, artifact registers and automated validation.
 
-Splash; Onboarding; Permissions; Home/Library; Search; Full Player; Driving Mode; Voice Overlay; Liked Songs (P2); Settings. System notification/lock/external controls, platform dialogs, Settings handoff, lifecycle reconnect and interruption/route recovery are ownership-separated transition records rather than invented app destinations.
+Image-generation tooling does not own product behavior, text truth, dimensions, state ownership or approval. Exact copy/specification values are controlled by paired repository records.
+
+### Required ten-screen coverage
+
+Splash; Onboarding; Permissions; Home/Library; Search; Full Player; Driving Mode; Voice Overlay/Voice State; Liked Songs (P2); Settings.
+
+System notification/lock/external controls, Android permission dialogs, Settings handoff, lifecycle reconnect and interruption/route recovery remain ownership-separated transitions rather than invented app destinations.
+
+### State-disposition baseline
+
+The completed Issue #15 manifest remains controlling:
+
+- 126 canonical states;
+- 45 App-visible states;
+- 61 Variant/annotation states;
+- 20 Android/System-only transitions.
+
+Issue #17 must provide explicit high-fidelity disposition for all 126 states without turning system-only transitions into app screens.
+
+### Prototype coverage
+
+The repository-native clickable prototype must cover GS-01..GS-05 and the required recovery branches: permission denial/Settings recovery, Voice ambiguity/not-found/one Retry/Manual Only, No Track, Empty Library, stale selection and corrupt-file recovery.
+
+### Handoff coverage
+
+Handoff records must expose source state, runtime owner, actions, transitions, Back behavior, system handoffs, dimensions/tokens, accessibility semantics, allowed analytics hooks and privacy constraints without embedding business logic in UI.
 
 ## Synchronization and review rules
 
-1. Paired Markdown and SVG artifacts use the same stable `WF-##_SCREEN_STATE` identifier.
-2. Each Markdown record links its SVG and owning UF/State/GS IDs.
-3. Behavioral or navigation changes update both artifacts in the same reviewed PR.
-4. SVG-only structure is not approved evidence.
-5. Historical checkpoint documents are preserved and superseded through dated addenda/closeout records, not rewritten.
-6. Current Gate B status is **Closed / Complete**; historical documents may truthfully show earlier in-progress states only when clearly dated.
-7. Current Gate C status is controlled by final `SOFTWARE_ARCHITECTURE.md`, the Phase 10 review, Phase 11 audit and Issue #16 closeout.
+1. Every high-fidelity artifact retains stable WF/UF/State/GS traceability.
+2. App-visible review artifacts use paired image + Markdown specification; image-only output is not approved evidence.
+3. Exact text/copy and implementation-facing values in paired specifications control over image-generation rendering defects.
+4. Design System visual boards do not replace machine-readable tokens/specifications.
+5. Structural behavior changes are reviewed upstream before visual synchronization.
+6. System-only surfaces remain annotated external/system handoffs.
+7. Historical Figma records remain preserved but are not active acceptance dependencies.
+8. Final Issue #17 approval requires Design System, high-fidelity, prototype, handoff, traceability and review evidence to be synchronized in GitHub.
+
+## Historical supersession
+
+For active Issue #17 delivery from **3 October 2026** onward, the repository-native contract supersedes the 30 August 2026 Figma delivery disposition.
+
+The historical branch `issue-17/figma-delivery-contract`, Figma file key/page references, prior comments and addendum remain provenance only. They are not required for Phase 1+ execution or final acceptance.
+
+Closed Issue #15 history is not rewritten.
 
 ## Permanent constraints
 
-- GitHub is the canonical behavioral, traceability and approval record.
-- `docs/wireframes/` remains the official low-fidelity visual workfile from completed Issue #15.
-- Stable repository paths and approved commits replace external-node dependencies for active acceptance.
+- GitHub is the canonical Issue #17 delivery/behavior/traceability/review/approval workspace.
+- Repository high-fidelity image + paired spec artifacts are canonical visual-delivery evidence.
+- No Figma access/file/page/node is required for active acceptance.
+- `docs/wireframes/` remains the official low-fidelity structural baseline.
 - Driving Mode remains one layer with immediate Exit, at least 48dp targets and no typing/deep navigation/long lists.
-- Playback Service/MediaSession remains the live playback authority.
-- No raw audio, transcript or prohibited personal media metadata enters analytics/evidence.
-- No backend/account/streaming product scope, Android Auto/iOS platform expansion or other v1.1 capability is introduced by the design process.
+- TTS/error copy remains at most one short sentence where required.
+- Accessibility handoff covers TalkBack order, non-color-only state, scalable text and expected 200% reflow.
+- Playback Service/MediaSession remains live playback authority.
+- Voice behavior remains bounded/deterministic under the final architecture.
+- UI artifacts do not embed business logic or invent runtime ownership.
+- No raw audio, transcript or prohibited personal-media metadata enters analytics/repository evidence.
+- No backend/account/streaming, Android Auto/iOS, wake-word, conversational AI or other v1.1 capability is introduced by design.
