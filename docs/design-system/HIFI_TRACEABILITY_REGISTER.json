@@ -1,0 +1,3483 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-03",
+  "issue": 17,
+  "phase": 1,
+  "status": "PASS_COMPLETE_SOURCE_FROZEN",
+  "frozenRepositoryCommit": "b4ac3bb3ccf299bd282e6d1ba3600b7136dd5669",
+  "sourceArchiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "source": {
+    "manifest": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md",
+    "lowFiTraceabilityRegister": "docs/wireframes/PHASE_7_TRACEABILITY_REGISTER.json",
+    "lowFiCoverageMatrix": "docs/wireframes/WIREFRAME_COVERAGE_MATRIX.md",
+    "finalArchitecture": "docs/SOFTWARE_ARCHITECTURE.md"
+  },
+  "counts": {
+    "canonicalStates": 126,
+    "uniqueStateIds": 126,
+    "p0": 106,
+    "p1": 6,
+    "p2": 14,
+    "dedicatedHifi": 45,
+    "hifiVariantAnnotation": 61,
+    "systemOnlyHandoff": 20
+  },
+  "requiredFieldValidation": {
+    "missingWf": [],
+    "missingUf": [],
+    "missingStateId": [],
+    "missingGs": [],
+    "missingPriority": [],
+    "missingOwnership": [],
+    "duplicateStateIds": 0,
+    "pass": true
+  },
+  "screenFamilies": [
+    {
+      "id": "WF-01",
+      "surface": "Splash / startup",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-02",
+      "surface": "Onboarding / education",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-03",
+      "surface": "Permissions / capability recovery",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-04",
+      "surface": "Home / Library / browse",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-05",
+      "surface": "Search",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-06",
+      "surface": "Full Player / Queue / playback surfaces",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-07",
+      "surface": "Driving Mode",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-08",
+      "surface": "Voice overlay",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-09",
+      "surface": "Liked Songs (P2)",
+      "status": "PASS"
+    },
+    {
+      "id": "WF-10",
+      "surface": "Settings / Privacy",
+      "status": "PASS"
+    }
+  ],
+  "states": [
+    {
+      "index": 1,
+      "stateId": "S-01",
+      "state": "Splash - Loading, Migration Error",
+      "uf": "UF-01",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-01"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-01 · Splash",
+      "recoveryOwner": "UF-01",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-01_SPLASH_LOADING",
+        "WF-01_SPLASH_STARTUP_MIGRATION_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 2,
+      "stateId": "S-02",
+      "state": "Onboarding - First Run, Incomplete Resume, Skip, Replay",
+      "uf": "UF-01",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-02"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-01 · Onboarding/Education",
+      "recoveryOwner": "UF-01",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-02_ONBOARDING_SLIDE_1",
+        "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 3,
+      "stateId": "S-03",
+      "state": "Permissions - Granted, Denied-requestable, Permanently Denied",
+      "uf": "UF-02",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-03"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-02 · Permission recovery",
+      "recoveryOwner": "UF-02",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+        "WF-03_PERMISSIONS_GRANTED",
+        "WF-03_PERMISSIONS_DENIED",
+        "WF-03_PERMISSIONS_PERMANENTLY_DENIED"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 4,
+      "stateId": "S-04",
+      "state": "Home / Library - Scanning, Empty, Ready, Recoverable Failure, Revoked-Reconciled",
+      "uf": "UF-03",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-03 · Home/Library readiness",
+      "recoveryOwner": "UF-03",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 5,
+      "stateId": "CA-01",
+      "state": "Six-Command Education - View, Skip, Replay, Practice Choice",
+      "uf": "UF-01",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-02"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-01 · Onboarding/Education",
+      "recoveryOwner": "UF-01",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-02_ONBOARDING_SLIDE_1",
+        "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 6,
+      "stateId": "CA-02",
+      "state": "Voice Access Boundary - Mic Purpose, Granted, Denied-requestable, Permanently Denied, Provider Unavailable, Cloud Consent",
+      "uf": "UF-02",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-03"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-02 · Voice access boundary",
+      "recoveryOwner": "UF-02 / UF-10",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+        "WF-03_PERMISSIONS_GRANTED",
+        "WF-03_PERMISSIONS_DENIED",
+        "WF-03_PERMISSIONS_PERMANENTLY_DENIED"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 7,
+      "stateId": "SYS-01",
+      "state": "Android media permission dialog",
+      "uf": "UF-02",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-03"
+      ],
+      "ownership": "Android/System",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 8,
+      "stateId": "SYS-02",
+      "state": "Android microphone permission dialog",
+      "uf": "UF-02",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-03"
+      ],
+      "ownership": "Android/System",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 9,
+      "stateId": "SYS-03",
+      "state": "Notification permission boundary",
+      "uf": "UF-06",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System",
+      "screenOwner": "Android notification permission",
+      "recoveryOwner": "UF-06 / UF-12",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 10,
+      "stateId": "SYS-04",
+      "state": "Android Settings",
+      "uf": "UF-02",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-03"
+      ],
+      "ownership": "Android/System",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 11,
+      "stateId": "SYS-05",
+      "state": "Speech provider/cloud-processing boundary",
+      "uf": "UF-02 / UF-10 / UF-12",
+      "gs": "GS-01",
+      "priority": "P0",
+      "wf": [
+        "WF-03"
+      ],
+      "ownership": "Android/System + provider",
+      "screenOwner": "Speech provider / consent boundary",
+      "recoveryOwner": "UF-10 / UF-12",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 12,
+      "stateId": "CB-01",
+      "state": "Home / Library Ready",
+      "uf": "UF-04",
+      "gs": "GS-01, GS-02",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Home/Library",
+      "recoveryOwner": "UF-03 / UF-04",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 13,
+      "stateId": "CB-02",
+      "state": "Songs",
+      "uf": "UF-04",
+      "gs": "GS-02",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 14,
+      "stateId": "CB-03",
+      "state": "Artists",
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 15,
+      "stateId": "CB-04",
+      "state": "Artist tracks",
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 16,
+      "stateId": "CB-05",
+      "state": "Albums",
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 17,
+      "stateId": "CB-06",
+      "state": "Album tracks",
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 18,
+      "stateId": "CB-07",
+      "state": "Folders",
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 19,
+      "stateId": "CB-08",
+      "state": "Folder tracks",
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-04"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Browse",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 20,
+      "stateId": "CB-09",
+      "state": "Search Idle / Query",
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-05"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Search",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 21,
+      "stateId": "CB-10",
+      "state": "Search Result",
+      "uf": "UF-04",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-05"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Search",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 22,
+      "stateId": "CB-11",
+      "state": "Search No Result",
+      "uf": "UF-04",
+      "gs": "GS-02",
+      "priority": "P0",
+      "wf": [
+        "WF-05"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Search",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 23,
+      "stateId": "CB-12",
+      "state": "Search Error",
+      "uf": "UF-04",
+      "gs": "GS-02",
+      "priority": "P0",
+      "wf": [
+        "WF-05"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-04 · Search",
+      "recoveryOwner": "UF-04",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 24,
+      "stateId": "CB-13",
+      "state": "Selection Validation",
+      "uf": "UF-04",
+      "gs": "GS-02",
+      "priority": "P0",
+      "wf": [
+        "WF-04",
+        "WF-05"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-04 · Browse/Search selection",
+      "recoveryOwner": "UF-02 / UF-03 / UF-04",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR",
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 25,
+      "stateId": "CB-14",
+      "state": "Playback Start / Queue Acceptance / Preparing",
+      "uf": "UF-04 → UF-05",
+      "gs": "GS-02",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05 · Full Player",
+      "recoveryOwner": "UF-05",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 26,
+      "stateId": "CB-15",
+      "state": "Full Player Playing",
+      "uf": "UF-05",
+      "gs": "GS-02, GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05 · Full Player/Queue",
+      "recoveryOwner": "UF-05",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 27,
+      "stateId": "CB-16",
+      "state": "Full Player Paused",
+      "uf": "UF-05",
+      "gs": "GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05 · Full Player/Queue",
+      "recoveryOwner": "UF-05",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 28,
+      "stateId": "CB-17",
+      "state": "End of Queue / Paused-Completed",
+      "uf": "UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05 · Full Player/Queue",
+      "recoveryOwner": "UF-05",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 29,
+      "stateId": "CB-18",
+      "state": "Queue View",
+      "uf": "UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05 · Full Player/Queue",
+      "recoveryOwner": "UF-05",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 30,
+      "stateId": "CB-19",
+      "state": "Corrupt / Inaccessible Item Recovery",
+      "uf": "UF-05",
+      "gs": "GS-02",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05 · Full Player",
+      "recoveryOwner": "UF-03 / UF-05 / UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 31,
+      "stateId": "CB-20",
+      "state": "Home Mini-player",
+      "uf": "UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-04",
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05 · Mini-player on Home",
+      "recoveryOwner": "UF-05 / UF-06",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR",
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 32,
+      "stateId": "CB-21",
+      "state": "Controller Connecting / Reconnecting",
+      "uf": "UF-05 / UF-06",
+      "gs": "GS-02, GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05/06 · Controller connection",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 33,
+      "stateId": "CB-22",
+      "state": "Active Session Handoff",
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 34,
+      "stateId": "CB-23",
+      "state": "App Background / UI Absent",
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 35,
+      "stateId": "CB-24",
+      "state": "Screen Off / Device Locked",
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 36,
+      "stateId": "CB-25",
+      "state": "Task / OEM Lifecycle Event",
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 37,
+      "stateId": "CB-26",
+      "state": "Media Notification / System Controls",
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System + MediaSession",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 38,
+      "stateId": "CB-27",
+      "state": "Lock-screen Controls",
+      "uf": "UF-06",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System + MediaSession",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 39,
+      "stateId": "CB-28",
+      "state": "Bluetooth / Headset / Vehicle Media Keys",
+      "uf": "UF-06",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System + MediaSession",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 40,
+      "stateId": "CB-29",
+      "state": "System Command Pending",
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System + MediaSession",
+      "screenOwner": "System command handoff",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS",
+        "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 41,
+      "stateId": "CB-30",
+      "state": "Notification Permission / Visibility Evaluation",
+      "uf": "UF-06",
+      "gs": "GS-03",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Android/System",
+      "screenOwner": "Notification permission/visibility",
+      "recoveryOwner": "UF-06 / UF-12",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY",
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 42,
+      "stateId": "CB-31",
+      "state": "System Surface Unavailable",
+      "uf": "UF-06",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-06 · System-surface fallback",
+      "recoveryOwner": "UF-06",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 43,
+      "stateId": "CB-32",
+      "state": "P1 Paused Restore",
+      "uf": "UF-05 / UF-06",
+      "gs": "GS-03",
+      "priority": "P1",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05/06 · Paused restore",
+      "recoveryOwner": "UF-03 / UF-05 / UF-06",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 44,
+      "stateId": "CB-33",
+      "state": "Restore Unavailable",
+      "uf": "UF-05 / UF-06",
+      "gs": "GS-03",
+      "priority": "P1",
+      "wf": [
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-05/06 · Paused restore",
+      "recoveryOwner": "UF-03 / UF-05 / UF-06",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 45,
+      "stateId": "CC-01",
+      "state": "Non-driving source",
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving entry",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 46,
+      "stateId": "CC-02",
+      "state": "Manual entry pending",
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving entry",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 47,
+      "stateId": "CC-03",
+      "state": "Controller reconnecting",
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving entry",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 48,
+      "stateId": "CC-04",
+      "state": "Entry cancelled/failed",
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving entry",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 49,
+      "stateId": "CC-05",
+      "state": "Driving Playing",
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving Mode",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 50,
+      "stateId": "CC-06",
+      "state": "Driving Paused/Ended",
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving Mode",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 51,
+      "stateId": "CC-07",
+      "state": "Driving No Track",
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving Mode",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 52,
+      "stateId": "CC-08",
+      "state": "Playback command pending",
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving controls",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 53,
+      "stateId": "CC-09",
+      "state": "Command rejected/timeout",
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving controls",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 54,
+      "stateId": "CC-10",
+      "state": "Acknowledged refresh",
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving controls",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 55,
+      "stateId": "CC-11",
+      "state": "P1 selected-device connected",
+      "uf": "UF-07 / UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P1",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-07 · Entry suggestion",
+      "recoveryOwner": "UF-07 / UF-12",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 56,
+      "stateId": "CC-12",
+      "state": "Bluetooth suggestion accepted",
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P1",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-07 · Entry suggestion",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 57,
+      "stateId": "CC-13",
+      "state": "Exit/back return",
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-07 · Exit/Back",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 58,
+      "stateId": "CC-14",
+      "state": "Microphone handoff",
+      "uf": "UF-07 → UF-08",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-08 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 59,
+      "stateId": "CC-15",
+      "state": "Item unavailable / access failure",
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "UF-07 · Driving failure",
+      "recoveryOwner": "UF-03 / UF-05 / UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 60,
+      "stateId": "CC-16",
+      "state": "Interruption/route handoff",
+      "uf": "UF-07 → UF-11",
+      "gs": "GS-04, GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android interruption/route",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS",
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 61,
+      "stateId": "CC-17",
+      "state": "Suggestion declined/dismissed",
+      "uf": "UF-07",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P1",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-07 · Entry suggestion",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 62,
+      "stateId": "CC-18",
+      "state": "Analytics unavailable",
+      "uf": "UF-07",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-07"
+      ],
+      "ownership": "System adapter",
+      "screenOwner": "Telemetry fail-safe",
+      "recoveryOwner": "UF-07",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 63,
+      "stateId": "CD-01",
+      "state": "Idle/manual surface",
+      "uf": "UF-08 / UF-10",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-07",
+        "WF-06"
+      ],
+      "ownership": "App",
+      "screenOwner": "Initiating manual surface",
+      "recoveryOwner": "UF-08 / UF-10",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 64,
+      "stateId": "CD-02",
+      "state": "Capability check",
+      "uf": "UF-08 / UF-10",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-08 · Voice overlay",
+      "recoveryOwner": "UF-02 / UF-10 / UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 65,
+      "stateId": "CD-03",
+      "state": "Listening attempt 1",
+      "uf": "UF-08",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 66,
+      "stateId": "CD-04",
+      "state": "Listening attempt 2",
+      "uf": "UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 67,
+      "stateId": "CD-05",
+      "state": "Processing",
+      "uf": "UF-08",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 68,
+      "stateId": "CD-06",
+      "state": "Direct command pending",
+      "uf": "UF-08",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 69,
+      "stateId": "CD-07",
+      "state": "Executed",
+      "uf": "UF-08",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 70,
+      "stateId": "CD-08",
+      "state": "Execution failed-safe",
+      "uf": "UF-08",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 71,
+      "stateId": "CD-09",
+      "state": "Confirming one candidate",
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 72,
+      "stateId": "CD-10",
+      "state": "Confirming two artists",
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 73,
+      "stateId": "CD-11",
+      "state": "Confirmed command pending",
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 74,
+      "stateId": "CD-12",
+      "state": "Confirmation failed-safe",
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 75,
+      "stateId": "CD-13",
+      "state": "Artist not found",
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 76,
+      "stateId": "CD-14",
+      "state": "Unknown phrase",
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 77,
+      "stateId": "CD-15",
+      "state": "Unsupported request",
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 78,
+      "stateId": "CD-16",
+      "state": "Missing artist",
+      "uf": "UF-09",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 79,
+      "stateId": "CD-17",
+      "state": "Attempt-one failure",
+      "uf": "UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 80,
+      "stateId": "CD-18",
+      "state": "Retry available",
+      "uf": "UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 81,
+      "stateId": "CD-19",
+      "state": "Attempt-two terminal failure",
+      "uf": "UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "UF-08/09/10 · Voice overlay",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 82,
+      "stateId": "CD-20",
+      "state": "Manual fallback",
+      "uf": "UF-08 / UF-09 / UF-10",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App",
+      "screenOwner": "Initiating manual surface",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 83,
+      "stateId": "CD-21",
+      "state": "Permission denied/revoked",
+      "uf": "UF-10 / UF-12",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-03",
+        "WF-08"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "Permission recovery / Voice overlay",
+      "recoveryOwner": "UF-02 / UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+        "WF-03_PERMISSIONS_GRANTED",
+        "WF-03_PERMISSIONS_DENIED",
+        "WF-03_PERMISSIONS_PERMANENTLY_DENIED",
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 84,
+      "stateId": "CD-22",
+      "state": "Provider/language unavailable",
+      "uf": "UF-10 / UF-12",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-08",
+        "WF-10"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "Voice availability / Settings",
+      "recoveryOwner": "UF-10 / UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY",
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 85,
+      "stateId": "CD-23",
+      "state": "Cloud consent required/declined",
+      "uf": "UF-10 / UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App + provider boundary",
+      "screenOwner": "Settings · Cloud consent",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 86,
+      "stateId": "CD-24",
+      "state": "Cancelled/Exit",
+      "uf": "UF-08 / UF-09 / UF-10",
+      "gs": "GS-04",
+      "priority": "P0",
+      "wf": [
+        "WF-08"
+      ],
+      "ownership": "App + Voice coordinator",
+      "screenOwner": "Voice overlay return/exit",
+      "recoveryOwner": "UF-08 / UF-09 / UF-10",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 87,
+      "stateId": "CE-01",
+      "state": "Stable Playing",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 88,
+      "stateId": "CE-02",
+      "state": "Transient focus/call handling",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 89,
+      "stateId": "CE-03",
+      "state": "Interrupted Paused / resume eligible",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 90,
+      "stateId": "CE-04",
+      "state": "Temporarily Ducked",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 91,
+      "stateId": "CE-05",
+      "state": "Conditional Resume acknowledged",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 92,
+      "stateId": "CE-06",
+      "state": "Safe Paused / manual resume",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 93,
+      "stateId": "CE-07",
+      "state": "Route Disconnect handling",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 94,
+      "stateId": "CE-08",
+      "state": "Disconnected Safe Paused",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 95,
+      "stateId": "CE-09",
+      "state": "Reconnected Safe Paused",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 96,
+      "stateId": "CE-10",
+      "state": "Permanent Focus Loss",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Android/System + Playback Service",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 97,
+      "stateId": "CE-11",
+      "state": "Interruption Policy Error",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 98,
+      "stateId": "CE-12",
+      "state": "Corrupt Current Item",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 99,
+      "stateId": "CE-13",
+      "state": "Controlled Skip",
+      "uf": "UF-11",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 100,
+      "stateId": "CE-14",
+      "state": "Queue Ended by Corruption",
+      "uf": "UF-11",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-11 · Playback/interruption feedback",
+      "recoveryOwner": "UF-11",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 101,
+      "stateId": "CE-15",
+      "state": "Settings Default",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-12 · Settings",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 102,
+      "stateId": "CE-16",
+      "state": "Setting Update Pending",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-12 · Settings result",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 103,
+      "stateId": "CE-17",
+      "state": "Settings Updated / Error",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-12 · Settings result",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 104,
+      "stateId": "CE-18",
+      "state": "Android Settings Handoff",
+      "uf": "UF-12",
+      "gs": "GS-05",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "Android/System",
+      "screenOwner": "Android Settings",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "Android/System-only transition",
+      "lowFiDispositionType": "system-transition",
+      "lowFiEvidenceArtifactIds": [
+        "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF"
+      ],
+      "hifiDisposition": {
+        "type": "SYSTEM_ONLY_HANDOFF",
+        "rule": "Document system-owned transition/handoff; no app high-fidelity destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 105,
+      "stateId": "CE-19",
+      "state": "Platform Recheck",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-12 · Platform recheck",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 106,
+      "stateId": "CE-20",
+      "state": "Bluetooth Selection",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P1",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "Hybrid",
+      "screenOwner": "UF-12 · Bluetooth selection",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 107,
+      "stateId": "CE-21",
+      "state": "Privacy Details",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App + provider boundary",
+      "screenOwner": "UF-12 · Privacy/data controls",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 108,
+      "stateId": "CE-22",
+      "state": "Consent Decision",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App + provider boundary",
+      "screenOwner": "UF-12 · Privacy/data controls",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 109,
+      "stateId": "CE-23",
+      "state": "Clear Selection",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App + provider boundary",
+      "screenOwner": "UF-12 · Privacy/data controls",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 110,
+      "stateId": "CE-24",
+      "state": "Clear Confirmation",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App + provider boundary",
+      "screenOwner": "UF-12 · Clear data",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 111,
+      "stateId": "CE-25",
+      "state": "Clearing",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App + provider boundary",
+      "screenOwner": "UF-12 · Clear data",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 112,
+      "stateId": "CE-26",
+      "state": "Clear Result",
+      "uf": "UF-12",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P0",
+      "wf": [
+        "WF-10"
+      ],
+      "ownership": "App + provider boundary",
+      "screenOwner": "UF-12 · Clear data",
+      "recoveryOwner": "UF-12",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 113,
+      "stateId": "UL-01",
+      "state": "P2 not shipped",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09"
+      ],
+      "ownership": "App build/scope",
+      "screenOwner": "Scope/release configuration",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 114,
+      "stateId": "UL-02",
+      "state": "Entry loading",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 115,
+      "stateId": "UL-03",
+      "state": "Empty",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 116,
+      "stateId": "UL-04",
+      "state": "Ready",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "App-visible Wireframe",
+      "lowFiDispositionType": "app-frame",
+      "lowFiEvidenceArtifactIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "DEDICATED_HIFI",
+        "rule": "Dedicated reviewable high-fidelity visual coverage + paired Markdown spec required.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 117,
+      "stateId": "UL-05",
+      "state": "Like write pending",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-06",
+        "WF-09"
+      ],
+      "ownership": "App + local user-state repository",
+      "screenOwner": "Like control on player/list",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 118,
+      "stateId": "UL-06",
+      "state": "Like acknowledged",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-06",
+        "WF-09"
+      ],
+      "ownership": "App + local user-state repository",
+      "screenOwner": "Like control on player/list",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 119,
+      "stateId": "UL-07",
+      "state": "Mutation failed",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-06",
+        "WF-09"
+      ],
+      "ownership": "App + local user-state repository",
+      "screenOwner": "Like control on player/list",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 120,
+      "stateId": "UL-08",
+      "state": "Unlike write pending",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-06",
+        "WF-09"
+      ],
+      "ownership": "App + local user-state repository",
+      "screenOwner": "Like control on player/list",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 121,
+      "stateId": "UL-09",
+      "state": "Playback command pending",
+      "uf": "UF-13 → UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09",
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "Liked Songs playback",
+      "recoveryOwner": "UF-05 / UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 122,
+      "stateId": "UL-10",
+      "state": "Playback acknowledged",
+      "uf": "UF-13 → UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09",
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "Liked Songs playback",
+      "recoveryOwner": "UF-05 / UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 123,
+      "stateId": "UL-11",
+      "state": "Playback rejected/stale",
+      "uf": "UF-13 → UF-05",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09",
+        "WF-06"
+      ],
+      "ownership": "App + Playback Service",
+      "screenOwner": "Liked Songs playback",
+      "recoveryOwner": "UF-05 / UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 124,
+      "stateId": "UL-12",
+      "state": "Load/reconcile failure",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 125,
+      "stateId": "UL-13",
+      "state": "Missing item reconciliation",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    },
+    {
+      "index": 126,
+      "stateId": "UL-14",
+      "state": "UI recreation",
+      "uf": "UF-13",
+      "gs": "— (not on GS-01..05 path)",
+      "priority": "P2",
+      "wf": [
+        "WF-09"
+      ],
+      "ownership": "App",
+      "screenOwner": "UF-13 · Liked Songs",
+      "recoveryOwner": "UF-13",
+      "lowFiCoverageClass": "Variant/annotation inside a Wireframe",
+      "lowFiDispositionType": "variant-annotation",
+      "lowFiEvidenceArtifactIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "hifiDisposition": {
+        "type": "HIFI_VARIANT_ANNOTATION",
+        "rule": "Represent inside owning high-fidelity screen/component as variant or annotation; no invented destination.",
+        "status": "INITIAL_DISPOSITION_ASSIGNED"
+      }
+    }
+  ]
+}
