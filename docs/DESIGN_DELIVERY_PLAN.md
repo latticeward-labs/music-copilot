@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 2 Design Foundations — PASS / COMPLETE**
+- **Status:** **Current through Issue #17 Phase 3 Component System — PASS / COMPLETE**
 - **Updated:** 3 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -74,13 +74,11 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - Tracking: [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
 - Contract: [Repository-native High-Fidelity Delivery Contract Addendum](ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md)
 - Dedicated execution branch: `issue-17/repository-hifi-delivery`
-- Status: **IN PROGRESS — Phase 2 Design Foundations PASS / COMPLETE**
+- Status: **IN PROGRESS — Phase 3 Component System PASS / COMPLETE**
 - Design System workspace: `docs/design-system/`
 - High-fidelity workspace: `docs/high-fidelity/`
 - Prototype workspace: `docs/prototype/`
 - Handoff workspace: `docs/handoff/`
-
-
 
 ### Phase 1 — frozen design input baseline
 
@@ -91,7 +89,6 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - Frozen baseline commit: `b4ac3bb3ccf299bd282e6d1ba3600b7136dd5669`
 - Result: **PASS — 126/126 states have WF / UF / State / GS / Priority / Ownership and one initial high-fidelity disposition.**
 - Next gate: Phase 2 Design Foundations / Design Tokens. No high-fidelity screen image is approved by Phase 1.
-
 
 ### Phase 2 — visual direction and Design Foundations
 
@@ -105,6 +102,29 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - Exact colors, typography, spacing, radii, elevation and motion values are controlled by Markdown/JSON; the PNG is review evidence only.
 - Result: **PASS / COMPLETE at Design-Foundation level.**
 - Next gate: Phase 3 Component System. No final high-fidelity screen is approved by Phase 2.
+
+### Phase 3 — reusable component system
+
+- Component catalog: [`docs/design-system/components/COMPONENT_CATALOG.md`](design-system/components/COMPONENT_CATALOG.md)
+- Machine-readable component tokens: [`COMPONENT_TOKENS.json`](design-system/components/COMPONENT_TOKENS.json)
+- App-frame component coverage: [`COMPONENT_COVERAGE_MATRIX.md`](design-system/components/COMPONENT_COVERAGE_MATRIX.md)
+- Validation: [`PHASE_3_VALIDATION.md`](design-system/components/PHASE_3_VALIDATION.md)
+- Visual evidence:
+  - [`COMPONENT_BOARD_CORE.png`](design-system/components/COMPONENT_BOARD_CORE.png)
+  - [`COMPONENT_BOARD_PLAYBACK_MEDIA.png`](design-system/components/COMPONENT_BOARD_PLAYBACK_MEDIA.png)
+  - [`COMPONENT_BOARD_VOICE_RECOVERY.png`](design-system/components/COMPONENT_BOARD_VOICE_RECOVERY.png)
+- Result: **PASS — 23 reusable component families; 32/32 approved app-visible frames mapped; no one-off recurring control required by the approved baseline.**
+- All interactive components preserve the minimum 48dp target baseline.
+- Driving variants preserve primary controls at ≥64dp, Mic at ≥72dp and immediate Exit at ≥56dp.
+- Component states preserve Default, Pressed, Focused, Selected, Disabled, Error and Loading behavior without color-only communication.
+- Accessibility rules preserve TalkBack labels/order, visible focus, scalable text and 200% reflow expectations.
+- Playback controls remain UI observers/command senders only; the service-owned MediaSession remains the playback/queue/position authority.
+- Voice feedback remains bounded to Idle, Listening, Processing, Confirming, Executed and Failed.
+- Voice confirmation remains source-locked to 1..2 immutable current candidate labels plus Neither/Cancel recovery actions.
+- Permission and Android-owned surfaces remain system-only handoffs rather than recreated app destinations.
+- P2 Like behavior remains removable and does not block P0 delivery.
+- No final high-fidelity screen is approved by Phase 3.
+- Next gate: Phase 4 primary high-fidelity screen-family generation.
 
 ### Delivery mechanism
 
