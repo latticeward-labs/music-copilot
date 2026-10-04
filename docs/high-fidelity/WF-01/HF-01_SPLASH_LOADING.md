@@ -1,51 +1,88 @@
-# HF-01_SPLASH_LOADING — Splash Loading
+# HF-01_SPLASH_LOADING — Splash — Loading
 
 - **Issue:** #17
-- **Phase:** 4 — High-Fidelity Primary Screen Families
-- **Status:** **APPROVED_BASE_HIFI**
-- **Wireframe source:** `docs/wireframes/app-states/WF-01_SPLASH_LOADING.md`
-- **Image:** [`HF-01_SPLASH_LOADING.png`](HF-01_SPLASH_LOADING.png)
-- **PNG SHA-256:** `b2241a28fae3edb455f554e89537e07dc89ab03107ab9592e08d4ca855d248f3`
+- **Phase:** 4 — Primary High-Fidelity
+- **Status:** **APPROVED_BASE_HIFI / PASS COMPLETE**
+- **Screen family:** `WF-01`
+- **Source Wireframe:** `WF-01_SPLASH_LOADING`
+- **Image:** `HF-01_SPLASH_LOADING.png`
 - **Priority:** **P0**
-- **Ownership:** App
-- **User Flow:** UF-01
-- **Canonical State IDs:** `S-01`
-- **Golden Scenario:** GS-01
+- **Ownership:** **App**
+- **Reference viewport:** **360×800dp**
+- **Rendered PNG:** **1080×2400px (@3×)**
+- **Source package SHA-256:** `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
+- **Phase-3 main baseline:** `b6113b0d094e0c9f5fd55842a80a90528cdc4e4f`
+- **Structural deviation from approved Wireframe:** **NONE**
 
-## Wireframe Hierarchy Lock
+## Traceability
 
-This high-fidelity artifact styles the approved `WF-01` wireframe hierarchy only. It does not add navigation, buttons, destinations, runtime authority, storage behavior, telemetry, backend/account/streaming behavior, Android Auto/iOS scope, wake-word behavior or conversational AI.
+| Field | Value |
+|---|---|
+| User Flow | UF-01 |
+| Canonical State IDs | S-01 |
+| Golden Scenario | GS-01 |
+| Source Wireframe | `docs/wireframes/app-states/WF-01_SPLASH_LOADING.md` |
+| Source low-fidelity visual | `docs/wireframes/app-states/WF-01_SPLASH_LOADING.svg` |
+| Design Foundations | `docs/design-system/foundations/FOUNDATIONS.md` + `TOKENS.json` |
+| Component System | `docs/design-system/components/COMPONENT_CATALOG.md` + `COMPONENT_TOKENS.json` |
 
-## Source Of Truth
+## High-fidelity hierarchy
 
-Verified local migration/readiness and platform state.
+1. Android/system status chrome (system-owned review simulation)
+2. Centered Music Copilot brand mark
+3. Written Loading status
+4. Android/system navigation chrome (system-owned review simulation)
 
-## Approved Primary Action Surface
+The high-fidelity artifact preserves the approved source hierarchy. It does not add a destination, product capability, navigation branch, playback owner, Voice owner, system surface, or P0/P1/P2 scope.
 
-Wait; no repeated action while routing is active.
+## Exact UI copy
 
-## Exact UI Copy
+The image is approved only if these strings appear exactly where applicable. Android/system status-bar time and platform icons are review chrome and are not app-owned UI copy.
 
-The PNG was generated from the copy below. Any image output that changes this copy is not approved.
+1. `MUSIC COPILOT`
+2. `Loading local state…`
 
-| Order | Visible copy |
-|---:|---|
-| 1 | `9:41` |
-| 2 | `Music Copilot` |
-| 3 | `Preparing your local library...` |
-| 4 | `Local files only` |
+**Local rendered-copy validation:** **PASS** — the deterministic render uses the strings above directly rather than image-model text generation.
 
-## Component Foundation Usage
+## Reusable component composition
 
-- Visual direction: Night Signal.
-- Tokens: `docs/design-system/foundations/TOKENS.json`.
-- Component authority: `docs/design-system/components/COMPONENT_TOKENS.json`.
-- Minimum target: 48dp; Driving primary controls preserve >=64dp and Mic >=72dp where applicable.
-- State communication uses text plus shape/symbol; color is never the only cue.
+- `CMP-15` — StatusBlock — Loading
 
-## Accessibility And Review Notes
+## Behavior
 
-- TalkBack order follows the paired `WF-01` behavioral record.
-- Text is specified as implementation copy; PNG text is visual evidence only.
-- App/system boundaries remain owned by their source records.
-- Privacy constraints are preserved: no raw audio, transcript, query/result telemetry or prohibited personal media metadata is introduced.
+- **Primary action:** Wait; no repeated action while routing is active.
+- **Entry:** Cold or warm app start.
+- **Exit:** Verified pending onboarding, permission recovery, or Home/Library state.
+- **Back:** System Back exits the launch task; no in-app Back control.
+- **Recovery:** A bounded startup failure routes to the approved migration-error frame with Retry.
+- **Visible source of truth:** Verified local migration/readiness and platform state.
+
+## Accessibility
+
+- TalkBack: App name → Loading status. No app interaction target is required on the primary state.
+- Global app interaction target minimum remains **48dp**.
+- 200% text scaling/reflow remains a required implementation proof; this static 360×800dp image does not replace runtime Compose verification.
+- Focus, selected, disabled, error and pending meaning must remain non-color-only.
+
+## Privacy / analytics
+
+- No personal media metadata or raw Voice content is shown or exported.
+- Raw Voice audio is not persisted by default.
+- Personal media titles/artists, search queries/results and Voice candidate labels are prohibited from repository analytics/evidence payloads.
+- The sample local-media names visible in this review artifact are non-user test data.
+
+## System boundary
+
+Android-owned permission dialogs, Android Settings, notification/lock-screen/external controls and platform status chrome remain system-owned. A visual annotation or simulated status bar in this review image does not create an app-owned system screen.
+
+## Review gate
+
+Before Phase 4 is recorded as PASS / COMPLETE:
+
+- [x] PNG visibly renders in GitHub.
+- [x] PNG hierarchy matches `WF-01_SPLASH_LOADING`.
+- [x] Exact UI copy matches this file.
+- [x] No new navigation, control, capability or destination was introduced.
+- [x] Component usage remains compatible with Phase 3.
+- [x] Accessibility/privacy/system-boundary notes remain intact.
+

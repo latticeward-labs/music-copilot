@@ -1,57 +1,101 @@
-# HF-07_DRIVING_MODE_PLAYING — Driving Mode Playing
+# HF-07_DRIVING_MODE_PLAYING — Driving Mode — Playing
 
 - **Issue:** #17
-- **Phase:** 4 — High-Fidelity Primary Screen Families
-- **Status:** **APPROVED_BASE_HIFI**
-- **Wireframe source:** `docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.md`
-- **Image:** [`HF-07_DRIVING_MODE_PLAYING.png`](HF-07_DRIVING_MODE_PLAYING.png)
-- **PNG SHA-256:** `e23b63d1280c63e29bb9434c54290b3e892e4ca11eb86a70b9b217c3c8b27899`
+- **Phase:** 4 — Primary High-Fidelity
+- **Status:** **APPROVED_BASE_HIFI / PASS COMPLETE**
+- **Screen family:** `WF-07`
+- **Source Wireframe:** `WF-07_DRIVING_MODE_PLAYING`
+- **Image:** `HF-07_DRIVING_MODE_PLAYING.png`
 - **Priority:** **P0**
-- **Ownership:** App + Playback Service
-- **User Flow:** UF-07 / UF-11
-- **Canonical State IDs:** `CC-05, CC-14, CC-16`
-- **Golden Scenario:** GS-04 / GS-05
+- **Ownership:** **App + Playback Service**
+- **Reference viewport:** **360×800dp**
+- **Rendered PNG:** **1080×2400px (@3×)**
+- **Source package SHA-256:** `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
+- **Phase-3 main baseline:** `b6113b0d094e0c9f5fd55842a80a90528cdc4e4f`
+- **Structural deviation from approved Wireframe:** **NONE**
 
-## Wireframe Hierarchy Lock
+## Traceability
 
-This high-fidelity artifact styles the approved `WF-07` wireframe hierarchy only. It does not add navigation, buttons, destinations, runtime authority, storage behavior, telemetry, backend/account/streaming behavior, Android Auto/iOS scope, wake-word behavior or conversational AI.
+| Field | Value |
+|---|---|
+| User Flow | UF-07, UF-11 |
+| Canonical State IDs | CC-05, CC-14, CC-16 |
+| Golden Scenario | GS-04, GS-05 |
+| Source Wireframe | `docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.md` |
+| Source low-fidelity visual | `docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg` |
+| Design Foundations | `docs/design-system/foundations/FOUNDATIONS.md` + `TOKENS.json` |
+| Component System | `docs/design-system/components/COMPONENT_CATALOG.md` + `COMPONENT_TOKENS.json` |
 
-## Source Of Truth
+## High-fidelity hierarchy
 
-Complete MediaSessionService snapshot and supported actions.
+1. Single-layer Driving header + immediate Exit
+2. Subordinate artwork
+3. Large title/artist + written Playing state
+4. Fixed Previous / Pause / Next / Seek Back controls
+5. Large push-to-talk Mic
+6. Single-layer restriction note
 
-## Approved Primary Action Surface
+The high-fidelity artifact preserves the approved source hierarchy. It does not add a destination, product capability, navigation branch, playback owner, Voice owner, system surface, or P0/P1/P2 scope.
 
-Pause; four large controls, Mic and Exit remain fixed.
+## Exact UI copy
 
-## Exact UI Copy
+The image is approved only if these strings appear exactly where applicable. Android/system status-bar time and platform icons are review chrome and are not app-owned UI copy.
 
-The PNG was generated from the copy below. Any image output that changes this copy is not approved.
+1. `DRIVING MODE`
+2. `Exit`
+3. `ARTWORK`
+4. `Aurora Lights`
+5. `Local artist`
+6. `PLAYING`
+7. `-10s`
+8. `Mic · Voice`
+9. `One layer · no typing · no lists`
 
-| Order | Visible copy |
-|---:|---|
-| 1 | `9:41` |
-| 2 | `Playing` |
-| 3 | `Night Drive` |
-| 4 | `Local Artist` |
-| 5 | `Prev` |
-| 6 | `Pause` |
-| 7 | `Next` |
-| 8 | `-10s` |
-| 9 | `Voice` |
-| 10 | `Exit` |
+**Local rendered-copy validation:** **PASS** — the deterministic render uses the strings above directly rather than image-model text generation.
 
-## Component Foundation Usage
+## Reusable component composition
 
-- Visual direction: Night Signal.
-- Tokens: `docs/design-system/foundations/TOKENS.json`.
-- Component authority: `docs/design-system/components/COMPONENT_TOKENS.json`.
-- Minimum target: 48dp; Driving primary controls preserve >=64dp and Mic >=72dp where applicable.
-- State communication uses text plus shape/symbol; color is never the only cue.
+- `CMP-01` — ActionButton — Exit
+- `CMP-08` — Artwork — Driving
+- `CMP-07` — TrackMetadata — Driving
+- `CMP-05` — PlaybackControls — DrivingQuad
+- `CMP-06` — MicControl — Driving
 
-## Accessibility And Review Notes
+## Behavior
 
-- TalkBack order follows the paired `WF-07` behavioral record.
-- Text is specified as implementation copy; PNG text is visual evidence only.
-- App/system boundaries remain owned by their source records.
-- Privacy constraints are preserved: no raw audio, transcript, query/result telemetry or prohibited personal media metadata is introduced.
+- **Primary action:** Pause; four large controls, Mic and Exit remain fixed.
+- **Entry:** Explicit Driving Mode entry with a complete Playing snapshot.
+- **Exit:** Exit is immediate; Mic opens an overlay, not a destination.
+- **Back:** Back behaves as Exit and returns to the prior non-driving surface.
+- **Recovery:** Pending/rejected commands refresh actual state; route events hand off to UF-11.
+- **Visible source of truth:** Complete MediaSessionService snapshot and supported actions.
+
+## Accessibility
+
+- TalkBack: Playing → title/artist → Previous → Pause → Next → Seek back → Mic → Exit. Driving control sizes use Phase-2 overrides.
+- Global app interaction target minimum remains **48dp**.
+- 200% text scaling/reflow remains a required implementation proof; this static 360×800dp image does not replace runtime Compose verification.
+- Focus, selected, disabled, error and pending meaning must remain non-color-only.
+
+## Privacy / analytics
+
+- No typing, search, long list, Settings, permission or consent UI; personal metadata stays local presentation only.
+- Raw Voice audio is not persisted by default.
+- Personal media titles/artists, search queries/results and Voice candidate labels are prohibited from repository analytics/evidence payloads.
+- The sample local-media names visible in this review artifact are non-user test data.
+
+## System boundary
+
+Android-owned permission dialogs, Android Settings, notification/lock-screen/external controls and platform status chrome remain system-owned. A visual annotation or simulated status bar in this review image does not create an app-owned system screen.
+
+## Review gate
+
+Before Phase 4 is recorded as PASS / COMPLETE:
+
+- [x] PNG visibly renders in GitHub.
+- [x] PNG hierarchy matches `WF-07_DRIVING_MODE_PLAYING`.
+- [x] Exact UI copy matches this file.
+- [x] No new navigation, control, capability or destination was introduced.
+- [x] Component usage remains compatible with Phase 3.
+- [x] Accessibility/privacy/system-boundary notes remain intact.
+
