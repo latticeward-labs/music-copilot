@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 4 High-Fidelity Primary Screen Families — PASS / COMPLETE**
+- **Status:** **Current through Issue #17 Phase 4 Primary High-Fidelity — PASS / COMPLETE**
 - **Updated:** 4 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -74,7 +74,7 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - Tracking: [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
 - Contract: [Repository-native High-Fidelity Delivery Contract Addendum](ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md)
 - Dedicated execution branch: `issue-17/repository-hifi-delivery`
-- Status: **IN PROGRESS — Phase 4 High-Fidelity Primary Screen Families PASS / COMPLETE**
+- Status: **IN PROGRESS — Phase 4 Primary High-Fidelity PASS / COMPLETE**
 - Design System workspace: `docs/design-system/`
 - High-fidelity workspace: `docs/high-fidelity/`
 - Prototype workspace: `docs/prototype/`
@@ -126,26 +126,23 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - No final high-fidelity screen is approved by Phase 3.
 - Next gate: Phase 4 primary high-fidelity screen-family generation.
 
-### Phase 4 — primary high-fidelity screen-family generation
+### Phase 4 — primary high-fidelity screen families
 
-- High-fidelity index: [`docs/high-fidelity/README.md`](high-fidelity/README.md)
-- Machine-readable register: [`PHASE_4_REGISTER.json`](high-fidelity/PHASE_4_REGISTER.json)
+- Index: [`docs/high-fidelity/README.md`](high-fidelity/README.md)
+- Machine-readable primary register: [`PHASE_4_PRIMARY_REGISTER.json`](high-fidelity/PHASE_4_PRIMARY_REGISTER.json)
 - Validation: [`PHASE_4_VALIDATION.md`](high-fidelity/PHASE_4_VALIDATION.md)
-- Approved base images/specs:
-  - [`HF-01_SPLASH_LOADING.png`](high-fidelity/WF-01/HF-01_SPLASH_LOADING.png) + paired spec
-  - [`HF-02_ONBOARDING_SLIDE_1.png`](high-fidelity/WF-02/HF-02_ONBOARDING_SLIDE_1.png) + paired spec
-  - [`HF-03_PERMISSIONS_RATIONALE_REQUEST.png`](high-fidelity/WF-03/HF-03_PERMISSIONS_RATIONALE_REQUEST.png) + paired spec
-  - [`HF-04_HOME_LIBRARY_READY.png`](high-fidelity/WF-04/HF-04_HOME_LIBRARY_READY.png) + paired spec
-  - [`HF-05_SEARCH_RESULTS.png`](high-fidelity/WF-05/HF-05_SEARCH_RESULTS.png) + paired spec
-  - [`HF-06_FULL_PLAYER_PLAYING.png`](high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.png) + paired spec
-  - [`HF-07_DRIVING_MODE_PLAYING.png`](high-fidelity/WF-07/HF-07_DRIVING_MODE_PLAYING.png) + paired spec
-  - [`HF-08_VOICE_LISTENING.png`](high-fidelity/WF-08/HF-08_VOICE_LISTENING.png) + paired spec
-  - [`HF-09_LIKED_SONGS_READY.png`](high-fidelity/WF-09/HF-09_LIKED_SONGS_READY.png) + paired spec
-  - [`HF-10_SETTINGS_DEFAULT.png`](high-fidelity/WF-10/HF-10_SETTINGS_DEFAULT.png) + paired spec
-- Result: **PASS — 10/10 screen families have an approved base High-Fidelity PNG with exact UI copy recorded in the paired Markdown spec.**
-- Scope lock: High-fidelity images style the approved `WF-*` hierarchy only and do not add navigation, buttons, destinations or capabilities.
-- Next gate: Phase 5 high-fidelity variants, recoveries and remaining state dispositions.
-
+- Visual review board: [`PHASE_4_PRIMARY_BOARD.png`](high-fidelity/PHASE_4_PRIMARY_BOARD.png)
+- Primary coverage: **10/10 required screen families**, one source-locked high-fidelity base state each.
+- Paired artifact contract: **10 PNG + 10 Markdown specs** under `docs/high-fidelity/WF-01/` through `WF-10/`.
+- Source hierarchy preservation: **0 structural deviations** from the owning `WF-*` baseline.
+- Copy control: exact visible UI copy is recorded in every paired Markdown spec and deterministic local render validation is PASS.
+- Navigation/scope: **0 new navigation destinations, controls or product capabilities** introduced by Phase 4.
+- Android/system boundaries remain external/system-owned.
+- Playback and Voice ownership remain unchanged from final architecture.
+- Driving primary artifact preserves one layer, immediate Exit, fixed large controls and no typing/deep navigation/long lists.
+- Liked Songs remains visibly **P2 / Removable**.
+- Result: **PASS / COMPLETE at Primary High-Fidelity level.**
+- Next gate: Phase 5 full high-fidelity state/recovery coverage. Phase 4 does not claim that all 126 states have final Hi-Fi coverage.
 
 ### Delivery mechanism
 

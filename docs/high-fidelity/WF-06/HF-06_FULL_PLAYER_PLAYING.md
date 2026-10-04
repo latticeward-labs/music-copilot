@@ -1,60 +1,100 @@
-# HF-06_FULL_PLAYER_PLAYING — Full Player Playing
+# HF-06_FULL_PLAYER_PLAYING — Full Player — Playing
 
 - **Issue:** #17
-- **Phase:** 4 — High-Fidelity Primary Screen Families
-- **Status:** **APPROVED_BASE_HIFI**
-- **Wireframe source:** `docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.md`
-- **Image:** [`HF-06_FULL_PLAYER_PLAYING.png`](HF-06_FULL_PLAYER_PLAYING.png)
-- **PNG SHA-256:** `c7df3dae9dcc89c02151cefa24293110e87b557c8c5bc5ceea8226873cc68080`
+- **Phase:** 4 — Primary High-Fidelity
+- **Status:** **APPROVED_BASE_HIFI / PASS COMPLETE**
+- **Screen family:** `WF-06`
+- **Source Wireframe:** `WF-06_FULL_PLAYER_PLAYING`
+- **Image:** `HF-06_FULL_PLAYER_PLAYING.png`
 - **Priority:** **P0**
-- **Ownership:** App + Playback Service
-- **User Flow:** UF-05 / UF-06 / UF-11
-- **Canonical State IDs:** `CB-15`
-- **Golden Scenario:** GS-02 / GS-03 / GS-05
+- **Ownership:** **App + Playback Service**
+- **Reference viewport:** **360×800dp**
+- **Rendered PNG:** **1080×2400px (@3×)**
+- **Source package SHA-256:** `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
+- **Phase-3 main baseline:** `b6113b0d094e0c9f5fd55842a80a90528cdc4e4f`
+- **Structural deviation from approved Wireframe:** **NONE**
 
-## Wireframe Hierarchy Lock
+## Traceability
 
-This high-fidelity artifact styles the approved `WF-06` wireframe hierarchy only. It does not add navigation, buttons, destinations, runtime authority, storage behavior, telemetry, backend/account/streaming behavior, Android Auto/iOS scope, wake-word behavior or conversational AI.
+| Field | Value |
+|---|---|
+| User Flow | UF-05, UF-06, UF-11 |
+| Canonical State IDs | CB-15 |
+| Golden Scenario | GS-02, GS-03, GS-05 |
+| Source Wireframe | `docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.md` |
+| Source low-fidelity visual | `docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg` |
+| Design Foundations | `docs/design-system/foundations/FOUNDATIONS.md` + `TOKENS.json` |
+| Component System | `docs/design-system/components/COMPONENT_CATALOG.md` + `COMPONENT_TOKENS.json` |
 
-## Source Of Truth
+## High-fidelity hierarchy
 
-MediaSessionService snapshot: item, queue, state, position and supported actions.
+1. Back affordance + Now playing app bar + Queue action
+2. 1:1 artwork
+3. Title and artist metadata
+4. Seek/progress band with elapsed/total time
+5. Previous / Pause / Next controls
+6. Written Playing state
 
-## Approved Primary Action Surface
+The high-fidelity artifact preserves the approved source hierarchy. It does not add a destination, product capability, navigation branch, playback owner, Voice owner, system surface, or P0/P1/P2 scope.
 
-Pause; Next/Previous/Seek/Queue remain available as supported.
+## Exact UI copy
 
-## Exact UI Copy
+The image is approved only if these strings appear exactly where applicable. Android/system status-bar time and platform icons are review chrome and are not app-owned UI copy.
 
-The PNG was generated from the copy below. Any image output that changes this copy is not approved.
+1. `Now playing`
+2. `Queue`
+3. `ARTWORK`
+4. `Aurora Lights`
+5. `Local artist`
+6. `01:26`
+7. `03:42`
+8. `PLAYING`
 
-| Order | Visible copy |
-|---:|---|
-| 1 | `9:41` |
-| 2 | `Now playing` |
-| 3 | `Night Drive` |
-| 4 | `Local Artist` |
-| 5 | `1:24` |
-| 6 | `3:42` |
-| 7 | `Previous` |
-| 8 | `Pause` |
-| 9 | `Next` |
-| 10 | `Driving` |
-| 11 | `Mic` |
-| 12 | `Up next` |
-| 13 | `Morning Signal` |
+**Local rendered-copy validation:** **PASS** — the deterministic render uses the strings above directly rather than image-model text generation.
 
-## Component Foundation Usage
+## Reusable component composition
 
-- Visual direction: Night Signal.
-- Tokens: `docs/design-system/foundations/TOKENS.json`.
-- Component authority: `docs/design-system/components/COMPONENT_TOKENS.json`.
-- Minimum target: 48dp; Driving primary controls preserve >=64dp and Mic >=72dp where applicable.
-- State communication uses text plus shape/symbol; color is never the only cue.
+- `CMP-03` — AppBar
+- `CMP-08` — Artwork
+- `CMP-07` — TrackMetadata
+- `CMP-13` — ProgressSeek
+- `CMP-05` — PlaybackControls — StandardTriple
 
-## Accessibility And Review Notes
+## Behavior
 
-- TalkBack order follows the paired `WF-06` behavioral record.
-- Text is specified as implementation copy; PNG text is visual evidence only.
-- App/system boundaries remain owned by their source records.
-- Privacy constraints are preserved: no raw audio, transcript, query/result telemetry or prohibited personal media metadata is introduced.
+- **Primary action:** Pause; Next/Previous/Seek/Queue remain available as supported.
+- **Entry:** MediaSessionService acknowledges playback with a valid item.
+- **Exit:** Back keeps playback; Driving Mode requires explicit entry; Queue remains same authority.
+- **Back:** Returns to initiating app surface without stopping playback.
+- **Recovery:** Command/controller failure refreshes actual snapshot; corrupt item uses bounded recovery.
+- **Visible source of truth:** MediaSessionService snapshot: item, queue, state, position and supported actions.
+
+## Accessibility
+
+- TalkBack: Now playing → title/artist → position → Previous → Pause → Next → Queue.
+- Global app interaction target minimum remains **48dp**.
+- 200% text scaling/reflow remains a required implementation proof; this static 360×800dp image does not replace runtime Compose verification.
+- Focus, selected, disabled, error and pending meaning must remain non-color-only.
+
+## Privacy / analytics
+
+- Track title/artist and precise position are presentation-only; precise position/personal metadata are prohibited from telemetry.
+- Raw Voice audio is not persisted by default.
+- Personal media titles/artists, search queries/results and Voice candidate labels are prohibited from repository analytics/evidence payloads.
+- The sample local-media names visible in this review artifact are non-user test data.
+
+## System boundary
+
+Android-owned permission dialogs, Android Settings, notification/lock-screen/external controls and platform status chrome remain system-owned. A visual annotation or simulated status bar in this review image does not create an app-owned system screen.
+
+## Review gate
+
+Before Phase 4 is recorded as PASS / COMPLETE:
+
+- [x] PNG visibly renders in GitHub.
+- [x] PNG hierarchy matches `WF-06_FULL_PLAYER_PLAYING`.
+- [x] Exact UI copy matches this file.
+- [x] No new navigation, control, capability or destination was introduced.
+- [x] Component usage remains compatible with Phase 3.
+- [x] Accessibility/privacy/system-boundary notes remain intact.
+

@@ -1,0 +1,290 @@
+{
+  "name": "Issue #17 Phase 4 Primary High-Fidelity Register",
+  "version": "1.0.0",
+  "date": "2026-10-04",
+  "issue": 17,
+  "phase": 4,
+  "status": "PASS_COMPLETE_APPROVED_PRIMARY_HIFI",
+  "source": {
+    "attachedArchiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "phase3MainBaseline": "b6113b0d094e0c9f5fd55842a80a90528cdc4e4f",
+    "wireframesRoot": "docs/wireframes/app-states/",
+    "foundations": "docs/design-system/foundations/",
+    "components": "docs/design-system/components/"
+  },
+  "render": {
+    "referenceViewportDp": {
+      "width": 360,
+      "height": 800
+    },
+    "pngPixels": {
+      "width": 1080,
+      "height": 2400
+    },
+    "scale": 3,
+    "theme": "Night Signal",
+    "font": "Roboto"
+  },
+  "rules": {
+    "structuralDeviationAllowed": false,
+    "newNavigationAllowed": false,
+    "newProductCapabilitiesAllowed": false,
+    "systemOwnedSurfacesAsAppScreensAllowed": false,
+    "exactUiCopyRequired": true,
+    "globalMinTouchDp": 48,
+    "drivingControlMinDp": 64,
+    "drivingMicMinDp": 72,
+    "drivingExitMinDp": 56
+  },
+  "artifacts": [
+    {
+      "id": "HF-01_SPLASH_LOADING",
+      "screenFamily": "WF-01",
+      "sourceWireframe": "WF-01_SPLASH_LOADING",
+      "image": "docs/high-fidelity/WF-01/HF-01_SPLASH_LOADING.png",
+      "spec": "docs/high-fidelity/WF-01/HF-01_SPLASH_LOADING.md",
+      "priority": "P0",
+      "ownership": "App",
+      "userFlows": [
+        "UF-01"
+      ],
+      "canonicalStates": [
+        "S-01"
+      ],
+      "goldenScenarios": [
+        "GS-01"
+      ],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "bbe9ab96d248b01374822c2d67c3678643dcf9d635ec30fe39dead1b7cefd58a"
+    },
+    {
+      "id": "HF-02_ONBOARDING_SLIDE_1",
+      "screenFamily": "WF-02",
+      "sourceWireframe": "WF-02_ONBOARDING_SLIDE_1",
+      "image": "docs/high-fidelity/WF-02/HF-02_ONBOARDING_SLIDE_1.png",
+      "spec": "docs/high-fidelity/WF-02/HF-02_ONBOARDING_SLIDE_1.md",
+      "priority": "P0",
+      "ownership": "App",
+      "userFlows": [
+        "UF-01"
+      ],
+      "canonicalStates": [
+        "S-02"
+      ],
+      "goldenScenarios": [
+        "GS-01"
+      ],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "4a84bfb50e6127e1d3d8838a42145a3abbdb0e52a5aeee526a1adbfb68ad4169"
+    },
+    {
+      "id": "HF-03_PERMISSIONS_RATIONALE_REQUEST",
+      "screenFamily": "WF-03",
+      "sourceWireframe": "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+      "image": "docs/high-fidelity/WF-03/HF-03_PERMISSIONS_RATIONALE_REQUEST.png",
+      "spec": "docs/high-fidelity/WF-03/HF-03_PERMISSIONS_RATIONALE_REQUEST.md",
+      "priority": "P0",
+      "ownership": "Hybrid",
+      "userFlows": [
+        "UF-02",
+        "UF-10",
+        "UF-12"
+      ],
+      "canonicalStates": [
+        "S-03",
+        "CA-02",
+        "SYS-01",
+        "SYS-02"
+      ],
+      "goldenScenarios": [
+        "GS-01"
+      ],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "996c44a3ebf1eb2f177fc8b9db5b124848a14421b8516c3ceab1d971ee6c5332"
+    },
+    {
+      "id": "HF-04_HOME_LIBRARY_READY",
+      "screenFamily": "WF-04",
+      "sourceWireframe": "WF-04_HOME_LIBRARY_READY",
+      "image": "docs/high-fidelity/WF-04/HF-04_HOME_LIBRARY_READY.png",
+      "spec": "docs/high-fidelity/WF-04/HF-04_HOME_LIBRARY_READY.md",
+      "priority": "P0",
+      "ownership": "App",
+      "userFlows": [
+        "UF-03",
+        "UF-04"
+      ],
+      "canonicalStates": [
+        "S-04",
+        "CB-01",
+        "CB-20"
+      ],
+      "goldenScenarios": [
+        "GS-01",
+        "GS-02"
+      ],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "b55498321e9fefb08f14b7223d93dba64a69fd6969375ac8341b23fe51c539ba"
+    },
+    {
+      "id": "HF-05_SEARCH_RESULTS",
+      "screenFamily": "WF-05",
+      "sourceWireframe": "WF-05_SEARCH_RESULTS",
+      "image": "docs/high-fidelity/WF-05/HF-05_SEARCH_RESULTS.png",
+      "spec": "docs/high-fidelity/WF-05/HF-05_SEARCH_RESULTS.md",
+      "priority": "P0",
+      "ownership": "App",
+      "userFlows": [
+        "UF-04"
+      ],
+      "canonicalStates": [
+        "CB-09",
+        "CB-10",
+        "CB-13"
+      ],
+      "goldenScenarios": [
+        "GS-02"
+      ],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "b09a2829180d49a11d1ee19b2a027fd052ce51e1076a8982bbad6ac385047321"
+    },
+    {
+      "id": "HF-06_FULL_PLAYER_PLAYING",
+      "screenFamily": "WF-06",
+      "sourceWireframe": "WF-06_FULL_PLAYER_PLAYING",
+      "image": "docs/high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.png",
+      "spec": "docs/high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.md",
+      "priority": "P0",
+      "ownership": "App + Playback Service",
+      "userFlows": [
+        "UF-05",
+        "UF-06",
+        "UF-11"
+      ],
+      "canonicalStates": [
+        "CB-15"
+      ],
+      "goldenScenarios": [
+        "GS-02",
+        "GS-03",
+        "GS-05"
+      ],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "d3bf6a85fc04a498e7f9c6b69f8fd952f0130eab8550460c0a7c3fa7a7649292"
+    },
+    {
+      "id": "HF-07_DRIVING_MODE_PLAYING",
+      "screenFamily": "WF-07",
+      "sourceWireframe": "WF-07_DRIVING_MODE_PLAYING",
+      "image": "docs/high-fidelity/WF-07/HF-07_DRIVING_MODE_PLAYING.png",
+      "spec": "docs/high-fidelity/WF-07/HF-07_DRIVING_MODE_PLAYING.md",
+      "priority": "P0",
+      "ownership": "App + Playback Service",
+      "userFlows": [
+        "UF-07",
+        "UF-11"
+      ],
+      "canonicalStates": [
+        "CC-05",
+        "CC-14",
+        "CC-16"
+      ],
+      "goldenScenarios": [
+        "GS-04",
+        "GS-05"
+      ],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "f6a52c65fde0a5aacbccdcd8f5079874a74e0da6cd27daf80cfde440e296763d"
+    },
+    {
+      "id": "HF-08_VOICE_LISTENING",
+      "screenFamily": "WF-08",
+      "sourceWireframe": "WF-08_VOICE_LISTENING",
+      "image": "docs/high-fidelity/WF-08/HF-08_VOICE_LISTENING.png",
+      "spec": "docs/high-fidelity/WF-08/HF-08_VOICE_LISTENING.md",
+      "priority": "P0",
+      "ownership": "App + Voice Coordinator",
+      "userFlows": [
+        "UF-08",
+        "UF-09",
+        "UF-10"
+      ],
+      "canonicalStates": [
+        "CD-03",
+        "CC-14"
+      ],
+      "goldenScenarios": [
+        "GS-04 recovery path"
+      ],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "96769259e5b4655dfda41292b7ae71718ee0ae93055ec83081b1096432674da8"
+    },
+    {
+      "id": "HF-09_LIKED_SONGS_READY",
+      "screenFamily": "WF-09",
+      "sourceWireframe": "WF-09_LIKED_SONGS_READY",
+      "image": "docs/high-fidelity/WF-09/HF-09_LIKED_SONGS_READY.png",
+      "spec": "docs/high-fidelity/WF-09/HF-09_LIKED_SONGS_READY.md",
+      "priority": "P2 / Removable",
+      "ownership": "App",
+      "userFlows": [
+        "UF-13"
+      ],
+      "canonicalStates": [
+        "UL-04",
+        "UL-09",
+        "UL-10",
+        "UL-12"
+      ],
+      "goldenScenarios": [],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "39610b81d84f514a52aa1c769974287404e8ced08b6910f09875f40372ca94c1"
+    },
+    {
+      "id": "HF-10_SETTINGS_DEFAULT",
+      "screenFamily": "WF-10",
+      "sourceWireframe": "WF-10_SETTINGS_DEFAULT",
+      "image": "docs/high-fidelity/WF-10/HF-10_SETTINGS_DEFAULT.png",
+      "spec": "docs/high-fidelity/WF-10/HF-10_SETTINGS_DEFAULT.md",
+      "priority": "P0",
+      "ownership": "App + platform/provider boundary",
+      "userFlows": [
+        "UF-12"
+      ],
+      "canonicalStates": [
+        "CE-15",
+        "CE-21",
+        "CE-22"
+      ],
+      "goldenScenarios": [],
+      "structuralDeviation": "NONE",
+      "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
+      "githubVisualReview": "PASS_REVIEWED",
+      "pngSha256": "e2c0579d2703fb2fdc10d396aa48a2a14194db7f5e041fc2206a53dda817661d"
+    }
+  ],
+  "review": {
+    "localVisualReview": "PASS",
+    "artifactIntegrity": "PASS",
+    "exactCopyReview": "PASS",
+    "status": "PASS_COMPLETE_READY_FOR_MERGE"
+  }
+}
