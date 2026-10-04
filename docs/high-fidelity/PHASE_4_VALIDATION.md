@@ -54,7 +54,7 @@
 The primary renders compose the approved Phase-3 component contracts rather than inventing detached one-off interaction patterns.
 
 - App bars / bottom navigation: `CMP-03`, `CMP-04`
-- Playback / Mic: `CMP-05`, `CMP-06`
+- Playback / Mic / Driving entry: `CMP-05`, `CMP-06`, `CMP-01`
 - Metadata / artwork / mini-player: `CMP-07`, `CMP-08`, `CMP-09`
 - Search / media rows: `CMP-10`, `CMP-11`
 - Permission / system handoff: `CMP-14`, `CMP-21`
@@ -68,6 +68,13 @@ The primary renders compose the approved Phase-3 component contracts rather than
 Exact UI copy is listed in every paired `HF-*.md` file. The PNGs were rendered deterministically from those strings, avoiding image-model spelling/text artifacts.
 
 GitHub visual review confirms the uploaded PNG set is intended, not corrupted/cropped, and controlled by paired exact-copy specs.
+
+## Phase 4 Correction — WF-06 Driving Entry
+
+- **Finding:** The replacement package rendered `HF-06_FULL_PLAYER_PLAYING` without a visible `Driving` entry action.
+- **Correction:** `HF-06_FULL_PLAYER_PLAYING.png` and its paired spec now include explicit `Driving` copy/action.
+- **Scope:** This exposes the already-approved transition from WF-06 to WF-07; it does not add a new destination, product capability, playback owner or Voice owner.
+- **Result:** PASS.
 
 ## Ownership / runtime validation
 
@@ -90,7 +97,7 @@ No raw Voice audio/transcript is persisted by the design. Personal media titles/
 - `HF-03_PERMISSIONS_RATIONALE_REQUEST.png` — SHA-256 `996c44a3ebf1eb2f177fc8b9db5b124848a14421b8516c3ceab1d971ee6c5332`
 - `HF-04_HOME_LIBRARY_READY.png` — SHA-256 `b55498321e9fefb08f14b7223d93dba64a69fd6969375ac8341b23fe51c539ba`
 - `HF-05_SEARCH_RESULTS.png` — SHA-256 `b09a2829180d49a11d1ee19b2a027fd052ce51e1076a8982bbad6ac385047321`
-- `HF-06_FULL_PLAYER_PLAYING.png` — SHA-256 `d3bf6a85fc04a498e7f9c6b69f8fd952f0130eab8550460c0a7c3fa7a7649292`
+- `HF-06_FULL_PLAYER_PLAYING.png` — SHA-256 `61aa7e8856947f41eab9a40de70993dbb7e6e85bfe6b778fdf589f3d6256b6fe`
 - `HF-07_DRIVING_MODE_PLAYING.png` — SHA-256 `f6a52c65fde0a5aacbccdcd8f5079874a74e0da6cd27daf80cfde440e296763d`
 - `HF-08_VOICE_LISTENING.png` — SHA-256 `96769259e5b4655dfda41292b7ae71718ee0ae93055ec83081b1096432674da8`
 - `HF-09_LIKED_SONGS_READY.png` — SHA-256 `39610b81d84f514a52aa1c769974287404e8ced08b6910f09875f40372ca94c1`
