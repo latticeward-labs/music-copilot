@@ -35,7 +35,7 @@
 | Limited motion | Required | **PASS** |
 | System-only boundaries preserved | Required | **PASS** |
 | Theme setting invented | 0 | **PASS — none introduced** |
-| Backend/account/streaming scope introduced | 0 | **PASS — none introduced** |
+| Out-of-scope service capabilities | 0 | **PASS — none introduced** |
 | Machine-readable token file | Valid JSON structure | **PASS** |
 | Visual board | PNG review evidence | **PASS — repository blob `9eb01095e5fc5740a38b73a69f69d0c4402a372d`** |
 
