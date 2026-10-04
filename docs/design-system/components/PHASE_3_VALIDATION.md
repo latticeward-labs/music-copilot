@@ -92,16 +92,11 @@ Confirming rules:
 
 ## Scope/privacy validation
 
-No new:
-- backend
-- account/auth
-- sync
-- streaming/online catalog
-- Android Auto
-- iOS
-- wake word
-- open conversational AI
-- transcript/raw-audio persistence
+Phase 3 remains strictly within the approved MVP scope defined by PRD/MVP and ADR-0006.
+
+This component-system phase does not alter product capabilities, platform targets, account model, media-source model, Voice interaction model, or persistence boundaries.
+
+The approved local-first Android MVP scope remains unchanged.
 
 Personal titles, artists, albums, search queries/results and Voice candidate labels remain local presentation content and are prohibited from telemetry/evidence.
 
