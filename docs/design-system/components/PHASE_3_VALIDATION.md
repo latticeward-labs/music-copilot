@@ -4,7 +4,7 @@
 - **Issue:** #17
 - **Base commit:** `ee7685b4520953b8bab47ce16091fb8924f053cc`
 - **Attached source archive SHA-256:** `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`
-- **Result before GitHub commit:** **PASS CANDIDATE - artifact set validated locally**
+- **Result:** **PASS CANDIDATE — repository artifacts uploaded and validation evidence prepared for PR review**
 
 ## Structural validation
 
