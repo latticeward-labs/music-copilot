@@ -182,7 +182,8 @@
       "structuralDeviation": "NONE",
       "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
       "githubVisualReview": "PASS_REVIEWED",
-      "pngSha256": "d3bf6a85fc04a498e7f9c6b69f8fd952f0130eab8550460c0a7c3fa7a7649292"
+      "pngSha256": "61aa7e8856947f41eab9a40de70993dbb7e6e85bfe6b778fdf589f3d6256b6fe",
+      "phase4Correction": "Added explicit Driving entry action required for WF-06 to WF-07 transition; no new capability introduced."
     },
     {
       "id": "HF-07_DRIVING_MODE_PLAYING",
@@ -285,6 +286,7 @@
     "localVisualReview": "PASS",
     "artifactIntegrity": "PASS",
     "exactCopyReview": "PASS",
-    "status": "PASS_COMPLETE_READY_FOR_MERGE"
+    "status": "PASS_COMPLETE_READY_FOR_MERGE",
+    "hf06DrivingEntryCorrection": "PASS"
   }
 }
