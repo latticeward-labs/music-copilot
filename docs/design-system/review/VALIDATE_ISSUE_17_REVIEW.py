@@ -94,7 +94,7 @@ assert "VoiceSessionCoordinator" in screens
 assert "MediaSessionService" in screens
 assert "WF-09" in rev and "P2" in rev
 assert "PH11-MIN-004" in rev and "manual" in rev.lower()
-assert "not a faithful simulation of Android Back" in rev
+assert "replays the demonstrator\'s traversal history" in rev and "not a faithful simulation of Android Back" in rev.replace("**not**", "not")
 # All named review evidence appears with explicit scope non-claims.
 for phrase in ("OPEN downstream","NOT RUN","human"):
     assert phrase.lower() in rev.lower(),phrase
@@ -118,9 +118,9 @@ summary_rows=[
 "| Real Android/Voice/Media3/TalkBack or human signoff | NOT RUN / NOT CLAIMED | Out of Phase 11 spec gate |",
 "",
 "## Corrections verified","",
-"**PH11-MAJ-001:** \`CMP-07 TrackMetadata\` and \`CMP-08 Artwork\` now bind the displayed Player/MiniPlayer/Driving current item to the acknowledged \`PlaybackGateway.snapshot.currentItem\`; Room/MediaStore may only resolve display metadata. \`SCREEN_SPECS.md\` carries the same correction.",
+"**PH11-MAJ-001:** `CMP-07 TrackMetadata` and `CMP-08 Artwork` now bind the displayed Player/MiniPlayer/Driving current item to the acknowledged `PlaybackGateway.snapshot.currentItem`; Room/MediaStore may only resolve display metadata. `SCREEN_SPECS.md` carries the same correction.",
 "",
-"**PH11-MAJ-002:** \`CMP-10 SearchField\` now binds ephemeral text exclusively to \`SearchViewModel\`; Room results and MediaStore identity are separate owners, and query/IDs are excluded from persistence, logs, crash evidence and telemetry. \`SCREEN_SPECS.md\` carries the same correction.",
+"**PH11-MAJ-002:** `CMP-10 SearchField` now binds ephemeral text exclusively to `SearchViewModel`; Room results and MediaStore identity are separate owners, and query/IDs are excluded from persistence, logs, crash evidence and telemetry. `SCREEN_SPECS.md` carries the same correction.",
 "",
 "## Remaining required human/physical gates","",
 "- **PH11-MIN-001:** Issue #4 Android UI + Accessibility/QA — actual Compose semantics, TalkBack, 200% font reflow, touch targets before per-feature DoD.",
