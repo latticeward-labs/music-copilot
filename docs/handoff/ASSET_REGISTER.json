@@ -1,0 +1,3801 @@
+{
+  "issue": 17,
+  "phase": 9,
+  "sourceArchiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "manifestVersion": "1.0.0",
+  "status": "SOURCE_REFERENCES_VERIFIED_GITHUB_TREE",
+  "designViewportDp": {
+    "width": 360,
+    "height": 800
+  },
+  "referenceHiFiDensityNote": "Original primary/state specialist review PNG references are 1080x2400 pixels at 360x800dp; responsive Compose never uses an image as a screen bitmap",
+  "evidenceScope": "Canonical existing GitHub design files only; no user-owned audio, media, private titles, logs or provider content",
+  "filesCount": 149,
+  "sourceClassCounts": {
+    "SOURCE": 35,
+    "PHASE6_SPECIALIST": 27,
+    "PHASE4_PRIMARY": 10,
+    "PHASE5_DEDICATED": 45,
+    "LOWFI_APP_FRAME": 32
+  },
+  "assets": [
+    {
+      "path": "docs/high-fidelity/PHASE_4_PRIMARY_BOARD.png",
+      "sizeBytes": 355856,
+      "gitBlobSha1": "5729e083c8881316bdcf6b8ce77d82982508249d",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": null,
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/PHASE_5_VISUAL_BOARD.png",
+      "sizeBytes": 518520,
+      "gitBlobSha1": "cfe7837ef75f17102a828af90cb13a9f916213fd",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": null,
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/DRV_COMMAND_PENDING.png",
+      "sizeBytes": 59357,
+      "gitBlobSha1": "10baaf800376eb2dd9e6ac6e0d13d236acd99513",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist DRV_COMMAND_PENDING"
+      ],
+      "canonicalStateIds": [
+        "CC-08"
+      ],
+      "sourceSha256": "58e105ff474d5a01a38898e80a57686ef2bb386811b9c6af82aa765001a124e2",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/DRV_LAST_VERIFIED.png",
+      "sizeBytes": 60234,
+      "gitBlobSha1": "88fecd53ea2ec0b9d56ed7fe644c362cd669a0b6",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist DRV_LAST_VERIFIED"
+      ],
+      "canonicalStateIds": [
+        "CC-07"
+      ],
+      "sourceSha256": "8d455a7ee58bab2d9e01f60b90b0353f1b08a9510ea9396356f319399319cf38",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.png",
+      "sizeBytes": 56974,
+      "gitBlobSha1": "ba6414bb27af770d1c9c9a7803862ad9c979d68b",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist DRV_NO_TRACK"
+      ],
+      "canonicalStateIds": [
+        "CC-07"
+      ],
+      "sourceSha256": "317be98f5a4546d23d2fb0ea63e6713f8f668509c8490c102034e7fc5554a6f9",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/DRV_PAUSED.png",
+      "sizeBytes": 54438,
+      "gitBlobSha1": "d3c62f1bc81cda6d612c626e9464c490f2972ddb",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist DRV_PAUSED"
+      ],
+      "canonicalStateIds": [
+        "CC-06"
+      ],
+      "sourceSha256": "4999a49652461f1b478cfc0098376dc95be315008ee08b7fca92ab1d672680d9",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/DRV_PLAYING.png",
+      "sizeBytes": 55213,
+      "gitBlobSha1": "ba9c75f9a8ecb9b080fd2bf162df7b547f211431",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist DRV_PLAYING"
+      ],
+      "canonicalStateIds": [
+        "CC-05"
+      ],
+      "sourceSha256": "f30c148181a0bd4833898016cf6dae0bdb5d17b9fe69bda63e162e971def8ad9",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/DRV_RECONNECT.png",
+      "sizeBytes": 61356,
+      "gitBlobSha1": "c89db1961048a5611b692c86ded5b4ac9a033d6e",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist DRV_RECONNECT"
+      ],
+      "canonicalStateIds": [
+        "CC-03"
+      ],
+      "sourceSha256": "050758fd9acbdca84207f6b1139dab8a74d14973a3f569fae6a7595d29c6ae73",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/DRV_ROUTE_SAFE.png",
+      "sizeBytes": 59831,
+      "gitBlobSha1": "ff158c5b5efdfb447d6d19dbebff1122cc45b055",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist DRV_ROUTE_SAFE"
+      ],
+      "canonicalStateIds": [
+        "CE-06"
+      ],
+      "sourceSha256": "27766d728cbd631d922194fd12cc7e98b974645c7e61bb5a909efd356172f052",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/PHASE_6_SPECIALIST_BOARD.png",
+      "sizeBytes": 277426,
+      "gitBlobSha1": "576d7536df4065da300afecc3353c2a352ed3bb3",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": null,
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.png",
+      "sizeBytes": 43625,
+      "gitBlobSha1": "69b63f3f426c601e5c9ee602867348d8bddc9e6e",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_ARTIST_NOT_FOUND"
+      ],
+      "canonicalStateIds": [
+        "CD-13"
+      ],
+      "sourceSha256": "2e1546f27e516f369634b572231f7672cf4417d95d28df6044126879bd9481e8",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.png",
+      "sizeBytes": 45734,
+      "gitBlobSha1": "0224af80de2c50c8514b796225589756277d9884",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_ATTEMPT2_TERMINAL"
+      ],
+      "canonicalStateIds": [
+        "CD-19"
+      ],
+      "sourceSha256": "764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.png",
+      "sizeBytes": 53001,
+      "gitBlobSha1": "92d89b4fe3b3b5b5086e0e5946f49c022f503eb2",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_COMMAND_PENDING"
+      ],
+      "canonicalStateIds": [
+        "CD-06"
+      ],
+      "sourceSha256": "3b79e8a60ef391d5b3296e06532e5a608fdb0898da4bb33f68ac6d38d49e9bf4",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.png",
+      "sizeBytes": 51143,
+      "gitBlobSha1": "c7588ef54edb7fc1588ef80339ae0707694aab2c",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_CONFIRM_ONE"
+      ],
+      "canonicalStateIds": [
+        "CD-09"
+      ],
+      "sourceSha256": "f86998030af5fdf658de3fdf5fd93e85c6ef27cf1400263f22c78a5434bad319",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.png",
+      "sizeBytes": 57847,
+      "gitBlobSha1": "b59d1c5c5fbc22b2bac7838fc7390fc0fdb063b8",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_CONFIRM_TWO"
+      ],
+      "canonicalStateIds": [
+        "CD-10"
+      ],
+      "sourceSha256": "36f9c83fa145e399f0c58b425391b9ae3170d6b869b5427e7d6f77052d52f060",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.png",
+      "sizeBytes": 45389,
+      "gitBlobSha1": "4ef766044daa25547eecbc34c55aad752a97c3f7",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_CONFIRMATION_FAILED"
+      ],
+      "canonicalStateIds": [
+        "CD-12"
+      ],
+      "sourceSha256": "82c40627a44c776e4ddaa838e8750c6716084893500e6cdfc4eaa0ec19e4803c",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.png",
+      "sizeBytes": 41512,
+      "gitBlobSha1": "56e029b7a4d465d275a9d5c9c97f2d3f2938f813",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_EXECUTED"
+      ],
+      "canonicalStateIds": [
+        "CD-07"
+      ],
+      "sourceSha256": "91de5817428c4b0d9f573627bf67902b9636ba2ca8aa4b22d88b9e3fdc417dca",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.png",
+      "sizeBytes": 45782,
+      "gitBlobSha1": "2b841688edcd89acd81a556882d21f10f85898ac",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_EXECUTION_REJECTED"
+      ],
+      "canonicalStateIds": [
+        "CD-08"
+      ],
+      "sourceSha256": "d6293aca9ed590d653538c86a85a5cbb9d01fabfd33b73e35600addeb9c19a8f",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.png",
+      "sizeBytes": 49565,
+      "gitBlobSha1": "a4cb85ff823ba6c3b4fc31ba9ed7b0eb448eef5f",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_LISTEN_1"
+      ],
+      "canonicalStateIds": [
+        "CD-03"
+      ],
+      "sourceSha256": "a8b0b311b60d05168c018e85a4125f2c40986298ca7597ccb6ee2f8ac9b024fa",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.png",
+      "sizeBytes": 48650,
+      "gitBlobSha1": "5537e766004e77386773f2c17d82c02d39b7a85d",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_LISTEN_2"
+      ],
+      "canonicalStateIds": [
+        "CD-04"
+      ],
+      "sourceSha256": "e09506c6229ce64a3d04d19782e0fb16d43b6c5b94d65bf0c56b9c504a7fe9d8",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_MANUAL_ONLY.png",
+      "sizeBytes": 45734,
+      "gitBlobSha1": "0224af80de2c50c8514b796225589756277d9884",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_MANUAL_ONLY"
+      ],
+      "canonicalStateIds": [
+        "CD-20"
+      ],
+      "sourceSha256": "764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.png",
+      "sizeBytes": 43038,
+      "gitBlobSha1": "0d15e9d0dd0ee2eed85aa0eed92ee037aca76407",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_MISSING_ARTIST"
+      ],
+      "canonicalStateIds": [
+        "CD-16"
+      ],
+      "sourceSha256": "c2f74564c3bd2662af64ce3af3142f306b46eb261a585a07ae54dcd44895904a",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_PERMISSION_DENIED.png",
+      "sizeBytes": 45734,
+      "gitBlobSha1": "0224af80de2c50c8514b796225589756277d9884",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_PERMISSION_DENIED"
+      ],
+      "canonicalStateIds": [
+        "CD-21"
+      ],
+      "sourceSha256": "764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.png",
+      "sizeBytes": 50360,
+      "gitBlobSha1": "b74e6d4b87bbef0c329cefee51914c7d61e28cf8",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_PROCESSING"
+      ],
+      "canonicalStateIds": [
+        "CD-05"
+      ],
+      "sourceSha256": "9e1fefcb6e8b318737d53c051041c2a4d057d8cdf1412fcd77bed526969fef6a",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_PROVIDER_UNAVAILABLE.png",
+      "sizeBytes": 45734,
+      "gitBlobSha1": "0224af80de2c50c8514b796225589756277d9884",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_PROVIDER_UNAVAILABLE"
+      ],
+      "canonicalStateIds": [
+        "CD-22"
+      ],
+      "sourceSha256": "764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.png",
+      "sizeBytes": 49555,
+      "gitBlobSha1": "38f41614124b02be8ad73e0966a2b4588936a701",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_RETRY_AVAILABLE"
+      ],
+      "canonicalStateIds": [
+        "CD-18"
+      ],
+      "sourceSha256": "1ff5635b66b4dede7c52b1aa270a23bdb56059a873741421c7e5e03895d793a7",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.png",
+      "sizeBytes": 51969,
+      "gitBlobSha1": "4cbcb3b325efe91672df1a25bc74ced3a74b4cee",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_STT_TIMEOUT"
+      ],
+      "canonicalStateIds": [
+        "CD-17"
+      ],
+      "sourceSha256": "43c4f60cf809c5858c8d18e788727f9aa8535755a900269f8c0011d18330b2f2",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_TTS_UNAVAILABLE.png",
+      "sizeBytes": 41512,
+      "gitBlobSha1": "56e029b7a4d465d275a9d5c9c97f2d3f2938f813",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_TTS_UNAVAILABLE"
+      ],
+      "canonicalStateIds": [
+        "CD-07"
+      ],
+      "sourceSha256": "91de5817428c4b0d9f573627bf67902b9636ba2ca8aa4b22d88b9e3fdc417dca",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.png",
+      "sizeBytes": 45760,
+      "gitBlobSha1": "917ce95d50bf918fa24e231c3f38387e0875ba04",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_UNKNOWN_PHRASE"
+      ],
+      "canonicalStateIds": [
+        "CD-14"
+      ],
+      "sourceSha256": "292e7bf733d9144c4f7882e62f515990b3badf488626e5bed926c3b8c5dfb654",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.png",
+      "sizeBytes": 46212,
+      "gitBlobSha1": "19729c26e62f9e575de50eeefdce5fdcb55060bb",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Specialist VO_UNSUPPORTED"
+      ],
+      "canonicalStateIds": [
+        "CD-15"
+      ],
+      "sourceSha256": "f497588e5d51370e6fa47b601c0c49b0758d8754e316f3e7b1efcc44ccec299a",
+      "sourceClass": "PHASE6_SPECIALIST"
+    },
+    {
+      "path": "docs/high-fidelity/WF-01/frames/HF_FRAME_WF-01_SPLASH_LOADING.png",
+      "sizeBytes": 30273,
+      "gitBlobSha1": "ee78e78fc5816ac9d2c80a0151c6bc49425a29e7",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "d780d952042fd0a492dc9544c003ad118524c9591a0950037465a7fc2dd615e7",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-01/frames/HF_FRAME_WF-01_SPLASH_STARTUP_MIGRATION_ERROR.png",
+      "sizeBytes": 44028,
+      "gitBlobSha1": "c2b282a74764e18bea6dfbb678ad52246e13105b",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "0ebe6f274b70ffe960a75efd69283f1369830e5e8f6139d3eaeec6665eb3434a",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-01/HF-01_SPLASH_LOADING.png",
+      "sizeBytes": 42978,
+      "gitBlobSha1": "3eb6bfe74e8a29a6765338249b10992847ce1146",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-01"
+      ],
+      "canonicalStateIds": [
+        "S-01"
+      ],
+      "sourceSha256": "bbe9ab96d248b01374822c2d67c3678643dcf9d635ec30fe39dead1b7cefd58a",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-01/states/HF_STATE_S-01.png",
+      "sizeBytes": 44028,
+      "gitBlobSha1": "c2b282a74764e18bea6dfbb678ad52246e13105b",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image S-01"
+      ],
+      "canonicalStateIds": [
+        "S-01"
+      ],
+      "sourceSha256": "0ebe6f274b70ffe960a75efd69283f1369830e5e8f6139d3eaeec6665eb3434a",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-02/frames/HF_FRAME_WF-02_ONBOARDING_SLIDE_1.png",
+      "sizeBytes": 70935,
+      "gitBlobSha1": "1034ac2724dcdf1f7900fab91b7c50b9196176b9",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "3db57751e1c7f55e54c4caa804181c86a7859b7756612f9650c6fa901175c022",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-02/frames/HF_FRAME_WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.png",
+      "sizeBytes": 80353,
+      "gitBlobSha1": "2137b42e528f5d8a4f3cce72390bd4ee4b9b24a9",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "9f30d1cfc46d716e9122d094eef19734f0929ef929337d507cec5dbe9439bc8b",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-02/HF-02_ONBOARDING_SLIDE_1.png",
+      "sizeBytes": 58007,
+      "gitBlobSha1": "e36b5361720523718cd28e3f1763c63381df61f8",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-02"
+      ],
+      "canonicalStateIds": [
+        "S-02"
+      ],
+      "sourceSha256": "4a84bfb50e6127e1d3d8838a42145a3abbdb0e52a5aeee526a1adbfb68ad4169",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-02/states/HF_STATE_CA-01.png",
+      "sizeBytes": 80353,
+      "gitBlobSha1": "2137b42e528f5d8a4f3cce72390bd4ee4b9b24a9",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CA-01"
+      ],
+      "canonicalStateIds": [
+        "CA-01"
+      ],
+      "sourceSha256": "9f30d1cfc46d716e9122d094eef19734f0929ef929337d507cec5dbe9439bc8b",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-02/states/HF_STATE_S-02.png",
+      "sizeBytes": 70935,
+      "gitBlobSha1": "1034ac2724dcdf1f7900fab91b7c50b9196176b9",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image S-02"
+      ],
+      "canonicalStateIds": [
+        "S-02"
+      ],
+      "sourceSha256": "3db57751e1c7f55e54c4caa804181c86a7859b7756612f9650c6fa901175c022",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_DENIED.png",
+      "sizeBytes": 65287,
+      "gitBlobSha1": "d6d9af1101cd12e9ecf92072ca19964d6930d4dc",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "27b38b282a317d9b90ab7e1acc0496a410d2a26206f8f121733cfbfb6a6b9956",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_GRANTED.png",
+      "sizeBytes": 67852,
+      "gitBlobSha1": "a7fb4ad5dc262eab0794f0c16a37ae37bec7cb0d",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "417e1a30dbbb2bdbdbe0bc5133df09db0ed7c5d367fd8535eec7076f37abac16",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_PERMANENTLY_DENIED.png",
+      "sizeBytes": 95445,
+      "gitBlobSha1": "d22af2c158184cc7c0ae2d8986d6ac0067d23df5",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "e1cdb9550399f08976a9f138763838290241b287713bae0480ade64fcd862f34",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_RATIONALE_REQUEST.png",
+      "sizeBytes": 83681,
+      "gitBlobSha1": "3082761aa170c8dd5b04bd10f0f098e4da1ac49b",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "8e16ecc0d46a9a093d726042ce5ff723d47270dcd07d0302a26d1225c3100640",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-03/HF-03_PERMISSIONS_RATIONALE_REQUEST.png",
+      "sizeBytes": 62372,
+      "gitBlobSha1": "a6e496c1dee844e635d13b38f02b79c1c488e9c6",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-03"
+      ],
+      "canonicalStateIds": [
+        "CA-02",
+        "S-03",
+        "SYS-01",
+        "SYS-02"
+      ],
+      "sourceSha256": "996c44a3ebf1eb2f177fc8b9db5b124848a14421b8516c3ceab1d971ee6c5332",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-03/states/HF_STATE_S-03.png",
+      "sizeBytes": 95445,
+      "gitBlobSha1": "d22af2c158184cc7c0ae2d8986d6ac0067d23df5",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image S-03"
+      ],
+      "canonicalStateIds": [
+        "S-03"
+      ],
+      "sourceSha256": "e1cdb9550399f08976a9f138763838290241b287713bae0480ade64fcd862f34",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_EMPTY.png",
+      "sizeBytes": 69667,
+      "gitBlobSha1": "3aff93cfe580e69cd6c711c16d88907cf4b038ff",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "b5cc131d19e8c2b703f51fcb514ec34bdf8b1b7f387ad5b0b589a95f4731dc9f",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png",
+      "sizeBytes": 96526,
+      "gitBlobSha1": "159f5c585f55a67a04e1ec969592e4ad12057b3e",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "3102ab0ffcfe14604c9dee66d70bb4bf60e66f1f594dd086099d74297bb348bc",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.png",
+      "sizeBytes": 75796,
+      "gitBlobSha1": "552f88d0d1a5aeb5ec9eda02b21d364b44fd9305",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "759102091ea44bc8633c9e181bfa05ca8b6a549f8d3189630d70a0172250117a",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png",
+      "sizeBytes": 64367,
+      "gitBlobSha1": "49f99fc16cf97dc531933768950aa1d999502078",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "70c712b7db32a8d67b5ee8a2892a30b80f162de6e132d793b9407d939cd23c57",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-04/HF-04_HOME_LIBRARY_READY.png",
+      "sizeBytes": 85296,
+      "gitBlobSha1": "97c90bffde150f2df17d05e990fd49577a0d0a74",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-04"
+      ],
+      "canonicalStateIds": [
+        "CB-01",
+        "CB-20",
+        "S-04"
+      ],
+      "sourceSha256": "b55498321e9fefb08f14b7223d93dba64a69fd6969375ac8341b23fe51c539ba",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-04/states/HF_STATE_CB-01.png",
+      "sizeBytes": 96526,
+      "gitBlobSha1": "159f5c585f55a67a04e1ec969592e4ad12057b3e",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-01"
+      ],
+      "canonicalStateIds": [
+        "CB-01"
+      ],
+      "sourceSha256": "3102ab0ffcfe14604c9dee66d70bb4bf60e66f1f594dd086099d74297bb348bc",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-04/states/HF_STATE_S-04.png",
+      "sizeBytes": 64367,
+      "gitBlobSha1": "49f99fc16cf97dc531933768950aa1d999502078",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image S-04"
+      ],
+      "canonicalStateIds": [
+        "S-04"
+      ],
+      "sourceSha256": "70c712b7db32a8d67b5ee8a2892a30b80f162de6e132d793b9407d939cd23c57",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-05/frames/HF_FRAME_WF-05_SEARCH_ERROR.png",
+      "sizeBytes": 61087,
+      "gitBlobSha1": "e1c5a9f5dbe468e8bb6ae5c0b3109648f9408d16",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "2730fbdf47478dedced29f158960e61ed3b682d74e804308897d69feac263fb1",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-05/frames/HF_FRAME_WF-05_SEARCH_NO_RESULTS.png",
+      "sizeBytes": 59593,
+      "gitBlobSha1": "7d5e166254666889095a150bb8efc94d1c5848a4",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "36308e7b59cb33f7db96aee6da8a4ef21a03953b5b4dc0fa8792af4d69b4a9ef",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-05/frames/HF_FRAME_WF-05_SEARCH_RESULTS.png",
+      "sizeBytes": 81658,
+      "gitBlobSha1": "bb5e0b8a48ffd83cdaaee077654c99d72a4e3b08",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "aae27437eb262fcd9145334219506de4b25b74c9544d80e001f76e755876cde9",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-05/HF-05_SEARCH_RESULTS.png",
+      "sizeBytes": 76424,
+      "gitBlobSha1": "358626eaa70d3dda9918ac6b0e1172dc8f5674be",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-05"
+      ],
+      "canonicalStateIds": [
+        "CB-09",
+        "CB-10",
+        "CB-13"
+      ],
+      "sourceSha256": "b09a2829180d49a11d1ee19b2a027fd052ce51e1076a8982bbad6ac385047321",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-05/states/HF_STATE_CB-09.png",
+      "sizeBytes": 44834,
+      "gitBlobSha1": "dfc0cbf906c9a66978e2e745ba044dc03f39fb34",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-09"
+      ],
+      "canonicalStateIds": [
+        "CB-09"
+      ],
+      "sourceSha256": "b5bfce2e3c07a8f282690e31ac615907163d231ccf2f589ca9a4baa59a54145a",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-05/states/HF_STATE_CB-10.png",
+      "sizeBytes": 81658,
+      "gitBlobSha1": "bb5e0b8a48ffd83cdaaee077654c99d72a4e3b08",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-10"
+      ],
+      "canonicalStateIds": [
+        "CB-10"
+      ],
+      "sourceSha256": "aae27437eb262fcd9145334219506de4b25b74c9544d80e001f76e755876cde9",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-05/states/HF_STATE_CB-11.png",
+      "sizeBytes": 59593,
+      "gitBlobSha1": "7d5e166254666889095a150bb8efc94d1c5848a4",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-11"
+      ],
+      "canonicalStateIds": [
+        "CB-11"
+      ],
+      "sourceSha256": "36308e7b59cb33f7db96aee6da8a4ef21a03953b5b4dc0fa8792af4d69b4a9ef",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-05/states/HF_STATE_CB-12.png",
+      "sizeBytes": 61087,
+      "gitBlobSha1": "e1c5a9f5dbe468e8bb6ae5c0b3109648f9408d16",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-12"
+      ],
+      "canonicalStateIds": [
+        "CB-12"
+      ],
+      "sourceSha256": "2730fbdf47478dedced29f158960e61ed3b682d74e804308897d69feac263fb1",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.png",
+      "sizeBytes": 71511,
+      "gitBlobSha1": "8ed70b76165ce7db1ef56af10ba1333a452aefe4",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "ca841f97fefd04ccf020ea0d9e19ea013a1e5585d781766b1a755970f897479c",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png",
+      "sizeBytes": 66859,
+      "gitBlobSha1": "cadb72ebe37e09b95da06fa2df26323a225ae265",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "a1e7e081097b5f44dc7ca82bd077e3882deee4d8b70cc64da57e3ef57b834dd5",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png",
+      "sizeBytes": 67647,
+      "gitBlobSha1": "15ed6721e7b837372cdae385184510e0c9f6e732",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "6a216c4bcaf37203b94e76e618f4db8b0561d0d979efa81eba7aa153f0c972ea",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.png",
+      "sizeBytes": 62094,
+      "gitBlobSha1": "b8e566033ca84bf13e195d4229133697c0a6558a",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-06"
+      ],
+      "canonicalStateIds": [
+        "CB-15"
+      ],
+      "sourceSha256": "a63c9341ef24537129ad3631765b9476af1408aec2b23c17d6e55272bce66f97",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-06/states/HF_STATE_CB-15.png",
+      "sizeBytes": 67647,
+      "gitBlobSha1": "15ed6721e7b837372cdae385184510e0c9f6e732",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-15"
+      ],
+      "canonicalStateIds": [
+        "CB-15"
+      ],
+      "sourceSha256": "6a216c4bcaf37203b94e76e618f4db8b0561d0d979efa81eba7aa153f0c972ea",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-06/states/HF_STATE_CB-16.png",
+      "sizeBytes": 66859,
+      "gitBlobSha1": "cadb72ebe37e09b95da06fa2df26323a225ae265",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-16"
+      ],
+      "canonicalStateIds": [
+        "CB-16"
+      ],
+      "sourceSha256": "a1e7e081097b5f44dc7ca82bd077e3882deee4d8b70cc64da57e3ef57b834dd5",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-06/states/HF_STATE_CB-17.png",
+      "sizeBytes": 67919,
+      "gitBlobSha1": "3e49174f8cc8c676e2192ade0a68f01b8698cdd7",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-17"
+      ],
+      "canonicalStateIds": [
+        "CB-17"
+      ],
+      "sourceSha256": "cbef23e39f37540d1ddc0126f02731da3b0d78db64837370903f003561d908d1",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-06/states/HF_STATE_CB-18.png",
+      "sizeBytes": 60515,
+      "gitBlobSha1": "8cca174e7a876a3b9ef01d52d37039373460b5c6",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CB-18"
+      ],
+      "canonicalStateIds": [
+        "CB-18"
+      ],
+      "sourceSha256": "5adfd996f48967cfdd6c6e2e33dc0d2a948d015fbaca1b2ea4b15ad1e3f9a402",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_NO_TRACK.png",
+      "sizeBytes": 74325,
+      "gitBlobSha1": "19b73bfa7ecf24406ca9330d2b2bedd71c17afc4",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "b8069829816d98dfcb4d9eab6a67f0b2223eff3b198514baa76816d354bd91e7",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PAUSED.png",
+      "sizeBytes": 67112,
+      "gitBlobSha1": "3b6e14fb331c60f8039cf11e37b0d2a59d5c9973",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "e9416c98432b43620ef349d1a56d7ca480e1da0f291d907df988a026b5def564",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png",
+      "sizeBytes": 67841,
+      "gitBlobSha1": "4332e8ad583e83d3e794af6b344d6043bb511399",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-07/HF-07_DRIVING_MODE_PLAYING.png",
+      "sizeBytes": 67331,
+      "gitBlobSha1": "8c6d848db0c211620ccbd37edbe858b69c5377c7",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-07"
+      ],
+      "canonicalStateIds": [
+        "CC-05",
+        "CC-14",
+        "CC-16"
+      ],
+      "sourceSha256": "f6a52c65fde0a5aacbccdcd8f5079874a74e0da6cd27daf80cfde440e296763d",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-07/states/HF_STATE_CC-05.png",
+      "sizeBytes": 67841,
+      "gitBlobSha1": "4332e8ad583e83d3e794af6b344d6043bb511399",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CC-05"
+      ],
+      "canonicalStateIds": [
+        "CC-05"
+      ],
+      "sourceSha256": "e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-07/states/HF_STATE_CC-06.png",
+      "sizeBytes": 67112,
+      "gitBlobSha1": "3b6e14fb331c60f8039cf11e37b0d2a59d5c9973",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CC-06"
+      ],
+      "canonicalStateIds": [
+        "CC-06"
+      ],
+      "sourceSha256": "e9416c98432b43620ef349d1a56d7ca480e1da0f291d907df988a026b5def564",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-07/states/HF_STATE_CC-07.png",
+      "sizeBytes": 74325,
+      "gitBlobSha1": "19b73bfa7ecf24406ca9330d2b2bedd71c17afc4",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CC-07"
+      ],
+      "canonicalStateIds": [
+        "CC-07"
+      ],
+      "sourceSha256": "b8069829816d98dfcb4d9eab6a67f0b2223eff3b198514baa76816d354bd91e7",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.png",
+      "sizeBytes": 67841,
+      "gitBlobSha1": "4332e8ad583e83d3e794af6b344d6043bb511399",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CC-11"
+      ],
+      "canonicalStateIds": [
+        "CC-11"
+      ],
+      "sourceSha256": "e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_CONFIRMING.png",
+      "sizeBytes": 64619,
+      "gitBlobSha1": "125d88f6abd0caa237469408f4a78a0f614ed426",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "2bb6e40387dad528c63865444b1b31b412c63958e4c09fc8c74c10bdb12d0247",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_EXECUTED.png",
+      "sizeBytes": 56053,
+      "gitBlobSha1": "47a33e54428764962793d198776c1a50b088cd3b",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "277ab34efd7327ba29e82f0f67847685a403c2e9cdd354136efff286c3c4b87b",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_FAILED_RETRY.png",
+      "sizeBytes": 58471,
+      "gitBlobSha1": "ccca209c87871c4bdc076be4f57e2055eaceed72",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "cebbe3477ac4a964667f8ad89527d242c50c7540ac1207e70e75c3cb2b2c4a87",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_LISTENING.png",
+      "sizeBytes": 50409,
+      "gitBlobSha1": "107fab355f6669142765056017a54b0d21be2fff",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_PROCESSING.png",
+      "sizeBytes": 50703,
+      "gitBlobSha1": "20494cf52e7ed062fe7e4b08b4783012057bde60",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/HF-08_VOICE_LISTENING.png",
+      "sizeBytes": 52255,
+      "gitBlobSha1": "de8680eb348a22799da1a8434db45ef2a407d45b",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-08"
+      ],
+      "canonicalStateIds": [
+        "CC-14",
+        "CD-03"
+      ],
+      "sourceSha256": "96769259e5b4655dfda41292b7ae71718ee0ae93055ec83081b1096432674da8",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.png",
+      "sizeBytes": 50409,
+      "gitBlobSha1": "107fab355f6669142765056017a54b0d21be2fff",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CC-14"
+      ],
+      "canonicalStateIds": [
+        "CC-14"
+      ],
+      "sourceSha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-03.png",
+      "sizeBytes": 50409,
+      "gitBlobSha1": "107fab355f6669142765056017a54b0d21be2fff",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-03"
+      ],
+      "canonicalStateIds": [
+        "CD-03"
+      ],
+      "sourceSha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-04.png",
+      "sizeBytes": 50409,
+      "gitBlobSha1": "107fab355f6669142765056017a54b0d21be2fff",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-04"
+      ],
+      "canonicalStateIds": [
+        "CD-04"
+      ],
+      "sourceSha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-05.png",
+      "sizeBytes": 50703,
+      "gitBlobSha1": "20494cf52e7ed062fe7e4b08b4783012057bde60",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-05"
+      ],
+      "canonicalStateIds": [
+        "CD-05"
+      ],
+      "sourceSha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-06.png",
+      "sizeBytes": 50703,
+      "gitBlobSha1": "20494cf52e7ed062fe7e4b08b4783012057bde60",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-06"
+      ],
+      "canonicalStateIds": [
+        "CD-06"
+      ],
+      "sourceSha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-07.png",
+      "sizeBytes": 56053,
+      "gitBlobSha1": "47a33e54428764962793d198776c1a50b088cd3b",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-07"
+      ],
+      "canonicalStateIds": [
+        "CD-07"
+      ],
+      "sourceSha256": "277ab34efd7327ba29e82f0f67847685a403c2e9cdd354136efff286c3c4b87b",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-08.png",
+      "sizeBytes": 61092,
+      "gitBlobSha1": "59489dd30dcc5555bcd2713ce37785752e97d961",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-08"
+      ],
+      "canonicalStateIds": [
+        "CD-08"
+      ],
+      "sourceSha256": "c3a005b7d12700f6564b0eb2442818ab63d14ff409874baa32041bb90dc67f6d",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-09.png",
+      "sizeBytes": 54929,
+      "gitBlobSha1": "c77a46bdc1a8ad16a9f0490c3e2cf26ba20eb417",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-09"
+      ],
+      "canonicalStateIds": [
+        "CD-09"
+      ],
+      "sourceSha256": "edc2798b9507606a33cfbcbf06bf10e97be66f1f2bad888dfa605c1c13acf99a",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-10.png",
+      "sizeBytes": 64619,
+      "gitBlobSha1": "125d88f6abd0caa237469408f4a78a0f614ed426",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-10"
+      ],
+      "canonicalStateIds": [
+        "CD-10"
+      ],
+      "sourceSha256": "2bb6e40387dad528c63865444b1b31b412c63958e4c09fc8c74c10bdb12d0247",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.png",
+      "sizeBytes": 50703,
+      "gitBlobSha1": "20494cf52e7ed062fe7e4b08b4783012057bde60",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-11"
+      ],
+      "canonicalStateIds": [
+        "CD-11"
+      ],
+      "sourceSha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-12.png",
+      "sizeBytes": 59860,
+      "gitBlobSha1": "6ee5bdeda9c43eaafb0cd08332120469526aa7c1",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-12"
+      ],
+      "canonicalStateIds": [
+        "CD-12"
+      ],
+      "sourceSha256": "554999437c1fc89b7776329861f53eacf5d75ab719c34986ef22d01295331a66",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-13.png",
+      "sizeBytes": 58039,
+      "gitBlobSha1": "c6ada688511677001cdaf63fb12044871cbe7d48",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-13"
+      ],
+      "canonicalStateIds": [
+        "CD-13"
+      ],
+      "sourceSha256": "79b409ee41b527a1d6ec9a62964ce42e20cfc787bdf15adf563ca9e487e27c60",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-14.png",
+      "sizeBytes": 62168,
+      "gitBlobSha1": "3531e8f72f87c5d7e8424f195f9a508902a0e840",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-14"
+      ],
+      "canonicalStateIds": [
+        "CD-14"
+      ],
+      "sourceSha256": "5647fe13851d916a0167b3c9b27e05317d03695cb03928804f2bf7d1de9e627d",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-15.png",
+      "sizeBytes": 62019,
+      "gitBlobSha1": "d4f10707b296d1964eeb1c0a8a47e71809925527",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-15"
+      ],
+      "canonicalStateIds": [
+        "CD-15"
+      ],
+      "sourceSha256": "75e757533901ad9bd6adbabdbff01c1f8ed844c4ad3fd1eaec9ade6175e7adcb",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-16.png",
+      "sizeBytes": 57228,
+      "gitBlobSha1": "a0b9290eca7ce5114a51a73e0abb7aea40618806",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-16"
+      ],
+      "canonicalStateIds": [
+        "CD-16"
+      ],
+      "sourceSha256": "dc3434c347214edb2005f6b18e2a79f6fdc0e4165b76227a01cf9525b260775a",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-17.png",
+      "sizeBytes": 61814,
+      "gitBlobSha1": "85a5bd5c7e5ac487c0e770e8100a0ed84fbb649b",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-17"
+      ],
+      "canonicalStateIds": [
+        "CD-17"
+      ],
+      "sourceSha256": "1f741a8809e030583eab7d4b58332944b7a6d322cc21b102df46bafc42f55e45",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-18.png",
+      "sizeBytes": 58471,
+      "gitBlobSha1": "ccca209c87871c4bdc076be4f57e2055eaceed72",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-18"
+      ],
+      "canonicalStateIds": [
+        "CD-18"
+      ],
+      "sourceSha256": "cebbe3477ac4a964667f8ad89527d242c50c7540ac1207e70e75c3cb2b2c4a87",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-08/states/HF_STATE_CD-19.png",
+      "sizeBytes": 58714,
+      "gitBlobSha1": "a7b84bdeaca743b59a0b46d1e6e98e036577f6fd",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-19"
+      ],
+      "canonicalStateIds": [
+        "CD-19"
+      ],
+      "sourceSha256": "943e4e3b61e8c99282fbaec5b879b1ebcb847789360b5ed6ef9c9a7b51a054bc",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-09/frames/HF_FRAME_WF-09_LIKED_SONGS_EMPTY.png",
+      "sizeBytes": 70501,
+      "gitBlobSha1": "58b4d9135f89ad923573342ac327f8aa0871028a",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "f6ac819de3c4e1471ee71235829d23f151e6a3c8f683c44783dd7002711c0e93",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-09/frames/HF_FRAME_WF-09_LIKED_SONGS_READY.png",
+      "sizeBytes": 82766,
+      "gitBlobSha1": "3cce6170a26862cad79a47f27c55f332dc76607f",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "dd71e0166ee681c78f55aed5570cb25a7e4061e7689ed9174aa243276ab2d503",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-09/HF-09_LIKED_SONGS_READY.png",
+      "sizeBytes": 76075,
+      "gitBlobSha1": "466c954e68a405fab65e0eb2e23f844bd3591eee",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-09"
+      ],
+      "canonicalStateIds": [
+        "UL-04",
+        "UL-09",
+        "UL-10",
+        "UL-12"
+      ],
+      "sourceSha256": "39610b81d84f514a52aa1c769974287404e8ced08b6910f09875f40372ca94c1",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-09/states/HF_STATE_UL-02.png",
+      "sizeBytes": 70501,
+      "gitBlobSha1": "58b4d9135f89ad923573342ac327f8aa0871028a",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image UL-02"
+      ],
+      "canonicalStateIds": [
+        "UL-02"
+      ],
+      "sourceSha256": "f6ac819de3c4e1471ee71235829d23f151e6a3c8f683c44783dd7002711c0e93",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-09/states/HF_STATE_UL-03.png",
+      "sizeBytes": 70501,
+      "gitBlobSha1": "58b4d9135f89ad923573342ac327f8aa0871028a",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image UL-03"
+      ],
+      "canonicalStateIds": [
+        "UL-03"
+      ],
+      "sourceSha256": "f6ac819de3c4e1471ee71235829d23f151e6a3c8f683c44783dd7002711c0e93",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-09/states/HF_STATE_UL-04.png",
+      "sizeBytes": 82766,
+      "gitBlobSha1": "3cce6170a26862cad79a47f27c55f332dc76607f",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image UL-04"
+      ],
+      "canonicalStateIds": [
+        "UL-04"
+      ],
+      "sourceSha256": "dd71e0166ee681c78f55aed5570cb25a7e4061e7689ed9174aa243276ab2d503",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/frames/HF_FRAME_WF-10_SETTINGS_BLUETOOTH_UPDATED.png",
+      "sizeBytes": 83935,
+      "gitBlobSha1": "c06b34a1e3102461b6fd5b4bd0d4d37d37cef96b",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "399cd6039f8e3f3e9f6978a1539de442bedc003acc7bedd48a35342f58d93539",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.png",
+      "sizeBytes": 92679,
+      "gitBlobSha1": "26cbd8e71d0561f4ed4a55819765733bc1f8fdc4",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "d93d3c4bbfd400ac14197891173b310aa2e2713341972ec435028a7a006840c9",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.png",
+      "sizeBytes": 91374,
+      "gitBlobSha1": "085038374d2a3bd737c7178e0ef70779a3093241",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "80e6b5eb7d54a8895b043b7c512a785af6111c8b0c4e5667909e8e26ffbd5ac9",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/frames/HF_FRAME_WF-10_SETTINGS_DEFAULT.png",
+      "sizeBytes": 88719,
+      "gitBlobSha1": "261d59cb62a241997af2f4436bfaa00bb1db1391",
+      "format": "PNG",
+      "roles": [
+        "Approved frame ",
+        "Available approved High-Fidelity repository visual"
+      ],
+      "canonicalStateIds": [],
+      "sourceSha256": "fec2fdec595b47d0b5512cd588c92135ab736b7caa9ed1821717bd54800e892b",
+      "sourceClass": "SOURCE"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/HF-10_SETTINGS_DEFAULT.png",
+      "sizeBytes": 86229,
+      "gitBlobSha1": "e5d95e84bf5bf3c1450bcb30cbc9f028ed46457f",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "WF primary screenshot WF-10"
+      ],
+      "canonicalStateIds": [
+        "CE-15",
+        "CE-21",
+        "CE-22"
+      ],
+      "sourceSha256": "e2c0579d2703fb2fdc10d396aa48a2a14194db7f5e041fc2206a53dda817661d",
+      "sourceClass": "PHASE4_PRIMARY"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/states/HF_STATE_CD-23.png",
+      "sizeBytes": 110087,
+      "gitBlobSha1": "1ac2ca837b0496afb71ef9a75199f67ddf12d4fc",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CD-23"
+      ],
+      "canonicalStateIds": [
+        "CD-23"
+      ],
+      "sourceSha256": "dc719e889012cb458d87bcd345746f16e61a99fc36ab4da97770929536880379",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/states/HF_STATE_CE-15.png",
+      "sizeBytes": 88719,
+      "gitBlobSha1": "261d59cb62a241997af2f4436bfaa00bb1db1391",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CE-15"
+      ],
+      "canonicalStateIds": [
+        "CE-15"
+      ],
+      "sourceSha256": "fec2fdec595b47d0b5512cd588c92135ab736b7caa9ed1821717bd54800e892b",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/states/HF_STATE_CE-20.png",
+      "sizeBytes": 83935,
+      "gitBlobSha1": "c06b34a1e3102461b6fd5b4bd0d4d37d37cef96b",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CE-20"
+      ],
+      "canonicalStateIds": [
+        "CE-20"
+      ],
+      "sourceSha256": "399cd6039f8e3f3e9f6978a1539de442bedc003acc7bedd48a35342f58d93539",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/states/HF_STATE_CE-21.png",
+      "sizeBytes": 113546,
+      "gitBlobSha1": "24e6144bf5f86090e812f420645f89c71ea1d081",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CE-21"
+      ],
+      "canonicalStateIds": [
+        "CE-21"
+      ],
+      "sourceSha256": "83cb8473b68c6f98efac9ccb33886c8ef515489476020ca51d58af53781a4724",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/states/HF_STATE_CE-22.png",
+      "sizeBytes": 114549,
+      "gitBlobSha1": "77766b0c315f1666f9b84ad8ac922b5dbeb7b84b",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CE-22"
+      ],
+      "canonicalStateIds": [
+        "CE-22"
+      ],
+      "sourceSha256": "8fe1db1e299eee10b53c9a9ed9f7c0f796f67b7930a29f5f262a5208e76357ef",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/high-fidelity/WF-10/states/HF_STATE_CE-23.png",
+      "sizeBytes": 92679,
+      "gitBlobSha1": "26cbd8e71d0561f4ed4a55819765733bc1f8fdc4",
+      "format": "PNG",
+      "roles": [
+        "Available approved High-Fidelity repository visual",
+        "Canonical dedicated image CE-23"
+      ],
+      "canonicalStateIds": [
+        "CE-23"
+      ],
+      "sourceSha256": "d93d3c4bbfd400ac14197891173b310aa2e2713341972ec435028a7a006840c9",
+      "sourceClass": "PHASE5_DEDICATED"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-01_SPLASH_LOADING.svg",
+      "sizeBytes": 3461,
+      "gitBlobSha1": "a4d1fef811da3830e6e9e0735e59ad8c6874f35d",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-01_SPLASH_LOADING"
+      ],
+      "canonicalStateIds": [
+        "S-01"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.svg",
+      "sizeBytes": 3786,
+      "gitBlobSha1": "8178e0035da318d419832c77af1903ea35ca76aa",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-01_SPLASH_STARTUP_MIGRATION_ERROR"
+      ],
+      "canonicalStateIds": [
+        "S-01"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg",
+      "sizeBytes": 4073,
+      "gitBlobSha1": "234a351f81813915aa43eb819aad30025c5c7804",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-02_ONBOARDING_SLIDE_1"
+      ],
+      "canonicalStateIds": [
+        "S-02"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.svg",
+      "sizeBytes": 4781,
+      "gitBlobSha1": "44ec03786e34fac9e1b29dbb92070cac5ea0a342",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+      ],
+      "canonicalStateIds": [
+        "CA-01",
+        "CA-02",
+        "S-02"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
+      "sizeBytes": 4322,
+      "gitBlobSha1": "b613424d7ce03f1f172e1cca323f68a9011d0e88",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-03_PERMISSIONS_DENIED"
+      ],
+      "canonicalStateIds": [
+        "CA-02",
+        "S-03"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
+      "sizeBytes": 4258,
+      "gitBlobSha1": "a41a18ab32cf9db953727ac4dd9a91005a4ffb9e",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-03_PERMISSIONS_GRANTED"
+      ],
+      "canonicalStateIds": [
+        "CA-02",
+        "S-03"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg",
+      "sizeBytes": 4767,
+      "gitBlobSha1": "7ff07eac8a8bfebf40c5250dfb38bbbc2b659939",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-03_PERMISSIONS_PERMANENTLY_DENIED"
+      ],
+      "canonicalStateIds": [
+        "CA-02",
+        "S-03",
+        "SYS-04"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
+      "sizeBytes": 4607,
+      "gitBlobSha1": "c662ec190efe52b8651a6bc34eb19a38abd7cc14",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-03_PERMISSIONS_RATIONALE_REQUEST"
+      ],
+      "canonicalStateIds": [
+        "CA-02",
+        "S-03",
+        "SYS-01",
+        "SYS-02"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+      "sizeBytes": 5144,
+      "gitBlobSha1": "2c0c8350b8d1b063be2e30d7c584c7613ef850ca",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-04_HOME_LIBRARY_EMPTY"
+      ],
+      "canonicalStateIds": [
+        "S-04"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+      "sizeBytes": 6517,
+      "gitBlobSha1": "334e990cc70db88fd336b806080455c7c50bd208",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-04_HOME_LIBRARY_READY"
+      ],
+      "canonicalStateIds": [
+        "CB-01",
+        "CB-20",
+        "S-04"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg",
+      "sizeBytes": 5071,
+      "gitBlobSha1": "e90b9899dd0eb730a12fde68640967026957e258",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "canonicalStateIds": [
+        "S-04"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+      "sizeBytes": 5188,
+      "gitBlobSha1": "2d25b9f1662e15b5757576ccd9c54ff274fd5c34",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-04_HOME_LIBRARY_SCANNING"
+      ],
+      "canonicalStateIds": [
+        "S-04"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg",
+      "sizeBytes": 4841,
+      "gitBlobSha1": "6813808ecec022fbd9df26c37f54b59113a2cb6f",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-05_SEARCH_ERROR"
+      ],
+      "canonicalStateIds": [
+        "CB-09",
+        "CB-12"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
+      "sizeBytes": 4747,
+      "gitBlobSha1": "e14869ba6f8b0e020b45823a455a7177aa27feec",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-05_SEARCH_NO_RESULTS"
+      ],
+      "canonicalStateIds": [
+        "CB-09",
+        "CB-11"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
+      "sizeBytes": 5974,
+      "gitBlobSha1": "5ef39bd618455e5d1a41ced141527de898ecafff",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-05_SEARCH_RESULTS"
+      ],
+      "canonicalStateIds": [
+        "CB-09",
+        "CB-10",
+        "CB-13"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+      "sizeBytes": 5711,
+      "gitBlobSha1": "b58889ef102ad6290e108b6b0cb70314a7542e4c",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "canonicalStateIds": [
+        "CB-19",
+        "CE-12",
+        "CE-13",
+        "CE-14"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+      "sizeBytes": 4890,
+      "gitBlobSha1": "858a758003fdfcc0d22a5bc625a3499bfb3b197d",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-06_FULL_PLAYER_PAUSED"
+      ],
+      "canonicalStateIds": [
+        "CB-16"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+      "sizeBytes": 5138,
+      "gitBlobSha1": "4a0198532a876096fa3c7cf858b39b1e4f0502e4",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-06_FULL_PLAYER_PLAYING"
+      ],
+      "canonicalStateIds": [
+        "CB-15"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg",
+      "sizeBytes": 5162,
+      "gitBlobSha1": "7e61a368bb6edfab09dc175ac914b58d2b32f36d",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "canonicalStateIds": [
+        "CC-07",
+        "CC-15"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+      "sizeBytes": 4988,
+      "gitBlobSha1": "511509fc5c70dd2d9976455baa9e47cdfd0cdb4e",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-07_DRIVING_MODE_PAUSED"
+      ],
+      "canonicalStateIds": [
+        "CC-06",
+        "CC-16"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+      "sizeBytes": 5095,
+      "gitBlobSha1": "191a1be2a61848c6868d79203094d7dea59634c0",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-07_DRIVING_MODE_PLAYING"
+      ],
+      "canonicalStateIds": [
+        "CC-05",
+        "CC-14",
+        "CC-16"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+      "sizeBytes": 4503,
+      "gitBlobSha1": "776d92c7feb5a858c97bc6c4dffd0b037d1f8f3b",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-08_VOICE_CONFIRMING"
+      ],
+      "canonicalStateIds": [
+        "CD-09",
+        "CD-10"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+      "sizeBytes": 4088,
+      "gitBlobSha1": "5b90c972007376c9a462116931aab034db9966f7",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-08_VOICE_EXECUTED"
+      ],
+      "canonicalStateIds": [
+        "CD-07"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg",
+      "sizeBytes": 4360,
+      "gitBlobSha1": "56021803ae7d611fb2b67d1b2cf985f4236ed609",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-08_VOICE_FAILED_RETRY"
+      ],
+      "canonicalStateIds": [
+        "CD-08",
+        "CD-17",
+        "CD-18",
+        "CD-19"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+      "sizeBytes": 4060,
+      "gitBlobSha1": "898d9cee58d4846f9ce6ed70bb6657183959f7f5",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-08_VOICE_LISTENING"
+      ],
+      "canonicalStateIds": [
+        "CC-14",
+        "CD-03"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+      "sizeBytes": 4072,
+      "gitBlobSha1": "272960e83b04f7610c561a8f5f61f356a1dac0cd",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-08_VOICE_PROCESSING"
+      ],
+      "canonicalStateIds": [
+        "CD-05"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+      "sizeBytes": 4832,
+      "gitBlobSha1": "42c93dc64ca1b8e9a8a36c712b23dd9dd327732a",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-09_LIKED_SONGS_EMPTY"
+      ],
+      "canonicalStateIds": [
+        "UL-02",
+        "UL-03"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg",
+      "sizeBytes": 6013,
+      "gitBlobSha1": "266ca59f1451537f3c03e7682a40b56fa2014d55",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-09_LIKED_SONGS_READY"
+      ],
+      "canonicalStateIds": [
+        "UL-04",
+        "UL-09",
+        "UL-10",
+        "UL-12"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+      "sizeBytes": 5418,
+      "gitBlobSha1": "42dc3e124baeaff9c2b4e305b4812fb20d98145c",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-10_SETTINGS_BLUETOOTH_UPDATED"
+      ],
+      "canonicalStateIds": [
+        "CE-16",
+        "CE-17",
+        "CE-20"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+      "sizeBytes": 5515,
+      "gitBlobSha1": "697462e47b877c4130304d787ff55ac9a9f909d9",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION"
+      ],
+      "canonicalStateIds": [
+        "CE-23",
+        "CE-24"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg",
+      "sizeBytes": 5653,
+      "gitBlobSha1": "e8504857f569afe853b11ceeb9ce9bd04a0688a0",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "canonicalStateIds": [
+        "CE-21",
+        "CE-25",
+        "CE-26"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+      "sizeBytes": 6217,
+      "gitBlobSha1": "992364c92be4d06e06708f3ed469b4b422293cc8",
+      "format": "SVG",
+      "roles": [
+        "Approved low-fi SVG WF-10_SETTINGS_DEFAULT"
+      ],
+      "canonicalStateIds": [
+        "CE-15",
+        "CE-21",
+        "CE-22"
+      ],
+      "sourceSha256": null,
+      "sourceClass": "LOWFI_APP_FRAME"
+    }
+  ],
+  "canonicalScreenFamilies": [
+    {
+      "wf": "WF-01",
+      "primaryImage": "docs/high-fidelity/WF-01/HF-01_SPLASH_LOADING.png",
+      "pairedSpec": "docs/high-fidelity/WF-01/HF-01_SPLASH_LOADING.md",
+      "sha256": "bbe9ab96d248b01374822c2d67c3678643dcf9d635ec30fe39dead1b7cefd58a",
+      "canonicalStateIds": [
+        "S-01"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-15"
+      ]
+    },
+    {
+      "wf": "WF-02",
+      "primaryImage": "docs/high-fidelity/WF-02/HF-02_ONBOARDING_SLIDE_1.png",
+      "pairedSpec": "docs/high-fidelity/WF-02/HF-02_ONBOARDING_SLIDE_1.md",
+      "sha256": "4a84bfb50e6127e1d3d8838a42145a3abbdb0e52a5aeee526a1adbfb68ad4169",
+      "canonicalStateIds": [
+        "S-02"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-22"
+      ]
+    },
+    {
+      "wf": "WF-03",
+      "primaryImage": "docs/high-fidelity/WF-03/HF-03_PERMISSIONS_RATIONALE_REQUEST.png",
+      "pairedSpec": "docs/high-fidelity/WF-03/HF-03_PERMISSIONS_RATIONALE_REQUEST.md",
+      "sha256": "996c44a3ebf1eb2f177fc8b9db5b124848a14421b8516c3ceab1d971ee6c5332",
+      "canonicalStateIds": [
+        "S-03",
+        "CA-02",
+        "SYS-01",
+        "SYS-02"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-03",
+        "CMP-14",
+        "CMP-15",
+        "CMP-21"
+      ]
+    },
+    {
+      "wf": "WF-04",
+      "primaryImage": "docs/high-fidelity/WF-04/HF-04_HOME_LIBRARY_READY.png",
+      "pairedSpec": "docs/high-fidelity/WF-04/HF-04_HOME_LIBRARY_READY.md",
+      "sha256": "b55498321e9fefb08f14b7223d93dba64a69fd6969375ac8341b23fe51c539ba",
+      "canonicalStateIds": [
+        "S-04",
+        "CB-01",
+        "CB-20"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-02",
+        "CMP-03",
+        "CMP-04",
+        "CMP-07",
+        "CMP-08",
+        "CMP-09",
+        "CMP-11",
+        "CMP-12",
+        "CMP-15",
+        "CMP-17"
+      ]
+    },
+    {
+      "wf": "WF-05",
+      "primaryImage": "docs/high-fidelity/WF-05/HF-05_SEARCH_RESULTS.png",
+      "pairedSpec": "docs/high-fidelity/WF-05/HF-05_SEARCH_RESULTS.md",
+      "sha256": "b09a2829180d49a11d1ee19b2a027fd052ce51e1076a8982bbad6ac385047321",
+      "canonicalStateIds": [
+        "CB-09",
+        "CB-10",
+        "CB-13"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-02",
+        "CMP-03",
+        "CMP-04",
+        "CMP-07",
+        "CMP-08",
+        "CMP-10",
+        "CMP-11",
+        "CMP-15",
+        "CMP-17"
+      ]
+    },
+    {
+      "wf": "WF-06",
+      "primaryImage": "docs/high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.png",
+      "pairedSpec": "docs/high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.md",
+      "sha256": "a63c9341ef24537129ad3631765b9476af1408aec2b23c17d6e55272bce66f97",
+      "canonicalStateIds": [
+        "CB-15"
+      ],
+      "componentIds": [
+        "CMP-02",
+        "CMP-03",
+        "CMP-05",
+        "CMP-06",
+        "CMP-07",
+        "CMP-08",
+        "CMP-09",
+        "CMP-11",
+        "CMP-13",
+        "CMP-15",
+        "CMP-17",
+        "CMP-19",
+        "CMP-20",
+        "CMP-21"
+      ]
+    },
+    {
+      "wf": "WF-07",
+      "primaryImage": "docs/high-fidelity/WF-07/HF-07_DRIVING_MODE_PLAYING.png",
+      "pairedSpec": "docs/high-fidelity/WF-07/HF-07_DRIVING_MODE_PLAYING.md",
+      "sha256": "f6a52c65fde0a5aacbccdcd8f5079874a74e0da6cd27daf80cfde440e296763d",
+      "canonicalStateIds": [
+        "CC-05",
+        "CC-14",
+        "CC-16"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-02",
+        "CMP-05",
+        "CMP-06",
+        "CMP-07",
+        "CMP-08",
+        "CMP-15",
+        "CMP-19"
+      ]
+    },
+    {
+      "wf": "WF-08",
+      "primaryImage": "docs/high-fidelity/WF-08/HF-08_VOICE_LISTENING.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/HF-08_VOICE_LISTENING.md",
+      "sha256": "96769259e5b4655dfda41292b7ae71718ee0ae93055ec83081b1096432674da8",
+      "canonicalStateIds": [
+        "CD-03",
+        "CC-14"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-02",
+        "CMP-06",
+        "CMP-16",
+        "CMP-17",
+        "CMP-19"
+      ]
+    },
+    {
+      "wf": "WF-09",
+      "primaryImage": "docs/high-fidelity/WF-09/HF-09_LIKED_SONGS_READY.png",
+      "pairedSpec": "docs/high-fidelity/WF-09/HF-09_LIKED_SONGS_READY.md",
+      "sha256": "39610b81d84f514a52aa1c769974287404e8ced08b6910f09875f40372ca94c1",
+      "canonicalStateIds": [
+        "UL-04",
+        "UL-09",
+        "UL-10",
+        "UL-12"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-02",
+        "CMP-03",
+        "CMP-04",
+        "CMP-07",
+        "CMP-08",
+        "CMP-11",
+        "CMP-15",
+        "CMP-20"
+      ]
+    },
+    {
+      "wf": "WF-10",
+      "primaryImage": "docs/high-fidelity/WF-10/HF-10_SETTINGS_DEFAULT.png",
+      "pairedSpec": "docs/high-fidelity/WF-10/HF-10_SETTINGS_DEFAULT.md",
+      "sha256": "e2c0579d2703fb2fdc10d396aa48a2a14194db7f5e041fc2206a53dda817661d",
+      "canonicalStateIds": [
+        "CE-15",
+        "CE-21",
+        "CE-22"
+      ],
+      "componentIds": [
+        "CMP-01",
+        "CMP-02",
+        "CMP-03",
+        "CMP-04",
+        "CMP-15",
+        "CMP-17",
+        "CMP-18",
+        "CMP-21",
+        "CMP-23"
+      ]
+    }
+  ],
+  "canonicalDedicatedStates": [
+    {
+      "id": "S-01",
+      "wf": [
+        "WF-01"
+      ],
+      "asset": "docs/high-fidelity/WF-01/states/HF_STATE_S-01.png",
+      "pairedSpec": "docs/high-fidelity/WF-01/states/HF_STATE_S-01.md",
+      "sha256": "0ebe6f274b70ffe960a75efd69283f1369830e5e8f6139d3eaeec6665eb3434a"
+    },
+    {
+      "id": "S-02",
+      "wf": [
+        "WF-02"
+      ],
+      "asset": "docs/high-fidelity/WF-02/states/HF_STATE_S-02.png",
+      "pairedSpec": "docs/high-fidelity/WF-02/states/HF_STATE_S-02.md",
+      "sha256": "3db57751e1c7f55e54c4caa804181c86a7859b7756612f9650c6fa901175c022"
+    },
+    {
+      "id": "S-03",
+      "wf": [
+        "WF-03"
+      ],
+      "asset": "docs/high-fidelity/WF-03/states/HF_STATE_S-03.png",
+      "pairedSpec": "docs/high-fidelity/WF-03/states/HF_STATE_S-03.md",
+      "sha256": "e1cdb9550399f08976a9f138763838290241b287713bae0480ade64fcd862f34"
+    },
+    {
+      "id": "S-04",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": "docs/high-fidelity/WF-04/states/HF_STATE_S-04.png",
+      "pairedSpec": "docs/high-fidelity/WF-04/states/HF_STATE_S-04.md",
+      "sha256": "70c712b7db32a8d67b5ee8a2892a30b80f162de6e132d793b9407d939cd23c57"
+    },
+    {
+      "id": "CA-01",
+      "wf": [
+        "WF-02"
+      ],
+      "asset": "docs/high-fidelity/WF-02/states/HF_STATE_CA-01.png",
+      "pairedSpec": "docs/high-fidelity/WF-02/states/HF_STATE_CA-01.md",
+      "sha256": "9f30d1cfc46d716e9122d094eef19734f0929ef929337d507cec5dbe9439bc8b"
+    },
+    {
+      "id": "CB-01",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": "docs/high-fidelity/WF-04/states/HF_STATE_CB-01.png",
+      "pairedSpec": "docs/high-fidelity/WF-04/states/HF_STATE_CB-01.md",
+      "sha256": "3102ab0ffcfe14604c9dee66d70bb4bf60e66f1f594dd086099d74297bb348bc"
+    },
+    {
+      "id": "CB-09",
+      "wf": [
+        "WF-05"
+      ],
+      "asset": "docs/high-fidelity/WF-05/states/HF_STATE_CB-09.png",
+      "pairedSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-09.md",
+      "sha256": "b5bfce2e3c07a8f282690e31ac615907163d231ccf2f589ca9a4baa59a54145a"
+    },
+    {
+      "id": "CB-10",
+      "wf": [
+        "WF-05"
+      ],
+      "asset": "docs/high-fidelity/WF-05/states/HF_STATE_CB-10.png",
+      "pairedSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-10.md",
+      "sha256": "aae27437eb262fcd9145334219506de4b25b74c9544d80e001f76e755876cde9"
+    },
+    {
+      "id": "CB-11",
+      "wf": [
+        "WF-05"
+      ],
+      "asset": "docs/high-fidelity/WF-05/states/HF_STATE_CB-11.png",
+      "pairedSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-11.md",
+      "sha256": "36308e7b59cb33f7db96aee6da8a4ef21a03953b5b4dc0fa8792af4d69b4a9ef"
+    },
+    {
+      "id": "CB-12",
+      "wf": [
+        "WF-05"
+      ],
+      "asset": "docs/high-fidelity/WF-05/states/HF_STATE_CB-12.png",
+      "pairedSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-12.md",
+      "sha256": "2730fbdf47478dedced29f158960e61ed3b682d74e804308897d69feac263fb1"
+    },
+    {
+      "id": "CB-15",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": "docs/high-fidelity/WF-06/states/HF_STATE_CB-15.png",
+      "pairedSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-15.md",
+      "sha256": "6a216c4bcaf37203b94e76e618f4db8b0561d0d979efa81eba7aa153f0c972ea"
+    },
+    {
+      "id": "CB-16",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": "docs/high-fidelity/WF-06/states/HF_STATE_CB-16.png",
+      "pairedSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-16.md",
+      "sha256": "a1e7e081097b5f44dc7ca82bd077e3882deee4d8b70cc64da57e3ef57b834dd5"
+    },
+    {
+      "id": "CB-17",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": "docs/high-fidelity/WF-06/states/HF_STATE_CB-17.png",
+      "pairedSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-17.md",
+      "sha256": "cbef23e39f37540d1ddc0126f02731da3b0d78db64837370903f003561d908d1"
+    },
+    {
+      "id": "CB-18",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": "docs/high-fidelity/WF-06/states/HF_STATE_CB-18.png",
+      "pairedSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-18.md",
+      "sha256": "5adfd996f48967cfdd6c6e2e33dc0d2a948d015fbaca1b2ea4b15ad1e3f9a402"
+    },
+    {
+      "id": "CC-05",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": "docs/high-fidelity/WF-07/states/HF_STATE_CC-05.png",
+      "pairedSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-05.md",
+      "sha256": "e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c"
+    },
+    {
+      "id": "CC-06",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": "docs/high-fidelity/WF-07/states/HF_STATE_CC-06.png",
+      "pairedSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-06.md",
+      "sha256": "e9416c98432b43620ef349d1a56d7ca480e1da0f291d907df988a026b5def564"
+    },
+    {
+      "id": "CC-07",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": "docs/high-fidelity/WF-07/states/HF_STATE_CC-07.png",
+      "pairedSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-07.md",
+      "sha256": "b8069829816d98dfcb4d9eab6a67f0b2223eff3b198514baa76816d354bd91e7"
+    },
+    {
+      "id": "CC-11",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.png",
+      "pairedSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.md",
+      "sha256": "e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c"
+    },
+    {
+      "id": "CC-14",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.md",
+      "sha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2"
+    },
+    {
+      "id": "CD-03",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-03.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-03.md",
+      "sha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2"
+    },
+    {
+      "id": "CD-04",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-04.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-04.md",
+      "sha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2"
+    },
+    {
+      "id": "CD-05",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-05.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-05.md",
+      "sha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7"
+    },
+    {
+      "id": "CD-06",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-06.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-06.md",
+      "sha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7"
+    },
+    {
+      "id": "CD-07",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-07.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-07.md",
+      "sha256": "277ab34efd7327ba29e82f0f67847685a403c2e9cdd354136efff286c3c4b87b"
+    },
+    {
+      "id": "CD-08",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-08.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-08.md",
+      "sha256": "c3a005b7d12700f6564b0eb2442818ab63d14ff409874baa32041bb90dc67f6d"
+    },
+    {
+      "id": "CD-09",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-09.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-09.md",
+      "sha256": "edc2798b9507606a33cfbcbf06bf10e97be66f1f2bad888dfa605c1c13acf99a"
+    },
+    {
+      "id": "CD-10",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-10.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-10.md",
+      "sha256": "2bb6e40387dad528c63865444b1b31b412c63958e4c09fc8c74c10bdb12d0247"
+    },
+    {
+      "id": "CD-11",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.md",
+      "sha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7"
+    },
+    {
+      "id": "CD-12",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-12.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-12.md",
+      "sha256": "554999437c1fc89b7776329861f53eacf5d75ab719c34986ef22d01295331a66"
+    },
+    {
+      "id": "CD-13",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-13.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-13.md",
+      "sha256": "79b409ee41b527a1d6ec9a62964ce42e20cfc787bdf15adf563ca9e487e27c60"
+    },
+    {
+      "id": "CD-14",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-14.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-14.md",
+      "sha256": "5647fe13851d916a0167b3c9b27e05317d03695cb03928804f2bf7d1de9e627d"
+    },
+    {
+      "id": "CD-15",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-15.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-15.md",
+      "sha256": "75e757533901ad9bd6adbabdbff01c1f8ed844c4ad3fd1eaec9ade6175e7adcb"
+    },
+    {
+      "id": "CD-16",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-16.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-16.md",
+      "sha256": "dc3434c347214edb2005f6b18e2a79f6fdc0e4165b76227a01cf9525b260775a"
+    },
+    {
+      "id": "CD-17",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-17.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-17.md",
+      "sha256": "1f741a8809e030583eab7d4b58332944b7a6d322cc21b102df46bafc42f55e45"
+    },
+    {
+      "id": "CD-18",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-18.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-18.md",
+      "sha256": "cebbe3477ac4a964667f8ad89527d242c50c7540ac1207e70e75c3cb2b2c4a87"
+    },
+    {
+      "id": "CD-19",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": "docs/high-fidelity/WF-08/states/HF_STATE_CD-19.png",
+      "pairedSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-19.md",
+      "sha256": "943e4e3b61e8c99282fbaec5b879b1ebcb847789360b5ed6ef9c9a7b51a054bc"
+    },
+    {
+      "id": "CD-23",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": "docs/high-fidelity/WF-10/states/HF_STATE_CD-23.png",
+      "pairedSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CD-23.md",
+      "sha256": "dc719e889012cb458d87bcd345746f16e61a99fc36ab4da97770929536880379"
+    },
+    {
+      "id": "CE-15",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": "docs/high-fidelity/WF-10/states/HF_STATE_CE-15.png",
+      "pairedSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-15.md",
+      "sha256": "fec2fdec595b47d0b5512cd588c92135ab736b7caa9ed1821717bd54800e892b"
+    },
+    {
+      "id": "CE-20",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": "docs/high-fidelity/WF-10/states/HF_STATE_CE-20.png",
+      "pairedSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-20.md",
+      "sha256": "399cd6039f8e3f3e9f6978a1539de442bedc003acc7bedd48a35342f58d93539"
+    },
+    {
+      "id": "CE-21",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": "docs/high-fidelity/WF-10/states/HF_STATE_CE-21.png",
+      "pairedSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-21.md",
+      "sha256": "83cb8473b68c6f98efac9ccb33886c8ef515489476020ca51d58af53781a4724"
+    },
+    {
+      "id": "CE-22",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": "docs/high-fidelity/WF-10/states/HF_STATE_CE-22.png",
+      "pairedSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-22.md",
+      "sha256": "8fe1db1e299eee10b53c9a9ed9f7c0f796f67b7930a29f5f262a5208e76357ef"
+    },
+    {
+      "id": "CE-23",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": "docs/high-fidelity/WF-10/states/HF_STATE_CE-23.png",
+      "pairedSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-23.md",
+      "sha256": "d93d3c4bbfd400ac14197891173b310aa2e2713341972ec435028a7a006840c9"
+    },
+    {
+      "id": "UL-02",
+      "wf": [
+        "WF-09"
+      ],
+      "asset": "docs/high-fidelity/WF-09/states/HF_STATE_UL-02.png",
+      "pairedSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-02.md",
+      "sha256": "f6ac819de3c4e1471ee71235829d23f151e6a3c8f683c44783dd7002711c0e93"
+    },
+    {
+      "id": "UL-03",
+      "wf": [
+        "WF-09"
+      ],
+      "asset": "docs/high-fidelity/WF-09/states/HF_STATE_UL-03.png",
+      "pairedSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-03.md",
+      "sha256": "f6ac819de3c4e1471ee71235829d23f151e6a3c8f683c44783dd7002711c0e93"
+    },
+    {
+      "id": "UL-04",
+      "wf": [
+        "WF-09"
+      ],
+      "asset": "docs/high-fidelity/WF-09/states/HF_STATE_UL-04.png",
+      "pairedSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-04.md",
+      "sha256": "dd71e0166ee681c78f55aed5570cb25a7e4061e7689ed9174aa243276ab2d503"
+    }
+  ],
+  "variantAnnotationStates": [
+    {
+      "id": "CA-02",
+      "wf": [
+        "WF-03"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CA-02.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-02",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-02.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-03",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-03.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-04",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-04.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-05",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-05.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-06",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-06.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-07",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-07.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-08",
+      "wf": [
+        "WF-04"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-08.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-13",
+      "wf": [
+        "WF-04",
+        "WF-05"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-13.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-14",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-14.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-19",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-19.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-20",
+      "wf": [
+        "WF-04",
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-20.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-21",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-21.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-31",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-31.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-32",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-32.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CB-33",
+      "wf": [
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CB-33.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-01",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-01.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-02",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-02.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-03",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-03.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-04",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-04.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-08",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-08.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-09",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-09.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-10",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-10.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-12",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-12.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-13",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-13.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-15",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-15.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-17",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-17.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CC-18",
+      "wf": [
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CC-18.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CD-01",
+      "wf": [
+        "WF-07",
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CD-01.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CD-02",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CD-02.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CD-20",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CD-20.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CD-21",
+      "wf": [
+        "WF-03",
+        "WF-08"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CD-21.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CD-22",
+      "wf": [
+        "WF-08",
+        "WF-10"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CD-22.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CD-24",
+      "wf": [
+        "WF-08"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CD-24.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-01",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-01.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-02",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-02.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-03",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-03.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-04",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-04.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-05",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-05.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-06",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-06.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-11",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-11.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-12",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-12.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-13",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-13.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-14",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-14.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-16",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-16.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-17",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-17.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-19",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-19.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-24",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-24.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-25",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-25.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "CE-26",
+      "wf": [
+        "WF-10"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/CE-26.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-01",
+      "wf": [
+        "WF-09"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-01.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-05",
+      "wf": [
+        "WF-06",
+        "WF-09"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-05.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-06",
+      "wf": [
+        "WF-06",
+        "WF-09"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-06.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-07",
+      "wf": [
+        "WF-06",
+        "WF-09"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-07.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-08",
+      "wf": [
+        "WF-06",
+        "WF-09"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-08.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-09",
+      "wf": [
+        "WF-09",
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-09.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-10",
+      "wf": [
+        "WF-09",
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-10.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-11",
+      "wf": [
+        "WF-09",
+        "WF-06"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-11.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-12",
+      "wf": [
+        "WF-09"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-12.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-13",
+      "wf": [
+        "WF-09"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-13.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    },
+    {
+      "id": "UL-14",
+      "wf": [
+        "WF-09"
+      ],
+      "asset": null,
+      "spec": "docs/high-fidelity/state-variants/UL-14.md",
+      "disposition": "Existing component variant, not a new render/nav destination"
+    }
+  ],
+  "nativeSystemOnly": [
+    {
+      "id": "SYS-01",
+      "wf": [
+        "WF-03"
+      ],
+      "actualOwner": "Android/System",
+      "actualScreenOwner": "Android permission/Settings",
+      "actualRecoveryOwner": "UF-02",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/SYS-01.md"
+    },
+    {
+      "id": "SYS-02",
+      "wf": [
+        "WF-03"
+      ],
+      "actualOwner": "Android/System",
+      "actualScreenOwner": "Android permission/Settings",
+      "actualRecoveryOwner": "UF-02",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/SYS-02.md"
+    },
+    {
+      "id": "SYS-03",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System",
+      "actualScreenOwner": "Android notification permission",
+      "actualRecoveryOwner": "UF-06 / UF-12",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/SYS-03.md"
+    },
+    {
+      "id": "SYS-04",
+      "wf": [
+        "WF-03"
+      ],
+      "actualOwner": "Android/System",
+      "actualScreenOwner": "Android permission/Settings",
+      "actualRecoveryOwner": "UF-02",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/SYS-04.md"
+    },
+    {
+      "id": "SYS-05",
+      "wf": [
+        "WF-03"
+      ],
+      "actualOwner": "Android/System + provider",
+      "actualScreenOwner": "Speech provider / consent boundary",
+      "actualRecoveryOwner": "UF-10 / UF-12",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/SYS-05.md"
+    },
+    {
+      "id": "CB-22",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android lifecycle/background",
+      "actualRecoveryOwner": "UF-06",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-22.md"
+    },
+    {
+      "id": "CB-23",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android lifecycle/background",
+      "actualRecoveryOwner": "UF-06",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-23.md"
+    },
+    {
+      "id": "CB-24",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android lifecycle/background",
+      "actualRecoveryOwner": "UF-06",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-24.md"
+    },
+    {
+      "id": "CB-25",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android lifecycle/background",
+      "actualRecoveryOwner": "UF-06",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-25.md"
+    },
+    {
+      "id": "CB-26",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System + MediaSession",
+      "actualScreenOwner": "Android/system media surface",
+      "actualRecoveryOwner": "UF-06",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-26.md"
+    },
+    {
+      "id": "CB-27",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System + MediaSession",
+      "actualScreenOwner": "Android/system media surface",
+      "actualRecoveryOwner": "UF-06",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-27.md"
+    },
+    {
+      "id": "CB-28",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System + MediaSession",
+      "actualScreenOwner": "Android/system media surface",
+      "actualRecoveryOwner": "UF-06",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-28.md"
+    },
+    {
+      "id": "CB-29",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System + MediaSession",
+      "actualScreenOwner": "System command handoff",
+      "actualRecoveryOwner": "UF-06",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-29.md"
+    },
+    {
+      "id": "CB-30",
+      "wf": [
+        "WF-06"
+      ],
+      "actualOwner": "Android/System",
+      "actualScreenOwner": "Notification permission/visibility",
+      "actualRecoveryOwner": "UF-06 / UF-12",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CB-30.md"
+    },
+    {
+      "id": "CC-16",
+      "wf": [
+        "WF-07"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android interruption/route",
+      "actualRecoveryOwner": "UF-11",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CC-16.md"
+    },
+    {
+      "id": "CE-07",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android route/focus handoff",
+      "actualRecoveryOwner": "UF-11",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CE-07.md"
+    },
+    {
+      "id": "CE-08",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android route/focus handoff",
+      "actualRecoveryOwner": "UF-11",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CE-08.md"
+    },
+    {
+      "id": "CE-09",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android route/focus handoff",
+      "actualRecoveryOwner": "UF-11",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CE-09.md"
+    },
+    {
+      "id": "CE-10",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "actualOwner": "Android/System + Playback Service",
+      "actualScreenOwner": "Android route/focus handoff",
+      "actualRecoveryOwner": "UF-11",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CE-10.md"
+    },
+    {
+      "id": "CE-18",
+      "wf": [
+        "WF-10"
+      ],
+      "actualOwner": "Android/System",
+      "actualScreenOwner": "Android Settings",
+      "actualRecoveryOwner": "UF-12",
+      "image": null,
+      "appScreen": null,
+      "systemSpec": "docs/high-fidelity/system-handoffs/CE-18.md"
+    }
+  ],
+  "specialistOverrides": [
+    {
+      "id": "DRV_PLAYING",
+      "stateId": "CC-05",
+      "asset": "docs/high-fidelity/specialist/phase-6/DRV_PLAYING.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/DRV_PLAYING.md"
+    },
+    {
+      "id": "DRV_PAUSED",
+      "stateId": "CC-06",
+      "asset": "docs/high-fidelity/specialist/phase-6/DRV_PAUSED.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/DRV_PAUSED.md"
+    },
+    {
+      "id": "DRV_NO_TRACK",
+      "stateId": "CC-07",
+      "asset": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.md"
+    },
+    {
+      "id": "DRV_LAST_VERIFIED",
+      "stateId": "CC-07",
+      "asset": "docs/high-fidelity/specialist/phase-6/DRV_LAST_VERIFIED.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/DRV_LAST_VERIFIED.md"
+    },
+    {
+      "id": "DRV_RECONNECT",
+      "stateId": "CC-03",
+      "asset": "docs/high-fidelity/specialist/phase-6/DRV_RECONNECT.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/DRV_RECONNECT.md"
+    },
+    {
+      "id": "DRV_COMMAND_PENDING",
+      "stateId": "CC-08",
+      "asset": "docs/high-fidelity/specialist/phase-6/DRV_COMMAND_PENDING.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/DRV_COMMAND_PENDING.md"
+    },
+    {
+      "id": "DRV_ROUTE_SAFE",
+      "stateId": "CE-06",
+      "asset": "docs/high-fidelity/specialist/phase-6/DRV_ROUTE_SAFE.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/DRV_ROUTE_SAFE.md"
+    },
+    {
+      "id": "VO_LISTEN_1",
+      "stateId": "CD-03",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.md"
+    },
+    {
+      "id": "VO_LISTEN_2",
+      "stateId": "CD-04",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.md"
+    },
+    {
+      "id": "VO_PROCESSING",
+      "stateId": "CD-05",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.md"
+    },
+    {
+      "id": "VO_COMMAND_PENDING",
+      "stateId": "CD-06",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.md"
+    },
+    {
+      "id": "VO_CONFIRM_ONE",
+      "stateId": "CD-09",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.md"
+    },
+    {
+      "id": "VO_CONFIRM_TWO",
+      "stateId": "CD-10",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.md"
+    },
+    {
+      "id": "VO_EXECUTED",
+      "stateId": "CD-07",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.md"
+    },
+    {
+      "id": "VO_TTS_UNAVAILABLE",
+      "stateId": "CD-07",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_TTS_UNAVAILABLE.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_TTS_UNAVAILABLE.md"
+    },
+    {
+      "id": "VO_STT_TIMEOUT",
+      "stateId": "CD-17",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.md"
+    },
+    {
+      "id": "VO_RETRY_AVAILABLE",
+      "stateId": "CD-18",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.md"
+    },
+    {
+      "id": "VO_ATTEMPT2_TERMINAL",
+      "stateId": "CD-19",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.md"
+    },
+    {
+      "id": "VO_ARTIST_NOT_FOUND",
+      "stateId": "CD-13",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.md"
+    },
+    {
+      "id": "VO_UNKNOWN_PHRASE",
+      "stateId": "CD-14",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.md"
+    },
+    {
+      "id": "VO_UNSUPPORTED",
+      "stateId": "CD-15",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.md"
+    },
+    {
+      "id": "VO_MISSING_ARTIST",
+      "stateId": "CD-16",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.md"
+    },
+    {
+      "id": "VO_CONFIRMATION_FAILED",
+      "stateId": "CD-12",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.md"
+    },
+    {
+      "id": "VO_EXECUTION_REJECTED",
+      "stateId": "CD-08",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.md"
+    },
+    {
+      "id": "VO_PROVIDER_UNAVAILABLE",
+      "stateId": "CD-22",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_PROVIDER_UNAVAILABLE.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_PROVIDER_UNAVAILABLE.md"
+    },
+    {
+      "id": "VO_PERMISSION_DENIED",
+      "stateId": "CD-21",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_PERMISSION_DENIED.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_PERMISSION_DENIED.md"
+    },
+    {
+      "id": "VO_MANUAL_ONLY",
+      "stateId": "CD-20",
+      "asset": "docs/high-fidelity/specialist/phase-6/VO_MANUAL_ONLY.png",
+      "pairedSpec": "docs/high-fidelity/specialist/phase-6/VO_MANUAL_ONLY.md"
+    }
+  ],
+  "note": "gitBlobSha1 confirms immutable Git tree identity for ALL listed files. sourceSha256 is populated only for accepted precomputed PNG digests from earlier canonical registers. GitHub tree sizes and SHAs are not confused with SHA-256. Every source path checked in this branch tree.",
+  "privacyPolicy": "Never transmit or persist raw audio, utterance transcript, artist/full filenames, content URI, precise location/position, candidate labels or hardware IDs in evidence/telemetry."
+}
