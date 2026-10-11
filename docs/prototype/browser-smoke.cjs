@@ -63,7 +63,7 @@ const fs=require("node:fs"),path=require("node:path"),assert=require("node:asser
    await review("Android active-session handoff / app background");await cur("CB-22");
    await review("Activity enters background");await cur("CB-23");
    await review("Device screen off / lock screen");await cur("CB-24");
-   await review("Compatible system controls are present");await cur("CB-26");
+   await review("Compatible notification media controls");await cur("CB-26");
    assert.equal(await page.locator("#system-placeholder").isVisible(),true);
    await review("OS Media Key command sent");await cur("CB-29");
    await review("Service acknowledges once");await cur("CB-21");
