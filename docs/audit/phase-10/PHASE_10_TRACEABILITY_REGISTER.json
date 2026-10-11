@@ -47,7 +47,15 @@
       "systemOwner": "UF-01 · Splash",
       "recoveryOwner": "UF-01",
       "stateSpec": "docs/high-fidelity/WF-01/states/HF_STATE_S-01.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-01_SPLASH_LOADING",
+        "WF-01_SPLASH_STARTUP_MIGRATION_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-01_SPLASH_LOADING.svg",
+        "docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.svg"
+      ]
     },
     {
       "stateId": "S-02",
@@ -95,7 +103,15 @@
       "systemOwner": "UF-01 · Onboarding/Education",
       "recoveryOwner": "UF-01",
       "stateSpec": "docs/high-fidelity/WF-02/states/HF_STATE_S-02.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-02_ONBOARDING_SLIDE_1",
+        "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg",
+        "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.svg"
+      ]
     },
     {
       "stateId": "S-03",
@@ -144,7 +160,19 @@
       "systemOwner": "UF-02 · Permission recovery",
       "recoveryOwner": "UF-02",
       "stateSpec": "docs/high-fidelity/WF-03/states/HF_STATE_S-03.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+        "WF-03_PERMISSIONS_GRANTED",
+        "WF-03_PERMISSIONS_DENIED",
+        "WF-03_PERMISSIONS_PERMANENTLY_DENIED"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg"
+      ]
     },
     {
       "stateId": "S-04",
@@ -192,7 +220,19 @@
       "systemOwner": "UF-03 · Home/Library readiness",
       "recoveryOwner": "UF-03",
       "stateSpec": "docs/high-fidelity/WF-04/states/HF_STATE_S-04.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CA-01",
@@ -240,7 +280,15 @@
       "systemOwner": "UF-01 · Onboarding/Education",
       "recoveryOwner": "UF-01",
       "stateSpec": "docs/high-fidelity/WF-02/states/HF_STATE_CA-01.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-02_ONBOARDING_SLIDE_1",
+        "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg",
+        "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.svg"
+      ]
     },
     {
       "stateId": "CA-02",
@@ -289,7 +337,19 @@
       "systemOwner": "UF-02 · Voice access boundary",
       "recoveryOwner": "UF-02 / UF-10",
       "stateSpec": "docs/high-fidelity/state-variants/CA-02.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+        "WF-03_PERMISSIONS_GRANTED",
+        "WF-03_PERMISSIONS_DENIED",
+        "WF-03_PERMISSIONS_PERMANENTLY_DENIED"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg"
+      ]
     },
     {
       "stateId": "SYS-01",
@@ -338,7 +398,11 @@
       "systemOwner": "Android permission/Settings",
       "recoveryOwner": "UF-02",
       "stateSpec": "docs/high-fidelity/system-handoffs/SYS-01.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "SYS-02",
@@ -385,7 +449,11 @@
       "systemOwner": "Android permission/Settings",
       "recoveryOwner": "UF-02",
       "stateSpec": "docs/high-fidelity/system-handoffs/SYS-02.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "SYS-03",
@@ -431,7 +499,11 @@
       "systemOwner": "Android notification permission",
       "recoveryOwner": "UF-06 / UF-12",
       "stateSpec": "docs/high-fidelity/system-handoffs/SYS-03.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "SYS-04",
@@ -480,7 +552,11 @@
       "systemOwner": "Android permission/Settings",
       "recoveryOwner": "UF-02",
       "stateSpec": "docs/high-fidelity/system-handoffs/SYS-04.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "SYS-05",
@@ -535,7 +611,11 @@
       "systemOwner": "Speech provider / consent boundary",
       "recoveryOwner": "UF-10 / UF-12",
       "stateSpec": "docs/high-fidelity/system-handoffs/SYS-05.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-01",
@@ -583,7 +663,19 @@
       "systemOwner": "UF-04 · Home/Library",
       "recoveryOwner": "UF-03 / UF-04",
       "stateSpec": "docs/high-fidelity/WF-04/states/HF_STATE_CB-01.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-02",
@@ -630,7 +722,19 @@
       "systemOwner": "UF-04 · Browse",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/state-variants/CB-02.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-03",
@@ -675,7 +779,19 @@
       "systemOwner": "UF-04 · Browse",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/state-variants/CB-03.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-04",
@@ -720,7 +836,19 @@
       "systemOwner": "UF-04 · Browse",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/state-variants/CB-04.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-05",
@@ -765,7 +893,19 @@
       "systemOwner": "UF-04 · Browse",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/state-variants/CB-05.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-06",
@@ -810,7 +950,19 @@
       "systemOwner": "UF-04 · Browse",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/state-variants/CB-06.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-07",
@@ -855,7 +1007,19 @@
       "systemOwner": "UF-04 · Browse",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/state-variants/CB-07.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-08",
@@ -900,7 +1064,19 @@
       "systemOwner": "UF-04 · Browse",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/state-variants/CB-08.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-09",
@@ -945,7 +1121,17 @@
       "systemOwner": "UF-04 · Search",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-09.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-10",
@@ -990,7 +1176,17 @@
       "systemOwner": "UF-04 · Search",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-10.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-11",
@@ -1037,7 +1233,17 @@
       "systemOwner": "UF-04 · Search",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-11.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-12",
@@ -1084,7 +1290,17 @@
       "systemOwner": "UF-04 · Search",
       "recoveryOwner": "UF-04",
       "stateSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-12.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-13",
@@ -1132,7 +1348,25 @@
       "systemOwner": "UF-04 · Browse/Search selection",
       "recoveryOwner": "UF-02 / UF-03 / UF-04",
       "stateSpec": "docs/high-fidelity/state-variants/CB-13.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR",
+        "WF-05_SEARCH_RESULTS",
+        "WF-05_SEARCH_NO_RESULTS",
+        "WF-05_SEARCH_ERROR"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
+        "docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg"
+      ]
     },
     {
       "stateId": "CB-14",
@@ -1184,7 +1418,17 @@
       "systemOwner": "UF-05 · Full Player",
       "recoveryOwner": "UF-05",
       "stateSpec": "docs/high-fidelity/state-variants/CB-14.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-15",
@@ -1235,7 +1479,17 @@
       "systemOwner": "UF-05 · Full Player/Queue",
       "recoveryOwner": "UF-05",
       "stateSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-15.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-16",
@@ -1285,7 +1539,17 @@
       "systemOwner": "UF-05 · Full Player/Queue",
       "recoveryOwner": "UF-05",
       "stateSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-16.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-17",
@@ -1333,7 +1597,17 @@
       "systemOwner": "UF-05 · Full Player/Queue",
       "recoveryOwner": "UF-05",
       "stateSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-17.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-18",
@@ -1381,7 +1655,17 @@
       "systemOwner": "UF-05 · Full Player/Queue",
       "recoveryOwner": "UF-05",
       "stateSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-18.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-19",
@@ -1431,7 +1715,17 @@
       "systemOwner": "UF-05 · Full Player",
       "recoveryOwner": "UF-03 / UF-05 / UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CB-19.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-20",
@@ -1480,7 +1774,25 @@
       "systemOwner": "UF-05 · Mini-player on Home",
       "recoveryOwner": "UF-05 / UF-06",
       "stateSpec": "docs/high-fidelity/state-variants/CB-20.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-04_HOME_LIBRARY_SCANNING",
+        "WF-04_HOME_LIBRARY_EMPTY",
+        "WF-04_HOME_LIBRARY_READY",
+        "WF-04_HOME_LIBRARY_RECOVERABLE_ERROR",
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
+        "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-21",
@@ -1533,7 +1845,17 @@
       "systemOwner": "UF-05/06 · Controller connection",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/state-variants/CB-21.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-22",
@@ -1581,7 +1903,12 @@
       "systemOwner": "Android lifecycle/background",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-22.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-23",
@@ -1629,7 +1956,11 @@
       "systemOwner": "Android lifecycle/background",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-23.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-24",
@@ -1677,7 +2008,11 @@
       "systemOwner": "Android lifecycle/background",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-24.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-25",
@@ -1725,7 +2060,11 @@
       "systemOwner": "Android lifecycle/background",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-25.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-26",
@@ -1773,7 +2112,11 @@
       "systemOwner": "Android/system media surface",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-26.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-27",
@@ -1819,7 +2162,11 @@
       "systemOwner": "Android/system media surface",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-27.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-28",
@@ -1865,7 +2212,12 @@
       "systemOwner": "Android/system media surface",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-28.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-29",
@@ -1913,7 +2265,13 @@
       "systemOwner": "System command handoff",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-29.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS",
+        "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-30",
@@ -1961,7 +2319,12 @@
       "systemOwner": "Notification permission/visibility",
       "recoveryOwner": "UF-06 / UF-12",
       "stateSpec": "docs/high-fidelity/system-handoffs/CB-30.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY",
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CB-31",
@@ -2007,7 +2370,17 @@
       "systemOwner": "UF-06 · System-surface fallback",
       "recoveryOwner": "UF-06",
       "stateSpec": "docs/high-fidelity/state-variants/CB-31.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-32",
@@ -2059,7 +2432,17 @@
       "systemOwner": "UF-05/06 · Paused restore",
       "recoveryOwner": "UF-03 / UF-05 / UF-06",
       "stateSpec": "docs/high-fidelity/state-variants/CB-32.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CB-33",
@@ -2111,7 +2494,17 @@
       "systemOwner": "UF-05/06 · Paused restore",
       "recoveryOwner": "UF-03 / UF-05 / UF-06",
       "stateSpec": "docs/high-fidelity/state-variants/CB-33.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg"
+      ]
     },
     {
       "stateId": "CC-01",
@@ -2159,7 +2552,17 @@
       "systemOwner": "UF-07 · Driving entry",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-01.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-02",
@@ -2207,7 +2610,17 @@
       "systemOwner": "UF-07 · Driving entry",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-02.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-03",
@@ -2255,7 +2668,17 @@
       "systemOwner": "UF-07 · Driving entry",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-03.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-04",
@@ -2301,7 +2724,17 @@
       "systemOwner": "UF-07 · Driving entry",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-04.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-05",
@@ -2349,7 +2782,17 @@
       "systemOwner": "UF-07 · Driving Mode",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-05.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-06",
@@ -2397,7 +2840,17 @@
       "systemOwner": "UF-07 · Driving Mode",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-06.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-07",
@@ -2445,7 +2898,17 @@
       "systemOwner": "UF-07 · Driving Mode",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-07.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-08",
@@ -2491,7 +2954,17 @@
       "systemOwner": "UF-07 · Driving controls",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-08.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-09",
@@ -2537,7 +3010,17 @@
       "systemOwner": "UF-07 · Driving controls",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-09.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-10",
@@ -2583,7 +3066,17 @@
       "systemOwner": "UF-07 · Driving controls",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-10.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-11",
@@ -2631,7 +3124,17 @@
       "systemOwner": "UF-07 · Entry suggestion",
       "recoveryOwner": "UF-07 / UF-12",
       "stateSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-12",
@@ -2677,7 +3180,17 @@
       "systemOwner": "UF-07 · Entry suggestion",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-12.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-13",
@@ -2723,7 +3236,17 @@
       "systemOwner": "UF-07 · Exit/Back",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-13.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-14",
@@ -2775,7 +3298,21 @@
       "systemOwner": "UF-08 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CC-15",
@@ -2821,7 +3358,17 @@
       "systemOwner": "UF-07 · Driving failure",
       "recoveryOwner": "UF-03 / UF-05 / UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-15.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-16",
@@ -2874,7 +3421,13 @@
       "systemOwner": "Android interruption/route",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/system-handoffs/CC-16.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS",
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CC-17",
@@ -2920,7 +3473,17 @@
       "systemOwner": "UF-07 · Entry suggestion",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-17.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CC-18",
@@ -2968,7 +3531,17 @@
       "systemOwner": "Telemetry fail-safe",
       "recoveryOwner": "UF-07",
       "stateSpec": "docs/high-fidelity/state-variants/CC-18.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CD-01",
@@ -3019,7 +3592,23 @@
       "systemOwner": "Initiating manual surface",
       "recoveryOwner": "UF-08 / UF-10",
       "stateSpec": "docs/high-fidelity/state-variants/CD-01.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CD-02",
@@ -3069,7 +3658,21 @@
       "systemOwner": "UF-08 · Voice overlay",
       "recoveryOwner": "UF-02 / UF-10 / UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CD-02.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-03",
@@ -3117,7 +3720,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-03.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-04",
@@ -3163,7 +3780,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-04.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-05",
@@ -3211,7 +3842,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-05.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-06",
@@ -3259,7 +3904,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-06.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-07",
@@ -3307,7 +3966,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-07.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-08",
@@ -3353,7 +4026,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-08.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-09",
@@ -3398,7 +4085,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-09.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-10",
@@ -3443,7 +4144,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-10.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-11",
@@ -3488,7 +4203,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-12",
@@ -3533,7 +4262,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-12.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-13",
@@ -3578,7 +4321,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-13.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-14",
@@ -3623,7 +4380,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-14.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-15",
@@ -3668,7 +4439,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-15.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-16",
@@ -3713,7 +4498,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-16.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-17",
@@ -3759,7 +4558,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-17.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-18",
@@ -3805,7 +4618,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-18.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-19",
@@ -3851,7 +4678,21 @@
       "systemOwner": "UF-08/09/10 · Voice overlay",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-19.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-20",
@@ -3901,7 +4742,21 @@
       "systemOwner": "Initiating manual surface",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/state-variants/CD-20.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-21",
@@ -3952,7 +4807,29 @@
       "systemOwner": "Permission recovery / Voice overlay",
       "recoveryOwner": "UF-02 / UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CD-21.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-03_PERMISSIONS_RATIONALE_REQUEST",
+        "WF-03_PERMISSIONS_GRANTED",
+        "WF-03_PERMISSIONS_DENIED",
+        "WF-03_PERMISSIONS_PERMANENTLY_DENIED",
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
+        "docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CD-22",
@@ -4003,7 +4880,29 @@
       "systemOwner": "Voice availability / Settings",
       "recoveryOwner": "UF-10 / UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CD-22.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY",
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CD-23",
@@ -4051,7 +4950,19 @@
       "systemOwner": "Settings · Cloud consent",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CD-23.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CD-24",
@@ -4103,7 +5014,21 @@
       "systemOwner": "Voice overlay return/exit",
       "recoveryOwner": "UF-08 / UF-09 / UF-10",
       "stateSpec": "docs/high-fidelity/state-variants/CD-24.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-08_VOICE_LISTENING",
+        "WF-08_VOICE_PROCESSING",
+        "WF-08_VOICE_CONFIRMING",
+        "WF-08_VOICE_EXECUTED",
+        "WF-08_VOICE_FAILED_RETRY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
+        "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg"
+      ]
     },
     {
       "stateId": "CE-01",
@@ -4151,7 +5076,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-01.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-02",
@@ -4199,7 +5140,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-02.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-03",
@@ -4247,7 +5204,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-03.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-04",
@@ -4295,7 +5268,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-04.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-05",
@@ -4343,7 +5332,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-05.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-06",
@@ -4391,7 +5396,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-06.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-07",
@@ -4439,7 +5460,12 @@
       "systemOwner": "Android route/focus handoff",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/system-handoffs/CE-07.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CE-08",
@@ -4487,7 +5513,12 @@
       "systemOwner": "Android route/focus handoff",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/system-handoffs/CE-08.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CE-09",
@@ -4535,7 +5566,12 @@
       "systemOwner": "Android route/focus handoff",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/system-handoffs/CE-09.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CE-10",
@@ -4583,7 +5619,11 @@
       "systemOwner": "Android route/focus handoff",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/system-handoffs/CE-10.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CE-11",
@@ -4631,7 +5671,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-11.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-12",
@@ -4679,7 +5735,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-12.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-13",
@@ -4725,7 +5797,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-13.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-14",
@@ -4773,7 +5861,23 @@
       "systemOwner": "UF-11 · Playback/interruption feedback",
       "recoveryOwner": "UF-11",
       "stateSpec": "docs/high-fidelity/state-variants/CE-14.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-07_DRIVING_MODE_PLAYING",
+        "WF-07_DRIVING_MODE_PAUSED",
+        "WF-07_DRIVING_MODE_NO_TRACK"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
+        "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg"
+      ]
     },
     {
       "stateId": "CE-15",
@@ -4815,7 +5919,19 @@
       "systemOwner": "UF-12 · Settings",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-15.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-16",
@@ -4857,7 +5973,19 @@
       "systemOwner": "UF-12 · Settings result",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CE-16.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-17",
@@ -4899,7 +6027,19 @@
       "systemOwner": "UF-12 · Settings result",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CE-17.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-18",
@@ -4943,7 +6083,11 @@
       "systemOwner": "Android Settings",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/system-handoffs/CE-18.md",
-      "renderKind": "SYSTEM_ONLY_HANDOFF"
+      "renderKind": "SYSTEM_ONLY_HANDOFF",
+      "lowFiEvidenceIds": [
+        "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF"
+      ],
+      "lowFiSvgPaths": []
     },
     {
       "stateId": "CE-19",
@@ -4985,7 +6129,19 @@
       "systemOwner": "UF-12 · Platform recheck",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CE-19.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-20",
@@ -5027,7 +6183,19 @@
       "systemOwner": "UF-12 · Bluetooth selection",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-20.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-21",
@@ -5069,7 +6237,19 @@
       "systemOwner": "UF-12 · Privacy/data controls",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-21.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-22",
@@ -5111,7 +6291,19 @@
       "systemOwner": "UF-12 · Privacy/data controls",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-22.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-23",
@@ -5153,7 +6345,19 @@
       "systemOwner": "UF-12 · Privacy/data controls",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-23.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-24",
@@ -5195,7 +6399,19 @@
       "systemOwner": "UF-12 · Clear data",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CE-24.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-25",
@@ -5237,7 +6453,19 @@
       "systemOwner": "UF-12 · Clear data",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CE-25.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "CE-26",
@@ -5279,7 +6507,19 @@
       "systemOwner": "UF-12 · Clear data",
       "recoveryOwner": "UF-12",
       "stateSpec": "docs/high-fidelity/state-variants/CE-26.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-10_SETTINGS_DEFAULT",
+        "WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "WF-10_SETTINGS_CLEARED_PRIVACY_STATUS"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
+        "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg"
+      ]
     },
     {
       "stateId": "UL-01",
@@ -5320,7 +6560,15 @@
       "systemOwner": "Scope/release configuration",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-01.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-02",
@@ -5361,7 +6609,15 @@
       "systemOwner": "UF-13 · Liked Songs",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-02.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-03",
@@ -5402,7 +6658,15 @@
       "systemOwner": "UF-13 · Liked Songs",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-03.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-04",
@@ -5443,7 +6707,15 @@
       "systemOwner": "UF-13 · Liked Songs",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-04.md",
-      "renderKind": "DEDICATED_HIFI"
+      "renderKind": "DEDICATED_HIFI",
+      "lowFiEvidenceIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-05",
@@ -5485,7 +6757,21 @@
       "systemOwner": "Like control on player/list",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-05.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-06",
@@ -5527,7 +6813,21 @@
       "systemOwner": "Like control on player/list",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-06.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-07",
@@ -5569,7 +6869,21 @@
       "systemOwner": "Like control on player/list",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-07.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-08",
@@ -5611,7 +6925,21 @@
       "systemOwner": "Like control on player/list",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-08.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-09",
@@ -5626,11 +6954,7 @@
       ],
       "goldenScenarioFromSource": "— (not on GS-01..05 path)",
       "directGS": [],
-      "approvedUFBasedGSBridge": [
-        "GS-02",
-        "GS-03",
-        "GS-05"
-      ],
+      "approvedUFBasedGSBridge": [],
       "gsRelation": "OPTIONAL_P2_NO_GS",
       "prdFR": [
         "FR-09"
@@ -5658,7 +6982,21 @@
       "systemOwner": "Liked Songs playback",
       "recoveryOwner": "UF-05 / UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-09.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-10",
@@ -5673,11 +7011,7 @@
       ],
       "goldenScenarioFromSource": "— (not on GS-01..05 path)",
       "directGS": [],
-      "approvedUFBasedGSBridge": [
-        "GS-02",
-        "GS-03",
-        "GS-05"
-      ],
+      "approvedUFBasedGSBridge": [],
       "gsRelation": "OPTIONAL_P2_NO_GS",
       "prdFR": [
         "FR-09"
@@ -5705,7 +7039,21 @@
       "systemOwner": "Liked Songs playback",
       "recoveryOwner": "UF-05 / UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-10.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-11",
@@ -5720,11 +7068,7 @@
       ],
       "goldenScenarioFromSource": "— (not on GS-01..05 path)",
       "directGS": [],
-      "approvedUFBasedGSBridge": [
-        "GS-02",
-        "GS-03",
-        "GS-05"
-      ],
+      "approvedUFBasedGSBridge": [],
       "gsRelation": "OPTIONAL_P2_NO_GS",
       "prdFR": [
         "FR-09"
@@ -5752,7 +7096,21 @@
       "systemOwner": "Liked Songs playback",
       "recoveryOwner": "UF-05 / UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-11.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-06_FULL_PLAYER_PLAYING",
+        "WF-06_FULL_PLAYER_PAUSED",
+        "WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
+        "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-12",
@@ -5793,7 +7151,15 @@
       "systemOwner": "UF-13 · Liked Songs",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-12.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-13",
@@ -5834,7 +7200,15 @@
       "systemOwner": "UF-13 · Liked Songs",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-13.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     },
     {
       "stateId": "UL-14",
@@ -5875,7 +7249,15 @@
       "systemOwner": "UF-13 · Liked Songs",
       "recoveryOwner": "UF-13",
       "stateSpec": "docs/high-fidelity/state-variants/UL-14.md",
-      "renderKind": "HIFI_VARIANT_ANNOTATION"
+      "renderKind": "HIFI_VARIANT_ANNOTATION",
+      "lowFiEvidenceIds": [
+        "WF-09_LIKED_SONGS_EMPTY",
+        "WF-09_LIKED_SONGS_READY"
+      ],
+      "lowFiSvgPaths": [
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
+        "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg"
+      ]
     }
   ],
   "registeredArtifacts": [
