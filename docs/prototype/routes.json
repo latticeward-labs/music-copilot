@@ -79,6 +79,7 @@
         "notification-denied",
         "sys-settings-notification",
         "restore-paused",
+        "restore-pending",
         "library"
       ],
       "terminals": [
@@ -1341,14 +1342,44 @@
       "summary": "Only validated persisted snapshot may restore an explicitly Paused state. This does not imply live P0 continuity.",
       "edges": [
         {
-          "label": "User explicitly requests Play; revalidate item",
-          "to": "player",
-          "kind": "simulate",
+          "label": "Explicit Play on verified restore",
+          "to": "restore-pending",
+          "kind": "tap",
+          "rect": [
+            129,
+            514,
+            99,
+            90
+          ],
           "note": ""
         },
         {
           "label": "Restore invalid; return Home",
           "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "restore-pending",
+      "stateId": "CB-32",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png",
+      "title": "Validated restore: await service ACK",
+      "summary": "The prior Paused state remains visible until a new MediaSession command is acknowledged.",
+      "edges": [
+        {
+          "label": "Service acknowledges explicit Play",
+          "to": "player",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Service rejects or item invalid; remain Paused",
+          "to": "restore-paused",
           "kind": "simulate",
           "note": ""
         }

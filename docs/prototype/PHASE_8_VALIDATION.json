@@ -98,7 +98,7 @@
     },
     "GS-03": {
       "primarySteps": 8,
-      "scopedReachableNodes": 15,
+      "scopedReachableNodes": 16,
       "recoveryCount": 7,
       "safeTerminalPaths": {
         "lock-controls": {
@@ -310,11 +310,11 @@
       "crossScenarioRecoveryUsed": false
     }
   },
-  "nodeCount": 66,
-  "appSurfaceNodes": 53,
+  "nodeCount": 67,
+  "appSurfaceNodes": 54,
   "annotatedSystemOnlyNodes": 13,
-  "edges": 185,
-  "interactiveHotspots": 73,
+  "edges": 187,
+  "interactiveHotspots": 74,
   "uniquePrimaryAndRecoveryNodes": 60,
   "allImagesExistingAndValidPng": true,
   "fiveGoldenPathsConnected": true,
