@@ -340,7 +340,7 @@ trace += ["","## Non-visual approved specialties","",
 (OUT/"PHASE_6_UF_STATE_AUDIT.md").write_text("\n".join(trace))
 v["canonicalDrivingVoiceStates"]=42
 v["ufStateCoverage"]=42
-v["specialistImageStateIds"]=len(special_by_state)
+v["specialistImageStateIds"]=len(set(required)&set(special_by_state))
 v["reusedExistingVariantHandoffStates"]=42-len(special_by_state)
 assert v["specialistImageStateIds"]+v["reusedExistingVariantHandoffStates"]==42
 # Functional QA cases are test instructions, NOT claims that a real APK was run.
