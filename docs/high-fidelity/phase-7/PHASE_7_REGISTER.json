@@ -1,0 +1,2878 @@
+{
+  "issue": 17,
+  "phase": 7,
+  "date": "2026-10-11",
+  "sourceArchiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "status": "PASS_DOCUMENTATION_45_20_RUNTIME_PENDING",
+  "original126States": 126,
+  "counts": {
+    "appVisible": 45,
+    "systemOnly": 20,
+    "missing": 0,
+    "duplicate": 0,
+    "unassigned": 0,
+    "fakeAppSystemScreens": 0
+  },
+  "appVisible": [
+    {
+      "id": "S-01",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-01"
+      ],
+      "uf": "UF-01",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-01/states/HF_STATE_S-01.md",
+      "sourceArt": "docs/high-fidelity/WF-01/states/HF_STATE_S-01.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/S-01.md",
+      "readingOrder": [
+        "Startup heading",
+        "stable loading/error status",
+        "recovery explanation",
+        "Retry when available"
+      ],
+      "actions": [
+        {
+          "action": "Retry",
+          "talkBack": "Retry startup"
+        }
+      ],
+      "nonColorOnly": "Loading progress or written Startup problem, not indicator color alone",
+      "reflow200Percent": "Vertical growth of error/retry; avoid fixed-height dialogs or repetitive progress announcements",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "S-02",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-02"
+      ],
+      "uf": "UF-01",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-02/states/HF_STATE_S-02.md",
+      "sourceArt": "docs/high-fidelity/WF-02/states/HF_STATE_S-02.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/S-02.md",
+      "readingOrder": [
+        "Onboarding heading",
+        "explanation",
+        "page index",
+        "Continue/Skip/Back"
+      ],
+      "actions": [
+        {
+          "action": "Continue",
+          "talkBack": "Continue onboarding"
+        },
+        {
+          "action": "Skip",
+          "talkBack": "Skip optional voice"
+        },
+        {
+          "action": "Back",
+          "talkBack": "Previous onboarding step"
+        }
+      ],
+      "nonColorOnly": "Spoken step x of y, not colored dots only",
+      "reflow200Percent": "Illustration shrinks before any text; Continue/Skip stay reachable at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "S-03",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-03"
+      ],
+      "uf": "UF-02",
+      "owner": "Hybrid",
+      "sourceSpec": "docs/high-fidelity/WF-03/states/HF_STATE_S-03.md",
+      "sourceArt": "docs/high-fidelity/WF-03/states/HF_STATE_S-03.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/S-03.md",
+      "readingOrder": [
+        "Permission heading",
+        "purpose",
+        "granted/denied status",
+        "approved action",
+        "return guidance"
+      ],
+      "actions": [
+        {
+          "action": "Open Settings",
+          "talkBack": "Open Android Settings"
+        },
+        {
+          "action": "Not now",
+          "talkBack": "Not now; continue using manual controls"
+        },
+        {
+          "action": "Retry",
+          "talkBack": "Retry permission check"
+        }
+      ],
+      "nonColorOnly": "Granted/Denied/Permanently denied label plus alert icon; color is supplemental",
+      "reflow200Percent": "Explanations and controls stack; no OS dialog launch on entry; recheck grant on return",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "S-04",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-04"
+      ],
+      "uf": "UF-03",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-04/states/HF_STATE_S-04.md",
+      "sourceArt": "docs/high-fidelity/WF-04/states/HF_STATE_S-04.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/S-04.md",
+      "readingOrder": [
+        "Library heading",
+        "scan/ready/error state",
+        "Songs/Artists/Albums/Folders tabs",
+        "content rows",
+        "retry or navigation"
+      ],
+      "actions": [
+        {
+          "action": "Songs",
+          "talkBack": "Browse songs"
+        },
+        {
+          "action": "Artists",
+          "talkBack": "Browse artists"
+        },
+        {
+          "action": "Albums",
+          "talkBack": "Browse albums"
+        },
+        {
+          "action": "Folders",
+          "talkBack": "Browse folders"
+        },
+        {
+          "action": "Retry",
+          "talkBack": "Retry scanning local music"
+        }
+      ],
+      "nonColorOnly": "Scanning/Empty/Error text and shape, never spinner-only",
+      "reflow200Percent": "Rows expand and wrap; category tabs scroll, no clipped error or blocked bottom navigation",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CA-01",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-02"
+      ],
+      "uf": "UF-01",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-02/states/HF_STATE_CA-01.md",
+      "sourceArt": "docs/high-fidelity/WF-02/states/HF_STATE_CA-01.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CA-01.md",
+      "readingOrder": [
+        "Onboarding heading",
+        "explanation",
+        "page index",
+        "Continue/Skip/Back"
+      ],
+      "actions": [
+        {
+          "action": "Continue",
+          "talkBack": "Continue onboarding"
+        },
+        {
+          "action": "Skip",
+          "talkBack": "Skip optional voice"
+        },
+        {
+          "action": "Back",
+          "talkBack": "Previous onboarding step"
+        }
+      ],
+      "nonColorOnly": "Spoken step x of y, not colored dots only",
+      "reflow200Percent": "Illustration shrinks before any text; Continue/Skip stay reachable at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-01",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-04"
+      ],
+      "uf": "UF-04",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-04/states/HF_STATE_CB-01.md",
+      "sourceArt": "docs/high-fidelity/WF-04/states/HF_STATE_CB-01.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-01.md",
+      "readingOrder": [
+        "Library heading",
+        "scan/ready/error state",
+        "Songs/Artists/Albums/Folders tabs",
+        "content rows",
+        "retry or navigation"
+      ],
+      "actions": [
+        {
+          "action": "Songs",
+          "talkBack": "Browse songs"
+        },
+        {
+          "action": "Artists",
+          "talkBack": "Browse artists"
+        },
+        {
+          "action": "Albums",
+          "talkBack": "Browse albums"
+        },
+        {
+          "action": "Folders",
+          "talkBack": "Browse folders"
+        },
+        {
+          "action": "Retry",
+          "talkBack": "Retry scanning local music"
+        }
+      ],
+      "nonColorOnly": "Scanning/Empty/Error text and shape, never spinner-only",
+      "reflow200Percent": "Rows expand and wrap; category tabs scroll, no clipped error or blocked bottom navigation",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-09",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-05"
+      ],
+      "uf": "UF-04",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-09.md",
+      "sourceArt": "docs/high-fidelity/WF-05/states/HF_STATE_CB-09.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-09.md",
+      "readingOrder": [
+        "Search heading",
+        "query input",
+        "clear action",
+        "result/error/no result heading",
+        "rows or retry",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Search",
+          "talkBack": "Search local music"
+        },
+        {
+          "action": "Clear",
+          "talkBack": "Clear search query"
+        },
+        {
+          "action": "Retry",
+          "talkBack": "Retry local search"
+        },
+        {
+          "action": "Open",
+          "talkBack": "Open selected local result"
+        }
+      ],
+      "nonColorOnly": "Explicit No local results/Search failed label plus shape, not empty or colored field",
+      "reflow200Percent": "Text input and results wrap; preserve query and access to keyboard/clear/retry at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-10",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-05"
+      ],
+      "uf": "UF-04",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-10.md",
+      "sourceArt": "docs/high-fidelity/WF-05/states/HF_STATE_CB-10.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-10.md",
+      "readingOrder": [
+        "Search heading",
+        "query input",
+        "clear action",
+        "result/error/no result heading",
+        "rows or retry",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Search",
+          "talkBack": "Search local music"
+        },
+        {
+          "action": "Clear",
+          "talkBack": "Clear search query"
+        },
+        {
+          "action": "Retry",
+          "talkBack": "Retry local search"
+        },
+        {
+          "action": "Open",
+          "talkBack": "Open selected local result"
+        }
+      ],
+      "nonColorOnly": "Explicit No local results/Search failed label plus shape, not empty or colored field",
+      "reflow200Percent": "Text input and results wrap; preserve query and access to keyboard/clear/retry at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-11",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-05"
+      ],
+      "uf": "UF-04",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-11.md",
+      "sourceArt": "docs/high-fidelity/WF-05/states/HF_STATE_CB-11.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-11.md",
+      "readingOrder": [
+        "Search heading",
+        "query input",
+        "clear action",
+        "result/error/no result heading",
+        "rows or retry",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Search",
+          "talkBack": "Search local music"
+        },
+        {
+          "action": "Clear",
+          "talkBack": "Clear search query"
+        },
+        {
+          "action": "Retry",
+          "talkBack": "Retry local search"
+        },
+        {
+          "action": "Open",
+          "talkBack": "Open selected local result"
+        }
+      ],
+      "nonColorOnly": "Explicit No local results/Search failed label plus shape, not empty or colored field",
+      "reflow200Percent": "Text input and results wrap; preserve query and access to keyboard/clear/retry at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-12",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-05"
+      ],
+      "uf": "UF-04",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-12.md",
+      "sourceArt": "docs/high-fidelity/WF-05/states/HF_STATE_CB-12.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-12.md",
+      "readingOrder": [
+        "Search heading",
+        "query input",
+        "clear action",
+        "result/error/no result heading",
+        "rows or retry",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Search",
+          "talkBack": "Search local music"
+        },
+        {
+          "action": "Clear",
+          "talkBack": "Clear search query"
+        },
+        {
+          "action": "Retry",
+          "talkBack": "Retry local search"
+        },
+        {
+          "action": "Open",
+          "talkBack": "Open selected local result"
+        }
+      ],
+      "nonColorOnly": "Explicit No local results/Search failed label plus shape, not empty or colored field",
+      "reflow200Percent": "Text input and results wrap; preserve query and access to keyboard/clear/retry at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-15",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-05",
+      "owner": "App + Playback Service",
+      "sourceSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-15.md",
+      "sourceArt": "docs/high-fidelity/WF-06/states/HF_STATE_CB-15.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-15.md",
+      "readingOrder": [
+        "Now playing heading",
+        "Queue",
+        "artwork/metadata",
+        "playback status",
+        "progress",
+        "Previous/Play-Pause/Next",
+        "Driving entry"
+      ],
+      "actions": [
+        {
+          "action": "Queue",
+          "talkBack": "Open current queue"
+        },
+        {
+          "action": "Previous",
+          "talkBack": "Previous track"
+        },
+        {
+          "action": "Play",
+          "talkBack": "Play playback"
+        },
+        {
+          "action": "Pause",
+          "talkBack": "Pause playback"
+        },
+        {
+          "action": "Next",
+          "talkBack": "Next track"
+        },
+        {
+          "action": "Driving",
+          "talkBack": "Enter Driving Mode"
+        }
+      ],
+      "nonColorOnly": "Playing/Paused/Completed/Corrupt written state and semantic action, never icon color only",
+      "reflow200Percent": "Artwork yields to multi-line metadata; controls and Driving remain independent with no overlap",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-16",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-05",
+      "owner": "App + Playback Service",
+      "sourceSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-16.md",
+      "sourceArt": "docs/high-fidelity/WF-06/states/HF_STATE_CB-16.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-16.md",
+      "readingOrder": [
+        "Now playing heading",
+        "Queue",
+        "artwork/metadata",
+        "playback status",
+        "progress",
+        "Previous/Play-Pause/Next",
+        "Driving entry"
+      ],
+      "actions": [
+        {
+          "action": "Queue",
+          "talkBack": "Open current queue"
+        },
+        {
+          "action": "Previous",
+          "talkBack": "Previous track"
+        },
+        {
+          "action": "Play",
+          "talkBack": "Play playback"
+        },
+        {
+          "action": "Pause",
+          "talkBack": "Pause playback"
+        },
+        {
+          "action": "Next",
+          "talkBack": "Next track"
+        },
+        {
+          "action": "Driving",
+          "talkBack": "Enter Driving Mode"
+        }
+      ],
+      "nonColorOnly": "Playing/Paused/Completed/Corrupt written state and semantic action, never icon color only",
+      "reflow200Percent": "Artwork yields to multi-line metadata; controls and Driving remain independent with no overlap",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-17",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-05",
+      "owner": "App + Playback Service",
+      "sourceSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-17.md",
+      "sourceArt": "docs/high-fidelity/WF-06/states/HF_STATE_CB-17.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-17.md",
+      "readingOrder": [
+        "Now playing heading",
+        "Queue",
+        "artwork/metadata",
+        "playback status",
+        "progress",
+        "Previous/Play-Pause/Next",
+        "Driving entry"
+      ],
+      "actions": [
+        {
+          "action": "Queue",
+          "talkBack": "Open current queue"
+        },
+        {
+          "action": "Previous",
+          "talkBack": "Previous track"
+        },
+        {
+          "action": "Play",
+          "talkBack": "Play playback"
+        },
+        {
+          "action": "Pause",
+          "talkBack": "Pause playback"
+        },
+        {
+          "action": "Next",
+          "talkBack": "Next track"
+        },
+        {
+          "action": "Driving",
+          "talkBack": "Enter Driving Mode"
+        }
+      ],
+      "nonColorOnly": "Playing/Paused/Completed/Corrupt written state and semantic action, never icon color only",
+      "reflow200Percent": "Artwork yields to multi-line metadata; controls and Driving remain independent with no overlap",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-18",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-05",
+      "owner": "App + Playback Service",
+      "sourceSpec": "docs/high-fidelity/WF-06/states/HF_STATE_CB-18.md",
+      "sourceArt": "docs/high-fidelity/WF-06/states/HF_STATE_CB-18.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CB-18.md",
+      "readingOrder": [
+        "Now playing heading",
+        "Queue",
+        "artwork/metadata",
+        "playback status",
+        "progress",
+        "Previous/Play-Pause/Next",
+        "Driving entry"
+      ],
+      "actions": [
+        {
+          "action": "Queue",
+          "talkBack": "Open current queue"
+        },
+        {
+          "action": "Previous",
+          "talkBack": "Previous track"
+        },
+        {
+          "action": "Play",
+          "talkBack": "Play playback"
+        },
+        {
+          "action": "Pause",
+          "talkBack": "Pause playback"
+        },
+        {
+          "action": "Next",
+          "talkBack": "Next track"
+        },
+        {
+          "action": "Driving",
+          "talkBack": "Enter Driving Mode"
+        }
+      ],
+      "nonColorOnly": "Playing/Paused/Completed/Corrupt written state and semantic action, never icon color only",
+      "reflow200Percent": "Artwork yields to multi-line metadata; controls and Driving remain independent with no overlap",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CC-05",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-07"
+      ],
+      "uf": "UF-07",
+      "owner": "App + Playback Service",
+      "sourceSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-05.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/DRV_PLAYING.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CC-05.md",
+      "readingOrder": [
+        "Driving heading",
+        "immediate Exit",
+        "Playing/Paused/No Track",
+        "verified metadata",
+        "transport actions",
+        "Mic"
+      ],
+      "actions": [
+        {
+          "action": "Exit",
+          "talkBack": "Exit Driving Mode immediately"
+        },
+        {
+          "action": "Previous",
+          "talkBack": "Previous track"
+        },
+        {
+          "action": "Play",
+          "talkBack": "Play playback"
+        },
+        {
+          "action": "Pause",
+          "talkBack": "Pause playback"
+        },
+        {
+          "action": "Next",
+          "talkBack": "Next track"
+        },
+        {
+          "action": "Seek Back",
+          "talkBack": "Seek backward ten seconds"
+        },
+        {
+          "action": "Mic",
+          "talkBack": "Voice command; press to talk"
+        }
+      ],
+      "nonColorOnly": "State words and disabled text for invalid transport; Play last only if verified local item",
+      "reflow200Percent": "Fixed one-layer Exit and large transport priority; shrink artwork first; no new list/keyboard/deep flow",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CC-06",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-07"
+      ],
+      "uf": "UF-07",
+      "owner": "App + Playback Service",
+      "sourceSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-06.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/DRV_PAUSED.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CC-06.md",
+      "readingOrder": [
+        "Driving heading",
+        "immediate Exit",
+        "Playing/Paused/No Track",
+        "verified metadata",
+        "transport actions",
+        "Mic"
+      ],
+      "actions": [
+        {
+          "action": "Exit",
+          "talkBack": "Exit Driving Mode immediately"
+        },
+        {
+          "action": "Previous",
+          "talkBack": "Previous track"
+        },
+        {
+          "action": "Play",
+          "talkBack": "Play playback"
+        },
+        {
+          "action": "Pause",
+          "talkBack": "Pause playback"
+        },
+        {
+          "action": "Next",
+          "talkBack": "Next track"
+        },
+        {
+          "action": "Seek Back",
+          "talkBack": "Seek backward ten seconds"
+        },
+        {
+          "action": "Mic",
+          "talkBack": "Voice command; press to talk"
+        }
+      ],
+      "nonColorOnly": "State words and disabled text for invalid transport; Play last only if verified local item",
+      "reflow200Percent": "Fixed one-layer Exit and large transport priority; shrink artwork first; no new list/keyboard/deep flow",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CC-07",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-07"
+      ],
+      "uf": "UF-07",
+      "owner": "App + Playback Service",
+      "sourceSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-07.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CC-07.md",
+      "readingOrder": [
+        "Driving heading",
+        "immediate Exit",
+        "Playing/Paused/No Track",
+        "verified metadata",
+        "transport actions",
+        "Mic"
+      ],
+      "actions": [
+        {
+          "action": "Exit",
+          "talkBack": "Exit Driving Mode immediately"
+        },
+        {
+          "action": "Play last",
+          "talkBack": "Play last verified local item, otherwise absent"
+        },
+        {
+          "action": "Mic",
+          "talkBack": "Voice command; press to talk"
+        }
+      ],
+      "nonColorOnly": "State words and disabled text for invalid transport; Play last only if verified local item",
+      "reflow200Percent": "Fixed one-layer Exit and large transport priority; shrink artwork first; no new list/keyboard/deep flow",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CC-11",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-07"
+      ],
+      "uf": "UF-07 / UF-12",
+      "owner": "Hybrid",
+      "sourceSpec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.md",
+      "sourceArt": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CC-11.md",
+      "readingOrder": [
+        "Driving heading",
+        "immediate Exit",
+        "Playing/Paused/No Track",
+        "verified metadata",
+        "transport actions",
+        "Mic"
+      ],
+      "actions": [
+        {
+          "action": "Exit",
+          "talkBack": "Exit Driving Mode immediately"
+        },
+        {
+          "action": "Previous",
+          "talkBack": "Previous track"
+        },
+        {
+          "action": "Play",
+          "talkBack": "Play playback"
+        },
+        {
+          "action": "Pause",
+          "talkBack": "Pause playback"
+        },
+        {
+          "action": "Next",
+          "talkBack": "Next track"
+        },
+        {
+          "action": "Seek Back",
+          "talkBack": "Seek backward ten seconds"
+        },
+        {
+          "action": "Mic",
+          "talkBack": "Voice command; press to talk"
+        }
+      ],
+      "nonColorOnly": "State words and disabled text for invalid transport; Play last only if verified local item",
+      "reflow200Percent": "Fixed one-layer Exit and large transport priority; shrink artwork first; no new list/keyboard/deep flow",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CC-14",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-07 → UF-08",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.md",
+      "sourceArt": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CC-14.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice and return to manual playback"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; return to manual playback"
+        },
+        {
+          "action": "Retry once",
+          "talkBack": "Retry voice once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Dismiss",
+          "talkBack": "Dismiss voice feedback"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-03",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-08",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-03.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-03.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice and return to manual playback"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; return to manual playback"
+        },
+        {
+          "action": "Retry once",
+          "talkBack": "Retry voice once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Dismiss",
+          "talkBack": "Dismiss voice feedback"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-04",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-10",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-04.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-04.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice and return to manual playback"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; return to manual playback"
+        },
+        {
+          "action": "Retry once",
+          "talkBack": "Retry voice once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Dismiss",
+          "talkBack": "Dismiss voice feedback"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-05",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-08",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-05.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-05.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice and return to manual playback"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; return to manual playback"
+        },
+        {
+          "action": "Retry once",
+          "talkBack": "Retry voice once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Dismiss",
+          "talkBack": "Dismiss voice feedback"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-06",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-08",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-06.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-06.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice and return to manual playback"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; return to manual playback"
+        },
+        {
+          "action": "Retry once",
+          "talkBack": "Retry voice once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Dismiss",
+          "talkBack": "Dismiss voice feedback"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-07",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-08",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-07.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-07.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice and return to manual playback"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; return to manual playback"
+        },
+        {
+          "action": "Retry once",
+          "talkBack": "Retry voice once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Dismiss",
+          "talkBack": "Dismiss voice feedback"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-08",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-08",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-08.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-08.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-09",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-09",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-09.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-09.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Candidate choice",
+          "talkBack": "Artist option index and ephemeral label from Confirming.options"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; use manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-10",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-09",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-10.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-10.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Candidate choice",
+          "talkBack": "Artist option index and ephemeral label from Confirming.options"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; use manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-11",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-09",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.md",
+      "sourceArt": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-11.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice and return to manual playback"
+        },
+        {
+          "action": "Neither",
+          "talkBack": "Neither candidate; return to manual playback"
+        },
+        {
+          "action": "Retry once",
+          "talkBack": "Retry voice once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Dismiss",
+          "talkBack": "Dismiss voice feedback"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-12",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-09",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-12.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-12.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-13",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-09",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-13.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-13.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-14",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-09",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-14.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-14.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-15",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-09",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-15.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-15.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-16",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-09",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-16.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-16.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-17",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-10",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-17.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-17.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Retry once",
+          "talkBack": "Retry speech once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-18",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-10",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-18.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-18.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Retry once",
+          "talkBack": "Retry speech once"
+        },
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-19",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-08"
+      ],
+      "uf": "UF-10",
+      "owner": "App + Voice coordinator",
+      "sourceSpec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-19.md",
+      "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-19.md",
+      "readingOrder": [
+        "Overlay heading",
+        "Listening/Processing/Confirming/Executed/Failed",
+        "one status sentence",
+        "immutable 1-2 candidates",
+        "Neither/Cancel OR eligible Retry/Manual"
+      ],
+      "actions": [
+        {
+          "action": "Manual controls",
+          "talkBack": "Return to manual playback"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel voice"
+        }
+      ],
+      "nonColorOnly": "Written Voice state plus shape; never waveform/error color alone",
+      "reflow200Percent": "Scroll overlay if 200% text; all candidate labels wrap; manual/cancel and origin Exit stay reachable",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CD-23",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-10"
+      ],
+      "uf": "UF-10 / UF-12",
+      "owner": "App + provider boundary",
+      "sourceSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CD-23.md",
+      "sourceArt": "docs/high-fidelity/WF-10/states/HF_STATE_CD-23.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CD-23.md",
+      "readingOrder": [
+        "Settings heading",
+        "permission status",
+        "optional Bluetooth",
+        "Privacy/disclosure",
+        "clear confirmation",
+        "Cancel/Confirm",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Open",
+          "talkBack": "Open settings section"
+        },
+        {
+          "action": "Privacy",
+          "talkBack": "Read privacy details"
+        },
+        {
+          "action": "Save",
+          "talkBack": "Save selected preference"
+        },
+        {
+          "action": "Confirm clear",
+          "talkBack": "Confirm clearing selected app data"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel without clearing"
+        },
+        {
+          "action": "Not now",
+          "talkBack": "Decline optional cloud voice"
+        }
+      ],
+      "nonColorOnly": "Consent/permission/selection/clear status written; color cannot imply grant or completion",
+      "reflow200Percent": "Long retention/disclosure text wraps; destructive and cancel remain separately reachable at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-15",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-10"
+      ],
+      "uf": "UF-12",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-15.md",
+      "sourceArt": "docs/high-fidelity/WF-10/states/HF_STATE_CE-15.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CE-15.md",
+      "readingOrder": [
+        "Settings heading",
+        "permission status",
+        "optional Bluetooth",
+        "Privacy/disclosure",
+        "clear confirmation",
+        "Cancel/Confirm",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Open",
+          "talkBack": "Open settings section"
+        },
+        {
+          "action": "Privacy",
+          "talkBack": "Read privacy details"
+        },
+        {
+          "action": "Save",
+          "talkBack": "Save selected preference"
+        },
+        {
+          "action": "Confirm clear",
+          "talkBack": "Confirm clearing selected app data"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel without clearing"
+        },
+        {
+          "action": "Not now",
+          "talkBack": "Decline optional cloud voice"
+        }
+      ],
+      "nonColorOnly": "Consent/permission/selection/clear status written; color cannot imply grant or completion",
+      "reflow200Percent": "Long retention/disclosure text wraps; destructive and cancel remain separately reachable at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-20",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-10"
+      ],
+      "uf": "UF-12",
+      "owner": "Hybrid",
+      "sourceSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-20.md",
+      "sourceArt": "docs/high-fidelity/WF-10/states/HF_STATE_CE-20.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CE-20.md",
+      "readingOrder": [
+        "Settings heading",
+        "permission status",
+        "optional Bluetooth",
+        "Privacy/disclosure",
+        "clear confirmation",
+        "Cancel/Confirm",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Open",
+          "talkBack": "Open settings section"
+        },
+        {
+          "action": "Privacy",
+          "talkBack": "Read privacy details"
+        },
+        {
+          "action": "Save",
+          "talkBack": "Save selected preference"
+        },
+        {
+          "action": "Confirm clear",
+          "talkBack": "Confirm clearing selected app data"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel without clearing"
+        },
+        {
+          "action": "Not now",
+          "talkBack": "Decline optional cloud voice"
+        }
+      ],
+      "nonColorOnly": "Consent/permission/selection/clear status written; color cannot imply grant or completion",
+      "reflow200Percent": "Long retention/disclosure text wraps; destructive and cancel remain separately reachable at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-21",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-10"
+      ],
+      "uf": "UF-12",
+      "owner": "App + provider boundary",
+      "sourceSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-21.md",
+      "sourceArt": "docs/high-fidelity/WF-10/states/HF_STATE_CE-21.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CE-21.md",
+      "readingOrder": [
+        "Settings heading",
+        "permission status",
+        "optional Bluetooth",
+        "Privacy/disclosure",
+        "clear confirmation",
+        "Cancel/Confirm",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Open",
+          "talkBack": "Open settings section"
+        },
+        {
+          "action": "Privacy",
+          "talkBack": "Read privacy details"
+        },
+        {
+          "action": "Save",
+          "talkBack": "Save selected preference"
+        },
+        {
+          "action": "Confirm clear",
+          "talkBack": "Confirm clearing selected app data"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel without clearing"
+        },
+        {
+          "action": "Not now",
+          "talkBack": "Decline optional cloud voice"
+        }
+      ],
+      "nonColorOnly": "Consent/permission/selection/clear status written; color cannot imply grant or completion",
+      "reflow200Percent": "Long retention/disclosure text wraps; destructive and cancel remain separately reachable at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-22",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-10"
+      ],
+      "uf": "UF-12",
+      "owner": "App + provider boundary",
+      "sourceSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-22.md",
+      "sourceArt": "docs/high-fidelity/WF-10/states/HF_STATE_CE-22.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CE-22.md",
+      "readingOrder": [
+        "Settings heading",
+        "permission status",
+        "optional Bluetooth",
+        "Privacy/disclosure",
+        "clear confirmation",
+        "Cancel/Confirm",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Open",
+          "talkBack": "Open settings section"
+        },
+        {
+          "action": "Privacy",
+          "talkBack": "Read privacy details"
+        },
+        {
+          "action": "Save",
+          "talkBack": "Save selected preference"
+        },
+        {
+          "action": "Confirm clear",
+          "talkBack": "Confirm clearing selected app data"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel without clearing"
+        },
+        {
+          "action": "Not now",
+          "talkBack": "Decline optional cloud voice"
+        }
+      ],
+      "nonColorOnly": "Consent/permission/selection/clear status written; color cannot imply grant or completion",
+      "reflow200Percent": "Long retention/disclosure text wraps; destructive and cancel remain separately reachable at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-23",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-10"
+      ],
+      "uf": "UF-12",
+      "owner": "App + provider boundary",
+      "sourceSpec": "docs/high-fidelity/WF-10/states/HF_STATE_CE-23.md",
+      "sourceArt": "docs/high-fidelity/WF-10/states/HF_STATE_CE-23.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/CE-23.md",
+      "readingOrder": [
+        "Settings heading",
+        "permission status",
+        "optional Bluetooth",
+        "Privacy/disclosure",
+        "clear confirmation",
+        "Cancel/Confirm",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Open",
+          "talkBack": "Open settings section"
+        },
+        {
+          "action": "Privacy",
+          "talkBack": "Read privacy details"
+        },
+        {
+          "action": "Save",
+          "talkBack": "Save selected preference"
+        },
+        {
+          "action": "Confirm clear",
+          "talkBack": "Confirm clearing selected app data"
+        },
+        {
+          "action": "Cancel",
+          "talkBack": "Cancel without clearing"
+        },
+        {
+          "action": "Not now",
+          "talkBack": "Decline optional cloud voice"
+        }
+      ],
+      "nonColorOnly": "Consent/permission/selection/clear status written; color cannot imply grant or completion",
+      "reflow200Percent": "Long retention/disclosure text wraps; destructive and cancel remain separately reachable at 200%",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "UL-02",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-09"
+      ],
+      "uf": "UF-13",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-02.md",
+      "sourceArt": "docs/high-fidelity/WF-09/states/HF_STATE_UL-02.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/UL-02.md",
+      "readingOrder": [
+        "Liked Songs P2 heading",
+        "loading/empty/ready",
+        "rows",
+        "Play list/Unlike/Back",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Play list",
+          "talkBack": "Play liked local songs"
+        },
+        {
+          "action": "Unlike",
+          "talkBack": "Remove liked selection"
+        },
+        {
+          "action": "Back to Library",
+          "talkBack": "Return to local library"
+        }
+      ],
+      "nonColorOnly": "Selected and not-selected stateDescription plus heart shape and words",
+      "reflow200Percent": "Rows wrap; no clipping; removing P2 never affects P0 controls",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "UL-03",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-09"
+      ],
+      "uf": "UF-13",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-03.md",
+      "sourceArt": "docs/high-fidelity/WF-09/states/HF_STATE_UL-03.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/UL-03.md",
+      "readingOrder": [
+        "Liked Songs P2 heading",
+        "loading/empty/ready",
+        "rows",
+        "Play list/Unlike/Back",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Play list",
+          "talkBack": "Play liked local songs"
+        },
+        {
+          "action": "Unlike",
+          "talkBack": "Remove liked selection"
+        },
+        {
+          "action": "Back to Library",
+          "talkBack": "Return to local library"
+        }
+      ],
+      "nonColorOnly": "Selected and not-selected stateDescription plus heart shape and words",
+      "reflow200Percent": "Rows wrap; no clipping; removing P2 never affects P0 controls",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "UL-04",
+      "type": "APP_VISIBLE",
+      "wf": [
+        "WF-09"
+      ],
+      "uf": "UF-13",
+      "owner": "App",
+      "sourceSpec": "docs/high-fidelity/WF-09/states/HF_STATE_UL-04.md",
+      "sourceArt": "docs/high-fidelity/WF-09/states/HF_STATE_UL-04.png",
+      "spec": "docs/high-fidelity/phase-7/app-visible/UL-04.md",
+      "readingOrder": [
+        "Liked Songs P2 heading",
+        "loading/empty/ready",
+        "rows",
+        "Play list/Unlike/Back",
+        "navigation"
+      ],
+      "actions": [
+        {
+          "action": "Play list",
+          "talkBack": "Play liked local songs"
+        },
+        {
+          "action": "Unlike",
+          "talkBack": "Remove liked selection"
+        },
+        {
+          "action": "Back to Library",
+          "talkBack": "Return to local library"
+        }
+      ],
+      "nonColorOnly": "Selected and not-selected stateDescription plus heart shape and words",
+      "reflow200Percent": "Rows wrap; no clipping; removing P2 never affects P0 controls",
+      "minimumTouchDp": 48,
+      "drivingTransportDp": 64,
+      "drivingMicDp": 72,
+      "drivingExitDp": 56,
+      "fontScalePercent": [
+        100,
+        150,
+        200
+      ],
+      "focusRestore": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    }
+  ],
+  "systemOnly": [
+    {
+      "id": "SYS-01",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-03"
+      ],
+      "uf": "UF-02",
+      "owner": "Android/System",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/SYS-01.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/SYS-01.md",
+      "transitions": [
+        "WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "SYS-02",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-03"
+      ],
+      "uf": "UF-02",
+      "owner": "Android/System",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/SYS-02.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/SYS-02.md",
+      "transitions": [
+        "WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "SYS-03",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System",
+      "screenOwner": "Android notification permission",
+      "recoveryOwner": "UF-06 / UF-12",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/SYS-03.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/SYS-03.md",
+      "transitions": [
+        "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "SYS-04",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-03"
+      ],
+      "uf": "UF-02",
+      "owner": "Android/System",
+      "screenOwner": "Android permission/Settings",
+      "recoveryOwner": "UF-02",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/SYS-04.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/SYS-04.md",
+      "transitions": [
+        "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "SYS-05",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-03"
+      ],
+      "uf": "UF-02 / UF-10 / UF-12",
+      "owner": "Android/System + provider",
+      "screenOwner": "Speech provider / consent boundary",
+      "recoveryOwner": "UF-10 / UF-12",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/SYS-05.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/SYS-05.md",
+      "transitions": [
+        "WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-22",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-22.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-22.md",
+      "transitions": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK",
+        "MANUAL_PLAYBACK / SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-23",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-23.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-23.md",
+      "transitions": [
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK / SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-24",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-24.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-24.md",
+      "transitions": [
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-25",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android lifecycle/background",
+      "recoveryOwner": "UF-06",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-25.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-25.md",
+      "transitions": [
+        "WF-06_UI_RECREATION_SERVICE_RECONNECT"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK / SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-26",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System + MediaSession",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-26.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-26.md",
+      "transitions": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-27",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System + MediaSession",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-27.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-27.md",
+      "transitions": [
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-28",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System + MediaSession",
+      "screenOwner": "Android/system media surface",
+      "recoveryOwner": "UF-06",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-28.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-28.md",
+      "transitions": [
+        "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK",
+        "SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-29",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System + MediaSession",
+      "screenOwner": "System command handoff",
+      "recoveryOwner": "UF-06",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-29.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-29.md",
+      "transitions": [
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS",
+        "WF-06_SYSTEM_LOCK_SCREEN_CONTROLS",
+        "WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CB-30",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06"
+      ],
+      "uf": "UF-06",
+      "owner": "Android/System",
+      "screenOwner": "Notification permission/visibility",
+      "recoveryOwner": "UF-06 / UF-12",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CB-30.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CB-30.md",
+      "transitions": [
+        "WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY",
+        "WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CC-16",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-07"
+      ],
+      "uf": "UF-07 → UF-11",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android interruption/route",
+      "recoveryOwner": "UF-11",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CC-16.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CC-16.md",
+      "transitions": [
+        "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS",
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "safeTerminals": [
+        "SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-07",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "uf": "UF-11",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CE-07.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CE-07.md",
+      "transitions": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "safeTerminals": [
+        "SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-08",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "uf": "UF-11",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CE-08.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CE-08.md",
+      "transitions": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "safeTerminals": [
+        "SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-09",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "uf": "UF-11",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CE-09.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CE-09.md",
+      "transitions": [
+        "WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY",
+        "WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY"
+      ],
+      "safeTerminals": [
+        "SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-10",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-06",
+        "WF-07"
+      ],
+      "uf": "UF-11",
+      "owner": "Android/System + Playback Service",
+      "screenOwner": "Android route/focus handoff",
+      "recoveryOwner": "UF-11",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CE-10.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CE-10.md",
+      "transitions": [
+        "WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS"
+      ],
+      "safeTerminals": [
+        "SAFE_PAUSED"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    },
+    {
+      "id": "CE-18",
+      "type": "SYSTEM_ONLY",
+      "wf": [
+        "WF-10"
+      ],
+      "uf": "UF-12",
+      "owner": "Android/System",
+      "screenOwner": "Android Settings",
+      "recoveryOwner": "UF-12",
+      "sourceSpec": "docs/high-fidelity/system-handoffs/CE-18.md",
+      "spec": "docs/high-fidelity/phase-7/system-only/CE-18.md",
+      "transitions": [
+        "WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF"
+      ],
+      "safeTerminals": [
+        "MANUAL_PLAYBACK"
+      ],
+      "appScreen": null,
+      "image": null,
+      "focusReturn": true,
+      "privacyMinimized": true,
+      "qa": "NOT_RUN"
+    }
+  ],
+  "runtimeComposeTested": false,
+  "independentHumanApproval": false
+}
