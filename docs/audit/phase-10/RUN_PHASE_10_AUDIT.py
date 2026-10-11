@@ -236,6 +236,10 @@ for prefix,kind in fullPrefixes.items():
     for f in (R/prefix).rglob("*"):
         if not f.is_file():continue
         p=f.as_posix()
+        # Cross-role review records created AFTER the Phase-10 frozen design
+        # source census are approval evidence, not a new design HF/WF/State.
+        # Keep the frozen 541 design-source identities invariant.
+        if p.startswith("docs/design-system/review/"):continue
         if p in registered:continue
         if f.suffix.lower() not in (".md",".json",".svg",".png",".html",".css",".js",".cjs",".py"):
             errors["orphan"].append({"path":p,"reason":"unrecognized design artifact type"});continue
