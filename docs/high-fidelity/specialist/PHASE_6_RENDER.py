@@ -134,7 +134,7 @@ DATA=[
 ("DRV_LAST_VERIFIED","WF-07","CC-07","LAST_VERIFIED","manual"),
 ("DRV_RECONNECT","WF-07","CC-03","RECONNECT","manual"),
 ("DRV_COMMAND_PENDING","WF-07","CC-08","PENDING","manual"),
-("DRV_ROUTE_SAFE","WF-07","CC-16","ROUTE","safe_paused"),
+("DRV_ROUTE_SAFE","WF-07","CE-06","ROUTE","safe_paused"),
 ("VO_LISTEN_1","WF-08","CD-03","LISTEN1","manual"),
 ("VO_LISTEN_2","WF-08","CD-04","LISTEN2","manual"),
 ("VO_PROCESSING","WF-08","CD-05","PROCESS","manual"),
