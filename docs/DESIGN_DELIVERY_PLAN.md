@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 6 Driving/Voice specialist static-design PASS; independent reviews and runtime QA pending**
+- **Status:** **Current through Issue #17 Phase 7 Accessibility/Privacy/System-boundary documentation PASS; runtime QA pending**
 - **Updated:** 11 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -195,6 +195,14 @@ Handoff records must expose source state, runtime owner, actions, transitions, B
 - **Corrections:** CD-13/14/15/16/08/12 may not inherit blanket Retry from Phase-5 Failed artwork; CC-07 Play last is conditional on verified local media.
 - **Status:** PASS for specialist static design/traceability; [22 runtime QA scenarios](high-fidelity/specialist/phase-6/PHASE_6_DEVICE_QA_HANDOFF.md) await actual Android device evidence, design approval and TalkBack/200% text validation. The prior Phase-5 register remains intact.
 - **No new flow:** all specialist overlays and controls reuse UF-07..UF-10 and accepted Issue #16 architecture boundaries. No Android Auto, wake-word, app-owned system screen, backend/streaming or auto-Entering Driving.
+
+## Issue #17 Phase 7 — Accessibility / Privacy / OS-boundary evidence (11 October 2026)
+
+- **45/45** app-visible States have actionable [per-State Accessibility disposition](high-fidelity/phase-7/ACCESSIBILITY_PRIVACY_SYSTEM_MATRIX.md) including TalkBack reading order, spoken action labels, non-color-only statuses, 48dp interaction targets, focus restoration, runtime 100/150/200% text reflow expectations and privacy-safe evidence.
+- **20/20** system-only States retain exactly their original source owner, platform surface owner, recovery owner and actual approved Android transition/return/safe terminal. There are **0** fabricated system UI screens; Android permission/Settings/notifications/lock-screen/external media keys remain native OS-owned.
+- [Compose implementation handoff / PH10-MIN-001](high-fidelity/phase-7/COMPOSE_A11Y_HANDOFF.md) stays explicit about the OPEN runtime proof; [privacy contract](high-fidelity/phase-7/PRIVACY_EVIDENCE_HANDOFF.md) prohibits raw audio/transcript/personal titles/location/device IDs in GitHub/analytics/QA evidence.
+- [Automated checks](high-fidelity/phase-7/PHASE_7_VALIDATION.md) verify all 65 app/system dispositions and exactly preserved owner identities, 0 duplicates, 0 gaps. [65 runtime QA cases](high-fidelity/phase-7/PHASE_7_DEVICE_QA_MATRIX.md) are intentionally NOT RUN.
+- **Pass meaning:** design documentation and engineering handoff completed; no claim of real Compose TalkBack, large-text operation, physical-device test or independent human sign-off. Phase-5 126 original IDs and Phase-6 specialist precedence remain untouched.
 
 ## Synchronization and review rules
 
