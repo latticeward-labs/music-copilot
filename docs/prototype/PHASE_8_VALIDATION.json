@@ -58,7 +58,7 @@
   "missing": [],
   "duplicates": [],
   "unassigned": [],
-  "browserVisualQA": "NOT_RUN",
+  "browserVisualQA": "SEE_SEPARATE_CHROMIUM_BROWSER_VALIDATION",
   "humanSignoff": "PENDING",
   "androidRuntimeQA": "NOT_RUN"
 }
