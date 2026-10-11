@@ -79,3 +79,8 @@ For optional real browser smoke (requires locally installed Playwright/Chromium)
 Results are recorded in [PHASE_8_VALIDATION.json](PHASE_8_VALIDATION.json), [PHASE_8_BROWSER_VALIDATION.json](PHASE_8_BROWSER_VALIDATION.json) and the synthetic-only [browser screenshot](PHASE_8_BROWSER_REVIEW.png) when that browser test runs successfully.
 
 This prototype is **clickable design evidence**. Independent Product/Design/Android/Privacy and Accessibility approvals and tests on physical Android 10/12/14+ remain separate gates. Do not close Issue #17 purely based on this deliverable.
+
+
+## Phase 10 verification of this prototype
+
+[Full traceability / scope audit](../audit/phase-10/README.md) independently verifies the 67 route nodes against the frozen 126-State authority, preserved HF/WF/UF/GS and 38 scenario-local safe recovery endpoints. All system-only handoffs have null in-app image and no fake Android pages; optional P2 Liked Songs is not inserted in the five mandatory GS. See [machine gate](../audit/phase-10/PHASE_10_VALIDATION.json). This does not represent an actual Android/STT/MediaSession runtime integration.
