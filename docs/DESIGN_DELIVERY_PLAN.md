@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 11 AI-assisted Cross-role Review PASS; independent named human review and real Android QA still pending**
+- **Status:** **Current through Issue #17 Phase 12 final documentary acceptance audit: 13 source/artifact criteria PASS, AC-12 human approval PENDING; Issue #17 remains OPEN**
 - **Updated:** 11 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -287,3 +287,17 @@ Closed Issue #15 history is not rewritten.
 - [Reconciled Phase-11 PASS closeout](design-system/review/PHASE_11_FINAL_PASS_CLOSEOUT_2026-10-11.md) verifies original merged [PR #65](https://github.com/latticeward-labs/music-copilot/pull/65), commit `2623aff46d695c64a030d1344348e11e738790ac` and [green CI 38164710988](https://github.com/latticeward-labs/music-copilot/actions/runs/38164710988). Findings Register status is no longer the obsolete `PENDING_CI` variant.
 - **PASS / COMPLETE / MERGED at AI-assisted cross-role static/design-contract level:** all six roles covered; Blocker open 0, Major open 0, Minor open 4 (each owned/gated).
 - **Not PASSED:** independent named human approvals, PH11-MIN-004 manual image/hotspot/zoom review before Issue #17 closure, PH11-MIN-001 Compose accessibility QA, PH11-MIN-002 Android/Media3/OEM/vehicle runtime QA or PH11-MIN-003 provider-specific cloud STT consent/Legal. These remain downstream; Phase 12 cannot invent their evidence. Issue #17 stays OPEN / In Progress.
+
+## Issue #17 Phase 12 — Final Acceptance Audit (11 October 2026)
+
+**Result: PASS for the evidence-backed Phase-12 source/artifact audit; full Issue #17 final acceptance remains PENDING HUMAN.** The [14-criterion evidence-by-evidence final acceptance document](design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md) and [machine results](design-system/ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json) establish 13 criteria PASS at repository/design contract level, one real independent human approval gate **AC-12 PENDING**, zero source/artifact failures.
+
+- 10/10 existing WF screen families have paired approved primary PNG/spec; 126/126 canonical State dispositions preserved (45 dedicated image/spec, 61 variants, 20 Android-owned system handoffs). Original frozen WF/UF/GS/priority/owner parity checked; P0/P1/P2 remain 106/6/14.
+- 23 reusable Design System components and Compose-ready tokens/handoff specified; service-owned Media3/MediaSession and ephemeral SearchViewModel corrections from the accepted Issue #16/Phase-11 contracts remain unchanged.
+- GS-01..GS-05 approved clickable design scenarios and **38** bounded recovery branches verified; **14/14 Chromium interaction checks** passed. Driving/Voice one-layer/Exit/no ineligible Retry, bounded ambiguity, system-only Android handoffs preserved. Browser evidence is not Android runtime QA.
+- **149/149** registered source images passed actual Git blob SHA-1 verification (117 PNG, 32 SVG); **114** provided authoritative SHA-256 image hashes verified; all **541** registered trace/provenance artifacts exist.
+- **366** current Markdown documents audited; **1,347** relative internal references plus **113** same-repository GitHub-main links have **0 missing paths**. External links and heading-fragment slug targets are explicitly not claimed verified.
+- Phase-11 open Blocker 0, Major 0; two Majors corrected. **Four downstream minors remain OPEN.** `PH11-MIN-004` blocks Issue #17 final signoff until dated independent Product/Design/Android/QA reviews are recorded with Accessibility/Privacy evidence. `PH10-MIN-001/002/003` and the implementation/OEM/provider release gates are not falsely closed.
+- **Do not close Issue #17 or tick all Acceptance Criteria as complete** from this AI-run audit; no human reviews or real-device evidence were manufactured. Final Issue #17 exit remains contingent on accountable named reviewers and dated artifact approval.
+
+The reproducible final audit lives in [`RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py`](design-system/RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py). Later Phase-12 PR/CI evidence is recorded in Issue #17 without rewriting earlier historical signoffs.
