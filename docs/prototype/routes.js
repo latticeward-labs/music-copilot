@@ -48,7 +48,7 @@
     node("denied","S-03","WF-03",frame("03","PERMISSIONS_DENIED"),"Media access unavailable","Manual fallback remains available; no false claim of library readiness.",[
       tap("Retry permission explanation","permission",40,490,280,58),
       simulate("Platform reports permanent denial","permanent"),
-      simulate("Not now: remain unavailable","denied")
+      tap("Not now · keep manual fallback","denied",38,553,284,54)
     ]),
     node("permanent","S-03","WF-03",frame("03","PERMISSIONS_PERMANENTLY_DENIED"),"Permanent media denial","An explicit Settings handoff is available outside Driving.",[
       tap("Open Android Settings","sys-settings",37,482,284,60),
