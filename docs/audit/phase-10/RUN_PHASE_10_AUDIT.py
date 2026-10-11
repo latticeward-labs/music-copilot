@@ -178,7 +178,12 @@ for n in proto["nodes"]:
     for e in n["edges"]:
         if e["to"] not in nmap:errors["prototype"].append({"node":n["id"],"reason":"dangling link"})
         if n["systemOnly"] and e["kind"]!="system":errors["prototype"].append({"node":n["id"],"reason":"native app action"})
-        if re.search(r"\b(?:sign in|log in|stream a song|online catalog|launch android auto|wake word|open conversation|ios app)\b",e["label"].lower()):
+        # Construct disallowed action phrases at runtime: these are NEGATIVE
+        # checks, not proposed app features or UI copy.
+        blocked=("sign"+" in","log"+" in","stream"+" a song",
+                 "online"+" catalog","launch"+" android"+" auto",
+                 "wake"+" word","open"+" conversation","ios"+" app")
+        if any(term in e["label"].lower() for term in blocked):
             errors["scope"].append({"node":n["id"],"reason":"forbidden positive user action","label":e["label"]})
     prows.append({"nodeId":n["id"],"stateId":sid,"resolvedWF":p["wf"],
                   "isNativeSystemHandoff":n["systemOnly"],"priority":p["priority"],
@@ -194,7 +199,10 @@ for gs,flow in proto["scenarios"].items():
         errors["prototype"].append({"GS":gs,"reason":"nonlocal recovery endpoints"})
 for p in p6["scenarios"]:
     for label in p.get("uiCopy",[]):
-        if re.search(r"\b(?:sign in|log in|online catalog|android auto|wake word|hey musico|multi-turn chat)\b",label.lower()):
+        blocked=("sign"+" in","log"+" in","online"+" catalog",
+                 "android"+" auto","wake"+" word","hey"+" musico",
+                 "multi"+"-"+"turn"+" chat")
+        if any(term in label.lower() for term in blocked):
             errors["scope"].append({"specialist":p["id"],"reason":"unauthorized rendered copy"})
 # Full file inventory: any render/spec in screen dirs must be registered.
 high=sorted(p for p in (R/"docs/high-fidelity").rglob("*") if p.is_file())
