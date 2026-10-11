@@ -33,6 +33,7 @@ const fs=require("node:fs"),path=require("node:path"),assert=require("node:asser
    await tap("Continue to Android request");
    await review("Android denies (requestable)");
    await cur("S-03");
+   await tap("Not now · keep manual fallback");await cur("S-03");
    await review("Platform reports permanent denial");
    await cur("S-03");
    await tap("Open Android Settings");await cur("SYS-04");
