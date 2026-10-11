@@ -803,14 +803,19 @@ VAL.write_text(json.dumps(summary,indent=2)+"\n")
 ]),encoding="utf-8")
 
 readme=ROOT/"README.md"
-readme.write_text(readme.read_text(encoding="utf-8")+
-"\n## Phase 5 — 126-state completion (11 October 2026)\n\n"
+readme_text=readme.read_text(encoding="utf-8")
+phase5_heading="\n## Phase 5 — 126-state completion (11 October 2026)\n"
+phase5_body=(
 "Phase 4 primary images remain unchanged. Phase 5 adds **45** State-ID reviewable PNG/spec pairs inside each WF package under /states/, "
 "**32** approved source-frame Night Signal PNG/spec pairs under /frames/, **61** component variants under /state-variants/, "
 "and **20** platform-only handoffs under /system-handoffs/. "
 "The authoritative disposition is [HIFI_STATE_COVERAGE_MATRIX.md](HIFI_STATE_COVERAGE_MATRIX.md); "
 "machine validation is [PHASE_5_VALIDATION.json](PHASE_5_VALIDATION.json). "
-"Automated 126/126 coverage does not imply independent human sign-off, physical runtime accessibility acceptance, or Issue #17 final closure.\n",
-encoding="utf-8")
+"Automated 126/126 coverage does not imply independent human sign-off, physical runtime accessibility acceptance, or Issue #17 final closure.\n"
+)
+if phase5_heading in readme_text:
+    readme_text=readme_text.split(phase5_heading)[0]
+readme.write_text(readme_text.rstrip()+"\n"+phase5_heading+"\n"+phase5_body,encoding="utf-8")
+assert readme.read_text(encoding="utf-8").count(phase5_heading.strip())==1
 
 print("PHASE_5_AUDIT",json.dumps(summary,sort_keys=True))
