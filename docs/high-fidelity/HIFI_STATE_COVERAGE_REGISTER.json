@@ -662,10 +662,11 @@
       "sourceFrameId": "CB-09, CB-10, CB-13",
       "image": "docs/high-fidelity/WF-05/states/HF_STATE_CB-09.png",
       "spec": "docs/high-fidelity/WF-05/states/HF_STATE_CB-09.md",
-      "sha256": "9b890feb054e456abfb3a7ee102a2de7d4487ed67fc06383dd83f63d09d79133",
+      "sha256": "b5bfce2e3c07a8f282690e31ac615907163d231ccf2f589ca9a4baa59a54145a",
       "exactUiCopy": [
         "Back",
         "Search",
+        "Search...",
         "Search local music",
         "Home",
         "Search",

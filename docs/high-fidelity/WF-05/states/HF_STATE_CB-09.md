@@ -1,7 +1,7 @@
 # High-Fidelity State — CB-09 · Search Idle / Query
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CB-09.png · **PNG SHA-256:** 9b890feb054e456abfb3a7ee102a2de7d4487ed67fc06383dd83f63d09d79133
+**PNG:** HF_STATE_CB-09.png · **PNG SHA-256:** b5bfce2e3c07a8f282690e31ac615907163d231ccf2f589ca9a4baa59a54145a
 **Priority:** P0 · **WF:** WF-05
 **UF:** UF-04 · **GS:** — (not on GS-01..05 path)
 **State:** CB-09 · **Owner:** App
@@ -13,6 +13,7 @@
 
 - "Back"
 - "Search"
+- "Search..."
 - "Search local music"
 - "Home"
 - "Search"

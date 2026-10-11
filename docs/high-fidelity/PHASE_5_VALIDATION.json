@@ -16,7 +16,7 @@
   "handoffSpecsVerified": 20,
   "sourceFramesVerified": 32,
   "existingPhase4Primaries": 10,
-  "boardSha256": "ed812c097068790cf71e77fcdac1ec33fad8fd95d740d1a00816ed17c525d607",
+  "boardSha256": "0941234ce8b02e6d4cb856032abbea76b48d48fe68c4c79378cfe0ff75a70b7d",
   "notClaimed": [
     "Independent human design approval",
     "Compose runtime A11y/200-percent reflow",
