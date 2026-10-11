@@ -12,7 +12,11 @@
   const simulate = (label,to,note="") => ({label,to,kind:"simulate",note});
   const system = (label,to,note="") => ({label,to,kind:"system",note});
   const node = (id,stateId,wf,image,title,summary,edges,owner="App") =>
-    ({id,stateId,wf,image,title,summary,edges,owner,systemOnly:false});
+    ({id,stateId,wf,image,title,summary,edges,
+      owner:owner!=="App"?owner:(wf==="WF-08"?"App + Voice coordinator":
+        (wf==="WF-06"||wf==="WF-07")?"App + Playback Service":
+        wf==="WF-03"?"App / Android permission boundary":"App"),
+      systemOnly:false});
   const boundary = (id,stateId,title,summary,edges,owner) =>
     ({id,stateId,wf:null,image:null,title,summary,edges,owner,systemOnly:true});
   const nodes = [
