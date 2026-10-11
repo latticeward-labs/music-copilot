@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "1.0.0",
+  "date": "2026-10-11",
+  "issue": 17,
+  "phase": 11,
+  "status": "PASS_AI_ASSISTED_SPEC_REVIEW_PENDING_CI",
+  "source": {
+    "uploadedArchive": "MSM2(1)(1).rar",
+    "verifiedSHA256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "englishPdfMembers": 12,
+    "primaryPRD": "Music_Copilot_PRD_v1_EN_Clarified.pdf",
+    "primaryMVP": "Music_Copilot_MVP_v1_EN.pdf",
+    "sourceGovernance": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md",
+    "persianAuthorityUsed": false
+  },
+  "reviewer": {
+    "displayName": "OpenAI GPT-6",
+    "type": "AI-assisted six-role repository evidence review",
+    "repositoryActor": "latticeward-labs",
+    "independentHumanReviewers": 0,
+    "fabricatedHumanReviewers": 0,
+    "humanSignaturesClaimed": false,
+    "independentLegalApprovalClaimed": false,
+    "realDeviceTestsClaimed": false
+  },
+  "roles": [
+    {
+      "role": "Product",
+      "status": "APPROVED_AI_ASSISTED_AFTER_CORRECTION",
+      "evidence": [
+        "docs/audit/phase-10/PHASE_10_VALIDATION.json",
+        "docs/design-system/HIFI_TRACEABILITY_REGISTER.json",
+        "docs/handoff/SCREEN_SPECS.md"
+      ],
+      "findingIds": [
+        "PH11-MAJ-001"
+      ],
+      "limitations": "No user study, Beta KPI achievement, or human product approval inferred"
+    },
+    {
+      "role": "Design/UX",
+      "status": "APPROVED_AI_ASSISTED_AFTER_CORRECTION",
+      "evidence": [
+        "docs/high-fidelity/PHASE_4_PRIMARY_REGISTER.json",
+        "docs/high-fidelity/phase-7/PHASE_7_REGISTER.json",
+        "docs/prototype/PHASE_8_VALIDATION.json",
+        "docs/handoff/COMPONENT_SPECS.md"
+      ],
+      "findingIds": [
+        "PH11-MAJ-001",
+        "PH11-MIN-004"
+      ],
+      "limitations": "No independent manual pixel-to-control pass or real Compose implementation claimed"
+    },
+    {
+      "role": "Android feasibility",
+      "status": "APPROVED_AI_ASSISTED_AFTER_CORRECTION",
+      "evidence": [
+        "docs/SOFTWARE_ARCHITECTURE.md",
+        "docs/architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md",
+        "docs/handoff/COMPONENT_SPECS.md",
+        "docs/handoff/SCREEN_SPECS.md"
+      ],
+      "findingIds": [
+        "PH11-MAJ-001",
+        "PH11-MAJ-002",
+        "PH11-MIN-002"
+      ],
+      "limitations": "No APK/Media3 controller/permission lifecycle/OEM/vehicle test claimed"
+    },
+    {
+      "role": "Accessibility",
+      "status": "APPROVED_AI_ASSISTED_SPEC_ONLY_WITH_MINOR",
+      "evidence": [
+        "docs/high-fidelity/phase-7/PHASE_7_REGISTER.json",
+        "docs/high-fidelity/phase-7/PHASE_7_DEVICE_QA_MATRIX.md",
+        "docs/handoff/COMPOSE_TOKEN_MAPPING.md"
+      ],
+      "findingIds": [
+        "PH11-MIN-001"
+      ],
+      "limitations": "TalkBack/200-percent/font reflow/actual touch targets not run on Compose"
+    },
+    {
+      "role": "QA",
+      "status": "APPROVED_AI_ASSISTED_TESTABILITY_WITH_MINORS",
+      "evidence": [
+        "docs/prototype/PHASE_8_BROWSER_VALIDATION.json",
+        "docs/audit/phase-10/PHASE_10_VALIDATION.json",
+        "docs/prototype/TEST_PLAN.md",
+        "docs/handoff/COMPONENT_SPECS.md"
+      ],
+      "findingIds": [
+        "PH11-MAJ-001",
+        "PH11-MAJ-002",
+        "PH11-MIN-002",
+        "PH11-MIN-004"
+      ],
+      "limitations": "Static Chromium not an Android lifecycle/STT/voice safety test"
+    },
+    {
+      "role": "Privacy",
+      "status": "APPROVED_AI_ASSISTED_AFTER_CORRECTION_WITH_MINOR",
+      "evidence": [
+        "docs/ANALYTICS_AND_PRIVACY.md",
+        "docs/architecture/review/ISSUE_16_CROSS_ROLE_REVIEW_2026-08-30.md",
+        "docs/handoff/COMPONENT_SPECS.md",
+        "docs/high-fidelity/phase-7/PRIVACY_EVIDENCE_HANDOFF.md"
+      ],
+      "findingIds": [
+        "PH11-MAJ-002",
+        "PH11-MIN-003"
+      ],
+      "limitations": "Remote STT is disabled pending actual provider/legal consent/retention review; no private user-data audit performed"
+    }
+  ],
+  "findings": [
+    {
+      "id": "PH11-MAJ-001",
+      "severity": "Major",
+      "status": "RESOLVED_IN_THIS_PR",
+      "roles": [
+        "Product",
+        "Design/UX",
+        "Android feasibility",
+        "QA"
+      ],
+      "title": "Player/MiniPlayer/Driving TrackMetadata and Artwork ownership was ambiguous",
+      "sourceEvidence": [
+        "docs/handoff/COMPONENT_SPECS.md#cmp-07--trackmetadata",
+        "docs/handoff/COMPONENT_SPECS.md#cmp-08--artwork",
+        "docs/handoff/SCREEN_SPECS.md",
+        "docs/architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md"
+      ],
+      "cause": "Generic metadata components named Room/MediaStore local browse projection as source without requiring the current rendered media item be selected from the service-acknowledged PlaybackSnapshot; an engineer could render stale selected row as the playing item.",
+      "owner": "Issue #17 Design/UX + Android handoff maintenance",
+      "resolution": "CMP-07/CMP-08 now explicitly bind Player/Driving/MiniPlayer current-item key to PlaybackGateway.snapshot.currentItem; Room/MediaStore resolves display-only metadata for that key. Screen Specs aligned. No extra playback or queue owner.",
+      "changedFiles": [
+        "docs/handoff/COMPONENT_SPECS.md",
+        "docs/handoff/SCREEN_SPECS.md"
+      ],
+      "acceptanceEvidence": "AI-assisted doc inspection + Phase 11 machine assertion on exact component sections; actual ViewModel/Media3 switch tests remain PH11-MIN-002",
+      "downstreamGate": "No Phase 11 defect remains; future implementation test is PH11-MIN-002."
+    },
+    {
+      "id": "PH11-MAJ-002",
+      "severity": "Major",
+      "status": "RESOLVED_IN_THIS_PR",
+      "roles": [
+        "Privacy",
+        "Android feasibility",
+        "QA"
+      ],
+      "title": "CMP-10 SearchField source-of-truth conflated ephemeral query and Room-derived results",
+      "sourceEvidence": [
+        "docs/handoff/COMPONENT_SPECS.md#cmp-10--searchfield",
+        "docs/handoff/SCREEN_SPECS.md",
+        "docs/ANALYTICS_AND_PRIVACY.md"
+      ],
+      "cause": "Generic component owner text named MediaStore/Room for SearchField as a whole; despite screen-level correct guidance, this could result in persisting or logging the user's private search query.",
+      "owner": "Issue #17 Privacy + Android handoff maintenance",
+      "resolution": "CMP-10 now binds transient query/focus state solely to SearchViewModel; SearchLibraryUseCase/Room owns derived results, MediaStore verifies identity. Query banned from Room/DataStore/logs/analytics/crash evidence. Screen Specs aligned.",
+      "changedFiles": [
+        "docs/handoff/COMPONENT_SPECS.md",
+        "docs/handoff/SCREEN_SPECS.md"
+      ],
+      "acceptanceEvidence": "AI-assisted source boundary review + Phase 11 machine assertion on query/privacy terms; runtime privacy-negative tests remain PH11-MIN-002",
+      "downstreamGate": "No Phase 11 contract defect remains; future implementation test is PH11-MIN-002."
+    },
+    {
+      "id": "PH11-MIN-001",
+      "severity": "Minor",
+      "status": "OPEN_DOWNSTREAM_NON_BLOCKING",
+      "roles": [
+        "Accessibility",
+        "Design/UX",
+        "QA"
+      ],
+      "title": "Actual Compose 100/150/200% reflow, TalkBack and target/focus behavior is not yet tested",
+      "sourceEvidence": [
+        "docs/high-fidelity/phase-7/PHASE_7_DEVICE_QA_MATRIX.md",
+        "docs/high-fidelity/phase-7/COMPOSE_A11Y_HANDOFF.md"
+      ],
+      "owner": "Issue #4 Android UI developer + QA/Accessibility",
+      "downstreamGate": "Before corresponding Android screen feature DoD / release candidate: run all 65 Phase-7 cases on real builds with sanitized TalkBack traces, 200% fonts, keyboard/Back, 48dp and 64/72/56dp checks.",
+      "dependency": "PH10-MIN-001",
+      "nonblockingWhy": "Phase 11 evaluates static design and implementation handoff only. Existing accessibility semantics requirements are preserved; runtime correctness is not certified."
+    },
+    {
+      "id": "PH11-MIN-002",
+      "severity": "Minor",
+      "status": "OPEN_DOWNSTREAM_NON_BLOCKING",
+      "roles": [
+        "Android feasibility",
+        "QA",
+        "Product"
+      ],
+      "title": "Real Media3/controller and STT lifecycle, malformed media, interruption and OEM/vehicle tests not run",
+      "sourceEvidence": [
+        "docs/prototype/TEST_PLAN.md",
+        "docs/QA_AND_BETA_PLAN.md",
+        "docs/handoff/README.md"
+      ],
+      "owner": "Issue #4 Android implementation + QA / Field Beta",
+      "downstreamGate": "Before release candidate/Field Beta: verify service ACK and currentItem metadata, no optimistic queue, query not stored/logged, 6s/one Retry/one confirm, route Safe Paused and Android 10/12/14+ Pixel/Samsung/Xiaomi + at least 3 vehicle/head-unit combinations.",
+      "dependency": "PH10-MIN-003",
+      "nonblockingWhy": "No playable APK is part of high-fidelity artifact review; all implementation and physical test requirements remain test obligations."
+    },
+    {
+      "id": "PH11-MIN-003",
+      "severity": "Minor",
+      "status": "OPEN_DOWNSTREAM_NON_BLOCKING",
+      "roles": [
+        "Privacy",
+        "Product"
+      ],
+      "title": "Provider-specific cloud STT consent/retention/Legal evidence unavailable",
+      "sourceEvidence": [
+        "docs/architecture/review/ISSUE_16_FINDINGS_REGISTER.json",
+        "docs/high-fidelity/phase-7/PRIVACY_EVIDENCE_HANDOFF.md"
+      ],
+      "owner": "Product + Privacy/Legal decision makers",
+      "downstreamGate": "Before any remote/cloud speech activation or Beta/release claim involving the chosen provider: explicit provider contract, disclosure, retention/deletion, consent/revoke and signed responsible approval; until then remote STT feature stays disabled.",
+      "dependency": "PH10-MIN-002",
+      "nonblockingWhy": "Current MVP can use approved local/manual path; nothing in Phase 11 enables remote speech."
+    },
+    {
+      "id": "PH11-MIN-004",
+      "severity": "Minor",
+      "status": "OPEN_DOWNSTREAM_NON_BLOCKING",
+      "roles": [
+        "Design/UX",
+        "Product",
+        "QA"
+      ],
+      "title": "Independent manual screenshot/hotspot/zoom review remains outstanding",
+      "sourceEvidence": [
+        "docs/prototype/TEST_PLAN.md",
+        "docs/high-fidelity/PHASE_4_PRIMARY_REGISTER.json",
+        "docs/high-fidelity/specialist/phase-6/PHASE_6_REGISTER.json"
+      ],
+      "owner": "Named Product + Design/UX reviewers and QA reviewer (actual GitHub reviewers, not invented)",
+      "downstreamGate": "Before final Issue #17 acceptance/closure: human signed dated review of 10 primary/45 dedicated/27 Voice Driving specialist views, actual image hotspot matching, 200% browser zoom and reviewer Back vs app Back distinction; resolve any new Blocker/Major first.",
+      "nonblockingWhy": "AI-assisted documentation gate may pass, but is not a substitute for independent human design signoff at final Issue #17 closure."
+    }
+  ],
+  "summary": {
+    "blockerFound": 0,
+    "blockerResolved": 0,
+    "blockerOpen": 0,
+    "majorFound": 2,
+    "majorResolved": 2,
+    "majorOpen": 0,
+    "minorFound": 4,
+    "minorResolved": 0,
+    "minorOpen": 4,
+    "reviewRolesCovered": 6,
+    "independentHumanSignoffs": 0
+  },
+  "gate": {
+    "phase11": "PASS_AFTER_CORRECTIONS_AI_ASSISTED",
+    "condition": "Open Blocker = 0 AND Open Major = 0, every OPEN Minor has named accountable owner and exact downstream gate.",
+    "issue17MayClose": false,
+    "humanReviewStillRequired": true
+  },
+  "provenance": {
+    "reviewDate": "2026-10-11",
+    "reviewFramework": "Issue #15 Phase 8 and Issue #16 Phase 10 AI-assisted cross-role evidence review",
+    "phase10LastMergedPR": 64,
+    "sourceHashVerifiedWithAttachedArchive": true
+  }
+}
