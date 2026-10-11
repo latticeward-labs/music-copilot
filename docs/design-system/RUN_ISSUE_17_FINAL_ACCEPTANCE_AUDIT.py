@@ -254,8 +254,8 @@ for source in link_sources:
         if parsed.scheme in ("https","http"):
             if parsed.netloc.lower()=="github.com" and parsed.path.startswith("/latticeward-labs/music-copilot/"):
                 parts=parsed.path.split("/")
-                if len(parts)>5 and parts[4] in ("blob","tree") and parts[5]=="main":
-                    candidate=ROOT / urllib.parse.unquote("/".join(parts[6:]))
+                if len(parts)>5 and parts[3] in ("blob","tree") and parts[4]=="main":
+                    candidate=ROOT / urllib.parse.unquote("/".join(parts[5:]))
                     link_details["internalSameRepoGithubLinks"]+=1
                 else:
                     link_details["externalLinksSkipped"]+=1;continue
