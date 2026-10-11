@@ -1,0 +1,43 @@
+{
+  "phase": 10,
+  "issue": 17,
+  "sourceArchiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "status": "PASS_SOURCE_TRACEABILITY_SCOPE",
+  "priorityCounts": {
+    "P0": 106,
+    "P1": 6,
+    "P2": 14
+  },
+  "dispositionCounts": {
+    "DEDICATED_HIFI": 45,
+    "HIFI_VARIANT_ANNOTATION": 61,
+    "SYSTEM_ONLY_HANDOFF": 20
+  },
+  "canonicalStates": 126,
+  "highFidelityFiles": 403,
+  "registeredSourceArtifacts": 435,
+  "sourceAssets": 149,
+  "primaryHighFi": 10,
+  "hifiFrames": 32,
+  "specialistStates": 27,
+  "nativeSystemOnly": 20,
+  "prototypeNodes": 67,
+  "goldenScenarios": [
+    "GS-01",
+    "GS-02",
+    "GS-03",
+    "GS-04",
+    "GS-05"
+  ],
+  "prototypeRecoveryBranches": 38,
+  "errors": {
+    "missing": [],
+    "orphan": [],
+    "priority": [],
+    "state": [],
+    "scope": [],
+    "prototype": []
+  },
+  "humanSignoff": "NOT_CLAIMED",
+  "realDeviceQA": "NOT_RUN"
+}
