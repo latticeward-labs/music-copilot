@@ -80,7 +80,7 @@ for sid,a in by.items():
     uf=sorted(set(re.findall(r"UF-\d\d",a["uf"])))
     if not uf or any(u not in fr_map for u in uf):errors["state"].append({"id":sid,"unknownUF":a["uf"]});continue
     direct=[] if "not on GS-01..05 path" in a["gs"] else sorted(set(re.findall(r"GS-0[1-5]",a["gs"])))
-    bridge=sorted({v for u in uf for v in gs_map[u]})
+    bridge=[] if a["priority"]=="P2" else sorted({v for u in uf for v in gs_map[u]})
     fr=["FR-09"] if a["priority"]=="P2" else sorted({v for u in uf for v in fr_map[u]})
     us=[] if a["priority"]=="P2" else sorted({v for u in uf for v in us_map[u]})
     if a["priority"]=="P2":
@@ -100,7 +100,10 @@ for sid,a in by.items():
          "fallbackSections":"PRD section 9; MVP sections 3,7 (UF-12 privacy/settings)" if not fr else None,
          "architecture":arch,"adrs":adr_files,"owner":a["ownership"],
          "systemOwner":a["screenOwner"],"recoveryOwner":a["recoveryOwner"],
-         "stateSpec":x["spec"],"renderKind":x["type"]}
+         "stateSpec":x["spec"],"renderKind":x["type"],
+         "lowFiEvidenceIds":a["lowFiEvidenceArtifactIds"],
+         "lowFiSvgPaths":["docs/wireframes/app-states/"+id+".svg" for id in a["lowFiEvidenceArtifactIds"]
+                          if (R/("docs/wireframes/app-states/"+id+".svg")).is_file()]}
     state_rows.append(row)
     add(x["spec"],"CANONICAL_STATE_SPEC",[sid])
     if x["type"]=="DEDICATED_HIFI":
@@ -248,6 +251,31 @@ rows+=["","## Authority chain",
 "",
 "Static artifact metadata/hash audit is NOT a claim of compiled Android behavior or named human UI signoff."]
 (O/"PHASE_10_TRACEABILITY_MATRIX.md").write_text("\n".join(rows)+"\n")
+# Every rendered HF PNG has a navigable frozen WF/State/UF/GS/PRD/Architecture path.
+# Three cross-screen contact boards are supporting aggregate images, not new States.
+images=[x for x in registered.values() if x["path"].startswith("docs/high-fidelity/") and x["path"].endswith(".png")]
+image_lines=["# Phase 10 — Exhaustive Rendered High-Fi Asset Trace","",
+ "Every rendered source PNG in docs/high-fidelity is indexed below. State links are",
+ "resolved against the frozen ledger, including contextual cross-WF Voice/OS annotations.",
+ "Summary contact boards intentionally have no individual State ID: they are supporting",
+ "montages of already registered screens, not orphan screens.",
+ "",
+ "| Rendered asset | Class(es) | WF | Frozen State ID(s) | UF → GS bridge / P2 exception | PRD/MVP + architecture |",
+ "|---|---|---|---|---|---|"]
+for x in sorted(images,key=lambda a:a["path"]):
+ ids=x["stateIds"];wfs=sorted({w for i in ids if i in by for w in by[i]["wf"]})
+ ufs=sorted({u for i in ids if i in by for u in re.findall(r"UF-\d\d",by[i]["uf"])})
+ priority=sorted({by[i]["priority"] for i in ids if i in by})
+ gsv=sorted({g for i in ids if i in by and by[i]["priority"]!="P2"
+             for u in re.findall(r"UF-\d\d",by[i]["uf"]) for g in gs_map[u]})
+ relation=("OPTIONAL P2 — FR-09, no mandatory GS" if ids and priority==["P2"]
+           else ",".join(ufs)+" → "+(",".join(gsv) or "source aggregate")
+           if ids else "Supporting QA/contact board; not a new State")
+ image_lines.append("| "+x["path"]+" | "+", ".join(x["kinds"])+" | "+(", ".join(wfs) or "aggregate")+
+  " | "+(", ".join(ids) or "no independent State")+
+  " | "+relation+" | docs/PRD.md + docs/MVP.md + docs/SOFTWARE_ARCHITECTURE.md |")
+(O/"PHASE_10_VISUAL_ARTIFACT_MATRIX.md").write_text("\n".join(image_lines)+"\n")
+
 summary=["# Phase 10 — Priority / Scope / Orphan Audit","",
 "**Decision:** "+result["status"],
 "",
