@@ -1,0 +1,2655 @@
+{
+  "version": "1.1",
+  "issue": 17,
+  "phase": 8,
+  "recoverySafety": {
+    "GS-01": {
+      "allowed": [
+        "splash",
+        "migration-error",
+        "welcome",
+        "education",
+        "permission",
+        "sys-media",
+        "denied",
+        "permanent",
+        "sys-settings",
+        "granted",
+        "scanning",
+        "scan-error",
+        "empty",
+        "library"
+      ],
+      "terminals": [
+        "library",
+        "denied",
+        "permanent",
+        "empty",
+        "migration-error"
+      ]
+    },
+    "GS-02": {
+      "allowed": [
+        "library",
+        "search",
+        "results",
+        "search-none",
+        "search-error",
+        "stale",
+        "selection",
+        "player",
+        "player-paused",
+        "queue",
+        "corrupt",
+        "reconnect",
+        "permission",
+        "sys-media",
+        "denied",
+        "permanent",
+        "sys-settings",
+        "granted",
+        "scanning",
+        "scan-error",
+        "empty"
+      ],
+      "terminals": [
+        "player",
+        "player-paused",
+        "library",
+        "results",
+        "search-none",
+        "search-error",
+        "denied",
+        "permanent"
+      ]
+    },
+    "GS-03": {
+      "allowed": [
+        "player",
+        "player-paused",
+        "session-handoff",
+        "background",
+        "screen-off",
+        "sys-controls",
+        "lock-controls",
+        "external-keys",
+        "sys-command",
+        "lifecycle-event",
+        "reconnect",
+        "notification-denied",
+        "sys-settings-notification",
+        "restore-paused",
+        "restore-pending",
+        "library"
+      ],
+      "terminals": [
+        "player",
+        "player-paused",
+        "restore-paused",
+        "notification-denied",
+        "library"
+      ]
+    },
+    "GS-04": {
+      "allowed": [
+        "player",
+        "player-paused",
+        "driving",
+        "driving-paused",
+        "driving-none",
+        "driving-last",
+        "driving-safe",
+        "voice-listen",
+        "voice-listen-two",
+        "voice-processing",
+        "voice-confirm-one",
+        "voice-confirm-two",
+        "voice-pending",
+        "voice-done",
+        "voice-tts",
+        "voice-timeout",
+        "voice-terminal",
+        "voice-not-found",
+        "voice-unsupported",
+        "voice-unknown",
+        "voice-provider",
+        "voice-permission",
+        "voice-rejected"
+      ],
+      "terminals": [
+        "driving",
+        "driving-paused",
+        "driving-none",
+        "driving-safe",
+        "player",
+        "player-paused"
+      ]
+    },
+    "GS-05": {
+      "allowed": [
+        "player",
+        "route-event",
+        "route-paused",
+        "route-return",
+        "focus-paused",
+        "safe-paused",
+        "manual-resume",
+        "library"
+      ],
+      "terminals": [
+        "player",
+        "safe-paused",
+        "route-paused",
+        "focus-paused",
+        "library"
+      ]
+    }
+  },
+  "viewport": [
+    360,
+    800
+  ],
+  "archiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "nodes": [
+    {
+      "id": "splash",
+      "stateId": "S-01",
+      "wf": "WF-01",
+      "image": "../high-fidelity/WF-01/frames/HF_FRAME_WF-01_SPLASH_LOADING.png",
+      "title": "Verified startup",
+      "summary": "Startup and migration status is checked before navigation.",
+      "edges": [
+        {
+          "label": "Verified startup → onboarding",
+          "to": "welcome",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Migration error",
+          "to": "migration-error",
+          "kind": "simulate",
+          "note": "Recovery remains inside UF-01"
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "migration-error",
+      "stateId": "S-01",
+      "wf": "WF-01",
+      "image": "../high-fidelity/WF-01/frames/HF_FRAME_WF-01_SPLASH_STARTUP_MIGRATION_ERROR.png",
+      "title": "Startup / migration failure",
+      "summary": "No destructive reset; verified local data is retained.",
+      "edges": [
+        {
+          "label": "Retry startup",
+          "to": "splash",
+          "kind": "tap",
+          "rect": [
+            50,
+            440,
+            260,
+            58
+          ],
+          "note": ""
+        },
+        {
+          "label": "Retry fails; remain on recovery",
+          "to": "migration-error",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "welcome",
+      "stateId": "S-02",
+      "wf": "WF-02",
+      "image": "../high-fidelity/WF-02/frames/HF_FRAME_WF-02_ONBOARDING_SLIDE_1.png",
+      "title": "Local-first onboarding",
+      "summary": "Account-free introduction; optional Voice education is not a prerequisite.",
+      "edges": [
+        {
+          "label": "Continue",
+          "to": "permission",
+          "kind": "tap",
+          "rect": [
+            38,
+            510,
+            284,
+            61
+          ],
+          "note": ""
+        },
+        {
+          "label": "Skip optional Voice education",
+          "to": "permission",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "education",
+      "stateId": "CA-01",
+      "wf": "WF-02",
+      "image": "../high-fidelity/WF-02/frames/HF_FRAME_WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.png",
+      "title": "Six-command education",
+      "summary": "The optional tutorial explains six deterministic English intents.",
+      "edges": [
+        {
+          "label": "Skip optional Voice",
+          "to": "library",
+          "kind": "tap",
+          "rect": [
+            38,
+            510,
+            284,
+            63
+          ],
+          "note": ""
+        },
+        {
+          "label": "Finish optional education",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "permission",
+      "stateId": "S-03",
+      "wf": "WF-03",
+      "image": "../high-fidelity/WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_RATIONALE_REQUEST.png",
+      "title": "Local-media permission rationale",
+      "summary": "User-controlled request. Android—not the app—owns the resulting dialog.",
+      "edges": [
+        {
+          "label": "Continue to Android request",
+          "to": "sys-media",
+          "kind": "tap",
+          "rect": [
+            40,
+            487,
+            280,
+            57
+          ],
+          "note": ""
+        },
+        {
+          "label": "Not now",
+          "to": "denied",
+          "kind": "tap",
+          "rect": [
+            40,
+            552,
+            280,
+            54
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App / Android permission boundary",
+      "systemOnly": false
+    },
+    {
+      "id": "sys-media",
+      "stateId": "SYS-01",
+      "wf": null,
+      "image": null,
+      "title": "Android media permission boundary",
+      "summary": "Platform-native permission dialog deliberately NOT rendered. Select an OS result in the external simulator.",
+      "edges": [
+        {
+          "label": "Android grants media access",
+          "to": "granted",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Android denies (requestable)",
+          "to": "denied",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Android permanently denies",
+          "to": "permanent",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System",
+      "systemOnly": true
+    },
+    {
+      "id": "denied",
+      "stateId": "S-03",
+      "wf": "WF-03",
+      "image": "../high-fidelity/WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_DENIED.png",
+      "title": "Media access unavailable",
+      "summary": "Manual fallback remains available; no false claim of library readiness.",
+      "edges": [
+        {
+          "label": "Retry permission explanation",
+          "to": "permission",
+          "kind": "tap",
+          "rect": [
+            40,
+            490,
+            280,
+            58
+          ],
+          "note": ""
+        },
+        {
+          "label": "Platform reports permanent denial",
+          "to": "permanent",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Not now · keep manual fallback",
+          "to": "denied",
+          "kind": "tap",
+          "rect": [
+            38,
+            553,
+            284,
+            54
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App / Android permission boundary",
+      "systemOnly": false
+    },
+    {
+      "id": "permanent",
+      "stateId": "S-03",
+      "wf": "WF-03",
+      "image": "../high-fidelity/WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_PERMANENTLY_DENIED.png",
+      "title": "Permanent media denial",
+      "summary": "An explicit Settings handoff is available outside Driving.",
+      "edges": [
+        {
+          "label": "Open Android Settings",
+          "to": "sys-settings",
+          "kind": "tap",
+          "rect": [
+            37,
+            482,
+            284,
+            60
+          ],
+          "note": ""
+        },
+        {
+          "label": "Not now",
+          "to": "denied",
+          "kind": "tap",
+          "rect": [
+            40,
+            551,
+            280,
+            56
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App / Android permission boundary",
+      "systemOnly": false
+    },
+    {
+      "id": "sys-settings",
+      "stateId": "SYS-04",
+      "wf": null,
+      "image": null,
+      "title": "Android Settings boundary",
+      "summary": "The native Settings page is Android-owned. App returns and rechecks media permission.",
+      "edges": [
+        {
+          "label": "After return: permission now granted",
+          "to": "granted",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "After return: still denied",
+          "to": "permanent",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System",
+      "systemOnly": true
+    },
+    {
+      "id": "granted",
+      "stateId": "S-03",
+      "wf": "WF-03",
+      "image": "../high-fidelity/WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_GRANTED.png",
+      "title": "Media access granted",
+      "summary": "The actual platform grant is used; proceed to local MediaStore scan.",
+      "edges": [
+        {
+          "label": "Begin MediaStore scan",
+          "to": "scanning",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App / Android permission boundary",
+      "systemOnly": false
+    },
+    {
+      "id": "scanning",
+      "stateId": "S-04",
+      "wf": "WF-04",
+      "image": "../high-fidelity/WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png",
+      "title": "Scanning local music",
+      "summary": "MediaStore/index state is observed, not fabricated.",
+      "edges": [
+        {
+          "label": "Scan completes with library Ready",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Scan completes Empty",
+          "to": "empty",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Recoverable scan failure",
+          "to": "scan-error",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "scan-error",
+      "stateId": "S-04",
+      "wf": "WF-04",
+      "image": "../high-fidelity/WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.png",
+      "title": "Recoverable scan error",
+      "summary": "Keep last verified library state; retry only on explicit action.",
+      "edges": [
+        {
+          "label": "Retry scan",
+          "to": "scanning",
+          "kind": "tap",
+          "rect": [
+            44,
+            420,
+            278,
+            60
+          ],
+          "note": ""
+        },
+        {
+          "label": "Return to verified Library",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "empty",
+      "stateId": "S-04",
+      "wf": "WF-04",
+      "image": "../high-fidelity/WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_EMPTY.png",
+      "title": "Verified empty library",
+      "summary": "No accessible audio found. This is not a permission-denied state.",
+      "edges": [
+        {
+          "label": "Rescan",
+          "to": "scanning",
+          "kind": "tap",
+          "rect": [
+            65,
+            368,
+            231,
+            54
+          ],
+          "note": ""
+        },
+        {
+          "label": "Return to media permission recovery",
+          "to": "permission",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "library",
+      "stateId": "CB-01",
+      "wf": "WF-04",
+      "image": "../high-fidelity/WF-04/states/HF_STATE_CB-01.png",
+      "title": "Ready Library",
+      "summary": "Songs, Artists, Albums and Folders are the existing manual browse categories.",
+      "edges": [
+        {
+          "label": "Search tab",
+          "to": "search",
+          "kind": "tap",
+          "rect": [
+            91,
+            734,
+            89,
+            60
+          ],
+          "note": ""
+        },
+        {
+          "label": "Select verified library track",
+          "to": "selection",
+          "kind": "tap",
+          "rect": [
+            160,
+            167,
+            188,
+            65
+          ],
+          "note": ""
+        },
+        {
+          "label": "Open current mini-player",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            12,
+            682,
+            334,
+            52
+          ],
+          "note": ""
+        },
+        {
+          "label": "Settings tab",
+          "to": "settings",
+          "kind": "tap",
+          "rect": [
+            273,
+            734,
+            84,
+            60
+          ],
+          "note": ""
+        },
+        {
+          "label": "Replay optional six-command education",
+          "to": "education",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Local library revoked / rescan",
+          "to": "scan-error",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "search",
+      "stateId": "CB-09",
+      "wf": "WF-05",
+      "image": "../high-fidelity/WF-05/states/HF_STATE_CB-09.png",
+      "title": "Local Search / empty query",
+      "summary": "Search is strictly local. The sample query and results are synthetic.",
+      "edges": [
+        {
+          "label": "Enter scripted local query",
+          "to": "results",
+          "kind": "tap",
+          "rect": [
+            23,
+            112,
+            310,
+            62
+          ],
+          "note": ""
+        },
+        {
+          "label": "Return to Library",
+          "to": "library",
+          "kind": "tap",
+          "rect": [
+            1,
+            29,
+            50,
+            58
+          ],
+          "note": ""
+        },
+        {
+          "label": "Index query fails",
+          "to": "search-error",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Query returns no results",
+          "to": "search-none",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "results",
+      "stateId": "CB-10",
+      "wf": "WF-05",
+      "image": "../high-fidelity/WF-05/states/HF_STATE_CB-10.png",
+      "title": "Local Search results",
+      "summary": "Only the selected visible collection can be submitted to the one MediaSessionService.",
+      "edges": [
+        {
+          "label": "Play local search result",
+          "to": "selection",
+          "kind": "tap",
+          "rect": [
+            91,
+            281,
+            256,
+            74
+          ],
+          "note": ""
+        },
+        {
+          "label": "Clear query",
+          "to": "search",
+          "kind": "tap",
+          "rect": [
+            264,
+            110,
+            76,
+            58
+          ],
+          "note": ""
+        },
+        {
+          "label": "Selection stale or access revoked",
+          "to": "stale",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Search index error",
+          "to": "search-error",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "No search result",
+          "to": "search-none",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "search-none",
+      "stateId": "CB-11",
+      "wf": "WF-05",
+      "image": "../high-fidelity/WF-05/states/HF_STATE_CB-11.png",
+      "title": "Search: no results",
+      "summary": "Preserve query; no online-catalog fallback.",
+      "edges": [
+        {
+          "label": "Clear preserved query",
+          "to": "search",
+          "kind": "tap",
+          "rect": [
+            258,
+            116,
+            81,
+            62
+          ],
+          "note": ""
+        },
+        {
+          "label": "Edit query and find local results",
+          "to": "results",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Return to Library",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "search-error",
+      "stateId": "CB-12",
+      "wf": "WF-05",
+      "image": "../high-fidelity/WF-05/states/HF_STATE_CB-12.png",
+      "title": "Search error",
+      "summary": "The verified library remains available and the entered query is preserved.",
+      "edges": [
+        {
+          "label": "Retry Search",
+          "to": "results",
+          "kind": "tap",
+          "rect": [
+            30,
+            334,
+            295,
+            60
+          ],
+          "note": ""
+        },
+        {
+          "label": "Return to Library",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "stale",
+      "stateId": "CB-13",
+      "wf": "WF-05",
+      "image": "../high-fidelity/WF-05/frames/HF_FRAME_WF-05_SEARCH_RESULTS.png",
+      "title": "Stale selection",
+      "summary": "Re-read MediaStore/access; never play a vanished item or replace prior service queue.",
+      "edges": [
+        {
+          "label": "Reconciliation succeeds; retry selection",
+          "to": "selection",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Permission revoked; explain outside Driving",
+          "to": "permission",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Return to preserved results",
+          "to": "results",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "selection",
+      "stateId": "CB-14",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png",
+      "title": "Queue start pending",
+      "summary": "This is a reviewer annotation of the pending selected-collection handoff; no new loading screen.",
+      "edges": [
+        {
+          "label": "Playback Service acknowledges queue",
+          "to": "player",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Service rejects selection; preserve results",
+          "to": "results",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Selected file invalid",
+          "to": "stale",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "player",
+      "stateId": "CB-15",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.png",
+      "title": "Full Player — Playing",
+      "summary": "Playback truth belongs to the single service-owned MediaSession.",
+      "edges": [
+        {
+          "label": "Enter Driving Mode",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            111,
+            668,
+            137,
+            58
+          ],
+          "note": ""
+        },
+        {
+          "label": "Pause playback",
+          "to": "player-paused",
+          "kind": "tap",
+          "rect": [
+            142,
+            516,
+            75,
+            88
+          ],
+          "note": ""
+        },
+        {
+          "label": "Queue",
+          "to": "queue",
+          "kind": "tap",
+          "rect": [
+            289,
+            27,
+            67,
+            59
+          ],
+          "note": ""
+        },
+        {
+          "label": "Next track (acknowledged)",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            244,
+            516,
+            78,
+            86
+          ],
+          "note": ""
+        },
+        {
+          "label": "Back to preserved Library",
+          "to": "library",
+          "kind": "tap",
+          "rect": [
+            1,
+            30,
+            58,
+            57
+          ],
+          "note": ""
+        },
+        {
+          "label": "Corrupt local item encountered",
+          "to": "corrupt",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Controller disconnects",
+          "to": "reconnect",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Android active-session handoff / app background",
+          "to": "session-handoff",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Call, focus or route interruption",
+          "to": "route-event",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "player-paused",
+      "stateId": "CB-16",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/states/HF_STATE_CB-16.png",
+      "title": "Full Player — Paused",
+      "summary": "Manual play only; no automatic restart.",
+      "edges": [
+        {
+          "label": "Play after service acknowledgement",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            129,
+            510,
+            95,
+            92
+          ],
+          "note": ""
+        },
+        {
+          "label": "Back to Library",
+          "to": "library",
+          "kind": "tap",
+          "rect": [
+            1,
+            32,
+            57,
+            59
+          ],
+          "note": ""
+        },
+        {
+          "label": "Background while paused",
+          "to": "background",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Route change remains Safe Paused",
+          "to": "safe-paused",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "queue",
+      "stateId": "CB-18",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/states/HF_STATE_CB-18.png",
+      "title": "Current service queue",
+      "summary": "Queue view is within the already-approved Player owner and visible source collection.",
+      "edges": [
+        {
+          "label": "Back to Full Player",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            0,
+            34,
+            68,
+            56
+          ],
+          "note": ""
+        },
+        {
+          "label": "Current item becomes unavailable",
+          "to": "corrupt",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "corrupt",
+      "stateId": "CB-19",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.png",
+      "title": "Corrupt / inaccessible media",
+      "summary": "Bounded forward skip/reconcile; no delete, shuffle, wrap or fabricated online match.",
+      "edges": [
+        {
+          "label": "Verified next playable item exists",
+          "to": "player",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "No playable queue item remains",
+          "to": "player-paused",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Return to Library/reconcile",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "reconnect",
+      "stateId": "CB-21",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png",
+      "title": "Controller reconnect",
+      "summary": "UI does not construct another player; it waits for complete service snapshot.",
+      "edges": [
+        {
+          "label": "Service snapshot confirms Playing",
+          "to": "player",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Service snapshot confirms Paused",
+          "to": "player-paused",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Service unavailable; no valid P1 restore",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "session-handoff",
+      "stateId": "CB-22",
+      "wf": null,
+      "image": null,
+      "title": "Android active-session ownership handoff",
+      "summary": "Service continues outside UI; Android owns lifecycle and native controls.",
+      "edges": [
+        {
+          "label": "Activity enters background",
+          "to": "background",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + Playback Service",
+      "systemOnly": true
+    },
+    {
+      "id": "background",
+      "stateId": "CB-23",
+      "wf": null,
+      "image": null,
+      "title": "App background: native lifecycle",
+      "summary": "App UI absent; the MediaSessionService remains sole playback owner.",
+      "edges": [
+        {
+          "label": "Device screen off / lock screen",
+          "to": "screen-off",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Return to app; reconnect controller",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "OEM service lifecycle change",
+          "to": "lifecycle-event",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + Playback Service",
+      "systemOnly": true
+    },
+    {
+      "id": "screen-off",
+      "stateId": "CB-24",
+      "wf": null,
+      "image": null,
+      "title": "Screen off / lock screen",
+      "summary": "Android owns the system lock-screen UI. Playback continues only while the actual service/route is active.",
+      "edges": [
+        {
+          "label": "Compatible notification media controls",
+          "to": "sys-controls",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Lock-screen media control",
+          "to": "lock-controls",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Headset / vehicle media key",
+          "to": "external-keys",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "OS surface unavailable / notification denied",
+          "to": "notification-denied",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Return to app and read actual snapshot",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + Playback Service",
+      "systemOnly": true
+    },
+    {
+      "id": "lock-controls",
+      "stateId": "CB-27",
+      "wf": null,
+      "image": null,
+      "title": "Native lock-screen MediaSession controller",
+      "summary": "Android owns the lock-screen artwork/actions; no app-defined screen or Android Auto UI.",
+      "edges": [
+        {
+          "label": "System Play/Pause/Next/Previous key",
+          "to": "sys-command",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Unlock / app reconnect",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + MediaSession",
+      "systemOnly": true
+    },
+    {
+      "id": "external-keys",
+      "stateId": "CB-28",
+      "wf": null,
+      "image": null,
+      "title": "External headset / vehicle media key",
+      "summary": "External compatible media keys are Android-dispatched to the same MediaSession.",
+      "edges": [
+        {
+          "label": "Supported system key to MediaSession",
+          "to": "sys-command",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Return to app",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + MediaSession",
+      "systemOnly": true
+    },
+    {
+      "id": "lifecycle-event",
+      "stateId": "CB-25",
+      "wf": null,
+      "image": null,
+      "title": "OEM/service lifecycle check",
+      "summary": "An OEM may terminate the active session; NEVER pretend playback survived.",
+      "edges": [
+        {
+          "label": "Service still alive → reconnect",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Service lost; valid P1 snapshot restores Paused",
+          "to": "restore-paused",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Service lost; no verified snapshot → Home",
+          "to": "library",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + Playback Service",
+      "systemOnly": true
+    },
+    {
+      "id": "sys-controls",
+      "stateId": "CB-26",
+      "wf": null,
+      "image": null,
+      "title": "Native MediaSession controls",
+      "summary": "Android owns notification, lock-screen and vehicle media-key surfaces. No mock system UI.",
+      "edges": [
+        {
+          "label": "OS Media Key command sent",
+          "to": "sys-command",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "OS surface unavailable / permission denied",
+          "to": "notification-denied",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Return to app",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + MediaSession",
+      "systemOnly": true
+    },
+    {
+      "id": "sys-command",
+      "stateId": "CB-29",
+      "wf": null,
+      "image": null,
+      "title": "System command awaiting service",
+      "summary": "Android/controller command is pending; no UI-owned optimistic status.",
+      "edges": [
+        {
+          "label": "Service acknowledges once",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Command rejected; refresh verified state",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + MediaSession",
+      "systemOnly": true
+    },
+    {
+      "id": "notification-denied",
+      "stateId": "CB-31",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png",
+      "title": "Notification unavailable",
+      "summary": "Android may hide the system controller; music/player remain truthful and manually controllable.",
+      "edges": [
+        {
+          "label": "Return to working player",
+          "to": "player",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Use explicit OS Settings outside Driving",
+          "to": "sys-settings-notification",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "sys-settings-notification",
+      "stateId": "CB-30",
+      "wf": null,
+      "image": null,
+      "title": "Notification permission/visibility boundary",
+      "summary": "An Android-owned notification-setting handoff. No in-app imitation.",
+      "edges": [
+        {
+          "label": "Return; refresh actual notification visibility",
+          "to": "reconnect",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System",
+      "systemOnly": true
+    },
+    {
+      "id": "restore-paused",
+      "stateId": "CB-32",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png",
+      "title": "P1 Paused Restore",
+      "summary": "Only validated persisted snapshot may restore an explicitly Paused state. This does not imply live P0 continuity.",
+      "edges": [
+        {
+          "label": "Explicit Play on verified restore",
+          "to": "restore-pending",
+          "kind": "tap",
+          "rect": [
+            129,
+            514,
+            99,
+            90
+          ],
+          "note": ""
+        },
+        {
+          "label": "Restore invalid; return Home",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "restore-pending",
+      "stateId": "CB-32",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png",
+      "title": "Validated restore: await service ACK",
+      "summary": "The prior Paused state remains visible until a new MediaSession command is acknowledged.",
+      "edges": [
+        {
+          "label": "Service acknowledges explicit Play",
+          "to": "player",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Service rejects or item invalid; remain Paused",
+          "to": "restore-paused",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "driving",
+      "stateId": "CC-05",
+      "wf": "WF-07",
+      "image": "../high-fidelity/specialist/phase-6/DRV_PLAYING.png",
+      "title": "Driving — Playing",
+      "summary": "Manual entry only; immediate Exit; no keyboard, Queue, Search or Settings.",
+      "edges": [
+        {
+          "label": "Exit Driving now",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            270,
+            27,
+            86,
+            64
+          ],
+          "note": ""
+        },
+        {
+          "label": "Pause",
+          "to": "driving-paused",
+          "kind": "tap",
+          "rect": [
+            97,
+            472,
+            80,
+            80
+          ],
+          "note": ""
+        },
+        {
+          "label": "Mic · Voice",
+          "to": "voice-listen",
+          "kind": "tap",
+          "rect": [
+            91,
+            595,
+            179,
+            91
+          ],
+          "note": ""
+        },
+        {
+          "label": "Next (service acknowledgement)",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            182,
+            474,
+            80,
+            79
+          ],
+          "note": ""
+        },
+        {
+          "label": "Service reports No Track",
+          "to": "driving-none",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Route interrupt during Driving",
+          "to": "driving-safe",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Voice provider unavailable",
+          "to": "voice-provider",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "driving-paused",
+      "stateId": "CC-06",
+      "wf": "WF-07",
+      "image": "../high-fidelity/specialist/phase-6/DRV_PAUSED.png",
+      "title": "Driving — Paused",
+      "summary": "Service-confirmed Paused. No automatic playback.",
+      "edges": [
+        {
+          "label": "Play explicitly",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            97,
+            472,
+            80,
+            80
+          ],
+          "note": ""
+        },
+        {
+          "label": "Exit immediately",
+          "to": "player-paused",
+          "kind": "tap",
+          "rect": [
+            270,
+            27,
+            86,
+            64
+          ],
+          "note": ""
+        },
+        {
+          "label": "Mic · Voice",
+          "to": "voice-listen",
+          "kind": "tap",
+          "rect": [
+            91,
+            595,
+            179,
+            91
+          ],
+          "note": ""
+        },
+        {
+          "label": "No verified track",
+          "to": "driving-none",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "driving-none",
+      "stateId": "CC-07",
+      "wf": "WF-07",
+      "image": "../high-fidelity/specialist/phase-6/DRV_NO_TRACK.png",
+      "title": "Driving — No Track",
+      "summary": "No unverified active Play last. Disabled transport remains inert.",
+      "edges": [
+        {
+          "label": "Exit to prior player",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            270,
+            27,
+            86,
+            64
+          ],
+          "note": ""
+        },
+        {
+          "label": "Mic eligibility check",
+          "to": "voice-provider",
+          "kind": "tap",
+          "rect": [
+            91,
+            595,
+            179,
+            91
+          ],
+          "note": ""
+        },
+        {
+          "label": "Valid last local track exists (guarded)",
+          "to": "driving-last",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "driving-last",
+      "stateId": "CC-07",
+      "wf": "WF-07",
+      "image": "../high-fidelity/specialist/phase-6/DRV_LAST_VERIFIED.png",
+      "title": "Driving — verified Play last",
+      "summary": "Conditional same-state approved action. Verified local MediaStore identity first.",
+      "edges": [
+        {
+          "label": "Play last after recheck",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            97,
+            472,
+            80,
+            80
+          ],
+          "note": ""
+        },
+        {
+          "label": "Exit Driving",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            270,
+            27,
+            86,
+            64
+          ],
+          "note": ""
+        },
+        {
+          "label": "Last item became unavailable",
+          "to": "driving-none",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "driving-safe",
+      "stateId": "CE-06",
+      "wf": "WF-07",
+      "image": "../high-fidelity/specialist/phase-6/DRV_ROUTE_SAFE.png",
+      "title": "Driving — Safe Paused",
+      "summary": "Platform route/focus handoff stays Android/System-owned; UI shows only actual safe paused state.",
+      "edges": [
+        {
+          "label": "Exit immediately",
+          "to": "player-paused",
+          "kind": "tap",
+          "rect": [
+            270,
+            27,
+            86,
+            64
+          ],
+          "note": ""
+        },
+        {
+          "label": "Explicit revalidated Play",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            98,
+            472,
+            78,
+            80
+          ],
+          "note": ""
+        },
+        {
+          "label": "Route remains disconnected; pause",
+          "to": "driving-safe",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-listen",
+      "stateId": "CD-03",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_LISTEN_1.png",
+      "title": "Voice — Listening",
+      "summary": "Explicit mic tap begins one bounded six-second capture. Simulated speech is selected from reviewer panel.",
+      "edges": [
+        {
+          "label": "Cancel voice",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            25,
+            546,
+            307,
+            68
+          ],
+          "note": ""
+        },
+        {
+          "label": "Exit Driving",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            275,
+            26,
+            81,
+            68
+          ],
+          "note": ""
+        },
+        {
+          "label": "Supported NEXT recognized",
+          "to": "voice-processing",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Six-second STT timeout",
+          "to": "voice-timeout",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Mic permission denied",
+          "to": "voice-permission",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Provider unavailable",
+          "to": "voice-provider",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-listen-two",
+      "stateId": "CD-04",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_LISTEN_2.png",
+      "title": "Voice — final attempt",
+      "summary": "Explicit Retry consumed; no third attempt.",
+      "edges": [
+        {
+          "label": "Cancel voice",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            24,
+            548,
+            307,
+            65
+          ],
+          "note": ""
+        },
+        {
+          "label": "Second attempt succeeds",
+          "to": "voice-processing",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Second attempt fails → terminal",
+          "to": "voice-terminal",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-processing",
+      "stateId": "CD-05",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_PROCESSING.png",
+      "title": "Voice — Processing",
+      "summary": "Restricted deterministic six-intent mapping; no command is approximated.",
+      "edges": [
+        {
+          "label": "Cancel",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            25,
+            545,
+            307,
+            66
+          ],
+          "note": ""
+        },
+        {
+          "label": "Certain NEXT intent",
+          "to": "voice-pending",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "One artist candidate",
+          "to": "voice-confirm-one",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Two artist candidates",
+          "to": "voice-confirm-two",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Artist not found",
+          "to": "voice-not-found",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Unsupported command",
+          "to": "voice-unsupported",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Unknown phrase",
+          "to": "voice-unknown",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-confirm-one",
+      "stateId": "CD-09",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.png",
+      "title": "Voice — Confirming one candidate",
+      "summary": "Only immutable option 1 + Neither / Cancel, no new question.",
+      "edges": [
+        {
+          "label": "Confirm option 1",
+          "to": "voice-pending",
+          "kind": "tap",
+          "rect": [
+            30,
+            370,
+            301,
+            62
+          ],
+          "note": ""
+        },
+        {
+          "label": "Neither → manual",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            30,
+            497,
+            301,
+            62
+          ],
+          "note": ""
+        },
+        {
+          "label": "Cancel",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            30,
+            560,
+            301,
+            62
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-confirm-two",
+      "stateId": "CD-10",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.png",
+      "title": "Voice — Confirming two candidates",
+      "summary": "Exactly two immutable labels. No second confirmation.",
+      "edges": [
+        {
+          "label": "Confirm option 1",
+          "to": "voice-pending",
+          "kind": "tap",
+          "rect": [
+            30,
+            370,
+            301,
+            62
+          ],
+          "note": ""
+        },
+        {
+          "label": "Confirm option 2",
+          "to": "voice-pending",
+          "kind": "tap",
+          "rect": [
+            30,
+            427,
+            301,
+            62
+          ],
+          "note": ""
+        },
+        {
+          "label": "Neither → manual",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            30,
+            497,
+            301,
+            62
+          ],
+          "note": ""
+        },
+        {
+          "label": "Cancel",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            30,
+            560,
+            301,
+            62
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-pending",
+      "stateId": "CD-06",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.png",
+      "title": "Voice — awaiting playback ack",
+      "summary": "Command success follows only service acknowledgement.",
+      "edges": [
+        {
+          "label": "Cancel and discard stale callbacks",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            27,
+            549,
+            304,
+            61
+          ],
+          "note": ""
+        },
+        {
+          "label": "Service acknowledges exactly one command",
+          "to": "voice-done",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Service rejects execution",
+          "to": "voice-rejected",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-done",
+      "stateId": "CD-07",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_EXECUTED.png",
+      "title": "Voice — Executed",
+      "summary": "TTS <=1 sentence; a TTS failure cannot revoke acknowledged command success.",
+      "edges": [
+        {
+          "label": "Dismiss to Driving snapshot",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            26,
+            542,
+            306,
+            75
+          ],
+          "note": ""
+        },
+        {
+          "label": "TTS becomes unavailable after ack",
+          "to": "voice-tts",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-tts",
+      "stateId": "CD-07",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_TTS_UNAVAILABLE.png",
+      "title": "Voice — successful, TTS unavailable",
+      "summary": "Same Executed surface and service state; optional spoken feedback fails non-fatally.",
+      "edges": [
+        {
+          "label": "Dismiss; keep command success",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            26,
+            542,
+            306,
+            72
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-timeout",
+      "stateId": "CD-17",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.png",
+      "title": "Voice — first STT timeout",
+      "summary": "Exactly one eligible Retry button. Manual fallback always available.",
+      "edges": [
+        {
+          "label": "Retry once",
+          "to": "voice-listen-two",
+          "kind": "tap",
+          "rect": [
+            28,
+            478,
+            303,
+            66
+          ],
+          "note": ""
+        },
+        {
+          "label": "Manual controls",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            28,
+            545,
+            303,
+            70
+          ],
+          "note": ""
+        },
+        {
+          "label": "Exit Driving",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            275,
+            26,
+            81,
+            68
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-terminal",
+      "stateId": "CD-19",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.png",
+      "title": "Voice — second failure terminal",
+      "summary": "Retry is exhausted. Third capture is prohibited within this session.",
+      "edges": [
+        {
+          "label": "Manual controls",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            28,
+            545,
+            303,
+            70
+          ],
+          "note": ""
+        },
+        {
+          "label": "Exit Driving",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            275,
+            26,
+            81,
+            68
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-not-found",
+      "stateId": "CD-13",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.png",
+      "title": "Voice — artist not found",
+      "summary": "No best-guess artist, no ineligible STT Retry.",
+      "edges": [
+        {
+          "label": "Manual controls",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            28,
+            544,
+            303,
+            73
+          ],
+          "note": ""
+        },
+        {
+          "label": "Exit Driving",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            275,
+            26,
+            81,
+            68
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-unsupported",
+      "stateId": "CD-15",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_UNSUPPORTED.png",
+      "title": "Voice — unsupported command",
+      "summary": "Unsupported intents never execute by approximation.",
+      "edges": [
+        {
+          "label": "Manual controls",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            28,
+            544,
+            303,
+            73
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-unknown",
+      "stateId": "CD-14",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.png",
+      "title": "Voice — unknown utterance",
+      "summary": "Do not invent a missing intent or an extra interview.",
+      "edges": [
+        {
+          "label": "Manual controls",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            28,
+            544,
+            303,
+            73
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-provider",
+      "stateId": "CD-22",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_PROVIDER_UNAVAILABLE.png",
+      "title": "Voice — provider unavailable",
+      "summary": "Manual only. No forced Settings/cloud consent inside Driving.",
+      "edges": [
+        {
+          "label": "Manual controls",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            28,
+            544,
+            303,
+            73
+          ],
+          "note": ""
+        },
+        {
+          "label": "Exit Driving",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            275,
+            26,
+            81,
+            68
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-permission",
+      "stateId": "CD-21",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_PERMISSION_DENIED.png",
+      "title": "Voice — microphone access denied",
+      "summary": "No simulated Android mic dialog inside active Driving.",
+      "edges": [
+        {
+          "label": "Manual controls",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            28,
+            544,
+            303,
+            73
+          ],
+          "note": ""
+        },
+        {
+          "label": "Exit Driving",
+          "to": "player",
+          "kind": "tap",
+          "rect": [
+            275,
+            26,
+            81,
+            68
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "voice-rejected",
+      "stateId": "CD-08",
+      "wf": "WF-08",
+      "image": "../high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.png",
+      "title": "Voice — command rejected",
+      "summary": "No false Executed, no ineligible Retry.",
+      "edges": [
+        {
+          "label": "Manual controls",
+          "to": "driving",
+          "kind": "tap",
+          "rect": [
+            28,
+            544,
+            303,
+            73
+          ],
+          "note": ""
+        }
+      ],
+      "owner": "App + Voice coordinator",
+      "systemOnly": false
+    },
+    {
+      "id": "settings",
+      "stateId": "CE-15",
+      "wf": "WF-10",
+      "image": "../high-fidelity/WF-10/states/HF_STATE_CE-15.png",
+      "title": "Settings / Privacy",
+      "summary": "Existing non-driving privacy and permission surfaces; no cloud STT assumed enabled.",
+      "edges": [
+        {
+          "label": "Back to Library",
+          "to": "library",
+          "kind": "tap",
+          "rect": [
+            1,
+            31,
+            61,
+            59
+          ],
+          "note": ""
+        },
+        {
+          "label": "Read privacy disclosure",
+          "to": "privacy",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Existing explicit Android settings handoff",
+          "to": "sys-settings",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "privacy",
+      "stateId": "CE-21",
+      "wf": "WF-10",
+      "image": "../high-fidelity/WF-10/states/HF_STATE_CE-21.png",
+      "title": "Privacy details",
+      "summary": "Raw audio not stored by default. Consent must remain explicit and outside Driving.",
+      "edges": [
+        {
+          "label": "Back to Settings",
+          "to": "settings",
+          "kind": "tap",
+          "rect": [
+            0,
+            29,
+            66,
+            60
+          ],
+          "note": ""
+        },
+        {
+          "label": "See optional consent decision",
+          "to": "consent",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "consent",
+      "stateId": "CE-22",
+      "wf": "WF-10",
+      "image": "../high-fidelity/WF-10/states/HF_STATE_CE-22.png",
+      "title": "Optional cloud voice consent",
+      "summary": "Provider-specific remote STT stays disabled until separate legal/privacy acceptance.",
+      "edges": [
+        {
+          "label": "Not now",
+          "to": "settings",
+          "kind": "tap",
+          "rect": [
+            27,
+            579,
+            144,
+            65
+          ],
+          "note": ""
+        },
+        {
+          "label": "Return to privacy details",
+          "to": "privacy",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App",
+      "systemOnly": false
+    },
+    {
+      "id": "route-event",
+      "stateId": "CE-07",
+      "wf": null,
+      "image": null,
+      "title": "Route / focus Android event",
+      "summary": "Phone, call, headset and route callbacks belong to Android + Playback Service.",
+      "edges": [
+        {
+          "label": "Wired/Bluetooth disconnect → immediate safe pause",
+          "to": "route-paused",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Transient focus loss → policy pause",
+          "to": "focus-paused",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Permanent focus loss → safe paused",
+          "to": "safe-paused",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + Playback Service",
+      "systemOnly": true
+    },
+    {
+      "id": "route-paused",
+      "stateId": "CE-06",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png",
+      "title": "Route disconnected: Safe Paused",
+      "summary": "No audio leaks to speaker and no automatic resume on reconnect.",
+      "edges": [
+        {
+          "label": "External route reconnects",
+          "to": "route-return",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Route stays unavailable",
+          "to": "route-paused",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Return to Library",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "route-return",
+      "stateId": "CE-09",
+      "wf": null,
+      "image": null,
+      "title": "Android route-reconnect handoff",
+      "summary": "Platform owns the reconnection event. It must not auto-resume service playback.",
+      "edges": [
+        {
+          "label": "Route valid; return to app Safe Paused",
+          "to": "safe-paused",
+          "kind": "system",
+          "note": ""
+        },
+        {
+          "label": "Route disconnects again",
+          "to": "route-paused",
+          "kind": "system",
+          "note": ""
+        }
+      ],
+      "owner": "Android/System + Playback Service",
+      "systemOnly": true
+    },
+    {
+      "id": "focus-paused",
+      "stateId": "CE-03",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png",
+      "title": "Transient focus/call interruption",
+      "summary": "Service policy-owned pause; guard evaluation must use real state.",
+      "edges": [
+        {
+          "label": "All four resume guards pass",
+          "to": "player",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "A resume guard fails: stay Safe Paused",
+          "to": "safe-paused",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "safe-paused",
+      "stateId": "CE-06",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png",
+      "title": "Safe Paused — guard failed",
+      "summary": "Manual playback survives, but unsafe playback is never auto-resumed.",
+      "edges": [
+        {
+          "label": "Explicit Play on revalidated safe route",
+          "to": "manual-resume",
+          "kind": "tap",
+          "rect": [
+            125,
+            532,
+            110,
+            73
+          ],
+          "note": ""
+        },
+        {
+          "label": "Return to Library",
+          "to": "library",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    },
+    {
+      "id": "manual-resume",
+      "stateId": "CE-06",
+      "wf": "WF-06",
+      "image": "../high-fidelity/WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png",
+      "title": "Explicit user Resume pending",
+      "summary": "Request Play only on valid route; awaiting service acknowledgement.",
+      "edges": [
+        {
+          "label": "Service confirms playback on safe route",
+          "to": "player",
+          "kind": "simulate",
+          "note": ""
+        },
+        {
+          "label": "Still invalid/rejected; remain Paused",
+          "to": "safe-paused",
+          "kind": "simulate",
+          "note": ""
+        }
+      ],
+      "owner": "App + Playback Service",
+      "systemOnly": false
+    }
+  ],
+  "scenarios": {
+    "GS-01": {
+      "title": "First launch → Ready Library",
+      "start": "splash",
+      "success": "library",
+      "source": "GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md",
+      "primary": [
+        "splash",
+        "welcome",
+        "permission",
+        "sys-media",
+        "granted",
+        "scanning",
+        "library"
+      ],
+      "recoveries": [
+        "migration-error",
+        "denied",
+        "permanent",
+        "sys-settings",
+        "empty",
+        "scan-error"
+      ]
+    },
+    "GS-02": {
+      "title": "Find local music → Playback",
+      "start": "library",
+      "success": "player",
+      "source": "GS-02_FIND_MUSIC_AND_START_PLAYBACK.md",
+      "primary": [
+        "library",
+        "search",
+        "results",
+        "selection",
+        "player"
+      ],
+      "recoveries": [
+        "search-none",
+        "search-error",
+        "stale",
+        "corrupt",
+        "reconnect"
+      ]
+    },
+    "GS-03": {
+      "title": "Background / system controls",
+      "start": "player",
+      "success": "player",
+      "source": "GS-03_CONTINUE_PLAYBACK_OUTSIDE_APP.md",
+      "primary": [
+        "player",
+        "session-handoff",
+        "background",
+        "screen-off",
+        "sys-controls",
+        "sys-command",
+        "reconnect",
+        "player"
+      ],
+      "recoveries": [
+        "lock-controls",
+        "external-keys",
+        "lifecycle-event",
+        "notification-denied",
+        "sys-settings-notification",
+        "restore-paused",
+        "library"
+      ]
+    },
+    "GS-04": {
+      "title": "Driving → direct Voice NEXT",
+      "start": "player",
+      "success": "driving",
+      "source": "GS-04_DRIVE_AND_EXECUTE_DIRECT_VOICE.md",
+      "primary": [
+        "player",
+        "driving",
+        "voice-listen",
+        "voice-processing",
+        "voice-pending",
+        "voice-done",
+        "driving"
+      ],
+      "recoveries": [
+        "driving-paused",
+        "driving-none",
+        "driving-last",
+        "driving-safe",
+        "voice-confirm-one",
+        "voice-confirm-two",
+        "voice-timeout",
+        "voice-listen-two",
+        "voice-terminal",
+        "voice-not-found",
+        "voice-unsupported",
+        "voice-unknown",
+        "voice-provider",
+        "voice-permission",
+        "voice-rejected",
+        "voice-tts"
+      ]
+    },
+    "GS-05": {
+      "title": "Interruption → Safe recovery",
+      "start": "player",
+      "success": "player",
+      "source": "GS-05_RECOVER_SAFELY_FROM_INTERRUPTION.md",
+      "primary": [
+        "player",
+        "route-event",
+        "route-paused",
+        "route-return",
+        "safe-paused",
+        "manual-resume",
+        "player"
+      ],
+      "recoveries": [
+        "focus-paused",
+        "safe-paused",
+        "route-paused",
+        "route-return"
+      ]
+    }
+  }
+}

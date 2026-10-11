@@ -8,7 +8,7 @@
 |---|---|---|---|---|
 | GS-01 | [First Launch](../user-flows/golden-scenarios/GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md) | S-01 Splash → S-02 Onboarding → S-03 Media purpose → **SYS-01 OS handoff** → S-03 granted → S-04 scanning → CB-01 Ready | Verified local Library | Android permission + MediaStore local index; no fabricated OS dialog |
 | GS-02 | [Find Music](../user-flows/golden-scenarios/GS-02_FIND_MUSIC_AND_START_PLAYBACK.md) | CB-01 Ready → CB-09 Search Idle → CB-10 Search Result → CB-14 selection/queue pending → CB-15 Playing | MediaSession acknowledges same queue/current item | MediaStore validity and Playback Service authoritative snapshot |
-| GS-03 | [Background](../user-flows/golden-scenarios/GS-03_CONTINUE_PLAYBACK_OUTSIDE_APP.md) | CB-15 → **CB-23 OS background** → **CB-26 native controller** → **CB-29 service-command handoff** → CB-21 controller reconnect → CB-15 | One playback owner, refreshed snapshot | Android/MediaSession native controls; no app-owned notification |
+| GS-03 | [Background](../user-flows/golden-scenarios/GS-03_CONTINUE_PLAYBACK_OUTSIDE_APP.md) | CB-15 → **CB-22 session handoff** → **CB-23 background** → **CB-24 screen-off** → **CB-26 native controller** → **CB-29 service-command handoff** → CB-21 controller reconnect → CB-15 | One playback owner, refreshed snapshot | Android/MediaSession native controls; no app-owned notification |
 | GS-04 | [Driving Voice](../user-flows/golden-scenarios/GS-04_DRIVE_AND_EXECUTE_DIRECT_VOICE.md) | CB-15 → CC-05 explicit Driving → CD-03 Listening → CD-05 Processing → CD-06 pending Next → CD-07 acknowledged success → CC-05 refreshed Driving | One deterministic NEXT, same Driving layer | one STT attempt (+ max one Retry), one confirmation max, one-sentence TTS non-authoritative |
 | GS-05 | [Interruption](../user-flows/golden-scenarios/GS-05_RECOVER_SAFELY_FROM_INTERRUPTION.md) | CB-15 → **CE-07 OS route event** → CE-06 app Safe Paused → **CE-09 OS route reconnect** → CE-06 app Safe Paused → CE-06 *explicit* Play → CB-15 acknowledgment | No auto-resume, no speaker leak implied | system route truth + Playback Service four-guard policy |
 
@@ -20,7 +20,7 @@ System handoffs are **not** mock phone views. The prototype phone displays a bou
 |---|---|---|---|
 | GS-01 | migration error; denied/requestable/permanently denied; Android Settings return; scanning Empty or recoverable error | S-01, S-03, SYS-01, SYS-04, S-04 | No destructive reset; OS recheck; no scan falsely Ready |
 | GS-02 | No Result, Search Error, stale selection, rejected queue, corrupt item, controller unavailable | CB-11, CB-12, CB-13, CB-14, CB-19, CB-21 | Retain query and verified prior queue; no online fallback or looping skip |
-| GS-03 | notification unavailable/permission, platform settings, lifecycle loss, Paused Restore/invalid restore | CB-30, CB-31, CB-32, CB-33 | OS owns surfaces; P1 restore only Paused, never optimistic Playing |
+| GS-03 | notification unavailable/permission, platform settings, CB-27 lock-screen control, CB-28 headset/vehicle keys, CB-25 lifecycle loss, Paused Restore/invalid restore | CB-30, CB-31, CB-32, CB-33 | OS owns surfaces; P1 restore only Paused; explicit Play hotspot → pending CB-32 → service ACK before Playing |
 | GS-04 | Paused/No Track, verified Play last, safe paused, 1/2 candidate ambiguity, unknown/not-found/unsupported, timeout → one Retry → terminal, provider/mic denial, TTS failure after ack | CC-05/06/07; CD-03/04/05/06/07/09/10/13/14/15/17/19/21/22; CE-06 | Exit immediate; unsupported never approximated; 1 confirmation, max 2 options, no third STT attempt |
 | GS-05 | interrupted route/focus, four-guard conditional focus resume, disconnection safe pause, reconnection still Paused, invalid-route manual only | CE-03/06/07/09; CB-15 | Route reconnect alone NEVER resumes; explicit Play must be valid and acknowledged |
 
@@ -33,6 +33,10 @@ The interactive phone surface contains only coordinates of **pre-existing app co
 - Complete accessibility and system-only handoff: [Phase-7 matrix](../high-fidelity/phase-7/ACCESSIBILITY_PRIVACY_SYSTEM_MATRIX.md).
 - Runtime authority: [Software Architecture](../SOFTWARE_ARCHITECTURE.md) and accepted ADRs.
 - Route graph: [routes.js](routes.js), DOM interaction runner: [app.js](app.js), UI shell: [index.html](index.html).
+
+## Stricter acceptance verification
+
+The second audit prohibits relying on paths which leave the relevant Golden Scenario to count its recovery as safe. `routes.json` includes named, scenario-specific `recoverySafety.allowed` and `recoverySafety.terminals` lists. `validate.cjs` proves exactly 38/38 listed recovery entries have an explicit bounded route within their declared scenario to an approved safe terminal. These findings plus Chromium 14/14 are in [strict re-audit](PHASE_8_STRICT_REAUDIT_2026-10-11.md).
 
 ## PASS interpretation / outstanding QA
 

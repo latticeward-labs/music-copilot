@@ -45,10 +45,28 @@ Detailed source mapping: [PROTOTYPE_COVERAGE_MATRIX.md](PROTOTYPE_COVERAGE_MATRI
 - The image hotspots and action rail are **review artifacts**, not implementation-ready touch geometry. Actual Compose 200% font reflow, TalkBack semantics/focus, 48dp touch hitboxes, Media3 continuity and hardware route behavior remain downstream implementation QA (PH10-MIN-001 remains open).
 - An existing PNG/spec remains controlling. Should the interactive demonstration differ from the accepted WF/UF/State/GS contract, the approved source contract wins.
 
+
+## Strict acceptance re-audit and correction (11 October 2026)
+
+The earlier PR #61 prototype passed 8 Chromium smoke cases but **was not sufficient for the user's stronger safe-endpoint requirement**. PR review found and corrected the following:
+- **Real Rescan hotspot:** `Empty Library → Rescan` was below the button. The coordinate rectangle now overlaps the approved WF-04 Rescan control and is tested by clicking the actual image hotspot.
+- **Permission manual branch:** the visible denied-state `Not now` button now has an actual hotspot. Permission denial → permanent denial → **real Android Settings handoff** → platform recheck → Empty → Rescan → verified Ready is browser-tested, without fabricating Android Settings UI.
+- **Safe terminal proof, per GS:** the old global-graph reachability could pass via another Golden Scenario. The new `recoverySafety` policy and `validate.cjs` restrict traversal to each scenario's declared node set and prove **an explicit safe endpoint for each of all 38 branch entries**. No cross-scenario shortcut counts toward acceptance.
+- **GS-03 source fidelity:** `CB-22` active-session handoff, `CB-23` background, `CB-24` screen-off, `CB-27` lock-screen media controller, `CB-28` external vehicle/headset key and `CB-25` OEM lifecycle check now remain genuine **system-only annotations**; there are no imitated Android screens.
+- **P1 Paused Restore guard:** CB-32 Play is a genuine manual hotspot, retains Paused while awaiting the playback service acknowledgement, and goes to Playing only after an explicit verified ACK; rejected command returns Paused.
+- **Exactly requested route file:** [routes.json](routes.json) is generated directly from [routes.js](routes.js) by [export-routes.cjs](export-routes.cjs). Validator asserts exact JSON/code parity.
+
+**Latest validated:** GS 5/5, recoveries **38/38 safe terminals in own GS**, 67 source-locked review nodes (54 reused app-image contexts, 13 system-only annotations), 187 edges, 75 image hotspots, **14/14 headless Chromium clicked cases** with zero failures. Original 126-State baseline unaffected.
+
+Evidence: [Updated machine report](PHASE_8_VALIDATION.json), [14-test Chromium result](PHASE_8_BROWSER_VALIDATION.json), [browser screenshot](PHASE_8_BROWSER_REVIEW.png), [strict audit rationale](PHASE_8_STRICT_REAUDIT_2026-10-11.md).
+
+**Status:** PASS for the requested repository-native interactive prototype and evidence-backed safe-recovery gate. No Android hardware/Media3/STT/TTS/runtime accessibility/human reviewer approval is implied.
+
 ## Validation and maintenance
 
 Run from repository root:
 
+    node docs/prototype/export-routes.cjs
     node docs/prototype/validate.cjs
 
 This checks image source existence, 1080×2400 PNG signatures, canonical State IDs and ownership, 5 primary path connectivity, listed recovery reachability, minimum **prototype** hotspot rectangle dimensions, no app image for a platform-only state, one-Retry and no-third-try constraints, explicit manual Resume after route return, and no native/microphone/network code.

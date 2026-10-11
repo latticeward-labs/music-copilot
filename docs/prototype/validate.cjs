@@ -9,6 +9,9 @@ const can=new Map(prev.states.map(x=>[x.id,x])),nodes=new Map(R.nodes.map(n=>[n.
 assert.equal(nodes.size,R.nodes.length,"duplicate nodes");
 assert.deepEqual(Object.keys(R.scenarios),["GS-01","GS-02","GS-03","GS-04","GS-05"]);
 assert.equal(prev.states.length,126);assert.equal(R.archiveSha256,prev.authority.sourceArchiveSha256);
+const routeJSON=JSON.parse(fs.readFileSync(path.join(__dirname,"routes.json"),"utf8"));
+assert.deepEqual(routeJSON,R,"routes.json must exactly match routes.js (run export-routes.cjs)");
+
 function checkPNG(p,id){
   const absolute=path.resolve(__dirname,p);
   assert(absolute.startsWith(path.join(ROOT,"docs/high-fidelity/")),"external asset "+id+": "+p);
@@ -56,18 +59,51 @@ function reachable(start){
     queue.push(...nodes.get(id).edges.map(e=>e.to));
   }return seen;
 }
+// Guard against the older false-positive: GS-02/03/04/05 could reach most
+// other scenarios through shared Player/Library and therefore pass a global
+// reachability test without having a local safe recovery endpoint.
+const safety=R.recoverySafety;
+assert.deepEqual(Object.keys(safety),Object.keys(R.scenarios));
+function within(start,allow){
+  const seen=new Set(),queue=[start],paths=new Map([[start,[start]]]);
+  while(queue.length){
+    const id=queue.shift();if(seen.has(id))continue;seen.add(id);
+    for(const e of nodes.get(id).edges){
+      if(allow.has(e.to)&&!paths.has(e.to)){paths.set(e.to,paths.get(id).concat(e.to));queue.push(e.to);}
+    }
+  }
+  return {seen,paths};
+}
 const coverage={};let distinct=new Set();
 for(const [name,gs] of Object.entries(R.scenarios)){
   assert(nodes.has(gs.start)&&nodes.has(gs.success));
   assert(fs.existsSync(path.join(ROOT,"docs/user-flows/golden-scenarios",gs.source)));
-  const seen=reachable(gs.start);
+  const policy=safety[name],allowed=new Set(policy.allowed),endpoints=new Set(policy.terminals);
+  assert.equal(allowed.size,policy.allowed.length,"duplicate scoped allowed entry "+name);
+  assert.equal(endpoints.size,policy.terminals.length,"duplicate terminal "+name);
+  assert(allowed.has(gs.start)&&allowed.has(gs.success),name+" start/success excluded");
+  assert([...endpoints].every(id=>allowed.has(id)),"out-of-scope terminal "+name);
+  assert(gs.primary.every(id=>allowed.has(id)),"primary escapes "+name);
+  assert(gs.recoveries.every(id=>allowed.has(id)),"recovery escapes "+name);
+  const traversal=within(gs.start,allowed),seen=traversal.seen;
   assert.equal(gs.primary[0],gs.start);assert.equal(gs.primary.at(-1),gs.success);
   for(let i=0;i<gs.primary.length-1;i++){
     assert(nodes.get(gs.primary[i]).edges.some(e=>e.to===gs.primary[i+1]),"unconnected primary "+name+" "+gs.primary[i]);
     distinct.add(gs.primary[i]);distinct.add(gs.primary[i+1]);
   }
-  for(const id of gs.recoveries){assert(seen.has(id),"unreachable recovery "+name+" "+id);distinct.add(id);}
-  coverage[name]={primarySteps:gs.primary.length,reachableNodes:seen.size,recoveryCount:gs.recoveries.length,primaryConnected:true,missing:[]};
+  const safePaths={};
+  for(const id of gs.recoveries){
+    assert(seen.has(id),"recovery unreachable INSIDE scenario "+name+" "+id);distinct.add(id);
+    const route=within(id,allowed);
+    const eligible=[...endpoints].filter(e=>route.paths.has(e)).map(e=>({end:e,path:route.paths.get(e)}));
+    assert(eligible.length,"No safe endpoint within declared scenario: "+name+" "+id);
+    eligible.sort((a,b)=>a.path.length-b.path.length);
+    safePaths[id]=eligible[0];
+    assert(safePaths[id].path.every(n=>allowed.has(n)),"cross-scenario escape "+name+" "+id);
+  }
+  coverage[name]={primarySteps:gs.primary.length,scopedReachableNodes:seen.size,
+    recoveryCount:gs.recoveries.length,safeTerminalPaths:safePaths,
+    primaryConnected:true,missing:[],crossScenarioRecoveryUsed:false};
 }
 const at=id=>nodes.get(id);
 for(const id of ["driving","driving-paused","driving-none","driving-last","driving-safe"]){
@@ -85,6 +121,14 @@ assert.equal(at("voice-confirm-two").edges.filter(e=>e.label.includes("Confirm o
 assert(at("voice-done").edges.some(e=>e.to==="voice-tts"));
 assert(at("voice-tts").edges.every(e=>e.to==="driving"));
 assert(at("route-return").edges.every(e=>e.to!=="player"),"auto-resume on reconnect");
+for(const id of ["session-handoff","background","screen-off","sys-controls","lock-controls","external-keys","lifecycle-event"]){
+  assert(at(id).systemOnly,"GS-03 fabricated system screen: "+id);
+}
+assert(at("screen-off").stateId==="CB-24" && at("session-handoff").stateId==="CB-22",
+       "GS-03 skips required active-session/screen-off boundaries");
+assert(at("empty").edges.some(e=>e.kind==="tap" && e.label==="Rescan" &&
+  e.rect[1]>=350 && e.rect[1]<=390),"Empty Library Rescan misaligned");
+
 assert(at("manual-resume").edges.some(e=>e.to==="player"));
 const html=fs.readFileSync(path.join(__dirname,"index.html"),"utf8");
 const js=fs.readFileSync(path.join(__dirname,"app.js"),"utf8");
@@ -101,7 +145,7 @@ const report={issue:17,phase:8,date:"2026-10-11",status:"PASS_SOURCE_GRAPH_AND_A
   archiveSha256:R.archiveSha256,scenarios:coverage,nodeCount:R.nodes.length,appSurfaceNodes:appCount,
   annotatedSystemOnlyNodes:sysCount,edges,interactiveHotspots:hotspots,
   uniquePrimaryAndRecoveryNodes:distinct.size,allImagesExistingAndValidPng:true,
-  fiveGoldenPathsConnected:true,allRequiredRecoveriesReachable:true,
+  fiveGoldenPathsConnected:true,allRequiredRecoveriesReachable:true,allRecoveryEndpointsProvenInOwnScenario:true,
   noFakeAndroidSystemImages:true,oneRetryOneConfirmationNoApproximation:true,
   noAutomaticRouteResume:true,drivingExitAlwaysAvailable:true,
   privacyNoNetworkOrVoiceRuntimeCalls:true,missing:[],duplicates:[],unassigned:[],
