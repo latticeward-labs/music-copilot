@@ -91,3 +91,7 @@ The high-fidelity designs are reused, not regenerated, by the [Phase-8 clickable
 - [Manual/Android QA handoff](../prototype/TEST_PLAN.md)
 
 **Scope:** Phase 8 is a reviewable interaction prototype, not a running Media3 app, mic/STT implementation, hosted web demo, actual Android system UI or physical test. Human sign-off and runtime accessibility (PH10-MIN-001) stay pending.
+
+### Phase 8 strict acceptance correction
+
+The [strict Phase-8 re-audit](../prototype/PHASE_8_STRICT_REAUDIT_2026-10-11.md) supersedes the earlier 35-branch global reachability count: 38/38 required scenario-local Recovery branches now have proven safe terminals, 14/14 Chromium clicks pass, and the approved PNGs are reused with corrected Empty/Denied/P1 Restore hotspots. [routes.json](../prototype/routes.json) is generated from the same [routes.js](../prototype/routes.js); external CB-22/23/24/25/27/28 remain system handoffs. This does not modify the 126 canonical State IDs.
