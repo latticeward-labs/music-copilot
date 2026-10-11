@@ -38,8 +38,6 @@
     return b;
   }
   function render(node) {
-    $("#state-id").textContent=node.stateId+" · "+node.wf?.toUpperCase()??"";
-    // Above status includes null WF only for OS handoff; replace explicitly.
     $("#state-id").textContent=node.stateId+(node.wf?" · "+node.wf:" · SYSTEM ONLY");
     $("#state-title").textContent=node.title;
     $("#state-desc").textContent=node.summary;
