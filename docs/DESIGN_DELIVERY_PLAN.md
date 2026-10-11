@@ -1,8 +1,8 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 4 Primary High-Fidelity — PASS / COMPLETE**
-- **Updated:** 4 October 2026
+- **Status:** **Current through Issue #17 Phase 5 — 126/126 automated coverage PASS; independent visual approval pending**
+- **Updated:** 11 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
 - **Canonical delivery workspace:** GitHub repository `latticeward-labs/music-copilot`
@@ -175,6 +175,17 @@ The repository-native clickable prototype must cover GS-01..GS-05 and the requir
 
 Handoff records must expose source state, runtime owner, actions, transitions, Back behavior, system handoffs, dimensions/tokens, accessibility semantics, allowed analytics hooks and privacy constraints without embedding business logic in UI.
 
+## Issue #17 Phase 5 — State and Recovery High-Fidelity Coverage (11 October 2026)
+
+- **Canonical audit:** [HIFI_STATE_COVERAGE_MATRIX.md](high-fidelity/HIFI_STATE_COVERAGE_MATRIX.md) and [HIFI_STATE_COVERAGE_REGISTER.json](high-fidelity/HIFI_STATE_COVERAGE_REGISTER.json).
+- **App-visible:** 45/45 canonical state-ID reviewable PNG + exact-copy spec pairs.
+- **Frame fidelity:** all 32/32 approved low-fi app-state SVG frames have source-faithful Night Signal review images/specs; the 10 Phase-4 primary PNG/spec pairs are retained without replacement.
+- **Variants/annotations:** 61/61 explicitly linked to existing Phase-3 component tokens, relevant actual app frame and typed safe recovery.
+- **Android/System-only:** 20/20 handoff records; 0 counterfeit app PNGs of system surfaces.
+- **Audit:** 126/126 with 0 missing, 0 duplicated, 0 unassigned; machine checks stored in [PHASE_5_VALIDATION.md](high-fidelity/PHASE_5_VALIDATION.md).
+- **Visual/behavior exceptions:** source-authorized Queue/Privacy/Consent state-content refinements are explicitly identified as product-copy proposals, require human review and do not introduce new destinations or ownership.
+- **Review limit:** static artifact generation does not sign off on actual Compose 200% font reflow, TalkBack, physical target-size/device tests or final stakeholder approval.
+- **Next:** Phase 6 clickable prototype and subsequent design/engineering handoff and cross-role acceptance.
 ## Synchronization and review rules
 
 1. Every high-fidelity artifact retains stable WF/UF/State/GS traceability.
