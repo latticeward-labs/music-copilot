@@ -424,7 +424,52 @@ for s in states:
     if not owner_frames:
         owner_frames=[f for f in frame_artifacts if f["wf"] in s["wf"]]
     assert owner_frames, sid
-    first=owner_frames[0]
+    # A review anchor must be the *relevant* approved state frame, not
+    # merely the first source frame in the wireframe register.
+    best_frame = {
+        "CB-02":"WF-04_HOME_LIBRARY_READY",
+        "CB-03":"WF-04_HOME_LIBRARY_READY",
+        "CB-04":"WF-04_HOME_LIBRARY_READY",
+        "CB-05":"WF-04_HOME_LIBRARY_READY",
+        "CB-06":"WF-04_HOME_LIBRARY_READY",
+        "CB-07":"WF-04_HOME_LIBRARY_READY",
+        "CB-08":"WF-04_HOME_LIBRARY_READY",
+        "CB-13":"WF-05_SEARCH_RESULTS",
+        "CB-19":"WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "CB-20":"WF-04_HOME_LIBRARY_READY",
+        "CB-21":"WF-06_FULL_PLAYER_PLAYING",
+        "CB-31":"WF-06_FULL_PLAYER_PLAYING",
+        "CB-32":"WF-06_FULL_PLAYER_PAUSED",
+        "CB-33":"WF-06_FULL_PLAYER_PAUSED",
+        "CC-04":"WF-07_DRIVING_MODE_NO_TRACK",
+        "CC-09":"WF-07_DRIVING_MODE_PAUSED",
+        "CC-15":"WF-07_DRIVING_MODE_NO_TRACK",
+        "CD-20":"WF-08_VOICE_FAILED_RETRY",
+        "CD-21":"WF-03_PERMISSIONS_DENIED",
+        "CD-22":"WF-08_VOICE_FAILED_RETRY",
+        "CE-03":"WF-06_FULL_PLAYER_PAUSED",
+        "CE-06":"WF-06_FULL_PLAYER_PAUSED",
+        "CE-11":"WF-06_FULL_PLAYER_PAUSED",
+        "CE-12":"WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "CE-13":"WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "CE-14":"WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
+        "CE-17":"WF-10_SETTINGS_BLUETOOTH_UPDATED",
+        "CE-24":"WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
+        "CE-25":"WF-10_SETTINGS_CLEARED_PRIVACY_STATUS",
+        "CE-26":"WF-10_SETTINGS_CLEARED_PRIVACY_STATUS",
+        "UL-05":"WF-09_LIKED_SONGS_READY",
+        "UL-06":"WF-09_LIKED_SONGS_READY",
+        "UL-07":"WF-09_LIKED_SONGS_READY",
+        "UL-08":"WF-09_LIKED_SONGS_READY",
+        "UL-12":"WF-09_LIKED_SONGS_EMPTY",
+        "UL-13":"WF-09_LIKED_SONGS_EMPTY",
+    }.get(sid)
+    if best_frame:
+        matches=[f for f in owner_frames if f["frameId"]==best_frame]
+        assert len(matches)==1,(sid,best_frame)
+        first=matches[0]
+    else:
+        first=owner_frames[0]
     mode,visual,terminal=variant_details(s)
     components=COMP_BY_WF[wf]
     doc=ROOT/"state-variants"/(sid+".md")
