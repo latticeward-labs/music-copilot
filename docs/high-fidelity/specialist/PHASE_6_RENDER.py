@@ -63,11 +63,11 @@ def driving(kind,can_last=False):
         disabled=(empty and s!="Play last") or (kind in ("RECONNECT","PENDING","ROUTE") and s not in ("Play","Pause"))
         btn(d,s,12+i*86,480,78,72,"disabled" if disabled else "primary" if s in ("Pause","Play","Play last") else "secondary")
     btn(d,"Mic · Voice",93,602,174,78,"primary")
-    if empty:tt(d,"No typing, no lists, no automatic playback",180,722,12,False,SOFT,330)
+    # Driving policy remains a spec/annotation, not intrusive extra app copy.
     copy=["DRIVING MODE","Exit","NO TRACK" if empty else "ARTWORK",title,note,status]
     if aux:copy.append(aux)
     copy.extend([s for s in labels if s]);copy+=["Mic · Voice"]
-    if empty:copy+=["No typing, no lists, no automatic playback"]
+    # No invented driving-only explanatory UI copy.
     return im,copy
 VOICE={
 "LISTEN1":("Listening","Six-second attempt","Listening"),
@@ -125,8 +125,8 @@ def voice(kind):
         btn(d,"Manual controls",31,554,298,54,"primary")
         copy+=["Manual controls"]
     # Driving transport remains a service-owned origin; explicit Manual closes overlay.
-    tt(d,"Return to manual playback",180,717,11,False,SOFT)
-    return im,copy+["Return to manual playback"]
+    tt(d,"Manual / Exit remains reachable",180,717,11,False,SOFT)
+    return im,copy+["Manual / Exit remains reachable"]
 DATA=[
 ("DRV_PLAYING","WF-07","CC-05","PLAY","manual"),
 ("DRV_PAUSED","WF-07","CC-06","PAUSE","manual"),
@@ -298,4 +298,95 @@ matrix+=["","## Confirmed Phase-5 defects and specialist overrides","",
 (OUT/"PHASE_6_SPECIALIST_MATRIX.md").write_text("\n".join(matrix)+"\n")
 (OUT/"PHASE_6_VALIDATION.json").write_text(json.dumps(v,indent=2)+"\n")
 (OUT/"PHASE_6_VALIDATION.md").write_text("# Phase 6 validation\n\n**"+v["status"]+"**\n\n- 7/7 Driving variants and 20/20 Voice variants rendered as 1080x2400 PNG and exact-copy spec.\n- Original State IDs traced: 27/27; missing/duplicate/unassigned: 0/0/0.\n- One STT Retry, only one confirmation, 1..2 candidates, at most 6s capture, <=1 sentence TTS.\n- Executed and TTS-unavailable-after-ack raster contents identical.\n- Unsupported/not-found no approximation and no Retry; terminal failure no third Retry.\n- No fake Android OS screens; no extra destination; no unverified Play last.\n\n**Limit:** Static artifact QA is not independent Product/UX approval or physical-device/Compose accessibility testing.\n")
+# Trace every approved UF-07/08/09/10 canonical state, including those
+# intentionally represented by an existing component variant/system handoff.
+required=["CC-"+str(i).zfill(2) for i in range(1,19)]+["CD-"+str(i).zfill(2) for i in range(1,25)]
+assert len(required)==42 and all(s in states for s in required)
+preexisting={x["id"]:x for x in old["states"]}
+special_by_state={}
+for item in records:special_by_state.setdefault(item["stateId"],[]).append(item)
+trace=[
+ "# Issue 17 Phase 6 — Complete UF-07..UF-10 State Audit","",
+ "42 canonical states, all assigned to a specialist rendered case or the existing Phase-5 component/system handoff.",
+ "A State ID may legitimately share an approved visual or be an annotation, not a new destination.","",
+ "| ID | State | UF | Phase-5 disposition | Phase-6 specialist/owner evidence | Review conclusion |",
+ "|---|---|---|---|---|---|"
+]
+for sid in required:
+    s=states[sid];prev=preexisting[sid];direct=special_by_state.get(sid,[])
+    if direct:
+        ev=" / ".join("["+x["id"]+"]("+Path(x["image"]).name+")" for x in direct)
+        disposition="SPECIALIST_VISUAL"
+    else:
+        target=prev["spec"]
+        # Phase-5 source-of-truth variant/handoff evidence is a legitimate
+        # specialist disposition; it is not counted as a new rendered screen.
+        assert Path(target).exists(),(sid,target)
+        ev="[Existing Phase-5 owner spec](../../"+str(Path(target).relative_to(BASE)).replace("\\","/")+")"
+        disposition="APPROVED_VARIANT_OR_HANDOFF"
+    trace.append("| "+sid+" | "+s["state"].replace("|","/")+" | "+s["uf"].replace("|","/")+
+                 " | "+s["hifiDisposition"]["type"]+" | "+ev+" | "+disposition+" |")
+trace += ["","## Non-visual approved specialties","",
+"- CC-01/02/04/09/10/12/13/15/17/18 reuse the existing Driving entry/snapshot/Exit variants and do not create intermediate destinations.",
+"- CC-11 is optional P1 Bluetooth suggestion, must occur **outside** Driving and never enter automatically.",
+"- CC-14 maps to explicit Mic → Listening; CC-16 is owned by Android route/focus and MediaSession service, not an app/system fake page.",
+"- CD-01/02/11/24 reuse manual/capability/pending/cancel variants and preserve source generation ownership.",
+"- CD-21/22 are capability-failure variants with immediate Manual, not Settings/consent inside Driving.",
+"- CD-23 cloud consent is outside Driving in WF-10; never in Voice/Driving modal.",
+"","## Acceptance and review boundary","",
+"0 missing, 0 duplicate, 0 unassigned across 18 CC states + 24 CD states.",
+"Static review/artifact gate PASSED. Device-level proof of manual touch reachability, immediate Back/Exit, provider behavior, focus, TTS, TalkBack, 200% text and driving distraction still requires manual QA.",
+""]
+(OUT/"PHASE_6_UF_STATE_AUDIT.md").write_text("\n".join(trace))
+v["canonicalDrivingVoiceStates"]=42
+v["ufStateCoverage"]=42
+v["specialistImageStateIds"]=len(special_by_state)
+v["reusedExistingVariantHandoffStates"]=42-len(special_by_state)
+assert v["specialistImageStateIds"]+v["reusedExistingVariantHandoffStates"]==42
+# Functional QA cases are test instructions, NOT claims that a real APK was run.
+tests=[
+("T01","Driving entry from player/library","Manual Enter; controller reconnect","Complete snapshot → CC-05/06/07; no auto Enter"),
+("T02","Driving Playing","Pause/Next/Prev/Seek","Actual MediaSession ack, no optimistic Playing"),
+("T03","Driving Paused","Manual Play","Only ack returns Playing; no auto-play"),
+("T04","Driving No Track","No last valid media","Play last absent; invalid transport inert; Exit + capability-gated Mic"),
+("T05","Driving optional Play last","MediaStore revalidation succeeds/fails","Exactly one valid local item guarded; failure stays No Track"),
+("T06","Immediate Driving Exit","Tap Exit or Back in pending/reconnect/no-track/voice","Immediate recorded origin; no service playback mutation"),
+("T07","Voice explicit start","Tap Mic while eligible","Only explicit tap opens 6s bounded Listening"),
+("T08","Voice STT timeout 1","Wait 6s without result","Settled error → one Retry once, Manual available"),
+("T09","Voice second attempt timeout","Explicit Retry then 6s fail","No third Retry, terminal Manual"),
+("T10","Voice ambiguity 1 candidate","Present one immutable label","One choice + Neither/Cancel, one prompt only"),
+("T11","Voice ambiguity 2 candidates","Present two immutable labels","Exactly two current immutable options + Neither/Cancel"),
+("T12","Confirmation stale token","Cancel, then late confirm callback","No execution; ignore stale token"),
+("T13","Artist not found","Missing local artist","No nearest-match fallback, no command, no Retry loop"),
+("T14","Unsupported/unknown/missing artist","Speak out-of-grammar request","No approximation or second question; manual terminal"),
+("T15","Command acknowledgement","Service accepts command","Executed only after refreshed PlaybackSnapshot"),
+("T16","TTS port failure after acknowledgement","Disable/fail TTS after ack","Remain Executed, no rollback and no second command"),
+("T17","Provider unavailable/English unsupported","Mic capability precheck fails","Manual; no auto consent/Settings in Driving"),
+("T18","Permission denial/revocation","Denied mic while Driving","No fake Android dialog; Manual and immediate Exit"),
+("T19","Call/audio-focus and route disconnect","Loss while Driving / Voice active","Service safe paused; no speaker leak/surprise resume"),
+("T20","Cancellation cleanup","Back/Exit during Listening/Processing/Confirming","Release capture/duck; invalidate generation; no late speech action"),
+("T21","Accessibility 200% font","Compose on Android 10/12/14+","No clipped critical actions; TalkBack order/labels, 48dp minimum"),
+("T22","Privacy/telemetry","Inspect logs at every Voice failure","No raw audio, transcript, candidate, score, title or Bluetooth ID"),
+]
+manual=["# Phase 6 — runtime/manual specialist QA checklist","",
+        "These are executable test specifications for Android/QA, not evidence of an APK/device run.","",
+        "| Test | Situation | Action | Expected | Observed |",
+        "|---|---|---|---|---|"]
+for item in tests:
+    manual.append("| "+" | ".join(item)+" | NOT RUN (static Phase 6) |")
+manual+=["","Only a real device/app test with evidence, reviewer name/date and results may replace NOT RUN. The static design gate does not claim these tests have passed.",""]
+(OUT/"PHASE_6_DEVICE_QA_HANDOFF.md").write_text("\n".join(manual))
+matrixpath=OUT/"PHASE_6_SPECIALIST_MATRIX.md"
+matrix=matrixpath.read_text()
+matrix=matrix.replace("## Evidence","## Complete canonical UF state trace\n\n- [42-state UF-07..10 audit](PHASE_6_UF_STATE_AUDIT.md): all 18 Driving CC and 24 Voice CD IDs either specialist image or approved component/system owner spec.\n- [22-case device QA handoff](PHASE_6_DEVICE_QA_HANDOFF.md): real-device execution pending.\n\n## Evidence")
+matrixpath.write_text(matrix)
+regpath=OUT/"PHASE_6_REGISTER.json"
+reg=json.loads(regpath.read_text())
+reg["validation"]=v
+reg["canonicalStatesAudited"]=required
+regpath.write_text(json.dumps(reg,indent=2,ensure_ascii=False)+"\n")
+(OUT/"PHASE_6_VALIDATION.json").write_text(json.dumps(v,indent=2)+"\n")
+valpath=OUT/"PHASE_6_VALIDATION.md"
+valpath.write_text(valpath.read_text()+"\n- Canonical CC-01..18 and CD-01..24: **42/42**, including Phase-5 owner variants and system handoff annotations.\n- 22 device QA handoff cases specified; all marked NOT RUN, never auto-approved.\n")
+
 print(json.dumps(v,sort_keys=True))
