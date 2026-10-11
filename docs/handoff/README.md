@@ -27,3 +27,8 @@ Run from repository root: `python3 docs/handoff/VALIDATE_PHASE9.py`. It independ
 [PASS result](PHASE9_VALIDATION.json) · [Human-readable verification](PHASE9_VALIDATION.md).
 
 **Non-claims:** Passing this documentation QA is not implementation completeness, Media3 service test, microphone/STT provider test, actual Compose/Accessibility QA or independent named reviewer approval. Do not close Issue #17 until remaining review/acceptance gates are passed.
+
+
+## Phase 10 source and priority continuity
+
+[Full repository audit](../audit/phase-10/README.md) reattaches this Compose Handoff to the frozen PRD/MVP, all 126 State IDs, 10 Screen Families, five mandatory GS and the accepted Architecture/ADR owner boundaries. Liked Songs remains removable P2/UF-13/FR-09 (not mandatory GS). The [traceability register](../audit/phase-10/PHASE_10_TRACEABILITY_REGISTER.json) covers all design artifacts; zero static scope/ownership mismatches were found. Compose device/200%/TalkBack QA remains pending.
