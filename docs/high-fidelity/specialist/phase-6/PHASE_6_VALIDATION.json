@@ -27,6 +27,6 @@
   "composeRuntimeTested": false,
   "canonicalDrivingVoiceStates": 42,
   "ufStateCoverage": 42,
-  "specialistImageStateIds": 25,
-  "reusedExistingVariantHandoffStates": 17
+  "specialistImageStateIds": 24,
+  "reusedExistingVariantHandoffStates": 18
 }
