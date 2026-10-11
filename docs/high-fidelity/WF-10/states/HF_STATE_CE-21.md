@@ -1,7 +1,7 @@
 # High-Fidelity State — CE-21 · Privacy Details
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CE-21.png · **PNG SHA-256:** fec2fdec595b47d0b5512cd588c92135ab736b7caa9ed1821717bd54800e892b
+**PNG:** HF_STATE_CE-21.png · **PNG SHA-256:** 83cb8473b68c6f98efac9ccb33886c8ef515489476020ca51d58af53781a4724
 **Priority:** P0 · **WF:** WF-10
 **UF:** UF-12 · **GS:** — (not on GS-01..05 path)
 **State:** CE-21 · **Owner:** App + provider boundary
@@ -14,24 +14,24 @@
 - "Back"
 - "Settings"
 - "Permissions"
-- "Current platform status"
-- "Open"
 - "Bluetooth suggestion"
-- "P1 preference"
 - "Privacy"
-- "Local-first controls"
 - "Clear data / history"
-- "Selected categories only"
+- "Privacy details"
+- "Local-first controls"
+- "Your library stays on this device"
+- "Raw voice audio is not stored by default"
 - "Home"
 - "Search"
 - "Liked"
+- "Settings"
 
 ## State and structure contract
 
 - **Source approved hierarchy:** WF-10_SETTINGS_DEFAULT; existing WF family only; no new app destination.
 - **Visual-state specialization:** Load/update error retains previous value and exposes Retry where safe.
 - **Component mapping:** CMP-18, CMP-01, CMP-21. All component definitions are in docs/design-system/components/COMPONENT_TOKENS.json.
-- **Structural delta:** None. Source-aligned copy specialization only (where explicitly noted), not new controls or navigation.
+- **Structural delta:** Existing authorized state-content specialization (CB-09, CB-17, CB-18, CE-21, CE-22, CD-23); reviewed as within owning WF, with human UX approval still required for copy/layout refinements. No new navigation, runtime owner or capability.
 - **Entry:** Settings opened from non-driving navigation.
 - **Primary action:** Open one settings section.
 - **Exit:** Section/update/handoff; Back returns to prior surface.

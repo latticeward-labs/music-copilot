@@ -1,7 +1,7 @@
 # High-Fidelity State — CB-17 · End of Queue / Paused-Completed
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CB-17.png · **PNG SHA-256:** a1e7e081097b5f44dc7ca82bd077e3882deee4d8b70cc64da57e3ef57b834dd5
+**PNG:** HF_STATE_CB-17.png · **PNG SHA-256:** cbef23e39f37540d1ddc0126f02731da3b0d78db64837370903f003561d908d1
 **Priority:** P0 · **WF:** WF-06
 **UF:** UF-05 · **GS:** — (not on GS-01..05 path)
 **State:** CB-17 · **Owner:** App + Playback Service
@@ -14,19 +14,17 @@
 - "Back"
 - "Now playing"
 - "Queue"
-- "ARTWORK"
 - "Aurora Lights"
 - "Local artist"
-- "01:26"
-- "03:42"
-- "PAUSED"
+- "Play"
+- "COMPLETED"
 
 ## State and structure contract
 
 - **Source approved hierarchy:** WF-06_FULL_PLAYER_PAUSED; existing WF family only; no new app destination.
 - **Visual-state specialization:** Paused/Completed derives from the actual service snapshot; never display Playing after queue end.
 - **Component mapping:** CMP-03, CMP-05, CMP-07, CMP-13. All component definitions are in docs/design-system/components/COMPONENT_TOKENS.json.
-- **Structural delta:** None. Source-aligned copy specialization only (where explicitly noted), not new controls or navigation.
+- **Structural delta:** Existing authorized state-content specialization (CB-09, CB-17, CB-18, CE-21, CE-22, CD-23); reviewed as within owning WF, with human UX approval still required for copy/layout refinements. No new navigation, runtime owner or capability.
 - **Entry:** Service reports Paused after command, interruption or entry.
 - **Primary action:** Play.
 - **Exit:** Acknowledged Play → Playing; Back preserves queue/position.

@@ -132,7 +132,7 @@
 | 108 | CE-22 | Consent Decision | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-10/states/HF_STATE_CE-22.png) · [Spec](WF-10/states/HF_STATE_CE-22.md) |
 | 109 | CE-23 | Clear Selection | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-10/states/HF_STATE_CE-23.png) · [Spec](WF-10/states/HF_STATE_CE-23.md) |
 | 110 | CE-24 | Clear Confirmation | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-24.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.png) |
-| 111 | CE-25 | Clearing | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-25.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.png) |
+| 111 | CE-25 | Clearing | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-25.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.png) |
 | 112 | CE-26 | Clear Result | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-26.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.png) |
 | 113 | UL-01 | P2 not shipped | P2 | WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-01.md) · [Anchor PNG](WF-09/frames/HF_FRAME_WF-09_LIKED_SONGS_EMPTY.png) |
 | 114 | UL-02 | Entry loading | P2 | WF-09 | UF-13 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-09/states/HF_STATE_UL-02.png) · [Spec](WF-09/states/HF_STATE_UL-02.md) |

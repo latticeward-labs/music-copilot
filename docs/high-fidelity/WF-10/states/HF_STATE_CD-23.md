@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-23 · Cloud consent required/declined
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-23.png · **PNG SHA-256:** fec2fdec595b47d0b5512cd588c92135ab736b7caa9ed1821717bd54800e892b
+**PNG:** HF_STATE_CD-23.png · **PNG SHA-256:** dc719e889012cb458d87bcd345746f16e61a99fc36ab4da97770929536880379
 **Priority:** P0 · **WF:** WF-10
 **UF:** UF-10 / UF-12 · **GS:** — (not on GS-01..05 path)
 **State:** CD-23 · **Owner:** App + provider boundary
@@ -14,24 +14,24 @@
 - "Back"
 - "Settings"
 - "Permissions"
-- "Current platform status"
-- "Open"
 - "Bluetooth suggestion"
-- "P1 preference"
 - "Privacy"
-- "Local-first controls"
 - "Clear data / history"
-- "Selected categories only"
+- "Cloud voice needs consent"
+- "Manual playback is still available"
+- "Not now"
+- "Review privacy"
 - "Home"
 - "Search"
 - "Liked"
+- "Settings"
 
 ## State and structure contract
 
 - **Source approved hierarchy:** WF-10_SETTINGS_DEFAULT; existing WF family only; no new app destination.
 - **Visual-state specialization:** Consent may be presented only through the already approved non-driving Settings/Privacy boundary; never during Driving Mode.
 - **Component mapping:** CMP-18, CMP-01, CMP-21. All component definitions are in docs/design-system/components/COMPONENT_TOKENS.json.
-- **Structural delta:** None. Source-aligned copy specialization only (where explicitly noted), not new controls or navigation.
+- **Structural delta:** Existing authorized state-content specialization (CB-09, CB-17, CB-18, CE-21, CE-22, CD-23); reviewed as within owning WF, with human UX approval still required for copy/layout refinements. No new navigation, runtime owner or capability.
 - **Entry:** Settings opened from non-driving navigation.
 - **Primary action:** Open one settings section.
 - **Exit:** Section/update/handoff; Back returns to prior surface.

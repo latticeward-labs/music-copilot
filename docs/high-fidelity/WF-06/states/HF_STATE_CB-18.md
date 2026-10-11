@@ -1,7 +1,7 @@
 # High-Fidelity State — CB-18 · Queue View
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CB-18.png · **PNG SHA-256:** 6a216c4bcaf37203b94e76e618f4db8b0561d0d979efa81eba7aa153f0c972ea
+**PNG:** HF_STATE_CB-18.png · **PNG SHA-256:** 5adfd996f48967cfdd6c6e2e33dc0d2a948d015fbaca1b2ea4b15ad1e3f9a402
 **Priority:** P0 · **WF:** WF-06
 **UF:** UF-05 · **GS:** — (not on GS-01..05 path)
 **State:** CB-18 · **Owner:** App + Playback Service
@@ -14,19 +14,19 @@
 - "Back"
 - "Now playing"
 - "Queue"
-- "ARTWORK"
+- "Current queue"
 - "Aurora Lights"
 - "Local artist"
-- "01:26"
-- "03:42"
 - "PLAYING"
+- "Night Drive"
+- "Ocean Lines"
 
 ## State and structure contract
 
 - **Source approved hierarchy:** WF-06_FULL_PLAYER_PLAYING; existing WF family only; no new app destination.
 - **Visual-state specialization:** Existing Queue action is the entry point; the WF-06 player remains the owning surface. Queue presentation shares MediaSession ownership; no invented route.
 - **Component mapping:** CMP-03, CMP-05, CMP-07, CMP-13. All component definitions are in docs/design-system/components/COMPONENT_TOKENS.json.
-- **Structural delta:** None. Source-aligned copy specialization only (where explicitly noted), not new controls or navigation.
+- **Structural delta:** Existing authorized state-content specialization (CB-09, CB-17, CB-18, CE-21, CE-22, CD-23); reviewed as within owning WF, with human UX approval still required for copy/layout refinements. No new navigation, runtime owner or capability.
 - **Entry:** MediaSessionService acknowledges playback with a valid item.
 - **Primary action:** Pause; Next/Previous/Seek/Queue remain available as supported.
 - **Exit:** Back keeps playback; Driving Mode requires explicit entry; Queue remains same authority.
