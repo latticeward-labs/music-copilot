@@ -209,6 +209,45 @@ for file in high:
         add(path,"SOURCE_SUPPORT_OR_VALIDATION","")
     else:
         errors["orphan"].append({"path":path,"reason":"unknown extension"})
+# Extend the inventory to ALL ACTIVE design evidence families, not only Hi-Fi.
+# Each source artifact must be accountable to a source screen, state, native
+# transition, GS prototype or engineering handoff; contact boards are aggregate.
+native=J("docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json")
+for tr in native["transitions"]:
+    for field in ("markdown","svg"):
+        sp="docs/wireframes/recovery-system/"+tr[field]
+        add(sp,"NATIVE_TRANSITION_DIAGRAM_OR_SPEC",tr["systemStates"],
+            "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json")
+for fr in frames["frames"]:
+    sp="docs/wireframes/app-states/"+fr["id"]+".md"
+    add(sp,"APPROVED_LOFI_FRAME_SPEC",[v.strip() for v in fr["stateIds"].split(",")],
+        "docs/wireframes/app-states/FRAME_REGISTER.json")
+fullPrefixes={
+ "docs/design-system/":"FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE",
+ "docs/wireframes/app-states/":"APPROVED_LOFI_OR_FRAME_SUPPORT",
+ "docs/wireframes/recovery-system/":"APPROVED_NATIVE_DIAGRAM_OR_RECOVERY_SUPPORT",
+ "docs/prototype/":"FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST",
+ "docs/handoff/":"COMPOSE_ENGINEERING_HANDOFF_OR_TEST"}
+for prefix,kind in fullPrefixes.items():
+    for f in (R/prefix).rglob("*"):
+        if not f.is_file():continue
+        p=f.as_posix()
+        if p in registered:continue
+        if f.suffix.lower() not in (".md",".json",".svg",".png",".html",".css",".js",".cjs",".py"):
+            errors["orphan"].append({"path":p,"reason":"unrecognized design artifact type"});continue
+        if p.startswith("docs/wireframes/app-states/WF-") and f.suffix==".md":
+            errors["orphan"].append({"path":p,"reason":"unregistered source app Frame spec"});continue
+        if p.startswith("docs/wireframes/recovery-system/WF-") and f.suffix in (".md",".svg"):
+            errors["orphan"].append({"path":p,"reason":"unregistered native transition"});continue
+        add(p,kind,(),"docs/design-system/ISSUE_17_SOURCE_MANIFEST.md")
+# Prototype's Phase-8 strict audit is independently authoritative for ALL
+# 38 declared scenario-local safe-terminal routes; no weaker global reachability.
+phase8=J("docs/prototype/PHASE_8_VALIDATION.json")
+assert phase8["allRecoveryEndpointsProvenInOwnScenario"] is True
+assert len(phase8["scenarios"])==5
+for name,x in phase8["scenarios"].items():
+    assert x["recoveryCount"]==len(proto["scenarios"][name]["recoveries"])
+    assert len(x["safeTerminalPaths"])==x["recoveryCount"]
 missed=[p.as_posix() for p in high if p.as_posix() not in registered]
 if missed:errors["orphan"].extend({"path":p,"reason":"unindexed source"} for p in missed)
 violations=sum(map(len,errors.values()))
@@ -216,7 +255,9 @@ result={"phase":10,"issue":17,"sourceArchiveSha256":archive,
         "status":"PASS_SOURCE_TRACEABILITY_SCOPE" if violations==0 else "FAIL_FIX_REQUIRED",
         "priorityCounts":dict(counts),"dispositionCounts":dict(kinds),
         "canonicalStates":len(state_rows),"highFidelityFiles":len(high),
-        "registeredSourceArtifacts":len(registered),"sourceAssets":len(assets["assets"]),
+        "registeredSourceArtifacts":len(registered),"nonHifiActiveDesignFiles":len(registered)-len(high),
+        "phase8RecoverySafeEndpoints":sum(x["recoveryCount"] for x in phase8["scenarios"].values()),
+        "registeredSourceAssetsWithHF":len([x for x in registered if x.endswith(".png")]),"sourceAssets":len(assets["assets"]),
         "primaryHighFi":len(primary["artifacts"]),"hifiFrames":len(s["frames"]),
         "specialistStates":len(p6["scenarios"]),"nativeSystemOnly":len(p7["systemOnly"]),
         "prototypeNodes":len(prows),"goldenScenarios":list(proto["scenarios"]),
