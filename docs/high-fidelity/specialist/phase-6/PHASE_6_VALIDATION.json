@@ -22,7 +22,7 @@
   "manualAlwaysReachableViaCancel": true,
   "drivingExitImmediate": true,
   "verifiedLastItemGuard": true,
-  "boardSha256": "539b685aa9469caf131954953fc30401795bac553233df75af9f2767e9515156",
+  "boardSha256": "2394daa712e932930b0b751f49583c18c12906f6407f06388b6f3627295541ed",
   "approvalClaimed": false,
   "composeRuntimeTested": false,
   "canonicalDrivingVoiceStates": 42,

@@ -1,9 +1,9 @@
 # Issue 17 Phase 6 specialist — DRV_ROUTE_SAFE
 
-Canonical State: CC-16; source WF: WF-07; UF: UF-07 → UF-11; Golden Scenario: GS-04, GS-05.
-Source artwork or state contract: docs/high-fidelity/system-handoffs/CC-16.md
+Canonical State: CE-06; source WF: WF-07; UF: UF-11; Golden Scenario: GS-05.
+Source artwork or state contract: docs/high-fidelity/state-variants/CE-06.md
 SHA-256 PNG: 27766d728cbd631d922194fd12cc7e98b974645c7e61bb5a909efd356172f052.
-Terminal: safe_paused; authority: Android/System + Playback Service.
+Terminal: safe_paused; authority: Hybrid.
 
 ## Exact on-screen UI copy
 

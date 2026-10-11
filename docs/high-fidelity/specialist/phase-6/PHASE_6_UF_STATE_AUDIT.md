@@ -20,7 +20,7 @@ A State ID may legitimately share an approved visual or be an annotation, not a 
 | CC-13 | Exit/back return | UF-07 | HIFI_VARIANT_ANNOTATION | [Existing Phase-5 owner spec](../../state-variants/CC-13.md) | APPROVED_VARIANT_OR_HANDOFF |
 | CC-14 | Microphone handoff | UF-07 → UF-08 | DEDICATED_HIFI | [Existing Phase-5 owner spec](../../WF-08/states/HF_STATE_CC-14.md) | APPROVED_VARIANT_OR_HANDOFF |
 | CC-15 | Item unavailable / access failure | UF-07 | HIFI_VARIANT_ANNOTATION | [Existing Phase-5 owner spec](../../state-variants/CC-15.md) | APPROVED_VARIANT_OR_HANDOFF |
-| CC-16 | Interruption/route handoff | UF-07 → UF-11 | SYSTEM_ONLY_HANDOFF | [DRV_ROUTE_SAFE](DRV_ROUTE_SAFE.png) | SPECIALIST_VISUAL |
+| CC-16 | Interruption/route handoff | UF-07 → UF-11 | SYSTEM_ONLY_HANDOFF | [Existing Phase-5 owner spec](../../system-handoffs/CC-16.md) | APPROVED_VARIANT_OR_HANDOFF |
 | CC-17 | Suggestion declined/dismissed | UF-07 | HIFI_VARIANT_ANNOTATION | [Existing Phase-5 owner spec](../../state-variants/CC-17.md) | APPROVED_VARIANT_OR_HANDOFF |
 | CC-18 | Analytics unavailable | UF-07 | HIFI_VARIANT_ANNOTATION | [Existing Phase-5 owner spec](../../state-variants/CC-18.md) | APPROVED_VARIANT_OR_HANDOFF |
 | CD-01 | Idle/manual surface | UF-08 / UF-10 | HIFI_VARIANT_ANNOTATION | [Existing Phase-5 owner spec](../../state-variants/CD-01.md) | APPROVED_VARIANT_OR_HANDOFF |
