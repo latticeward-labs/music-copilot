@@ -1,7 +1,7 @@
 # HF Frame Review — WF-08_VOICE_LISTENING
 
 **Issue/phase:** #17 / 5 · **Source:** WF-08_VOICE_LISTENING · **Status:** Reviewable generated evidence (not separate human sign-off)
-**Image:** HF_FRAME_WF-08_VOICE_LISTENING.png · **SHA-256:** 431025bd6937f514ff9fb10f636745eef521af8df2a84c2954f9234b7a9c68a9
+**Image:** HF_FRAME_WF-08_VOICE_LISTENING.png · **SHA-256:** 2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2
 **Priority:** P0 · **Ownership:** App + Voice Coordinator
 **Canonical State IDs:** CD-03, CC-14 · **UF:** UF-08 / UF-09 / UF-10 · **GS:** GS-04 recovery path
 **Approved source:** https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_LISTENING.md and https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg
@@ -9,7 +9,6 @@
 
 ## Exact rendered app copy
 
-- "DRIVING / PLAYER CONTEXT"
 - "Listening"
 - "Six-second attempt"
 - "MIC"

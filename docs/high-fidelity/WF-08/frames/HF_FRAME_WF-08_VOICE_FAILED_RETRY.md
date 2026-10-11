@@ -1,7 +1,7 @@
 # HF Frame Review — WF-08_VOICE_FAILED_RETRY
 
 **Issue/phase:** #17 / 5 · **Source:** WF-08_VOICE_FAILED_RETRY · **Status:** Reviewable generated evidence (not separate human sign-off)
-**Image:** HF_FRAME_WF-08_VOICE_FAILED_RETRY.png · **SHA-256:** 6dc662de5ecc535e98279c530e57aa1f0ba2b8d11b7882660236075d8c743294
+**Image:** HF_FRAME_WF-08_VOICE_FAILED_RETRY.png · **SHA-256:** cebbe3477ac4a964667f8ad89527d242c50c7540ac1207e70e75c3cb2b2c4a87
 **Priority:** P0 · **Ownership:** App + Voice Coordinator
 **Canonical State IDs:** CD-08, CD-17, CD-18, CD-19 · **UF:** UF-08 / UF-09 / UF-10 · **GS:** GS-04 recovery path
 **Approved source:** https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.md and https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg
@@ -9,7 +9,6 @@
 
 ## Exact rendered app copy
 
-- "DRIVING / PLAYER CONTEXT"
 - "Voice failed"
 - "One Retry, then Manual"
 - "!"

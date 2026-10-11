@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-08 · Execution failed-safe
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-08.png · **PNG SHA-256:** d2b23c02369be54f5aad1aa8f0d0d42b4842e26ef22e1c5fcd16000c0228253b
+**PNG:** HF_STATE_CD-08.png · **PNG SHA-256:** c3a005b7d12700f6564b0eb2442818ab63d14ff409874baa32041bb90dc67f6d
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-08 · **GS:** — (not on GS-01..05 path)
 **State:** CD-08 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Voice command failed"
 - "One Retry, then Manual"
 - "!"

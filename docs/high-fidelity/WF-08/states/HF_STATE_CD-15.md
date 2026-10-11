@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-15 · Unsupported request
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-15.png · **PNG SHA-256:** 19c8e469897be80c4f8185a4dde25e647e172a016105d8ac42a321e1d55447d2
+**PNG:** HF_STATE_CD-15.png · **PNG SHA-256:** 75e757533901ad9bd6adbabdbff01c1f8ed844c4ad3fd1eaec9ade6175e7adcb
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-09 · **GS:** — (not on GS-01..05 path)
 **State:** CD-15 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Request not supported"
 - "One Retry, then Manual"
 - "!"

@@ -1583,7 +1583,7 @@
       "sourceFrameId": "CC-05, CC-14, CC-16",
       "image": "docs/high-fidelity/WF-07/states/HF_STATE_CC-05.png",
       "spec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-05.md",
-      "sha256": "2decf43fd87ed95b2c81778454b7d3a34620cc2aaaaadfae4f55be32979ed801",
+      "sha256": "e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c",
       "exactUiCopy": [
         "Exit",
         "DRIVING MODE",
@@ -1591,8 +1591,7 @@
         "Aurora Lights",
         "Local artist",
         "PLAYING",
-        "Mic · Voice",
-        "One layer · no typing · no lists"
+        "Mic · Voice"
       ],
       "systemUiInvented": false,
       "index": 49,
@@ -1620,7 +1619,7 @@
       "sourceFrameId": "CC-06, CC-16",
       "image": "docs/high-fidelity/WF-07/states/HF_STATE_CC-06.png",
       "spec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-06.md",
-      "sha256": "15e2041d756ca076fccf9097f314ca54f22c0db76ef7113dcc34cecc88b75fb9",
+      "sha256": "e9416c98432b43620ef349d1a56d7ca480e1da0f291d907df988a026b5def564",
       "exactUiCopy": [
         "Exit",
         "DRIVING MODE",
@@ -1628,8 +1627,7 @@
         "Aurora Lights",
         "Local artist",
         "PAUSED",
-        "Mic · Voice",
-        "One layer · no typing · no lists"
+        "Mic · Voice"
       ],
       "systemUiInvented": false,
       "index": 50,
@@ -1657,15 +1655,14 @@
       "sourceFrameId": "CC-07, CC-15",
       "image": "docs/high-fidelity/WF-07/states/HF_STATE_CC-07.png",
       "spec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-07.md",
-      "sha256": "a7a1960095fcea3fddd3ed689f22b21aa65e9b07dd31d0753f424f6552f2ce07",
+      "sha256": "b8069829816d98dfcb4d9eab6a67f0b2223eff3b198514baa76816d354bd91e7",
       "exactUiCopy": [
         "Exit",
         "DRIVING MODE",
         "NO TRACK",
         "No current track",
         "Exit to browse local music",
-        "Mic · Voice",
-        "One layer · no typing · no lists"
+        "Mic · Voice"
       ],
       "systemUiInvented": false,
       "index": 51,
@@ -1786,7 +1783,7 @@
       "sourceFrameId": "CC-05, CC-14, CC-16",
       "image": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.png",
       "spec": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.md",
-      "sha256": "2decf43fd87ed95b2c81778454b7d3a34620cc2aaaaadfae4f55be32979ed801",
+      "sha256": "e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c",
       "exactUiCopy": [
         "Exit",
         "DRIVING MODE",
@@ -1794,8 +1791,7 @@
         "Aurora Lights",
         "Local artist",
         "PLAYING",
-        "Mic · Voice",
-        "One layer · no typing · no lists"
+        "Mic · Voice"
       ],
       "systemUiInvented": false,
       "index": 55,
@@ -1885,9 +1881,8 @@
       "sourceFrameId": "CD-03, CC-14",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.md",
-      "sha256": "431025bd6937f514ff9fb10f636745eef521af8df2a84c2954f9234b7a9c68a9",
+      "sha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Listening",
         "Six-second attempt",
         "MIC",
@@ -2107,9 +2102,8 @@
       "sourceFrameId": "CD-03, CC-14",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-03.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-03.md",
-      "sha256": "431025bd6937f514ff9fb10f636745eef521af8df2a84c2954f9234b7a9c68a9",
+      "sha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Listening",
         "Six-second attempt",
         "MIC",
@@ -2144,9 +2138,8 @@
       "sourceFrameId": "CD-03, CC-14",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-04.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-04.md",
-      "sha256": "431025bd6937f514ff9fb10f636745eef521af8df2a84c2954f9234b7a9c68a9",
+      "sha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Listening",
         "Six-second attempt",
         "MIC",
@@ -2181,9 +2174,8 @@
       "sourceFrameId": "CD-05",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-05.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-05.md",
-      "sha256": "f6286422689bb936f4c713798ac6ef60b7f3930ad83ae9dd9b225663c06cde23",
+      "sha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Processing",
         "Mapping one of six intents",
         "Cancel",
@@ -2217,9 +2209,8 @@
       "sourceFrameId": "CD-05",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-06.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-06.md",
-      "sha256": "f6286422689bb936f4c713798ac6ef60b7f3930ad83ae9dd9b225663c06cde23",
+      "sha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Processing",
         "Mapping one of six intents",
         "Cancel",
@@ -2253,9 +2244,8 @@
       "sourceFrameId": "CD-07",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-07.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-07.md",
-      "sha256": "730e356b53f3ad9f6eacf2234e450755869f07db75a139e9460de01687561119",
+      "sha256": "277ab34efd7327ba29e82f0f67847685a403c2e9cdd354136efff286c3c4b87b",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Done",
         "Next track acknowledged",
         "✓",
@@ -2291,9 +2281,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-08.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-08.md",
-      "sha256": "d2b23c02369be54f5aad1aa8f0d0d42b4842e26ef22e1c5fcd16000c0228253b",
+      "sha256": "c3a005b7d12700f6564b0eb2442818ab63d14ff409874baa32041bb90dc67f6d",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Voice command failed",
         "One Retry, then Manual",
         "!",
@@ -2329,9 +2318,8 @@
       "sourceFrameId": "CD-09, CD-10",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-09.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-09.md",
-      "sha256": "89eb4d69a23362fe7e5ac01134e9d2a1b7e74e85e2621a81c515385c3e922e4f",
+      "sha256": "edc2798b9507606a33cfbcbf06bf10e97be66f1f2bad888dfa605c1c13acf99a",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Which artist?",
         "Choose one presented candidate",
         "1 · Aurora",
@@ -2366,9 +2354,8 @@
       "sourceFrameId": "CD-09, CD-10",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-10.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-10.md",
-      "sha256": "38cee0f52bc3c30f1941d4c1e43cc58ec254864fbd77e17493a6f5624562769a",
+      "sha256": "2bb6e40387dad528c63865444b1b31b412c63958e4c09fc8c74c10bdb12d0247",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Which artist?",
         "Choose one presented candidate",
         "1 · Aurora",
@@ -2404,9 +2391,8 @@
       "sourceFrameId": "CD-05",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.md",
-      "sha256": "f6286422689bb936f4c713798ac6ef60b7f3930ad83ae9dd9b225663c06cde23",
+      "sha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Processing",
         "Mapping one of six intents",
         "Cancel",
@@ -2440,9 +2426,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-12.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-12.md",
-      "sha256": "bada5dc2d4fde8e898f436c73fbb32c54fc75fc4c50296e7e6c2c22ffb9cf8fa",
+      "sha256": "554999437c1fc89b7776329861f53eacf5d75ab719c34986ef22d01295331a66",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Confirmation failed",
         "One Retry, then Manual",
         "!",
@@ -2478,9 +2463,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-13.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-13.md",
-      "sha256": "e5ca1ec47ba5013b314661575b289cc7105b8d7b8440320fb05858a02804fb8e",
+      "sha256": "79b409ee41b527a1d6ec9a62964ce42e20cfc787bdf15adf563ca9e487e27c60",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Artist not found",
         "One Retry, then Manual",
         "!",
@@ -2516,9 +2500,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-14.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-14.md",
-      "sha256": "eb1fa1767adb5679a369a20fe0ca9005749685003c2479793db6464fafdcd9ed",
+      "sha256": "5647fe13851d916a0167b3c9b27e05317d03695cb03928804f2bf7d1de9e627d",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Command not understood",
         "One Retry, then Manual",
         "!",
@@ -2554,9 +2537,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-15.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-15.md",
-      "sha256": "19c8e469897be80c4f8185a4dde25e647e172a016105d8ac42a321e1d55447d2",
+      "sha256": "75e757533901ad9bd6adbabdbff01c1f8ed844c4ad3fd1eaec9ade6175e7adcb",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Request not supported",
         "One Retry, then Manual",
         "!",
@@ -2592,9 +2574,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-16.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-16.md",
-      "sha256": "b2c72278e7eb4181b9538990de079b9a30c871cf13bfe51986648c46f8856e7b",
+      "sha256": "dc3434c347214edb2005f6b18e2a79f6fdc0e4165b76227a01cf9525b260775a",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Artist is missing",
         "One Retry, then Manual",
         "!",
@@ -2630,9 +2611,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-17.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-17.md",
-      "sha256": "0e4636e9efcb3d19e75f8fb59c4b99217f36437f7a1ec01c302de98b13ea28e5",
+      "sha256": "1f741a8809e030583eab7d4b58332944b7a6d322cc21b102df46bafc42f55e45",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Voice attempt failed",
         "One Retry, then Manual",
         "!",
@@ -2668,9 +2648,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-18.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-18.md",
-      "sha256": "6dc662de5ecc535e98279c530e57aa1f0ba2b8d11b7882660236075d8c743294",
+      "sha256": "cebbe3477ac4a964667f8ad89527d242c50c7540ac1207e70e75c3cb2b2c4a87",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Voice failed",
         "One Retry, then Manual",
         "!",
@@ -2706,9 +2685,8 @@
       "sourceFrameId": "CD-08, CD-17, CD-18, CD-19",
       "image": "docs/high-fidelity/WF-08/states/HF_STATE_CD-19.png",
       "spec": "docs/high-fidelity/WF-08/states/HF_STATE_CD-19.md",
-      "sha256": "46f872d63754b148479b4afb6803957ba8c55b21f0a6c57bf792d81ced545af7",
+      "sha256": "943e4e3b61e8c99282fbaec5b879b1ebcb847789360b5ed6ef9c9a7b51a054bc",
       "exactUiCopy": [
-        "DRIVING / PLAYER CONTEXT",
         "Voice unavailable",
         "Manual controls only",
         "!",
@@ -4674,7 +4652,7 @@
       "sourceSvg": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
       "image": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png",
       "spec": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.md",
-      "sha256": "2decf43fd87ed95b2c81778454b7d3a34620cc2aaaaadfae4f55be32979ed801",
+      "sha256": "e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c",
       "copy": [
         "Exit",
         "DRIVING MODE",
@@ -4682,8 +4660,7 @@
         "Aurora Lights",
         "Local artist",
         "PLAYING",
-        "Mic · Voice",
-        "One layer · no typing · no lists"
+        "Mic · Voice"
       ]
     },
     {
@@ -4693,7 +4670,7 @@
       "sourceSvg": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
       "image": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PAUSED.png",
       "spec": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PAUSED.md",
-      "sha256": "15e2041d756ca076fccf9097f314ca54f22c0db76ef7113dcc34cecc88b75fb9",
+      "sha256": "e9416c98432b43620ef349d1a56d7ca480e1da0f291d907df988a026b5def564",
       "copy": [
         "Exit",
         "DRIVING MODE",
@@ -4701,8 +4678,7 @@
         "Aurora Lights",
         "Local artist",
         "PAUSED",
-        "Mic · Voice",
-        "One layer · no typing · no lists"
+        "Mic · Voice"
       ]
     },
     {
@@ -4712,15 +4688,14 @@
       "sourceSvg": "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg",
       "image": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_NO_TRACK.png",
       "spec": "docs/high-fidelity/WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_NO_TRACK.md",
-      "sha256": "a7a1960095fcea3fddd3ed689f22b21aa65e9b07dd31d0753f424f6552f2ce07",
+      "sha256": "b8069829816d98dfcb4d9eab6a67f0b2223eff3b198514baa76816d354bd91e7",
       "copy": [
         "Exit",
         "DRIVING MODE",
         "NO TRACK",
         "No current track",
         "Exit to browse local music",
-        "Mic · Voice",
-        "One layer · no typing · no lists"
+        "Mic · Voice"
       ]
     },
     {
@@ -4730,9 +4705,8 @@
       "sourceSvg": "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
       "image": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_LISTENING.png",
       "spec": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_LISTENING.md",
-      "sha256": "431025bd6937f514ff9fb10f636745eef521af8df2a84c2954f9234b7a9c68a9",
+      "sha256": "2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2",
       "copy": [
-        "DRIVING / PLAYER CONTEXT",
         "Listening",
         "Six-second attempt",
         "MIC",
@@ -4747,9 +4721,8 @@
       "sourceSvg": "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
       "image": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_PROCESSING.png",
       "spec": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_PROCESSING.md",
-      "sha256": "f6286422689bb936f4c713798ac6ef60b7f3930ad83ae9dd9b225663c06cde23",
+      "sha256": "24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7",
       "copy": [
-        "DRIVING / PLAYER CONTEXT",
         "Processing",
         "Mapping one of six intents",
         "Cancel",
@@ -4763,9 +4736,8 @@
       "sourceSvg": "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
       "image": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_CONFIRMING.png",
       "spec": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_CONFIRMING.md",
-      "sha256": "38cee0f52bc3c30f1941d4c1e43cc58ec254864fbd77e17493a6f5624562769a",
+      "sha256": "2bb6e40387dad528c63865444b1b31b412c63958e4c09fc8c74c10bdb12d0247",
       "copy": [
-        "DRIVING / PLAYER CONTEXT",
         "Which artist?",
         "Choose one presented candidate",
         "1 · Aurora",
@@ -4781,9 +4753,8 @@
       "sourceSvg": "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
       "image": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_EXECUTED.png",
       "spec": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_EXECUTED.md",
-      "sha256": "730e356b53f3ad9f6eacf2234e450755869f07db75a139e9460de01687561119",
+      "sha256": "277ab34efd7327ba29e82f0f67847685a403c2e9cdd354136efff286c3c4b87b",
       "copy": [
-        "DRIVING / PLAYER CONTEXT",
         "Done",
         "Next track acknowledged",
         "✓",
@@ -4799,9 +4770,8 @@
       "sourceSvg": "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg",
       "image": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_FAILED_RETRY.png",
       "spec": "docs/high-fidelity/WF-08/frames/HF_FRAME_WF-08_VOICE_FAILED_RETRY.md",
-      "sha256": "6dc662de5ecc535e98279c530e57aa1f0ba2b8d11b7882660236075d8c743294",
+      "sha256": "cebbe3477ac4a964667f8ad89527d242c50c7540ac1207e70e75c3cb2b2c4a87",
       "copy": [
-        "DRIVING / PLAYER CONTEXT",
         "Voice failed",
         "One Retry, then Manual",
         "!",

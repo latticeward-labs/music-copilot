@@ -1,7 +1,7 @@
 # HF Frame Review — WF-07_DRIVING_MODE_PLAYING
 
 **Issue/phase:** #17 / 5 · **Source:** WF-07_DRIVING_MODE_PLAYING · **Status:** Reviewable generated evidence (not separate human sign-off)
-**Image:** HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png · **SHA-256:** 2decf43fd87ed95b2c81778454b7d3a34620cc2aaaaadfae4f55be32979ed801
+**Image:** HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png · **SHA-256:** e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c
 **Priority:** P0 · **Ownership:** App + Playback Service
 **Canonical State IDs:** CC-05, CC-14, CC-16 · **UF:** UF-07 / UF-11 · **GS:** GS-04 / GS-05
 **Approved source:** https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.md and https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg
@@ -16,7 +16,6 @@
 - "Local artist"
 - "PLAYING"
 - "Mic · Voice"
-- "One layer · no typing · no lists"
 
 ## Behavioral boundary
 

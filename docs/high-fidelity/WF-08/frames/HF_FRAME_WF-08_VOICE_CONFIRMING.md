@@ -1,7 +1,7 @@
 # HF Frame Review — WF-08_VOICE_CONFIRMING
 
 **Issue/phase:** #17 / 5 · **Source:** WF-08_VOICE_CONFIRMING · **Status:** Reviewable generated evidence (not separate human sign-off)
-**Image:** HF_FRAME_WF-08_VOICE_CONFIRMING.png · **SHA-256:** 38cee0f52bc3c30f1941d4c1e43cc58ec254864fbd77e17493a6f5624562769a
+**Image:** HF_FRAME_WF-08_VOICE_CONFIRMING.png · **SHA-256:** 2bb6e40387dad528c63865444b1b31b412c63958e4c09fc8c74c10bdb12d0247
 **Priority:** P0 · **Ownership:** App + Voice Coordinator
 **Canonical State IDs:** CD-09, CD-10 · **UF:** UF-08 / UF-09 / UF-10 · **GS:** GS-04 recovery path
 **Approved source:** https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.md and https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg
@@ -9,7 +9,6 @@
 
 ## Exact rendered app copy
 
-- "DRIVING / PLAYER CONTEXT"
 - "Which artist?"
 - "Choose one presented candidate"
 - "1 · Aurora"

@@ -1,7 +1,7 @@
 # HF Frame Review — WF-08_VOICE_PROCESSING
 
 **Issue/phase:** #17 / 5 · **Source:** WF-08_VOICE_PROCESSING · **Status:** Reviewable generated evidence (not separate human sign-off)
-**Image:** HF_FRAME_WF-08_VOICE_PROCESSING.png · **SHA-256:** f6286422689bb936f4c713798ac6ef60b7f3930ad83ae9dd9b225663c06cde23
+**Image:** HF_FRAME_WF-08_VOICE_PROCESSING.png · **SHA-256:** 24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7
 **Priority:** P0 · **Ownership:** App + Voice Coordinator
 **Canonical State IDs:** CD-05 · **UF:** UF-08 / UF-09 / UF-10 · **GS:** GS-04 recovery path
 **Approved source:** https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_PROCESSING.md and https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg
@@ -9,7 +9,6 @@
 
 ## Exact rendered app copy
 
-- "DRIVING / PLAYER CONTEXT"
 - "Processing"
 - "Mapping one of six intents"
 - "Cancel"

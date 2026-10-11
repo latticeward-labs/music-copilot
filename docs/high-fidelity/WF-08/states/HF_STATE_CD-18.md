@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-18 · Retry available
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-18.png · **PNG SHA-256:** 6dc662de5ecc535e98279c530e57aa1f0ba2b8d11b7882660236075d8c743294
+**PNG:** HF_STATE_CD-18.png · **PNG SHA-256:** cebbe3477ac4a964667f8ad89527d242c50c7540ac1207e70e75c3cb2b2c4a87
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-10 · **GS:** — (not on GS-01..05 path)
 **State:** CD-18 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Voice failed"
 - "One Retry, then Manual"
 - "!"

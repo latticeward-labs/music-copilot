@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-12 · Confirmation failed-safe
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-12.png · **PNG SHA-256:** bada5dc2d4fde8e898f436c73fbb32c54fc75fc4c50296e7e6c2c22ffb9cf8fa
+**PNG:** HF_STATE_CD-12.png · **PNG SHA-256:** 554999437c1fc89b7776329861f53eacf5d75ab719c34986ef22d01295331a66
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-09 · **GS:** — (not on GS-01..05 path)
 **State:** CD-12 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Confirmation failed"
 - "One Retry, then Manual"
 - "!"

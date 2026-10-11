@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-13 · Artist not found
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-13.png · **PNG SHA-256:** e5ca1ec47ba5013b314661575b289cc7105b8d7b8440320fb05858a02804fb8e
+**PNG:** HF_STATE_CD-13.png · **PNG SHA-256:** 79b409ee41b527a1d6ec9a62964ce42e20cfc787bdf15adf563ca9e487e27c60
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-09 · **GS:** — (not on GS-01..05 path)
 **State:** CD-13 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Artist not found"
 - "One Retry, then Manual"
 - "!"

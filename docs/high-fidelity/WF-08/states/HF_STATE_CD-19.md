@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-19 · Attempt-two terminal failure
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-19.png · **PNG SHA-256:** 46f872d63754b148479b4afb6803957ba8c55b21f0a6c57bf792d81ced545af7
+**PNG:** HF_STATE_CD-19.png · **PNG SHA-256:** 943e4e3b61e8c99282fbaec5b879b1ebcb847789360b5ed6ef9c9a7b51a054bc
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-10 · **GS:** — (not on GS-01..05 path)
 **State:** CD-19 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Voice unavailable"
 - "Manual controls only"
 - "!"

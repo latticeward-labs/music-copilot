@@ -1,7 +1,7 @@
 # HF Frame Review — WF-08_VOICE_EXECUTED
 
 **Issue/phase:** #17 / 5 · **Source:** WF-08_VOICE_EXECUTED · **Status:** Reviewable generated evidence (not separate human sign-off)
-**Image:** HF_FRAME_WF-08_VOICE_EXECUTED.png · **SHA-256:** 730e356b53f3ad9f6eacf2234e450755869f07db75a139e9460de01687561119
+**Image:** HF_FRAME_WF-08_VOICE_EXECUTED.png · **SHA-256:** 277ab34efd7327ba29e82f0f67847685a403c2e9cdd354136efff286c3c4b87b
 **Priority:** P0 · **Ownership:** App + Voice Coordinator
 **Canonical State IDs:** CD-07 · **UF:** UF-08 / UF-09 / UF-10 · **GS:** GS-04 recovery path
 **Approved source:** https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_EXECUTED.md and https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg
@@ -9,7 +9,6 @@
 
 ## Exact rendered app copy
 
-- "DRIVING / PLAYER CONTEXT"
 - "Done"
 - "Next track acknowledged"
 - "✓"

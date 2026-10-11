@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-09 · Confirming one candidate
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-09.png · **PNG SHA-256:** 89eb4d69a23362fe7e5ac01134e9d2a1b7e74e85e2621a81c515385c3e922e4f
+**PNG:** HF_STATE_CD-09.png · **PNG SHA-256:** edc2798b9507606a33cfbcbf06bf10e97be66f1f2bad888dfa605c1c13acf99a
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-09 · **GS:** — (not on GS-01..05 path)
 **State:** CD-09 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Which artist?"
 - "Choose one presented candidate"
 - "1 · Aurora"

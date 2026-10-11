@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-11 · Confirmed command pending
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-11.png · **PNG SHA-256:** f6286422689bb936f4c713798ac6ef60b7f3930ad83ae9dd9b225663c06cde23
+**PNG:** HF_STATE_CD-11.png · **PNG SHA-256:** 24d80db6ed96414a686d8f90b876732e2aa1de370f4c3879b052f40a1862d0b7
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-09 · **GS:** — (not on GS-01..05 path)
 **State:** CD-11 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Processing"
 - "Mapping one of six intents"
 - "Cancel"

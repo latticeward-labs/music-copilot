@@ -1,7 +1,7 @@
 # High-Fidelity State — CC-07 · Driving No Track
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CC-07.png · **PNG SHA-256:** a7a1960095fcea3fddd3ed689f22b21aa65e9b07dd31d0753f424f6552f2ce07
+**PNG:** HF_STATE_CC-07.png · **PNG SHA-256:** b8069829816d98dfcb4d9eab6a67f0b2223eff3b198514baa76816d354bd91e7
 **Priority:** P0 · **WF:** WF-07
 **UF:** UF-07 · **GS:** GS-04
 **State:** CC-07 · **Owner:** App + Playback Service
@@ -17,7 +17,6 @@
 - "No current track"
 - "Exit to browse local music"
 - "Mic · Voice"
-- "One layer · no typing · no lists"
 
 ## State and structure contract
 

@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-16 · Missing artist
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-16.png · **PNG SHA-256:** b2c72278e7eb4181b9538990de079b9a30c871cf13bfe51986648c46f8856e7b
+**PNG:** HF_STATE_CD-16.png · **PNG SHA-256:** dc3434c347214edb2005f6b18e2a79f6fdc0e4165b76227a01cf9525b260775a
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-09 · **GS:** — (not on GS-01..05 path)
 **State:** CD-16 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Artist is missing"
 - "One Retry, then Manual"
 - "!"

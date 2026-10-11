@@ -1,7 +1,7 @@
 # High-Fidelity State — CC-11 · P1 selected-device connected
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CC-11.png · **PNG SHA-256:** 2decf43fd87ed95b2c81778454b7d3a34620cc2aaaaadfae4f55be32979ed801
+**PNG:** HF_STATE_CC-11.png · **PNG SHA-256:** e495c7b4fb103755ebff64426a41400ab318ad189f24499c17aa421686b8f24c
 **Priority:** P1 · **WF:** WF-07
 **UF:** UF-07 / UF-12 · **GS:** — (not on GS-01..05 path)
 **State:** CC-11 · **Owner:** Hybrid
@@ -18,7 +18,6 @@
 - "Local artist"
 - "PLAYING"
 - "Mic · Voice"
-- "One layer · no typing · no lists"
 
 ## State and structure contract
 

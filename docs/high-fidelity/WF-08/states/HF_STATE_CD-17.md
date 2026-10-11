@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-17 · Attempt-one failure
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-17.png · **PNG SHA-256:** 0e4636e9efcb3d19e75f8fb59c4b99217f36437f7a1ec01c302de98b13ea28e5
+**PNG:** HF_STATE_CD-17.png · **PNG SHA-256:** 1f741a8809e030583eab7d4b58332944b7a6d322cc21b102df46bafc42f55e45
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-10 · **GS:** — (not on GS-01..05 path)
 **State:** CD-17 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Voice attempt failed"
 - "One Retry, then Manual"
 - "!"

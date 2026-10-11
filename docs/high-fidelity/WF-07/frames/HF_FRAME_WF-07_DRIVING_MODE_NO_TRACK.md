@@ -1,7 +1,7 @@
 # HF Frame Review — WF-07_DRIVING_MODE_NO_TRACK
 
 **Issue/phase:** #17 / 5 · **Source:** WF-07_DRIVING_MODE_NO_TRACK · **Status:** Reviewable generated evidence (not separate human sign-off)
-**Image:** HF_FRAME_WF-07_DRIVING_MODE_NO_TRACK.png · **SHA-256:** a7a1960095fcea3fddd3ed689f22b21aa65e9b07dd31d0753f424f6552f2ce07
+**Image:** HF_FRAME_WF-07_DRIVING_MODE_NO_TRACK.png · **SHA-256:** b8069829816d98dfcb4d9eab6a67f0b2223eff3b198514baa76816d354bd91e7
 **Priority:** P0 · **Ownership:** App + Playback Service
 **Canonical State IDs:** CC-07, CC-15 · **UF:** UF-07 / UF-11 · **GS:** GS-04 / GS-05
 **Approved source:** https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.md and https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg
@@ -15,7 +15,6 @@
 - "No current track"
 - "Exit to browse local music"
 - "Mic · Voice"
-- "One layer · no typing · no lists"
 
 ## Behavioral boundary
 

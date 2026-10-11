@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-03 · Listening attempt 1
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-03.png · **PNG SHA-256:** 431025bd6937f514ff9fb10f636745eef521af8df2a84c2954f9234b7a9c68a9
+**PNG:** HF_STATE_CD-03.png · **PNG SHA-256:** 2eb761ad69706522de07b3bc1974a5868af1a055efbd584dd34c3a10e7eac2b2
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-08 · **GS:** GS-04
 **State:** CD-03 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Listening"
 - "Six-second attempt"
 - "MIC"

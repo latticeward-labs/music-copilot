@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-10 · Confirming two artists
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-10.png · **PNG SHA-256:** 38cee0f52bc3c30f1941d4c1e43cc58ec254864fbd77e17493a6f5624562769a
+**PNG:** HF_STATE_CD-10.png · **PNG SHA-256:** 2bb6e40387dad528c63865444b1b31b412c63958e4c09fc8c74c10bdb12d0247
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-09 · **GS:** — (not on GS-01..05 path)
 **State:** CD-10 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Which artist?"
 - "Choose one presented candidate"
 - "1 · Aurora"

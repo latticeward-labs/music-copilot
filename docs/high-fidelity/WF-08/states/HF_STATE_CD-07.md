@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-07 · Executed
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-07.png · **PNG SHA-256:** 730e356b53f3ad9f6eacf2234e450755869f07db75a139e9460de01687561119
+**PNG:** HF_STATE_CD-07.png · **PNG SHA-256:** 277ab34efd7327ba29e82f0f67847685a403c2e9cdd354136efff286c3c4b87b
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-08 · **GS:** GS-04
 **State:** CD-07 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Done"
 - "Next track acknowledged"
 - "✓"

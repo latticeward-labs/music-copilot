@@ -55,3 +55,7 @@ No Phase-5 recovery/state-expansion work is claimed by this phase.
 ## Phase 5 — 126-state completion (11 October 2026)
 
 Phase 4 primary images remain unchanged. Phase 5 adds **45** State-ID reviewable PNG/spec pairs inside each WF package under /states/, **32** approved source-frame Night Signal PNG/spec pairs under /frames/, **61** component variants under /state-variants/, and **20** platform-only handoffs under /system-handoffs/. The authoritative disposition is [HIFI_STATE_COVERAGE_MATRIX.md](HIFI_STATE_COVERAGE_MATRIX.md); machine validation is [PHASE_5_VALIDATION.json](PHASE_5_VALIDATION.json). Automated 126/126 coverage does not imply independent human sign-off, physical runtime accessibility acceptance, or Issue #17 final closure.
+
+## Phase 5 — 126-state completion (11 October 2026)
+
+Phase 4 primary images remain unchanged. Phase 5 adds **45** State-ID reviewable PNG/spec pairs inside each WF package under /states/, **32** approved source-frame Night Signal PNG/spec pairs under /frames/, **61** component variants under /state-variants/, and **20** platform-only handoffs under /system-handoffs/. The authoritative disposition is [HIFI_STATE_COVERAGE_MATRIX.md](HIFI_STATE_COVERAGE_MATRIX.md); machine validation is [PHASE_5_VALIDATION.json](PHASE_5_VALIDATION.json). Automated 126/126 coverage does not imply independent human sign-off, physical runtime accessibility acceptance, or Issue #17 final closure.

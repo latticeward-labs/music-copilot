@@ -1,7 +1,7 @@
 # High-Fidelity State — CC-06 · Driving Paused/Ended
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CC-06.png · **PNG SHA-256:** 15e2041d756ca076fccf9097f314ca54f22c0db76ef7113dcc34cecc88b75fb9
+**PNG:** HF_STATE_CC-06.png · **PNG SHA-256:** e9416c98432b43620ef349d1a56d7ca480e1da0f291d907df988a026b5def564
 **Priority:** P0 · **WF:** WF-07
 **UF:** UF-07 · **GS:** GS-04
 **State:** CC-06 · **Owner:** App + Playback Service
@@ -18,7 +18,6 @@
 - "Local artist"
 - "PAUSED"
 - "Mic · Voice"
-- "One layer · no typing · no lists"
 
 ## State and structure contract
 

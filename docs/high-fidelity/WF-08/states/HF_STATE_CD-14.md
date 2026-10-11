@@ -1,7 +1,7 @@
 # High-Fidelity State — CD-14 · Unknown phrase
 
 **Issue:** #17 · **Phase:** 5 · **Disposition:** DEDICATED_HIFI / REVIEWABLE
-**PNG:** HF_STATE_CD-14.png · **PNG SHA-256:** eb1fa1767adb5679a369a20fe0ca9005749685003c2479793db6464fafdcd9ed
+**PNG:** HF_STATE_CD-14.png · **PNG SHA-256:** 5647fe13851d916a0167b3c9b27e05317d03695cb03928804f2bf7d1de9e627d
 **Priority:** P0 · **WF:** WF-08
 **UF:** UF-09 · **GS:** — (not on GS-01..05 path)
 **State:** CD-14 · **Owner:** App + Voice coordinator
@@ -11,7 +11,6 @@
 
 ## Exact UI copy (device surface only)
 
-- "DRIVING / PLAYER CONTEXT"
 - "Command not understood"
 - "One Retry, then Manual"
 - "!"

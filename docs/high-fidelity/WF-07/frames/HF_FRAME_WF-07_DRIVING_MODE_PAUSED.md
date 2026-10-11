@@ -1,7 +1,7 @@
 # HF Frame Review — WF-07_DRIVING_MODE_PAUSED
 
 **Issue/phase:** #17 / 5 · **Source:** WF-07_DRIVING_MODE_PAUSED · **Status:** Reviewable generated evidence (not separate human sign-off)
-**Image:** HF_FRAME_WF-07_DRIVING_MODE_PAUSED.png · **SHA-256:** 15e2041d756ca076fccf9097f314ca54f22c0db76ef7113dcc34cecc88b75fb9
+**Image:** HF_FRAME_WF-07_DRIVING_MODE_PAUSED.png · **SHA-256:** e9416c98432b43620ef349d1a56d7ca480e1da0f291d907df988a026b5def564
 **Priority:** P0 · **Ownership:** App + Playback Service
 **Canonical State IDs:** CC-06, CC-16 · **UF:** UF-07 / UF-11 · **GS:** GS-04 / GS-05
 **Approved source:** https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.md and https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg
@@ -16,7 +16,6 @@
 - "Local artist"
 - "PAUSED"
 - "Mic · Voice"
-- "One layer · no typing · no lists"
 
 ## Behavioral boundary
 
