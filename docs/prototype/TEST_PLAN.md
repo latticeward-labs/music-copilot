@@ -4,9 +4,9 @@
 
 ## Automated checks
 
-Run \`node docs/prototype/validate.cjs\` to verify the complete GS path graph and recoveries, State/WF/system boundary ownership, image dimensions/signatures, hotspot bounds, no third Retry, no invalid Driving link to settings/search/queue, and route reconnection not auto-starting.
+Run `node docs/prototype/validate.cjs` to verify the complete GS path graph and recoveries, State/WF/system boundary ownership, image dimensions/signatures, hotspot bounds, no third Retry, no invalid Driving link to settings/search/queue, and route reconnection not auto-starting.
 
-Run \`node docs/prototype/browser-smoke.cjs\` while serving the repository root to exercise real Chromium clicks through:
+Run `node docs/prototype/browser-smoke.cjs` while serving the repository root to exercise real Chromium clicks through:
 
 1. GS-01 OS-owned permission grant → validated library Ready.
 2. GS-02 Search tab → scripted local results → service-acknowledged Player.
