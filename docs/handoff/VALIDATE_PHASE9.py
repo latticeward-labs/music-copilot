@@ -28,8 +28,9 @@ for i in range(1,11):
 for id,v in c["components"].items():
  assert len(re.findall(r"^### "+id+r" — ",cm,re.M))==1,id
  for k,n in v["geometry"].items():
-  assert (Q+k+" = "+str(n)+Q) in cm,(id,k)
-  assert (Q+k+Q+" | "+Q+str(n)+Q) in tk,(id,k)
+    value=str(n).lower() if isinstance(n,bool) else str(n)
+  assert (Q+k+" = "+value+Q) in cm,(id,k)
+  assert (Q+k+Q+" | "+Q+value+Q) in tk,(id,k)
 for k,v in t["color"]["semantic"].items():
  assert Q+"color.semantic."+k+Q+" | "+Q+v+Q in tk,k
 for k,v in t["typography"].items():
