@@ -187,7 +187,7 @@
   "chromiumCasesPassed": 14,
   "linkAudit": {
     "markdownFilesAudited": 366,
-    "internalPathLinks": 1347,
+    "internalPathLinks": 1350,
     "internalSameRepoGithubLinks": 113,
     "externalLinksSkipped": 166,
     "fragmentTargetsNotVerified": 4,

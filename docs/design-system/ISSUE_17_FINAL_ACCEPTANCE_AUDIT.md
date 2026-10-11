@@ -55,7 +55,7 @@ Source of these exact criteria: [Issue #17](https://github.com/latticeward-labs/
 
 Checked **366** current Markdown documents across `docs/design-system/`, `docs/high-fidelity/`, `docs/handoff/`, `docs/prototype/`, `docs/audit/phase-10/`, approved Wireframe/Golden Scenario sources and core authority docs.
 
-- Relative repository-local Markdown/image link references: **1347**.
+- Relative repository-local Markdown/image link references: **1350**.
 - Same-repository GitHub `blob/main` and `tree/main` references: **113**.
 - External/non-main/third-party links skipped (not claimed live-verified): **166**.
 - Link fragments/anchors not validated as exact heading slugs: **4**.
