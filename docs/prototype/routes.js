@@ -71,7 +71,7 @@
       simulate("Return to verified Library","library")
     ]),
     node("empty","S-04","WF-04",frame("04","HOME_LIBRARY_EMPTY"),"Verified empty library","No accessible audio found. This is not a permission-denied state.",[
-      tap("Rescan","scanning",42,430,276,62),
+      tap("Rescan","scanning",65,368,231,54),
       simulate("Return to media permission recovery","permission")
     ]),
     node("library","CB-01","WF-04",state("04","CB-01"),"Ready Library","Songs, Artists, Albums and Folders are the existing manual browse categories.",[
@@ -122,7 +122,7 @@
       tap("Back to preserved Library","library",1,30,58,57),
       simulate("Corrupt local item encountered","corrupt"),
       simulate("Controller disconnects","reconnect"),
-      simulate("Background app / screen off","background"),
+      simulate("Android active-session handoff / app background","session-handoff"),
       simulate("Call, focus or route interruption","route-event")
     ]),
     node("player-paused","CB-16","WF-06",state("06","CB-16"),"Full Player — Paused","Manual play only; no automatic restart.",[
@@ -145,11 +145,33 @@
       simulate("Service snapshot confirms Paused","player-paused"),
       simulate("Service unavailable; no valid P1 restore","library")
     ]),
-    boundary("background","CB-23","Android background / screen off","UI absent: playback remains service-owned. No fake notification or lockscreen is drawn.",[
-      system("Compatible system controls are present","sys-controls"),
+    boundary("session-handoff","CB-22","Android active-session ownership handoff","Service continues outside UI; Android owns lifecycle and native controls.",[
+      system("Activity enters background","background")
+    ],"Android/System + Playback Service"),
+    boundary("background","CB-23","App background: native lifecycle","App UI absent; the MediaSessionService remains sole playback owner.",[
+      system("Device screen off / lock screen","screen-off"),
       system("Return to app; reconnect controller","reconnect"),
-      system("OEM lifecycle destroyed service; valid P1 paused restore","restore-paused"),
-      system("OEM lifecycle; no valid restore","library")
+      system("OEM service lifecycle change","lifecycle-event")
+    ],"Android/System + Playback Service"),
+    boundary("screen-off","CB-24","Screen off / lock screen","Android owns the system lock-screen UI. Playback continues only while the actual service/route is active.",[
+      system("Compatible notification media controls","sys-controls"),
+      system("Lock-screen media control","lock-controls"),
+      system("Headset / vehicle media key","external-keys"),
+      system("OS surface unavailable / notification denied","notification-denied"),
+      system("Return to app and read actual snapshot","reconnect")
+    ],"Android/System + Playback Service"),
+    boundary("lock-controls","CB-27","Native lock-screen MediaSession controller","Android owns the lock-screen artwork/actions; no app-defined screen or Android Auto UI.",[
+      system("System Play/Pause/Next/Previous key","sys-command"),
+      system("Unlock / app reconnect","reconnect")
+    ],"Android/System + MediaSession"),
+    boundary("external-keys","CB-28","External headset / vehicle media key","External compatible media keys are Android-dispatched to the same MediaSession.",[
+      system("Supported system key to MediaSession","sys-command"),
+      system("Return to app","reconnect")
+    ],"Android/System + MediaSession"),
+    boundary("lifecycle-event","CB-25","OEM/service lifecycle check","An OEM may terminate the active session; NEVER pretend playback survived.",[
+      system("Service still alive → reconnect","reconnect"),
+      system("Service lost; valid P1 snapshot restores Paused","restore-paused"),
+      system("Service lost; no verified snapshot → Home","library")
     ],"Android/System + Playback Service"),
     boundary("sys-controls","CB-26","Native MediaSession controls","Android owns notification, lock-screen and vehicle media-key surfaces. No mock system UI.",[
       system("OS Media Key command sent","sys-command"),
@@ -324,8 +346,8 @@
       primary:["library","search","results","selection","player"],
       recoveries:["search-none","search-error","stale","corrupt","reconnect"]},
     "GS-03":{title:"Background / system controls",start:"player",success:"player",source:"GS-03_CONTINUE_PLAYBACK_OUTSIDE_APP.md",
-      primary:["player","background","sys-controls","sys-command","reconnect","player"],
-      recoveries:["notification-denied","sys-settings-notification","restore-paused","library"]},
+      primary:["player","session-handoff","background","screen-off","sys-controls","sys-command","reconnect","player"],
+      recoveries:["lock-controls","external-keys","lifecycle-event","notification-denied","sys-settings-notification","restore-paused","library"]},
     "GS-04":{title:"Driving → direct Voice NEXT",start:"player",success:"driving",source:"GS-04_DRIVE_AND_EXECUTE_DIRECT_VOICE.md",
       primary:["player","driving","voice-listen","voice-processing","voice-pending","voice-done","driving"],
       recoveries:["driving-paused","driving-none","driving-last","driving-safe","voice-confirm-one","voice-confirm-two","voice-timeout","voice-listen-two","voice-terminal","voice-not-found","voice-unsupported","voice-unknown","voice-provider","voice-permission","voice-rejected","voice-tts"]},
@@ -333,7 +355,17 @@
       primary:["player","route-event","route-paused","route-return","safe-paused","manual-resume","player"],
       recoveries:["focus-paused","safe-paused","route-paused","route-return"]}
   };
-  const data={version:"1.0",issue:17,phase:8,viewport:[360,800],archiveSha256:"0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",nodes,scenarios};
+  // Reviewer-safe endpoints terminate each declared branch without crossing
+  // into an unrelated GS to claim success. These are verified states or
+  // explicit fail-closed manual/error destinations, not newly drawn screens.
+  const recoverySafety = {
+    "GS-01": {allowed:["splash","migration-error","welcome","education","permission","sys-media","denied","permanent","sys-settings","granted","scanning","scan-error","empty","library"], terminals:["library","denied","permanent","empty","migration-error"]},
+    "GS-02": {allowed:["library","search","results","search-none","search-error","stale","selection","player","player-paused","queue","corrupt","reconnect","permission","sys-media","denied","permanent","sys-settings","granted","scanning","scan-error","empty"], terminals:["player","player-paused","library","results","search-none","search-error","denied","permanent"]},
+    "GS-03": {allowed:["player","player-paused","session-handoff","background","screen-off","sys-controls","lock-controls","external-keys","sys-command","lifecycle-event","reconnect","notification-denied","sys-settings-notification","restore-paused","library"], terminals:["player","player-paused","restore-paused","notification-denied","library"]},
+    "GS-04": {allowed:["player","player-paused","driving","driving-paused","driving-none","driving-last","driving-safe","voice-listen","voice-listen-two","voice-processing","voice-confirm-one","voice-confirm-two","voice-pending","voice-done","voice-tts","voice-timeout","voice-terminal","voice-not-found","voice-unsupported","voice-unknown","voice-provider","voice-permission","voice-rejected"], terminals:["driving","driving-paused","driving-none","driving-safe","player","player-paused"]},
+    "GS-05": {allowed:["player","route-event","route-paused","route-return","focus-paused","safe-paused","manual-resume","library"], terminals:["player","safe-paused","route-paused","focus-paused","library"]}
+  };
+  const data={version:"1.1",issue:17,phase:8,recoverySafety,viewport:[360,800],archiveSha256:"0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",nodes,scenarios};
   root.MUSICO_ROUTES=data;
   if (typeof module!=="undefined" && module.exports) module.exports=data;
 })(typeof window!=="undefined" ? window : globalThis);
