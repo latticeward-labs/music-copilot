@@ -58,6 +58,11 @@ const fs=require("node:fs"),path=require("node:path"),assert=require("node:asser
    await review("Corrupt local item encountered");await cur("CB-19");
    await review("No playable queue item remains");await cur("CB-16");
    cases.push("GS-02 stale selection preserves results; corrupt media reaches safe Paused");
+   await scenario("GS-02");await tap("Search tab");
+   await review("Query returns no results");await cur("CB-11");
+   await tap("Clear preserved query");await cur("CB-09");
+   cases.push("GS-02 Search No Result preserves query and exits safely via Clear");
+
 
    await scenario("GS-03");await cur("CB-15");
    await review("Android active-session handoff / app background");await cur("CB-22");
@@ -79,6 +84,18 @@ const fs=require("node:fs"),path=require("node:path"),assert=require("node:asser
    await review("Service acknowledges once");await cur("CB-21");
    await review("Service snapshot confirms Playing");await cur("CB-15");
    cases.push("GS-03 lock-screen handoff remains Android owned; compatible key reconnect");
+   await scenario("GS-03");
+   await review("Android active-session handoff / app background");
+   await review("Activity enters background");await cur("CB-23");
+   await review("OEM service lifecycle change");await cur("CB-25");
+   await review("Service lost; valid P1 snapshot restores Paused");await cur("CB-32");
+   await tap("Explicit Play on verified restore");await cur("CB-32");
+   assert.match(await page.locator("#state-title").textContent(),/await service ACK/);
+   await review("Service rejects or item invalid; remain Paused");await cur("CB-32");
+   await tap("Explicit Play on verified restore");
+   await review("Service acknowledges explicit Play");await cur("CB-15");
+   cases.push("GS-03 P1 Paused Restore never becomes Playing before explicit Play and service ACK");
+
 
    await scenario("GS-04");await cur("CB-15");
    await tap("Enter Driving Mode");await cur("CC-05");
