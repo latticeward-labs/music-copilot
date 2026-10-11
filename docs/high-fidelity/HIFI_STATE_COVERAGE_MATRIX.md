@@ -4,6 +4,10 @@
 **Source archive SHA-256:** 0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8
 **Visual authority:** 32 approved Issue #15 app frames + 10 existing Phase-4 primary images, Night Signal / Compose-oriented components.
 
+## Phase 6 specialist supersession notice (11 October 2026)
+
+This historical 126/126 State-ID disposition remains authoritative for identity and coverage count. For **WF-07 Driving / WF-08 Voice static specialist imagery**, follow [Phase 6 specialist matrix](specialist/phase-6/PHASE_6_SPECIALIST_MATRIX.md) and [complete CC/CD audit](specialist/phase-6/PHASE_6_UF_STATE_AUDIT.md). Phase 6 corrects the generic Failed state showing an ineligible Retry and Driving No Track showing unverified Play last. Use Phase-6 artwork/spec for those UX details; do **not** infer a new canonical state, destination or owner. The 20 Android/System-only transitions remain annotations/handoffs. Real device QA remains pending.
+
 ## Verification summary
 
 | Gate | Expected | Verified | Verdict |
