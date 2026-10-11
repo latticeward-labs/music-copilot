@@ -65,3 +65,17 @@ Phase 4 primary images remain unchanged. Phase 5 adds **45** State-ID reviewable
 - [22 real-device QA handoff cases](specialist/phase-6/PHASE_6_DEVICE_QA_HANDOFF.md) explicitly marked NOT RUN.
 
 **Specialist precedence:** for UF-07/08/09/10, the matching specialist image/spec supersedes contradictory generic Phase-5 visual treatments while keeping the 126 canonical State IDs and former Phase-5 records immutable. In particular, No Track no longer offers an unverified active Play last; not-found/unsupported do not show an ineligible Retry. Android/System-only transitions are not depicted as in-app screens. Phase 4 primary images and Phase 5 machine counts remain unchanged.
+
+## Phase 7 — Accessibility / Privacy / System-boundary handoff (11 October 2026)
+
+Phase 7 explicitly specifies per-State TalkBack reading order, actionable labels, non-color-only status, Compose semantics, focus restoration, 100/150/200% font reflow and 48dp targets (**Driving:** 64dp transport, 72dp Mic, 56dp Exit). It preserves all 20 Android/System-only owners and system transition return paths; no external Android permission dialog, Settings, notification, lock-screen or vehicle media interface is fabricated as an app screen.
+
+- [Full 45 + 20 coverage matrix](phase-7/ACCESSIBILITY_PRIVACY_SYSTEM_MATRIX.md)
+- [Compose semantics and PH10-MIN-001 implementation handoff](phase-7/COMPOSE_A11Y_HANDOFF.md)
+- [Privacy/telemetry and sanitized evidence contract](phase-7/PRIVACY_EVIDENCE_HANDOFF.md)
+- [System boundary and OS return ownership](phase-7/SYSTEM_BOUNDARY_HANDOFF.md)
+- [Machine-readable source/ownership register](phase-7/PHASE_7_REGISTER.json)
+- [Automated validation result](phase-7/PHASE_7_VALIDATION.md)
+- [65 on-device checks — deliberately NOT RUN](phase-7/PHASE_7_DEVICE_QA_MATRIX.md)
+
+**Gate:** PASS at specification/handoff level; PH10-MIN-001 remains OPEN for actual Compose semantics, focus and 200% reflow proof. Independent Product/UX/Android/Privacy and physical accessibility review is not claimed.
