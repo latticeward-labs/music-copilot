@@ -1,0 +1,40 @@
+name: Issue 17 Phase 11 temporary AI cross-role evidence checks
+on:
+  push:
+    branches: [issue-17/phase-11-ai-assisted-six-role-review-20261011]
+    paths:
+      - '.github/workflows/issue17-phase11-temp.yml'
+      - 'docs/design-system/review/**'
+      - 'docs/handoff/**'
+      - 'docs/audit/phase-10/RUN_PHASE_10_AUDIT.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: issue17-phase11-evidence-20261011
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cross-role findings and corrected source contracts
+        run: python3 docs/design-system/review/VALIDATE_ISSUE_17_REVIEW.py
+      - name: Re-run Phase 9 Compose contract audit
+        run: python3 docs/handoff/VALIDATE_PHASE9.py
+      - name: Re-run Phase 10 frozen-source and priority gate
+        run: python3 docs/audit/phase-10/RUN_PHASE_10_AUDIT.py
+      - name: Assert earlier source evidence did not drift
+        run: |
+          git diff --exit-code -- docs/handoff/PHASE9_VALIDATION.json docs/handoff/PHASE9_VALIDATION.md
+          git diff --exit-code -- docs/audit/phase-10/PHASE_10_VALIDATION.json docs/audit/phase-10/PHASE_10_TRACEABILITY_REGISTER.json docs/audit/phase-10/PHASE_10_TRACEABILITY_MATRIX.md docs/audit/phase-10/PHASE_10_VISUAL_ARTIFACT_MATRIX.md docs/audit/phase-10/PHASE_10_SCOPE_PRIORITY_AUDIT.md
+      - name: Persist current Phase 11 reviewer validation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/design-system/review/ISSUE_17_REVIEW_VALIDATION.md
+          if ! git diff --cached --quiet; then
+            git commit -m "test(issue-17): validate six AI review roles, resolved Majors and exact downstream gates"
+            git push
+          fi
