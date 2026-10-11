@@ -320,7 +320,7 @@ def dedicated_spec(s, f, path, sha, copy, low_paths):
         "- **Source approved hierarchy:** "+f["id"]+"; existing WF family only; no new app destination.",
         "- **Visual-state specialization:** "+ui_notes(s,f),
         "- **Component mapping:** "+", ".join(COMP_BY_WF[wf])+". All component definitions are in docs/design-system/components/COMPONENT_TOKENS.json.",
-        "- **Structural delta:** None. Source-aligned copy specialization only (where explicitly noted), not new controls or navigation.",
+        "- **Structural delta:** Existing authorized state-content specialization (CB-09, CB-17, CB-18, CE-21, CE-22, CD-23); reviewed as within owning WF, with human UX approval still required for copy/layout refinements. No new navigation, runtime owner or capability." if s["stateId"] in COPY_SPECIAL else "- **Structural delta:** None. Source-aligned copy specialization only (where explicitly noted), not new controls or navigation.",
         "- **Entry:** "+f["entry"],
         "- **Primary action:** "+f["primary"],
         "- **Exit:** "+f["exit"],
@@ -376,6 +376,91 @@ def handoff_details(s):
             "Reconnect UI controller and read complete service snapshot; resume policy is P0 continuity vs P1 safe-paused restoration.",
             "UI lifecycle is not the playback authority and must not fabricate player state.")
 
+# These are state-content treatments of existing source-authorized controls:
+# Queue from WF-06, Privacy/consent from WF-10, and Search Idle from WF-05.
+# They do not create new navigation destinations or product capabilities.
+# They ARE product-copy refinements and require later human UX approval.
+COPY_SPECIAL = {
+    "CB-09":["Back","Search","Search local music","Home","Search","Liked","Settings"],
+    "CB-17":["Back","Now playing","Queue","Aurora Lights","Local artist","Play","COMPLETED"],
+    "CB-18":["Back","Now playing","Queue","Current queue","Aurora Lights","Local artist","PLAYING","Night Drive","Ocean Lines"],
+    "CE-21":["Back","Settings","Permissions","Bluetooth suggestion","Privacy","Clear data / history","Privacy details","Local-first controls","Your library stays on this device","Raw voice audio is not stored by default","Home","Search","Liked","Settings"],
+    "CE-22":["Back","Settings","Permissions","Bluetooth suggestion","Privacy","Clear data / history","Cloud voice consent","Local processing is preferred","Cloud processing is optional","Not now","Allow cloud voice","Home","Search","Liked","Settings"],
+    "CD-23":["Back","Settings","Permissions","Bluetooth suggestion","Privacy","Clear data / history","Cloud voice needs consent","Manual playback is still available","Not now","Review privacy","Home","Search","Liked","Settings"],
+}
+def state_surface_specialization(image: Image.Image, sid: str, source_copy):
+    if sid not in COPY_SPECIAL:
+        return image,source_copy
+    img=image.copy()
+    d=ImageDraw.Draw(img)
+    fg="#F5F7FA"; muted="#C8D0DA"; soft="#9AA5B3"
+    cyan="#67D8FF"; dark="#090D12"; panel="#18212C"; accent="#143646"
+    fontfile=next((p for p in [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf"
+    ] if Path(p).exists()),None)
+    fontbold=next((p for p in [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf"
+    ] if Path(p).exists()),None)
+    assert fontfile and fontbold
+    h=ImageFont.truetype(fontbold,54)
+    body=ImageFont.truetype(fontfile,32)
+    small=ImageFont.truetype(fontfile,28)
+    tiny=ImageFont.truetype(fontbold,27)
+    if sid=="CB-09":
+        # The search field stays source-owned; results must NOT be fabricated
+        # while there is no query. Keep approved bottom navigation.
+        d.rectangle((35,535,1045,2070),fill=dark)
+        d.text((540,930),"Search local music",font=h,anchor="mm",fill=fg)
+    elif sid=="CB-17":
+        # Acknowledged completed queue means no false PLAYING badge.
+        d.rectangle((335,1840,750,2060),fill=dark)
+        d.text((540,1920),"COMPLETED",font=h,anchor="mm",fill=cyan)
+    elif sid=="CB-18":
+        # The approved Queue action opens a same-owner queue state; no new
+        # destination, data owner, picker or special Android UI.
+        d.rectangle((0,240,1080,2300),fill=dark)
+        d.text((65,380),"Current queue",font=h,fill=fg)
+        rows=[
+            ("Aurora Lights","Local artist","PLAYING"),
+            ("Night Drive","Local artist",""),
+            ("Ocean Lines","Local artist","")
+        ]
+        for i,(title,sub,state) in enumerate(rows):
+            y=470+i*230
+            d.rounded_rectangle((50,y,1030,y+190),radius=28,fill=panel)
+            d.rounded_rectangle((78,y+37,192,y+151),radius=22,fill=accent)
+            d.text((245,y+55),title,font=ImageFont.truetype(fontbold,39),fill=fg)
+            d.text((245,y+118),sub,font=small,fill=muted)
+            if state:d.text((810,y+118),state,font=tiny,fill=cyan)
+        d.text((65,1250),"Queue reflects the current player session",font=body,fill=soft)
+    elif sid in ("CE-21","CE-22","CD-23"):
+        # Detail is an expansion of the already-approved Privacy section in
+        # Settings, not an extra top-level destination or system dialog.
+        d.rounded_rectangle((45,1200,1035,2070),radius=32,fill=panel)
+        if sid=="CE-21":
+            title="Privacy details"
+            lines=["Local-first controls","Your library stays on this device",
+                   "Raw voice audio is not stored by default"]
+        elif sid=="CE-22":
+            title="Cloud voice consent"
+            lines=["Local processing is preferred","Cloud processing is optional"]
+        else:
+            title="Cloud voice needs consent"
+            lines=["Manual playback is still available"]
+        d.text((100,1280),title,font=h,fill=fg)
+        for i,line in enumerate(lines):
+            d.text((100,1400+i*95),line,font=body,fill=muted)
+        if sid!="CE-21":
+            y=1755
+            d.rounded_rectangle((90,y,500,y+145),radius=25,fill=accent,outline=cyan,width=3)
+            d.text((295,y+73),"Not now",font=ImageFont.truetype(fontbold,35),fill=fg,anchor="mm")
+            d.rounded_rectangle((520,y,985,y+145),radius=25,fill=cyan)
+            d.text((752,y+73),"Allow cloud voice" if sid=="CE-22" else "Review privacy",
+                   font=ImageFont.truetype(fontbold,30),fill="#031117",anchor="mm")
+    return img,COPY_SPECIAL[sid]
+
 # Render every one of the 32 APPROVED app frames, so composite State IDs do
 # not hide Migration Error, Empty Library or Permanently Denied beneath one ID.
 frame_artifacts = []
@@ -405,6 +490,7 @@ for sid,fid in PIN.items():
         copy=app_text_from_svg(payload)
     else:
         image,payload,copy=cached[fid]
+    image,copy=state_surface_specialization(image,sid,copy)
     dest=ROOT/wf/"states"/("HF_STATE_"+sid+".png")
     sha=safe_write_png(image,dest)
     spec=dest.with_suffix(".md")
@@ -455,7 +541,7 @@ for s in states:
         "CE-14":"WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY",
         "CE-17":"WF-10_SETTINGS_BLUETOOTH_UPDATED",
         "CE-24":"WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
-        "CE-25":"WF-10_SETTINGS_CLEARED_PRIVACY_STATUS",
+        "CE-25":"WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION",
         "CE-26":"WF-10_SETTINGS_CLEARED_PRIVACY_STATUS",
         "UL-05":"WF-09_LIKED_SONGS_READY",
         "UL-06":"WF-09_LIKED_SONGS_READY",
