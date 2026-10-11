@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 8 clickable prototype source/Chromium validation; final cross-role sign-off and actual Android QA pending**
+- **Status:** **Current through Issue #17 Phase 9 Jetpack Compose Engineering Handoff source-audit PASS; human reviews and actual Android QA pending**
 - **Updated:** 11 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -220,6 +220,14 @@ Handoff records must expose source state, runtime owner, actions, transitions, B
 - Explicitly tested Denied → Settings return and Empty Library Rescan, stale/corrupt recovery, Voice Artist Not Found → Manual, one Retry only, Route Safe Paused, and P1 Paused Restore with Play followed by service acknowledgement.
 - `docs/prototype/routes.json` is an exact validated machine-readable export of `routes.js`, not a contradictory alternative source of route authority.
 - **No inference of device/Media3/Compose/real STT QA or independent human sign-off.** Issue #17 still open for downstream review/handoff.
+
+## Issue #17 Phase 9 — Jetpack Compose Engineering Handoff (11 October 2026)
+
+- Five binding deliverables: [SCREEN_SPECS](handoff/SCREEN_SPECS.md), [COMPONENT_SPECS](handoff/COMPONENT_SPECS.md), [STATE_ACTION_MATRIX](handoff/STATE_ACTION_MATRIX.md), [COMPOSE_TOKEN_MAPPING](handoff/COMPOSE_TOKEN_MAPPING.md), [ASSET_REGISTER](handoff/ASSET_REGISTER.json).
+- Actual source-locked coverage: 10 Screen families, 23 Components, 126 State IDs, 32 low-fidelity source frames, 20 System-only states; 149 source files integrity-checked (114 approved SHA-256 verifications).
+- MediaSessionService owns queue/current item/position and PlaybackSnapshot; Compose observes through PlaybackGateway and sends commands through use cases. VoiceSessionCoordinator owns ephemeral Voice token/options and overlay origin, not NavHost.
+- Night Signal typography/color/spacing/touch geometry is exact from approved JSON; privacy analytics remains closed typed TelemetryEvent with TelemetryPrivacyGate.
+- [Phase-9 independent audit](handoff/PHASE9_VALIDATION.md) is PASS for documentation, NOT runtime Compose/Media3/STT QA, independent human reviews or 200% TalkBack evidence. PH10-MIN-001 remains open.
 
 ## Synchronization and review rules
 
