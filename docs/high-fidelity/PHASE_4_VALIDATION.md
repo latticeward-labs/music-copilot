@@ -97,7 +97,7 @@ No raw Voice audio/transcript is persisted by the design. Personal media titles/
 - `HF-03_PERMISSIONS_RATIONALE_REQUEST.png` — SHA-256 `996c44a3ebf1eb2f177fc8b9db5b124848a14421b8516c3ceab1d971ee6c5332`
 - `HF-04_HOME_LIBRARY_READY.png` — SHA-256 `b55498321e9fefb08f14b7223d93dba64a69fd6969375ac8341b23fe51c539ba`
 - `HF-05_SEARCH_RESULTS.png` — SHA-256 `b09a2829180d49a11d1ee19b2a027fd052ce51e1076a8982bbad6ac385047321`
-- `HF-06_FULL_PLAYER_PLAYING.png` — SHA-256 `61aa7e8856947f41eab9a40de70993dbb7e6e85bfe6b778fdf589f3d6256b6fe`
+- `HF-06_FULL_PLAYER_PLAYING.png` — SHA-256 `ff201a9a791581148b8bb5712a87023bb5f0764aa3be5de1d255cae61d14ae6c`
 - `HF-07_DRIVING_MODE_PLAYING.png` — SHA-256 `f6a52c65fde0a5aacbccdcd8f5079874a74e0da6cd27daf80cfde440e296763d`
 - `HF-08_VOICE_LISTENING.png` — SHA-256 `96769259e5b4655dfda41292b7ae71718ee0ae93055ec83081b1096432674da8`
 - `HF-09_LIKED_SONGS_READY.png` — SHA-256 `39610b81d84f514a52aa1c769974287404e8ced08b6910f09875f40372ca94c1`
@@ -118,3 +118,11 @@ After upload on the Phase-4 branch, confirm all of the following before recordin
 - [x] No Blocker/Major finding remains open.
 
 These checks are satisfied for the replacement package; Phase 4 is recorded as **PASS / COMPLETE** after PR merge.
+
+## Post-merge visual QA correction (2026-10-11)
+
+A visual inspection identified that the formerly marked-PASS HF-06 still had the `Driving` entry obstructing Next. Correction moves the existing entry to a separate 130dp × 52dp control beneath the `PLAYING` status and redraws the original Previous/Pause/Next row. No navigation/capability/owner changes. The HF-06 and review-board PNGs were both decoded, corrected and round-trip validated as valid PNGs. Previous PASS wording remains as historical evidence rather than proof that the earlier overlap was acceptable.
+
+- HF-06 updated SHA-256: `ff201a9a791581148b8bb5712a87023bb5f0764aa3be5de1d255cae61d14ae6c`
+- Updated Phase-4 board SHA-256: `60be0dbca4c993c4dda097ec9ddf161987cefd0d3f761f591b0eec8e41fab344`
+- Independent human sign-off and runtime device testing remain separate downstream gates.
