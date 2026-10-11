@@ -7,49 +7,319 @@
   "scenarios": {
     "GS-01": {
       "primarySteps": 7,
-      "reachableNodes": 61,
+      "scopedReachableNodes": 14,
       "recoveryCount": 6,
+      "safeTerminalPaths": {
+        "migration-error": {
+          "end": "migration-error",
+          "path": [
+            "migration-error"
+          ]
+        },
+        "denied": {
+          "end": "denied",
+          "path": [
+            "denied"
+          ]
+        },
+        "permanent": {
+          "end": "permanent",
+          "path": [
+            "permanent"
+          ]
+        },
+        "sys-settings": {
+          "end": "permanent",
+          "path": [
+            "sys-settings",
+            "permanent"
+          ]
+        },
+        "empty": {
+          "end": "empty",
+          "path": [
+            "empty"
+          ]
+        },
+        "scan-error": {
+          "end": "library",
+          "path": [
+            "scan-error",
+            "library"
+          ]
+        }
+      },
       "primaryConnected": true,
-      "missing": []
+      "missing": [],
+      "crossScenarioRecoveryUsed": false
     },
     "GS-02": {
       "primarySteps": 5,
-      "reachableNodes": 58,
+      "scopedReachableNodes": 21,
       "recoveryCount": 5,
+      "safeTerminalPaths": {
+        "search-none": {
+          "end": "search-none",
+          "path": [
+            "search-none"
+          ]
+        },
+        "search-error": {
+          "end": "search-error",
+          "path": [
+            "search-error"
+          ]
+        },
+        "stale": {
+          "end": "results",
+          "path": [
+            "stale",
+            "results"
+          ]
+        },
+        "corrupt": {
+          "end": "player",
+          "path": [
+            "corrupt",
+            "player"
+          ]
+        },
+        "reconnect": {
+          "end": "player",
+          "path": [
+            "reconnect",
+            "player"
+          ]
+        }
+      },
       "primaryConnected": true,
-      "missing": []
+      "missing": [],
+      "crossScenarioRecoveryUsed": false
     },
     "GS-03": {
-      "primarySteps": 6,
-      "reachableNodes": 58,
-      "recoveryCount": 4,
+      "primarySteps": 8,
+      "scopedReachableNodes": 15,
+      "recoveryCount": 7,
+      "safeTerminalPaths": {
+        "lock-controls": {
+          "end": "player",
+          "path": [
+            "lock-controls",
+            "reconnect",
+            "player"
+          ]
+        },
+        "external-keys": {
+          "end": "player",
+          "path": [
+            "external-keys",
+            "reconnect",
+            "player"
+          ]
+        },
+        "lifecycle-event": {
+          "end": "restore-paused",
+          "path": [
+            "lifecycle-event",
+            "restore-paused"
+          ]
+        },
+        "notification-denied": {
+          "end": "notification-denied",
+          "path": [
+            "notification-denied"
+          ]
+        },
+        "sys-settings-notification": {
+          "end": "player",
+          "path": [
+            "sys-settings-notification",
+            "reconnect",
+            "player"
+          ]
+        },
+        "restore-paused": {
+          "end": "restore-paused",
+          "path": [
+            "restore-paused"
+          ]
+        },
+        "library": {
+          "end": "library",
+          "path": [
+            "library"
+          ]
+        }
+      },
       "primaryConnected": true,
-      "missing": []
+      "missing": [],
+      "crossScenarioRecoveryUsed": false
     },
     "GS-04": {
       "primarySteps": 7,
-      "reachableNodes": 58,
+      "scopedReachableNodes": 23,
       "recoveryCount": 16,
+      "safeTerminalPaths": {
+        "driving-paused": {
+          "end": "driving-paused",
+          "path": [
+            "driving-paused"
+          ]
+        },
+        "driving-none": {
+          "end": "driving-none",
+          "path": [
+            "driving-none"
+          ]
+        },
+        "driving-last": {
+          "end": "driving",
+          "path": [
+            "driving-last",
+            "driving"
+          ]
+        },
+        "driving-safe": {
+          "end": "driving-safe",
+          "path": [
+            "driving-safe"
+          ]
+        },
+        "voice-confirm-one": {
+          "end": "driving",
+          "path": [
+            "voice-confirm-one",
+            "driving"
+          ]
+        },
+        "voice-confirm-two": {
+          "end": "driving",
+          "path": [
+            "voice-confirm-two",
+            "driving"
+          ]
+        },
+        "voice-timeout": {
+          "end": "driving",
+          "path": [
+            "voice-timeout",
+            "driving"
+          ]
+        },
+        "voice-listen-two": {
+          "end": "driving",
+          "path": [
+            "voice-listen-two",
+            "driving"
+          ]
+        },
+        "voice-terminal": {
+          "end": "driving",
+          "path": [
+            "voice-terminal",
+            "driving"
+          ]
+        },
+        "voice-not-found": {
+          "end": "driving",
+          "path": [
+            "voice-not-found",
+            "driving"
+          ]
+        },
+        "voice-unsupported": {
+          "end": "driving",
+          "path": [
+            "voice-unsupported",
+            "driving"
+          ]
+        },
+        "voice-unknown": {
+          "end": "driving",
+          "path": [
+            "voice-unknown",
+            "driving"
+          ]
+        },
+        "voice-provider": {
+          "end": "driving",
+          "path": [
+            "voice-provider",
+            "driving"
+          ]
+        },
+        "voice-permission": {
+          "end": "driving",
+          "path": [
+            "voice-permission",
+            "driving"
+          ]
+        },
+        "voice-rejected": {
+          "end": "driving",
+          "path": [
+            "voice-rejected",
+            "driving"
+          ]
+        },
+        "voice-tts": {
+          "end": "driving",
+          "path": [
+            "voice-tts",
+            "driving"
+          ]
+        }
+      },
       "primaryConnected": true,
-      "missing": []
+      "missing": [],
+      "crossScenarioRecoveryUsed": false
     },
     "GS-05": {
       "primarySteps": 7,
-      "reachableNodes": 58,
+      "scopedReachableNodes": 8,
       "recoveryCount": 4,
+      "safeTerminalPaths": {
+        "focus-paused": {
+          "end": "focus-paused",
+          "path": [
+            "focus-paused"
+          ]
+        },
+        "safe-paused": {
+          "end": "safe-paused",
+          "path": [
+            "safe-paused"
+          ]
+        },
+        "route-paused": {
+          "end": "route-paused",
+          "path": [
+            "route-paused"
+          ]
+        },
+        "route-return": {
+          "end": "safe-paused",
+          "path": [
+            "route-return",
+            "safe-paused"
+          ]
+        }
+      },
       "primaryConnected": true,
-      "missing": []
+      "missing": [],
+      "crossScenarioRecoveryUsed": false
     }
   },
-  "nodeCount": 61,
+  "nodeCount": 66,
   "appSurfaceNodes": 53,
-  "annotatedSystemOnlyNodes": 8,
-  "edges": 173,
+  "annotatedSystemOnlyNodes": 13,
+  "edges": 185,
   "interactiveHotspots": 73,
-  "uniquePrimaryAndRecoveryNodes": 55,
+  "uniquePrimaryAndRecoveryNodes": 60,
   "allImagesExistingAndValidPng": true,
   "fiveGoldenPathsConnected": true,
   "allRequiredRecoveriesReachable": true,
+  "allRecoveryEndpointsProvenInOwnScenario": true,
   "noFakeAndroidSystemImages": true,
   "oneRetryOneConfirmationNoApproximation": true,
   "noAutomaticRouteResume": true,
