@@ -1,0 +1,656 @@
+{
+  "validation": {
+    "issue": 17,
+    "phase": 6,
+    "date": "2026-10-11",
+    "status": "PASS_STATIC_SPECIALIST_DESIGN_PENDING_HUMAN_AND_RUNTIME_QA",
+    "archiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "drivingCases": 7,
+    "voiceCases": 20,
+    "total": 27,
+    "missing": [],
+    "duplicate": [],
+    "newCanonicalStates": 0,
+    "newScreenFamilies": 0,
+    "systemScreensInvented": 0,
+    "maxRetry": 1,
+    "maxConfirmationRounds": 1,
+    "maxCandidates": 2,
+    "captureWindowSeconds": 6,
+    "ttsMaxSentences": 1,
+    "ttsFailureRetainsExecuted": true,
+    "unsupportedApproximation": false,
+    "manualAlwaysReachableViaCancel": true,
+    "drivingExitImmediate": true,
+    "verifiedLastItemGuard": true,
+    "boardSha256": "712c6e8fe563ad19017b2d38d5c75cfb0de4f5e9613bdc3fd3d4533f3290ceed",
+    "approvalClaimed": false,
+    "composeRuntimeTested": false
+  },
+  "scenarios": [
+    {
+      "id": "DRV_PLAYING",
+      "wf": "WF-07",
+      "stateId": "CC-05",
+      "kind": "PLAY",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/DRV_PLAYING.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/DRV_PLAYING.md",
+      "sha256": "f30c148181a0bd4833898016cf6dae0bdb5d17b9fe69bda63e162e971def8ad9",
+      "uiCopy": [
+        "DRIVING MODE",
+        "Exit",
+        "ARTWORK",
+        "Aurora Lights",
+        "Local artist",
+        "PLAYING",
+        "Prev",
+        "Pause",
+        "Next",
+        "-10s",
+        "Mic · Voice"
+      ]
+    },
+    {
+      "id": "DRV_PAUSED",
+      "wf": "WF-07",
+      "stateId": "CC-06",
+      "kind": "PAUSE",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/DRV_PAUSED.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/DRV_PAUSED.md",
+      "sha256": "4999a49652461f1b478cfc0098376dc95be315008ee08b7fca92ab1d672680d9",
+      "uiCopy": [
+        "DRIVING MODE",
+        "Exit",
+        "ARTWORK",
+        "Aurora Lights",
+        "Local artist",
+        "PAUSED",
+        "Prev",
+        "Play",
+        "Next",
+        "-10s",
+        "Mic · Voice"
+      ]
+    },
+    {
+      "id": "DRV_NO_TRACK",
+      "wf": "WF-07",
+      "stateId": "CC-07",
+      "kind": "NO_TRACK",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.md",
+      "sha256": "ec50e7a73bea6fc85674dac2f31f87743028066a323d17e7c12b6c9766dd765f",
+      "uiCopy": [
+        "DRIVING MODE",
+        "Exit",
+        "NO TRACK",
+        "No current track",
+        "Exit to browse local music",
+        "NO TRACK",
+        "Prev",
+        "Next",
+        "-10s",
+        "Mic · Voice",
+        "No typing, no lists, no automatic playback"
+      ]
+    },
+    {
+      "id": "DRV_LAST_VERIFIED",
+      "wf": "WF-07",
+      "stateId": "CC-07",
+      "kind": "LAST_VERIFIED",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/DRV_LAST_VERIFIED.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/DRV_LAST_VERIFIED.md",
+      "sha256": "08cab829da7f1df87b36505c68b09439cef3ff79eb1fef6761b01e01f8e77e73",
+      "uiCopy": [
+        "DRIVING MODE",
+        "Exit",
+        "NO TRACK",
+        "No current track",
+        "Exit to browse local music",
+        "NO TRACK",
+        "Prev",
+        "Play last",
+        "Next",
+        "-10s",
+        "Mic · Voice",
+        "No typing, no lists, no automatic playback"
+      ]
+    },
+    {
+      "id": "DRV_RECONNECT",
+      "wf": "WF-07",
+      "stateId": "CC-03",
+      "kind": "RECONNECT",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/DRV_RECONNECT.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/DRV_RECONNECT.md",
+      "sha256": "050758fd9acbdca84207f6b1139dab8a74d14973a3f569fae6a7595d29c6ae73",
+      "uiCopy": [
+        "DRIVING MODE",
+        "Exit",
+        "ARTWORK",
+        "Aurora Lights",
+        "Local artist",
+        "RECONNECTING",
+        "Checking playback state",
+        "Prev",
+        "Play",
+        "Next",
+        "-10s",
+        "Mic · Voice"
+      ]
+    },
+    {
+      "id": "DRV_COMMAND_PENDING",
+      "wf": "WF-07",
+      "stateId": "CC-08",
+      "kind": "PENDING",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/DRV_COMMAND_PENDING.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/DRV_COMMAND_PENDING.md",
+      "sha256": "58e105ff474d5a01a38898e80a57686ef2bb386811b9c6af82aa765001a124e2",
+      "uiCopy": [
+        "DRIVING MODE",
+        "Exit",
+        "ARTWORK",
+        "Aurora Lights",
+        "Local artist",
+        "PENDING",
+        "Waiting for playback",
+        "Prev",
+        "Play",
+        "Next",
+        "-10s",
+        "Mic · Voice"
+      ]
+    },
+    {
+      "id": "DRV_ROUTE_SAFE",
+      "wf": "WF-07",
+      "stateId": "CC-16",
+      "kind": "ROUTE",
+      "terminal": "safe_paused",
+      "image": "docs/high-fidelity/specialist/phase-6/DRV_ROUTE_SAFE.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/DRV_ROUTE_SAFE.md",
+      "sha256": "27766d728cbd631d922194fd12cc7e98b974645c7e61bb5a909efd356172f052",
+      "uiCopy": [
+        "DRIVING MODE",
+        "Exit",
+        "ARTWORK",
+        "Aurora Lights",
+        "Local artist",
+        "PAUSED",
+        "Resume manually when safe",
+        "Prev",
+        "Play",
+        "Next",
+        "-10s",
+        "Mic · Voice"
+      ]
+    },
+    {
+      "id": "VO_LISTEN_1",
+      "wf": "WF-08",
+      "stateId": "CD-03",
+      "kind": "LISTEN1",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.md",
+      "sha256": "37d39189a8063cb82084eee85cf4a0b5f1be8e947c4b524dee250acd5f8a54cd",
+      "uiCopy": [
+        "Listening",
+        "Six-second attempt",
+        "●",
+        "Cancel",
+        "Manual controls remain available",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_LISTEN_2",
+      "wf": "WF-08",
+      "stateId": "CD-04",
+      "kind": "LISTEN2",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.md",
+      "sha256": "5253592eb1761082383415bdb32e50c9e2d0a45547e487760164e18767b9326b",
+      "uiCopy": [
+        "Listening",
+        "Final six-second attempt",
+        "●",
+        "Cancel",
+        "Manual controls remain available",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_PROCESSING",
+      "wf": "WF-08",
+      "stateId": "CD-05",
+      "kind": "PROCESS",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.md",
+      "sha256": "d0ab746718d5967d3bcf65fd366ac2298eec6e1ae94a3ef10edb95554e3e6a02",
+      "uiCopy": [
+        "Processing",
+        "Mapping one of six intents",
+        "…",
+        "Cancel",
+        "Manual controls remain available",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_COMMAND_PENDING",
+      "wf": "WF-08",
+      "stateId": "CD-06",
+      "kind": "PENDING",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.md",
+      "sha256": "92a67b06d5c9983455040a88e59cb6291fa022f801f5fc2ebdd9a2231fa9672b",
+      "uiCopy": [
+        "Processing",
+        "Awaiting player acknowledgement",
+        "…",
+        "Cancel",
+        "Manual controls remain available",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_CONFIRM_ONE",
+      "wf": "WF-08",
+      "stateId": "CD-09",
+      "kind": "CONFIRM1",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.md",
+      "sha256": "9a1f1f4ba805f41b1b478f53b5038602dc5274e5738eb001d68026fd7a0f1bd4",
+      "uiCopy": [
+        "Which artist?",
+        "Choose one presented candidate",
+        "?",
+        "1 · Aurora",
+        "Neither",
+        "Cancel",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_CONFIRM_TWO",
+      "wf": "WF-08",
+      "stateId": "CD-10",
+      "kind": "CONFIRM2",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.md",
+      "sha256": "689f457841cae74120f05e26280d0b7d16ff2ff6d61f51bc89b48e37948d366b",
+      "uiCopy": [
+        "Which artist?",
+        "Choose one presented candidate",
+        "?",
+        "1 · Aurora",
+        "2 · Aurora Aksnes",
+        "Neither",
+        "Cancel",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_EXECUTED",
+      "wf": "WF-08",
+      "stateId": "CD-07",
+      "kind": "DONE",
+      "terminal": "acknowledged",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.md",
+      "sha256": "6e1b2416f7554a971230b71298c9c352a9f66570d38bcf014bf8e02cf6e35d6f",
+      "uiCopy": [
+        "Done",
+        "Next track acknowledged",
+        "✓",
+        "Dismiss",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_TTS_UNAVAILABLE",
+      "wf": "WF-08",
+      "stateId": "CD-07",
+      "kind": "TTS_FAILED",
+      "terminal": "acknowledged",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_TTS_UNAVAILABLE.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_TTS_UNAVAILABLE.md",
+      "sha256": "6e1b2416f7554a971230b71298c9c352a9f66570d38bcf014bf8e02cf6e35d6f",
+      "uiCopy": [
+        "Done",
+        "Next track acknowledged",
+        "✓",
+        "Dismiss",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_STT_TIMEOUT",
+      "wf": "WF-08",
+      "stateId": "CD-17",
+      "kind": "TIMEOUT",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.md",
+      "sha256": "861f81fd3513d577d88e6e4c16caa72bd900d3af8be4abe23b7603dde2cd1629",
+      "uiCopy": [
+        "Voice attempt failed",
+        "One Retry, then Manual",
+        "!",
+        "Retry once",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_RETRY_AVAILABLE",
+      "wf": "WF-08",
+      "stateId": "CD-18",
+      "kind": "RETRY",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.md",
+      "sha256": "fd148764c02ff8e992bddac065c6c67daeade326bd9459d143be9c5cad87f834",
+      "uiCopy": [
+        "Voice failed",
+        "One Retry, then Manual",
+        "!",
+        "Retry once",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_ATTEMPT2_TERMINAL",
+      "wf": "WF-08",
+      "stateId": "CD-19",
+      "kind": "TERMINAL",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.md",
+      "sha256": "2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848",
+      "uiCopy": [
+        "Voice unavailable",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_ARTIST_NOT_FOUND",
+      "wf": "WF-08",
+      "stateId": "CD-13",
+      "kind": "NOT_FOUND",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.md",
+      "sha256": "2700a90f7f61f637b8f0e183903aa23699168a5b213b59f5a190d6276d0db54e",
+      "uiCopy": [
+        "Artist not found",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_UNKNOWN_PHRASE",
+      "wf": "WF-08",
+      "stateId": "CD-14",
+      "kind": "UNKNOWN",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.md",
+      "sha256": "e8bfee6de034374cc7e1cf1ce60c95e2e5810bfa71350e570b17b8751b5631d6",
+      "uiCopy": [
+        "Command not understood",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_UNSUPPORTED",
+      "wf": "WF-08",
+      "stateId": "CD-15",
+      "kind": "UNSUPPORTED",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.md",
+      "sha256": "89e1c8f72288e925d53e023dffd275c2687af5475efd991458a92ef093b80fda",
+      "uiCopy": [
+        "Request not supported",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_MISSING_ARTIST",
+      "wf": "WF-08",
+      "stateId": "CD-16",
+      "kind": "MISSING_ARTIST",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.md",
+      "sha256": "2ccb6380fe58ee9fc0c4362faf8a9dda0fddb0839897bbdd7685f45ee7beaf2a",
+      "uiCopy": [
+        "Artist is missing",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_CONFIRMATION_FAILED",
+      "wf": "WF-08",
+      "stateId": "CD-12",
+      "kind": "CONFIRM_FAILED",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.md",
+      "sha256": "f4941920fb7e2ce632d4df5dcab7266e3064864cc7ce2940b0aa58bc9080921c",
+      "uiCopy": [
+        "Confirmation failed",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_EXECUTION_REJECTED",
+      "wf": "WF-08",
+      "stateId": "CD-08",
+      "kind": "REJECTED",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.md",
+      "sha256": "ecf932e68cec2609ff1759683403c9400d34a3021c4b10aba9eadae8fd5eadbe",
+      "uiCopy": [
+        "Voice command failed",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_PROVIDER_UNAVAILABLE",
+      "wf": "WF-08",
+      "stateId": "CD-22",
+      "kind": "PROVIDER",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_PROVIDER_UNAVAILABLE.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_PROVIDER_UNAVAILABLE.md",
+      "sha256": "2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848",
+      "uiCopy": [
+        "Voice unavailable",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_PERMISSION_DENIED",
+      "wf": "WF-08",
+      "stateId": "CD-21",
+      "kind": "PERMISSION",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_PERMISSION_DENIED.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_PERMISSION_DENIED.md",
+      "sha256": "2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848",
+      "uiCopy": [
+        "Voice unavailable",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    },
+    {
+      "id": "VO_MANUAL_ONLY",
+      "wf": "WF-08",
+      "stateId": "CD-20",
+      "kind": "MANUAL",
+      "terminal": "manual",
+      "image": "docs/high-fidelity/specialist/phase-6/VO_MANUAL_ONLY.png",
+      "spec": "docs/high-fidelity/specialist/phase-6/VO_MANUAL_ONLY.md",
+      "sha256": "2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848",
+      "uiCopy": [
+        "Voice unavailable",
+        "Manual controls only",
+        "!",
+        "Manual controls",
+        "Return to manual playback"
+      ]
+    }
+  ],
+  "transitions": {
+    "DRV_PLAYING": [
+      "DRV_PAUSED",
+      "DRV_COMMAND_PENDING",
+      "VO_LISTEN_1",
+      "DRV_ROUTE_SAFE"
+    ],
+    "DRV_PAUSED": [
+      "DRV_PLAYING",
+      "DRV_NO_TRACK",
+      "VO_LISTEN_1"
+    ],
+    "DRV_NO_TRACK": [
+      "VO_LISTEN_1"
+    ],
+    "DRV_LAST_VERIFIED": [
+      "DRV_COMMAND_PENDING"
+    ],
+    "DRV_RECONNECT": [
+      "DRV_PLAYING",
+      "DRV_PAUSED",
+      "DRV_NO_TRACK"
+    ],
+    "DRV_COMMAND_PENDING": [
+      "DRV_PLAYING",
+      "DRV_PAUSED",
+      "DRV_RECONNECT"
+    ],
+    "DRV_ROUTE_SAFE": [
+      "DRV_PAUSED"
+    ],
+    "VO_LISTEN_1": [
+      "VO_PROCESSING",
+      "VO_STT_TIMEOUT",
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_LISTEN_2": [
+      "VO_PROCESSING",
+      "VO_ATTEMPT2_TERMINAL",
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_PROCESSING": [
+      "VO_COMMAND_PENDING",
+      "VO_CONFIRM_ONE",
+      "VO_CONFIRM_TWO",
+      "VO_ARTIST_NOT_FOUND",
+      "VO_UNKNOWN_PHRASE",
+      "VO_UNSUPPORTED",
+      "VO_MISSING_ARTIST"
+    ],
+    "VO_COMMAND_PENDING": [
+      "VO_EXECUTED",
+      "VO_EXECUTION_REJECTED"
+    ],
+    "VO_CONFIRM_ONE": [
+      "VO_COMMAND_PENDING",
+      "VO_CONFIRMATION_FAILED",
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_CONFIRM_TWO": [
+      "VO_COMMAND_PENDING",
+      "VO_CONFIRMATION_FAILED",
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_EXECUTED": [
+      "VO_TTS_UNAVAILABLE",
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_TTS_UNAVAILABLE": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_STT_TIMEOUT": [
+      "VO_RETRY_AVAILABLE",
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_RETRY_AVAILABLE": [
+      "VO_LISTEN_2",
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_ATTEMPT2_TERMINAL": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_ARTIST_NOT_FOUND": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_UNKNOWN_PHRASE": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_UNSUPPORTED": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_MISSING_ARTIST": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_CONFIRMATION_FAILED": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_EXECUTION_REJECTED": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_PROVIDER_UNAVAILABLE": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_PERMISSION_DENIED": [
+      "VO_MANUAL_ONLY"
+    ],
+    "VO_MANUAL_ONLY": []
+  }
+}
