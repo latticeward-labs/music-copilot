@@ -2,7 +2,7 @@
 
 Canonical State: CC-07; source WF: WF-07; UF: UF-07; Golden Scenario: GS-04.
 Source artwork or state contract: docs/high-fidelity/WF-07/states/HF_STATE_CC-07.png
-SHA-256 PNG: ec50e7a73bea6fc85674dac2f31f87743028066a323d17e7c12b6c9766dd765f.
+SHA-256 PNG: 317be98f5a4546d23d2fb0ea63e6713f8f668509c8490c102034e7fc5554a6f9.
 Terminal: manual; authority: App + Playback Service.
 
 ## Exact on-screen UI copy
@@ -17,7 +17,6 @@ Terminal: manual; authority: App + Playback Service.
 - "Next"
 - "-10s"
 - "Mic · Voice"
-- "No typing, no lists, no automatic playback"
 
 ## Binding behavior
 

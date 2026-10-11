@@ -22,7 +22,11 @@
   "manualAlwaysReachableViaCancel": true,
   "drivingExitImmediate": true,
   "verifiedLastItemGuard": true,
-  "boardSha256": "712c6e8fe563ad19017b2d38d5c75cfb0de4f5e9613bdc3fd3d4533f3290ceed",
+  "boardSha256": "539b685aa9469caf131954953fc30401795bac553233df75af9f2767e9515156",
   "approvalClaimed": false,
-  "composeRuntimeTested": false
+  "composeRuntimeTested": false,
+  "canonicalDrivingVoiceStates": 42,
+  "ufStateCoverage": 42,
+  "specialistImageStateIds": 25,
+  "reusedExistingVariantHandoffStates": 17
 }

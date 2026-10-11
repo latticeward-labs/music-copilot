@@ -10,3 +10,6 @@
 - No fake Android OS screens; no extra destination; no unverified Play last.
 
 **Limit:** Static artifact QA is not independent Product/UX approval or physical-device/Compose accessibility testing.
+
+- Canonical CC-01..18 and CD-01..24: **42/42**, including Phase-5 owner variants and system handoff annotations.
+- 22 device QA handoff cases specified; all marked NOT RUN, never auto-approved.

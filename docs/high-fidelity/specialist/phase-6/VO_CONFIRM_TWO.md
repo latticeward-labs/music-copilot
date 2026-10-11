@@ -2,7 +2,7 @@
 
 Canonical State: CD-10; source WF: WF-08; UF: UF-09; Golden Scenario: — (not on GS-01..05 path).
 Source artwork or state contract: docs/high-fidelity/WF-08/states/HF_STATE_CD-10.png
-SHA-256 PNG: 689f457841cae74120f05e26280d0b7d16ff2ff6d61f51bc89b48e37948d366b.
+SHA-256 PNG: 36f9c83fa145e399f0c58b425391b9ae3170d6b869b5427e7d6f77052d52f060.
 Terminal: manual; authority: App + Voice coordinator.
 
 ## Exact on-screen UI copy
@@ -14,7 +14,7 @@ Terminal: manual; authority: App + Voice coordinator.
 - "2 · Aurora Aksnes"
 - "Neither"
 - "Cancel"
-- "Return to manual playback"
+- "Manual / Exit remains reachable"
 
 ## Binding behavior
 

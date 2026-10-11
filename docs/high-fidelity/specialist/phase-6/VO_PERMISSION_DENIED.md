@@ -2,7 +2,7 @@
 
 Canonical State: CD-21; source WF: WF-08; UF: UF-10 / UF-12; Golden Scenario: GS-04.
 Source artwork or state contract: docs/high-fidelity/state-variants/CD-21.md
-SHA-256 PNG: 2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848.
+SHA-256 PNG: 764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3.
 Terminal: manual; authority: Hybrid.
 
 ## Exact on-screen UI copy
@@ -11,7 +11,7 @@ Terminal: manual; authority: Hybrid.
 - "Manual controls only"
 - "!"
 - "Manual controls"
-- "Return to manual playback"
+- "Manual / Exit remains reachable"
 
 ## Binding behavior
 

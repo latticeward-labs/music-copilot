@@ -2,7 +2,7 @@
 
 Canonical State: CD-05; source WF: WF-08; UF: UF-08; Golden Scenario: GS-04.
 Source artwork or state contract: docs/high-fidelity/WF-08/states/HF_STATE_CD-05.png
-SHA-256 PNG: d0ab746718d5967d3bcf65fd366ac2298eec6e1ae94a3ef10edb95554e3e6a02.
+SHA-256 PNG: 9e1fefcb6e8b318737d53c051041c2a4d057d8cdf1412fcd77bed526969fef6a.
 Terminal: manual; authority: App + Voice coordinator.
 
 ## Exact on-screen UI copy
@@ -12,7 +12,7 @@ Terminal: manual; authority: App + Voice coordinator.
 - "…"
 - "Cancel"
 - "Manual controls remain available"
-- "Return to manual playback"
+- "Manual / Exit remains reachable"
 
 ## Binding behavior
 

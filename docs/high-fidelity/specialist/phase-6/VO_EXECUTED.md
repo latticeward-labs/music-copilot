@@ -2,7 +2,7 @@
 
 Canonical State: CD-07; source WF: WF-08; UF: UF-08; Golden Scenario: GS-04.
 Source artwork or state contract: docs/high-fidelity/WF-08/states/HF_STATE_CD-07.png
-SHA-256 PNG: 6e1b2416f7554a971230b71298c9c352a9f66570d38bcf014bf8e02cf6e35d6f.
+SHA-256 PNG: 91de5817428c4b0d9f573627bf67902b9636ba2ca8aa4b22d88b9e3fdc417dca.
 Terminal: acknowledged; authority: App + Voice coordinator.
 
 ## Exact on-screen UI copy
@@ -11,7 +11,7 @@ Terminal: acknowledged; authority: App + Voice coordinator.
 - "Next track acknowledged"
 - "✓"
 - "Dismiss"
-- "Return to manual playback"
+- "Manual / Exit remains reachable"
 
 ## Binding behavior
 

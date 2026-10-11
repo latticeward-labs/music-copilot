@@ -23,9 +23,13 @@
     "manualAlwaysReachableViaCancel": true,
     "drivingExitImmediate": true,
     "verifiedLastItemGuard": true,
-    "boardSha256": "712c6e8fe563ad19017b2d38d5c75cfb0de4f5e9613bdc3fd3d4533f3290ceed",
+    "boardSha256": "539b685aa9469caf131954953fc30401795bac553233df75af9f2767e9515156",
     "approvalClaimed": false,
-    "composeRuntimeTested": false
+    "composeRuntimeTested": false,
+    "canonicalDrivingVoiceStates": 42,
+    "ufStateCoverage": 42,
+    "specialistImageStateIds": 25,
+    "reusedExistingVariantHandoffStates": 17
   },
   "scenarios": [
     {
@@ -82,7 +86,7 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.png",
       "spec": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.md",
-      "sha256": "ec50e7a73bea6fc85674dac2f31f87743028066a323d17e7c12b6c9766dd765f",
+      "sha256": "317be98f5a4546d23d2fb0ea63e6713f8f668509c8490c102034e7fc5554a6f9",
       "uiCopy": [
         "DRIVING MODE",
         "Exit",
@@ -93,8 +97,7 @@
         "Prev",
         "Next",
         "-10s",
-        "Mic · Voice",
-        "No typing, no lists, no automatic playback"
+        "Mic · Voice"
       ]
     },
     {
@@ -105,7 +108,7 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/DRV_LAST_VERIFIED.png",
       "spec": "docs/high-fidelity/specialist/phase-6/DRV_LAST_VERIFIED.md",
-      "sha256": "08cab829da7f1df87b36505c68b09439cef3ff79eb1fef6761b01e01f8e77e73",
+      "sha256": "8d455a7ee58bab2d9e01f60b90b0353f1b08a9510ea9396356f319399319cf38",
       "uiCopy": [
         "DRIVING MODE",
         "Exit",
@@ -117,8 +120,7 @@
         "Play last",
         "Next",
         "-10s",
-        "Mic · Voice",
-        "No typing, no lists, no automatic playback"
+        "Mic · Voice"
       ]
     },
     {
@@ -201,14 +203,14 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.md",
-      "sha256": "37d39189a8063cb82084eee85cf4a0b5f1be8e947c4b524dee250acd5f8a54cd",
+      "sha256": "a8b0b311b60d05168c018e85a4125f2c40986298ca7597ccb6ee2f8ac9b024fa",
       "uiCopy": [
         "Listening",
         "Six-second attempt",
         "●",
         "Cancel",
         "Manual controls remain available",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -219,14 +221,14 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.md",
-      "sha256": "5253592eb1761082383415bdb32e50c9e2d0a45547e487760164e18767b9326b",
+      "sha256": "e09506c6229ce64a3d04d19782e0fb16d43b6c5b94d65bf0c56b9c504a7fe9d8",
       "uiCopy": [
         "Listening",
         "Final six-second attempt",
         "●",
         "Cancel",
         "Manual controls remain available",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -237,14 +239,14 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.md",
-      "sha256": "d0ab746718d5967d3bcf65fd366ac2298eec6e1ae94a3ef10edb95554e3e6a02",
+      "sha256": "9e1fefcb6e8b318737d53c051041c2a4d057d8cdf1412fcd77bed526969fef6a",
       "uiCopy": [
         "Processing",
         "Mapping one of six intents",
         "…",
         "Cancel",
         "Manual controls remain available",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -255,14 +257,14 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.md",
-      "sha256": "92a67b06d5c9983455040a88e59cb6291fa022f801f5fc2ebdd9a2231fa9672b",
+      "sha256": "3b79e8a60ef391d5b3296e06532e5a608fdb0898da4bb33f68ac6d38d49e9bf4",
       "uiCopy": [
         "Processing",
         "Awaiting player acknowledgement",
         "…",
         "Cancel",
         "Manual controls remain available",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -273,7 +275,7 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.md",
-      "sha256": "9a1f1f4ba805f41b1b478f53b5038602dc5274e5738eb001d68026fd7a0f1bd4",
+      "sha256": "f86998030af5fdf658de3fdf5fd93e85c6ef27cf1400263f22c78a5434bad319",
       "uiCopy": [
         "Which artist?",
         "Choose one presented candidate",
@@ -281,7 +283,7 @@
         "1 · Aurora",
         "Neither",
         "Cancel",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -292,7 +294,7 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.md",
-      "sha256": "689f457841cae74120f05e26280d0b7d16ff2ff6d61f51bc89b48e37948d366b",
+      "sha256": "36f9c83fa145e399f0c58b425391b9ae3170d6b869b5427e7d6f77052d52f060",
       "uiCopy": [
         "Which artist?",
         "Choose one presented candidate",
@@ -301,7 +303,7 @@
         "2 · Aurora Aksnes",
         "Neither",
         "Cancel",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -312,13 +314,13 @@
       "terminal": "acknowledged",
       "image": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.md",
-      "sha256": "6e1b2416f7554a971230b71298c9c352a9f66570d38bcf014bf8e02cf6e35d6f",
+      "sha256": "91de5817428c4b0d9f573627bf67902b9636ba2ca8aa4b22d88b9e3fdc417dca",
       "uiCopy": [
         "Done",
         "Next track acknowledged",
         "✓",
         "Dismiss",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -329,13 +331,13 @@
       "terminal": "acknowledged",
       "image": "docs/high-fidelity/specialist/phase-6/VO_TTS_UNAVAILABLE.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_TTS_UNAVAILABLE.md",
-      "sha256": "6e1b2416f7554a971230b71298c9c352a9f66570d38bcf014bf8e02cf6e35d6f",
+      "sha256": "91de5817428c4b0d9f573627bf67902b9636ba2ca8aa4b22d88b9e3fdc417dca",
       "uiCopy": [
         "Done",
         "Next track acknowledged",
         "✓",
         "Dismiss",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -346,14 +348,14 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.md",
-      "sha256": "861f81fd3513d577d88e6e4c16caa72bd900d3af8be4abe23b7603dde2cd1629",
+      "sha256": "43c4f60cf809c5858c8d18e788727f9aa8535755a900269f8c0011d18330b2f2",
       "uiCopy": [
         "Voice attempt failed",
         "One Retry, then Manual",
         "!",
         "Retry once",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -364,14 +366,14 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.md",
-      "sha256": "fd148764c02ff8e992bddac065c6c67daeade326bd9459d143be9c5cad87f834",
+      "sha256": "1ff5635b66b4dede7c52b1aa270a23bdb56059a873741421c7e5e03895d793a7",
       "uiCopy": [
         "Voice failed",
         "One Retry, then Manual",
         "!",
         "Retry once",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -382,13 +384,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.md",
-      "sha256": "2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848",
+      "sha256": "764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3",
       "uiCopy": [
         "Voice unavailable",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -399,13 +401,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.md",
-      "sha256": "2700a90f7f61f637b8f0e183903aa23699168a5b213b59f5a190d6276d0db54e",
+      "sha256": "2e1546f27e516f369634b572231f7672cf4417d95d28df6044126879bd9481e8",
       "uiCopy": [
         "Artist not found",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -416,13 +418,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.md",
-      "sha256": "e8bfee6de034374cc7e1cf1ce60c95e2e5810bfa71350e570b17b8751b5631d6",
+      "sha256": "292e7bf733d9144c4f7882e62f515990b3badf488626e5bed926c3b8c5dfb654",
       "uiCopy": [
         "Command not understood",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -433,13 +435,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.md",
-      "sha256": "89e1c8f72288e925d53e023dffd275c2687af5475efd991458a92ef093b80fda",
+      "sha256": "f497588e5d51370e6fa47b601c0c49b0758d8754e316f3e7b1efcc44ccec299a",
       "uiCopy": [
         "Request not supported",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -450,13 +452,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.md",
-      "sha256": "2ccb6380fe58ee9fc0c4362faf8a9dda0fddb0839897bbdd7685f45ee7beaf2a",
+      "sha256": "c2f74564c3bd2662af64ce3af3142f306b46eb261a585a07ae54dcd44895904a",
       "uiCopy": [
         "Artist is missing",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -467,13 +469,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.md",
-      "sha256": "f4941920fb7e2ce632d4df5dcab7266e3064864cc7ce2940b0aa58bc9080921c",
+      "sha256": "82c40627a44c776e4ddaa838e8750c6716084893500e6cdfc4eaa0ec19e4803c",
       "uiCopy": [
         "Confirmation failed",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -484,13 +486,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.md",
-      "sha256": "ecf932e68cec2609ff1759683403c9400d34a3021c4b10aba9eadae8fd5eadbe",
+      "sha256": "d6293aca9ed590d653538c86a85a5cbb9d01fabfd33b73e35600addeb9c19a8f",
       "uiCopy": [
         "Voice command failed",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -501,13 +503,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_PROVIDER_UNAVAILABLE.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_PROVIDER_UNAVAILABLE.md",
-      "sha256": "2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848",
+      "sha256": "764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3",
       "uiCopy": [
         "Voice unavailable",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -518,13 +520,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_PERMISSION_DENIED.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_PERMISSION_DENIED.md",
-      "sha256": "2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848",
+      "sha256": "764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3",
       "uiCopy": [
         "Voice unavailable",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     },
     {
@@ -535,13 +537,13 @@
       "terminal": "manual",
       "image": "docs/high-fidelity/specialist/phase-6/VO_MANUAL_ONLY.png",
       "spec": "docs/high-fidelity/specialist/phase-6/VO_MANUAL_ONLY.md",
-      "sha256": "2b5d150505d04862fc1c18e09392c3bd14c9072b29dde7840fb363440b33d848",
+      "sha256": "764d1899b30bca76ee1ea1cc2ca33a7ec8e6b06bd686e853bbce79e89a35b9c3",
       "uiCopy": [
         "Voice unavailable",
         "Manual controls only",
         "!",
         "Manual controls",
-        "Return to manual playback"
+        "Manual / Exit remains reachable"
       ]
     }
   ],
@@ -652,5 +654,49 @@
       "VO_MANUAL_ONLY"
     ],
     "VO_MANUAL_ONLY": []
-  }
+  },
+  "canonicalStatesAudited": [
+    "CC-01",
+    "CC-02",
+    "CC-03",
+    "CC-04",
+    "CC-05",
+    "CC-06",
+    "CC-07",
+    "CC-08",
+    "CC-09",
+    "CC-10",
+    "CC-11",
+    "CC-12",
+    "CC-13",
+    "CC-14",
+    "CC-15",
+    "CC-16",
+    "CC-17",
+    "CC-18",
+    "CD-01",
+    "CD-02",
+    "CD-03",
+    "CD-04",
+    "CD-05",
+    "CD-06",
+    "CD-07",
+    "CD-08",
+    "CD-09",
+    "CD-10",
+    "CD-11",
+    "CD-12",
+    "CD-13",
+    "CD-14",
+    "CD-15",
+    "CD-16",
+    "CD-17",
+    "CD-18",
+    "CD-19",
+    "CD-20",
+    "CD-21",
+    "CD-22",
+    "CD-23",
+    "CD-24"
+  ]
 }

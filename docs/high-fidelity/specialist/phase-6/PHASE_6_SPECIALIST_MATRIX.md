@@ -64,6 +64,11 @@ User reference RAR SHA-256: 0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f
 - P1 Bluetooth is only a dismissible suggestion outside Driving, never an automatic entrance.
 - At 200 percent text scaling, Compose must reflow; screenshot review alone cannot prove runtime touch targets, actual TalkBack announcements or eyes-off-road safety.
 
+## Complete canonical UF state trace
+
+- [42-state UF-07..10 audit](PHASE_6_UF_STATE_AUDIT.md): all 18 Driving CC and 24 Voice CD IDs either specialist image or approved component/system owner spec.
+- [22-case device QA handoff](PHASE_6_DEVICE_QA_HANDOFF.md): real-device execution pending.
+
 ## Evidence
 
 - [Visual review board](PHASE_6_SPECIALIST_BOARD.png)
