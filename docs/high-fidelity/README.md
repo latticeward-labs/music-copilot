@@ -79,3 +79,15 @@ Phase 7 explicitly specifies per-State TalkBack reading order, actionable labels
 - [65 on-device checks — deliberately NOT RUN](phase-7/PHASE_7_DEVICE_QA_MATRIX.md)
 
 **Gate:** PASS at specification/handoff level; PH10-MIN-001 remains OPEN for actual Compose semantics, focus and 200% reflow proof. Independent Product/UX/Android/Privacy and physical accessibility review is not claimed.
+
+## Phase 8 — Repository-native clickable prototype (11 October 2026)
+
+The high-fidelity designs are reused, not regenerated, by the [Phase-8 clickable prototype](../prototype/index.html). It covers [five approved Golden Scenarios and their recoveries](../prototype/PROTOTYPE_COVERAGE_MATRIX.md), with transparent image hotspots over only existing approved controls. OS permissions/Settings/notifications/lock-screen/MediaSession external controls remain explicitly non-app [system-only annotations](../prototype/README.md); a separate reviewer event simulator provides reproducible outcomes without adding in-app navigation.
+
+- [Static route graph and source PNG references](../prototype/routes.js)
+- [Node image, hotspot, GS path and ownership validation](../prototype/PHASE_8_VALIDATION.json)
+- [Real Chromium click-flow smoke test](../prototype/PHASE_8_BROWSER_VALIDATION.json)
+- [Synthetic-only responsive browser screenshot](../prototype/PHASE_8_BROWSER_REVIEW.png)
+- [Manual/Android QA handoff](../prototype/TEST_PLAN.md)
+
+**Scope:** Phase 8 is a reviewable interaction prototype, not a running Media3 app, mic/STT implementation, hosted web demo, actual Android system UI or physical test. Human sign-off and runtime accessibility (PH10-MIN-001) stay pending.
