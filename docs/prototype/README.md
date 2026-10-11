@@ -84,3 +84,7 @@ This prototype is **clickable design evidence**. Independent Product/Design/Andr
 ## Phase 10 verification of this prototype
 
 [Full traceability / scope audit](../audit/phase-10/README.md) independently verifies the 67 route nodes against the frozen 126-State authority, preserved HF/WF/UF/GS and 38 scenario-local safe recovery endpoints. All system-only handoffs have null in-app image and no fake Android pages; optional P2 Liked Songs is not inserted in the five mandatory GS. See [machine gate](../audit/phase-10/PHASE_10_VALIDATION.json). This does not represent an actual Android/STT/MediaSession runtime integration.
+
+## Phase 11 reviewer Back versus actual Android Back clarification
+
+The phone-shell **Reviewer Back** and Escape controls in this *HTML review tool* navigate the reviewer's visit history only; they are **not** Android Back correctness evidence. The binding native app rule is in [SCREEN_SPECS](../handoff/SCREEN_SPECS.md): active Voice cancels and releases mic first, then returns to the recorded origin; Driving Exit/Back is immediate. [Phase 11 six-role review](../design-system/review/ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md) retains this as an explicit manual-review distinction (PH11-MIN-004), not a misleading pass from the browser simulator.
