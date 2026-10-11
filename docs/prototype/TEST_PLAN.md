@@ -16,6 +16,13 @@ Run `node docs/prototype/browser-smoke.cjs` while serving the repository root to
 6. GS-04 two-candidate confirmation and post-ack TTS failure without rollback.
 7. GS-05 external route disconnect → Safe Paused → reconnect boundary → explicit Play → acknowledged Player.
 8. Narrow/mobile viewport hotspot visibility and a synthetic-only screenshot.
+9. GS-01 Denied → Not now → Permanently denied → Android Settings return, Empty Library and actual Rescan hotspot.
+10. GS-02 Stale Selection → saved results → Corrupt Item → safe Paused; Search No Result → Clear.
+11. GS-03 explicit CB-22/23/24 sequence, CB-27 lock-screen native boundary, and CB-25 lifecycle loss.
+12. GS-03 P1 Paused Restore → manual Play hotspot → pending service ACK or rejection → service-confirmed Playing.
+13. GS-04 Voice Artist Not Found → Manual Only, no Retry.
+
+**Latest captured Chromium evidence: 14/14 PASS**, compared with the original 8/8 smoke. The source-graph validator now separately proves all **38 recovery terminal paths inside each GS**. See [strict audit](PHASE_8_STRICT_REAUDIT_2026-10-11.md).
 
 ## Manual reviewer checklist — NOT RUN until actual reviewer evidence
 
