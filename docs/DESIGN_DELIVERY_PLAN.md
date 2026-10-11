@@ -213,6 +213,14 @@ Handoff records must expose source state, runtime owner, actions, transitions, B
 - **Verification:** [Source image/graph validation](prototype/PHASE_8_VALIDATION.json), [Chromium interactive smoke](prototype/PHASE_8_BROWSER_VALIDATION.json) and [sanitized browser screenshot](prototype/PHASE_8_BROWSER_REVIEW.png), plus [manual/device QA handoff](prototype/TEST_PLAN.md).
 - **Release boundary:** browser click-flow validation is not actual Android/Media3/voice/vehicle runtime QA, Compose PH10-MIN-001 closure, consent/remote-STT approval or human Product/Design/Android/Privacy/QA sign-off. Issue #17 continues into engineering handoff and cross-role review.
 
+## Issue #17 Phase 8 strict acceptance re-audit (11 October 2026)
+
+- Follow-up [source-locked audit report](prototype/PHASE_8_STRICT_REAUDIT_2026-10-11.md) resolves the original 8-test/35-recovery proof deficiency.
+- **5/5 Golden Scenario end-to-end paths, 38/38 scenario-scoped recoveries with safe terminal, 14/14 real Chromium click checks**. 0 duplicate/missing edges, 0 fake Android System screens.
+- Explicitly tested Denied → Settings return and Empty Library Rescan, stale/corrupt recovery, Voice Artist Not Found → Manual, one Retry only, Route Safe Paused, and P1 Paused Restore with Play followed by service acknowledgement.
+- `docs/prototype/routes.json` is an exact validated machine-readable export of `routes.js`, not a contradictory alternative source of route authority.
+- **No inference of device/Media3/Compose/real STT QA or independent human sign-off.** Issue #17 still open for downstream review/handoff.
+
 ## Synchronization and review rules
 
 1. Every high-fidelity artifact retains stable WF/UF/State/GS traceability.
