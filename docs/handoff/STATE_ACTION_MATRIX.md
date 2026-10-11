@@ -7,7 +7,7 @@
 - Live playback queue/item/position/error **MediaSessionService** via PlaybackGateway.snapshot, never the Player UI. Typed playback `lastError: AppError?` restricted to MediaItem/Playback/Interruption (PH10-MAJ-002 corrected).
 - `VoiceSessionCoordinator` owns active Voice state, token and immutable `Confirming.options[1..2]` (PH10-MAJ-001 corrected). `VoiceFeedbackOverlay` is NOT a navigation destination; Back first cancels generation and returns to origin.
 - Permission/Settings/notification/lockscreen/vehicle controls are system-only; no Android dialog mock; on return recheck actual platform state.
-- Analytics comes only from the closed 8-event typed allowlist at application/domain. PrivacyGate sanitizes and optional TelemetrySink nonblocks; no personal content/position/audio/transcript/query/IDs.
+- Analytics comes only from the closed 8-event typed allowlist at application/domain. TelemetryPrivacyGate.sanitize validates and optional TelemetrySink.tryEmit nonblocks; no personal content/position/audio/transcript/query/IDs.
 
 ## Full 126-State action/ownership/Back/system matrix
 
