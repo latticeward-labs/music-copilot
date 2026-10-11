@@ -164,6 +164,8 @@ def image_from_svg(source_id: str, state_id: str | None = None):
                 element.set("fill", "#090D12")
             if element.get("fill") == "#C7C7C7":
                 element.set("fill", "#111720")
+            if element.get("fill") == "#EEEEEE":
+                element.set("fill", "#090D12")
             if element.get("rx") == "4" and element.get("width") == "280":
                 element.set("rx", "12")
         if element.tag == SVG_NS+"text" and element.text:
@@ -171,6 +173,8 @@ def image_from_svg(source_id: str, state_id: str | None = None):
                 element.text = "9:41"
             elif element.text == "SYSTEM NAV":
                 element.text = "—"
+            elif element.text in ("DRIVING / PLAYER CONTEXT", "One layer · no typing · no lists"):
+                element.text = ""
             elif state_id in VOICE_FAILURE and element.text == "Voice failed":
                 element.text = VOICE_FAILURE[state_id]
             elif state_id == "CD-19" and element.text == "Retry once":
@@ -194,6 +198,10 @@ def image_from_svg(source_id: str, state_id: str | None = None):
     # At 3×, approved 360×800dp area starts at x40, y80 within 620×930.
     cropped = full.crop((120, 240, 1200, 2640))
     assert cropped.size == (1080, 2400)
+    # Never allow a light low-fidelity page to obscure Driving/Voice text.
+    for sx,sy in [(6,400),(6,1100),(6,2000)]:
+        r,g,b = cropped.getpixel((sx,sy))
+        assert (0.2126*r + 0.7152*g + 0.0722*b) < 120, (source_id, state_id, sx, sy, (r,g,b))
     # The original SVG's platform-only chrome is illustrative, never app-owned.
     return cropped, payload
 
