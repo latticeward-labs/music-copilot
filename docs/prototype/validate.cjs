@@ -105,6 +105,6 @@ const report={issue:17,phase:8,date:"2026-10-11",status:"PASS_SOURCE_GRAPH_AND_A
   noFakeAndroidSystemImages:true,oneRetryOneConfirmationNoApproximation:true,
   noAutomaticRouteResume:true,drivingExitAlwaysAvailable:true,
   privacyNoNetworkOrVoiceRuntimeCalls:true,missing:[],duplicates:[],unassigned:[],
-  browserVisualQA:"NOT_RUN",humanSignoff:"PENDING",androidRuntimeQA:"NOT_RUN"};
+  browserVisualQA:"SEE_SEPARATE_CHROMIUM_BROWSER_VALIDATION",humanSignoff:"PENDING",androidRuntimeQA:"NOT_RUN"};
 fs.writeFileSync(path.join(__dirname,"PHASE_8_VALIDATION.json"),JSON.stringify(report,null,2)+"\n");
 console.log("PASS",JSON.stringify(report));
