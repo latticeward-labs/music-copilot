@@ -32,3 +32,7 @@ Run from repository root: `python3 docs/handoff/VALIDATE_PHASE9.py`. It independ
 ## Phase 10 source and priority continuity
 
 [Full repository audit](../audit/phase-10/README.md) reattaches this Compose Handoff to the frozen PRD/MVP, all 126 State IDs, 10 Screen Families, five mandatory GS and the accepted Architecture/ADR owner boundaries. Liked Songs remains removable P2/UF-13/FR-09 (not mandatory GS). The [traceability register](../audit/phase-10/PHASE_10_TRACEABILITY_REGISTER.json) covers all design artifacts; zero static scope/ownership mismatches were found. Compose device/200%/TalkBack QA remains pending.
+
+## Issue #17 Phase 11 reviewed implementation corrections
+
+The [AI-assisted six-role review](../design-system/review/ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md) closed two implementation-contract **Major** findings before final design review: `CMP-07/08` now resolve Player/Driving/MiniPlayer metadata and artwork from the service-acknowledged `PlaybackGateway.snapshot.currentItem`, while `CMP-10` explicitly keeps the user search query ephemeral in `SearchViewModel`, separate from Room local results and MediaStore media identity. [Findings](../design-system/review/ISSUE_17_FINDINGS_REGISTER.json): zero open Blocker/Major, four owner/gated downstream Minors. [Validation](../design-system/review/ISSUE_17_REVIEW_VALIDATION.md) PASSED. Actual Compose/runtime/real-human acceptance is not claimed.
