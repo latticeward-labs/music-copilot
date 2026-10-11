@@ -55,3 +55,13 @@ No Phase-5 recovery/state-expansion work is claimed by this phase.
 ## Phase 5 — 126-state completion (11 October 2026)
 
 Phase 4 primary images remain unchanged. Phase 5 adds **45** State-ID reviewable PNG/spec pairs inside each WF package under /states/, **32** approved source-frame Night Signal PNG/spec pairs under /frames/, **61** component variants under /state-variants/, and **20** platform-only handoffs under /system-handoffs/. The authoritative disposition is [HIFI_STATE_COVERAGE_MATRIX.md](HIFI_STATE_COVERAGE_MATRIX.md); machine validation is [PHASE_5_VALIDATION.json](PHASE_5_VALIDATION.json). Automated 126/126 coverage does not imply independent human sign-off, physical runtime accessibility acceptance, or Issue #17 final closure.
+
+## Phase 6 — specialist Driving/Voice review (11 October 2026)
+
+- **Specialist gate:** PASS (static source-locked design evidence); independent Product/Design/Android/Accessibility/Privacy sign-off and on-device tests remain pending.
+- [Driving and Voice specialist matrix](specialist/phase-6/PHASE_6_SPECIALIST_MATRIX.md) — 27 specialist reviewable screens, 7 Driving and 20 Voice, each paired with exact UI-copy/behavior Markdown.
+- [42-state UF-07..10 audit](specialist/phase-6/PHASE_6_UF_STATE_AUDIT.md) — CC-01..CC-18 and CD-01..CD-24, including existing non-visual variants and system-only handoffs.
+- [Visual board](specialist/phase-6/PHASE_6_SPECIALIST_BOARD.png) and [validation JSON](specialist/phase-6/PHASE_6_VALIDATION.json).
+- [22 real-device QA handoff cases](specialist/phase-6/PHASE_6_DEVICE_QA_HANDOFF.md) explicitly marked NOT RUN.
+
+**Specialist precedence:** for UF-07/08/09/10, the matching specialist image/spec supersedes contradictory generic Phase-5 visual treatments while keeping the 126 canonical State IDs and former Phase-5 records immutable. In particular, No Track no longer offers an unverified active Play last; not-found/unsupported do not show an ineligible Retry. Android/System-only transitions are not depicted as in-app screens. Phase 4 primary images and Phase 5 machine counts remain unchanged.

@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 5 — 126/126 automated coverage PASS; independent visual approval pending**
+- **Status:** **Current through Issue #17 Phase 6 Driving/Voice specialist static-design PASS; independent reviews and runtime QA pending**
 - **Updated:** 11 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -186,6 +186,16 @@ Handoff records must expose source state, runtime owner, actions, transitions, B
 - **Visual/behavior exceptions:** source-authorized Queue/Privacy/Consent state-content refinements are explicitly identified as product-copy proposals, require human review and do not introduce new destinations or ownership.
 - **Review limit:** static artifact generation does not sign off on actual Compose 200% font reflow, TalkBack, physical target-size/device tests or final stakeholder approval.
 - **Next:** Phase 6 clickable prototype and subsequent design/engineering handoff and cross-role acceptance.
+## Issue #17 Phase 6 — Specialist Driving and Voice UX (11 October 2026)
+
+- **Specialist visual review:** [27 individually rendered source-locked scenarios](high-fidelity/specialist/phase-6/PHASE_6_SPECIALIST_MATRIX.md), all with PNG and exact-copy/behavior specification.
+- **Driving:** 7 independent conditions within WF-07 including Playing, Paused, No Track, conditional validated Play last, reconnect, pending and safe paused. Immediate Exit and no deep navigation remain invariant.
+- **Voice:** 20 specific overlays within WF-08 covering Listening/Processing/Confirming/Executed/Failed, ambiguity 1–2 options, not-found, unsupported, permission/provider unavailable, timeout, exactly one explicit STT Retry, Manual Only, and TTS failure after acknowledged execution.
+- **Complete UF trace:** [42 canonical CC/CD IDs](high-fidelity/specialist/phase-6/PHASE_6_UF_STATE_AUDIT.md), 0 missing/duplicate/unassigned; system-only CC-16 is a handoff with its app safe-paused response rooted in existing CE-06.
+- **Corrections:** CD-13/14/15/16/08/12 may not inherit blanket Retry from Phase-5 Failed artwork; CC-07 Play last is conditional on verified local media.
+- **Status:** PASS for specialist static design/traceability; [22 runtime QA scenarios](high-fidelity/specialist/phase-6/PHASE_6_DEVICE_QA_HANDOFF.md) await actual Android device evidence, design approval and TalkBack/200% text validation. The prior Phase-5 register remains intact.
+- **No new flow:** all specialist overlays and controls reuse UF-07..UF-10 and accepted Issue #16 architecture boundaries. No Android Auto, wake-word, app-owned system screen, backend/streaming or auto-Entering Driving.
+
 ## Synchronization and review rules
 
 1. Every high-fidelity artifact retains stable WF/UF/State/GS traceability.
