@@ -34,25 +34,25 @@
 | 10 | SYS-04 | Android Settings | P0 | WF-03 | UF-02 / GS-01 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/SYS-04.md) |
 | 11 | SYS-05 | Speech provider/cloud-processing boundary | P0 | WF-03 | UF-02 / UF-10 / UF-12 / GS-01 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/SYS-05.md) |
 | 12 | CB-01 | Home / Library Ready | P0 | WF-04 | UF-04 / GS-01, GS-02 | DEDICATED_HIFI | [PNG](WF-04/states/HF_STATE_CB-01.png) · [Spec](WF-04/states/HF_STATE_CB-01.md) |
-| 13 | CB-02 | Songs | P0 | WF-04 | UF-04 / GS-02 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-02.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
-| 14 | CB-03 | Artists | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-03.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
-| 15 | CB-04 | Artist tracks | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-04.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
-| 16 | CB-05 | Albums | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-05.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
-| 17 | CB-06 | Album tracks | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-06.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
-| 18 | CB-07 | Folders | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-07.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
-| 19 | CB-08 | Folder tracks | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-08.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
+| 13 | CB-02 | Songs | P0 | WF-04 | UF-04 / GS-02 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-02.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png) |
+| 14 | CB-03 | Artists | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-03.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png) |
+| 15 | CB-04 | Artist tracks | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-04.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png) |
+| 16 | CB-05 | Albums | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-05.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png) |
+| 17 | CB-06 | Album tracks | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-06.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png) |
+| 18 | CB-07 | Folders | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-07.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png) |
+| 19 | CB-08 | Folder tracks | P0 | WF-04 | UF-04 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-08.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png) |
 | 20 | CB-09 | Search Idle / Query | P0 | WF-05 | UF-04 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-05/states/HF_STATE_CB-09.png) · [Spec](WF-05/states/HF_STATE_CB-09.md) |
 | 21 | CB-10 | Search Result | P0 | WF-05 | UF-04 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-05/states/HF_STATE_CB-10.png) · [Spec](WF-05/states/HF_STATE_CB-10.md) |
 | 22 | CB-11 | Search No Result | P0 | WF-05 | UF-04 / GS-02 | DEDICATED_HIFI | [PNG](WF-05/states/HF_STATE_CB-11.png) · [Spec](WF-05/states/HF_STATE_CB-11.md) |
 | 23 | CB-12 | Search Error | P0 | WF-05 | UF-04 / GS-02 | DEDICATED_HIFI | [PNG](WF-05/states/HF_STATE_CB-12.png) · [Spec](WF-05/states/HF_STATE_CB-12.md) |
-| 24 | CB-13 | Selection Validation | P0 | WF-04, WF-05 | UF-04 / GS-02 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-13.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
+| 24 | CB-13 | Selection Validation | P0 | WF-04, WF-05 | UF-04 / GS-02 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-13.md) · [Anchor PNG](WF-05/frames/HF_FRAME_WF-05_SEARCH_RESULTS.png) |
 | 25 | CB-14 | Playback Start / Queue Acceptance / Preparing | P0 | WF-06 | UF-04 → UF-05 / GS-02 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-14.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
 | 26 | CB-15 | Full Player Playing | P0 | WF-06 | UF-05 / GS-02, GS-03 | DEDICATED_HIFI | [PNG](WF-06/states/HF_STATE_CB-15.png) · [Spec](WF-06/states/HF_STATE_CB-15.md) |
 | 27 | CB-16 | Full Player Paused | P0 | WF-06 | UF-05 / GS-03 | DEDICATED_HIFI | [PNG](WF-06/states/HF_STATE_CB-16.png) · [Spec](WF-06/states/HF_STATE_CB-16.md) |
 | 28 | CB-17 | End of Queue / Paused-Completed | P0 | WF-06 | UF-05 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-06/states/HF_STATE_CB-17.png) · [Spec](WF-06/states/HF_STATE_CB-17.md) |
 | 29 | CB-18 | Queue View | P0 | WF-06 | UF-05 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-06/states/HF_STATE_CB-18.png) · [Spec](WF-06/states/HF_STATE_CB-18.md) |
-| 30 | CB-19 | Corrupt / Inaccessible Item Recovery | P0 | WF-06 | UF-05 / GS-02 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-19.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 31 | CB-20 | Home Mini-player | P0 | WF-04, WF-06 | UF-05 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-20.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_SCANNING.png) |
+| 30 | CB-19 | Corrupt / Inaccessible Item Recovery | P0 | WF-06 | UF-05 / GS-02 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-19.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.png) |
+| 31 | CB-20 | Home Mini-player | P0 | WF-04, WF-06 | UF-05 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-20.md) · [Anchor PNG](WF-04/frames/HF_FRAME_WF-04_HOME_LIBRARY_READY.png) |
 | 32 | CB-21 | Controller Connecting / Reconnecting | P0 | WF-06 | UF-05 / UF-06 / GS-02, GS-03 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-21.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
 | 33 | CB-22 | Active Session Handoff | P0 | WF-06 | UF-06 / GS-03 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CB-22.md) |
 | 34 | CB-23 | App Background / UI Absent | P0 | WF-06 | UF-06 / GS-03 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CB-23.md) |
@@ -64,23 +64,23 @@
 | 40 | CB-29 | System Command Pending | P0 | WF-06 | UF-06 / GS-03 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CB-29.md) |
 | 41 | CB-30 | Notification Permission / Visibility Evaluation | P0 | WF-06 | UF-06 / GS-03 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CB-30.md) |
 | 42 | CB-31 | System Surface Unavailable | P0 | WF-06 | UF-06 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-31.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 43 | CB-32 | P1 Paused Restore | P1 | WF-06 | UF-05 / UF-06 / GS-03 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-32.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 44 | CB-33 | Restore Unavailable | P1 | WF-06 | UF-05 / UF-06 / GS-03 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-33.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
+| 43 | CB-32 | P1 Paused Restore | P1 | WF-06 | UF-05 / UF-06 / GS-03 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-32.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png) |
+| 44 | CB-33 | Restore Unavailable | P1 | WF-06 | UF-05 / UF-06 / GS-03 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CB-33.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png) |
 | 45 | CC-01 | Non-driving source | P0 | WF-07 | UF-07 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-01.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
 | 46 | CC-02 | Manual entry pending | P0 | WF-07 | UF-07 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-02.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
 | 47 | CC-03 | Controller reconnecting | P0 | WF-07 | UF-07 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-03.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
-| 48 | CC-04 | Entry cancelled/failed | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-04.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
+| 48 | CC-04 | Entry cancelled/failed | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-04.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_NO_TRACK.png) |
 | 49 | CC-05 | Driving Playing | P0 | WF-07 | UF-07 / GS-04 | DEDICATED_HIFI | [PNG](WF-07/states/HF_STATE_CC-05.png) · [Spec](WF-07/states/HF_STATE_CC-05.md) |
 | 50 | CC-06 | Driving Paused/Ended | P0 | WF-07 | UF-07 / GS-04 | DEDICATED_HIFI | [PNG](WF-07/states/HF_STATE_CC-06.png) · [Spec](WF-07/states/HF_STATE_CC-06.md) |
 | 51 | CC-07 | Driving No Track | P0 | WF-07 | UF-07 / GS-04 | DEDICATED_HIFI | [PNG](WF-07/states/HF_STATE_CC-07.png) · [Spec](WF-07/states/HF_STATE_CC-07.md) |
 | 52 | CC-08 | Playback command pending | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-08.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
-| 53 | CC-09 | Command rejected/timeout | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-09.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
+| 53 | CC-09 | Command rejected/timeout | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-09.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PAUSED.png) |
 | 54 | CC-10 | Acknowledged refresh | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-10.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
 | 55 | CC-11 | P1 selected-device connected | P1 | WF-07 | UF-07 / UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-07/states/HF_STATE_CC-11.png) · [Spec](WF-07/states/HF_STATE_CC-11.md) |
 | 56 | CC-12 | Bluetooth suggestion accepted | P1 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-12.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
 | 57 | CC-13 | Exit/back return | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-13.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
 | 58 | CC-14 | Microphone handoff | P0 | WF-08 | UF-07 → UF-08 / GS-04 | DEDICATED_HIFI | [PNG](WF-08/states/HF_STATE_CC-14.png) · [Spec](WF-08/states/HF_STATE_CC-14.md) |
-| 59 | CC-15 | Item unavailable / access failure | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-15.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
+| 59 | CC-15 | Item unavailable / access failure | P0 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-15.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_NO_TRACK.png) |
 | 60 | CC-16 | Interruption/route handoff | P0 | WF-07 | UF-07 → UF-11 / GS-04, GS-05 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CC-16.md) |
 | 61 | CC-17 | Suggestion declined/dismissed | P1 | WF-07 | UF-07 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-17.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
 | 62 | CC-18 | Analytics unavailable | P0 | WF-07 | UF-07 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CC-18.md) · [Anchor PNG](WF-07/frames/HF_FRAME_WF-07_DRIVING_MODE_PLAYING.png) |
@@ -103,45 +103,45 @@
 | 79 | CD-17 | Attempt-one failure | P0 | WF-08 | UF-10 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-08/states/HF_STATE_CD-17.png) · [Spec](WF-08/states/HF_STATE_CD-17.md) |
 | 80 | CD-18 | Retry available | P0 | WF-08 | UF-10 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-08/states/HF_STATE_CD-18.png) · [Spec](WF-08/states/HF_STATE_CD-18.md) |
 | 81 | CD-19 | Attempt-two terminal failure | P0 | WF-08 | UF-10 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-08/states/HF_STATE_CD-19.png) · [Spec](WF-08/states/HF_STATE_CD-19.md) |
-| 82 | CD-20 | Manual fallback | P0 | WF-08 | UF-08 / UF-09 / UF-10 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CD-20.md) · [Anchor PNG](WF-08/frames/HF_FRAME_WF-08_VOICE_LISTENING.png) |
-| 83 | CD-21 | Permission denied/revoked | P0 | WF-03, WF-08 | UF-10 / UF-12 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CD-21.md) · [Anchor PNG](WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_RATIONALE_REQUEST.png) |
-| 84 | CD-22 | Provider/language unavailable | P0 | WF-08, WF-10 | UF-10 / UF-12 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CD-22.md) · [Anchor PNG](WF-08/frames/HF_FRAME_WF-08_VOICE_LISTENING.png) |
+| 82 | CD-20 | Manual fallback | P0 | WF-08 | UF-08 / UF-09 / UF-10 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CD-20.md) · [Anchor PNG](WF-08/frames/HF_FRAME_WF-08_VOICE_FAILED_RETRY.png) |
+| 83 | CD-21 | Permission denied/revoked | P0 | WF-03, WF-08 | UF-10 / UF-12 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CD-21.md) · [Anchor PNG](WF-03/frames/HF_FRAME_WF-03_PERMISSIONS_DENIED.png) |
+| 84 | CD-22 | Provider/language unavailable | P0 | WF-08, WF-10 | UF-10 / UF-12 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CD-22.md) · [Anchor PNG](WF-08/frames/HF_FRAME_WF-08_VOICE_FAILED_RETRY.png) |
 | 85 | CD-23 | Cloud consent required/declined | P0 | WF-10 | UF-10 / UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-10/states/HF_STATE_CD-23.png) · [Spec](WF-10/states/HF_STATE_CD-23.md) |
 | 86 | CD-24 | Cancelled/Exit | P0 | WF-08 | UF-08 / UF-09 / UF-10 / GS-04 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CD-24.md) · [Anchor PNG](WF-08/frames/HF_FRAME_WF-08_VOICE_LISTENING.png) |
 | 87 | CE-01 | Stable Playing | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-01.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
 | 88 | CE-02 | Transient focus/call handling | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-02.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 89 | CE-03 | Interrupted Paused / resume eligible | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-03.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
+| 89 | CE-03 | Interrupted Paused / resume eligible | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-03.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png) |
 | 90 | CE-04 | Temporarily Ducked | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-04.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
 | 91 | CE-05 | Conditional Resume acknowledged | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-05.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 92 | CE-06 | Safe Paused / manual resume | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-06.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
+| 92 | CE-06 | Safe Paused / manual resume | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-06.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png) |
 | 93 | CE-07 | Route Disconnect handling | P0 | WF-06, WF-07 | UF-11 / GS-05 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CE-07.md) |
 | 94 | CE-08 | Disconnected Safe Paused | P0 | WF-06, WF-07 | UF-11 / GS-05 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CE-08.md) |
 | 95 | CE-09 | Reconnected Safe Paused | P0 | WF-06, WF-07 | UF-11 / GS-05 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CE-09.md) |
 | 96 | CE-10 | Permanent Focus Loss | P0 | WF-06, WF-07 | UF-11 / GS-05 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CE-10.md) |
-| 97 | CE-11 | Interruption Policy Error | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-11.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 98 | CE-12 | Corrupt Current Item | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-12.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 99 | CE-13 | Controlled Skip | P0 | WF-06, WF-07 | UF-11 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-13.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 100 | CE-14 | Queue Ended by Corruption | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-14.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
+| 97 | CE-11 | Interruption Policy Error | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-11.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PAUSED.png) |
+| 98 | CE-12 | Corrupt Current Item | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-12.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.png) |
+| 99 | CE-13 | Controlled Skip | P0 | WF-06, WF-07 | UF-11 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-13.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.png) |
+| 100 | CE-14 | Queue Ended by Corruption | P0 | WF-06, WF-07 | UF-11 / GS-05 | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-14.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.png) |
 | 101 | CE-15 | Settings Default | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-10/states/HF_STATE_CE-15.png) · [Spec](WF-10/states/HF_STATE_CE-15.md) |
 | 102 | CE-16 | Setting Update Pending | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-16.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_DEFAULT.png) |
-| 103 | CE-17 | Settings Updated / Error | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-17.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_DEFAULT.png) |
+| 103 | CE-17 | Settings Updated / Error | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-17.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_BLUETOOTH_UPDATED.png) |
 | 104 | CE-18 | Android Settings Handoff | P0 | WF-10 | UF-12 / GS-05 | SYSTEM_ONLY_HANDOFF | [System handoff](system-handoffs/CE-18.md) |
 | 105 | CE-19 | Platform Recheck | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-19.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_DEFAULT.png) |
 | 106 | CE-20 | Bluetooth Selection | P1 | WF-10 | UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-10/states/HF_STATE_CE-20.png) · [Spec](WF-10/states/HF_STATE_CE-20.md) |
 | 107 | CE-21 | Privacy Details | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-10/states/HF_STATE_CE-21.png) · [Spec](WF-10/states/HF_STATE_CE-21.md) |
 | 108 | CE-22 | Consent Decision | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-10/states/HF_STATE_CE-22.png) · [Spec](WF-10/states/HF_STATE_CE-22.md) |
 | 109 | CE-23 | Clear Selection | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-10/states/HF_STATE_CE-23.png) · [Spec](WF-10/states/HF_STATE_CE-23.md) |
-| 110 | CE-24 | Clear Confirmation | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-24.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_DEFAULT.png) |
-| 111 | CE-25 | Clearing | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-25.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_DEFAULT.png) |
-| 112 | CE-26 | Clear Result | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-26.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_DEFAULT.png) |
+| 110 | CE-24 | Clear Confirmation | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-24.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.png) |
+| 111 | CE-25 | Clearing | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-25.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.png) |
+| 112 | CE-26 | Clear Result | P0 | WF-10 | UF-12 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/CE-26.md) · [Anchor PNG](WF-10/frames/HF_FRAME_WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.png) |
 | 113 | UL-01 | P2 not shipped | P2 | WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-01.md) · [Anchor PNG](WF-09/frames/HF_FRAME_WF-09_LIKED_SONGS_EMPTY.png) |
 | 114 | UL-02 | Entry loading | P2 | WF-09 | UF-13 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-09/states/HF_STATE_UL-02.png) · [Spec](WF-09/states/HF_STATE_UL-02.md) |
 | 115 | UL-03 | Empty | P2 | WF-09 | UF-13 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-09/states/HF_STATE_UL-03.png) · [Spec](WF-09/states/HF_STATE_UL-03.md) |
 | 116 | UL-04 | Ready | P2 | WF-09 | UF-13 / — (not on GS-01..05 path) | DEDICATED_HIFI | [PNG](WF-09/states/HF_STATE_UL-04.png) · [Spec](WF-09/states/HF_STATE_UL-04.md) |
-| 117 | UL-05 | Like write pending | P2 | WF-06, WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-05.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 118 | UL-06 | Like acknowledged | P2 | WF-06, WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-06.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 119 | UL-07 | Mutation failed | P2 | WF-06, WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-07.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
-| 120 | UL-08 | Unlike write pending | P2 | WF-06, WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-08.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
+| 117 | UL-05 | Like write pending | P2 | WF-06, WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-05.md) · [Anchor PNG](WF-09/frames/HF_FRAME_WF-09_LIKED_SONGS_READY.png) |
+| 118 | UL-06 | Like acknowledged | P2 | WF-06, WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-06.md) · [Anchor PNG](WF-09/frames/HF_FRAME_WF-09_LIKED_SONGS_READY.png) |
+| 119 | UL-07 | Mutation failed | P2 | WF-06, WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-07.md) · [Anchor PNG](WF-09/frames/HF_FRAME_WF-09_LIKED_SONGS_READY.png) |
+| 120 | UL-08 | Unlike write pending | P2 | WF-06, WF-09 | UF-13 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-08.md) · [Anchor PNG](WF-09/frames/HF_FRAME_WF-09_LIKED_SONGS_READY.png) |
 | 121 | UL-09 | Playback command pending | P2 | WF-09, WF-06 | UF-13 → UF-05 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-09.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
 | 122 | UL-10 | Playback acknowledged | P2 | WF-09, WF-06 | UF-13 → UF-05 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-10.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
 | 123 | UL-11 | Playback rejected/stale | P2 | WF-09, WF-06 | UF-13 → UF-05 / — (not on GS-01..05 path) | HIFI_VARIANT_ANNOTATION | [Variant](state-variants/UL-11.md) · [Anchor PNG](WF-06/frames/HF_FRAME_WF-06_FULL_PLAYER_PLAYING.png) |
