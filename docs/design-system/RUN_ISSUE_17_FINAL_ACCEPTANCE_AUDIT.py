@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Issue #17 Phase 12 final acceptance audit — evidence, link and byte-integrity gates.
 
+Final repository-source run includes the updated DESIGN_DELIVERY_PLAN Phase-12 section.
+
 Running this script never signs a human approval, performs Android QA, or closes Issue #17.
 The source package SHA is externally verified against the attached RAR at run setup.
 """
