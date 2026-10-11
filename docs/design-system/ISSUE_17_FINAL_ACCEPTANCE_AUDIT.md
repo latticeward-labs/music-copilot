@@ -53,11 +53,11 @@ Source of these exact criteria: [Issue #17](https://github.com/latticeward-labs/
 
 ## 3. Link audit — real repository path resolution
 
-Checked **365** current Markdown documents across `docs/design-system/`, `docs/high-fidelity/`, `docs/handoff/`, `docs/prototype/`, `docs/audit/phase-10/`, approved Wireframe/Golden Scenario sources and core authority docs.
+Checked **366** current Markdown documents across `docs/design-system/`, `docs/high-fidelity/`, `docs/handoff/`, `docs/prototype/`, `docs/audit/phase-10/`, approved Wireframe/Golden Scenario sources and core authority docs.
 
 - Relative repository-local Markdown/image link references: **1347**.
-- Same-repository GitHub `blob/main` and `tree/main` references: **0**.
-- External/non-main/third-party links skipped (not claimed live-verified): **228**.
+- Same-repository GitHub `blob/main` and `tree/main` references: **113**.
+- External/non-main/third-party links skipped (not claimed live-verified): **166**.
 - Link fragments/anchors not validated as exact heading slugs: **4**.
 - Missing local path targets: **0**.
 
