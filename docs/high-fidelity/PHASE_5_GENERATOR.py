@@ -381,7 +381,7 @@ def handoff_details(s):
 # They do not create new navigation destinations or product capabilities.
 # They ARE product-copy refinements and require later human UX approval.
 COPY_SPECIAL = {
-    "CB-09":["Back","Search","Search local music","Home","Search","Liked","Settings"],
+    "CB-09":["Back","Search","Search...","Search local music","Home","Search","Liked","Settings"],
     "CB-17":["Back","Now playing","Queue","Aurora Lights","Local artist","Play","COMPLETED"],
     "CB-18":["Back","Now playing","Queue","Current queue","Aurora Lights","Local artist","PLAYING","Night Drive","Ocean Lines"],
     "CE-21":["Back","Settings","Permissions","Bluetooth suggestion","Privacy","Clear data / history","Privacy details","Local-first controls","Your library stays on this device","Raw voice audio is not stored by default","Home","Search","Liked","Settings"],
@@ -412,6 +412,8 @@ def state_surface_specialization(image: Image.Image, sid: str, source_copy):
         # The search field stays source-owned; results must NOT be fabricated
         # while there is no query. Keep approved bottom navigation.
         d.rectangle((35,535,1045,2070),fill=dark)
+        d.rounded_rectangle((45,280,1035,450),radius=24,fill=panel,outline="#2B3746",width=3)
+        d.text((95,365),"Search...",font=ImageFont.truetype(fontfile,43),fill=soft,anchor="lm")
         d.text((540,930),"Search local music",font=h,anchor="mm",fill=fg)
     elif sid=="CB-17":
         # Acknowledged completed queue means no false PLAYING badge.
