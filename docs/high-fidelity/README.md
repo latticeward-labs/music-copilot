@@ -108,3 +108,8 @@ The [engineering handoff index](../handoff/README.md) links all five required fi
 - [Independent audit](../handoff/PHASE9_VALIDATION.md)
 
 MediaSessionService remains playback authority; VoiceSessionCoordinator remains Voice authority; Android-native surfaces remain OS owned. PH10-MIN-001 real Compose accessibility testing remains open.
+
+
+## Issue #17 Phase 10 — Full HF source chain and orphan audit (11 October 2026)
+
+[Traceability and Scope audit](../audit/phase-10/README.md) checks **all 403 source High-Fi files**, including 117 PNGs, paired State/Variant/System specs, as part of a 541-file active design/documentation inventory. Every primary, 32 source frame, 45 dedicated, 27 specialist and 3 aggregate board PNG is indexed in the [117-image mapping](../audit/phase-10/PHASE_10_VISUAL_ARTIFACT_MATRIX.md). The [126-State source chain](../audit/phase-10/PHASE_10_TRACEABILITY_MATRIX.md) differentiates direct GS, UF-supported GS and intentionally GS-absent P2 states. [Automated gate](../audit/phase-10/PHASE_10_VALIDATION.json): PASS, zero orphan / missing / priority / scope / prototype findings. All 14 UL-* states and WF-09 remain P2/Removable. No new approved UX or runtime QA is implied.
