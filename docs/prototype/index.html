@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Music Copilot MVP, Issue 17 Phase 8 source-locked interactive design prototype">
+  <title>Music Copilot · Golden Scenario Prototype</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo" aria-hidden="true">♫</span><div><strong>MUSIC COPILOT</strong><small>Issue #17 · Phase 8 · Repo-native prototype</small></div></div>
+  <div class="header-right"><span class="pill">Static interaction model · No audio / STT / Android APIs</span><a href="../high-fidelity/README.md" class="external">Source design ↗</a></div>
+</header>
+<main class="layout">
+  <aside class="left panel" aria-labelledby="scenarios-title">
+    <p class="eyebrow">01 · Source journeys</p><h1 id="scenarios-title">Golden Scenarios</h1>
+    <p class="subtle">Select an approved user journey. The phone reuses repository High-Fidelity PNGs; no new product screens are drawn.</p>
+    <nav id="scenarios" class="scenario-list" aria-label="Golden Scenario selection"></nav>
+    <div class="divider"></div>
+    <p class="eyebrow">Current scenario</p>
+    <h2 id="scenario-title"></h2>
+    <ol id="journey" class="journey" aria-label="Approved primary path"></ol>
+    <div class="divider"></div>
+    <details><summary>What this prototype is not</summary>
+      <p>It is not a running Android app, media player, speech provider, Android permission UI, or proof of background playback. Simulator events use deterministic branches outside the phone.</p>
+      <p>Only the original WF/UF/GS hierarchy and reviewed source artwork control app-visible appearance.</p>
+    </details>
+  </aside>
+
+  <section class="center" aria-labelledby="viewport-title">
+    <div class="viewport-title"><div><p class="eyebrow">02 · High-fidelity device viewport</p><h2 id="viewport-title">Interactive screen</h2></div><label class="switch"><input type="checkbox" id="show-hotspots"> Show tap regions</label></div>
+    <div class="phone-shell">
+      <div class="phone-screen" id="phone-screen">
+        <img id="screen-image" alt="" draggable="false">
+        <div id="hotspots" class="hotspots" aria-label="Existing on-screen controls"></div>
+        <div class="platform-placeholder" id="system-placeholder" hidden>
+          <svg aria-hidden="true" width="70" height="70" viewBox="0 0 70 70" fill="none"><rect x="13" y="5" width="44" height="60" rx="11" stroke="currentColor" stroke-width="2"/><path d="M27 42l6 6 13-17" stroke="currentColor" stroke-width="3"/></svg>
+          <strong>External system boundary</strong>
+          <p>No Android-owned screen is generated here.</p>
+          <span>Platform outcome is simulated in the review panel outside this phone.</span>
+        </div>
+      </div>
+    </div>
+    <div class="phone-footer"><button id="back" class="secondary" type="button">← Reviewer Back</button><button id="restart" class="secondary" type="button">Restart scenario</button></div>
+    <p class="subtle note">Viewport source: 360 × 800 dp · original PNGs rendered at 1080 × 2400 px. The translucent rectangles (toggle above) are prototype interaction hotspots, not added app UI.</p>
+  </section>
+
+  <aside class="right panel" aria-labelledby="inspect-title">
+    <p class="eyebrow">03 · Behavior and traceability</p><h2 id="inspect-title">State inspector</h2>
+    <div class="state-card"><span class="pill accent" id="state-id"></span><h3 id="state-title"></h3><p id="state-desc" class="subtle"></p><div id="state-wf" class="micro"></div></div>
+    <div id="system-boundary-warning" class="boundary-warning" hidden><strong>Android / MediaSession owned</strong><p>This is a handoff annotation, not a clickable application destination. No native dialogs, lock-screen or notification UI are mocked.</p></div>
+    <section aria-labelledby="tap-heading">
+      <h3 id="tap-heading">Existing app actions</h3>
+      <p class="subtle micro">Mirror the highlighted hotspots on the phone. Not extra in-app controls.</p>
+      <div id="tap-actions" class="action-list"></div>
+    </section>
+    <section aria-labelledby="events-heading">
+      <h3 id="events-heading">Reviewer-only event simulator</h3>
+      <p class="subtle micro">Set permission results, spoken intent, service acknowledgement, route interruption and other environmental outcomes. These actions never appear inside the app screen.</p>
+      <div id="simulation-actions" class="action-list"></div>
+    </section>
+    <div id="context" class="context" role="status" aria-live="polite"></div>
+    <div class="divider"></div>
+    <p class="eyebrow">Current trace</p>
+    <div id="trace" class="trace" aria-label="Scenario event trace"></div>
+  </aside>
+</main>
+<footer><span>Night Signal · Local-first Android MVP</span><span><a href="./PROTOTYPE_COVERAGE_MATRIX.md">Traceability and acceptance</a> · <a href="./TEST_PLAN.md">QA test plan</a></span></footer>
+<script src="./routes.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
