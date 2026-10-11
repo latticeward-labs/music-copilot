@@ -95,3 +95,16 @@ The high-fidelity designs are reused, not regenerated, by the [Phase-8 clickable
 ### Phase 8 strict acceptance correction
 
 The [strict Phase-8 re-audit](../prototype/PHASE_8_STRICT_REAUDIT_2026-10-11.md) supersedes the earlier 35-branch global reachability count: 38/38 required scenario-local Recovery branches now have proven safe terminals, 14/14 Chromium clicks pass, and the approved PNGs are reused with corrected Empty/Denied/P1 Restore hotspots. [routes.json](../prototype/routes.json) is generated from the same [routes.js](../prototype/routes.js); external CB-22/23/24/25/27/28 remain system handoffs. This does not modify the 126 canonical State IDs.
+
+## Issue #17 Phase 9 — Jetpack Compose Engineering Handoff (11 October 2026)
+
+The [engineering handoff index](../handoff/README.md) links all five required files. Verified coverage: 10 WFs, 23 CMP components, 126 State IDs, 32 approved source frames, and 20 native Android/System-only States. All 149 registered PNG/SVG designs have repository integrity checks.
+
+- [Screen specs](../handoff/SCREEN_SPECS.md)
+- [Component specs](../handoff/COMPONENT_SPECS.md)
+- [State/action matrix](../handoff/STATE_ACTION_MATRIX.md)
+- [Exact Compose token mapping](../handoff/COMPOSE_TOKEN_MAPPING.md)
+- [Verified design assets](../handoff/ASSET_REGISTER.json)
+- [Independent audit](../handoff/PHASE9_VALIDATION.md)
+
+MediaSessionService remains playback authority; VoiceSessionCoordinator remains Voice authority; Android-native surfaces remain OS owned. PH10-MIN-001 real Compose accessibility testing remains open.
