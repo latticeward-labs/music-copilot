@@ -190,8 +190,12 @@
       system("Return; refresh actual notification visibility","reconnect")
     ],"Android/System"),
     node("restore-paused","CB-32","WF-06",frame("06","FULL_PLAYER_PAUSED"),"P1 Paused Restore","Only validated persisted snapshot may restore an explicitly Paused state. This does not imply live P0 continuity.",[
-      simulate("User explicitly requests Play; revalidate item","player"),
+      tap("Explicit Play on verified restore","restore-pending",129,514,99,90),
       simulate("Restore invalid; return Home","library")
+    ]),
+    node("restore-pending","CB-32","WF-06",frame("06","FULL_PLAYER_PAUSED"),"Validated restore: await service ACK","The prior Paused state remains visible until a new MediaSession command is acknowledged.",[
+      simulate("Service acknowledges explicit Play","player"),
+      simulate("Service rejects or item invalid; remain Paused","restore-paused")
     ]),
     node("driving","CC-05","WF-07",driving("PLAYING"),"Driving — Playing","Manual entry only; immediate Exit; no keyboard, Queue, Search or Settings.",[
       tap("Exit Driving now","player",270,27,86,64),
@@ -361,7 +365,7 @@
   const recoverySafety = {
     "GS-01": {allowed:["splash","migration-error","welcome","education","permission","sys-media","denied","permanent","sys-settings","granted","scanning","scan-error","empty","library"], terminals:["library","denied","permanent","empty","migration-error"]},
     "GS-02": {allowed:["library","search","results","search-none","search-error","stale","selection","player","player-paused","queue","corrupt","reconnect","permission","sys-media","denied","permanent","sys-settings","granted","scanning","scan-error","empty"], terminals:["player","player-paused","library","results","search-none","search-error","denied","permanent"]},
-    "GS-03": {allowed:["player","player-paused","session-handoff","background","screen-off","sys-controls","lock-controls","external-keys","sys-command","lifecycle-event","reconnect","notification-denied","sys-settings-notification","restore-paused","library"], terminals:["player","player-paused","restore-paused","notification-denied","library"]},
+    "GS-03": {allowed:["player","player-paused","session-handoff","background","screen-off","sys-controls","lock-controls","external-keys","sys-command","lifecycle-event","reconnect","notification-denied","sys-settings-notification","restore-paused","restore-pending","library"], terminals:["player","player-paused","restore-paused","notification-denied","library"]},
     "GS-04": {allowed:["player","player-paused","driving","driving-paused","driving-none","driving-last","driving-safe","voice-listen","voice-listen-two","voice-processing","voice-confirm-one","voice-confirm-two","voice-pending","voice-done","voice-tts","voice-timeout","voice-terminal","voice-not-found","voice-unsupported","voice-unknown","voice-provider","voice-permission","voice-rejected"], terminals:["driving","driving-paused","driving-none","driving-safe","player","player-paused"]},
     "GS-05": {allowed:["player","route-event","route-paused","route-return","focus-paused","safe-paused","manual-resume","library"], terminals:["player","safe-paused","route-paused","focus-paused","library"]}
   };
