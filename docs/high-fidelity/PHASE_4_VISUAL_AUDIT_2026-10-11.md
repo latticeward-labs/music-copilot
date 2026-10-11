@@ -17,3 +17,6 @@
 - https://developer.android.com/training/permissions/requesting — request-in-context and system handoff, no added fake app dialog.
 
 **Not claimed:** Independent human approval, 200% Compose runtime reflow test, or physical-device accessibility test. These are separate Issue #17 final sign-off requirements.
+
+## Final font-render evidence
+Exact text Driving rendered with installed TrueType font; glyph extraction artifacts eliminated. HF-06 SHA-256: a63c9341ef24537129ad3631765b9476af1408aec2b23c17d6e55272bce66f97; board SHA-256: c1f8001cfc63094b855d259e2a07f30fe8f27b0729c58351c9669bfe79b14574; both PNGs decoded successfully.

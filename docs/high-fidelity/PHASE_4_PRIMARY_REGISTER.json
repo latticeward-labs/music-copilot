@@ -182,8 +182,8 @@
       "structuralDeviation": "NONE",
       "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
       "githubVisualReview": "PASS_REVIEWED",
-      "pngSha256": "ff201a9a791581148b8bb5712a87023bb5f0764aa3be5de1d255cae61d14ae6c",
-      "phase4Correction": "2026-10-11: resolved Driving overlap with Next, preserved all player actions; moved existing entry after Playing with independent >=48dp target"
+      "pngSha256": "a63c9341ef24537129ad3631765b9476af1408aec2b23c17d6e55272bce66f97",
+      "phase4Correction": "2026-10-11: independent Driving target beneath Playing; no overlap with Next; font-rendered exact copy."
     },
     {
       "id": "HF-07_DRIVING_MODE_PLAYING",
@@ -289,6 +289,6 @@
     "status": "PASS_COMPLETE_READY_FOR_MERGE",
     "hf06DrivingEntryCorrection": "PASS",
     "visualOverlapRemediation": "PASS_CORRECTED_2026_10_11",
-    "primaryBoardSha256": "60be0dbca4c993c4dda097ec9ddf161987cefd0d3f761f591b0eec8e41fab344"
+    "primaryBoardSha256": "c1f8001cfc63094b855d259e2a07f30fe8f27b0729c58351c9669bfe79b14574"
   }
 }
