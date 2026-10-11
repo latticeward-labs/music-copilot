@@ -7262,6 +7262,198 @@
   ],
   "registeredArtifacts": [
     {
+      "path": "docs/design-system/HIFI_TRACEABILITY_MATRIX.md",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/ISSUE_17_PHASE_1_VALIDATION.md",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/components/COMPONENT_BOARD_CORE.png",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/components/COMPONENT_BOARD_PLAYBACK_MEDIA.png",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/components/COMPONENT_BOARD_VOICE_RECOVERY.png",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/components/COMPONENT_CATALOG.md",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/components/COMPONENT_COVERAGE_MATRIX.md",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/components/COMPONENT_TOKENS.json",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/components/PHASE_3_VALIDATION.md",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/foundations/FOUNDATIONS.md",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/foundations/FOUNDATIONS_BOARD.png",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/foundations/FOUNDATIONS_VALIDATION.md",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/design-system/foundations/TOKENS.json",
+      "kinds": [
+        "FOUNDATION_COMPONENT_AND_TRACEABILITY_SOURCE"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/ASSET_REGISTER.json",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/COMPONENT_SPECS.md",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/COMPOSE_TOKEN_MAPPING.md",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/PHASE9_VALIDATION.json",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/PHASE9_VALIDATION.md",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/README.md",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/SCREEN_SPECS.md",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/STATE_ACTION_MATRIX.md",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/handoff/VALIDATE_PHASE9.py",
+      "kinds": [
+        "COMPOSE_ENGINEERING_HANDOFF_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
       "path": "docs/high-fidelity/HIFI_STATE_COVERAGE_MATRIX.md",
       "kinds": [
         "SOURCE_SUPPORT_OR_VALIDATION"
@@ -11590,6 +11782,168 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/prototype/PHASE_8_BROWSER_REVIEW.png",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/PHASE_8_BROWSER_VALIDATION.json",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/PHASE_8_STRICT_REAUDIT_2026-10-11.md",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/PHASE_8_VALIDATION.json",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/PHASE_8_VALIDATION.md",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/PROTOTYPE_COVERAGE_MATRIX.md",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/README.md",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/TEST_PLAN.md",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/app.js",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/browser-smoke.cjs",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/export-routes.cjs",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/index.html",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/routes.js",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/routes.json",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/styles.css",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/prototype/validate.cjs",
+      "kinds": [
+        "FIVE_GS_CLICKABLE_PROTOTYPE_OR_TEST"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/app-states/FRAME_REGISTER.json",
+      "kinds": [
+        "APPROVED_LOFI_OR_FRAME_SUPPORT"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/app-states/PHASE_4_VALIDATION.md",
+      "kinds": [
+        "APPROVED_LOFI_OR_FRAME_SUPPORT"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/app-states/README.md",
+      "kinds": [
+        "APPROVED_LOFI_OR_FRAME_SUPPORT"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-01_SPLASH_LOADING.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "S-01"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-01_SPLASH_LOADING.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11600,6 +11954,16 @@
         "S-01"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "S-01"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-01_SPLASH_STARTUP_MIGRATION_ERROR.svg",
@@ -11614,6 +11978,16 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "S-02"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11624,6 +11998,18 @@
         "S-02"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CA-01",
+        "CA-02",
+        "S-02"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE.svg",
@@ -11640,6 +12026,17 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CA-02",
+        "S-03"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_DENIED.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11651,6 +12048,17 @@
         "S-03"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CA-02",
+        "S-03"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_GRANTED.svg",
@@ -11666,6 +12074,18 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CA-02",
+        "S-03",
+        "SYS-04"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11678,6 +12098,19 @@
         "SYS-04"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CA-02",
+        "S-03",
+        "SYS-01",
+        "SYS-02"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-03_PERMISSIONS_RATIONALE_REQUEST.svg",
@@ -11695,6 +12128,16 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "S-04"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_EMPTY.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11705,6 +12148,18 @@
         "S-04"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CB-01",
+        "CB-20",
+        "S-04"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.svg",
@@ -11721,6 +12176,16 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "S-04"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_RECOVERABLE_ERROR.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11733,6 +12198,16 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "S-04"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_SCANNING.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11743,6 +12218,17 @@
         "S-04"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-05_SEARCH_ERROR.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CB-09",
+        "CB-12"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-05_SEARCH_ERROR.svg",
@@ -11758,6 +12244,17 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CB-09",
+        "CB-11"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-05_SEARCH_NO_RESULTS.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11769,6 +12266,18 @@
         "CB-11"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CB-09",
+        "CB-10",
+        "CB-13"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.svg",
@@ -11783,6 +12292,19 @@
         "CB-13"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CB-19",
+        "CE-12",
+        "CE-13",
+        "CE-14"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_CORRUPT_FILE_RECOVERY.svg",
@@ -11800,6 +12322,16 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CB-16"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_PAUSED.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11812,6 +12344,16 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CB-15"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-06_FULL_PLAYER_PLAYING.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11822,6 +12364,17 @@
         "CB-15"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CC-07",
+        "CC-15"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_NO_TRACK.svg",
@@ -11837,6 +12390,17 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CC-06",
+        "CC-16"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PAUSED.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11848,6 +12412,18 @@
         "CC-16"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CC-05",
+        "CC-14",
+        "CC-16"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-07_DRIVING_MODE_PLAYING.svg",
@@ -11864,6 +12440,17 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CD-09",
+        "CD-10"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-08_VOICE_CONFIRMING.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11877,6 +12464,16 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CD-07"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-08_VOICE_EXECUTED.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11887,6 +12484,19 @@
         "CD-07"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CD-08",
+        "CD-17",
+        "CD-18",
+        "CD-19"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-08_VOICE_FAILED_RETRY.svg",
@@ -11904,6 +12514,17 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_LISTENING.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CC-14",
+        "CD-03"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-08_VOICE_LISTENING.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11915,6 +12536,16 @@
         "CD-03"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CD-05"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-08_VOICE_PROCESSING.svg",
@@ -11929,6 +12560,17 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "UL-02",
+        "UL-03"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-09_LIKED_SONGS_EMPTY.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11940,6 +12582,19 @@
         "UL-03"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "UL-04",
+        "UL-09",
+        "UL-10",
+        "UL-12"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-09_LIKED_SONGS_READY.svg",
@@ -11957,6 +12612,18 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CE-16",
+        "CE-17",
+        "CE-20"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-10_SETTINGS_BLUETOOTH_UPDATED.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11969,6 +12636,18 @@
         "CE-20"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CE-21",
+        "CE-25",
+        "CE-26"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-10_SETTINGS_CLEARED_PRIVACY_STATUS.svg",
@@ -11985,6 +12664,17 @@
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
     },
     {
+      "path": "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CE-23",
+        "CE-24"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
+    },
+    {
       "path": "docs/wireframes/app-states/WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION.svg",
       "kinds": [
         "APPROVED_LOFI",
@@ -11996,6 +12686,18 @@
         "CE-24"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.md",
+      "kinds": [
+        "APPROVED_LOFI_FRAME_SPEC"
+      ],
+      "stateIds": [
+        "CE-15",
+        "CE-21",
+        "CE-22"
+      ],
+      "authority": "docs/wireframes/app-states/FRAME_REGISTER.json"
     },
     {
       "path": "docs/wireframes/app-states/WF-10_SETTINGS_DEFAULT.svg",
@@ -12010,6 +12712,338 @@
         "CE-22"
       ],
       "authority": "docs/design-system/HIFI_TRACEABILITY_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/PHASE_5_VALIDATION.md",
+      "kinds": [
+        "APPROVED_NATIVE_DIAGRAM_OR_RECOVERY_SUPPORT"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/README.md",
+      "kinds": [
+        "APPROVED_NATIVE_DIAGRAM_OR_RECOVERY_SUPPORT"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/RECOVERY_TERMINAL_MATRIX.md",
+      "kinds": [
+        "APPROVED_NATIVE_DIAGRAM_OR_RECOVERY_SUPPORT"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/RECOVERY_TERMINAL_OVERVIEW.svg",
+      "kinds": [
+        "APPROVED_NATIVE_DIAGRAM_OR_RECOVERY_SUPPORT"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json",
+      "kinds": [
+        "APPROVED_NATIVE_DIAGRAM_OR_RECOVERY_SUPPORT"
+      ],
+      "stateIds": [],
+      "authority": "docs/design-system/ISSUE_17_SOURCE_MANIFEST.md"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CE-18",
+        "SYS-04"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CE-18",
+        "SYS-04"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "SYS-01"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-03_SYSTEM_MEDIA_PERMISSION_DIALOG.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "SYS-01"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "SYS-02"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-03_SYSTEM_MICROPHONE_PERMISSION_DIALOG.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "SYS-02"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-28",
+        "CC-16",
+        "CE-07",
+        "CE-08",
+        "CE-09"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_BLUETOOTH_ROUTE_RECOVERY.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-28",
+        "CC-16",
+        "CE-07",
+        "CE-08",
+        "CE-09"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-28",
+        "CB-29"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_EXTERNAL_MEDIA_CONTROLS.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-28",
+        "CB-29"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_LOCK_SCREEN_CONTROLS.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-24",
+        "CB-27",
+        "CB-29"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_LOCK_SCREEN_CONTROLS.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-24",
+        "CB-27",
+        "CB-29"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-22",
+        "CB-26",
+        "CB-29",
+        "CB-30"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_MEDIA_NOTIFICATION_CONTROLS.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-22",
+        "CB-26",
+        "CB-29",
+        "CB-30"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-30",
+        "SYS-03"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-30",
+        "SYS-03"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CC-16",
+        "CE-10"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_PHONE_CALL_AUDIO_FOCUS.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CC-16",
+        "CE-10"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CC-16",
+        "CE-07",
+        "CE-08",
+        "CE-09"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_SYSTEM_WIRED_HEADSET_ROUTE_RECOVERY.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CC-16",
+        "CE-07",
+        "CE-08",
+        "CE-09"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_UI_RECREATION_SERVICE_RECONNECT.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-22",
+        "CB-23",
+        "CB-25"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-06_UI_RECREATION_SERVICE_RECONNECT.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "CB-22",
+        "CB-23",
+        "CB-25"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-08_DRIVING_VOICE_RETRY_MANUAL_FALLBACK.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-08_DRIVING_VOICE_RETRY_MANUAL_FALLBACK.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING.md",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "SYS-05"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
+    },
+    {
+      "path": "docs/wireframes/recovery-system/WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING.svg",
+      "kinds": [
+        "NATIVE_TRANSITION_DIAGRAM_OR_SPEC"
+      ],
+      "stateIds": [
+        "SYS-05"
+      ],
+      "authority": "docs/wireframes/recovery-system/SYSTEM_TRANSITION_REGISTER.json"
     }
   ],
   "prototypeNodes": [

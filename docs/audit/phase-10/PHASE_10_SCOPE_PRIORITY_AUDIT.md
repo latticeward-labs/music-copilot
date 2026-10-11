@@ -8,7 +8,7 @@ Explicitly excluded: backend, account, sync, streaming/online catalog, iOS, Andr
 Permitted: local-only media, Android service-owned playback, explicit Push-to-Talk six intents, bounded single confirmation/one Retry, Manual fallback, OS-owned native permissions/Settings/notification/lock-screen/vehicle media keys.
 
 ## Verified source inventory
-Canonical states: 126; original high-fi files: 403; registered path inventory: 435; source assets: 149; primary/frames/specialist: 10/32/27; system only: 20.
+Canonical states: 126; original high-fi files: 403; registered path inventory: 541; source assets: 149; primary/frames/specialist: 10/32/27; system only: 20.
 
 ## Fail-closed findings
 - missing: 0
