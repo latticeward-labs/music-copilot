@@ -105,3 +105,12 @@ Before Phase 4 is recorded as PASS / COMPLETE:
 - [x] Component usage remains compatible with Phase 3.
 - [x] Accessibility/privacy/system-boundary notes remain intact.
 
+
+## 2026-10-11: visual-overlap correction
+
+The original merged Phase-4 PNG had an obstructing `Driving` pill over the Next playback control. This revised PNG separates Previous / Pause / Next and locates the already-approved `Driving` entry below the `PLAYING` indicator with its own 130dp × 52dp target. The exact UI copy remains unchanged; the exact word is rendered with a font. Source WF-06, CB-15, UF-05/06/11, GS-02/03/05 and service-owned playback behavior have not changed. The matching primary board thumbnail has been regenerated. This correction is static design evidence, not proof of runtime Compose semantics, TalkBack or 200% reflow.
+
+- Updated PNG SHA-256: `a63c9341ef24537129ad3631765b9476af1408aec2b23c17d6e55272bce66f97`.
+
+### Final font-render QA (2026-10-11)
+The Driving label is drawn from the exact-copy string with a real TrueType font and remains independent of Previous/Pause/Next. Same WF-06 to WF-07 approved route; no new navigation, capability or owner.

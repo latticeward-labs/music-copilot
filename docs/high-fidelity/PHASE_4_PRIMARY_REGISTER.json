@@ -182,8 +182,8 @@
       "structuralDeviation": "NONE",
       "copyValidation": "PASS_LOCAL_DETERMINISTIC_RENDER",
       "githubVisualReview": "PASS_REVIEWED",
-      "pngSha256": "61aa7e8856947f41eab9a40de70993dbb7e6e85bfe6b778fdf589f3d6256b6fe",
-      "phase4Correction": "Added explicit Driving entry action required for WF-06 to WF-07 transition; no new capability introduced."
+      "pngSha256": "a63c9341ef24537129ad3631765b9476af1408aec2b23c17d6e55272bce66f97",
+      "phase4Correction": "2026-10-11: independent Driving target beneath Playing; no overlap with Next; font-rendered exact copy."
     },
     {
       "id": "HF-07_DRIVING_MODE_PLAYING",
@@ -287,6 +287,8 @@
     "artifactIntegrity": "PASS",
     "exactCopyReview": "PASS",
     "status": "PASS_COMPLETE_READY_FOR_MERGE",
-    "hf06DrivingEntryCorrection": "PASS"
+    "hf06DrivingEntryCorrection": "PASS",
+    "visualOverlapRemediation": "PASS_CORRECTED_2026_10_11",
+    "primaryBoardSha256": "c1f8001cfc63094b855d259e2a07f30fe8f27b0729c58351c9669bfe79b14574"
   }
 }
