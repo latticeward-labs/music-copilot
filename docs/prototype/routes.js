@@ -295,16 +295,16 @@
       simulate("Route stays unavailable","route-paused"),
       simulate("Return to Library","library")
     ]),
-    node("route-return","CE-09","WF-06",frame("06","FULL_PLAYER_PAUSED"),"Route reconnected: still Paused","Reconnection alone NEVER resumes music.",[
-      simulate("Explicit manual Play on validated route","manual-resume"),
-      simulate("Route lost again","route-paused")
-    ]),
+    boundary("route-return","CE-09","Android route-reconnect handoff","Platform owns the reconnection event. It must not auto-resume service playback.",[
+      system("Route valid; return to app Safe Paused","safe-paused"),
+      system("Route disconnects again","route-paused")
+    ],"Android/System + Playback Service"),
     node("focus-paused","CE-03","WF-06",frame("06","FULL_PLAYER_PAUSED"),"Transient focus/call interruption","Service policy-owned pause; guard evaluation must use real state.",[
       simulate("All four resume guards pass","player"),
       simulate("A resume guard fails: stay Safe Paused","safe-paused")
     ]),
     node("safe-paused","CE-06","WF-06",frame("06","FULL_PLAYER_PAUSED"),"Safe Paused — guard failed","Manual playback survives, but unsafe playback is never auto-resumed.",[
-      simulate("Route valid; explicit manual Play","manual-resume"),
+      tap("Explicit Play on revalidated safe route","manual-resume",125,532,110,73),
       simulate("Return to Library","library")
     ]),
     node("manual-resume","CE-06","WF-06",frame("06","FULL_PLAYER_PAUSED"),"Explicit user Resume pending","Request Play only on valid route; awaiting service acknowledgement.",[
@@ -326,7 +326,7 @@
       primary:["player","driving","voice-listen","voice-processing","voice-pending","voice-done","driving"],
       recoveries:["driving-paused","driving-none","driving-last","driving-safe","voice-confirm-one","voice-confirm-two","voice-timeout","voice-listen-two","voice-terminal","voice-not-found","voice-unsupported","voice-unknown","voice-provider","voice-permission","voice-rejected","voice-tts"]},
     "GS-05":{title:"Interruption → Safe recovery",start:"player",success:"player",source:"GS-05_RECOVER_SAFELY_FROM_INTERRUPTION.md",
-      primary:["player","route-event","route-paused","route-return","manual-resume","player"],
+      primary:["player","route-event","route-paused","route-return","safe-paused","manual-resume","player"],
       recoveries:["focus-paused","safe-paused","route-paused","route-return"]}
   };
   const data={version:"1.0",issue:17,phase:8,viewport:[360,800],archiveSha256:"0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",nodes,scenarios};
