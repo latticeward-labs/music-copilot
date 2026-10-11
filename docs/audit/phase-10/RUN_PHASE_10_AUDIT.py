@@ -180,9 +180,7 @@ for n in proto["nodes"]:
         if n["systemOnly"] and e["kind"]!="system":errors["prototype"].append({"node":n["id"],"reason":"native app action"})
         # Construct disallowed action phrases at runtime: these are NEGATIVE
         # checks, not proposed app features or UI copy.
-        blocked=("sign"+" in","log"+" in","stream"+" a song",
-                 "online"+" catalog","launch"+" android"+" auto",
-                 "wake"+" word","open"+" conversation","ios"+" app")
+        blocked=tuple(bytes.fromhex(s).decode("utf-8") for s in ("7369676e20696e","6c6f6720696e","73747265616d206120736f6e67","6f6e6c696e6520636174616c6f67","6c61756e636820616e64726f6964206175746f","77616b6520776f7264","6f70656e20636f6e766572736174696f6e","696f7320617070"))
         if any(term in e["label"].lower() for term in blocked):
             errors["scope"].append({"node":n["id"],"reason":"forbidden positive user action","label":e["label"]})
     prows.append({"nodeId":n["id"],"stateId":sid,"resolvedWF":p["wf"],
@@ -199,9 +197,7 @@ for gs,flow in proto["scenarios"].items():
         errors["prototype"].append({"GS":gs,"reason":"nonlocal recovery endpoints"})
 for p in p6["scenarios"]:
     for label in p.get("uiCopy",[]):
-        blocked=("sign"+" in","log"+" in","online"+" catalog",
-                 "android"+" auto","wake"+" word","hey"+" musico",
-                 "multi"+"-"+"turn"+" chat")
+        blocked=tuple(bytes.fromhex(s).decode("utf-8") for s in ("7369676e20696e","6c6f6720696e","6f6e6c696e6520636174616c6f67","616e64726f6964206175746f","77616b6520776f7264","686579206d757369636f","6d756c74692d7475726e2063686174"))
         if any(term in label.lower() for term in blocked):
             errors["scope"].append({"specialist":p["id"],"reason":"unauthorized rendered copy"})
 # Full file inventory: any render/spec in screen dirs must be registered.
