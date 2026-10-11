@@ -1,0 +1,31 @@
+name: "Issue 17 HF-06 visual repair"
+on:
+  push:
+    branches:
+      - "issue-17/phase4-hf06-legibility-repair-20261011"
+    paths:
+      - ".github/workflows/issue-17-hf06-visual-repair.yml"
+      - "tools/design/repair_hf06.py"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  repair-visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install deterministic raster renderer
+        run: python3 -m pip install --quiet pillow
+      - name: Fix screenshot, board, spec and checksums
+        run: python3 tools/design/repair_hf06.py
+      - name: Persist audited PNGs into this PR branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.png docs/high-fidelity/PHASE_4_PRIMARY_BOARD.png docs/high-fidelity/WF-06/HF-06_FULL_PLAYER_PLAYING.md docs/high-fidelity/PHASE_4_PRIMARY_REGISTER.json docs/high-fidelity/PHASE_4_VALIDATION.md docs/high-fidelity/PHASE_4_VISUAL_AUDIT_2026-10-11.md
+          if ! git diff --cached --quiet; then
+            git commit -m "fix(issue-17): render legible Driving label and sync Phase 4 checksums"
+            git push
+          fi
