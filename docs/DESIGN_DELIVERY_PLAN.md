@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 10 full traceability / scope audit PASS; cross-role sign-off and real Android QA pending**
+- **Status:** **Current through Issue #17 Phase 11 AI-assisted Cross-role Review PASS; independent named human review and real Android QA still pending**
 - **Updated:** 11 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -238,6 +238,14 @@ Handoff records must expose source state, runtime owner, actions, transitions, B
 - **Scope:** 0 orphan, 0 missing, 0 wrong priority, 0 new app-owned system UI and 0 unapproved capability in structured prototype actions. All explicit MVP exclusions remain binding under English PRD section 4 and ADR-0001/0005/0006; service, Voice, privacy and local-data boundaries are unchanged. Phase 8 still verifies 38/38 safe recovery endpoints.
 - **Evidence:** [Audit index and clear exceptions](audit/phase-10/README.md), [fail-closed machine result](audit/phase-10/PHASE_10_VALIDATION.json), [source checker](audit/phase-10/RUN_PHASE_10_AUDIT.py).
 - **Status distinction:** Phase 10 repository traceability and structured scope **PASS**; image human approval, implementation device runtime/Media3, PH10-MIN-001 200% TalkBack and independent cross-role reviews **NOT CLAIMED**. Issue #17 stays open.
+
+## Issue #17 Phase 11 — AI-assisted six-role Cross-role Review (11 October 2026)
+
+- [Cross-role Review](design-system/review/ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md), [machine Findings Register](design-system/review/ISSUE_17_FINDINGS_REGISTER.json), [independent Review Validation](design-system/review/ISSUE_17_REVIEW_VALIDATION.md).
+- Product, Design/UX, Android feasibility, Accessibility, QA and Privacy completed a single **AI-assisted evidence review**. This is **not** six distinct reviewers, named human signatures or provider/legal approval.
+- Findings: **Blocker 0 found / 0 open; Major 2 found / 2 resolved / 0 open; Minor 4 open**, with issue/role owner and precise downstream gate for each. Corrected `CMP-07/08` currentItem metadata/art binding and `CMP-10` ephemeral search query privacy binding directly in Phase 9 Handoff files. Source Product/ADR/State ownership unchanged.
+- [Fail-closed source review validator](design-system/review/VALIDATE_ISSUE_17_REVIEW.py) re-verifies six roles and Major corrections, and separately proves Phase-9/10 audits remain stable (10 screen families, 23 components, 126 States, 541 design-source paths).
+- **Phase 11 gate:** PASS for repository AI-assisted review, not independent human design approval. Phase-12 requires actual named Product/Design/Android/QA acceptance, independent manual image/hotspot review (PH11-MIN-004) and complete synchronization before Issue #17 may close. PH11-MIN-001/002/003 continue into Android runtime/release/provider gates.
 
 ## Synchronization and review rules
 
