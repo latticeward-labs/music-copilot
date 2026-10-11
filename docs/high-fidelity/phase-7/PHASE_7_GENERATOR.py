@@ -130,6 +130,42 @@ for s in reg["states"]:
         actions=[("Candidate choice","Artist option index and ephemeral label from Confirming.options"),("Neither","Neither candidate; use manual playback"),("Cancel","Cancel voice")]
     if id=="CC-07":
         actions=[("Exit","Exit Driving Mode immediately"),("Play last","Play last verified local item, otherwise absent"),("Mic","Voice command; press to talk")]
+    # Specialist traversal must represent the rendered current state, not
+    # an aggregate sequence containing unavailable candidates or Retry.
+    if wf=="WF-08":
+        if id in ("CD-09","CD-10"):
+            count="one" if id=="CD-09" else "two"
+            order=("Voice overlay: Which artist? -> Brief confirmation purpose -> "
+                   +count+" immutable option(s) in presented order -> Neither -> Cancel -> Return to manual playback")
+        elif id in ("CD-17","CD-18"):
+            order="Voice failure heading -> Brief eligible attempt-one failure -> Retry once -> Manual controls -> Cancel/Driving Exit"
+        elif id in ("CD-03","CD-04","CC-14"):
+            order="Listening heading -> Six-second attempt status -> Cancel -> Manual controls/Driving Exit"
+        elif id in ("CD-05","CD-06","CD-11"):
+            order="Processing heading -> Pending status -> Cancel -> Manual controls/Driving Exit"
+        elif id=="CD-07":
+            order="Done heading -> Acknowledged playback status -> Dismiss -> Manual controls/Driving Exit"
+        else:
+            order="Typed voice failure heading -> One short reason -> Manual controls -> Cancel/Driving Exit"
+    elif id=="CC-07":
+        order="Driving Mode heading -> Immediate Exit -> No Track status -> Explanation -> Optional verified Play last -> Mic when supported"
+    elif id=="CC-11":
+        order="Non-driving source heading -> Dismissible optional Bluetooth suggestion -> Enter Driving when explicitly chosen -> Not now -> Existing manual playback"
+    elif id=="CB-18":
+        order="Current queue heading -> Current verified item -> Remaining queue in service order -> Back to current player"
+    elif id=="CB-11":
+        order="Search heading -> Preserved query -> No local results status -> Clear/Edit -> Bottom navigation"
+    elif id=="CB-12":
+        order="Search heading -> Preserved query -> Search failed status -> Retry -> Existing manual navigation"
+    elif id=="S-01":
+        order="Startup problem heading -> Preservation explanation -> Retry -> Safe retained data status"
+    elif id=="S-03":
+        order="Permission recovery heading -> Permanently denied explanation -> Open Android Settings -> Not now"
+    elif id=="S-04":
+        order="Library heading -> Scanning local music status -> Existing category tabs -> Manual navigation"
+    elif id=="CE-23":
+        order="Clear selected data heading -> Selection/consequence -> Preserved music files notice -> Cancel -> Confirm clear"
+
     baseline=get(s["spec"]);art=get(special_map.get(id,s["image"]))
     doc=APP/(id+".md")
     doc.write_text("\n".join([
