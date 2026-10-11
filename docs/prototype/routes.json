@@ -358,9 +358,15 @@
           "note": ""
         },
         {
-          "label": "Not now: remain unavailable",
+          "label": "Not now · keep manual fallback",
           "to": "denied",
-          "kind": "simulate",
+          "kind": "tap",
+          "rect": [
+            38,
+            553,
+            284,
+            54
+          ],
           "note": ""
         }
       ],
