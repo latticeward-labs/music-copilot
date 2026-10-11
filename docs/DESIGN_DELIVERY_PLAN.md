@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 7 Accessibility/Privacy/System-boundary documentation PASS; runtime QA pending**
+- **Status:** **Current through Issue #17 Phase 8 clickable prototype source/Chromium validation; final cross-role sign-off and actual Android QA pending**
 - **Updated:** 11 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -203,6 +203,15 @@ Handoff records must expose source state, runtime owner, actions, transitions, B
 - [Compose implementation handoff / PH10-MIN-001](high-fidelity/phase-7/COMPOSE_A11Y_HANDOFF.md) stays explicit about the OPEN runtime proof; [privacy contract](high-fidelity/phase-7/PRIVACY_EVIDENCE_HANDOFF.md) prohibits raw audio/transcript/personal titles/location/device IDs in GitHub/analytics/QA evidence.
 - [Automated checks](high-fidelity/phase-7/PHASE_7_VALIDATION.md) verify all 65 app/system dispositions and exactly preserved owner identities, 0 duplicates, 0 gaps. [65 runtime QA cases](high-fidelity/phase-7/PHASE_7_DEVICE_QA_MATRIX.md) are intentionally NOT RUN.
 - **Pass meaning:** design documentation and engineering handoff completed; no claim of real Compose TalkBack, large-text operation, physical-device test or independent human sign-off. Phase-5 126 original IDs and Phase-6 specialist precedence remain untouched.
+
+## Issue #17 Phase 8 — Repository-native Clickable Prototype (11 October 2026)
+
+- **Deliverable:** [Interactive prototype shell](prototype/index.html), [source-locked route graph](prototype/routes.js), [GS-01..GS-05 matrix](prototype/PROTOTYPE_COVERAGE_MATRIX.md), and [usage guide](prototype/README.md), all under `docs/prototype/`.
+- **GS coverage:** five approved primary paths plus linked recovery branches (migration/permission/scan; Search/queue/corrupt; native MediaSession/background; Driving Voice ambiguity/one Retry/Manual Only/TTS; call/focus/route Safe Paused).
+- **UI boundary:** phone view strictly reuses approved Phase-4/5/6 PNGs with corresponding hotspots; Android-owned dialog/Settings/notification/lock screen/media keys/route states are represented only as **external** annotations, never generated application pages.
+- **Behavior ownership:** no actual player/STT/provider/backend, no second queue, no approximation for unsupported commands, no third retry, no auto-resume on route reconnect, and only explicit Driving entry/Exit.
+- **Verification:** [Source image/graph validation](prototype/PHASE_8_VALIDATION.json), [Chromium interactive smoke](prototype/PHASE_8_BROWSER_VALIDATION.json) and [sanitized browser screenshot](prototype/PHASE_8_BROWSER_REVIEW.png), plus [manual/device QA handoff](prototype/TEST_PLAN.md).
+- **Release boundary:** browser click-flow validation is not actual Android/Media3/voice/vehicle runtime QA, Compose PH10-MIN-001 closure, consent/remote-STT approval or human Product/Design/Android/Privacy/QA sign-off. Issue #17 continues into engineering handoff and cross-role review.
 
 ## Synchronization and review rules
 

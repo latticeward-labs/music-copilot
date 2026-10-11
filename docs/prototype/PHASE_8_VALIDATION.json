@@ -1,0 +1,64 @@
+{
+  "issue": 17,
+  "phase": 8,
+  "date": "2026-10-11",
+  "status": "PASS_SOURCE_GRAPH_AND_ASSET_VALIDATION",
+  "archiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "scenarios": {
+    "GS-01": {
+      "primarySteps": 7,
+      "reachableNodes": 61,
+      "recoveryCount": 6,
+      "primaryConnected": true,
+      "missing": []
+    },
+    "GS-02": {
+      "primarySteps": 5,
+      "reachableNodes": 58,
+      "recoveryCount": 5,
+      "primaryConnected": true,
+      "missing": []
+    },
+    "GS-03": {
+      "primarySteps": 6,
+      "reachableNodes": 58,
+      "recoveryCount": 4,
+      "primaryConnected": true,
+      "missing": []
+    },
+    "GS-04": {
+      "primarySteps": 7,
+      "reachableNodes": 58,
+      "recoveryCount": 16,
+      "primaryConnected": true,
+      "missing": []
+    },
+    "GS-05": {
+      "primarySteps": 7,
+      "reachableNodes": 58,
+      "recoveryCount": 4,
+      "primaryConnected": true,
+      "missing": []
+    }
+  },
+  "nodeCount": 61,
+  "appSurfaceNodes": 53,
+  "annotatedSystemOnlyNodes": 8,
+  "edges": 173,
+  "interactiveHotspots": 73,
+  "uniquePrimaryAndRecoveryNodes": 55,
+  "allImagesExistingAndValidPng": true,
+  "fiveGoldenPathsConnected": true,
+  "allRequiredRecoveriesReachable": true,
+  "noFakeAndroidSystemImages": true,
+  "oneRetryOneConfirmationNoApproximation": true,
+  "noAutomaticRouteResume": true,
+  "drivingExitAlwaysAvailable": true,
+  "privacyNoNetworkOrVoiceRuntimeCalls": true,
+  "missing": [],
+  "duplicates": [],
+  "unassigned": [],
+  "browserVisualQA": "SEE_SEPARATE_CHROMIUM_BROWSER_VALIDATION",
+  "humanSignoff": "PENDING",
+  "androidRuntimeQA": "NOT_RUN"
+}

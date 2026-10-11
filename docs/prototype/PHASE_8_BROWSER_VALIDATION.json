@@ -1,0 +1,29 @@
+{
+  "issue": 17,
+  "phase": 8,
+  "date": "2026-10-11",
+  "status": "PASS_CHROMIUM_BROWSER_SMOKE",
+  "cases": [
+    "GS-01 primary including native-only permission boundary",
+    "GS-02 source local-search/queue service acknowledgment",
+    "GS-03 system media command and truthful reconnect",
+    "GS-04 NEXT voice command from explicit mic to acknowledged playback",
+    "Voice attempt-two terminal never exposes third Retry",
+    "Voice one-confirmation option 2 and TTS failure retains Executed",
+    "GS-05 system route reconnect stays paused until manual Play",
+    "Mobile-width hotspot UI visible; sanitized synthetic-browser screenshot captured"
+  ],
+  "passed": 8,
+  "failed": 0,
+  "viewportDesktop": "1440x980",
+  "viewportMobile": "390x844",
+  "renderedImageSurfaces": true,
+  "clickedActualPhoneHotspots": true,
+  "systemBoundaryNeverDrawnAsAndroidUi": true,
+  "oneRetryTerminalGuard": true,
+  "finalFocusWasDriving": true,
+  "realAndroidHardwareQA": "NOT_RUN",
+  "media3PlaybackTested": false,
+  "sttProviderTested": false,
+  "independentHumanApproval": false
+}
