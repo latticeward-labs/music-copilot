@@ -1,10 +1,10 @@
 # Issue #17 · Phase 8 — Repository-native clickable prototype
 
-**Authority:** Music Copilot MVP v1.0 English PRD/MVP, Issue #15 low-fidelity WF baseline, Issue #16 final Software Architecture, Phase 4–7 High-Fidelity + Accessibility, accepted GS-01..GS-05. **Attached source SHA-256:** \`0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8\`.
+**Authority:** Music Copilot MVP v1.0 English PRD/MVP, Issue #15 low-fidelity WF baseline, Issue #16 final Software Architecture, Phase 4–7 High-Fidelity + Accessibility, accepted GS-01..GS-05. **Attached source SHA-256:** `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 
 ## Open the prototype
 
-Clone/download the *repository*, preserving \`docs/high-fidelity/\` and \`docs/prototype/\` together. Open \`docs/prototype/index.html\` in a browser. No Figma account, backend, database, paid API, credentials or network access is required.
+Clone/download the *repository*, preserving `docs/high-fidelity/` and `docs/prototype/` together. Open `docs/prototype/index.html` in a browser. No Figma account, backend, database, paid API, credentials or network access is required.
 
 If your browser restricts local files, from the repository root:
 
@@ -14,7 +14,7 @@ Then visit:
 
     http://localhost:8765/docs/prototype/index.html
 
-GitHub's \`blob/main/docs/prototype/index.html\` link is **source view**, not a running hosted demo. GitHub Pages is not presumed configured, and no deployment is claimed.
+GitHub's `blob/main/docs/prototype/index.html` link is **source view**, not a running hosted demo. GitHub Pages is not presumed configured, and no deployment is claimed.
 
 ## How to review
 
