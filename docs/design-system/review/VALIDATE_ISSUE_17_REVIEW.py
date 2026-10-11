@@ -22,6 +22,14 @@ archive="0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8"
 assert reg["source"]["verifiedSHA256"]==phase10["sourceArchiveSha256"]==source["sourceArchiveSha256"]==archive
 assert reg["source"]["englishPdfMembers"]==12
 assert reg["issue"]==17 and reg["phase"]==11 and reg["date"]=="2026-10-11"
+assert reg["status"]=="PASS_COMPLETE_MERGED_AI_ASSISTED_SPEC_REVIEW"
+assert reg["gate"]["phase11"]=="PASS_AFTER_CORRECTIONS_AI_ASSISTED"
+assert reg["gate"]["humanReviewStillRequired"] is True
+assert reg["provenance"]["phase11MergedPR"]==65
+assert reg["provenance"]["phase11MergeCommit"]=="2623aff46d695c64a030d1344348e11e738790ac"
+assert reg["provenance"]["phase11FinalCiRun"]==38164710988
+assert reg["provenance"]["phase11FinalCiConclusion"]=="success"
+assert reg["provenance"]["issue17StateAfterReview"]=="OPEN_IN_PROGRESS"
 assert reg["reviewer"]["type"].startswith("AI-assisted") and reg["reviewer"]["independentHumanReviewers"]==0
 assert reg["reviewer"]["fabricatedHumanReviewers"]==0
 assert reg["reviewer"]["humanSignaturesClaimed"] is False
@@ -57,13 +65,15 @@ for r in reg["roles"]:
     assert r["limitations"]
     assert all(id in ids for id in r["findingIds"])
 summary=reg["summary"]
+assert not any(f["status"]=="OPEN_DOWNSTREAM_NON_BLOCKING" for f in reg["findings"] if f["severity"] in ("Major","Blocker"))
+assert not any(f.get("status","").startswith("RESOLVED") for f in reg["findings"] if f["severity"]=="Minor")
 assert summary=={
 "blockerFound":0,"blockerResolved":0,"blockerOpen":0,
 "majorFound":2,"majorResolved":2,"majorOpen":0,
 "minorFound":4,"minorResolved":0,"minorOpen":4,
 "reviewRolesCovered":6,"independentHumanSignoffs":0}
-assert all(x["id"] in [z["id"] for z in prior["findings"]]
-           for x in []), "does not invent inherited findings"
+# This is an inherited-gate check, not a zero-element/vacuous assertion.
+assert len({x["id"] for x in prior["findings"] if x["id"].startswith("PH10-MIN-")})>=3
 for inherited in ["PH10-MIN-001","PH10-MIN-002","PH10-MIN-003"]:
     assert next(x for x in prior["findings"] if x["id"]==inherited)["status"].startswith("OPEN"),inherited
 assert set(x["dependency"] for x in reg["findings"] if x["severity"]=="Minor" and x.get("dependency"))=={
@@ -109,6 +119,7 @@ summary_rows=[
 "| Reference authority | SHA-256 identical to attached 12-English-PDF frozen source | PASS |",
 "| Review roles | Product, Design/UX, Android, Accessibility, QA, Privacy — 6/6 with explicit AI-assisted reviewer | PASS |",
 "| Reviewer truthfulness | independent humans = 0; claimed signatures = 0; no fake legal/device QA | PASS |",
+"| GitHub merged PR/CI | PR #65 merged at 2623aff; workflow 38164710988 SUCCESS, recorded with no fabricated reviewer signatures | PASS |",
 "| Blockers | 0 found / 0 open | PASS |",
 "| Majors | PH11-MAJ-001 and PH11-MAJ-002 both RESOLVED, corrected Component + Screen source files asserted | PASS |",
 "| Minors | 4 open, each explicitly owned and gated (Phase 12 human review; Implementation DoD; Beta/OEM; provider Legal) | PASS |",
@@ -130,7 +141,7 @@ summary_rows=[
 "",
 "Reference: [review record](ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md), [structured findings](ISSUE_17_FINDINGS_REGISTER.json), [independent validator](VALIDATE_ISSUE_17_REVIEW.py).",
 "",
-"**Decision:** PASS at AI-assisted Phase 11 static/contract level; Issue #17 stays OPEN pending independent review, later synchronization and implementation QA."
+"**Decision: PASS / COMPLETE / MERGED at AI-assisted Phase 11 static/design-contract level, after two Major corrections; 0 open Blockers, 0 open Majors, four owned downstream Minors.** Issue #17 remains OPEN; human Phase-12 approval and Android runtime QA are NOT claimed."
 ]
 (D/"ISSUE_17_REVIEW_VALIDATION.md").write_text("\n".join(summary_rows)+"\n",encoding="utf8")
 print(json.dumps({"phase":11,"issue":17,"result":"PASS_AI_ASSISTED","roles":len(found),"blockerOpen":0,"majorOpen":0,"minorOpen":4,
