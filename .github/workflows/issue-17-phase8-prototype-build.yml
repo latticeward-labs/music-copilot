@@ -1,0 +1,33 @@
+name: Issue 17 Phase 8 clickable prototype audit
+on:
+  push:
+    branches:
+      - issue-17/phase-8-clickable-prototype-20261011
+    paths:
+      - .github/workflows/issue-17-phase8-prototype-build.yml
+      - docs/prototype/**
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse JavaScript
+        run: |
+          node --check docs/prototype/routes.js
+          node --check docs/prototype/app.js
+          node --check docs/prototype/validate.cjs
+      - name: Verify GS-01..GS-05, all assets, system-owned boundaries and hit targets
+        run: node docs/prototype/validate.cjs
+      - name: Commit validated evidence only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/prototype/PHASE_8_VALIDATION.json
+          if ! git diff --cached --quiet; then
+            git commit -m "test(issue-17): record Phase 8 route/asset validator result"
+            git push
+          fi
