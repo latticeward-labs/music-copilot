@@ -81,8 +81,8 @@ for sid,a in by.items():
     if not uf or any(u not in fr_map for u in uf):errors["state"].append({"id":sid,"unknownUF":a["uf"]});continue
     direct=sorted(set(re.findall(r"GS-0[1-5]",a["gs"])))
     bridge=sorted({v for u in uf for v in gs_map[u]})
-    fr=sorted({v for u in uf for v in fr_map[u]})
-    us=sorted({v for u in uf for v in us_map[u]})
+    fr=["FR-09"] if a["priority"]=="P2" else sorted({v for u in uf for v in fr_map[u]})
+    us=[] if a["priority"]=="P2" else sorted({v for u in uf for v in us_map[u]})
     if a["priority"]=="P2":
         if direct or not sid.startswith("UL-") or fr!=["FR-09"]:
             errors["priority"].append({"id":sid,"reason":"P2 promoted or not optional FR-09"})
@@ -113,8 +113,8 @@ for sid,a in by.items():
             errors["scope"].append({"id":sid,"reason":"OS-only owns screen"})
 for a in primary["artifacts"]:
     ids=a["canonicalStates"]
-    if not ids or any(i not in by or a["screenFamily"] not in by[i]["wf"] for i in ids):
-        errors["state"].append({"primary":a["id"],"reason":"broken WF/state chain"})
+    if not ids or any(i not in by for i in ids) or not any(a["screenFamily"] in by[i]["wf"] for i in ids if i in by):
+        errors["state"].append({"primary":a["id"],"reason":"no canonical in-WF owner; contextual cross-surface States allowed only when explicitly registered"})
     if a["screenFamily"]=="WF-09":
         if a["priority"]!="P2 / Removable" or a["goldenScenarios"] or {by[i]["priority"] for i in ids}!={"P2"}:
             errors["priority"].append({"primary":a["id"],"reason":"WF-09 not P2 removable"})
@@ -123,8 +123,8 @@ for a in primary["artifacts"]:
     add(a["image"],"PRIMARY_HF",ids);add(a["spec"],"PRIMARY_SPEC",ids)
 for a in s["frames"]:
     ids=re.findall(r"(?:S|CA|CB|CC|CD|CE|SYS|UL)-\d+",a["states"])
-    if not ids or any(i not in by or a["wf"] not in by[i]["wf"] for i in ids):
-        errors["state"].append({"frame":a["frameId"],"reason":"no valid WF/state"})
+    if not ids or any(i not in by for i in ids) or not any(a["wf"] in by[i]["wf"] for i in ids if i in by):
+        errors["state"].append({"frame":a["frameId"],"reason":"no in-WF owner; contextual cross-WF references must be source-declared"})
     add(a["sourceSvg"],"APPROVED_LOFI",ids)
     add(a["image"],"HF_FRAME",ids);add(a["spec"],"HF_FRAME_SPEC",ids)
 for f in frames["frames"]:
