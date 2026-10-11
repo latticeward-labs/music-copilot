@@ -26,7 +26,7 @@ System handoffs are **not** mock phone views. The prototype phone displays a bou
 
 ## Interactive review shell vs actual UI
 
-The interactive phone surface contains only coordinates of **pre-existing app controls** and PNGs under \`docs/high-fidelity/\`. The external event rail is deliberately **not** the application's interface; it makes backend/system outcomes selectable for source review and repeatable QA.
+The interactive phone surface contains only coordinates of **pre-existing app controls** and PNGs under `docs/high-fidelity/`. The external event rail is deliberately **not** the application's interface; it makes backend/system outcomes selectable for source review and repeatable QA.
 
 - PNG ownership and 126 canonical IDs: [Phase-5 register](../high-fidelity/HIFI_STATE_COVERAGE_REGISTER.json).
 - Driving/Voice specialist correction priority: [Phase-6 register](../high-fidelity/specialist/phase-6/PHASE_6_REGISTER.json).
