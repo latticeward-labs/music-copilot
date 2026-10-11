@@ -26,10 +26,10 @@
       "sourceArt": "docs/high-fidelity/WF-01/states/HF_STATE_S-01.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/S-01.md",
       "readingOrder": [
-        "Startup heading",
-        "stable loading/error status",
-        "recovery explanation",
-        "Retry when available"
+        "Startup problem heading",
+        "Preservation explanation",
+        "Retry",
+        "Safe retained data status"
       ],
       "actions": [
         {
@@ -110,11 +110,10 @@
       "sourceArt": "docs/high-fidelity/WF-03/states/HF_STATE_S-03.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/S-03.md",
       "readingOrder": [
-        "Permission heading",
-        "purpose",
-        "granted/denied status",
-        "approved action",
-        "return guidance"
+        "Permission recovery heading",
+        "Permanently denied explanation",
+        "Open Android Settings",
+        "Not now"
       ],
       "actions": [
         {
@@ -158,10 +157,9 @@
       "spec": "docs/high-fidelity/phase-7/app-visible/S-04.md",
       "readingOrder": [
         "Library heading",
-        "scan/ready/error state",
-        "Songs/Artists/Albums/Folders tabs",
-        "content rows",
-        "retry or navigation"
+        "Scanning local music status",
+        "Existing category tabs",
+        "Manual navigation"
       ],
       "actions": [
         {
@@ -418,11 +416,10 @@
       "spec": "docs/high-fidelity/phase-7/app-visible/CB-11.md",
       "readingOrder": [
         "Search heading",
-        "query input",
-        "clear action",
-        "result/error/no result heading",
-        "rows or retry",
-        "navigation"
+        "Preserved query",
+        "No local results status",
+        "Clear/Edit",
+        "Bottom navigation"
       ],
       "actions": [
         {
@@ -470,11 +467,10 @@
       "spec": "docs/high-fidelity/phase-7/app-visible/CB-12.md",
       "readingOrder": [
         "Search heading",
-        "query input",
-        "clear action",
-        "result/error/no result heading",
-        "rows or retry",
-        "navigation"
+        "Preserved query",
+        "Search failed status",
+        "Retry",
+        "Existing manual navigation"
       ],
       "actions": [
         {
@@ -704,13 +700,10 @@
       "sourceArt": "docs/high-fidelity/WF-06/states/HF_STATE_CB-18.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CB-18.md",
       "readingOrder": [
-        "Now playing heading",
-        "Queue",
-        "artwork/metadata",
-        "playback status",
-        "progress",
-        "Previous/Play-Pause/Next",
-        "Driving entry"
+        "Current queue heading",
+        "Current verified item",
+        "Remaining queue in service order",
+        "Back to current player"
       ],
       "actions": [
         {
@@ -893,12 +886,12 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/DRV_NO_TRACK.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CC-07.md",
       "readingOrder": [
-        "Driving heading",
-        "immediate Exit",
-        "Playing/Paused/No Track",
-        "verified metadata",
-        "transport actions",
-        "Mic"
+        "Driving Mode heading",
+        "Immediate Exit",
+        "No Track status",
+        "Explanation",
+        "Optional verified Play last",
+        "Mic when supported"
       ],
       "actions": [
         {
@@ -941,12 +934,11 @@
       "sourceArt": "docs/high-fidelity/WF-07/states/HF_STATE_CC-11.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CC-11.md",
       "readingOrder": [
-        "Driving heading",
-        "immediate Exit",
-        "Playing/Paused/No Track",
-        "verified metadata",
-        "transport actions",
-        "Mic"
+        "Non-driving source heading",
+        "Dismissible optional Bluetooth suggestion",
+        "Enter Driving when explicitly chosen",
+        "Not now",
+        "Existing manual playback"
       ],
       "actions": [
         {
@@ -1005,11 +997,10 @@
       "sourceArt": "docs/high-fidelity/WF-08/states/HF_STATE_CC-14.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CC-14.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Listening heading",
+        "Six-second attempt status",
+        "Cancel",
+        "Manual controls/Driving Exit"
       ],
       "actions": [
         {
@@ -1060,11 +1051,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_1.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-03.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Listening heading",
+        "Six-second attempt status",
+        "Cancel",
+        "Manual controls/Driving Exit"
       ],
       "actions": [
         {
@@ -1115,11 +1105,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_LISTEN_2.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-04.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Listening heading",
+        "Six-second attempt status",
+        "Cancel",
+        "Manual controls/Driving Exit"
       ],
       "actions": [
         {
@@ -1170,11 +1159,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_PROCESSING.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-05.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Processing heading",
+        "Pending status",
+        "Cancel",
+        "Manual controls/Driving Exit"
       ],
       "actions": [
         {
@@ -1225,11 +1213,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_COMMAND_PENDING.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-06.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Processing heading",
+        "Pending status",
+        "Cancel",
+        "Manual controls/Driving Exit"
       ],
       "actions": [
         {
@@ -1280,11 +1267,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_EXECUTED.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-07.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Done heading",
+        "Acknowledged playback status",
+        "Dismiss",
+        "Manual controls/Driving Exit"
       ],
       "actions": [
         {
@@ -1335,11 +1321,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_EXECUTION_REJECTED.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-08.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Typed voice failure heading",
+        "One short reason",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -1378,11 +1363,12 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_ONE.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-09.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Voice overlay: Which artist?",
+        "Brief confirmation purpose",
+        "one immutable option(s) in presented order",
+        "Neither",
+        "Cancel",
+        "Return to manual playback"
       ],
       "actions": [
         {
@@ -1425,11 +1411,12 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_CONFIRM_TWO.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-10.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Voice overlay: Which artist?",
+        "Brief confirmation purpose",
+        "two immutable option(s) in presented order",
+        "Neither",
+        "Cancel",
+        "Return to manual playback"
       ],
       "actions": [
         {
@@ -1472,11 +1459,10 @@
       "sourceArt": "docs/high-fidelity/WF-08/states/HF_STATE_CD-11.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-11.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Processing heading",
+        "Pending status",
+        "Cancel",
+        "Manual controls/Driving Exit"
       ],
       "actions": [
         {
@@ -1527,11 +1513,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_CONFIRMATION_FAILED.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-12.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Typed voice failure heading",
+        "One short reason",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -1570,11 +1555,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_ARTIST_NOT_FOUND.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-13.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Typed voice failure heading",
+        "One short reason",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -1613,11 +1597,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_UNKNOWN_PHRASE.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-14.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Typed voice failure heading",
+        "One short reason",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -1656,11 +1639,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_UNSUPPORTED.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-15.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Typed voice failure heading",
+        "One short reason",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -1699,11 +1681,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_MISSING_ARTIST.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-16.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Typed voice failure heading",
+        "One short reason",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -1742,11 +1723,11 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_STT_TIMEOUT.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-17.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Voice failure heading",
+        "Brief eligible attempt-one failure",
+        "Retry once",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -1789,11 +1770,11 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_RETRY_AVAILABLE.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-18.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Voice failure heading",
+        "Brief eligible attempt-one failure",
+        "Retry once",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -1836,11 +1817,10 @@
       "sourceArt": "docs/high-fidelity/specialist/phase-6/VO_ATTEMPT2_TERMINAL.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CD-19.md",
       "readingOrder": [
-        "Overlay heading",
-        "Listening/Processing/Confirming/Executed/Failed",
-        "one status sentence",
-        "immutable 1-2 candidates",
-        "Neither/Cancel OR eligible Retry/Manual"
+        "Typed voice failure heading",
+        "One short reason",
+        "Manual controls",
+        "Cancel/Driving Exit"
       ],
       "actions": [
         {
@@ -2184,13 +2164,11 @@
       "sourceArt": "docs/high-fidelity/WF-10/states/HF_STATE_CE-23.png",
       "spec": "docs/high-fidelity/phase-7/app-visible/CE-23.md",
       "readingOrder": [
-        "Settings heading",
-        "permission status",
-        "optional Bluetooth",
-        "Privacy/disclosure",
-        "clear confirmation",
-        "Cancel/Confirm",
-        "navigation"
+        "Clear selected data heading",
+        "Selection/consequence",
+        "Preserved music files notice",
+        "Cancel",
+        "Confirm clear"
       ],
       "actions": [
         {
