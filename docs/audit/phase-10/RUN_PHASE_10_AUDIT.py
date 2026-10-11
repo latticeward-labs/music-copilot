@@ -79,7 +79,7 @@ for sid,a in by.items():
         if src!=target:errors["priority" if field=="priority" else "state"].append({"id":sid,"field":field,"frozen":src,"actual":target})
     uf=sorted(set(re.findall(r"UF-\d\d",a["uf"])))
     if not uf or any(u not in fr_map for u in uf):errors["state"].append({"id":sid,"unknownUF":a["uf"]});continue
-    direct=sorted(set(re.findall(r"GS-0[1-5]",a["gs"])))
+    direct=[] if "not on GS-01..05 path" in a["gs"] else sorted(set(re.findall(r"GS-0[1-5]",a["gs"])))
     bridge=sorted({v for u in uf for v in gs_map[u]})
     fr=["FR-09"] if a["priority"]=="P2" else sorted({v for u in uf for v in fr_map[u]})
     us=[] if a["priority"]=="P2" else sorted({v for u in uf for v in us_map[u]})
