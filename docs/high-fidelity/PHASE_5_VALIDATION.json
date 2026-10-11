@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-11",
+  "status": "PASS_AUTOMATED_COVERAGE",
+  "total": 126,
+  "appVisible": 45,
+  "variant": 61,
+  "systemOnly": 20,
+  "reviewableFrames": 32,
+  "missing": [],
+  "duplicates": [],
+  "unassigned": [],
+  "systemOnlyRenderedAsApp": 0,
+  "appImagesVerified": 45,
+  "appSpecsVerified": 45,
+  "variantSpecsVerified": 61,
+  "handoffSpecsVerified": 20,
+  "sourceFramesVerified": 32,
+  "existingPhase4Primaries": 10,
+  "boardSha256": "a02dd5f5f81cd3b239387a1726dc6700ef9bc965fa9957f226aa680453bb2776",
+  "notClaimed": [
+    "Independent human design approval",
+    "Compose runtime A11y/200-percent reflow",
+    "Issue #17 final acceptance"
+  ]
+}
