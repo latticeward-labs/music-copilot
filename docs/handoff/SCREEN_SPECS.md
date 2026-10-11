@@ -191,6 +191,14 @@ These are the original approved per-frame triggers, actions, Back, truth, recove
 | `WF-10_SETTINGS_CLEAR_DATA_HISTORY_CONFIRMATION` | At least one non-preselected clear category is selected. | Confirm clear; Cancel is equally reachable. | Confirm → Clearing/Result; Cancel → selection or Settings. | Back equals Cancel; no deletion occurs. | No destructive default; partial/provider failure is reported truthfully later. | Selected local categories and documented provider boundaries.; Never claims remote deletion unless the provider confirms it. |
 | `WF-10_SETTINGS_CLEARED_PRIVACY_STATUS` | Clear plan settles or Privacy details is opened after result. | Done; Retry only a failed boundary. | Done → Settings; Retry → failed boundary only. | Returns to Settings without repeating deletion. | Partial/failed results never claim success; protected media/playback remains unaffected. | Per-boundary repository/provider result; unresolved work remains explicit.; Remote/provider result is distinguished from local deletion. |
 
+## Binding Phase 11 component-owner correction (AI-assisted design review)
+
+**PH11-MAJ-001 (Product/Android/Design/QA):** WF-06 Full Player, WF-07 Driving and WF-04 MiniPlayer must render a `PlaybackGateway.snapshot.currentItem`-selected `MediaRef`; `CMP-07 TrackMetadata` and `CMP-08 Artwork` may resolve only display projection for that confirmed reference. Their local Room/MediaStore display lookup never owns selection, active queue, playback state, or command ACK. Stale metadata falls back safely, not to the last clicked local row. Full correction: [Component Specs](COMPONENT_SPECS.md#binding-phase-11-cross-role-implementation-clarification-ph11-maj-001002).
+
+**PH11-MAJ-002 (Privacy/QA/Android):** WF-05 query text belongs to transient `SearchViewModel` state; only local results derive from `SearchLibraryUseCase`/Room and identity is checked against MediaStore. A query must not leak to DataStore/Room, analytics, logs or crash evidence. Returning from Search never invents persisted personal query. Exact `CMP-10` contract is in [Component Specs](COMPONENT_SPECS.md#cmp-10--searchfield).
+
+These corrections narrow presentation ownership to the accepted architecture; they do **not** create new Kotlin implementation evidence. Device and Compose tests remain the explicit later QA gate.
+
 ## Compose implementation skeleton (illustrative; runtime QA NOT executed)
 
 ```kotlin
