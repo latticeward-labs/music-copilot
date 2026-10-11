@@ -1,7 +1,7 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 9 Jetpack Compose Engineering Handoff source-audit PASS; human reviews and actual Android QA pending**
+- **Status:** **Current through Issue #17 Phase 10 full traceability / scope audit PASS; cross-role sign-off and real Android QA pending**
 - **Updated:** 11 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
@@ -228,6 +228,16 @@ Handoff records must expose source state, runtime owner, actions, transitions, B
 - MediaSessionService owns queue/current item/position and PlaybackSnapshot; Compose observes through PlaybackGateway and sends commands through use cases. VoiceSessionCoordinator owns ephemeral Voice token/options and overlay origin, not NavHost.
 - Night Signal typography/color/spacing/touch geometry is exact from approved JSON; privacy analytics remains closed typed TelemetryEvent with TelemetryPrivacyGate.
 - [Phase-9 independent audit](handoff/PHASE9_VALIDATION.md) is PASS for documentation, NOT runtime Compose/Media3/STT QA, independent human reviews or 200% TalkBack evidence. PH10-MIN-001 remains open.
+
+
+## Issue #17 Phase 10 — Full Traceability, P0/P1/P2 and Prototype Scope Audit (11 October 2026)
+
+- **Source authority:** English MSM2 RAR SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`, approved PRD/MVP, source-labeled GS-01..05, Issue #15 WF, Issue #16 ADRs/Software Architecture.
+- **Full chain:** [126-State readable HF→WF→State→UF→GS→PRD/MVP→Architecture mapping](audit/phase-10/PHASE_10_TRACEABILITY_MATRIX.md), [machine provenance and 541 design-path inventory](audit/phase-10/PHASE_10_TRACEABILITY_REGISTER.json), [117 rendered HF PNG mapping](audit/phase-10/PHASE_10_VISUAL_ARTIFACT_MATRIX.md).
+- **Priorities:** 106 P0, 6 P1, **14 P2**; WF-09/HF-09 and all UL-* Liked Songs stay P2/Removable. No P2 in five required Golden Scenarios. Direct 60 / approved UF-bridge 52 / intentionally GS N/A P2 14.
+- **Scope:** 0 orphan, 0 missing, 0 wrong priority, 0 new app-owned system UI and 0 unapproved capability in structured prototype actions. All explicit MVP exclusions remain binding under English PRD section 4 and ADR-0001/0005/0006; service, Voice, privacy and local-data boundaries are unchanged. Phase 8 still verifies 38/38 safe recovery endpoints.
+- **Evidence:** [Audit index and clear exceptions](audit/phase-10/README.md), [fail-closed machine result](audit/phase-10/PHASE_10_VALIDATION.json), [source checker](audit/phase-10/RUN_PHASE_10_AUDIT.py).
+- **Status distinction:** Phase 10 repository traceability and structured scope **PASS**; image human approval, implementation device runtime/Media3, PH10-MIN-001 200% TalkBack and independent cross-role reviews **NOT CLAIMED**. Issue #17 stays open.
 
 ## Synchronization and review rules
 
