@@ -341,7 +341,7 @@ trace += ["","## Non-visual approved specialties","",
 v["canonicalDrivingVoiceStates"]=42
 v["ufStateCoverage"]=42
 v["specialistImageStateIds"]=len(set(required)&set(special_by_state))
-v["reusedExistingVariantHandoffStates"]=42-len(special_by_state)
+v["reusedExistingVariantHandoffStates"]=42-v["specialistImageStateIds"]
 assert v["specialistImageStateIds"]+v["reusedExistingVariantHandoffStates"]==42
 # Functional QA cases are test instructions, NOT claims that a real APK was run.
 tests=[
