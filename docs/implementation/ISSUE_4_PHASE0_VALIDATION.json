@@ -1,0 +1,143 @@
+{
+  "audit": "Issue #4 Phase 0 evidence integrity",
+  "date": "2026-10-12",
+  "status": "PASS_SOURCE_BASELINE_ONLY",
+  "method": "Uploaded RAR SHA-256 and direct libarchive member hash check; authenticated GitHub Issue/contents/compare/fetch_file; re-fetch of committed JSON and Markdown; 19 relative documentation links resolved individually (main or feature branch). These are direct evidence checks, NOT a GitHub Actions or Android execution run.",
+  "observed": {
+    "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "original_pdf_sha_matches_register": "12/12",
+    "phase0_checklist": "4/4",
+    "acceptance_criteria_mapped": "14/14",
+    "acceptance_upstream_completed": 1,
+    "acceptance_implementation_pending": 13,
+    "architecture_blockers": 0,
+    "relative_links_verified": "19/19",
+    "relative_links_broken": 0,
+    "root_production_android_app": false
+  },
+  "baseline_main_sha": "2c08bb2651ebb82cbb892e1b7648405cdd6d3ab4",
+  "source_register": "docs/architecture/SOURCE_AND_AUTHORITY_REGISTER.md",
+  "frozen_relative_link_resolution": [
+    {
+      "path": "docs/implementation/ISSUE_4_PHASED_EXECUTION_PLAN.md",
+      "ref": "feature/4-android-foundation",
+      "observed_blob_sha": "54f4efa0303ae414804873c453c534d01d4343c4",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/implementation/ISSUE_4_PHASE0_TRACEABILITY.json",
+      "ref": "feature/4-android-foundation",
+      "observed_blob_sha": "8076c7cea36a09c376ab8c72012e80c3280b9379",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/adr/README.md",
+      "ref": "main",
+      "observed_blob_sha": "10ba6b92145985dd1470a2d5d342f2b07fedacc6",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/architecture/DECISION_AND_SPIKE_REGISTER.md",
+      "ref": "main",
+      "observed_blob_sha": "cb8f96a2ce9b0f3c08a3b2e7ef215d428402535a",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/architecture/review/ISSUE_16_FINDINGS_REGISTER.json",
+      "ref": "main",
+      "observed_blob_sha": "c70d2a1e8bdcb166d3acf1e73e5d58a2ca9b9a4d",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/architecture/SOURCE_AND_AUTHORITY_REGISTER.md",
+      "ref": "main",
+      "observed_blob_sha": "91c9bd2d9933b95f289585d2cbb5bb215841256a",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/SOFTWARE_ARCHITECTURE.md",
+      "ref": "main",
+      "observed_blob_sha": "47b1927e3d1efcb86bd7487409c82243010175ad",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/USER_FLOWS.md",
+      "ref": "main",
+      "observed_blob_sha": "ca7092d74a4343c269a178d7c7db47dbc28af2ac",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/WIREFRAMES.md",
+      "ref": "main",
+      "observed_blob_sha": "88023a869a79e764400f91044e719ce3c14e3df7",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/handoff/README.md",
+      "ref": "main",
+      "observed_blob_sha": "6f6f449513a8fd13018eae8cf014d1270703cfc9",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md",
+      "ref": "main",
+      "observed_blob_sha": "c6551f1e50772da31b0147321a3a9910a5464d3e",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
+      "ref": "main",
+      "observed_blob_sha": "0c53a148fbd3c0665b61d1ae90b860a3cfdeff07",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/architecture/RUNTIME_POLICIES.md",
+      "ref": "main",
+      "observed_blob_sha": "eff9dafb007e02edf48fbf65f928557ac3bffb7f",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md",
+      "ref": "main",
+      "observed_blob_sha": "a8b096628e1f042d1753c33a5a6299e6a55e7d25",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/ANALYTICS_AND_PRIVACY.md",
+      "ref": "main",
+      "observed_blob_sha": "8bf23f6edcac031547893b789644f04c52cee783",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/handoff/COMPOSE_TOKEN_MAPPING.md",
+      "ref": "main",
+      "observed_blob_sha": "2bd115499480217b018221df2aa57a0f376b61ae",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/design-system/foundations/TOKENS.json",
+      "ref": "main",
+      "observed_blob_sha": "7a8e13025a52d3cdfc53a688d8f0d4e613441907",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/architecture/ISSUE_16_VALIDATION.md",
+      "ref": "main",
+      "observed_blob_sha": "acddbe31737eadb64699982b3b8c7444ee34e4cf",
+      "result": "EXISTS"
+    },
+    {
+      "path": "docs/architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md",
+      "ref": "main",
+      "observed_blob_sha": "f6a53899ef8c996a4e69c9226ad85d9d9ce0b83a",
+      "result": "EXISTS"
+    }
+  ],
+  "non_claims": [
+    "No production Gradle sync/build run",
+    "No production Android CI run",
+    "No physical APK launches",
+    "No human reviewer signatures",
+    "No remote STT provider activation or legal signoff"
+  ]
+}
