@@ -163,4 +163,6 @@ music-copilot/                # main (frozen snapshot)
 
 **What has NOT been validated:** Gradle dependency compatibility, root Android build, real instrumentation or physical devices, real Player runtime, Voice recognition, operational production CI, human approvals, cloud STT legal contracts, beta KPIs. These are later gated work, not Phase 0 failings.
 
+**Repository-link integrity:** after the initial Phase 0 files were committed, all **19/19 distinct relative Markdown destinations** in this report were individually re-fetched from the correct GitHub `main` or `feature/4-android-foundation` ref with **0 missing files**. Their observed Git blob hashes, the exact check scope and non-claims are recorded in the separate machine-readable `docs/implementation/ISSUE_4_PHASE0_VALIDATION.json`. External GitHub/issues URLs were sourced from authenticated results but were not separately HTTP-probed as part of this relative-path audit.
+
 **Final disposition: `PHASE 0 PASS — SOURCE-ALIGNED / ARCHITECTURE-READY / NO IMPLEMENTATION CLAIM`.** Proceed to Phase 1. Keep Issue #4 `open / In Progress` and leave the thirteen uncompleted Issue #4 Acceptance Criteria unchecked. No PR merge or final issue closure is authorized by Phase 0 alone.
