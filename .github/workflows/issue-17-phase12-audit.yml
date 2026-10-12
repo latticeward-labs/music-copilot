@@ -1,0 +1,38 @@
+name: Issue 17 Phase 12 final acceptance audit
+on:
+  push:
+    branches:
+      - issue-17/phase-12-final-acceptance-audit-20261011
+    paths:
+      - .github/workflows/issue-17-phase12-audit.yml
+      - docs/design-system/RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  final-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python audit syntax
+        run: python3 -m py_compile docs/design-system/RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py
+      - name: Run source, link and asset gate (preserve result even on failure)
+        run: |
+          set +e
+          python3 docs/design-system/RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py > /tmp/phase12.log 2>&1
+          echo $? > /tmp/phase12.exit
+          cat /tmp/phase12.log
+      - name: Save immutable findings evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json
+          if ! git diff --cached --quiet; then
+            git commit -m "audit(issue-17): record Phase 12 checked criteria, links and visual integrity"
+            git push
+          fi
+      - name: Fail if artifact checks failed (human approval remains pending separately)
+        run: |
+          cat /tmp/phase12.log
+          exit "$(cat /tmp/phase12.exit)"
