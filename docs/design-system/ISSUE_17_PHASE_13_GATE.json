@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0.0",
+  "date": "2026-10-12",
+  "issue": 17,
+  "phase": 13,
+  "repository": "latticeward-labs/music-copilot",
+  "status": "DRAFT_READY_FINAL_MERGE_BLOCKED_AC12",
+  "sourceArchiveSHA256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "baseMainSHA": "23cb8d0fd3ed662ceac40f5a1fb97b13f99cace0",
+  "phase12PR": 67,
+  "phase12Status": "PASS_ARTIFACT_AUDIT_PENDING_HUMAN_FINAL_ACCEPTANCE",
+  "criteria": {
+    "total": 14,
+    "artifactPass": 13,
+    "pendingHuman": 1,
+    "failed": 0
+  },
+  "ac12": "PENDING_HUMAN",
+  "independentHumanApprovalsVerified": 0,
+  "actualHumanReviewUrls": [],
+  "accessibilityPrivacyHumanReviewVerified": false,
+  "ph11Min004Resolved": false,
+  "finalReauditAfterHumanApprovalsPassed": false,
+  "finalHeadCIAndConflictVerified": false,
+  "finalPRMerged": false,
+  "issue17Completed": false,
+  "projectDoneVerified": false,
+  "designDependenciesCleared": false,
+  "downstreamIssues": [
+    5,
+    6,
+    9,
+    10,
+    11
+  ],
+  "requiredDeliveryEvidence": [
+    "docs/design-system/foundations/TOKENS.json",
+    "docs/design-system/components/COMPONENT_TOKENS.json",
+    "docs/design-system/components/COMPONENT_CATALOG.md",
+    "docs/high-fidelity/PHASE_4_PRIMARY_REGISTER.json",
+    "docs/high-fidelity/HIFI_STATE_COVERAGE_REGISTER.json",
+    "docs/high-fidelity/specialist/phase-6/PHASE_6_VALIDATION.md",
+    "docs/high-fidelity/phase-7/COMPOSE_A11Y_HANDOFF.md",
+    "docs/prototype/index.html",
+    "docs/prototype/routes.json",
+    "docs/prototype/PHASE_8_BROWSER_VALIDATION.json",
+    "docs/handoff/SCREEN_SPECS.md",
+    "docs/handoff/COMPONENT_SPECS.md",
+    "docs/handoff/STATE_ACTION_MATRIX.md",
+    "docs/handoff/COMPOSE_TOKEN_MAPPING.md",
+    "docs/handoff/ASSET_REGISTER.json",
+    "docs/design-system/HIFI_TRACEABILITY_REGISTER.json",
+    "docs/audit/phase-10/PHASE_10_VALIDATION.json",
+    "docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json",
+    "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md",
+    "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json"
+  ],
+  "blockingFindings": [
+    "PH11-MIN-004"
+  ],
+  "openDownstreamMinors": [
+    "PH11-MIN-001",
+    "PH11-MIN-002",
+    "PH11-MIN-003"
+  ],
+  "mergeAuthorized": false,
+  "issueClosureAuthorized": false,
+  "note": "A completed source/artifact audit or green CI is insufficient for AC-12. This is a staged, non-final draft."
+}
