@@ -4,7 +4,7 @@
 
 **Source lock:** attached English MSM2(1)(1).rar; SHA-256 **0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8**, rechecked against the actual upload on 2026-10-12. Phase-12 merged baseline: **23cb8d0fd3ed662ceac40f5a1fb97b13f99cace0** (PR [#67](https://github.com/latticeward-labs/music-copilot/pull/67)).
 
-**Disposition: READY FOR AI-ASSISTED DESIGN CLOSEOUT.** The [12 October owner addendum](../ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md) authorizes this design gate and moves human approval to after MVP completion. All 14 design criteria are re-evaluated against actual evidence; human signatures remain zero. Actual final-head CI, merge, Issue closure and Project-field state are verified separately in GitHub. This manifest links already-merged canonical deliverables and the current corrective audit; it does not duplicate the asset package.
+**Disposition: PASS — VERIFIED AI-ASSISTED DESIGN CLOSEOUT.** The [12 October owner addendum](../ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md) authorizes this design gate and moves human approval to after MVP completion. All 14 design criteria are re-evaluated against actual evidence; human signatures remain zero. Actual final-head CI, merge, Issue closure and Project-field state are verified separately in GitHub. This manifest links already-merged canonical deliverables and the current corrective audit; it does not duplicate the asset package.
 
 ## Consolidated delivery inventory
 
@@ -36,3 +36,12 @@ The 12 English source PDFs carry the same locked archive identity. English PRD/M
 PH11-MIN-004 stays open for actual human Product/Design/Android/QA review after MVP completion, with Accessibility/Privacy acknowledgment. The [unsigned post-MVP template](ISSUE_17_HUMAN_APPROVAL_TEMPLATE.md) supplies no signatures. PH11-MIN-001/002/003 and PH10-MIN-001/002/003 retain implementation/release/provider obligations.
 
 [Full phase re-audit](ISSUE_17_FULL_REAUDIT_2026-10-12.md), [active machine policy](ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json), [pre-merge readiness snapshot](ISSUE_17_PHASE_13_GATE.json). Final execution evidence is recorded in [PR #68](https://github.com/latticeward-labs/music-copilot/pull/68) and [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17). Earlier pre-MVP human-gated PR/Issue statements are historical and superseded by the owner addendum.
+
+## Verified post-merge administrative closeout — 12 October 2026
+
+- PR [#68](https://github.com/latticeward-labs/music-copilot/pull/68) merged as `567df7ff2cc4ffd1e202a2214b19df98574dca83`; reviewed head `10d2e3323446502096d5b1524f268824637e3808` passed [CI run 38232291832](https://github.com/latticeward-labs/music-copilot/actions/runs/38232291832).
+- [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17) is CLOSED with state reason COMPLETED, verified through the GitHub connector.
+- The authenticated GitHub Issue sidebar directly displays **Music MVP – Development Board → Status: Done**, verified on 2026-10-12. [Project](https://github.com/users/latticeward-labs/projects/1). This is observed external Project-field evidence, not an inference from Markdown or Issue closure. Done was already present when inspected; no new field mutation is claimed.
+- Phase 13 is **PASS**. The design dependency for #5/#6/#9/#10/#11 is cleared; all other implementation, runtime/device, release and provider obligations remain at their existing gates.
+- `ISSUE_17_PHASE_13_GATE.json` remains a historical **PRE_MERGE_READINESS_SNAPSHOT**. Its false external-completion flags describe that earlier snapshot and must not be rewritten as if completion was known before merge. This section and actual GitHub records provide post-merge evidence.
+- Human signatures remain **0**. PH11-MIN-004 remains open for human review **after MVP completion**, as explicitly directed by the owner.
