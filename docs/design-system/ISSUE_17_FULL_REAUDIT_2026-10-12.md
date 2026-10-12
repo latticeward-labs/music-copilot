@@ -25,7 +25,7 @@ The 840 files in PR #68's reviewed starting head `9a21801853c03bf2e854f1d99eb607
 | 10 Traceability audit | PASS; frozen 541 source paths separated from later governance evidence; P0/P1/P2 = 106/6/14 | [frozen census](../audit/phase-10/FROZEN_DESIGN_SOURCE_PATHS.json), [trace validation](../audit/phase-10/PHASE_10_VALIDATION.json) |
 | 11 Cross-role review | PASS AI-assisted six-role review; open Blocker 0/Major 0; four owned downstream Minors | [findings](review/ISSUE_17_FINDINGS_REGISTER.json), [review validation](review/ISSUE_17_REVIEW_VALIDATION.md) |
 | 12 Final acceptance | PASS 14/14 **AI-assisted design/artifact** criteria under current explicit owner policy | [final audit](ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md), [machine audit](ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json) |
-| 13 PR/Merge/Closeout | Readiness passes; actual final CI/merge/Issue closure/Project field must be confirmed from GitHub records | [PR #68](https://github.com/latticeward-labs/music-copilot/pull/68), [manifest](ISSUE_17_PHASE_13_DELIVERY_MANIFEST.md), [pre-merge ledger](ISSUE_17_PHASE_13_GATE.json), [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17) |
+| 13 PR/Merge/Closeout | PASS; PR #68 merged, final-head CI succeeded, Issue closed as Completed, actual Project Status Done directly observed | [PR #68](https://github.com/latticeward-labs/music-copilot/pull/68), [manifest](ISSUE_17_PHASE_13_DELIVERY_MANIFEST.md), [pre-merge ledger](ISSUE_17_PHASE_13_GATE.json), [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17) |
 
 ## Corrections in this re-audit
 
@@ -39,3 +39,9 @@ The 840 files in PR #68's reviewed starting head `9a21801853c03bf2e854f1d99eb607
 149 registered visual assets retain byte sizes/Git blob identities; 114 provided SHA-256 hashes are checked. Liked Songs stays P2/removable. No new user flow, screen family, queue/playback owner, or product capability is introduced. Driving/Voice/system/privacy constraints remain binding.
 
 Real Compose 200%/TalkBack, Media3/STT/OEM/vehicle QA and provider-specific legal consent retain PH10/PH11 downstream gates. Human product/design/Android/QA acceptance is **after MVP**, not performed or signed in this design re-audit. Project Status Done is never inferred from the Issue's Markdown body.
+
+## Final administrative verification — 12 October 2026
+
+The GitHub connector confirms PR #68 is merged (`567df7ff2cc4ffd1e202a2214b19df98574dca83`) and Issue #17 is closed as Completed. Final-head CI [38232291832](https://github.com/latticeward-labs/music-copilot/actions/runs/38232291832) succeeded in all three jobs. Direct signed-in browser inspection of the Issue sidebar shows [Music MVP – Development Board](https://github.com/users/latticeward-labs/projects/1) → **Status Done**. The field was already Done; no manual mutation is claimed. The previous Project-field uncertainty is resolved by this actual UI observation.
+
+All phases 0–13 now pass at the authorized AI-assisted design/handoff level. The Issue-17 design dependency is cleared for #5/#6/#9/#10/#11. Human acceptance follows MVP completion and implementation/runtime/device/provider gates remain downstream. The pre-merge JSON ledger is retained as historical readiness evidence, not as current execution status.
