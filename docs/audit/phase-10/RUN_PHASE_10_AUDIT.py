@@ -14,6 +14,20 @@ p7=J("docs/high-fidelity/phase-7/PHASE_7_REGISTER.json")
 frames=J("docs/wireframes/app-states/FRAME_REGISTER.json")
 assets=J("docs/handoff/ASSET_REGISTER.json")
 proto=J("docs/prototype/routes.json")
+frozen_paths=J("docs/audit/phase-10/FROZEN_DESIGN_SOURCE_PATHS.json")["paths"]
+assert len(frozen_paths)==len(set(frozen_paths))==541
+post_freeze_governance={
+ "docs/design-system/RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py",
+ "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md",
+ "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json",
+ "docs/design-system/ISSUE_17_PHASE_13_DELIVERY_MANIFEST.md",
+ "docs/design-system/ISSUE_17_PHASE_13_GATE.json",
+ "docs/design-system/ISSUE_17_HUMAN_APPROVAL_TEMPLATE.md",
+ "docs/design-system/VALIDATE_ISSUE_17_PHASE_13_READINESS.py",
+ "docs/design-system/ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json",
+ "docs/design-system/ISSUE_17_FULL_REAUDIT_2026-10-12.md",
+}
+governance_paths=[]
 token=J("docs/design-system/foundations/TOKENS.json")
 prd=T("docs/PRD.md");mvp=T("docs/MVP.md")
 assert archive==base["sourceArchiveSha256"]==token["source"]["archiveSha256"]==assets["sourceArchiveSha256"]==proto["archiveSha256"]
@@ -239,7 +253,9 @@ for prefix,kind in fullPrefixes.items():
         # Cross-role review records created AFTER the Phase-10 frozen design
         # source census are approval evidence, not a new design HF/WF/State.
         # Keep the frozen 541 design-source identities invariant.
-        if p.startswith("docs/design-system/review/"):continue
+        if p.startswith("docs/design-system/review/") or p in post_freeze_governance:
+            governance_paths.append(p)
+            continue
         if p in registered:continue
         if f.suffix.lower() not in (".md",".json",".svg",".png",".html",".css",".js",".cjs",".py"):
             errors["orphan"].append({"path":p,"reason":"unrecognized design artifact type"});continue
@@ -248,6 +264,11 @@ for prefix,kind in fullPrefixes.items():
         if p.startswith("docs/wireframes/recovery-system/WF-") and f.suffix in (".md",".svg"):
             errors["orphan"].append({"path":p,"reason":"unregistered native transition"});continue
         add(p,kind,(),"docs/design-system/ISSUE_17_SOURCE_MANIFEST.md")
+if set(registered)!=set(frozen_paths):
+    for p in sorted(set(frozen_paths)-set(registered)):
+        errors["missing"].append({"path":p,"reason":"frozen design-source path disappeared"})
+    for p in sorted(set(registered)-set(frozen_paths)):
+        errors["orphan"].append({"path":p,"reason":"unapproved addition to frozen design-source census"})
 # Prototype's Phase-8 strict audit is independently authoritative for ALL
 # 38 declared scenario-local safe-terminal routes; no weaker global reachability.
 phase8=J("docs/prototype/PHASE_8_VALIDATION.json")
@@ -264,6 +285,7 @@ result={"phase":10,"issue":17,"sourceArchiveSha256":archive,
         "priorityCounts":dict(counts),"dispositionCounts":dict(kinds),
         "canonicalStates":len(state_rows),"highFidelityFiles":len(high),
         "registeredSourceArtifacts":len(registered),"nonHifiActiveDesignFiles":len(registered)-len(high),
+        "postFreezeGovernanceArtifacts":sorted(governance_paths),
         "phase8RecoverySafeEndpoints":sum(x["recoveryCount"] for x in phase8["scenarios"].values()),
         "registeredSourceAssetsWithHF":len([x for x in registered if x.endswith(".png")]),"sourceAssets":len(assets["assets"]),
         "primaryHighFi":len(primary["artifacts"]),"hifiFrames":len(s["frames"]),

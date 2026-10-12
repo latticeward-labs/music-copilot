@@ -1,13 +1,13 @@
 {
   "issue": 17,
   "phase": 12,
-  "date": "2026-10-11",
-  "status": "PASS_ARTIFACT_AUDIT_PENDING_HUMAN_FINAL_ACCEPTANCE",
+  "date": "2026-10-12",
+  "status": "PASS_AI_ASSISTED_DESIGN_ACCEPTANCE",
   "attachedArchiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "acceptanceCriteriaTotal": 14,
-  "artifactPass": 13,
+  "artifactPass": 14,
   "failed": 0,
-  "pendingHuman": 1,
+  "pendingHuman": 0,
   "criteria": [
     {
       "id": "AC-01",
@@ -130,14 +130,15 @@
     },
     {
       "id": "AC-12",
-      "criterion": "Independent named Product, Design/UX, Android and QA human approval; A11y/Privacy review evidence",
-      "status": "PENDING_HUMAN",
+      "criterion": "Explicit AI-assisted six-role review; 0 open Blocker/Major; owned/gated Minors; human approval after MVP",
+      "status": "PASS_ARTIFACT",
       "evidencePaths": [
+        "docs/ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md",
+        "docs/design-system/ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json",
         "docs/design-system/review/ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md",
-        "docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json",
-        "docs/design-system/review/PHASE_11_FINAL_PASS_CLOSEOUT_2026-10-11.md"
+        "docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json"
       ],
-      "limitation": "Only one AI-assisted reviewer across six roles; 0 independent humans, 0 human signatures. PH11-MIN-004 requires dated real review; cannot mark PASS."
+      "limitation": "One AI covering six roles; 0 independent human signoffs. PH11-MIN-004 stays open after MVP; actual Android/Legal approval is not claimed."
     },
     {
       "id": "AC-13",
@@ -159,7 +160,7 @@
         "docs/handoff/PHASE9_VALIDATION.json",
         "docs/design-system/review/ISSUE_17_REVIEW_VALIDATION.md"
       ],
-      "limitation": "Document-level source and path reconciliation; final stakeholder sign-off is AC-12, still pending."
+      "limitation": "Document-level source/path reconciliation; AI-assisted design gate only. Human approval follows MVP completion."
     }
   ],
   "sourcePriorityCounts": {
@@ -186,10 +187,10 @@
   "recoveryBranches": 38,
   "chromiumCasesPassed": 14,
   "linkAudit": {
-    "markdownFilesAudited": 366,
-    "internalPathLinks": 1350,
+    "markdownFilesAudited": 370,
+    "internalPathLinks": 1427,
     "internalSameRepoGithubLinks": 113,
-    "externalLinksSkipped": 166,
+    "externalLinksSkipped": 175,
     "fragmentTargetsNotVerified": 4,
     "missingTargets": [],
     "samples": []
@@ -212,5 +213,9 @@
     "PH11-MIN-004"
   ],
   "implementationAndDeviceQA": "NOT_RUN",
-  "issue17CloseAuthorized": false
+  "humanApprovalTiming": "AFTER_MVP_COMPLETION",
+  "humanApprovalClaimed": false,
+  "designAcceptanceMode": "AI_ASSISTED_SIX_ROLE_EVIDENCE_REVIEW",
+  "issue17CloseAuthorizedAfterFinalHeadGreenCIAndMerge": true,
+  "projectDoneVerifiedByThisAudit": false
 }

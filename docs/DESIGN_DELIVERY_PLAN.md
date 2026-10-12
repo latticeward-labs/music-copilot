@@ -1,11 +1,12 @@
 # Design Delivery Plan — Music Copilot MVP v1.0
 
 - **Version:** MVP v1.0
-- **Status:** **Current through Issue #17 Phase 12 final documentary acceptance audit: 13 source/artifact criteria PASS, AC-12 human approval PENDING; Issue #17 remains OPEN**
-- **Updated:** 11 October 2026
+- **Status:** **14/14 AI-assisted design acceptance; Phase-13 closeout under the 12 October owner policy; actual PR/Issue/Project status controls execution completion**
+- **Updated:** 12 October 2026
 - **Architecture tracking:** [Issue #16](https://github.com/latticeward-labs/music-copilot/issues/16)
 - **Design tracking:** [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
 - **Canonical delivery workspace:** GitHub repository `latticeward-labs/music-copilot`
+- **Current acceptance policy:** [AI-assisted design closeout; human approval after MVP](ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md)
 - **Active Issue #17 contract:** [Repository-native High-Fidelity Delivery Contract Addendum](ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md)
 - **Official low-fidelity visual workfile:** [`docs/wireframes/`](wireframes/) — Markdown + SVG + JSON
 - **Product authorities:** [PRD v1.0](PRD.md) and [MVP v1.0](MVP.md)
@@ -74,7 +75,7 @@ The final architecture fixes ownership, lifecycle, dependency direction, runtime
 - Tracking: [Issue #17](https://github.com/latticeward-labs/music-copilot/issues/17)
 - Contract: [Repository-native High-Fidelity Delivery Contract Addendum](ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md)
 - Dedicated execution branch: `issue-17/repository-hifi-delivery`
-- Status: **IN PROGRESS — Phase 4 Primary High-Fidelity PASS / COMPLETE**
+- Status: **DESIGN ACCEPTANCE PASS — 14/14 under explicit owner-directed AI-assisted review; final PR/Issue/Project execution verified separately**
 - Design System workspace: `docs/design-system/`
 - High-fidelity workspace: `docs/high-fidelity/`
 - Prototype workspace: `docs/prototype/`
@@ -245,7 +246,7 @@ Handoff records must expose source state, runtime owner, actions, transitions, B
 - Product, Design/UX, Android feasibility, Accessibility, QA and Privacy completed a single **AI-assisted evidence review**. This is **not** six distinct reviewers, named human signatures or provider/legal approval.
 - Findings: **Blocker 0 found / 0 open; Major 2 found / 2 resolved / 0 open; Minor 4 open**, with issue/role owner and precise downstream gate for each. Corrected `CMP-07/08` currentItem metadata/art binding and `CMP-10` ephemeral search query privacy binding directly in Phase 9 Handoff files. Source Product/ADR/State ownership unchanged.
 - [Fail-closed source review validator](design-system/review/VALIDATE_ISSUE_17_REVIEW.py) re-verifies six roles and Major corrections, and separately proves Phase-9/10 audits remain stable (10 screen families, 23 components, 126 States, 541 design-source paths).
-- **Phase 11 gate:** PASS for repository AI-assisted review, not independent human design approval. Phase-12 requires actual named Product/Design/Android/QA acceptance, independent manual image/hotspot review (PH11-MIN-004) and complete synchronization before Issue #17 may close. PH11-MIN-001/002/003 continue into Android runtime/release/provider gates.
+- **Phase 11 gate:** PASS for repository AI-assisted review, not independent human design approval. Under the 12 October owner addendum, Phase-12 accepts the explicit AI-assisted six-role review; real human acceptance (PH11-MIN-004) follows MVP completion. PH11-MIN-001/002/003 continue into Android runtime/release/provider gates.
 
 ## Synchronization and review rules
 
@@ -286,18 +287,18 @@ Closed Issue #15 history is not rewritten.
 
 - [Reconciled Phase-11 PASS closeout](design-system/review/PHASE_11_FINAL_PASS_CLOSEOUT_2026-10-11.md) verifies original merged [PR #65](https://github.com/latticeward-labs/music-copilot/pull/65), commit `2623aff46d695c64a030d1344348e11e738790ac` and [green CI 38164710988](https://github.com/latticeward-labs/music-copilot/actions/runs/38164710988). Findings Register status is no longer the obsolete `PENDING_CI` variant.
 - **PASS / COMPLETE / MERGED at AI-assisted cross-role static/design-contract level:** all six roles covered; Blocker open 0, Major open 0, Minor open 4 (each owned/gated).
-- **Not PASSED:** independent named human approvals, PH11-MIN-004 manual image/hotspot/zoom review before Issue #17 closure, PH11-MIN-001 Compose accessibility QA, PH11-MIN-002 Android/Media3/OEM/vehicle runtime QA or PH11-MIN-003 provider-specific cloud STT consent/Legal. These remain downstream; Phase 12 cannot invent their evidence. Issue #17 stays OPEN / In Progress.
+- **Not PASSED:** independent named human approvals, PH11-MIN-004 human image/hotspot/zoom and implemented-UI review after MVP completion, PH11-MIN-001 Compose accessibility QA, PH11-MIN-002 Android/Media3/OEM/vehicle runtime QA or PH11-MIN-003 provider-specific cloud STT consent/Legal. These remain downstream; Phase 12 cannot invent their evidence. The later owner addendum authorizes AI-assisted design closeout without claiming those results.
 
-## Issue #17 Phase 12 — Final Acceptance Audit (11 October 2026)
+## Issue #17 Phase 12 — Final Acceptance Audit (revalidated 12 October 2026)
 
-**Result: PASS for the evidence-backed Phase-12 source/artifact audit; full Issue #17 final acceptance remains PENDING HUMAN.** The [14-criterion evidence-by-evidence final acceptance document](design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md) and [machine results](design-system/ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json) establish 13 criteria PASS at repository/design contract level, one real independent human approval gate **AC-12 PENDING**, zero source/artifact failures.
+**14/14 PASS at the AI-assisted design/artifact gate** under the [explicit owner-directed acceptance addendum](ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md). Actual human approvals remain zero and are due after MVP completion. [Final audit](design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md) / [machine results](design-system/ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json) link each criterion to evidence.
 
-- 10/10 existing WF screen families have paired approved primary PNG/spec; 126/126 canonical State dispositions preserved (45 dedicated image/spec, 61 variants, 20 Android-owned system handoffs). Original frozen WF/UF/GS/priority/owner parity checked; P0/P1/P2 remain 106/6/14.
-- 23 reusable Design System components and Compose-ready tokens/handoff specified; service-owned Media3/MediaSession and ephemeral SearchViewModel corrections from the accepted Issue #16/Phase-11 contracts remain unchanged.
-- GS-01..GS-05 approved clickable design scenarios and **38** bounded recovery branches verified; **14/14 Chromium interaction checks** passed. Driving/Voice one-layer/Exit/no ineligible Retry, bounded ambiguity, system-only Android handoffs preserved. Browser evidence is not Android runtime QA.
-- **149/149** registered source images passed actual Git blob SHA-1 verification (117 PNG, 32 SVG); **114** provided authoritative SHA-256 image hashes verified; all **541** registered trace/provenance artifacts exist.
-- **366** current Markdown documents audited; **1,347** relative internal references plus **113** same-repository GitHub-main links have **0 missing paths**. External links and heading-fragment slug targets are explicitly not claimed verified.
-- Phase-11 open Blocker 0, Major 0; two Majors corrected. **Four downstream minors remain OPEN.** `PH11-MIN-004` blocks Issue #17 final signoff until dated independent Product/Design/Android/QA reviews are recorded with Accessibility/Privacy evidence. `PH10-MIN-001/002/003` and the implementation/OEM/provider release gates are not falsely closed.
-- **Do not close Issue #17 or tick all Acceptance Criteria as complete** from this AI-run audit; no human reviews or real-device evidence were manufactured. Final Issue #17 exit remains contingent on accountable named reviewers and dated artifact approval.
+- 10 families, 126 exact State IDs (45 dedicated / 61 variants / 20 native-only), 23 reusable components; P0/P1/P2 = 106/6/14.
+- Five GS and 38 scenario-local safe recovery branches; 14 Chromium interaction cases. Browser evidence is separate from Android runtime QA.
+- 149 source visual assets / 114 SHA-256 checks; exact 541 frozen design-source path identities with later approval/closeout governance evidence separately inventoried.
+- Open Blocker/Major = 0. PH11-MIN-004 remains human approval after MVP; PH11-MIN-001/002/003 and inherited PH10 Minors retain implementation/release/provider gates.
+- Final-head green CI and actual merge/closure/Project verification are Phase-13 execution actions; no Project mutation or runtime pass is inferred by this document.
 
-The reproducible final audit lives in [`RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py`](design-system/RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py). Later Phase-12 PR/CI evidence is recorded in Issue #17 without rewriting earlier historical signoffs.
+## Issue #17 Phase 13 — PR, merge and design dependency release
+
+[PR #68](https://github.com/latticeward-labs/music-copilot/pull/68) consolidates the [delivery manifest](design-system/ISSUE_17_PHASE_13_DELIVERY_MANIFEST.md), owner-directed policy, corrected reproducible audits and [full phase re-audit](design-system/ISSUE_17_FULL_REAUDIT_2026-10-12.md). Mark ready/merge only after applicable final-head CI passes; verify the actual closed Completed Issue and Project Done field separately. Design dependencies #5/#6/#9/#10/#11 clear following verified design closeout, while human MVP acceptance and implementation QA stay open.

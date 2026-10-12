@@ -13,7 +13,7 @@
 | GitHub merged PR/CI | PR #65 merged at 2623aff; workflow 38164710988 SUCCESS, recorded with no fabricated reviewer signatures | PASS |
 | Blockers | 0 found / 0 open | PASS |
 | Majors | PH11-MAJ-001 and PH11-MAJ-002 both RESOLVED, corrected Component + Screen source files asserted | PASS |
-| Minors | 4 open, each explicitly owned and gated (Phase 12 human review; Implementation DoD; Beta/OEM; provider Legal) | PASS |
+| Minors | 4 open, each explicitly owned and gated (Post-MVP human review; Implementation DoD; Beta/OEM; provider Legal) | PASS |
 | Previous source chain | 126 States, 541 source artifacts, 106 P0 / 6 P1 / 14 P2; zero Phase 10 findings | PASS |
 | Prototype source-level evidence | 5 GS, 38 bounded recoveries, 14/14 Chromium cases | PASS |
 | Trace of inherited Issue 16 Minors | PH10-MIN-001/002/003 all remain OPEN, not falsely cleared | PASS |
@@ -30,8 +30,8 @@
 - **PH11-MIN-001:** Issue #4 Android UI + Accessibility/QA — actual Compose semantics, TalkBack, 200% font reflow, touch targets before per-feature DoD.
 - **PH11-MIN-002:** Issue #4 + QA/Field Beta — Media3/Voice/interrupt/permission and Pixel/Samsung/Xiaomi + 3 vehicle/head-unit matrix before RC.
 - **PH11-MIN-003:** Product + Privacy/Legal — consent/retention and provider approval BEFORE any cloud speech enablement; remain disabled.
-- **PH11-MIN-004:** actual named Product/Design/QA human reviewers — dated manual visual/hotspot/200% browser check before final Issue #17 approval. Human signatures still zero.
+- **PH11-MIN-004:** actual named Product/Design/QA human reviewers — dated manual visual/hotspot/200% browser and built-UI check after MVP completion (owner-directed nonblocking Issue #17 disposition). Human signatures still zero.
 
 Reference: [review record](ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md), [structured findings](ISSUE_17_FINDINGS_REGISTER.json), [independent validator](VALIDATE_ISSUE_17_REVIEW.py).
 
-**Decision: PASS / COMPLETE / MERGED at AI-assisted Phase 11 static/design-contract level, after two Major corrections; 0 open Blockers, 0 open Majors, four owned downstream Minors.** Issue #17 remains OPEN; human Phase-12 approval and Android runtime QA are NOT claimed.
+**Decision: PASS / COMPLETE / MERGED at AI-assisted Phase 11 static/design-contract level, after two Major corrections; 0 open Blockers, 0 open Majors, four owned downstream Minors.** Issue #17 design closure is authorized after the active 14/14 criteria, final green CI and merge. Human approval is deferred until after MVP; Android runtime QA is NOT claimed.

@@ -1,10 +1,10 @@
 # Issue #17 — Phase 12 Final Acceptance Audit
 
-**Date:** 2026-10-11 · **Issue:** [#17](https://github.com/latticeward-labs/music-copilot/issues/17) · **Source:** attached English `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
+**Date:** 2026-10-12 · **Issue:** [#17](https://github.com/latticeward-labs/music-copilot/issues/17) · **Source:** attached English `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 
-**Audit disposition: PASS_ARTIFACT_AUDIT_PENDING_HUMAN_FINAL_ACCEPTANCE.** Of **14** binding GitHub Acceptance Criteria: **13 verified at design/document/evidence level**, **1 pending named independent human review**, **0 failed source/artifact checks**.
+**Audit disposition: PASS_AI_ASSISTED_DESIGN_ACCEPTANCE.** Of **14** binding GitHub Acceptance Criteria: **14 verified at design/document/evidence level**, **0 pending pre-MVP acceptance criteria**, **0 failed source/artifact checks**.
 
-**Important:** The Phase-12 *documentary/source audit* is not equivalent to final Issue #17 acceptance. AC-12 is NOT passed; actual human signoffs remain **0**. Issue #17 must remain **OPEN / In Progress**. Do not tick AC-12, authorize closure, claim release readiness or imply real Android/Media3/STT/vehicle/TalkBack testing.
+**Acceptance authority:** the [12 October owner-directed addendum](https://github.com/latticeward-labs/music-copilot/blob/main/docs/ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md) permits AI-assisted design acceptance and defers human approval until after MVP completion. AC-12 is evaluated against that explicit policy, not automatically promoted from the older human gate. Actual human signoffs remain **0**. After final-head green CI and PR merge, Issue #17 design closure is authorized; actual Project Done must be checked separately. Real Android/Media3/STT/vehicle/TalkBack QA and release readiness are not certified.
 
 ## 1. Binding acceptance criteria — complete 14-point audit
 
@@ -23,9 +23,9 @@ Source of these exact criteria: [Issue #17](https://github.com/latticeward-labs/
 | AC-09 | Five clickable Golden Scenarios GS-01..05 and all 38 scoped recovery endpoints | **PASS_ARTIFACT** | [routes.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/prototype/routes.json), [PHASE_8_VALIDATION.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/prototype/PHASE_8_VALIDATION.json), [PHASE_8_BROWSER_VALIDATION.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/prototype/PHASE_8_BROWSER_VALIDATION.json) | 14/14 Chromium smoke tests, not five actual Android scenarios. |
 | AC-10 | Jetpack Compose-ready tokens, dimensions and component specifications | **PASS_ARTIFACT** | [TOKENS.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/foundations/TOKENS.json), [COMPONENT_TOKENS.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/components/COMPONENT_TOKENS.json), [COMPOSE_TOKEN_MAPPING.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/handoff/COMPOSE_TOKEN_MAPPING.md) | Compose production code and runtime QA not included. |
 | AC-11 | Engineering handoff specifies State/owner/action/Back/analytics/privacy | **PASS_ARTIFACT** | [STATE_ACTION_MATRIX.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/handoff/STATE_ACTION_MATRIX.md), [COMPONENT_SPECS.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/handoff/COMPONENT_SPECS.md), [PRIVACY_EVIDENCE_HANDOFF.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/high-fidelity/phase-7/PRIVACY_EVIDENCE_HANDOFF.md) | Contracts only, not runtime telemetry proof. |
-| AC-12 | Independent named Product, Design/UX, Android and QA human approval; A11y/Privacy review evidence | **PENDING_HUMAN** | [ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/review/ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md), [ISSUE_17_FINDINGS_REGISTER.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json), [PHASE_11_FINAL_PASS_CLOSEOUT_2026-10-11.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/review/PHASE_11_FINAL_PASS_CLOSEOUT_2026-10-11.md) | Only one AI-assisted reviewer across six roles; 0 independent humans, 0 human signatures. PH11-MIN-004 requires dated real review; cannot mark PASS. |
+| AC-12 | Explicit AI-assisted six-role review; 0 open Blocker/Major; owned/gated Minors; human approval after MVP | **PASS_ARTIFACT** | [ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md), [ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json), [ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/review/ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md), [ISSUE_17_FINDINGS_REGISTER.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json) | One AI covering six roles; 0 independent human signoffs. PH11-MIN-004 stays open after MVP; actual Android/Legal approval is not claimed. |
 | AC-13 | Stable IDs, dated evidence and PRs/commits recorded in GitHub | **PASS_ARTIFACT** | [ISSUE_17_SOURCE_MANIFEST.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/ISSUE_17_SOURCE_MANIFEST.md), [ASSET_REGISTER.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/handoff/ASSET_REGISTER.json), [ISSUE_17_FINDINGS_REGISTER.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json) | Existing PRs #48–#65 merged; this Phase-12 PR must be merged separately. |
-| AC-14 | Design/HiFi/prototype/handoff/behavior/architecture/traceability synchronized | **PASS_ARTIFACT** | [PHASE_10_VALIDATION.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/audit/phase-10/PHASE_10_VALIDATION.json), [PHASE9_VALIDATION.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/handoff/PHASE9_VALIDATION.json), [ISSUE_17_REVIEW_VALIDATION.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/review/ISSUE_17_REVIEW_VALIDATION.md) | Document-level source and path reconciliation; final stakeholder sign-off is AC-12, still pending. |
+| AC-14 | Design/HiFi/prototype/handoff/behavior/architecture/traceability synchronized | **PASS_ARTIFACT** | [PHASE_10_VALIDATION.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/audit/phase-10/PHASE_10_VALIDATION.json), [PHASE9_VALIDATION.json](https://github.com/latticeward-labs/music-copilot/blob/main/docs/handoff/PHASE9_VALIDATION.json), [ISSUE_17_REVIEW_VALIDATION.md](https://github.com/latticeward-labs/music-copilot/blob/main/docs/design-system/review/ISSUE_17_REVIEW_VALIDATION.md) | Document-level source/path reconciliation; AI-assisted design gate only. Human approval follows MVP completion. |
 
 ## 2. Source and coverage invariants
 
@@ -53,11 +53,11 @@ Source of these exact criteria: [Issue #17](https://github.com/latticeward-labs/
 
 ## 3. Link audit — real repository path resolution
 
-Checked **366** current Markdown documents across `docs/design-system/`, `docs/high-fidelity/`, `docs/handoff/`, `docs/prototype/`, `docs/audit/phase-10/`, approved Wireframe/Golden Scenario sources and core authority docs.
+Checked **370** current Markdown documents across `docs/design-system/`, `docs/high-fidelity/`, `docs/handoff/`, `docs/prototype/`, `docs/audit/phase-10/`, approved Wireframe/Golden Scenario sources and core authority docs.
 
-- Relative repository-local Markdown/image link references: **1350**.
+- Relative repository-local Markdown/image link references: **1427**.
 - Same-repository GitHub `blob/main` and `tree/main` references: **113**.
-- External/non-main/third-party links skipped (not claimed live-verified): **166**.
+- External/non-main/third-party links skipped (not claimed live-verified): **175**.
 - Link fragments/anchors not validated as exact heading slugs: **4**.
 - Missing local path targets: **0**.
 
@@ -78,12 +78,12 @@ No false claim is made that external URLs, fragment slugs, hosting availability 
 
 | Tracking ID | Real owner / required evidence | Gate |
 |---|---|---|
-| `PH11-MIN-004` | **Named independent human Product, Design/UX, Android and QA approvals** with per-primary/dedicated/specialist visual and hotspot review, reviewer identity, date, GitHub PR/review evidence. Accessibility/Privacy review evidence must also be acknowledged by responsible reviewers. | **Blocks final Issue #17 acceptance and closure — AC-12 PENDING.** |
+| `PH11-MIN-004` | **Actual human Product, Design/UX, Android and QA approval after MVP completion**, with dated built-screen/image/hotspot/zoom evidence and Accessibility/Privacy acknowledgment. | **OPEN downstream after MVP; does not block Issue #17 design closure under the owner's 12 October policy.** |
 | `PH11-MIN-001` / `PH10-MIN-001` | Android UI + QA: Compose TalkBack, focus/read order, 100/150/200% scaling, real 48dp/Driving 64/72/56dp. | Implementation feature DoD / release; not a pass of runtime in this audit. |
 | `PH11-MIN-002` / `PH10-MIN-003` | Android + QA: Media3/Service, playback ACK, safe route, real Voice/OEM/Bluetooth and 3+ vehicle/head-unit test matrix. | Before release/field QA. |
 | `PH11-MIN-003` / `PH10-MIN-002` | Product + Privacy/Legal: chosen remote-STT provider legal terms, explicit opt-in/revoke, retention/deletion and signoff. | Before any remote STT enablement; remains disabled. |
 
-**Final rule:** report completion and source/artifact audit PASS can be recorded, but **do not mark all 14 Issue #17 checkboxes as completed or close Issue #17** until independent humans provide the required evidence. An AI six-role review is not six independent human signoffs.
+**Final rule:** all 14 AI-assisted design criteria may pass under the explicit owner policy; verify final-head CI, merge and actual Issue/Project state before reporting Phase-13 completion. One AI six-role review remains one AI review. No independent human signatures are inferred.
 
 ## 6. Automated reproducibility / findings
 
@@ -100,4 +100,4 @@ No false claim is made that external URLs, fragment slugs, hosting availability 
 - **scope:** 0 finding(s).
 - **links:** 0 finding(s).
 
-**Decision:** **PASS_ARTIFACT_AUDIT_PENDING_HUMAN_FINAL_ACCEPTANCE**. Phase 12 evidence audit is complete subject to the actual recorded checks; **final Issue #17 acceptance authorization remains PENDING HUMAN**.
+**Decision:** **PASS_AI_ASSISTED_DESIGN_ACCEPTANCE**. Phase 12 design acceptance is complete subject to the recorded checks and owner policy; Phase 13 still requires actual green CI, merge and GitHub closeout verification.

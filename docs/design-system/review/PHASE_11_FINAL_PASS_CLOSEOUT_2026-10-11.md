@@ -1,5 +1,7 @@
 # Issue #17 — Phase 11 Final PASS Closeout (Evidence Reconciliation)
 
+> **Current acceptance update — 12 October 2026:** the [owner-directed addendum](../../ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md) supersedes this historical report's pre-MVP human-signature closure requirement. AI-assisted design acceptance is active; PH11-MIN-004 stays open for actual human approval **after MVP completion**. Original review dates, evidence and zero human signatures remain historical facts.
+
 **Date:** 11 October 2026  
 **Disposition:** **PASS / COMPLETE / MERGED — AI-assisted repository cross-role DESIGN / ENGINEERING-CONTRACT review ONLY.**  
 **Issue #17 status:** OPEN / In Progress. **Human final approval:** PENDING (0 independent human signatures).

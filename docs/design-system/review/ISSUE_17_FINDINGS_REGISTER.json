@@ -240,8 +240,10 @@
         "docs/high-fidelity/specialist/phase-6/PHASE_6_REGISTER.json"
       ],
       "owner": "Named Product + Design/UX reviewers and QA reviewer (actual GitHub reviewers, not invented)",
-      "downstreamGate": "Before final Issue #17 acceptance/closure: human signed dated review of 10 primary/45 dedicated/27 Voice Driving specialist views, actual image hotspot matching, 200% browser zoom and reviewer Back vs app Back distinction; resolve any new Blocker/Major first.",
-      "nonblockingWhy": "AI-assisted documentation gate may pass, but is not a substitute for independent human design signoff at final Issue #17 closure."
+      "downstreamGate": "After MVP completion: actual Product, Design/UX, Android and QA humans review 10 primary/45 dedicated/27 specialist images, the built UI, hotspots, Back/recovery and large-text/focus behavior; record real accounts, dates and evidence with Accessibility/Privacy acknowledgment; resolve newly found Blocker/Major at MVP acceptance/release gate.",
+      "nonblockingWhy": "Explicit project-owner instruction on 2026-10-12 defers human approval until after MVP completion. The AI-assisted Issue 17 design gate may close with 14/14 evidence criteria and final green CI/merge; no human signoff is invented.",
+      "humanApprovalTiming": "AFTER_MVP_COMPLETION",
+      "blocksIssue17Closure": false
     }
   ],
   "summary": {
@@ -260,8 +262,11 @@
   "gate": {
     "phase11": "PASS_AFTER_CORRECTIONS_AI_ASSISTED",
     "condition": "Open Blocker = 0 AND Open Major = 0, every OPEN Minor has named accountable owner and exact downstream gate.",
-    "issue17MayClose": false,
-    "humanReviewStillRequired": true
+    "issue17MayClose": true,
+    "humanReviewStillRequired": true,
+    "closureCondition": "14/14 active AI-assisted design criteria, final-head green CI and merged PR; verify actual GitHub closeout separately.",
+    "humanApprovalTiming": "AFTER_MVP_COMPLETION",
+    "acceptancePolicy": "docs/design-system/ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json"
   },
   "provenance": {
     "reviewDate": "2026-10-11",
@@ -275,5 +280,11 @@
     "phase11FinalCiConclusion": "success",
     "phase11ReviewGate": "PASS_COMPLETE_MERGED_AI_ASSISTED_ONLY",
     "issue17StateAfterReview": "OPEN_IN_PROGRESS"
+  },
+  "acceptancePolicyRevision": {
+    "date": "2026-10-12",
+    "authority": "Explicit project-owner instruction",
+    "addendum": "docs/ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md",
+    "originalReviewDatePreserved": true
   }
 }
