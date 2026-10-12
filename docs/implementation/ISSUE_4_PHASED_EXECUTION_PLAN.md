@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** Planning baseline / implementation pending; no phase may be marked PASS without committed evidence
+- **Status:** **Phase 0 PASS (source/readiness audit)** / Phases 1–14 implementation pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -18,13 +18,13 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 0 — Sources and readiness lock
 
-- [ ] Reconcile Issue #4 and all 13 remaining Acceptance Criteria with accepted Issue #16/ADR contracts, and latest Issue #17 handoff.
-- [ ] Record root `main` contents and which existing spike/workflow assets must remain separate.
-- [ ] Freeze a requirements-to-phase matrix and the prohibition on premature feature/UI work.
-- [ ] Record any unresolved implementation selection as replaceable tooling, not a new architecture invariant.
+- [x] Reconcile Issue #4 and all 13 remaining Acceptance Criteria with accepted Issue #16/ADR contracts, and latest Issue #17 handoff.
+- [x] Record root `main` contents and which existing spike/workflow assets must remain separate.
+- [x] Freeze a requirements-to-phase matrix and the prohibition on premature feature/UI work.
+- [x] Record any unresolved implementation selection as replaceable tooling, not a new architecture invariant.
 
-**Output:** `docs/implementation/ISSUE_4_BASELINE_AND_TRACEABILITY.md`.  
-**PASS:** reference URLs/versions, every Issue #4 criterion mapped to a phase/test/evidence slot, no contradictory authority or unresolved blocking decision.
+**Output:** [`ISSUE_4_BASELINE_AND_TRACEABILITY.md`](ISSUE_4_BASELINE_AND_TRACEABILITY.md), [`ISSUE_4_PHASE0_TRACEABILITY.json`](ISSUE_4_PHASE0_TRACEABILITY.json).  
+**PASS achieved 12 October 2026:** 4/4 phase requirements verified, original MSM2 archive SHA + 12/12 original PDF-member hashes matched GitHub source register, 14/14 Issue #4 Acceptance Criteria mapped with 1 verified upstream and 13 pending implementation; 0 architecture blockers. All findings and non-claims are in linked evidence. **This does not check Issue #4 implementation criteria.**
 
 ## Phase 1 — GitHub execution setup
 
