@@ -33,6 +33,50 @@ jobs:
         env:
           ISSUE16_BASE_SHA: 281e1abda39a78ee0d80051c154ed6eb4af33361
         run: python scripts/validate_issue16_final_architecture.py
+      - name: Reproduce Issue 17 design, traceability and acceptance audits
+        run: |
+          set -euo pipefail
+          python docs/high-fidelity/phase-7/PHASE_7_VALIDATE.py
+          python docs/handoff/VALIDATE_PHASE9.py
+          node docs/prototype/validate.cjs
+          python docs/audit/phase-10/RUN_PHASE_10_AUDIT.py
+          python docs/design-system/review/VALIDATE_ISSUE_17_REVIEW.py
+          python docs/design-system/RUN_ISSUE_17_FINAL_ACCEPTANCE_AUDIT.py
+          python docs/design-system/VALIDATE_ISSUE_17_PHASE_13_READINESS.py
+
+  issue17-prototype-browser:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install isolated Chromium test runtime
+        run: |
+          npm install --prefix /tmp/issue17-browser playwright@1.58.2
+          /tmp/issue17-browser/node_modules/.bin/playwright install --with-deps chromium
+      - name: Execute actual GS and recovery click cases
+        env:
+          NODE_PATH: /tmp/issue17-browser/node_modules
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/issue17-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for attempt in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8765/docs/prototype/index.html >/dev/null; then break; fi
+            sleep 1
+          done
+          node docs/prototype/browser-smoke.cjs
+      - name: Retain actual browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue17-prototype-browser-evidence
+          path: |
+            docs/prototype/PHASE_8_BROWSER_VALIDATION.json
+            docs/prototype/PHASE_8_BROWSER_REVIEW.png
 
   mermaid-parse:
     runs-on: ubuntu-22.04

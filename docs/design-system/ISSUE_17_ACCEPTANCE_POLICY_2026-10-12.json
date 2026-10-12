@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0.0",
+  "issue": 17,
+  "effectiveDate": "2026-10-12",
+  "authority": "Explicit project-owner instruction in the current Issue 17 re-audit request",
+  "ownerInstructionOriginal": "تأیید انسانی بعد اتمام MVP انجام خواهد شد",
+  "ownerInstructionEnglish": "Human approval will occur after MVP completion",
+  "addendumPath": "docs/ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md",
+  "designAcceptanceMode": "AI_ASSISTED_SIX_ROLE_EVIDENCE_REVIEW",
+  "requiredReviewRoles": ["Product", "Design/UX", "Android feasibility", "Accessibility", "QA", "Privacy"],
+  "humanApprovalTiming": "AFTER_MVP_COMPLETION",
+  "humanApprovalRequiredForIssue17Closure": false,
+  "humanApprovalsClaimed": 0,
+  "requiredOpenBlockers": 0,
+  "requiredOpenMajors": 0,
+  "requiredCriteriaPass": 14,
+  "finalHeadGreenCIRequired": true,
+  "deferredHumanFinding": "PH11-MIN-004",
+  "runtimeDeviceAndProviderGatesRetained": true,
+  "designDependencies": [5, 6, 9, 10, 11],
+  "projectFieldMustBeVerifiedSeparately": true
+}

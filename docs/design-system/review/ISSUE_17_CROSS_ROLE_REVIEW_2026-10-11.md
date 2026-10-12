@@ -1,5 +1,7 @@
 # Issue #17 · Phase 11 — Cross-role Hi-Fi, Prototype and Compose Handoff Review
 
+> **Current acceptance update — 12 October 2026:** the [owner-directed addendum](../../ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md) supersedes this historical report's pre-MVP human-signature closure requirement. AI-assisted design acceptance is active; PH11-MIN-004 stays open for actual human approval **after MVP completion**. Original review dates, evidence and zero human signatures remain historical facts.
+
 **Review date:** 11 October 2026  
 **Review status:** **PASS at AI-assisted repository design/contract review level, after two Major corrections**  
 **Issue:** [#17](https://github.com/latticeward-labs/music-copilot/issues/17) · **Source:** attached English `MSM2(1)(1).rar`, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8` (12 English PDFs; Persian versions not authoritative).  

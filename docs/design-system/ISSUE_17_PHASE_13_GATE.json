@@ -4,23 +4,22 @@
   "issue": 17,
   "phase": 13,
   "repository": "latticeward-labs/music-copilot",
-  "status": "DRAFT_READY_FINAL_MERGE_BLOCKED_AC12",
+  "status": "READY_AI_ASSISTED_DESIGN_CLOSEOUT",
   "sourceArchiveSHA256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "baseMainSHA": "23cb8d0fd3ed662ceac40f5a1fb97b13f99cace0",
   "phase12PR": 67,
-  "phase12Status": "PASS_ARTIFACT_AUDIT_PENDING_HUMAN_FINAL_ACCEPTANCE",
+  "phase12Status": "PASS_AI_ASSISTED_DESIGN_ACCEPTANCE",
   "criteria": {
     "total": 14,
-    "artifactPass": 13,
-    "pendingHuman": 1,
+    "artifactPass": 14,
+    "pendingHuman": 0,
     "failed": 0
   },
-  "ac12": "PENDING_HUMAN",
+  "ac12": "PASS_ARTIFACT",
   "independentHumanApprovalsVerified": 0,
   "actualHumanReviewUrls": [],
   "accessibilityPrivacyHumanReviewVerified": false,
   "ph11Min004Resolved": false,
-  "finalReauditAfterHumanApprovalsPassed": false,
   "finalHeadCIAndConflictVerified": false,
   "finalPRMerged": false,
   "issue17Completed": false,
@@ -55,15 +54,19 @@
     "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md",
     "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json"
   ],
-  "blockingFindings": [
-    "PH11-MIN-004"
-  ],
+  "blockingFindings": [],
   "openDownstreamMinors": [
     "PH11-MIN-001",
     "PH11-MIN-002",
-    "PH11-MIN-003"
+    "PH11-MIN-003",
+    "PH11-MIN-004"
   ],
-  "mergeAuthorized": false,
-  "issueClosureAuthorized": false,
-  "note": "A completed source/artifact audit or green CI is insufficient for AC-12. This is a staged, non-final draft."
+  "mergeAuthorized": true,
+  "issueClosureAuthorized": true,
+  "note": "Owner authorizes AI-assisted design closeout after 14/14 evidence checks and final-head green CI/merge. Human approval remains after MVP; post-merge actual GitHub Issue/PR/Project records are the final state authority.",
+  "recordType": "PRE_MERGE_READINESS_SNAPSHOT",
+  "acceptancePolicy": "docs/design-system/ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json",
+  "humanApprovalTiming": "AFTER_MVP_COMPLETION",
+  "humanApprovalRequiredForIssue17Closure": false,
+  "finalDesignAuditPassed": true
 }

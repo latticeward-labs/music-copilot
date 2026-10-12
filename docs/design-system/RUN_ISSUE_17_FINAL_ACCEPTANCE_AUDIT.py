@@ -20,7 +20,7 @@ DOCS = ROOT / "docs"
 OUT = DOCS / "design-system"
 EXPECTED = "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8"
 REPO = "https://github.com/latticeward-labs/music-copilot"
-DATE = "2026-10-11"
+DATE = "2026-10-12"
 
 def read(path):
     return (ROOT / path).read_text(encoding="utf-8")
@@ -53,6 +53,7 @@ p9 = jsonfile("docs/handoff/PHASE9_VALIDATION.json")
 p10 = jsonfile("docs/audit/phase-10/PHASE_10_VALIDATION.json")
 trace = jsonfile("docs/audit/phase-10/PHASE_10_TRACEABILITY_REGISTER.json")
 review = jsonfile("docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json")
+policy = jsonfile("docs/design-system/ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json")
 p7validation = jsonfile("docs/high-fidelity/phase-7/PHASE_7_VALIDATION.json")
 
 errors = {"source":[],"family":[],"state":[],"artifact":[],"prototype":[],"architecture":[],"scope":[],"links":[]}
@@ -216,6 +217,25 @@ if human_signed!=0:
     errors["source"].append("Human sign-off state changed: revalidate actual signed approvals before release")
 if len(review["roles"])!=6:
     errors["source"].append("Six-role AI-assisted review record missing")
+required_roles={"Product","Design/UX","Android feasibility","Accessibility","QA","Privacy"}
+check(policy.get("issue")==17 and policy.get("effectiveDate")=="2026-10-12"
+      and policy.get("designAcceptanceMode")=="AI_ASSISTED_SIX_ROLE_EVIDENCE_REVIEW"
+      and policy.get("ownerInstructionOriginal")=="تأیید انسانی بعد اتمام MVP انجام خواهد شد"
+      and policy.get("humanApprovalTiming")=="AFTER_MVP_COMPLETION"
+      and policy.get("humanApprovalRequiredForIssue17Closure") is False
+      and policy.get("runtimeDeviceAndProviderGatesRetained") is True
+      and exists(policy.get("addendumPath","")),
+      "explicit owner acceptance policy/addendum missing or contradicted",errors["source"])
+check({r["role"] for r in review["roles"]}==required_roles
+      and all("AI_ASSISTED" in r["status"] for r in review["roles"])
+      and review["reviewer"]["humanSignaturesClaimed"] is False,
+      "AI-assisted role review provenance invalid",errors["source"])
+deferred=next((f for f in review["findings"] if f["id"]=="PH11-MIN-004"),{})
+check(deferred.get("status")=="OPEN_DOWNSTREAM_NON_BLOCKING"
+      and deferred.get("humanApprovalTiming")=="AFTER_MVP_COMPLETION"
+      and deferred.get("blocksIssue17Closure") is False
+      and deferred.get("owner") and deferred.get("downstreamGate"),
+      "deferred human review finding lost its owner/timing/nonblocking gate",errors["source"])
 
 # Markdown relative/internal GitHub link audit for all current high-fidelity/DS/handoff/proto,
 # source traceability and core authority documents. External websites are NOT claimed checked.
@@ -230,6 +250,7 @@ for root in link_roots:
 for p in ["docs/DESIGN_DELIVERY_PLAN.md","docs/SOFTWARE_ARCHITECTURE.md","docs/MVP.md","docs/PRD.md",
           "docs/ISSUE_17_REPOSITORY_HIFI_CONTRACT_ADDENDUM_2026-10-03.md"]:
     link_sources.append(ROOT/p)
+link_sources.append(ROOT/policy["addendumPath"])
 link_sources=sorted(set(link_sources))
 link_details={"markdownFilesAudited":len(link_sources),"internalPathLinks":0,
               "internalSameRepoGithubLinks":0,"externalLinksSkipped":0,"fragmentTargetsNotVerified":0,
@@ -347,13 +368,12 @@ add("AC-11","Engineering handoff specifies State/owner/action/Back/analytics/pri
      "docs/handoff/COMPONENT_SPECS.md",
      "docs/high-fidelity/phase-7/PRIVACY_EVIDENCE_HANDOFF.md"],
     "Contracts only, not runtime telemetry proof.")
-checks.append({"id":"AC-12",
-   "criterion":"Independent named Product, Design/UX, Android and QA human approval; A11y/Privacy review evidence",
-   "status":"PENDING_HUMAN",
-   "evidencePaths":["docs/design-system/review/ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md",
-                    "docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json",
-                    "docs/design-system/review/PHASE_11_FINAL_PASS_CLOSEOUT_2026-10-11.md"],
-   "limitation":"Only one AI-assisted reviewer across six roles; 0 independent humans, 0 human signatures. PH11-MIN-004 requires dated real review; cannot mark PASS."})
+add("AC-12","Explicit AI-assisted six-role review; 0 open Blocker/Major; owned/gated Minors; human approval after MVP",
+    clean("source","architecture") and summary["blockerOpen"]==summary["majorOpen"]==0,
+    [policy["addendumPath"],"docs/design-system/ISSUE_17_ACCEPTANCE_POLICY_2026-10-12.json",
+     "docs/design-system/review/ISSUE_17_CROSS_ROLE_REVIEW_2026-10-11.md",
+     "docs/design-system/review/ISSUE_17_FINDINGS_REGISTER.json"],
+    "One AI covering six roles; 0 independent human signoffs. PH11-MIN-004 stays open after MVP; actual Android/Legal approval is not claimed.")
 add("AC-13","Stable IDs, dated evidence and PRs/commits recorded in GitHub",
     clean("source","state"),
     ["docs/design-system/ISSUE_17_SOURCE_MANIFEST.md",
@@ -365,12 +385,12 @@ add("AC-14","Design/HiFi/prototype/handoff/behavior/architecture/traceability sy
     ["docs/audit/phase-10/PHASE_10_VALIDATION.json",
      "docs/handoff/PHASE9_VALIDATION.json",
      "docs/design-system/review/ISSUE_17_REVIEW_VALIDATION.md"],
-    "Document-level source and path reconciliation; final stakeholder sign-off is AC-12, still pending.")
+    "Document-level source/path reconciliation; AI-assisted design gate only. Human approval follows MVP completion.")
 
 pass_count=sum(x["status"]=="PASS_ARTIFACT" for x in checks)
 fail_count=sum(x["status"]=="FAIL" for x in checks)
 pending_count=sum(x["status"]=="PENDING_HUMAN" for x in checks)
-summary_status=("PASS_ARTIFACT_AUDIT_PENDING_HUMAN_FINAL_ACCEPTANCE" if fail_count==0 else
+summary_status=("PASS_AI_ASSISTED_DESIGN_ACCEPTANCE" if fail_count==0 and pass_count==14 else
                 "FAIL_ARTIFACT_AUDIT_PENDING_CORRECTIONS")
 report={
  "issue":17,"phase":12,"date":DATE,"status":summary_status,"attachedArchiveSha256":EXPECTED,
@@ -383,7 +403,12 @@ report={
  "errorGroups":errors,
  "independentHumanApprovalsRecorded":0,
  "phase11OpenMinors":["PH11-MIN-001","PH11-MIN-002","PH11-MIN-003","PH11-MIN-004"],
- "implementationAndDeviceQA":"NOT_RUN","issue17CloseAuthorized":False
+ "implementationAndDeviceQA":"NOT_RUN",
+ "humanApprovalTiming":policy["humanApprovalTiming"],
+ "humanApprovalClaimed":False,
+ "designAcceptanceMode":policy["designAcceptanceMode"],
+ "issue17CloseAuthorizedAfterFinalHeadGreenCIAndMerge":fail_count==0 and pass_count==14,
+ "projectDoneVerifiedByThisAudit":False
 }
 out_json=OUT/"ISSUE_17_FINAL_ACCEPTANCE_VALIDATION.json"
 out_json.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
@@ -400,9 +425,9 @@ md=f"""# Issue #17 — Phase 12 Final Acceptance Audit
 
 **Date:** {DATE} · **Issue:** [#17]({REPO}/issues/17) · **Source:** attached English \x60MSM2(1)(1).rar\x60 SHA-256 \x60{EXPECTED}\x60.
 
-**Audit disposition: {summary_status}.** Of **{len(checks)}** binding GitHub Acceptance Criteria: **{pass_count} verified at design/document/evidence level**, **{pending_count} pending named independent human review**, **{fail_count} failed source/artifact checks**.
+**Audit disposition: {summary_status}.** Of **{len(checks)}** binding GitHub Acceptance Criteria: **{pass_count} verified at design/document/evidence level**, **{pending_count} pending pre-MVP acceptance criteria**, **{fail_count} failed source/artifact checks**.
 
-**Important:** The Phase-12 *documentary/source audit* is not equivalent to final Issue #17 acceptance. AC-12 is NOT passed; actual human signoffs remain **0**. Issue #17 must remain **OPEN / In Progress**. Do not tick AC-12, authorize closure, claim release readiness or imply real Android/Media3/STT/vehicle/TalkBack testing.
+**Acceptance authority:** the [12 October owner-directed addendum]({url(policy["addendumPath"])}) permits AI-assisted design acceptance and defers human approval until after MVP completion. AC-12 is evaluated against that explicit policy, not automatically promoted from the older human gate. Actual human signoffs remain **0**. After final-head green CI and PR merge, Issue #17 design closure is authorized; actual Project Done must be checked separately. Real Android/Media3/STT/vehicle/TalkBack QA and release readiness are not certified.
 
 ## 1. Binding acceptance criteria — complete 14-point audit
 
@@ -463,12 +488,12 @@ No false claim is made that external URLs, fragment slugs, hosting availability 
 
 | Tracking ID | Real owner / required evidence | Gate |
 |---|---|---|
-| \x60PH11-MIN-004\x60 | **Named independent human Product, Design/UX, Android and QA approvals** with per-primary/dedicated/specialist visual and hotspot review, reviewer identity, date, GitHub PR/review evidence. Accessibility/Privacy review evidence must also be acknowledged by responsible reviewers. | **Blocks final Issue #17 acceptance and closure — AC-12 PENDING.** |
+| \x60PH11-MIN-004\x60 | **Actual human Product, Design/UX, Android and QA approval after MVP completion**, with dated built-screen/image/hotspot/zoom evidence and Accessibility/Privacy acknowledgment. | **OPEN downstream after MVP; does not block Issue #17 design closure under the owner's 12 October policy.** |
 | \x60PH11-MIN-001\x60 / \x60PH10-MIN-001\x60 | Android UI + QA: Compose TalkBack, focus/read order, 100/150/200% scaling, real 48dp/Driving 64/72/56dp. | Implementation feature DoD / release; not a pass of runtime in this audit. |
 | \x60PH11-MIN-002\x60 / \x60PH10-MIN-003\x60 | Android + QA: Media3/Service, playback ACK, safe route, real Voice/OEM/Bluetooth and 3+ vehicle/head-unit test matrix. | Before release/field QA. |
 | \x60PH11-MIN-003\x60 / \x60PH10-MIN-002\x60 | Product + Privacy/Legal: chosen remote-STT provider legal terms, explicit opt-in/revoke, retention/deletion and signoff. | Before any remote STT enablement; remains disabled. |
 
-**Final rule:** report completion and source/artifact audit PASS can be recorded, but **do not mark all 14 Issue #17 checkboxes as completed or close Issue #17** until independent humans provide the required evidence. An AI six-role review is not six independent human signoffs.
+**Final rule:** all 14 AI-assisted design criteria may pass under the explicit owner policy; verify final-head CI, merge and actual Issue/Project state before reporting Phase-13 completion. One AI six-role review remains one AI review. No independent human signatures are inferred.
 
 ## 6. Automated reproducibility / findings
 
@@ -478,7 +503,7 @@ No false claim is made that external URLs, fragment slugs, hosting availability 
 
 {errlines}
 
-**Decision:** **{summary_status}**. Phase 12 evidence audit is complete subject to the actual recorded checks; **final Issue #17 acceptance authorization remains PENDING HUMAN**.
+**Decision:** **{summary_status}**. Phase 12 design acceptance is complete subject to the recorded checks and owner policy; Phase 13 still requires actual green CI, merge and GitHub closeout verification.
 """
 (OUT/"ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md").write_text(md,encoding="utf-8")
 print(json.dumps({"status":summary_status,"criteriaTotal":len(checks),"artifactPass":pass_count,
