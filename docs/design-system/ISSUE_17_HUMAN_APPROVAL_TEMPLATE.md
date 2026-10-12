@@ -5,7 +5,7 @@ This is an **unsigned template**, not a review, approval, device test, Legal sig
 ## Each human reviewer records
 
 - **Responsibility:** Product / Design-UX / Android feasibility / QA / Accessibility / Privacy.
-- **Real GitHub login:** <real account>.
+- **Verified GitHub review author profile:** supply the actual review-author URL from GitHub.
 - **Submitted UTC date and time:** <actual timestamp>.
 - **PR number and exact reviewed head SHA:** <actual PR and SHA>.
 - **Link to submitted GitHub PR review:** <real review URL>.
