@@ -52,7 +52,7 @@ class LocalDataStoreContractsTest {
     }
 
     @Test(expected = CorruptionException::class)
-    fun malformedWirePayloadFailsClosed() = runBlocking {
+    fun malformedWirePayloadFailsClosed() = runBlocking<Unit> {
         RestoreProtoCodec.readFrom(ByteArrayInputStream(byteArrayOf(0xff.toByte())))
     }
 
