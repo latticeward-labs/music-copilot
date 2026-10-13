@@ -45,17 +45,9 @@ class PlaybackControllerConnection(
     private var connecting: ListenableFuture<MediaController>? = null
     private var active: MediaController? = null
 
-    private val connection = MutableStateFlow(PlaybackConnectionState.Disconnected)
-    private val lastConfirmed = MutableStateFlow(
-        PlaybackSnapshot(
-            revision = 0L, queueRevision = 0L, playbackState = PlaybackState.Idle,
-            queue = emptyList(), currentIndex = null, currentItem = null,
-            positionMs = 0L, durationMs = null, canSeek = false,
-            canSkipPrevious = false, canSkipNext = false,
-        )
-    )
-    override val connectionState: StateFlow<PlaybackConnectionState> = connection
-    override val snapshot: StateFlow<PlaybackSnapshot> = lastConfirmed
+    private val relay = ControllerSnapshotRelay()
+    override val connectionState: StateFlow<PlaybackConnectionState> = relay.connectionState
+    override val snapshot: StateFlow<PlaybackSnapshot> = relay.snapshot
 
     init { if (appContext != null) ensureConnected() }
 
@@ -64,20 +56,20 @@ class PlaybackControllerConnection(
         val context = appContext ?: return
         if (released || connecting != null || active != null) return
         val token = ++generation
-        connection.value = PlaybackConnectionState.Connecting
+        relay.beginConnect()
         try {
             val sessionToken = SessionToken(
                 context, ComponentName(context, MusicPlaybackService::class.java)
             )
             val callback = object : MediaController.Listener {
                 override fun onExtrasChanged(controller: MediaController, extras: Bundle) {
-                    if (generation == token && !released) accept(extras, false)
+                    if (generation == token && !released && active === controller) accept(extras, false)
                 }
 
                 override fun onDisconnected(controller: MediaController) {
                     if (generation != token || released) return
                     active = null
-                    connection.value = PlaybackConnectionState.RecoverableError
+                    relay.failed()
                 }
             }
             val future = MediaController.Builder(context, sessionToken)
@@ -115,16 +107,12 @@ class PlaybackControllerConnection(
         val received = PlaybackWireProtocol.decodeSnapshot(
             extras.getBundle(PlaybackWireProtocol.KEY_SNAPSHOT)
         ) ?: return false
-        if (allowRevisionReset || received.revision >= lastConfirmed.value.revision) {
-            lastConfirmed.value = received
-        }
-        connection.value = PlaybackConnectionState.Ready
-        return true
+        return relay.publish(received, allowRevisionReset)
     }
 
     override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
         val controller = active
-        if (controller == null || connection.value != PlaybackConnectionState.Ready) {
+        if (controller == null || connectionState.value != PlaybackConnectionState.Ready) {
             ensureConnected()
             return disconnected()
         }
@@ -146,9 +134,7 @@ class PlaybackControllerConnection(
                 ) ?: return AppResult.Failure(AppError.Controller(
                     AppErrorCodes.CONTROLLER_CONNECT_FAILED,
                     Recoverability.RECOVERABLE, RecoveryAction.Retry))
-                if (confirmed.revision >= lastConfirmed.value.revision) {
-                    lastConfirmed.value = confirmed
-                }
+                relay.publish(confirmed, false)
                 AppResult.Success(confirmed)
             }
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -180,7 +166,7 @@ class PlaybackControllerConnection(
         active?.release()
         active = null
         connecting = null
-        connection.value = PlaybackConnectionState.Disconnected
+        relay.disconnected()
     }
 }
 
