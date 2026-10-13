@@ -46,7 +46,7 @@ class ApplicationBindings(
     )
 
     private val controller: PlaybackControllerConnection =
-        PlaybackBindings.controller(applicationScope)
+        PlaybackBindings.controller(applicationScope, context)
 
     val playbackGateway: PlaybackGateway = controller
     private val dataComponents = DataBindings.create(context, repositoryScope, dispatchers)
@@ -66,6 +66,7 @@ class ApplicationBindings(
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
     fun onForeground() {
+        controller.ensureConnected()
         repositoryScope.launch { libraryRepository.reconcile() }
     }
 
