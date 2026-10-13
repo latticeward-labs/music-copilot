@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–1 PASS (source + GitHub execution setup)** / Phases 2–14 implementation pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–2 PASS (source, GitHub setup and real root Android bootstrap)** / Phases 3–14 implementation pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -38,15 +38,15 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 2 — Reproducible Android Gradle bootstrap
 
-- [ ] Create `settings.gradle.kts`, root `build.gradle.kts`, `gradle/libs.versions.toml`, checked-in Gradle wrapper, `app/build.gradle.kts` and Android project resources/manifest.
-- [ ] Choose and lock a compatible published AGP/Gradle/Kotlin/Compose Compiler/JDK/SDK dependency matrix; cite sources and record verification. **minSdk = 29**; record compileSdk and targetSdk explicitly.
-- [ ] Set up Kotlin, Compose, Coroutines/Flow and lifecycle integration; avoid unneeded libraries.
-- [ ] Declare only required version-managed Media3, Room, DataStore, test and formatting/static-analysis dependencies. Version pinning must not introduce actual feature implementations.
-- [ ] Define `debug`/`release` variants; `assembleDebug` must need neither private signing keys nor cloud secrets; retain strict `.gitignore` rules.
-- [ ] Keep existing `spikes/android-validation` entirely out of production module dependencies.
+- [x] Create `settings.gradle.kts`, root `build.gradle.kts`, `gradle/libs.versions.toml`, checked-in Gradle wrapper, `app/build.gradle.kts` and Android project resources/manifest.
+- [x] Choose and lock a compatible published AGP/Gradle/Kotlin/Compose Compiler/JDK/SDK dependency matrix; cite sources and record verification. **minSdk = 29**; record compileSdk and targetSdk explicitly.
+- [x] Set up Kotlin, Compose, Coroutines/Flow and lifecycle integration; avoid unneeded libraries.
+- [x] Declare only required version-managed Media3, Room, DataStore, test and formatting/static-analysis dependencies. Version pinning must not introduce actual feature implementations.
+- [x] Define `debug`/`release` variants; `assembleDebug` must need neither private signing keys nor cloud secrets; retain strict `.gitignore` rules.
+- [x] Keep existing `spikes/android-validation` entirely out of production module dependencies.
 
-**Output:** root build files, version catalog, wrapper, `app/src/main/AndroidManifest.xml`, `docs/implementation/BUILD_MATRIX.md`.  
-**PASS:** clean checkout syncs; `./gradlew :app:assembleDebug` succeeds without credentials; one production module only; configuration-cache/dependency issues documented honestly.
+**Output:** committed root build files, version catalog, verified wrapper (Gradle 8.11.1), `app/src/main/AndroidManifest.xml`, [Build Matrix](BUILD_MATRIX.md), [Phase 2 Validation](ISSUE_4_PHASE2_VALIDATION.json), and real [successful GitHub Actions build](https://github.com/latticeward-labs/music-copilot/actions/runs/38421736045) / [APK Artifact](https://github.com/latticeward-labs/music-copilot/actions/runs/38421736045/artifacts/11825939906).  
+**PASS achieved 13 October 2026:** GHA run `38421736045` at SHA `04044a1c2338453a72f822c5ba0ac8fe98d881b6` executed `./gradlew projects :app:assembleDebug :app:assembleRelease --no-daemon --stacktrace` from a fresh checkout, showed only production `:app`, compiled Kotlin Debug/Release, logged `BUILD SUCCESSFUL`, and uploaded both APK outputs (Release unsigned). Pinned SDK36/minSdk29/JDK17, no secret/signing dependency; separate Spike preserved. Static analysis uses AGP's version-managed Android Lint; current formatting baseline is `.editorconfig`/Kotlin code style, automated formatting gate remains explicitly Phase 11 (no speculative formatter plugin). Gradle configuration cache, actual phone launches, complete CI gates and signed release are **not** claimed; see Build Matrix for two corrected initial workflow failures. No Issue #4 implementation AC checkbox is newly checked by this phase alone.
 
 ## Phase 3 — Architecture package skeleton and enforcement conventions
 
