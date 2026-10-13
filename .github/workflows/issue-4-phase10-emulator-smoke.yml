@@ -44,6 +44,26 @@ jobs:
           sdkmanager "platforms;android-36" "build-tools;35.0.0"
           python3 scripts/check_phase10_design_tokens.py --root . --self-test
           ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - name: Free runner space for API29 AVD userdata and log exact disk budget
+        run: |
+          set -euo pipefail
+          echo "DISK BEFORE CLEANUP:"
+          df -h .
+          # These preinstalled tools are NOT used by this native Kotlin project.
+          # Release image/AVD needs >7.4 GB; Ubuntu runner leaves ~6.8 GB after build.
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          if [ -d "${ANDROID_HOME}/ndk" ]; then
+            sudo rm -rf "${ANDROID_HOME}/ndk"
+          fi
+          if [ -d "${ANDROID_HOME}/cmake" ]; then
+            sudo rm -rf "${ANDROID_HOME}/cmake"
+          fi
+          echo "DISK AFTER CLEANUP:"
+          df -h .
+          # Fail clearly before emulator's obscure 15-minute boot timeout.
+          avail_kib=$(df -Pk . | awk 'NR == 2 {print $4}')
+          test "${avail_kib}" -ge 10485760
+          echo "EMULATOR_DISK_SPACE PASS: at least 10 GiB available"
       - name: Real Android 10 no-media and no-grant startup smoke
         uses: reactivecircus/android-emulator-runner@v2
         with:
