@@ -57,6 +57,12 @@ class AndroidOnDeviceSpeechToTextEngine(
             try {
                 suspendCancellableCoroutine<AppResult<SpeechRecognitionResult>> { continuation ->
                     val recognizer = try {
+                        // The explicit inline API guard is required on Android 10/11;
+                        // isAvailable() alone does not prove it to Android Lint.
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                            continuation.resume(unavailable())
+                            return@suspendCancellableCoroutine
+                        }
                         SpeechRecognizer.createOnDeviceSpeechRecognizer(app)
                     } catch (_: Exception) {
                         continuation.resume(unavailable())
