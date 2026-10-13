@@ -49,13 +49,14 @@ jobs:
           test -d app/src/main
           test "$(grep -c '^include' settings.gradle.kts)" -eq 1
           grep -Fxq 'include(":app")' settings.gradle.kts
-          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+          ./gradlew projects :app:assembleDebug :app:assembleRelease --no-daemon --stacktrace
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: issue4-phase2-root-debug
           path: |
             app/build/outputs/apk/debug/*.apk
+            app/build/outputs/apk/release/*-unsigned.apk
             app/build/outputs/logs/**
           if-no-files-found: warn
           retention-days: 14
