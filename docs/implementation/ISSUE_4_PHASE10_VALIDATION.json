@@ -5,11 +5,11 @@
   "branch": "feature/4-android-foundation",
   "phase10": {
     "scope": "bounded Compose bootstrap shell and exact Night Signal token bridge",
-    "status": "CODE_AND_CI_PASS_EMULATOR_RECHECK_PENDING",
+    "status": "PASS_COMPOSE_SHELL_AND_API29_EMULATOR",
     "checklist": {
       "total": 4,
-      "checked": 3,
-      "pending": "real emulator cold-boot + crash/screenshot assertion"
+      "checked": 4,
+      "pending": null
     }
   },
   "source": {
@@ -62,49 +62,48 @@
   },
   "emulator": {
     "api": 29,
-    "run": 38471999196,
-    "status": "pending follow-up CI with 10GiB runner space preflight; 2048M AVD disk size alone failed",
-    "previous_real_cold_launch": {
-      "run": 38462629926,
-      "launch_state": "COLD",
-      "launch_status": "ok",
-      "pid_survived": true,
-      "workflow_failure": "runner POSIX shell multiline if syntax"
-    },
-    "screenshot_captured": false,
+    "run": 38475056625,
+    "status": "PASS_API29_COLD_BOOT_SCREENSHOT_AND_PERMISSIONS",
+    "screenshot_captured": true,
     "app_crash_buffer_checked": false,
-    "previous_boot_failures": [
-      {
-        "run": 38463565982,
-        "cause": "emulator AVD unable to start; no app install or launch"
-      },
-      {
-        "run": 38466010944,
-        "cause": "FATAL not enough space: available 6805.21 MB, requested 7372.80 MB userdata"
-      },
-      {
-        "run": 38469100082,
-        "cause": "AVD disk.dataPartition.size=2048M applied, but runner free 6805.10 MB < emulator needed 7372.80 MB"
-      }
+    "job": 115563579785,
+    "conclusion": "success",
+    "tested_sha": "df23268a288813e5a4b5a59dd59ee72b47f61dcd",
+    "artifact_id": 11853821575,
+    "build": "BUILD SUCCESSFUL in 4m 2s",
+    "app_id": "com.latticeward.musiccopilot.debug",
+    "activity": "com.latticeward.musiccopilot.app.MainActivity",
+    "launch_status": "Status: ok; LaunchState: COLD; resumed MainActivity confirmed by activity_state.txt",
+    "process_alive": true,
+    "permission_read_external_storage_granted": false,
+    "permission_record_audio_granted": false,
+    "screenshot_size_bytes": 74600,
+    "screenshot_dimensions_px": [
+      1080,
+      2220
     ],
-    "repaired_workflow_sha": "c50008c2a1b5d7ca8c051121db8cf4d4897a0c01",
-    "disk_space_preflight": {
-      "required_kib": 10485760,
-      "cleanup": [
-        "/usr/share/dotnet",
-        "/opt/hostedtoolcache/CodeQL",
-        "/usr/local/share/powershell",
-        "ANDROID_HOME/ndk",
-        "ANDROID_HOME/cmake"
-      ],
-      "observed_previous_failure": "needed 7372.80 MB vs free 6805.10 MB"
-    }
+    "screenshot_sha256": "4d61cf50694b2a6463e8bc31a4e9a2ea5b021379f349c1f2210aaa2adf40bf88",
+    "crash_buffer_size_bytes": 0,
+    "permission_state_checked": true,
+    "activity_state_checked": true,
+    "previous_failed_runs": [
+      38461504919,
+      38462629926,
+      38463565982,
+      38466010944,
+      38469100082,
+      38471999196,
+      38473240996
+    ],
+    "previous_repair_rationale": "Disable emulator-runner automatic ADB animation toggles; read permission dumps using Android 10 never-granted semantics. Keep emulator disk cleanup >=10GiB.",
+    "caveat": "Android 10 emulator only; not a physical phone, not TalkBack/200% or full feature/device QA."
   },
   "unverified": [
     "complete feature navigation and overlays",
     "200% scaling physical visual audit",
     "physical phone/OEM fleet",
     "feature UX states and recoveries",
-    "full Issue #4 acceptance"
+    "full Issue #4 acceptance",
+    "physical phone two-device requirement and Android 14+ smoke (Issue #4 Phase 13)"
   ]
 }
