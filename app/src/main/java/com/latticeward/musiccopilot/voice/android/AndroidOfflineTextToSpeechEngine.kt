@@ -29,13 +29,20 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
     private var active: VoiceSessionId? = null
     private var serial = 0L
 
-    private val tts = TextToSpeech(context.applicationContext) { status ->
-        if (closed || status != TextToSpeech.SUCCESS) return@TextToSpeech
-        // Engine callback runs after construction in Android implementations.
-        val offline = tts.voices?.firstOrNull {
-            !it.isNetworkConnectionRequired && it.locale.language == Locale.ENGLISH.language
+    private var tts: TextToSpeech? = null
+
+    init {
+        tts = TextToSpeech(context.applicationContext) { status ->
+            if (!closed && status == TextToSpeech.SUCCESS) {
+                val engine = tts
+                val offline = engine?.voices?.firstOrNull {
+                    !it.isNetworkConnectionRequired &&
+                        it.locale.language == Locale.ENGLISH.language
+                }
+                if (offline != null && engine.setVoice(offline) == TextToSpeech.SUCCESS)
+                    ready = true
+            }
         }
-        if (offline != null && tts.setVoice(offline) == TextToSpeech.SUCCESS) ready = true
     }
 
     override fun isAvailable(): Boolean = ready && !closed
@@ -44,11 +51,12 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
         withContext(Dispatchers.Main.immediate) {
             if (!isAvailable() || output.shortText.length > VoicePolicy.MAX_SHORT_FEEDBACK_CHARS ||
                 output.shortText.isBlank() || active != null) return@withContext unavailable()
+            val engine = tts ?: return@withContext unavailable()
             try {
                 suspendCancellableCoroutine { continuation ->
                     val utteranceId = "musico-feedback-${++serial}"
                     active = output.sessionId
-                    tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                    engine.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                         override fun onStart(id: String?) = Unit
                         override fun onDone(id: String?) {
                             if (id == utteranceId && active == output.sessionId) {
@@ -65,7 +73,7 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
                         }
                     })
                     continuation.invokeOnCancellation { stop(output.sessionId) }
-                    if (tts.speak(output.shortText, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
+                    if (engine.speak(output.shortText, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
                         != TextToSpeech.SUCCESS) {
                         active = null
                         if (continuation.isActive) continuation.resume(unavailable())
@@ -79,7 +87,7 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
         android.os.Handler(android.os.Looper.getMainLooper()).post {
             if (active == sessionId) {
                 active = null
-                tts.stop()
+                tts?.stop()
             }
         }
     }
@@ -89,8 +97,9 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
             closed = true
             active = null
             ready = false
-            tts.stop()
-            tts.shutdown()
+            tts?.stop()
+            tts?.shutdown()
+            tts = null
         }
     }
 

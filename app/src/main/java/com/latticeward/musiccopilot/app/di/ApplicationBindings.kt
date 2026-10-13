@@ -54,11 +54,11 @@ class ApplicationBindings(
     val preferencesRepository: PreferencesRepository = dataComponents.preferences
     val restorableQueueStore: RestorableQueueStore = dataComponents.restorableQueue
 
-    val speechToTextEngine: SpeechToTextEngine = VoiceBindings.speechToText()
-    val textToSpeechEngine: TextToSpeechEngine = VoiceBindings.textToSpeech()
+    val speechToTextEngine: SpeechToTextEngine = VoiceBindings.speechToText(context, dispatchers)
+    val textToSpeechEngine: TextToSpeechEngine = VoiceBindings.textToSpeech(context)
 
     private val voiceOwner: DefaultVoiceSessionCoordinator =
-        VoiceBindings.coordinator(voiceScope, speechToTextEngine, textToSpeechEngine)
+        VoiceBindings.coordinator(voiceScope, speechToTextEngine, textToSpeechEngine, playbackGateway, context != null)
     val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
 
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
@@ -72,6 +72,8 @@ class ApplicationBindings(
 
     override fun close() {
         voiceOwner.close()
+        (speechToTextEngine as? AutoCloseable)?.close()
+        (textToSpeechEngine as? AutoCloseable)?.close()
         controller.close()
         dataComponents.close()
         voiceJob.cancel()
