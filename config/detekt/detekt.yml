@@ -1,0 +1,19 @@
+# Issue #4 Phase 12. Detekt 1.23.8 is compiled against Kotlin 2.0.21.
+# Fail closed on the documented rules. This is not a comprehensive security SAST.
+config:
+  validation: true
+  warningsAsErrors: true
+
+style:
+  ForbiddenImport:
+    active: true
+    imports:
+      - 'kotlinx.coroutines.GlobalScope'
+      - 'android.util.Log'
+      - 'java.net.HttpURLConnection'
+  WildcardImport:
+    active: true
+
+potential-bugs:
+  UnsafeCallOnNullableType:
+    active: true

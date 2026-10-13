@@ -1,0 +1,102 @@
+name: Android Foundation CI
+
+on:
+  push:
+    branches:
+      - main
+      - feature/4-android-foundation
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-foundation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-android-foundation:
+    name: Format, Detekt, Android Lint, JVM and Debug APK
+    runs-on: ubuntu-22.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Verify tracked files and negative secret/media fixtures
+        run: python3 scripts/check_phase12_repository_safety.py --root . --self-test
+
+      - name: Verify architecture direction including forbidden-import fixtures
+        run: python3 scripts/check_architecture_dependencies.py --root . --self-test
+
+      - name: Verify offline privacy/Quality and synthetic rejected regressions
+        run: python3 scripts/check_phase9_privacy.py --root . --self-test
+
+      - name: Verify exact Compose design tokens and negative regression fixtures
+        run: python3 scripts/check_phase10_design_tokens.py --root . --self-test
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+
+      - name: Install pinned Android compile platform and build tools
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+
+      - name: Real root-app formatting, Kotlin static analysis, Android lint, JUnit and APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f gradle/wrapper/gradle-wrapper.jar
+          test -x ./gradlew
+          grep -Fxq 'include(":app")' settings.gradle.kts
+          mkdir -p app/build/reports/foundation-ci
+          ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee app/build/reports/foundation-ci/gradle-output.txt
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          test -d app/build/test-results/testDebugUnitTest
+          echo "ANDROID_FOUNDATION_CORE_CI PASS: Spotless, Detekt, lint, JVM, real Debug APK"
+
+      - name: Prove formatter fails closed, then restore clean checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          probe=app/src/test/java/com/latticeward/musiccopilot/foundation/Phase12FormatProbe.kt
+          trap 'rm -f "$probe"' EXIT
+          printf 'package com.latticeward.musiccopilot.foundation\n\nclass Phase12FormatProbe  \n' > "$probe"
+          if ./gradlew spotlessCheck --no-daemon > app/build/reports/foundation-ci/format-rejection.txt 2>&1; then
+            echo "FAIL: Spotless accepted deliberate trailing-whitespace regression"
+            exit 1
+          fi
+          grep -Eq 'spotless|Spotless|format' app/build/reports/foundation-ci/format-rejection.txt
+          echo "FORMAT_NEGATIVE_FIXTURE PASS: real Spotless rejected a deliberately bad Kotlin file"
+          rm -f "$probe"
+          ./gradlew spotlessCheck --no-daemon
+          echo "FORMAT_RESTORED_CHECK PASS"
+
+      - name: Publish real APK, test, static-analysis and lint evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-foundation-ci-evidence
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/tests/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            app/build/reports/foundation-ci/**
+            build/reports/detekt/**
+            app/schemas/**
+          retention-days: 14
+          if-no-files-found: warn
