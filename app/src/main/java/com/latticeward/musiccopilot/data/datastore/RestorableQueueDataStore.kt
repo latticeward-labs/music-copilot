@@ -57,7 +57,7 @@ class ProtoRestorableQueueStore(
                         store.updateData { snapshot.copy(items = snapshot.items.toList()) }
                         AppResult.Success(Unit)
                     } catch (cancelled: CancellationException) { throw cancelled }
-                    catch (failure: Exception) { failure(AppErrorCodes.STORAGE_WRITE_FAILED) }
+                    catch (error: Exception) { failure(AppErrorCodes.STORAGE_WRITE_FAILED) }
                 }
             }
         }

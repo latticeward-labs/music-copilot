@@ -14,7 +14,7 @@ class MusicCopilotApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        bindings = ApplicationBindings()
+        bindings = ApplicationBindings(context = applicationContext)
     }
 
     override fun onTerminate() {

@@ -57,16 +57,14 @@ android {
         disable += setOf("AndroidGradlePluginVersion", "GradleDependency")
     }
 
-    // Room's v1 derived projection schema is exported into version control.
-    kapt {
-        arguments {
-            arg("room.schemaLocation", file("$projectDir/schemas").path)
-        }
-    }
-
     packaging {
         resources.excludes += setOf("/META-INF/{AL2.0,LGPL2.1}")
     }
+}
+
+// Room KAPT writes the schema export in app/schemas for migration review.
+kapt {
+    arguments { arg("room.schemaLocation", file("$projectDir/schemas").path) }
 }
 
 dependencies {

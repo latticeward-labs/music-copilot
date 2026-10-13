@@ -27,6 +27,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent { FoundationBootstrapScreen() }
     }
+
+    override fun onResume() {
+        super.onResume()
+        (application as MusicCopilotApplication).bindings.onForeground()
+    }
 }
 
 @Composable

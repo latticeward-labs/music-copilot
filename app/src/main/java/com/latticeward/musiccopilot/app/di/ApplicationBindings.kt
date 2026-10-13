@@ -1,5 +1,8 @@
 package com.latticeward.musiccopilot.app.di
 
+import android.content.Context
+import kotlinx.coroutines.launch
+
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.core.time.Clock
 import com.latticeward.musiccopilot.data.api.LibraryRepository
@@ -26,6 +29,7 @@ import kotlinx.coroutines.cancel
 class ApplicationBindings(
     val dispatchers: DispatcherProvider = AndroidDispatcherProvider(),
     val clock: Clock = SystemClock(),
+    context: Context? = null,
 ) : AutoCloseable {
     private val applicationJob = SupervisorJob()
     private val repositoryJob = SupervisorJob(applicationJob)
@@ -45,9 +49,10 @@ class ApplicationBindings(
         PlaybackBindings.controller(applicationScope)
 
     val playbackGateway: PlaybackGateway = controller
-    val libraryRepository: LibraryRepository = DataBindings.library(repositoryScope)
-    val preferencesRepository: PreferencesRepository = DataBindings.preferences(repositoryScope)
-    val restorableQueueStore: RestorableQueueStore = DataBindings.restorableQueue(repositoryScope)
+    private val dataComponents = DataBindings.create(context, repositoryScope, dispatchers)
+    val libraryRepository: LibraryRepository = dataComponents.library
+    val preferencesRepository: PreferencesRepository = dataComponents.preferences
+    val restorableQueueStore: RestorableQueueStore = dataComponents.restorableQueue
 
     val speechToTextEngine: SpeechToTextEngine = VoiceBindings.speechToText()
     val textToSpeechEngine: TextToSpeechEngine = VoiceBindings.textToSpeech()
@@ -59,9 +64,15 @@ class ApplicationBindings(
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
     val telemetrySink: TelemetrySink = QualityBindings.sink()
 
+    /** Recheck permission/platform truth without blocking Main on every foreground return. */
+    fun onForeground() {
+        repositoryScope.launch { libraryRepository.reconcile() }
+    }
+
     override fun close() {
         voiceOwner.close()
         controller.close()
+        dataComponents.close()
         voiceJob.cancel()
         repositoryJob.cancel()
         applicationJob.cancel()
