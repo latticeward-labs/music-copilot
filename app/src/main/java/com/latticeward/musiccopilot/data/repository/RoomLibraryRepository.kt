@@ -1,6 +1,5 @@
 package com.latticeward.musiccopilot.data.repository
 
-import androidx.room.withTransaction
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppError
@@ -17,9 +16,8 @@ import com.latticeward.musiccopilot.data.api.LibraryReconcileResult
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.data.mapping.LibraryRowMapper
 import com.latticeward.musiccopilot.data.mediastore.LocalAudioSource
-import com.latticeward.musiccopilot.data.room.LibraryDao
 import com.latticeward.musiccopilot.data.room.LibraryRow
-import com.latticeward.musiccopilot.data.room.MusicCopilotDatabase
+import com.latticeward.musiccopilot.data.room.LibraryProjection
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -33,17 +31,16 @@ import kotlinx.coroutines.sync.withLock
 /** Platform source wins. Projection changes only after a successful atomic reconcile. */
 class RoomLibraryRepository(
     private val source: LocalAudioSource,
-    private val database: MusicCopilotDatabase,
+    private val projection: LibraryProjection,
     private val dispatchers: DispatcherProvider,
     repositoryScope: CoroutineScope,
 ) : LibraryRepository {
-    private val dao: LibraryDao = database.libraryDao()
     private val scanMutex = Mutex()
     private val state = MutableStateFlow(LibraryIndexSnapshot(0, LibraryIndexStatus.Unavailable, 0))
     override val index: StateFlow<LibraryIndexSnapshot> = state
 
     override fun observeLibrary(): Flow<List<LibraryItem>> =
-        combine(dao.observeAll(), index) { rows, status ->
+        combine(projection.observeAll(), index) { rows, status ->
             if (status.status != LibraryIndexStatus.Ready) emptyList()
             else rows.map(LibraryRowMapper::toItem)
         }
@@ -58,12 +55,9 @@ class RoomLibraryRepository(
                     val scanned = source.scan()
                     // Reject duplicate IDs deterministically; no personal media in logs.
                     val rows = scanned.map(LibraryRowMapper::fromSource).distinctBy { it.mediaRef }
-                    val before = dao.all().map { it.mediaRef }.toSet()
+                    val before = projection.all().map { it.mediaRef }.toSet()
                     val after = rows.map { it.mediaRef }.toSet()
-                    database.withTransaction {
-                        dao.clearDerived()
-                        dao.upsert(rows)
-                    }
+                    projection.replaceAll(rows) // Atomic Room transaction in adapter.
                     val revision = last.revision + 1
                     state.value = LibraryIndexSnapshot(
                         revision, if (rows.isEmpty()) LibraryIndexStatus.Empty
@@ -110,7 +104,7 @@ class RoomLibraryRepository(
             if (requested.isBlank() || query.limit <= 0)
                 return@withContext AppResult.Success(emptyList())
             try {
-                val matched = dao.all().filter {
+                val matched = projection.all().filter {
                     it.normalizedTitle.contains(requested) ||
                         it.normalizedArtist.contains(requested)
                 }.take(query.limit.coerceAtMost(100)).map(LibraryRowMapper::toItem)
@@ -147,7 +141,7 @@ class RoomLibraryRepository(
         if (q.isBlank() || index.value.status != LibraryIndexStatus.Ready)
             return@withContext AppResult.Success(emptyList())
         try {
-            val candidates = withContext(dispatchers.io) { dao.all() }
+            val candidates = withContext(dispatchers.io) { projection.all() }
             AppResult.Success(candidates.mapNotNull { row ->
                 val key = row.normalizedTitle
                 val similarity = when {

@@ -15,6 +15,7 @@ import com.latticeward.musiccopilot.data.repository.FoundationLibraryRepository
 import com.latticeward.musiccopilot.data.repository.FoundationPreferencesRepository
 import com.latticeward.musiccopilot.data.repository.FoundationRestorableQueueStore
 import com.latticeward.musiccopilot.data.repository.RoomLibraryRepository
+import com.latticeward.musiccopilot.data.room.RoomLibraryProjection
 import com.latticeward.musiccopilot.data.room.MusicCopilotDatabase
 import kotlinx.coroutines.CoroutineScope
 
@@ -45,7 +46,7 @@ internal object DataBindings {
         ).build() // No destructive migration fallback for future user-owned records.
         val library = RoomLibraryRepository(
             source = MediaStoreScanner(app, dispatchers),
-            database = database, dispatchers = dispatchers, repositoryScope = scope
+            projection = RoomLibraryProjection(database), dispatchers = dispatchers, repositoryScope = scope
         )
         val preferences = DataStorePreferencesRepository(
             PreferencesStoreFactory.create(app, scope), dispatchers, scope
