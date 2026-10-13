@@ -62,8 +62,8 @@
   },
   "emulator": {
     "api": 29,
-    "run": 38463565982,
-    "status": "pending",
+    "run": 38469100082,
+    "status": "PENDING disk-size=2048M device recheck; previous runs blocked by AVD userdata disk capacity",
     "previous_real_cold_launch": {
       "run": 38462629926,
       "launch_state": "COLD",
@@ -72,7 +72,18 @@
       "workflow_failure": "runner POSIX shell multiline if syntax"
     },
     "screenshot_captured": false,
-    "app_crash_buffer_checked": false
+    "app_crash_buffer_checked": false,
+    "previous_boot_failures": [
+      {
+        "run": 38463565982,
+        "cause": "emulator AVD unable to start; no app install or launch"
+      },
+      {
+        "run": 38466010944,
+        "cause": "FATAL not enough space: available 6805.21 MB, requested 7372.80 MB userdata"
+      }
+    ],
+    "repaired_workflow_sha": "a80630eb231ff26ca135b4d1f9429b5daa5a6569"
   },
   "unverified": [
     "complete feature navigation and overlays",
