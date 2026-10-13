@@ -94,3 +94,13 @@ No extra Gradle module is allowed simply because a logical directory exists. Any
 **Observed evidence (complete):** [run 38424771876](https://github.com/latticeward-labs/music-copilot/actions/runs/38424771876), checkout `813818c12af5a2d110b314ddcb534db30db452ae` (job `115391154822`), logged **`SELFTEST PASS: 23 fixtures including real rejected violations`** and **`ARCHITECTURE PASS: one :app module; 52 package paths; 54 source files; no forbidden imports or qualified references`**. Gradle `projects` showed only `:app`; `:app:compileDebugKotlin`, `:app:assembleDebug`, `:app:compileReleaseKotlin`, `:app:assembleRelease` ran, followed by **`BUILD SUCCESSFUL in 6m 2s`**. [Actual Debug/unsigned Release artifact ZIP 11828810490](https://github.com/latticeward-labs/music-copilot/actions/runs/38424771876/artifacts/11828810490) SHA-256 `25e1db4ecf9a1ca67eb6edfd758dc84d6b511f18d1dcfaa9346e514e161c686c`.
  
 **Failure/correction history retained:** [run 38424386020](https://github.com/latticeward-labs/music-copilot/actions/runs/38424386020) passed the former 22 fixtures but failed the real source scan due to a false-positive for generated `R` in `app/MainActivity.kt`; this was fixed, and a positive regression fixture was added. The previous marker-only run was cancelled by a new branch push. All actual CI outcomes are in [Phase 3 Validation JSON](ISSUE_4_PHASE3_VALIDATION.json). **Phase 3 PASS is now recorded**. No original Issue #4 implementation AC is automatically completed solely by a package-only scaffold; typed APIs and integration behavior belong to later phases.
+ 
+## Phase 4 typed leaf exception — 13 October 2026
+
+The Phase 3 checker originally treated all four leaf packages as mutually
+isolated. This was too restrictive for the **binding** Issue #16 contract
+`AppError.MediaItem.mediaRef: MediaRef?`: `core.result` has precisely
+one required inward edge to `core.model`. This is now an explicit narrow
+allow rule and self-test fixture. The reverse edge and every concrete
+Android/provider dependency remain forbidden. No new owner or Gradle module.
+

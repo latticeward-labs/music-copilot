@@ -106,7 +106,10 @@ def allowed_internal(source: str, target: str) -> bool:
             or any(matches(target, port) for port in PORTS)
         )
     if any(matches(source, leaf) for leaf in LEAVES):
-        return any(matches(source, leaf) and matches(target, leaf) for leaf in LEAVES)
+        # Phase 4: AppError.MediaItem in core.result must type its opaque
+        # MediaRef from core.model. Permit this single leaf-to-leaf edge.
+        return (any(matches(source, leaf) and matches(target, leaf) for leaf in LEAVES)
+                or (matches(source, "core.result") and matches(target, "core.model")))
     if matches(source, "core.domain"):
         return matches(target, "core.domain") or any(
             matches(target, leaf) for leaf in LEAVES
@@ -259,6 +262,8 @@ CASES = (
      "import com.latticeward.musiccopilot.data.api.RestorableQueueStore\nclass Allowed", True),
     ("positive_di_concrete", "app/di/Allowed.kt",
      "import com.latticeward.musiccopilot.playback.service.MusicPlaybackService\nclass Allowed", True),
+    ("positive_result_mediaref", "core/result/Allowed.kt",
+     "import com.latticeward.musiccopilot.core.model.MediaRef\\nclass Allowed", True),
     ("positive_resource", "app/Allowed.kt",
      "import com.latticeward.musiccopilot.R\nclass Allowed", True),
     ("negative_feature_media3", "feature/player/Bad.kt",
@@ -346,3 +351,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
