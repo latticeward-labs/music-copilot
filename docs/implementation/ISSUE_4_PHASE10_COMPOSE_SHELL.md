@@ -5,7 +5,7 @@
 - **Issue:** [#4 Android Foundation and CI](https://github.com/latticeward-labs/music-copilot/issues/4)
 - **Normative visual source:** [Issue #17 foundations/TOKENS.json](../design-system/foundations/TOKENS.json), [Compose token mapping](../handoff/COMPOSE_TOKEN_MAPPING.md), [Issue #16 architecture](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md). Source RAR `MSM2(1)(1).rar`, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 - **Night Signal baseline:** `1.0.0`, frozen 3 October 2026; fixed dark, minSdk 29, Kotlin/Compose/Material 3. Do not generate new imagery or substitute PNG screens for Compose.
-- **Acceptance:** Build and token checks **PASS**; [real API29 emulator smoke](https://github.com/latticeward-labs/music-copilot/actions/runs/38463565982) **PENDING FINAL DEVICE RECHECK** (disk-size repair run #38469100082); original emulator run logged actual `Status: ok`, `LaunchState: COLD`, surviving Process, but reporter's multiline /bin/sh assertion caused non-app failure. Recheck final emulator run before marking Phase 10 PASS.
+- **Acceptance: PHASE 10 PASS (source + build + emulator).** The original 80/80 JVM + design/static audit CI was green and the later API29 emulator cold-start workflow #38475056625 also completed **success** with an examined screenshot, no app crash, denied runtime permissions, process alive, and resumed MainActivity. See the final evidence addendum below. This is not two physical devices or whole-Issue completion.
 
 ## 1. Production files and ownership
 
@@ -59,3 +59,25 @@ Authoritative source fields are `docs/design-system/foundations/TOKENS.json` and
 [Run #38469100082](https://github.com/latticeward-labs/music-copilot/actions/runs/38469100082) **failed before app install/launch**, despite `disk-size: 2048M`. Its logs prove `disk.dataPartition.size=2048M` was written to the AVD `config.ini`, but the installed emulator build still rejected initialization because only **6805.10 MB** was free and **7372.80 MB** was required. Merely extending `emulator-boot-timeout` or changing the userdata config cannot repair insufficient runner disk.
 
 [Latest run #38471999196](https://github.com/latticeward-labs/music-copilot/actions/runs/38471999196) adds deterministic runner cleanup **after building the APK** and **before AVD installation/boot**: removes unused preinstalled .NET/CodeQL/PowerShell/Android NDK/CMake, prints `df -h` before and after, and requires **≥10 GiB free** prior to starting the emulator. The native Kotlin/Compose build is already complete when unused SDK parts are removed. The explicit pre-boot failure is preferable to a false app-crash accusation or silently timing out. **Do not declare device-smoke PASS without the job's final conclusion and uploaded runtime files.**
+
+
+## Final verified closeout — 13 October 2026 (supersedes earlier PENDING notices)
+
+**PASS — bounded Phase 10 Compose Shell and Design System startup.** Actual latest source: commit [`df23268a288813e5a4b5a59dd59ee72b47f61dcd`](https://github.com/latticeward-labs/music-copilot/commit/df23268a288813e5a4b5a59dd59ee72b47f61dcd). Real GitHub Actions [run #38475056625](https://github.com/latticeward-labs/music-copilot/actions/runs/38475056625), job `115563579785`, **completed/success**; Android API **29**, Google APIs x86_64 emulator, Pixel 3a profile; production `app-debug.apk` built from a clean Actions checkout without cloud/account credentials and installed on the actual emulator. Runtime [Artifact #11853821575](https://github.com/latticeward-labs/music-copilot/actions/runs/38475056625/artifacts/11853821575) downloaded and independently examined:
+
+| Assertion | Inspected evidence | Result |
+|---|---|---|
+| Real Android 10 bootstrap | `phase10/launch.txt`: `Status: ok`, `LaunchState: COLD` | PASS |
+| Actual foreground UI | `phase10/activity_state.txt`: `mResumedActivity` and `ResumedActivity` = `com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity` | PASS |
+| Runtime process | Same activity-state record + live `pidof` after 7 seconds | PASS |
+| No upfront media/voice consent | `phase10/permission_state.txt`: `READ_EXTERNAL_STORAGE` and `RECORD_AUDIO` both `granted=false` | PASS |
+| Crash safety | `phase10/crash_buffer.txt` **0 bytes** | PASS (smoke only) |
+| Actual Compose UI | `phase10/bootstrap_api29.png`, real PNG, **1080×2220**, **74,600 bytes**, SHA-256 `4d61cf50694b2a6463e8bc31a4e9a2ea5b021379f349c1f2210aaa2adf40bf88` | PASS; manually inspected |
+| Exact Design System contract | Phase 10 design audit `DESIGN_TOKEN_AUDIT PASS`; 28 semantic + 22 primitive color mappings, 10 typography roles, DP/route/lifecycle contract | PASS |
+| Build | Same emulator workflow `BUILD SUCCESSFUL in 4m 2s`; original full Debug+Release / 80-test CI [#38460889744](https://github.com/latticeward-labs/music-copilot/actions/runs/38460889744) | PASS |
+
+**Visual review:** actual screenshot shows the Night Signal dark startup UI, “Music Copilot”, neutral foundation text and explicit local-media-unavailable/permission recovery-in-preparation copy. It is a real Compose render, **not** a high-fidelity PNG substituted for the UI. The `am start -W` output also includes an incidental Android launcher `Activity:` line; foreground confirmation is sourced to **`mResumedActivity` in the separately captured activity-state dump** and screenshot, not that launcher line.
+
+**Transparent failed-run history:** [#38471999196](https://github.com/latticeward-labs/music-copilot/actions/runs/38471999196) booted/emulator-installed but incorrectly assumed a never-granted RECORD_AUDIO permission must have a `granted=false` runtime entry. [#38473240996](https://github.com/latticeward-labs/music-copilot/actions/runs/38473240996) failed in the runner’s automatic ADB animation-disable step before the app smoke script (exit 255), after a successful emulator boot. The former was corrected to test absence of `granted=true` and requested permission presence; the latter to disable optional runner animation toggling. [Final successful run #38475056625](https://github.com/latticeward-labs/music-copilot/actions/runs/38475056625) confirms both fixes. Earlier out-of-disk attempts remain documented above, not renamed as green.
+
+**Scope of PASS:** Android 10 *emulator* single Activity startup/Bootstrap shell + canonical design token plumbing. It does **not** establish two representative physical/device launches, font scale 200%, TalkBack, full navigation/feature screens, real media playback, Voice-on-Android-10 STT, or complete Issue #4 acceptance. Phase 13 owns two-device smoke; other feature issues own full UX. Issue #4 **remains OPEN**, Phases 11–14 still pending.
