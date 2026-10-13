@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–2 PASS (source, GitHub setup and real root Android bootstrap)** / Phases 3–14 implementation pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–3 PASS (source, GitHub setup, Android bootstrap and package enforcement)** / Phases 4–14 pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -50,14 +50,14 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 3 — Architecture package skeleton and enforcement conventions
 
-- [ ] Under `app/src/main/java/com/latticeward/musiccopilot` establish the Issue #16 logical tree: `app`, `core`, `feature`, `playback`, `voice`, `data`, `quality`.
-- [ ] Maintain `core/model`, `core/result`, `core/time`, `core/dispatchers` as dependency leaves; put domain/application orchestration in approved core packages.
-- [ ] Keep `playback/api`, `voice/api`, `data/api`, `quality/api` distinct from concrete implementations; make DI entry point live only in `app/di`.
-- [ ] Add a documented allowed/forbidden import map and static check under `scripts/` or test sources. It must reject concrete Media3/DAO/Android Speech/quality SDK imports into `feature` and Android UI imports into pure domain.
-- [ ] Do not add `:core`, `:voice`, `:playback`, etc. as physical modules unless ADR-0008 extraction evidence passes.
+- [x] Under `app/src/main/java/com/latticeward/musiccopilot` establish the Issue #16 logical tree: `app`, `core`, `feature`, `playback`, `voice`, `data`, `quality`.
+- [x] Maintain `core/model`, `core/result`, `core/time`, `core/dispatchers` as dependency leaves; put domain/application orchestration in approved core packages.
+- [x] Keep `playback/api`, `voice/api`, `data/api`, `quality/api` distinct from concrete implementations; make DI entry point live only in `app/di`.
+- [x] Add a documented allowed/forbidden import map and static check under `scripts/` or test sources. It must reject concrete Media3/DAO/Android Speech/quality SDK imports into `feature` and Android UI imports into pure domain.
+- [x] Do not add `:core`, `:voice`, `:playback`, etc. as physical modules unless ADR-0008 extraction evidence passes.
 
-**Output:** package tree, `docs/implementation/DEPENDENCY_RULES.md`, automated import checker.  
-**PASS:** checker intentionally fails on prohibited test fixture and passes on actual clean tree; no alternate owner/side channel.
+**Output:** [52-path package skeleton](https://github.com/latticeward-labs/music-copilot/tree/feature/4-android-foundation/app/src/main/java/com/latticeward/musiccopilot), [dependency rules](DEPENDENCY_RULES.md), [CI-enforced Python checker](../../scripts/check_architecture_dependencies.py), [machine validation](ISSUE_4_PHASE3_VALIDATION.json).  
+**PASS achieved 13 October 2026:** [GitHub Actions 38424771876](https://github.com/latticeward-labs/music-copilot/actions/runs/38424771876) (code SHA `813818c12af5a2d110b314ddcb534db30db452ae`) ran **6 positive + 17 negative deliberate fixtures (23/23)**, source scanner approved **52 paths/54 source files**, Gradle listed only `:app`, Kotlin/Compose Debug and Release compiled, and APK artifacts uploaded; earlier false-positive `R` import fixed and evidence preserved. This is a **package/guard gate only**; Phase 4 public contracts and downstream runtime owners are not yet implemented.
 
 ## Phase 4 — Compile the approved public contracts
 
