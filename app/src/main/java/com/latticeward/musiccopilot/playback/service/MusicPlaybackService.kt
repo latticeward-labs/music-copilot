@@ -102,10 +102,17 @@ class MusicPlaybackService : MediaSessionService() {
             session: MediaSession,
             controller: MediaSession.ControllerInfo,
         ): MediaSession.ConnectionResult {
-            val commands = SessionCommands.Builder()
-                .add(PlaybackWireProtocol.executeCommand())
-                .add(PlaybackWireProtocol.snapshotCommand())
-                .build()
+            // Typed internal commands are app-private, not available to an
+            // arbitrary external controller. Android media surface controls
+            // still use the same service-owned Player through MediaSession.
+            val privateCaller = controller.packageName == packageName &&
+                controller.uid == android.os.Process.myUid()
+            val commandBuilder = SessionCommands.Builder()
+            if (privateCaller) {
+                commandBuilder.add(PlaybackWireProtocol.executeCommand())
+                commandBuilder.add(PlaybackWireProtocol.snapshotCommand())
+            }
+            val commands = commandBuilder.build()
             return MediaSession.ConnectionResult.AcceptedResultBuilder(session)
                 .setAvailableSessionCommands(commands)
                 .build()
