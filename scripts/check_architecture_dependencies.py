@@ -227,7 +227,8 @@ def check_tree(repository: Path, enforce_structure: bool = True) -> tuple[list[V
         if not settings.is_file():
             errors.append(Violation("settings.gradle.kts", "NO_PRODUCTION_SETTINGS"))
         else:
-            text = erase_literals(settings.read_text(encoding="utf-8"))
+            # Keep quoted module names; strip only line comments, not string literals.
+            text = "\n".join(line.split("//", 1)[0] for line in settings.read_text(encoding="utf-8").splitlines())
             included = SETTINGS_INCLUDE.findall(text)
             if included != ["app"]:
                 errors.append(
