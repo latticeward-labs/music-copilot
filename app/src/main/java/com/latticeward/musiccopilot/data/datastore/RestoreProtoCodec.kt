@@ -103,4 +103,3 @@ object RestoreProtoCodec : Serializer<RestorableQueueSnapshot> {
         coded.flush()
     }
 }
-

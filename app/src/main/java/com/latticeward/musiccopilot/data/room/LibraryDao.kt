@@ -23,4 +23,3 @@ interface LibraryDao {
     @Query("DELETE FROM library_items")
     suspend fun clearDerived()
 }
-

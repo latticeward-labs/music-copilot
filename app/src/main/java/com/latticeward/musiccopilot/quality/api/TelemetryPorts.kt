@@ -14,4 +14,3 @@ interface TelemetrySink {
     /** Nonblocking best effort; false means dropped. Never throw or affect product flow. */
     fun tryEmit(event: SanitizedTelemetryEvent): Boolean
 }
-

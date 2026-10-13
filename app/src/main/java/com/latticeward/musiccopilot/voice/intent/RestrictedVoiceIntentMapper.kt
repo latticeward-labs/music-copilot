@@ -49,4 +49,3 @@ class RestrictedVoiceIntentMapper : VoiceIntentMapper {
         return VoiceIntentDecision.Direct(RestrictedIntent.PLAY_ARTIST, artist)
     }
 }
-

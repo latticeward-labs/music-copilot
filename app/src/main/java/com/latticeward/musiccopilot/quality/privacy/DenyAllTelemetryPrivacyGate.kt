@@ -12,4 +12,3 @@ class DenyAllTelemetryPrivacyGate : TelemetryPrivacyGate {
     override fun sanitize(event: TelemetryEvent): AppResult<SanitizedTelemetryEvent> =
         AppResult.Failure(AppError.Quality(AppErrorCodes.QUALITY_DROPPED))
 }
-

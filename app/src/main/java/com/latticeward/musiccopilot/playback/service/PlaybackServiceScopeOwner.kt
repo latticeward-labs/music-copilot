@@ -15,4 +15,3 @@ class PlaybackServiceScopeOwner(dispatchers: DispatcherProvider) : AutoCloseable
     val scope = CoroutineScope(job + dispatchers.main + CoroutineName("PlaybackService"))
     override fun close() { scope.cancel() }
 }
-

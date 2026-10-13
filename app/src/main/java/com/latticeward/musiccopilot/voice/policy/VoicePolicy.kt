@@ -12,4 +12,3 @@ object VoicePolicy {
     const val MIN_TOP_TWO_SEPARATION = 0.08
     const val MAX_SHORT_FEEDBACK_CHARS = 120
 }
-

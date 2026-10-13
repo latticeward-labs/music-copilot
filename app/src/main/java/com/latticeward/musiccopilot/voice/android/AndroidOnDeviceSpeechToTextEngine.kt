@@ -159,4 +159,3 @@ class AndroidOnDeviceSpeechToTextEngine(
         AppError.Voice(code, Recoverability.RECOVERABLE, RecoveryAction.ManualFallback)
     )
 }
-

@@ -22,4 +22,3 @@ class MusicCopilotApplication : Application() {
         super.onTerminate()
     }
 }
-

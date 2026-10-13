@@ -51,4 +51,3 @@ interface LibraryRepository {
         limit: Int = 2,
     ): AppResult<List<LibraryCandidate>>
 }
-

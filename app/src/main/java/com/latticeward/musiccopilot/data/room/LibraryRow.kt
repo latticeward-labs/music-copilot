@@ -14,4 +14,3 @@ data class LibraryRow(
     val normalizedTitle: String,
     val normalizedArtist: String,
 )
-

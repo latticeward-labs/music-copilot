@@ -11,4 +11,3 @@ import androidx.room.RoomDatabase
 abstract class MusicCopilotDatabase : RoomDatabase() {
     abstract fun libraryDao(): LibraryDao
 }
-

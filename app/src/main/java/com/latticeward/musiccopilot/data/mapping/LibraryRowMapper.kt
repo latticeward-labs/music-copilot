@@ -24,4 +24,3 @@ object LibraryRowMapper {
     fun toItem(row: LibraryRow): LibraryItem =
         LibraryItem(MediaRef(row.mediaRef), row.title, row.artist, row.album, row.durationMs)
 }
-

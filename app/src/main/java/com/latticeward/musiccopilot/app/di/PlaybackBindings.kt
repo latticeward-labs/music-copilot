@@ -9,4 +9,3 @@ internal object PlaybackBindings {
     fun controller(scope: CoroutineScope, context: Context?): PlaybackControllerConnection =
         PlaybackControllerConnection(scope, context)
 }
-

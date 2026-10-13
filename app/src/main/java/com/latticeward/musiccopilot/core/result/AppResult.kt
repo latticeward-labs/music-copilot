@@ -12,4 +12,3 @@ enum class Recoverability {
 enum class RecoveryAction {
     Retry, OpenSettings, Rebuild, Skip, ManualFallback, ManualResume, None
 }
-

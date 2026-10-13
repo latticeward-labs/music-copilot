@@ -148,4 +148,3 @@ class ApplicationCompositionTest {
         } finally { app.close() }
     }
 }
-

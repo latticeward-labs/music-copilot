@@ -5,4 +5,3 @@ package com.latticeward.musiccopilot.core.model
 @JvmInline value class MediaRef(val value: String)
 @JvmInline value class VoiceSessionId(val value: Long)
 @JvmInline value class VoiceCandidateToken(val value: String)
-

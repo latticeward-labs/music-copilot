@@ -15,4 +15,3 @@ interface TextToSpeechEngine {
     suspend fun speak(output: SpeechOutput): AppResult<Unit>
     fun stop(sessionId: VoiceSessionId)
 }
-

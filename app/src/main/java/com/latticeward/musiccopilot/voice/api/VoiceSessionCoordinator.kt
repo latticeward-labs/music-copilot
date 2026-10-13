@@ -73,4 +73,3 @@ interface VoiceSessionCoordinator {
     fun retry(): AppResult<Unit>
     fun cancel(reason: VoiceCancelReason)
 }
-

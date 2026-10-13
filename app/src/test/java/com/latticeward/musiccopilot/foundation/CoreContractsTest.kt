@@ -55,4 +55,3 @@ class CoreContractsTest {
         assertEquals(3, Recoverability.entries.size)
     }
 }
-

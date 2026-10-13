@@ -199,4 +199,3 @@ private class FakeCoordinator : VoiceSessionCoordinator {
         mutable.value = VoiceSessionState.Idle
     }
 }
-

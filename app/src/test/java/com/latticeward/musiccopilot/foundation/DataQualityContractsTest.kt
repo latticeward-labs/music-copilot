@@ -105,4 +105,3 @@ private class FakeGate : TelemetryPrivacyGate {
     override fun sanitize(event: TelemetryEvent): AppResult<SanitizedTelemetryEvent> =
         AppResult.Failure(AppError.Quality(AppErrorCodes.QUALITY_DROPPED))
 }
-

@@ -7,4 +7,3 @@ import com.latticeward.musiccopilot.quality.api.TelemetrySink
 class NoOpTelemetrySink : TelemetrySink {
     override fun tryEmit(event: SanitizedTelemetryEvent): Boolean = false
 }
-

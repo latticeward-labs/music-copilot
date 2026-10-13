@@ -118,4 +118,3 @@ class LocalFirstRepositoryTest {
         assertEquals("synthetic alpha", LibraryRowMapper.normalize("  SYNTHETIC   ALPHA "))
     }
 }
-

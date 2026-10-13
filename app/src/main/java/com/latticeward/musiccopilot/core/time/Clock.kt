@@ -4,4 +4,3 @@ package com.latticeward.musiccopilot.core.time
 fun interface Clock {
     fun nowEpochMillis(): Long
 }
-

@@ -95,4 +95,3 @@ private class AvailableFakeTts : TextToSpeechEngine {
     override suspend fun speak(output: SpeechOutput): AppResult<Unit> = AppResult.Success(Unit)
     override fun stop(sessionId: VoiceSessionId) { stopped.add(sessionId) }
 }
-

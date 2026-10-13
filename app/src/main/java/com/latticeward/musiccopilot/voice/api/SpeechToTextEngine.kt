@@ -21,4 +21,3 @@ interface SpeechToTextEngine {
     suspend fun recognize(request: SpeechRecognitionRequest): AppResult<SpeechRecognitionResult>
     fun cancel(sessionId: VoiceSessionId)
 }
-

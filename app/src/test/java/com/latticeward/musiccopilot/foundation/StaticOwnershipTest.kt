@@ -32,4 +32,3 @@ class StaticOwnershipTest {
         assertFalse(root.contains("GlobalScope"))
     }
 }
-

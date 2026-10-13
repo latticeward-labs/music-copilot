@@ -88,4 +88,3 @@ class LocalDataStoreContractsTest {
         scope.coroutineContext[kotlinx.coroutines.Job]?.cancel()
     }
 }
-

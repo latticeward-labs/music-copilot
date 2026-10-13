@@ -29,4 +29,3 @@ sealed interface PlaybackCommand {
     ) : PlaybackCommand
     data class Stop(override val commandId: CommandId) : PlaybackCommand
 }
-

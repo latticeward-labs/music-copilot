@@ -22,4 +22,3 @@ interface PreferencesRepository {
     val preferences: StateFlow<AppPreferences>
     suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences>
 }
-

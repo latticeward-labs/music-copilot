@@ -106,4 +106,3 @@ class MediaStoreScanner(
         return records
     }
 }
-

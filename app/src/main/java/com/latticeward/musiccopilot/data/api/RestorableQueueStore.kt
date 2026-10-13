@@ -18,4 +18,3 @@ interface RestorableQueueStore {
     suspend fun write(snapshot: RestorableQueueSnapshot): AppResult<Unit>
     suspend fun clear(): AppResult<Unit>
 }
-

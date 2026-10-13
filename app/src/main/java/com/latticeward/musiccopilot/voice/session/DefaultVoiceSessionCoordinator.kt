@@ -204,4 +204,3 @@ class DefaultVoiceSessionCoordinator(
 
     override fun close() { cancel(VoiceCancelReason.OriginInvalidated) }
 }
-

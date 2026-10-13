@@ -45,4 +45,3 @@ class Media3SnapshotProjector {
 
     fun queueChanged() { ++queueRevision }
 }
-

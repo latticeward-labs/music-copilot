@@ -41,4 +41,3 @@ sealed interface TelemetryEvent {
         val commandsCount: Int,
     ) : TelemetryEvent
 }
-

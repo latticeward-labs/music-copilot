@@ -87,4 +87,3 @@ class FoundationRestorableQueueStore(repositoryScope: CoroutineScope) : Restorab
         )
     override suspend fun clear(): AppResult<Unit> = unavailable()
 }
-

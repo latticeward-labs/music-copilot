@@ -74,4 +74,3 @@ class ProtoRestorableQueueStore(
         AppError.Storage(code, Recoverability.RECOVERABLE, RecoveryAction.None)
     )
 }
-

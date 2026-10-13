@@ -21,4 +21,3 @@ class BestEffortQualityEventPublisher(
         }
     } catch (_: Exception) { false }
 }
-
