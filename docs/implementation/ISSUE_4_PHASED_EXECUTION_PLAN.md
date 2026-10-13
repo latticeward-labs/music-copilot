@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–6 PASS (through versioned local-first MediaStore/Room/DataStore foundation)** / Phases 7–14 pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–7 PASS (through service-owned Media3 lifecycle/controller/command foundation)** / Phases 8–14 pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -92,14 +92,14 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 7 — Media3 service lifecycle and controller foundation
 
-- [ ] Create one same-process `MediaSessionService` and service-owned factory for exactly one Player/MediaSession per service lifecycle, with version-aware manifest/foreground playback configuration.
-- [ ] Implement a minimal `PlaybackControllerConnection` / gateway seam; UI only observes authoritative snapshots and sends typed commands.
-- [ ] Make command processor serialization/capacity **32**/typed `PLAYBACK_BUSY` testable; no optimistic `Playing`.
-- [ ] Test UI recreation, controller disconnect/reconnect complete snapshot, service owner independence, error projection through authoritative snapshot. Put detailed queue/play/seek/system-control feature completion into #7.
-- [ ] Define but do not misrepresent unimplemented focus/route/physical field behavior as tested (#8/#13).
+- [x] Create one same-process `MediaSessionService` and service-owned factory for exactly one Player/MediaSession per service lifecycle, with version-aware manifest/foreground playback configuration.
+- [x] Implement a minimal `PlaybackControllerConnection` / gateway seam; UI only observes authoritative snapshots and sends typed commands.
+- [x] Make command processor serialization/capacity **32**/typed `PLAYBACK_BUSY` testable; no optimistic `Playing`.
+- [x] Test UI recreation, controller disconnect/reconnect complete snapshot, service owner independence, error projection through authoritative snapshot. Put detailed queue/play/seek/system-control feature completion into #7.
+- [x] Define but do not misrepresent unimplemented focus/route/physical field behavior as tested (#8/#13).
 
-**Output:** `playback/` foundation and lifecycle/command contract tests.  
-**PASS:** one service/player owner demonstrated at test seam; UI closure/recreation does not create a second authority; reconnect follows final Issue #16 policy.
+**Output:** [Phase 7 implementation and lifetime review](ISSUE_4_PHASE7_MEDIA3_FOUNDATION.md), [machine validation](ISSUE_4_PHASE7_VALIDATION.json), compiled `playback/` production sources and [real CI/APK/JUnit artifact](https://github.com/latticeward-labs/music-copilot/actions/runs/38442180745/artifacts/11837751263).  
+**PASS — 13 October 2026, bounded foundation:** [GitHub Actions run 38442180745](https://github.com/latticeward-labs/music-copilot/actions/runs/38442180745) at tested source commit `6c84d6896b016d80913e81097c69ac26165f0e93`, job `115451846096`, **completed/success**. Checked 24/24 architecture fixtures, 99 Kotlin/Java production source files across 52 logical package paths, `testDebugUnitTest` **49/49 tests, 9 suites, 0 failures/errors/skips**, Debug APK, unsigned Release APK, unchanged Room v1 schema export, **BUILD SUCCESSFUL in 7m 34s**. Single-owner service factory, controller snapshot gate and 32-pending serial processor have passing JVM contract tests. Physical Activity recreation, Android OEM/route/focus scenarios, local queue playback, complete P1 paused cold-restore and downstream Issue #7 behavior remain untested/unimplemented and are not claimed as PASS.
 
 ## Phase 8 — Replaceable Voice contract seam
 
