@@ -123,7 +123,7 @@ class Phase8VoiceFoundationTest {
             recognitionEnabled = true
         )
         try {
-            val started = voice.start(VoiceOrigin.Driving) as AppResult.Success
+            val started = voice.start(VoiceOrigin.Driving) as AppResult.Success<VoiceSessionId>
             assertEquals(VoiceSessionState.Listening(started.value, VoiceOrigin.Driving, 1),
                 voice.state.value)
             advanceUntilIdle()
