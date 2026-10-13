@@ -63,6 +63,7 @@ class ApplicationBindings(
 
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
     val telemetrySink: TelemetrySink = QualityBindings.sink()
+    val qualityEventPublisher = QualityBindings.publisher(telemetryPrivacyGate, telemetrySink)
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
     fun onForeground() {
