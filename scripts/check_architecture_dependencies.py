@@ -92,7 +92,7 @@ def erase_literals(text: str) -> str:
 
 def allowed_internal(source: str, target: str) -> bool:
     if target == "R" or matches(target, "R"):
-        return source.startswith(("app.", "feature.", "playback.", "voice.", "data."))
+        return source == "app" or source.startswith(("app.", "feature.", "playback.", "voice.", "data."))
     if target == "BuildConfig":
         return matches(source, "app.di")
     if matches(source, "app.di"):
@@ -259,6 +259,8 @@ CASES = (
      "import com.latticeward.musiccopilot.data.api.RestorableQueueStore\nclass Allowed", True),
     ("positive_di_concrete", "app/di/Allowed.kt",
      "import com.latticeward.musiccopilot.playback.service.MusicPlaybackService\nclass Allowed", True),
+    ("positive_resource", "app/Allowed.kt",
+     "import com.latticeward.musiccopilot.R\nclass Allowed", True),
     ("negative_feature_media3", "feature/player/Bad.kt",
      "import androidx.media3.exoplayer.ExoPlayer\nclass Bad", False),
     ("negative_feature_other_feature", "feature/player/Bad.kt",
