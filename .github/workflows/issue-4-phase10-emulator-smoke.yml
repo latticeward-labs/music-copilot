@@ -72,7 +72,10 @@ jobs:
           arch: x86_64
           disk-size: 2048M # API29 cold boot does not need a 7GB userdata partition
           profile: pixel_3a
-          disable-animations: true
+          # Do not let emulator-runner's automatic ADB animation toggles abort
+          # an otherwise booted API29 image before the app smoke script runs.
+          # The shell smoke verifies app state explicitly, without this option.
+          disable-animations: false
           emulator-boot-timeout: 900
           emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
           script: |
