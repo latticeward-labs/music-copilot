@@ -53,7 +53,7 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
                 output.shortText.isBlank() || active != null) return@withContext unavailable()
             val engine = tts ?: return@withContext unavailable()
             try {
-                suspendCancellableCoroutine { continuation ->
+                suspendCancellableCoroutine<AppResult<Unit>> { continuation ->
                     val utteranceId = "musico-feedback-${++serial}"
                     active = output.sessionId
                     engine.setOnUtteranceProgressListener(object : UtteranceProgressListener() {

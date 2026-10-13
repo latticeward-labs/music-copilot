@@ -55,7 +55,7 @@ class AndroidOnDeviceSpeechToTextEngine(
             if (request.maxListeningMs !in 1..VoicePolicy.LISTEN_TIMEOUT_MS)
                 return@withContext unavailable()
             try {
-                suspendCancellableCoroutine { continuation ->
+                suspendCancellableCoroutine<AppResult<SpeechRecognitionResult>> { continuation ->
                     val recognizer = try {
                         SpeechRecognizer.createOnDeviceSpeechRecognizer(app)
                     } catch (_: Exception) {
