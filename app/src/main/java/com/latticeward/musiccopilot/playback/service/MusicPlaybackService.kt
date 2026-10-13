@@ -41,6 +41,7 @@ class MusicPlaybackService : MediaSessionService() {
     private lateinit var session: MediaSession
     private lateinit var processor: PlaybackCommandProcessor
     private lateinit var runtimeOwner: ServicePlaybackRuntimeOwner<Pair<ExoPlayer, MediaSession>>
+    private val pendingResults = linkedSetOf<SettableFuture<SessionResult>>()
     private val projector = Media3SnapshotProjector()
     private var runtimeError: AppError? = null
     private lateinit var confirmed: PlaybackSnapshot
@@ -135,6 +136,11 @@ class MusicPlaybackService : MediaSessionService() {
                         PlaybackWireProtocol.errorExtras(rejected().error))
                 ) else {
                     val result = SettableFuture.create<SessionResult>()
+                    pendingResults.add(result)
+                    result.addListener(
+                        { pendingResults.remove(result) },
+                        com.google.common.util.concurrent.MoreExecutors.directExecutor()
+                    )
                     val accepted = processor.submit(command)
                     owner.scope.launch {
                         val response = try { accepted.await() } catch (_: Exception) { rejected() }
@@ -215,6 +221,14 @@ class MusicPlaybackService : MediaSessionService() {
 
     override fun onDestroy() {
         if (::processor.isInitialized) processor.close()
+        // Resolve in-flight session response futures even if coroutine owner is
+        // about to be cancelled; never leave accepted calls silently suspended.
+        val teardown = SessionResult(
+            SessionError.ERROR_UNKNOWN,
+            PlaybackWireProtocol.errorExtras(rejected().error)
+        )
+        pendingResults.toList().forEach { it.set(teardown) }
+        pendingResults.clear()
         if (::runtimeOwner.isInitialized) runtimeOwner.close()
         if (::owner.isInitialized) owner.close()
         super.onDestroy()
