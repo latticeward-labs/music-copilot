@@ -1,7 +1,7 @@
 {
   "schema": "issue4.phase1.github_setup.validation.v1",
   "date": "2026-10-13",
-  "status": "PENDING_FINAL_LINK_READBACK",
+  "status": "PASS_GITHUB_SETUP_ONLY",
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/4-android-foundation",
   "source": {
@@ -25,7 +25,9 @@
     "merge_target_proposed": "main",
     "merge_target_exception": "CONTRIBUTING.md prefers develop; main base proposed in keeping with Issue 16/17 actual merged PRs; reviewer must approve exception before phase14 merge",
     "final_pull_request_created": false,
-    "project_v2_field_mutated_or_verified": false
+    "project_v2_field_mutated_or_verified": false,
+    "branch_ahead_after_initial_validation_file": 11,
+    "branch_behind_after_initial_validation_file": 0
   },
   "setup_checklist": [
     {
@@ -87,10 +89,14 @@
   },
   "final_audit_to_complete": {
     "expected_targets_after_self_record": 16,
-    "confirmed_targets": null,
-    "status": "PENDING",
+    "confirmed_targets": 16,
+    "status": "PASS",
     "expected_phase1_checklist_complete": 4,
-    "expected_final_issue_open": true
+    "expected_final_issue_open": true,
+    "method": "15 existing targets individually fetched via GitHub, plus self validation JSON re-fetched after commit to complete 16/16",
+    "changed_path_allowlist_pass": true,
+    "issue_original_checkboxes_pass": true,
+    "readback_pass": true
   },
   "not_claimed": [
     "Root production Android app created or compiled",
