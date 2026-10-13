@@ -3,29 +3,32 @@ package com.latticeward.musiccopilot.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import com.latticeward.musiccopilot.R
+import androidx.core.view.WindowCompat
+import com.latticeward.musiccopilot.app.navigation.AppNavHost
+import com.latticeward.musiccopilot.app.navigation.RootNavigationStateHolder
+import com.latticeward.musiccopilot.app.theme.MusicCopilotTheme
+import com.latticeward.musiccopilot.app.theme.MusicColors
+import androidx.compose.ui.graphics.toArgb
 
 /**
- * Phase 2 bootstrap smoke surface only.
- *
- * Navigation, Driving Mode, Voice, playback, and canonical design tokens
- * belong to their approved downstream phases. This screen is not a feature UI.
+ * Single Android Activity, application-owned graph; no Activity owns Player,
+ * queue or Voice. Phase 10 renders only non-optimistic Bootstrap diagnostics.
  */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { FoundationBootstrapScreen() }
+        window.statusBarColor = MusicColors.systemBar.toArgb()
+        window.navigationBarColor = MusicColors.systemBar.toArgb()
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightStatusBars = false
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightNavigationBars = false
+
+        val appBindings = (application as MusicCopilotApplication).bindings
+        setContent { RootComposeShell(appBindings) }
     }
 
     override fun onResume() {
@@ -35,24 +38,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun FoundationBootstrapScreen() {
-    MaterialTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp),
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = stringResource(R.string.app_name),
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-                Text(
-                    text = stringResource(R.string.foundation_bootstrap_message),
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
-        }
+private fun RootComposeShell(bindings: com.latticeward.musiccopilot.app.di.ApplicationBindings) {
+    val library by bindings.libraryRepository.index.collectAsStateWithLifecycle()
+    val playbackConnection by bindings.playbackGateway.connectionState.collectAsStateWithLifecycle()
+    val navigation = RootNavigationStateHolder()
+    MusicCopilotTheme {
+        AppNavHost(navigation.readiness(library.status, playbackConnection))
     }
 }
