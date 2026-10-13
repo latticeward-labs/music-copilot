@@ -17,7 +17,7 @@ class Phase9PrivacyQualityTest {
     private fun accept(event: TelemetryEvent): String {
         val sanitized = gate.sanitize(event)
         assertTrue("Allowed typed event must be sanitized", sanitized is AppResult.Success<*>)
-        return (sanitized as AppResult.Success).value.encoded
+        return (sanitized as AppResult.Success<SanitizedTelemetryEvent>).value.encoded
     }
     private fun reject(event: TelemetryEvent) {
         val result = gate.sanitize(event)
@@ -118,7 +118,7 @@ class Phase9PrivacyQualityTest {
         repeat(10) {
             assertFalse(sink.tryEmit(
                 (gate.sanitize(TelemetryEvent.VoiceButtonPressed(TelemetryPlaybackState.Idle))
-                    as AppResult.Success).value
+                    as AppResult.Success<SanitizedTelemetryEvent>).value
             ))
         }
         val code = File("src/main/java/com/latticeward/musiccopilot/quality/noop/NoOpTelemetrySink.kt")
