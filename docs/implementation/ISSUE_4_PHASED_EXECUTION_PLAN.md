@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–8 PASS (through replaceable local-only Voice provider and lifecycle foundation)** / Phases 9–14 pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–9 PASS in bounded foundation/automated-test scope (through privacy-safe Quality and release safeguards)** / Phases 10–14 pending; physical/debug boot and device QA remain open independent gates; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -114,14 +114,14 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 9 — Privacy-safe Quality and build configuration
 
-- [ ] Define allowlisted typed `TelemetryEvent` -> `TelemetryPrivacyGate` -> sanitized `TelemetrySink` flow.
-- [ ] Default to NoOp/offline sink; configure crash/logging only with non-production, privacy-safe, disabled-by-default or sanitized behavior. No production analytics provider or dashboard is required by #4.
-- [ ] Reject free-form maps, unknown fields and raw voice, transcript, media titles, artists, paths, IDs/URIs, queue, queries, personal identifiers and secrets.
-- [ ] Prove Quality sink failure never blocks playback, startup, permission or Voice.
-- [ ] Preserve later actual measurement/analytics implementation for #12.
+- [x] Define allowlisted typed `TelemetryEvent` -> `TelemetryPrivacyGate` -> sanitized `TelemetrySink` flow.
+- [x] Default to NoOp/offline sink; configure crash/logging only with non-production, privacy-safe, disabled-by-default or sanitized behavior. No production analytics provider or dashboard is required by #4.
+- [x] Reject free-form maps, unknown fields and raw voice, transcript, media titles, artists, paths, IDs/URIs, queue, queries, personal identifiers and secrets.
+- [x] Prove Quality sink failure never blocks playback, startup, permission or Voice.
+- [x] Preserve later actual measurement/analytics implementation for #12.
 
-**Output:** `quality/`, debug/release configuration and privacy negative tests.  
-**PASS:** prohibited-field tests fail closed; clean debug boot works without services/credentials; release has no unsafe logging.
+**Output:** [Phase 9 Security/Privacy/Quality implementation, constraints and acceptance](ISSUE_4_PHASE9_SECURITY_PRIVACY_QUALITY.md), [machine-readable validation](ISSUE_4_PHASE9_VALIDATION.json), 13 negative/positive JVM fixtures and [CI/real APK/JUnit artifact](https://github.com/latticeward-labs/music-copilot/actions/runs/38457642495/artifacts/11844128692).  
+**PASS — foundation implementation and automated test scope (13 October 2026):** [CI run 38457642495](https://github.com/latticeward-labs/music-copilot/actions/runs/38457642495), tested code `a5b52796c80120bbe4be84d6d440717412eb37b7`, job `115504584241` **completed/success**. Static policy self-test (safe baseline + 3 rejected violations), 24/24 architecture fixtures, 105 production sources across 52 logical package paths; **71/71 JVM tests in 11 suites**, no failures/errors/skips; Debug APK and unsigned Release APK; immutable Room schema v1; Gradle `BUILD SUCCESSFUL in 7m 28s`. Enforced non-network/NoOp production quality, strict eight-event allowlist, release-disabled unsafe logging/diagnostics and excluded local backup. **Limitation:** actual Debug APK cold boot on emulator/physical device and OEM backup/logcat behavior were *not exercised*; only no-secret boot-path composition and APK builds are validated in JVM/CI. Full functional/device security acceptance remains a later gate, and telemetry collection/dashboards belong to #12.
 
 ## Phase 10 — Minimal Compose startup shell and design token plumbing
 
