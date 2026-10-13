@@ -1,0 +1,72 @@
+name: Issue 4 Phase 11 - Test and architecture validation
+
+on:
+  push:
+    branches:
+      - feature/4-android-foundation
+    paths:
+      - "app/**"
+      - "scripts/check_architecture_dependencies.py"
+      - "scripts/check_phase9_privacy.py"
+      - "scripts/check_phase10_design_tokens.py"
+      - "settings.gradle.kts"
+      - "build.gradle.kts"
+      - "gradle/**"
+      - ".github/workflows/issue-4-phase11-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue4-phase11-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  foundation-validation:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Fail-closed package, forbidden import and topology checks with negative fixtures
+        run: python3 scripts/check_architecture_dependencies.py --root . --self-test
+      - name: Offline telemetry and privacy negative fixtures
+        run: python3 scripts/check_phase9_privacy.py --root . --self-test
+      - name: Exact Compose contract regression fixtures
+        run: python3 scripts/check_phase10_design_tokens.py --root . --self-test
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install required compile platform and build tools
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Run actual Phase 11 JVM tests, Android Lint, formatter and Kotlin analyzer
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/build/reports/phase11
+          ./gradlew :app:testDebugUnitTest :app:lintDebug spotlessCheck detekt --no-daemon --stacktrace 2>&1 | tee app/build/reports/phase11/gradle.log
+          test -d app/build/test-results/testDebugUnitTest
+          test -f app/build/reports/lint-results-debug.html
+          echo "PHASE11_TEST_ARCHITECTURE_VALIDATION PASS"
+      - name: Persist real test, Lint, Detekt and Gradle evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue4-phase11-test-validation
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/reports/phase11/**
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/tests/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            build/reports/detekt/**
