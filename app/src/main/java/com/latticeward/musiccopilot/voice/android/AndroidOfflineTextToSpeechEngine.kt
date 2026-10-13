@@ -84,7 +84,7 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
         }
 
     override fun stop(sessionId: VoiceSessionId) {
-        android.os.Handler(android.os.Looper.getMainLooper()).post {
+        onMain {
             if (active == sessionId) {
                 active = null
                 tts?.stop()
@@ -93,7 +93,7 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
     }
 
     override fun close() {
-        android.os.Handler(android.os.Looper.getMainLooper()).post {
+        onMain {
             closed = true
             active = null
             ready = false
@@ -101,6 +101,12 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
             tts?.shutdown()
             tts = null
         }
+    }
+
+    private fun onMain(action: () -> Unit) {
+        val main = android.os.Looper.getMainLooper()
+        if (android.os.Looper.myLooper() == main) action()
+        else android.os.Handler(main).post(action)
     }
 
     private fun unavailable(): AppResult.Failure = AppResult.Failure(

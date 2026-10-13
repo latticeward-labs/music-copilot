@@ -129,9 +129,9 @@ class AndroidOnDeviceSpeechToTextEngine(
         }
 
     override fun cancel(sessionId: VoiceSessionId) {
-        android.os.Handler(app.mainLooper).post {
-            val active = live ?: return@post
-            if (active.id == sessionId) {
+        onMain {
+            val active = live
+            if (active != null && active.id == sessionId) {
                 live = null
                 active.recognizer.cancel()
                 active.recognizer.destroy()
@@ -140,12 +140,17 @@ class AndroidOnDeviceSpeechToTextEngine(
     }
 
     override fun close() {
-        android.os.Handler(app.mainLooper).post {
+        onMain {
             val active = live
             live = null
             active?.recognizer?.cancel()
             active?.recognizer?.destroy()
         }
+    }
+
+    private fun onMain(action: () -> Unit) {
+        if (android.os.Looper.myLooper() == app.mainLooper) action()
+        else android.os.Handler(app.mainLooper).post(action)
     }
 
     private fun unavailable(): AppResult.Failure = failure(AppErrorCodes.VOICE_UNAVAILABLE)
