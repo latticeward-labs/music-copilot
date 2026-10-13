@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–5 PASS (source, GitHub setup, Android bootstrap, package enforcement, typed public contracts and DI/lifecycle)** / Phases 6–14 pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–6 PASS (through versioned local-first MediaStore/Room/DataStore foundation)** / Phases 7–14 pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -82,13 +82,13 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 6 — Local-first persistence seams (foundation only)
 
-- [ ] Provide isolated MediaStore authority adapter seam, Room rebuildable index schema/DAO seam and DataStore settings/consent seams.
-- [ ] Provide versioned **Proto DataStore** `RestorableQueueSnapshot` as a non-authoritative P1 port; playback owns validation and Paused-only cold restore.
-- [ ] Establish schema/export/migration-test scaffolding and fake repositories. Reconciliation/permission revocation and safe-corruption tests may use fixtures.
-- [ ] Ensure no personal media sample, real title/path/URI, user database, raw audio/transcript, cloud backend or credentials enter Git.
+- [x] Provide isolated MediaStore authority adapter seam, Room rebuildable index schema/DAO seam and DataStore settings/consent seams.
+- [x] Provide versioned **Proto DataStore** `RestorableQueueSnapshot` as a non-authoritative P1 port; playback owns validation and Paused-only cold restore.
+- [x] Establish schema/export/migration-test scaffolding and fake repositories. Reconciliation/permission revocation and safe-corruption tests may use fixtures.
+- [x] Ensure no personal media sample, real title/path/URI, user database, raw audio/transcript, cloud backend or credentials enter Git.
 
-**Output:** `data/` scaffolds, schema/tests, persistence ownership note.  
-**PASS:** media existence never comes from Room truth, live queue never comes from DataStore, corrupt/future snapshot never auto-plays, no main-thread blocking.
+**Output:** [Local Data ownership/implementation](ISSUE_4_PHASE6_LOCAL_DATA.md), [Migration and schema contract](ISSUE_4_PHASE6_MIGRATIONS.md), [Room v1 exported schema](../../app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/1.json), [machine-validation report](ISSUE_4_PHASE6_VALIDATION.json), source and synthetic tests.  
+**PASS for Phase 6 foundation achieved 13 October 2026:** [GHA run 38435760787](https://github.com/latticeward-labs/music-copilot/actions/runs/38435760787) at implementation SHA `f9f60fbcc2446c67ed4e4abf2167d5eacbf21202` (job `115429192025`, **completed/success**) logged `SELFTEST PASS: 24 fixtures`, `ARCHITECTURE PASS: one :app module; 52 package paths; 93 source files`, passed **42 JUnit tests across 8 suites, 0 failures/errors/skips**, built Debug and unsigned Release APK, exported required Room v1 JSON with byte-identical committed blob SHA `c3b1ba7affdaa1a9d6425d3b3dc7ddf10adf300b`, and reported **BUILD SUCCESSFUL in 7m 32s**. [Artifact 11833926331](https://github.com/latticeward-labs/music-copilot/actions/runs/38435760787/artifacts/11833926331). Unit tests and real Android compilation validate the *foundation* only; no real device MediaStore scan, migration from a released schema, or MediaSession P1 restore was executed; those independent later acceptance gates remain open. Original Issue #4 acceptance checklist unchanged.
 
 ## Phase 7 — Media3 service lifecycle and controller foundation
 

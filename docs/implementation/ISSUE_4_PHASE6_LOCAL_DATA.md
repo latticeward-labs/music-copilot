@@ -1,7 +1,7 @@
 # Issue #4 — Phase 6 Local-First Data Foundation
 
 - **Date:** 13 October 2026
-- **Status:** IMPLEMENTED / CI RE-VALIDATION IN PROGRESS — PASS must await a successful Gradle/JVM/schema export run
+- **Status:** PASS — real Gradle/JVM/schema export confirmed (foundation-only scope)
 - **Scope:** Phase 6 only; no Backend, cloud music, accounts, real vehicle test or Media3 service.
 - **Source package:** MSM2(1)(1).rar, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 - **Normative:** [Issue #16 Public APIs](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Runtime Policies](../architecture/RUNTIME_POLICIES.md), [ADR-0003](../adr/0003-local-first-data-boundaries.md), [ADR-0007](../adr/0007-same-process-playback-runtime-and-safe-paused-restore.md).
@@ -37,4 +37,4 @@ Room version 1 has one replaceable table; future released Likes/history require 
 
 ## CI status
 
-**Pending reproducible successful execution.** Failed attempt [38434211649](https://github.com/latticeward-labs/music-copilot/actions/runs/38434211649): duplicate Kotlin KAPT plugin version already on classpath; fixed by commit [49dad91c](https://github.com/latticeward-labs/music-copilot/commit/49dad91c019b41eece59fc026aa70c2644633bf9). Re-run and capture actual test/Room schema/build evidence before changing this document to PASS.
+**PASS:** [GitHub Actions run 38435760787](https://github.com/latticeward-labs/music-copilot/actions/runs/38435760787) (job `115429192025`, tested implementation SHA `f9f60fbcc2446c67ed4e4abf2167d5eacbf21202`) **completed/success**. Logs: `SELFTEST PASS: 24 fixtures`; `ARCHITECTURE PASS: one :app module; 52 package paths; 93 source files`; `:app:testDebugUnitTest`; `:app:assembleDebug`; `:app:assembleRelease`; `ROOM_SCHEMA_EXPORT PASS`; `BUILD SUCCESSFUL in 7m 32s`. [Actual artifact 11833926331](https://github.com/latticeward-labs/music-copilot/actions/runs/38435760787/artifacts/11833926331) contains both APKs, generated Room schema, and JUnit XML: **42 executed tests across 8 suites, zero failures/errors/skips**. Exact generated Room schema SHA `c3b1ba7affdaa1a9d6425d3b3dc7ddf10adf300b` equals committed `app/schemas/.../1.json`. Failed attempts [38434211649](https://github.com/latticeward-labs/music-copilot/actions/runs/38434211649) (versioned kapt plugin conflict) and [38434688490](https://github.com/latticeward-labs/music-copilot/actions/runs/38434688490) (JUnit invalid non-Unit return types) were fixed; neither counted as PASS. Real Android instrumentation and migration from later released user-owned schemas remain future validation gates.
