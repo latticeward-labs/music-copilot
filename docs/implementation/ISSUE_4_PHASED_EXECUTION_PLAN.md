@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–3 PASS (source, GitHub setup, Android bootstrap and package enforcement)** / Phases 4–14 pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–4 PASS (source, GitHub setup, Android bootstrap, package enforcement and typed public contracts)** / Phases 5–14 pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -61,14 +61,14 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 4 — Compile the approved public contracts
 
-- [ ] Implement shared `CommandId`, `MediaRef`, `VoiceSessionId`, typed `AppResult`, `AppError`, `Recoverability`, `RecoveryAction` with safe public error codes.
-- [ ] Implement `PlaybackCommand`, `PlaybackSnapshot`, `PlaybackGateway` and connection state, applying the Phase 10 correction: `PlaybackSnapshot.lastError: AppError?` with restricted runtime families.
-- [ ] Implement `SpeechToTextEngine`, `TextToSpeechEngine`, `VoiceSessionCoordinator` and immutable `VoiceConfirmationOption` list (1..2) on `VoiceSessionState.Confirming` per Phase 10 correction.
-- [ ] Implement `LibraryRepository`, `PreferencesRepository`, `RestorableQueueStore` and typed Quality/Telemetry ports from final Issue #16 signatures.
-- [ ] Provide fake implementations and contract tests; **do not claim** that full Media3 playback, speech recognition, search or analytics features have been delivered.
+- [x] Implement shared `CommandId`, `MediaRef`, `VoiceSessionId`, typed `AppResult`, `AppError`, `Recoverability`, `RecoveryAction` with safe public error codes.
+- [x] Implement `PlaybackCommand`, `PlaybackSnapshot`, `PlaybackGateway` and connection state, applying the Phase 10 correction: `PlaybackSnapshot.lastError: AppError?` with restricted runtime families.
+- [x] Implement `SpeechToTextEngine`, `TextToSpeechEngine`, `VoiceSessionCoordinator` and immutable `VoiceConfirmationOption` list (1..2) on `VoiceSessionState.Confirming` per Phase 10 correction.
+- [x] Implement `LibraryRepository`, `PreferencesRepository`, `RestorableQueueStore` and typed Quality/Telemetry ports from final Issue #16 signatures.
+- [x] Provide fake implementations and contract tests; **do not claim** that full Media3 playback, speech recognition, search or analytics features have been delivered.
 
-**Output:** approved `api` and `core` interfaces/models plus unit tests.  
-**PASS:** contracts compile and test; no Android/provider types leak into pure APIs; both Phase 10 fixes present; no duplicate authoritative state.
+**Output (committed):** [typed Core/Playback/Voice/Data/Quality contracts and three JVM test suites](../../app/src/), [Phase 4 contract review](ISSUE_4_PHASE4_PUBLIC_CONTRACTS.md) and [machine-readable validation](ISSUE_4_PHASE4_VALIDATION.json).  
+**PASS achieved 13 October 2026:** GitHub Actions [run 38427936983](https://github.com/latticeward-labs/music-copilot/actions/runs/38427936983) on SHA `995050eb6ee02bdb7cfcb823a062b6fcc67fd775` completed **success**, executing 24/24 architecture fixtures (7 valid and 17 deliberately forbidden), real Kotlin compile, `:app:testDebugUnitTest`, `:app:assembleDebug` and `:app:assembleRelease` (**BUILD SUCCESSFUL in 6m 6s**) and uploading [artifact 11829238672](https://github.com/latticeward-labs/music-copilot/actions/runs/38427936983/artifacts/11829238672) with APKs and JUnit reports. Phase 10 corrected options (1–2) and playback error projection (only MediaItem/Playback/Interruption) are covered by JVM tests; no SDK leak or forbidden dependency edge was found. Tests are **public-seam fakes**, not proof of runtime service/Voice/Data adapters, DI lifecycle, on-device behavior, full privacy gate or production analytics. **No original Issue #4 acceptance checkbox is additionally checked from Phase 4 alone.**
 
 ## Phase 5 — Composition root, ownership and coroutine lifetimes
 
