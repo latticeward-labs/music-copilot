@@ -1,0 +1,84 @@
+{
+  "schema": "issue4-phase10-compose-shell-v1",
+  "date_utc": "2026-10-13",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/4-android-foundation",
+  "phase10": {
+    "scope": "bounded Compose bootstrap shell and exact Night Signal token bridge",
+    "status": "CODE_AND_CI_PASS_EMULATOR_RECHECK_PENDING",
+    "checklist": {
+      "total": 4,
+      "checked": 3,
+      "pending": "real emulator cold-boot + crash/screenshot assertion"
+    }
+  },
+  "source": {
+    "archive": "MSM2(1)(1).rar",
+    "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "canonical_tokens": "docs/design-system/foundations/TOKENS.json",
+    "mapping": "docs/handoff/COMPOSE_TOKEN_MAPPING.md",
+    "design_version": "1.0.0",
+    "visual_direction": "Night Signal",
+    "min_api": 29
+  },
+  "implementation": {
+    "semantic_colors": 28,
+    "primitive_colors": 23,
+    "typography_roles": 10,
+    "logical_destinations": 9,
+    "active_destinations": [
+      "Bootstrap"
+    ],
+    "voice_as_nav_destination": false,
+    "theme": "fixed dark",
+    "activity_count": 1,
+    "app_owned_runtime": true
+  },
+  "ci": {
+    "run": 38460889744,
+    "job": 115515446979,
+    "conclusion": "success",
+    "sha": "ba7edcbd146fc7b259eef594199e733979705ccf",
+    "architecture_fixtures": 24,
+    "privacy_selftest_invalid_cases": 3,
+    "design_selftest_invalid_cases": 3,
+    "source_files": 112,
+    "logical_package_paths": 52,
+    "build": "BUILD SUCCESSFUL in 6m 52s",
+    "junit": {
+      "suites": 12,
+      "tests": 80,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "new_phase10": 9
+    },
+    "artifact_id": 11845627770,
+    "room_schema_export": "PASS",
+    "apks": [
+      "app-debug.apk",
+      "app-release-unsigned.apk"
+    ]
+  },
+  "emulator": {
+    "api": 29,
+    "run": 38463565982,
+    "status": "pending",
+    "previous_real_cold_launch": {
+      "run": 38462629926,
+      "launch_state": "COLD",
+      "launch_status": "ok",
+      "pid_survived": true,
+      "workflow_failure": "runner POSIX shell multiline if syntax"
+    },
+    "screenshot_captured": false,
+    "app_crash_buffer_checked": false
+  },
+  "unverified": [
+    "complete feature navigation and overlays",
+    "200% scaling physical visual audit",
+    "physical phone/OEM fleet",
+    "feature UX states and recoveries",
+    "full Issue #4 acceptance"
+  ]
+}
