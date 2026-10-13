@@ -93,7 +93,7 @@ class AndroidOnDeviceSpeechToTextEngine(
                                 finish(failure(AppErrorCodes.VOICE_NO_MATCH))
                                 return
                             }
-                            val rawConfidence = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
+                            val rawConfidence = results?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
                                 ?.firstOrNull()?.toDouble()
                             val confidence = rawConfidence?.takeIf { it.isFinite() && it in 0.0..1.0 }
                             finish(AppResult.Success(SpeechRecognitionResult(
