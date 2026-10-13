@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–9 PASS in bounded foundation/automated-test scope (through privacy-safe Quality and release safeguards)** / Phases 10–14 pending; physical/debug boot and device QA remain open independent gates; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–9 PASS; Phase 10 implementation and 80/80 JVM CI PASS, final API29 emulator smoke PENDING** / Phases 11–14 pending; Device QA remains an independent gate; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -125,13 +125,13 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 10 — Minimal Compose startup shell and design token plumbing
 
-- [ ] Implement a real launchable single-Activity Compose root, neutral startup state and lifecycle-aware state collection.
-- [ ] Set up only the navigation shell/typed destination contracts defined by Issue #16; Voice is an overlay, not an independent navigation destination.
-- [ ] Map token names from Issue #17 `docs/handoff/COMPOSE_TOKEN_MAPPING.md` and `docs/design-system/foundations/`; keep source values/traces documented, avoid invented visual styling.
-- [ ] Exclude unapproved feature screens, Driving control layouts, complete onboarding/search/player UX; those belong to downstream #5/#6/#7/#9–#11.
+- [x] Implement a real launchable single-Activity Compose root, neutral startup state and lifecycle-aware state collection.
+- [x] Set up only the navigation shell/typed destination contracts defined by Issue #16; Voice is an overlay, not an independent navigation destination.
+- [x] Map token names from Issue #17 `docs/handoff/COMPOSE_TOKEN_MAPPING.md` and `docs/design-system/foundations/`; keep source values/traces documented, avoid invented visual styling.
+- [x] Exclude unapproved feature screens, Driving control layouts, complete onboarding/search/player UX; those belong to downstream #5/#6/#7/#9–#11.
 
 **Output:** launchable `MainActivity`, minimal theme/token bridge, design-handoff mapping.  
-**PASS:** startup never crashes on missing library/permission/provider; shell builds at API 29+; token names trace to approved Issue #17.
+**Automated code/CI PASS; final device gate pending:** All four scoped source/build checklist items are implemented. [Code/CI run #38460889744](https://github.com/latticeward-labs/music-copilot/actions/runs/38460889744) passed 80/80 JVM tests and exact Issue #17 token audit. [API29 Cold Launch evidence #38462629926](https://github.com/latticeward-labs/music-copilot/actions/runs/38462629926) showed a surviving process and an empty crash buffer, but workflow assertions/screenshot were interrupted by shell syntax. [Latest API29 emulator workflow #38466010944](https://github.com/latticeward-labs/music-copilot/actions/runs/38466010944) is still pending. **Do not mark Phase 10 final PASS** until the final emulator verification and screenshot have actual evidence. See [Phase 10 implementation audit](ISSUE_4_PHASE10_COMPOSE_SHELL.md) and [validation data](ISSUE_4_PHASE10_VALIDATION.json).
 
 ## Phase 11 — Automated test and architecture verification
 
