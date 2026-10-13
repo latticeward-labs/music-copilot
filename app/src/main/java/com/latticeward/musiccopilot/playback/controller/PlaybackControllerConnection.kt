@@ -86,19 +86,19 @@ class PlaybackControllerConnection(
                     active = controller
                     connecting = null
                     if (!accept(controller.sessionExtras, true)) {
-                        connection.value = PlaybackConnectionState.RecoverableError
+                        relay.failed()
                         active = null
                         MediaController.releaseFuture(future)
                     }
                 } catch (_: Exception) {
                     connecting = null
                     active = null
-                    connection.value = PlaybackConnectionState.RecoverableError
+                    relay.failed()
                 }
             }, ContextCompat.getMainExecutor(context))
         } catch (_: Exception) {
             connecting = null
-            connection.value = PlaybackConnectionState.RecoverableError
+            relay.failed()
         }
     }
 
