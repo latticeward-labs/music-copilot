@@ -1,11 +1,25 @@
 package com.latticeward.musiccopilot.app
 
 import android.app.Application
+import com.latticeward.musiccopilot.app.di.ApplicationBindings
 
 /**
- * Android process entry point.
- *
- * Phase 2 intentionally creates no Media3 Player, Voice owner, repository,
- * or background work here. Lifetime-aware composition is introduced in Phase 5.
+ * Real Android-process root. No secondary Activity/Service construction or service locator.
+ * Android normally ends a process without calling onTerminate; process teardown releases the
+ * jobs automatically. onTerminate is best-effort emulator/host cleanup, not a runtime guarantee.
  */
-class MusicCopilotApplication : Application()
+class MusicCopilotApplication : Application() {
+    lateinit var bindings: ApplicationBindings
+        private set
+
+    override fun onCreate() {
+        super.onCreate()
+        bindings = ApplicationBindings()
+    }
+
+    override fun onTerminate() {
+        if (::bindings.isInitialized) bindings.close()
+        super.onTerminate()
+    }
+}
+
