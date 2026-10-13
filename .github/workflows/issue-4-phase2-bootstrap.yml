@@ -47,7 +47,7 @@ jobs:
           test -x ./gradlew
           test -f settings.gradle.kts
           test -d app/src/main
-          test "$(grep -Ec '^include\\(' settings.gradle.kts)" -eq 1
+          test "$(grep -c '^include' settings.gradle.kts)" -eq 1
           grep -Fxq 'include(":app")' settings.gradle.kts
           ./gradlew :app:assembleDebug --no-daemon --stacktrace
       - uses: actions/upload-artifact@v4
