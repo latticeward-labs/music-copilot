@@ -67,7 +67,7 @@ class ProtoRestorableQueueStore(
             store.updateData { RestoreSnapshotPolicy.empty() }
             AppResult.Success(Unit)
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (failure: Exception) { failure(AppErrorCodes.STORAGE_WRITE_FAILED) }
+        catch (error: Exception) { failure(AppErrorCodes.STORAGE_WRITE_FAILED) }
     }
 
     private fun failure(code: String) = AppResult.Failure(
