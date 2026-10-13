@@ -1,0 +1,126 @@
+{
+  "schema": "issue4.phase3.architecture_dependency_validation.v1",
+  "date": "2026-10-13",
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/4-android-foundation",
+  "status": "DEPENDENCY_CHECK_PASS__ANDROID_REBUILD_PENDING",
+  "input": {
+    "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "binding_issue": "Issue #16",
+    "accepted_adrs": [
+      "ADR-0007",
+      "ADR-0008"
+    ],
+    "upstream_phase2": "PASS"
+  },
+  "source_tree": {
+    "marker_commit": "8ecb0d120c7f07c95ed8c80a7b5ec02936b2c7ae",
+    "marker_files": 52,
+    "counts": {
+      "app": 3,
+      "core": 14,
+      "feature": 9,
+      "playback": 8,
+      "voice": 5,
+      "data": 8,
+      "quality": 5
+    },
+    "production_modules": [
+      ":app"
+    ],
+    "separate_spike": "spikes/android-validation",
+    "first_phase4_public_contracts_implemented": false,
+    "notes": "PackageBoundary.kt declarations only; no fake public API or runtime ownership."
+  },
+  "checker": {
+    "path": "scripts/check_architecture_dependencies.py",
+    "method": "Python standard-library scanner of Kotlin/Java package declarations, imports, alias/static imports, fully-qualified references outside literals, and root Gradle include()",
+    "cli": "python3 scripts/check_architecture_dependencies.py --root . --self-test",
+    "positive_fixtures": 6,
+    "deliberately_invalid_fixtures": 17,
+    "total_fixtures": 23,
+    "rules": [
+      "7 logical roots and 52 required package paths",
+      "only root :app Gradle module",
+      "core leaves pure; no Android/Compose/Media3/Room/DataStore/analytics",
+      "API packages do not depend on concrete implementations",
+      "app/di sole cross-boundary concrete wiring",
+      "feature cannot access other feature, Media3, Room, Android Speech, MediaStore, analytics, quality concrete",
+      "playback only narrowly data.api.RestorableQueueStore",
+      "voice uses public PlaybackGateway and data.api.LibraryRepository, no Media3",
+      "data no feature or playback concrete",
+      "quality no product implementations",
+      "reject GlobalScope and Kotlin package/path mismatch"
+    ],
+    "limitations": [
+      "static/lexical guard cannot prove reflection or dynamically constructed type names",
+      "does not prove semantic read-only UI usage or live service ownership",
+      "further contract/DI/lifecycle/integration tests required Phase 4+"
+    ],
+    "real_negative_fixture_method": "checker --self-test creates temporary source roots; prohibited fixtures must return violations; no forbidden code remains in production"
+  },
+  "ci": [
+    {
+      "id": 38423942340,
+      "sha": "8ecb0d120c7f07c95ed8c80a7b5ec02936b2c7ae",
+      "conclusion": "cancelled",
+      "reason": "Superseded by subsequent branch pushes during setup",
+      "url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38423942340"
+    },
+    {
+      "id": 38424386020,
+      "sha": "5b45855d2d268103109446abe3f2385ed5c05c29",
+      "conclusion": "failure",
+      "reason": "Self-test 22 fixtures passed; production checker false-positive on app/MainActivity.kt import of generated com.latticeward.musiccopilot.R. Fixed and added a positive regression fixture.",
+      "url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38424386020"
+    },
+    {
+      "id": 38424771876,
+      "sha": "813818c12af5a2d110b314ddcb534db30db452ae",
+      "conclusion": null,
+      "checker_step": "success",
+      "build_step": "in progress at initial audit",
+      "url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38424771876"
+    }
+  ],
+  "phase3_checks": [
+    {
+      "id": "P3-01",
+      "gate": "Seven logical roots materialized",
+      "status": "PASS"
+    },
+    {
+      "id": "P3-02",
+      "gate": "Four pure core leaves and application/domain ownership",
+      "status": "PASS"
+    },
+    {
+      "id": "P3-03",
+      "gate": "Public API package paths separate from concrete adapters and app/di reserved",
+      "status": "PASS"
+    },
+    {
+      "id": "P3-04",
+      "gate": "Actual CI checker rejects deliberately invalid imports and accepts valid imports",
+      "status": "PASS"
+    },
+    {
+      "id": "P3-05",
+      "gate": "One production :app module, no spike dependency",
+      "status": "PASS"
+    }
+  ],
+  "phase3_final_gate": "PENDING_ANDROID_BUILD_GREEN_AT_CHECKER_COMMIT",
+  "original_issue4_ac": {
+    "total": 14,
+    "previously_checked": 1,
+    "implementation_pending": 13
+  },
+  "non_claims": [
+    "Typed API contracts are not implemented until Phase 4",
+    "No DI bindings or singleton services implemented",
+    "No Media3 service or Voice provider runtime implemented",
+    "No device smoke run; no user features delivered",
+    "No code-level reviewer approval or final PR merge"
+  ]
+}
