@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phase 0 PASS (source/readiness audit)** / Phases 1–14 implementation pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–1 PASS (source + GitHub execution setup)** / Phases 2–14 implementation pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -28,13 +28,13 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 1 — GitHub execution setup
 
-- [ ] Work on `feature/4-android-foundation` from current `main`; do not commit directly to `main`.
-- [ ] Update Issue #4 status text to In Progress without checking implementation Acceptance Criteria.
-- [ ] Adopt a commit plan, scoped PR template/checklist and an evidence index.
-- [ ] Verify no existing Android production module will be overwritten or confused with the spike harness.
+- [x] Work on `feature/4-android-foundation` from current `main`; do not commit directly to `main`.
+- [x] Update Issue #4 status text to In Progress without checking implementation Acceptance Criteria.
+- [x] Adopt a commit plan, scoped PR template/checklist and an evidence index.
+- [x] Verify no existing Android production module will be overwritten or confused with the spike harness.
 
-**Output:** branch, `docs/implementation/ISSUE_4_EVIDENCE_INDEX.md`, linked Issue.  
-**PASS:** branch exists, traceable upstream commit, no unreviewed product/architecture source changes.
+**Output:** Branch [`feature/4-android-foundation`](https://github.com/latticeward-labs/music-copilot/tree/feature/4-android-foundation), [`ISSUE_4_EVIDENCE_INDEX.md`](ISSUE_4_EVIDENCE_INDEX.md), [`ISSUE_4_PHASE1_GITHUB_EXECUTION.md`](ISSUE_4_PHASE1_GITHUB_EXECUTION.md), [`ISSUE_4_PHASE1_VALIDATION.json`](ISSUE_4_PHASE1_VALIDATION.json) and [scoped PR template](../../.github/PULL_REQUEST_TEMPLATE/issue-4-android-foundation.md).  
+**PASS achieved 13 October 2026 (GitHub setup only):** 4/4 checklist requirements satisfied, feature branch is based on current frozen main HEAD (behind 0); Issue is open/In Progress with 1 upstream AC checked and 13 implementation ACs pending; dedicated PR review template and Evidence Index committed; main/spike/approved sources untouched; 16/16 relative links verified. **No production code, PR, CI or APK is claimed.**
 
 ## Phase 2 — Reproducible Android Gradle bootstrap
 
