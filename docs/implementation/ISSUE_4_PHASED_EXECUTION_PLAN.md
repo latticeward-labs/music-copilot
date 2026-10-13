@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–4 PASS (source, GitHub setup, Android bootstrap, package enforcement and typed public contracts)** / Phases 5–14 pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–5 PASS (source, GitHub setup, Android bootstrap, package enforcement, typed public contracts and DI/lifecycle)** / Phases 6–14 pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -72,13 +72,13 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 5 — Composition root, ownership and coroutine lifetimes
 
-- [ ] Implement `MusicCopilotApplication`, a minimal `MainActivity`, and `app/di` cross-boundary bindings.
-- [ ] Select documented, replaceable DI implementation (Hilt is permitted, not mandated). Avoid service locator and duplicate graphs.
-- [ ] Bind application-scoped controller connection, repositories, Voice coordinator, Quality privacy gate and NoOp sink; Player/MediaSession/command processor remain **service-owned**, never singleton-in-Activity.
-- [ ] Define injected `DispatcherProvider`, clock, application/repository jobs, ViewModel scopes, service SupervisorJob/Main.immediate; forbid `GlobalScope`.
+- [x] Implement `MusicCopilotApplication`, a minimal `MainActivity`, and `app/di` cross-boundary bindings.
+- [x] Select documented, replaceable DI implementation (Hilt is permitted, not mandated). Avoid service locator and duplicate graphs.
+- [x] Bind application-scoped controller connection, repositories, Voice coordinator, Quality privacy gate and NoOp sink; Player/MediaSession/command processor remain **service-owned**, never singleton-in-Activity.
+- [x] Define injected `DispatcherProvider`, clock, application/repository jobs, ViewModel scopes, service SupervisorJob/Main.immediate; forbid `GlobalScope`.
 
-**Output:** composition wiring, lifetime matrix and scope tests.  
-**PASS:** code compiles, scope assertions pass, Activity recreation cannot construct player or duplicate Voice owner.
+**Output:** [DI/lifecycle matrix](ISSUE_4_PHASE5_DI_LIFECYCLE.md), [machine validation](ISSUE_4_PHASE5_VALIDATION.json), graph source and JVM scope tests.  
+**PASS achieved 13 October 2026:** [GitHub Actions run 38431003572](https://github.com/latticeward-labs/music-copilot/actions/runs/38431003572) for implementation SHA `9cc97090b74d625221a0074670a5fce37b47f148` (job `115413044246`, conclusion **success**) passed 24/24 architecture fixtures (7 allowed/17 rejected), checked one `:app`/52 logical packages/83 Kotlin files, ran `:app:testDebugUnitTest`, `:app:assembleDebug`, `:app:assembleRelease`, and logged **BUILD SUCCESSFUL in 6m 30s**. [Artifact 11831057163](https://github.com/latticeward-labs/music-copilot/actions/runs/38431003572/artifacts/11831057163) includes APKs and JVM reports. App-scoped DI and test seam have passed; production service/Player, physical Activity recreation, real storage/provider behavior and device launches remain later phases. Original Issue #4 ACs remain **1/14 checked**.
 
 ## Phase 6 — Local-first persistence seams (foundation only)
 
