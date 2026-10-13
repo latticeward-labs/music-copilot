@@ -75,7 +75,7 @@ class LocalDataStoreContractsTest {
         assertNull((port.read() as AppResult.Success<*>).value)
     }
 
-    @Test fun preferencesPersistUpdatesOnlyAsControlState() = runBlocking {
+    @Test fun preferencesPersistUpdatesOnlyAsControlState() = runBlocking<Unit> {
         val store = InMemoryDataStore<Preferences>(emptyPreferences())
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
         val repo = DataStorePreferencesRepository(store, TestDispatcherProvider(), scope)
