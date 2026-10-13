@@ -23,6 +23,7 @@ import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.command.PlaybackCommandProcessor
 import com.latticeward.musiccopilot.playback.command.PlaybackWireProtocol
+import com.latticeward.musiccopilot.playback.media3.ServicePlaybackRuntimeOwner
 import com.latticeward.musiccopilot.playback.media3.Media3SnapshotProjector
 import kotlinx.coroutines.launch
 
@@ -39,6 +40,7 @@ class MusicPlaybackService : MediaSessionService() {
     private lateinit var player: ExoPlayer
     private lateinit var session: MediaSession
     private lateinit var processor: PlaybackCommandProcessor
+    private lateinit var runtimeOwner: ServicePlaybackRuntimeOwner<Pair<ExoPlayer, MediaSession>>
     private val projector = Media3SnapshotProjector()
     private var runtimeError: AppError? = null
     private lateinit var confirmed: PlaybackSnapshot
@@ -52,14 +54,31 @@ class MusicPlaybackService : MediaSessionService() {
                 override val default = kotlinx.coroutines.Dispatchers.Default
             }
         )
-        // Only one creation site and only in the service lifecycle.
-        player = ExoPlayer.Builder(this).build()
-        confirmed = projector.capture(player)
+        // Factory can start once per service instance and closes both resources once.
+        runtimeOwner = ServicePlaybackRuntimeOwner(
+            create = {
+                val candidate = ExoPlayer.Builder(this).build()
+                confirmed = projector.capture(candidate)
+                try {
+                    val builtSession = MediaSession.Builder(this, candidate)
+                        .setCallback(PlaybackCallbacks())
+                        .setSessionExtras(wrap(confirmed))
+                        .build()
+                    candidate to builtSession
+                } catch (failure: Throwable) {
+                    candidate.release()
+                    throw failure
+                }
+            },
+            dispose = { (p, s) ->
+                s.release()
+                p.release()
+            }
+        )
+        val runtime = runtimeOwner.start()
+        player = runtime.first
+        session = runtime.second
         processor = PlaybackCommandProcessor(owner.scope, ::applyCommand)
-        session = MediaSession.Builder(this, player)
-            .setCallback(PlaybackCallbacks())
-            .setSessionExtras(wrap(confirmed))
-            .build()
 
         player.addListener(object : Player.Listener {
             override fun onEvents(player: Player, events: Player.Events) {
@@ -189,8 +208,7 @@ class MusicPlaybackService : MediaSessionService() {
 
     override fun onDestroy() {
         if (::processor.isInitialized) processor.close()
-        if (::session.isInitialized) session.release()
-        if (::player.isInitialized) player.release()
+        if (::runtimeOwner.isInitialized) runtimeOwner.close()
         if (::owner.isInitialized) owner.close()
         super.onDestroy()
     }

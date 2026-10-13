@@ -13,6 +13,7 @@ import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
 import com.latticeward.musiccopilot.playback.command.PlaybackCommandProcessor
 import com.latticeward.musiccopilot.playback.controller.ControllerSnapshotRelay
+import com.latticeward.musiccopilot.playback.media3.ServicePlaybackRuntimeOwner
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +36,26 @@ class Phase7PlaybackFoundationTest {
         durationMs = 9000, canSeek = true,
         canSkipPrevious = false, canSkipNext = false, lastError = error
     )
+
+    @Test fun serviceRuntimeFactoryIsSingleStartAndCloseIsIdempotent() {
+        var created = 0
+        var disposed = 0
+        val factory = ServicePlaybackRuntimeOwner(
+            create = { ++created; "synthetic" },
+            dispose = { disposed++ }
+        )
+        assertEquals("synthetic", factory.start())
+        var duplicateRejected = false
+        try { factory.start() } catch (_: IllegalStateException) { duplicateRejected = true }
+        assertTrue(duplicateRejected)
+        assertEquals(1, created)
+        factory.close()
+        factory.close()
+        assertEquals(1, disposed)
+        var postCloseRejected = false
+        try { factory.start() } catch (_: IllegalStateException) { postCloseRejected = true }
+        assertTrue(postCloseRejected)
+    }
 
     @Test fun boundedCapacityIsExactly32WaitingAndOverloadIsTypedBusy() = runBlocking {
         val job = SupervisorJob()
@@ -150,8 +171,9 @@ class Phase7PlaybackFoundationTest {
             assertFalse(text.contains("PlaybackCommandProcessor("))
         }
         assertTrue(service.contains("processor.close()"))
-        assertTrue(service.contains("session.release()"))
-        assertTrue(service.contains("player.release()"))
+        assertTrue(service.contains("runtimeOwner.close()"))
+        assertTrue(service.contains("s.release()"))
+        assertTrue(service.contains("p.release()"))
     }
 }
 
