@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–7 PASS (through service-owned Media3 lifecycle/controller/command foundation)** / Phases 8–14 pending; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–8 PASS (through replaceable local-only Voice provider and lifecycle foundation)** / Phases 9–14 pending; no later phase may be marked PASS without committed evidence
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -103,14 +103,14 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 8 — Replaceable Voice contract seam
 
-- [ ] Provide STT/TTS platform adapter interfaces and minimal availability/cancellation adapters or disabled fakes where production platform handling is not yet implemented.
-- [ ] Make one application-scoped `VoiceSessionCoordinator`, generation tokens, six-intent deterministic mapper seam, six-second listening window, one retry and stale-callback suppression testable.
-- [ ] Voice dispatches playback only through `PlaybackGateway`; no direct MediaSession/ExoPlayer access or transcript persistence.
-- [ ] Default remote/cloud STT **disabled** until later provider disclosure/consent/legal/retention approval.
-- [ ] Leave feature-complete Voice and PLAY_ARTIST implementation to #10/#11.
+- [x] Provide STT/TTS platform adapter interfaces and minimal availability/cancellation adapters or disabled fakes where production platform handling is not yet implemented.
+- [x] Make one application-scoped `VoiceSessionCoordinator`, generation tokens, six-intent deterministic mapper seam, six-second listening window, one retry and stale-callback suppression testable.
+- [x] Voice dispatches playback only through `PlaybackGateway`; no direct MediaSession/ExoPlayer access or transcript persistence.
+- [x] Default remote/cloud STT **disabled** until later provider disclosure/consent/legal/retention approval.
+- [x] Leave feature-complete Voice and PLAY_ARTIST implementation to #10/#11.
 
-**Output:** `voice/` public-port scaffolds and contract tests.  
-**PASS:** fake-provider tests prove cancellation/stale-result behavior; no second voice owner and no remote network calls.
+**Output:** [Phase 8 Voice Provider implementation and limitations](ISSUE_4_PHASE8_VOICE_PROVIDER.md), [Phase 8 machine validation JSON](ISSUE_4_PHASE8_VALIDATION.json), Android adapter/contract source and 9 additional synthetic tests.  
+**PASS (13 October 2026, foundation-only scope):** [GitHub Actions run #38454339598](https://github.com/latticeward-labs/music-copilot/actions/runs/38454339598), code SHA `5619393f10bc33b14e14d64b2b641971b8b8fe7b`, job `115493062059`, completed **success**: 24/24 architecture fixtures; 103 source files in 52 package paths; 58/58 JVM tests across 10 suites (9 new Voice tests), zero failures/errors/skips; Debug and unsigned Release APK; `ROOM_SCHEMA_EXPORT PASS`, `BUILD SUCCESSFUL in 7m 22s`. [Artifact #11842495336](https://github.com/latticeward-labs/music-copilot/actions/runs/38454339598/artifacts/11842495336). Android 10/11 production Voice STT intentionally fail-closed (API31 on-device-only support); no on-device recognizer/OEM evaluation, cloud STT, PLAY_ARTIST matching, Voice UI/ducking or field QA is claimed.
 
 ## Phase 9 — Privacy-safe Quality and build configuration
 
