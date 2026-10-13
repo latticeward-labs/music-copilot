@@ -2,7 +2,7 @@
 
 > **Template scope:** use for the FINAL implementation PR from `feature/4-android-foundation` only after Phases 0–14 have been evidence-audited. This is a preparation template, not a completed PR or reviewer approval.
 >
-> **Issue:** [#4](https://github.com/latticeward-labs/music-copilot/issues/4). **Implementation contract:** [Phase plan](../../docs/implementation/ISSUE_4_PHASED_EXECUTION_PLAN.md), [Phase 0 baseline](../../docs/implementation/ISSUE_4_BASELINE_AND_TRACEABILITY.md), [Evidence index](../../docs/implementation/ISSUE_4_EVIDENCE_INDEX.md), [Issue #16 final Software Architecture](../../docs/SOFTWARE_ARCHITECTURE.md).
+> **Issue:** [#4](https://github.com/latticeward-labs/music-copilot/issues/4). **Implementation contract:** [Phase plan](https://github.com/latticeward-labs/music-copilot/blob/feature/4-android-foundation/docs/implementation/ISSUE_4_PHASED_EXECUTION_PLAN.md), [Phase 0 baseline](https://github.com/latticeward-labs/music-copilot/blob/feature/4-android-foundation/docs/implementation/ISSUE_4_BASELINE_AND_TRACEABILITY.md), [Evidence index](https://github.com/latticeward-labs/music-copilot/blob/feature/4-android-foundation/docs/implementation/ISSUE_4_EVIDENCE_INDEX.md), [Issue #16 final Software Architecture](https://github.com/latticeward-labs/music-copilot/blob/main/docs/SOFTWARE_ARCHITECTURE.md).
 >
 > **Branch/base:** feature/4-android-foundation from approved main baseline. The target PR base is `main` under Issue #4's recorded project-specific final delivery path (same as #16 PR #46 and #17 PR #68). **Exception to CONTRIBUTING.md's generic `develop` integration recommendation must be explicit and accepted in final review.** Do not merge to stale `develop` silently. If an integration target is changed, reconcile ancestry, CI and approvals first.
 
@@ -18,8 +18,8 @@ Refs #4. Do **not** use `Closes #4` before all 14 Acceptance Criteria are actual
 
 | Gate | Evidence URL / commit | Status |
 |---|---|---|
-| Phase 0 Source/Authority/AC baseline | [Phase 0 report](../../docs/implementation/ISSUE_4_BASELINE_AND_TRACEABILITY.md) | Verified specification only |
-| Phase 1 branch/PR/evidence setup | [Phase 1 audit](../../docs/implementation/ISSUE_4_PHASE1_GITHUB_EXECUTION.md) | Verified after Phase 1 audit |
+| Phase 0 Source/Authority/AC baseline | [Phase 0 report](https://github.com/latticeward-labs/music-copilot/blob/feature/4-android-foundation/docs/implementation/ISSUE_4_BASELINE_AND_TRACEABILITY.md) | Verified specification only |
+| Phase 1 branch/PR/evidence setup | [Phase 1 audit](https://github.com/latticeward-labs/music-copilot/blob/feature/4-android-foundation/docs/implementation/ISSUE_4_PHASE1_GITHUB_EXECUTION.md) | Verified after Phase 1 audit |
 | Phase 2 Gradle+Android minSdk 29 clean project | _TBD_ | Pending |
 | Phase 3 one `:app`, package direction/negative checker | _TBD_ | Pending |
 | Phase 4 typed Core/Playback/Voice/Data/Quality ports and Phase 10 corrections | _TBD_ | Pending |
