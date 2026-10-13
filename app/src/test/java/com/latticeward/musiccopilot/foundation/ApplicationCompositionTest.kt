@@ -135,8 +135,13 @@ class ApplicationCompositionTest {
             val result = app.telemetryPrivacyGate.sanitize(
                 TelemetryEvent.PlayerError("PLAYBACK_FAILED", RouteType.Unknown)
             )
-            assertTrue(result is AppResult.Failure)
+            assertTrue(result is AppResult.Success<*>)
+            // Sanitizing is independent of opting in to collection or external export.
+            // The production sink ALWAYS drops; no cloud config or provider is installed.
             assertFalse(app.telemetrySink.tryEmit(SanitizedTelemetryEvent("synthetic")))
+            assertFalse(app.qualityEventPublisher.tryRecord(
+                TelemetryEvent.PlayerError("PLAYBACK_FAILED", RouteType.Unknown)
+            ))
             val voice = app.voiceSessionCoordinator.start(VoiceOrigin.Player)
             assertTrue(voice is AppResult.Failure)
             assertEquals(VoiceSessionState.Idle, app.voiceSessionCoordinator.state.value)

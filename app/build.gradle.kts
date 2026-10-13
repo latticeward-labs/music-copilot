@@ -17,6 +17,11 @@ android {
         versionName = "0.1.0-foundation"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Never forward Quality, crash or raw logs to an external provider in MVP.
+        // Both debug and release are explicitly offline/NoOp.
+        buildConfigField("boolean", "QUALITY_EXTERNAL_DIAGNOSTICS_ENABLED", "false")
+        buildConfigField("boolean", "QUALITY_CRASH_UPLOAD_ENABLED", "false")
+        buildConfigField("boolean", "QUALITY_VERBOSE_LOGGING_ENABLED", "false")
     }
 
     buildTypes {
