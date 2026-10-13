@@ -71,5 +71,31 @@
       "run_id": 38427770367,
       "conclusion": "cancelled"
     }
-  ]
+  ],
+  "final_document_link_audit": {
+    "checked_at": "2026-10-13",
+    "audited_branch_head": "e2ccdb90dd0f288e5a8007e36ef8e4f4ec970c6f",
+    "method": "Read committed Markdown on audited branch and resolve relative Markdown targets against complete non-truncated repository Git tree; external URLs and fragment anchors not tested",
+    "audited_documents": [
+      {
+        "path": "docs/implementation/ISSUE_4_PHASE4_PUBLIC_CONTRACTS.md",
+        "relative_links": 23,
+        "missing": 0
+      },
+      {
+        "path": "docs/implementation/ISSUE_4_PHASED_EXECUTION_PLAN.md",
+        "relative_links": 14,
+        "missing": 0
+      },
+      {
+        "path": "docs/implementation/ISSUE_4_EVIDENCE_INDEX.md",
+        "relative_links": 24,
+        "missing": 0
+      }
+    ],
+    "checked_links": 61,
+    "unresolved_links": 0,
+    "result": "PASS"
+  },
+  "reverified_attached_rar_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8"
 }
