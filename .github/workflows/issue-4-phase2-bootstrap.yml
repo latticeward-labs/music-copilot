@@ -12,6 +12,7 @@ on:
       - "gradlew.bat"
       - "gradle.properties"
       - "app/**"
+      - "scripts/check_architecture_dependencies.py"
       - ".github/workflows/issue-4-phase2-bootstrap.yml"
   workflow_dispatch:
 
@@ -29,6 +30,9 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
+      - name: Enforce Issue 16 package topology and dependency direction
+        run: |
+          python3 scripts/check_architecture_dependencies.py --root . --self-test
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
