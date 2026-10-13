@@ -103,4 +103,16 @@ class Phase11PlaybackPoliciesTest {
         assertEquals(0L, unknown.value!!.positionMs)
         assertFalse(unknown.value!!.playWhenReady)
     }
+    @Test fun media3ServiceExportIsDocumentedAndTypedCommandsStayPrivate() {
+        val manifest = java.io.File("src/main/AndroidManifest.xml").readText()
+        val service = java.io.File(
+            "src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+        ).readText()
+        assertTrue(manifest.contains("android:exported=\"true\""))
+        assertTrue(manifest.contains("tools:ignore=\"ExportedService\""))
+        assertTrue(service.contains("controller.packageName == packageName &&"))
+        assertTrue(service.contains("controller.uid == android.os.Process.myUid()"))
+        assertTrue(service.contains("commandBuilder.add(PlaybackWireProtocol.executeCommand())"))
+    }
+
 }
