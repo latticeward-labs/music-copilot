@@ -62,8 +62,8 @@
   },
   "emulator": {
     "api": 29,
-    "run": 38469100082,
-    "status": "PENDING disk-size=2048M device recheck; previous runs blocked by AVD userdata disk capacity",
+    "run": 38471999196,
+    "status": "pending follow-up CI with 10GiB runner space preflight; 2048M AVD disk size alone failed",
     "previous_real_cold_launch": {
       "run": 38462629926,
       "launch_state": "COLD",
@@ -81,9 +81,24 @@
       {
         "run": 38466010944,
         "cause": "FATAL not enough space: available 6805.21 MB, requested 7372.80 MB userdata"
+      },
+      {
+        "run": 38469100082,
+        "cause": "AVD disk.dataPartition.size=2048M applied, but runner free 6805.10 MB < emulator needed 7372.80 MB"
       }
     ],
-    "repaired_workflow_sha": "a80630eb231ff26ca135b4d1f9429b5daa5a6569"
+    "repaired_workflow_sha": "c50008c2a1b5d7ca8c051121db8cf4d4897a0c01",
+    "disk_space_preflight": {
+      "required_kib": 10485760,
+      "cleanup": [
+        "/usr/share/dotnet",
+        "/opt/hostedtoolcache/CodeQL",
+        "/usr/local/share/powershell",
+        "ANDROID_HOME/ndk",
+        "ANDROID_HOME/cmake"
+      ],
+      "observed_previous_failure": "needed 7372.80 MB vs free 6805.10 MB"
+    }
   },
   "unverified": [
     "complete feature navigation and overlays",
