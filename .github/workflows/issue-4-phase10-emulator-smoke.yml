@@ -70,10 +70,7 @@ jobs:
             adb shell dumpsys activity activities > app/build/outputs/phase10/activity_state.txt
             grep -q 'com.latticeward.musiccopilot.debug' app/build/outputs/phase10/activity_state.txt
             adb logcat -d -b crash > app/build/outputs/phase10/crash_buffer.txt
-            if grep -Fq 'Process: com.latticeward.musiccopilot.debug' app/build/outputs/phase10/crash_buffer.txt; then
-              echo 'PHASE10_DEVICE_SMOKE FAIL: app FATAL EXCEPTION on launch' >&2
-              exit 1
-            fi
+            ! grep -Fq 'Process: com.latticeward.musiccopilot.debug' app/build/outputs/phase10/crash_buffer.txt
             adb exec-out screencap -p > app/build/outputs/phase10/bootstrap_api29.png
             test -s app/build/outputs/phase10/bootstrap_api29.png
             echo 'PHASE10_DEVICE_SMOKE PASS: API29 clean launch, denied/no media state, process alive, no app crash, screenshot captured'
