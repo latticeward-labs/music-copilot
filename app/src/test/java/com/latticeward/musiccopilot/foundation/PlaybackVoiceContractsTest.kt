@@ -64,7 +64,7 @@ class PlaybackVoiceContractsTest {
         val fake = FakeGateway(idleSnapshot())
         val before = fake.snapshot.value
         val accepted = fake.execute(PlaybackCommand.Play(CommandId("p-1")))
-        assertTrue(accepted is AppResult.Success)
+        assertTrue(accepted is AppResult.Success<*>)
         assertEquals(before.revision + 1, fake.snapshot.value.revision)
         assertEquals(PlaybackState.Paused, fake.snapshot.value.playbackState)
         // A public fake does not claim actual Media3 service, playback or autoplay.
@@ -110,23 +110,23 @@ class PlaybackVoiceContractsTest {
         val stt: SpeechToTextEngine = FakeStt()
         assertTrue(stt.isAvailable())
         val result = stt.recognize(SpeechRecognitionRequest(id, "en-US"))
-        assertTrue(result is AppResult.Success)
+        assertTrue(result is AppResult.Success<*>)
         assertEquals(6_000, SpeechRecognitionRequest(id, "en-US").maxListeningMs)
         stt.cancel(id)
         val cancelled = stt.recognize(SpeechRecognitionRequest(id, "en-US"))
         assertTrue(cancelled is AppResult.Failure)
         val tts: TextToSpeechEngine = FakeTts()
-        assertTrue(tts.speak(SpeechOutput(id, "ACK", "Synthetic ack")) is AppResult.Success)
+        assertTrue(tts.speak(SpeechOutput(id, "ACK", "Synthetic ack")) is AppResult.Success<*>)
         tts.stop(id)
     }
 
     @Test fun fakeCoordinatorRejectsStaleTokenAndCancelledConfirmation() {
         val voice = FakeCoordinator()
         val started = voice.start(VoiceOrigin.Driving)
-        assertTrue(started is AppResult.Success)
+        assertTrue(started is AppResult.Success<*>)
         assertTrue(voice.confirm(VoiceCandidateToken("old"), 0) is AppResult.Failure)
         voice.publishSyntheticConfirmation()
-        assertTrue(voice.confirm(VoiceCandidateToken("current"), 0) is AppResult.Success)
+        assertTrue(voice.confirm(VoiceCandidateToken("current"), 0) is AppResult.Success<*>)
         voice.cancel(VoiceCancelReason.DrivingExit)
         assertEquals(VoiceSessionState.Idle, voice.state.value)
         assertTrue(voice.confirm(VoiceCandidateToken("current"), 0) is AppResult.Failure)

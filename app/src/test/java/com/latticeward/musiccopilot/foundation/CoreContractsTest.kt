@@ -26,7 +26,7 @@ class CoreContractsTest {
             AppError.Playback(AppErrorCodes.PLAYBACK_BUSY,
                 Recoverability.RECOVERABLE, RecoveryAction.Retry)
         )
-        assertEquals(42, (ok as AppResult.Success).value)
+        assertEquals(42, (ok as AppResult.Success<*>).value)
         val error = (failed as AppResult.Failure).error
         assertTrue(error is AppError.Playback)
         assertEquals("PLAYBACK_BUSY", error.code)

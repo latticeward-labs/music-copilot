@@ -263,7 +263,7 @@ CASES = (
     ("positive_di_concrete", "app/di/Allowed.kt",
      "import com.latticeward.musiccopilot.playback.service.MusicPlaybackService\nclass Allowed", True),
     ("positive_result_mediaref", "core/result/Allowed.kt",
-     "import com.latticeward.musiccopilot.core.model.MediaRef\\nclass Allowed", True),
+     "import com.latticeward.musiccopilot.core.model.MediaRef\nclass Allowed", True),
     ("positive_resource", "app/Allowed.kt",
      "import com.latticeward.musiccopilot.R\nclass Allowed", True),
     ("negative_feature_media3", "feature/player/Bad.kt",

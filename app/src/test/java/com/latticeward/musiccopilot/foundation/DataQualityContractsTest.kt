@@ -16,29 +16,29 @@ class DataQualityContractsTest {
     @Test fun fakeLibraryImplementsAllPublicReadReconcileAndVoicePorts() = runBlocking {
         val library: LibraryRepository = FakeLibrary()
         assertEquals(LibraryIndexStatus.Empty, library.index.value.status)
-        assertTrue(library.reconcile() is AppResult.Success)
-        assertTrue(library.search(LibraryQuery("synthetic", 2)) is AppResult.Success)
+        assertTrue(library.reconcile() is AppResult.Success<*>)
+        assertTrue(library.search(LibraryQuery("synthetic", 2)) is AppResult.Success<*>)
         assertTrue(library.get(MediaRef("absent")) is AppResult.Failure)
-        assertTrue(library.resolveVoiceCandidates("synthetic", 2) is AppResult.Success)
+        assertTrue(library.resolveVoiceCandidates("synthetic", 2) is AppResult.Success<*>)
     }
 
     @Test fun fakePreferencesAreStatefulWithoutPersistingPermissionTruth() = runBlocking {
         val repo: PreferencesRepository = FakePreferences()
         assertEquals(CloudSpeechConsent.NotAsked, repo.preferences.value.cloudSpeechConsent)
         val update = repo.update(PreferenceUpdate.SetCloudSpeechConsent(CloudSpeechConsent.Declined))
-        assertTrue(update is AppResult.Success)
+        assertTrue(update is AppResult.Success<*>)
         assertEquals(CloudSpeechConsent.Declined, repo.preferences.value.cloudSpeechConsent)
         assertNull(repo.preferences.value.selectedBluetoothHint)
     }
 
     @Test fun nonAuthoritativeRestoreStoreRoundTripsSyntheticOpaqueRefs() = runBlocking {
         val store: RestorableQueueStore = FakeRestorableStore()
-        assertNull((store.read() as AppResult.Success).value)
+        assertNull((store.read() as AppResult.Success<*>).value)
         val data = RestorableQueueSnapshot(1, 5, listOf(MediaRef("fake:ref")), 0, 0, 12)
-        assertTrue(store.write(data) is AppResult.Success)
-        assertEquals(data, (store.read() as AppResult.Success).value)
-        assertTrue(store.clear() is AppResult.Success)
-        assertNull((store.read() as AppResult.Success).value)
+        assertTrue(store.write(data) is AppResult.Success<*>)
+        assertEquals(data, (store.read() as AppResult.Success<*>).value)
+        assertTrue(store.clear() is AppResult.Success<*>)
+        assertNull((store.read() as AppResult.Success<*>).value)
     }
 
     @Test fun qualityUsesClosedEventTypesAndSanitizedSinkPortOnly() {
