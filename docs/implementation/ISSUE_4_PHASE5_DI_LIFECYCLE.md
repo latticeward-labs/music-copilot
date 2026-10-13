@@ -1,10 +1,10 @@
 # Issue #4 Phase 5 — Dependency Injection and Lifecycle Contract
 
 - **Date:** 13 October 2026
-- **Status:** **IMPLEMENTED — REAL CI CONFIRMATION PENDING** (do not mark Phase 5 PASS before the final test run)
+- **Status:** **PASS — actual GitHub Actions unit tests, dependency checks, Debug/Release builds verified**
 - **Issue:** [#4](https://github.com/latticeward-labs/music-copilot/issues/4)
 - **Branch:** [`feature/4-android-foundation`](https://github.com/latticeward-labs/music-copilot/tree/feature/4-android-foundation)
-- **Implementation tested SHA (target):** [`9cc97090b74d625221a0074670a5fce37b47f148`](https://github.com/latticeward-labs/music-copilot/commit/9cc97090b74d625221a0074670a5fce37b47f148)
+- **Implementation tested SHA:** [`9cc97090b74d625221a0074670a5fce37b47f148`](https://github.com/latticeward-labs/music-copilot/commit/9cc97090b74d625221a0074670a5fce37b47f148)
 - **Authoritative sources:** [Issue #16 Public Contracts](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Runtime Policies](../architecture/RUNTIME_POLICIES.md), [ADR-0007](../adr/0007-same-process-playback-runtime-and-safe-paused-restore.md), [ADR-0008](../adr/0008-minimal-modular-monolith-and-dependency-enforcement.md)
 - **Uploaded MSM2:** SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8` matched authoritative archive
 
@@ -51,7 +51,7 @@ Injection seams: [DispatcherProvider](../../app/src/main/java/com/latticeward/mu
 
 The existing Phase 4 public-port tests remain active. The GitHub workflow [`.github/workflows/issue-4-phase2-bootstrap.yml`](../../.github/workflows/issue-4-phase2-bootstrap.yml) executes Python architecture negative fixtures, Gradle `testDebugUnitTest`, Debug and unsigned Release builds from a clean GitHub Actions checkout.
 
-**Required for Phase 5 PASS:** a real latest-code CI run must show checker and JVM suite green, Debug/Release compilation, correct scope ownership tests; record actual SHA, job, artifact, and conclusions. Do not treat pending/failed/cancelled workflow runs as PASS.
+**Actual Phase 5 CI PASS:** [GitHub Actions 38431003572](https://github.com/latticeward-labs/music-copilot/actions/runs/38431003572), tested code SHA [`9cc97090b74d625221a0074670a5fce37b47f148`](https://github.com/latticeward-labs/music-copilot/commit/9cc97090b74d625221a0074670a5fce37b47f148), job [`115413044246`](https://github.com/latticeward-labs/music-copilot/actions/runs/38431003572/job/115413044246), completed/conclusion **success**. Logs confirm `SELFTEST PASS: 24 fixtures` (7 positive/17 negative), `ARCHITECTURE PASS: one :app module; 52 package paths; 83 source files`, `:app:testDebugUnitTest`, `:app:assembleDebug`, `:app:assembleRelease`, and `BUILD SUCCESSFUL in 6m 30s`. Real test reports and APK outputs: [Artifact 11831057163](https://github.com/latticeward-labs/music-copilot/actions/runs/38431003572/artifacts/11831057163). The **24 relative Markdown links in this source document** were verified against a complete Git tree; 0 missing. Intermediate runs `38430619152` and `38430788629` were cancelled by corrective pushes and are not used as PASS evidence.
 
 ## 5. Future work, non-claims and safety
 
