@@ -107,7 +107,7 @@ def verify(files, tokens):
         if forb in activity:
             errors.append("SECOND_AUTHORITY_IN_ACTIVITY")
     nav = files.get("nav", "")
-    if nav.count("NavHost(") != 1 or nav.count("composable(") != 1:
+    if len(re.findall(r"\\bNavHost\\(", nav)) != 1 or nav.count("composable(") != 1:
         errors.append("UNAPPROVED_NAV_DESTINATION")
     if "composable(Destination.Bootstrap.route)" not in nav:
         errors.append("BOOTSTRAP_ROUTE_NOT_INSTALLED")
