@@ -13,6 +13,7 @@ on:
       - "gradle.properties"
       - "app/**"
       - "scripts/check_architecture_dependencies.py"
+      - "scripts/check_phase9_privacy.py"
       - ".github/workflows/issue-4-phase2-bootstrap.yml"
   workflow_dispatch:
 
@@ -33,6 +34,8 @@ jobs:
       - name: Enforce Issue 16 package topology and dependency direction
         run: |
           python3 scripts/check_architecture_dependencies.py --root . --self-test
+      - name: Enforce Phase 9 Privacy and Quality fail-closed baseline
+        run: python3 scripts/check_phase9_privacy.py --root . --self-test
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
