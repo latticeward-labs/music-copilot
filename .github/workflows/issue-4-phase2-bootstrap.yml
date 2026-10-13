@@ -34,6 +34,9 @@ jobs:
           distribution: temurin
           java-version: "17"
       - uses: android-actions/setup-android@v3
+        with:
+          # The old 'tools' SDK package was removed; do not request it.
+          packages: 'platform-tools'
       - uses: gradle/actions/setup-gradle@v4
       - name: Install Android 36 SDK and build tools
         run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
@@ -44,7 +47,8 @@ jobs:
           test -x ./gradlew
           test -f settings.gradle.kts
           test -d app/src/main
-          ! grep -q 'spikes/android-validation' settings.gradle.kts || grep -q '^// Do not include spikes/android-validation' settings.gradle.kts
+          test "$(grep -Ec '^include\\(' settings.gradle.kts)" -eq 1
+          grep -Fxq 'include(":app")' settings.gradle.kts
           ./gradlew :app:assembleDebug --no-daemon --stacktrace
       - uses: actions/upload-artifact@v4
         if: always()
