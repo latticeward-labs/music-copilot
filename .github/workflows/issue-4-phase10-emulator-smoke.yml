@@ -54,7 +54,10 @@ jobs:
           disable-animations: true
           emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
           script: |
-            set -euo pipefail
+            # android-emulator-runner uses /bin/sh, not bash.
+            set -eu
+            adb start-server
+            timeout 150 adb wait-for-device
             mkdir -p app/build/outputs/phase10
             adb shell getprop ro.build.version.sdk | tr -d '\r' | grep -Fxq 29
             adb install -r app/build/outputs/apk/debug/app-debug.apk
