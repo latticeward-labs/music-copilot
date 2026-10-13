@@ -86,7 +86,10 @@ jobs:
             adb shell pm clear com.latticeward.musiccopilot.debug
             adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/phase10/permission_state.txt
             grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=false' app/build/outputs/phase10/permission_state.txt
-            grep -Fq 'android.permission.RECORD_AUDIO: granted=false' app/build/outputs/phase10/permission_state.txt
+            # Android 10 PackageManager may omit a never-granted runtime permission
+            # from the runtime-permission subsection; requested != granted.
+            grep -Fq 'android.permission.RECORD_AUDIO' app/build/outputs/phase10/permission_state.txt
+            ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/phase10/permission_state.txt
             adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity | tee app/build/outputs/phase10/launch.txt
             sleep 7
             test -n "$(adb shell pidof com.latticeward.musiccopilot.debug | tr -d '\r')"
