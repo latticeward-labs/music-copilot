@@ -97,17 +97,17 @@ class Phase8VoiceFoundationTest {
             "musico play songs by Synthetic Artist" to RestrictedIntent.PLAY_ARTIST,
         )
         pairs.forEach { (spoken, expected) ->
-            assertEquals(expected, (mapper.map((result(spoken) as AppResult.Success).value)
+            assertEquals(expected, (mapper.map(result(spoken).value)
                 as VoiceIntentDecision.Direct).intent)
         }
         assertEquals(VoiceIntentDecision.Rejected,
-            mapper.map((result("pause") as AppResult.Success).value))
+            mapper.map(result("pause").value))
         assertEquals(VoiceIntentDecision.Rejected,
-            mapper.map((result("musico seek to minute 3") as AppResult.Success).value))
+            mapper.map(result("musico seek to minute 3").value))
         assertEquals(VoiceIntentDecision.RequiresConfirmation,
-            mapper.map((result("musico pause", 0.79) as AppResult.Success).value))
+            mapper.map(result("musico pause", 0.79).value))
         assertEquals(VoiceIntentDecision.RequiresConfirmation,
-            mapper.map((result("musico pause", null) as AppResult.Success).value))
+            mapper.map(result("musico pause", null).value))
         assertEquals(6_000L, VoicePolicy.LISTEN_TIMEOUT_MS)
         assertEquals(2, VoicePolicy.MAX_ATTEMPTS)
     }
@@ -179,7 +179,7 @@ class Phase8VoiceFoundationTest {
             stt, tts, FakePlayback(), recognitionEnabled = true
         )
         try {
-            val id = (voice.start(VoiceOrigin.Player) as AppResult.Success).value
+            val id = (voice.start(VoiceOrigin.Player) as AppResult.Success<VoiceSessionId>).value
             advanceTimeBy(6_001)
             advanceUntilIdle()
             val failed = voice.state.value as VoiceSessionState.Failed
@@ -238,7 +238,7 @@ class Phase8VoiceFoundationTest {
         try {
             for (reason in listOf(VoiceCancelReason.UserBack,
                 VoiceCancelReason.DrivingExit, VoiceCancelReason.PermissionLost)) {
-                val id = (voice.start(VoiceOrigin.Driving) as AppResult.Success).value
+                val id = (voice.start(VoiceOrigin.Driving) as AppResult.Success<VoiceSessionId>).value
                 testScheduler.runCurrent()
                 voice.cancel(reason)
                 assertEquals(VoiceSessionState.Idle, voice.state.value)
@@ -250,7 +250,7 @@ class Phase8VoiceFoundationTest {
         } finally { voice.close(); job.cancel(); wait.cancel() }
     }
 
-    @Test fun noProviderAndNoContextCannotProduceVoiceOrNetworkPlayback() {
+    @Test fun noProviderAndNoContextCannotProduceVoiceOrNetworkPlayback() = runTest {
         val stt = FakeStt(available = false)
         val player = FakePlayback()
         val job = SupervisorJob()
