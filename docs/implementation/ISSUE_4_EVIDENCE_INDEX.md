@@ -1,6 +1,6 @@
 # Issue #4 — GitHub execution and evidence index
 
-- **Established:** 13 October 2026; status **ACTIVE — Phase 0 PASS; Phase 1 PASS (GitHub setup only); Phases 2–14 NOT STARTED**.
+- **Established:** 13 October 2026; status **ACTIVE — Phases 0–2 PASS; Phases 3–14 NOT STARTED**.
 - **Tracked issue:** [#4 — Android Foundation & CI](https://github.com/latticeward-labs/music-copilot/issues/4), kept **open / In Progress**.
 - **Execution branch:** [`feature/4-android-foundation`](https://github.com/latticeward-labs/music-copilot/tree/feature/4-android-foundation).
 - **Frozen branch ancestor:** [`main@2c08bb2651ebb82cbb892e1b7648405cdd6d3ab4`](https://github.com/latticeward-labs/music-copilot/commit/2c08bb2651ebb82cbb892e1b7648405cdd6d3ab4); real-time GitHub compare should be rechecked before final PR.
@@ -17,7 +17,7 @@
 |---:|---|---|---|---|
 | 0 — source/AC lock | **PASS** | archive/12 PDFs, authorities, 14 AC mapping, baseline GitHub compare | [Phase 0 report](ISSUE_4_BASELINE_AND_TRACEABILITY.md), [JSON trace](ISSUE_4_PHASE0_TRACEABILITY.json), [validation](ISSUE_4_PHASE0_VALIDATION.json) | Keep sources frozen |
 | 1 — GitHub execution | **PASS — setup validated** | branch provenance, Issue status, commit plan, scoped PR checklist, spike exclusion, verified file links | This evidence index; [Phase 1 audit](ISSUE_4_PHASE1_GITHUB_EXECUTION.md); [scoped PR template](../../.github/PULL_REQUEST_TEMPLATE/issue-4-android-foundation.md) | [Phase 1 Validation JSON](ISSUE_4_PHASE1_VALIDATION.json): 4/4 requirements, 16/16 file links verified, no modified authority/spike files |
-| 2 — Android/Gradle | NOT STARTED | root Gradle wrapper, version catalog, `:app`, `minSdk=29`, real clean `:app:assembleDebug` | **none** | Build/test |
+| 2 — Android/Gradle | **PASS — actual GitHub Actions root Debug + unsigned Release build** | root Gradle wrapper, version catalog, `:app`, `minSdk=29`, real clean Gradle projects and APK builds | [Build Matrix](BUILD_MATRIX.md), [Phase 2 Validation](ISSUE_4_PHASE2_VALIDATION.json), [GHA run 38421023043](https://github.com/latticeward-labs/music-copilot/actions/runs/38421023043), [final green run 38421736045](https://github.com/latticeward-labs/music-copilot/actions/runs/38421736045) and [APK artifact 11825939906](https://github.com/latticeward-labs/music-copilot/actions/runs/38421736045/artifacts/11825939906) | Keep unimplemented architectural seams delegated to Phases 3–14 |
 | 3 — package architecture | NOT STARTED | package tree and forbidden dependency negative tests | **none** | Implement/test |
 | 4 — public contracts | NOT STARTED | typed core/boundary APIs, Phase 10 corrections and port tests | **none** | Implement/test |
 | 5 — DI and scopes | NOT STARTED | `app/di`, application/service/ViewModel lifetime tests | **none** | Implement/test |
@@ -31,7 +31,7 @@
 | 13 — clean checkout/devices | NOT STARTED | fresh root build; two *actual* model/API/commit installation+launch records | **none** | Run and record |
 | 14 — final acceptance | NOT STARTED | every original AC evidence linked; reviews; PR final HEAD green and merged SHA | **none** | Audit/merge only after pass |
 
-**Phase 1 verification:** [`ISSUE_4_PHASE1_VALIDATION.json`](ISSUE_4_PHASE1_VALIDATION.json) confirms 4/4 GitHub-setup items PASS, source/branch checked, 16/16 audited relative paths exist and 0 approved architecture/spike files changed. This is documentation integrity, not Android CI.\n\n### Evidence identity conventions
+**Phase 1 verification:** [`ISSUE_4_PHASE1_VALIDATION.json`](ISSUE_4_PHASE1_VALIDATION.json) confirms 4/4 GitHub-setup items PASS, source/branch checked, 16/16 audited relative paths exist and 0 approved architecture/spike files changed. This is documentation integrity, not Android CI.\n\n**Phase 2 build proof:** GitHub runner checked out commit `04044a1c2338453a72f822c5ba0ac8fe98d881b6` and successfully executed `./gradlew projects :app:assembleDebug :app:assembleRelease --no-daemon --stacktrace` without private credentials. Root projects reported only `:app`; Debug and unsigned Release builds uploaded to real GHA artifact. No phone installation, architecture-interface implementation, formatter enforcement, full lint/unit/static CI or production signing is claimed by this result. The two earlier SDK/grep CI failures and fixes remain in the Build Matrix.\n\n### Evidence identity conventions
 
 Use unique IDs and cite **real GitHub URLs**, SHA and environment:
 
