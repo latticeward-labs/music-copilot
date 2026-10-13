@@ -14,6 +14,9 @@ on:
       - "app/**"
       - "scripts/check_architecture_dependencies.py"
       - "scripts/check_phase9_privacy.py"
+      - "scripts/check_phase10_design_tokens.py"
+      - "docs/design-system/foundations/TOKENS.json"
+      - "docs/handoff/COMPOSE_TOKEN_MAPPING.md"
       - ".github/workflows/issue-4-phase2-bootstrap.yml"
   workflow_dispatch:
 
@@ -36,6 +39,8 @@ jobs:
           python3 scripts/check_architecture_dependencies.py --root . --self-test
       - name: Enforce Phase 9 Privacy and Quality fail-closed baseline
         run: python3 scripts/check_phase9_privacy.py --root . --self-test
+      - name: Enforce Issue 17 exact Compose token mapping and single-shell boundaries
+        run: python3 scripts/check_phase10_design_tokens.py --root . --self-test
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
