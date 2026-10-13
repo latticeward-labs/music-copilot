@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "7cfd18f79e2f1c7e07fd57f4427d4f33",
+    "entities": [
+      {
+        "tableName": "library_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mediaRef` TEXT NOT NULL, `title` TEXT NOT NULL, `artist` TEXT, `album` TEXT, `durationMs` INTEGER, `normalizedTitle` TEXT NOT NULL, `normalizedArtist` TEXT NOT NULL, PRIMARY KEY(`mediaRef`))",
+        "fields": [
+          {
+            "fieldPath": "mediaRef",
+            "columnName": "mediaRef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artist",
+            "columnName": "artist",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "album",
+            "columnName": "album",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "durationMs",
+            "columnName": "durationMs",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "normalizedTitle",
+            "columnName": "normalizedTitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedArtist",
+            "columnName": "normalizedArtist",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "mediaRef"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7cfd18f79e2f1c7e07fd57f4427d4f33')"
+    ]
+  }
+}
