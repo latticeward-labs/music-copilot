@@ -41,7 +41,7 @@ class Phase11PlaybackPoliciesTest {
 
     @Test fun validColdRestoreOnlyProducesPausedNeverAutoplay() {
         val outcome = SafePausedRestorePolicy.prepare(snapshot(), false,
-            setOf(a, b, c), 10_000L) as AppResult.Success
+            setOf(a, b, c), 10_000L) as AppResult.Success<SafePausedRestorePolicy.Plan?>
         val plan = outcome.value!!
         assertEquals(listOf(a, b, c), plan.items)
         assertEquals(1, plan.currentIndex)
@@ -53,14 +53,14 @@ class Phase11PlaybackPoliciesTest {
     @Test fun liveSessionAlwaysWinsOverPersistedCheckpoint() {
         val outcome = SafePausedRestorePolicy.prepare(
             snapshot().copy(schemaVersion = 999), true, setOf(a, b), 10_000L
-        ) as AppResult.Success
+        ) as AppResult.Success<SafePausedRestorePolicy.Plan?>
         assertNull(outcome.value)
     }
 
     @Test fun removedMediaIsDroppedAndOldPositionNeverTransfersToWrongTrack() {
         val outcome = SafePausedRestorePolicy.prepare(
             snapshot(), false, setOf(a, c), 30_000L
-        ) as AppResult.Success
+        ) as AppResult.Success<SafePausedRestorePolicy.Plan?>
         val plan = outcome.value!!
         assertEquals(listOf(a, c), plan.items)
         assertEquals(0, plan.currentIndex)
@@ -71,7 +71,7 @@ class Phase11PlaybackPoliciesTest {
     @Test fun staleOrRevokedLibraryNeverCreatesRestoredQueue() {
         val outcome = SafePausedRestorePolicy.prepare(
             snapshot(), false, emptySet(), 20_000L
-        ) as AppResult.Success
+        ) as AppResult.Success<SafePausedRestorePolicy.Plan?>
         assertNull(outcome.value)
     }
 
@@ -96,10 +96,10 @@ class Phase11PlaybackPoliciesTest {
         val empty = SafePausedRestorePolicy.prepare(
             snap.copy(items = emptyList(), currentIndex = 0, positionMs = 0L),
             false, setOf(a), 20_000L
-        ) as AppResult.Success
+        ) as AppResult.Success<SafePausedRestorePolicy.Plan?>
         assertNull(empty.value)
         val unknown = SafePausedRestorePolicy.prepare(snap, false, setOf(a,b,c), null)
-            as AppResult.Success
+            as AppResult.Success<SafePausedRestorePolicy.Plan?>
         assertEquals(0L, unknown.value!!.positionMs)
         assertFalse(unknown.value!!.playWhenReady)
     }

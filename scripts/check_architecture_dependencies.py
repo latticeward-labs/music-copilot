@@ -138,6 +138,10 @@ def allowed_internal(source: str, target: str) -> bool:
             matches(target, "playback")
             or any(matches(target, leaf) for leaf in LEAVES)
             or matches(target, "data.api.RestorableQueueStore")
+            # The restore-only public DTO is returned by RestorableQueueStore;
+            # no concrete DataStore/Room/MediaStore dependency is permitted.
+            or (matches(source, "playback.restore") and
+                matches(target, "data.api.RestorableQueueSnapshot"))
         )
     if matches(source, "voice"):
         return (
@@ -260,6 +264,10 @@ CASES = (
      "import com.latticeward.musiccopilot.playback.api.PlaybackGateway\nclass Allowed", True),
     ("positive_data_restore", "playback/restore/Allowed.kt",
      "import com.latticeward.musiccopilot.data.api.RestorableQueueStore\nclass Allowed", True),
+    ("positive_restore_dto", "playback/restore/Allowed.kt",
+     "import com.latticeward.musiccopilot.data.api.RestorableQueueSnapshot\nclass Allowed", True),
+    ("negative_playback_imports_room", "playback/restore/Bad.kt",
+     "import com.latticeward.musiccopilot.data.room.MusicCopilotDatabase\nclass Bad", False),
     ("positive_di_concrete", "app/di/Allowed.kt",
      "import com.latticeward.musiccopilot.playback.service.MusicPlaybackService\nclass Allowed", True),
     ("positive_result_mediaref", "core/result/Allowed.kt",
