@@ -1,0 +1,57 @@
+name: Issue 4 Phase 2 - root Android bootstrap
+
+on:
+  push:
+    branches:
+      - feature/4-android-foundation
+    paths:
+      - "settings.gradle.kts"
+      - "build.gradle.kts"
+      - "gradle/**"
+      - "gradlew"
+      - "gradlew.bat"
+      - "gradle.properties"
+      - "app/**"
+      - ".github/workflows/issue-4-phase2-bootstrap.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue-4-phase2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compile-root-app:
+    name: Compile root Android app (API 36 / JDK 17)
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Install Android 36 SDK and build tools
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Verify root project and build without credentials
+        run: |
+          set -euo pipefail
+          test -f gradle/wrapper/gradle-wrapper.jar
+          test -x ./gradlew
+          test -f settings.gradle.kts
+          test -d app/src/main
+          ! grep -q 'spikes/android-validation' settings.gradle.kts || grep -q '^// Do not include spikes/android-validation' settings.gradle.kts
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: issue4-phase2-root-debug
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            app/build/outputs/logs/**
+          if-no-files-found: warn
+          retention-days: 14
