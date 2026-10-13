@@ -33,6 +33,7 @@ import kotlin.coroutines.resume
  * Application-owned Media3 controller. Never creates Player/MediaSession.
  * Ready is published only *after* one complete authoritative service snapshot.
  */
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class PlaybackControllerConnection(
     private val ownerScope: CoroutineScope,
     context: Context? = null,
