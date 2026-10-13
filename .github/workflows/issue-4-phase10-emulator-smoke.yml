@@ -52,6 +52,7 @@ jobs:
           arch: x86_64
           profile: pixel_3a
           disable-animations: true
+          emulator-boot-timeout: 900
           emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
           script: |
             # android-emulator-runner uses /bin/sh, not bash.
@@ -62,8 +63,9 @@ jobs:
             adb shell getprop ro.build.version.sdk | tr -d '\r' | grep -Fxq 29
             adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb shell pm clear com.latticeward.musiccopilot.debug
-            adb shell pm check-permission com.latticeward.musiccopilot.debug android.permission.READ_EXTERNAL_STORAGE > app/build/outputs/phase10/permission_state.txt 2>&1 || true
-            adb shell pm check-permission com.latticeward.musiccopilot.debug android.permission.RECORD_AUDIO >> app/build/outputs/phase10/permission_state.txt 2>&1 || true
+            adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/phase10/permission_state.txt
+            grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=false' app/build/outputs/phase10/permission_state.txt
+            grep -Fq 'android.permission.RECORD_AUDIO: granted=false' app/build/outputs/phase10/permission_state.txt
             adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity | tee app/build/outputs/phase10/launch.txt
             sleep 7
             test -n "$(adb shell pidof com.latticeward.musiccopilot.debug | tr -d '\r')"
