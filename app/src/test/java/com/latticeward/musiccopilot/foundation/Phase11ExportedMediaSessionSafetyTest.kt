@@ -34,7 +34,9 @@ class Phase11ExportedMediaSessionSafetyTest {
     @Test fun onlySpecificExportedServiceWarningHasDocumentedLintException() {
         assertTrue(lint.contains("<issue id=\"ExportedService\">"))
         assertTrue(lint.contains("<ignore path=\"src/main/AndroidManifest.xml\" />"))
-        assertEquals(1, Regex("<issue\\s+id=").findAll(lint).count())
+        assertEquals(2, Regex("<issue\\s+id=").findAll(lint).count())
+        assertTrue(lint.contains("<issue id=\"KaptUsageInsteadOfKsp\">"))
+        assertTrue(lint.contains("<ignore path=\"build.gradle.kts\" />"))
         assertFalse(lint.contains("severity=\"ignore\""))
         assertFalse(lint.contains("id=\"all\""))
     }
