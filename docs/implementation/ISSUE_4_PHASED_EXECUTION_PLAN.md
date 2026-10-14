@@ -135,15 +135,15 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 ## Phase 11 — Automated test and architecture verification
 
-- [ ] Unit tests for typed failures, dependency rules, NoOp/privacy rejection, coroutine cancellation, DI graph and public fake contracts.
-- [ ] Required earliest policy seams: command serialization/Busy, snapshot reconnect, one Voice generation/retry, safe paused restoration, MediaStore/Room separation and typed asynchronous error projection.
-- [ ] Android lint plus formatting/static-analysis tool with zero undocumented exemptions; test intentionally prohibited imports.
-- [ ] Report completed vs **deferred to downstream issues** for the full UT-01..UT-07, IT-01..IT-07, ST-01..ST-08 architecture matrix, without claiming unexecuted end-to-end tests.
+- [x] Unit tests for typed failures, dependency rules, NoOp/privacy rejection, coroutine cancellation, DI graph and public fake contracts.
+- [x] Required earliest policy seams: command serialization/Busy, snapshot reconnect, one Voice generation/retry, safe paused restoration, MediaStore/Room separation and typed asynchronous error projection.
+- [x] Android lint plus formatting/static-analysis tool with zero undocumented exemptions; test intentionally prohibited imports.
+- [x] Report completed vs **deferred to downstream issues** for the full UT-01..UT-07, IT-01..IT-07, ST-01..ST-08 architecture matrix, without claiming unexecuted end-to-end tests.
 
 **Output:** test code, `docs/implementation/ISSUE_4_TEST_EVIDENCE.md`.  
 **PASS:** all declared foundation tests actually execute green, negative tests detect violations, deferred work is explicitly owned.
 
-## Phase 12 — Real production CI
+**Actual Phase 11 PASS (14 October 2026):** [independent GitHub Actions run #38548276220](https://github.com/latticeward-labs/music-copilot/actions/runs/38548276220) on implementation SHA [`0a3c42071c65f67e6238960d1667216815074792`](https://github.com/latticeward-labs/music-copilot/commit/0a3c42071c65f67e6238960d1667216815074792) completed **success**, including 26 architecture positive/negative fixtures, privacy and design-token negative self-tests, `:app:testDebugUnitTest` **94/94 across 14 suites (0 failures/errors/skips)**, `:app:lintDebug` **zero reported issues**, `spotlessCheck` and `detekt` **green**. [Archived XML reports, lint, Gradle log](https://github.com/latticeward-labs/music-copilot/actions/runs/38548276220/artifacts/11886011071) were independently inspected. The [Phase 11 evidence document](ISSUE_4_TEST_EVIDENCE.md) records strictly scoped, justified lint exceptions and all UT/IT/ST downstream owners. This is **Phase 11 only**; Phase 12+ not signed off.\n\n## Phase 12 — Real production CI
 
 - [ ] Add a root-app GitHub Actions workflow, e.g. `.github/workflows/android-foundation.yml`, running for PRs and main; leave existing spike and architecture workflows intact.
 - [ ] Perform checkout, documented pinned JDK/Android SDK, Gradle dependency caching and wrapper verification as appropriate.

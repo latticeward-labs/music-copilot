@@ -1,31 +1,31 @@
 # Issue #4 — Phase 11 automated tests and architecture validation
 
 - **Phase:** 11, independent foundation-test acceptance; **DO NOT close Issue #4**.
-- **Status:** **VALIDATION IN PROGRESS — pending green Phase 11 GitHub Actions run**. This is not a claimed PASS.
+- **Status:** **PASS — validated against real GitHub Actions run and archived reports (14 October 2026)**.
 - **Source:** English `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8` (12 English reference PDFs), accepted [Issue #16 validation architecture](../architecture/ISSUE_16_VALIDATION.md), ADR-0007/0008, approved [execution plan](ISSUE_4_PHASED_EXECUTION_PLAN.md).
 - **Scope:** `feature/4-android-foundation` only. Phase 12 CI sign-off and Phases 13–14 are separate work.
 - **Test source:** [app/src/test/java/com/latticeward/musiccopilot/foundation](../../app/src/test/java/com/latticeward/musiccopilot/foundation).
 - **Independent Phase 11 run:** [GitHub Actions / Phase 11 validation](https://github.com/latticeward-labs/music-copilot/actions/workflows/issue-4-phase11-validation.yml).
-- **Concrete run, current revision:** [Actions run 38480623275](https://github.com/latticeward-labs/music-copilot/actions/runs/38480623275). Its result must be read back before this document is marked PASS.
+- **Concrete run, current revision:** [Actions run 38548276220](https://github.com/latticeward-labs/music-copilot/actions/runs/38548276220). **completed/success** on SHA `0a3c42071c65f67e6238960d1667216815074792`. [XML test reports, lint results, and Gradle log](https://github.com/latticeward-labs/music-copilot/actions/runs/38548276220/artifacts/11886011071) inspected: **94 tests / 14 suites / zero failures/errors/skips; lint zero issues; Build successful**.
 
 ## Acceptance and gates
 
 | Phase 11 acceptance | Implementation/evidence | Latest result |
 |---|---|---|
-| Typed errors, public fake contracts and DI composition | `CoreContractsTest`, `ApplicationCompositionTest`, `DataQualityContractsTest`, `PlaybackVoiceContractsTest` | JVM execution pending |
-| Serialized command, Busy(32), cancellation and reconnect | `Phase7PlaybackFoundationTest`, `LifecycleScopesTest`, `ControllerSnapshotRelay` | JVM execution pending |
-| One Voice generation, timeout 6000ms, one Retry | `Phase8VoiceFoundationTest` with virtual test scheduler and fake STT/TTS | JVM execution pending |
-| P1 non-authoritative safe Paused policy | `SafePausedRestorePolicy` and **nine** `Phase11PlaybackPoliciesTest` methods; no autoplay; stale refs dropped; schema rejected | JVM execution pending |
-| Previous >3000ms and seek-back 10000ms policy | `PlaybackNavigationPolicy`; no direct Player mutation; tested boundaries | JVM execution pending |
-| MediaStore authority, Room projection and DataStore boundaries | `LocalFirstRepositoryTest`, `LocalDataStoreContractsTest` | JVM execution pending |
-| Privacy allowlist and fault isolation | `Phase9PrivacyQualityTest`, `check_phase9_privacy.py --self-test` | JVM + negative check pending |
-| Exact Compose token/ownership guard | `Phase10ComposeShellTest`, `check_phase10_design_tokens.py --self-test` | JVM + negative check pending |
-| Dependency graph, FQN/alias/GlobalScope, forbidden import detection | `check_architecture_dependencies.py --root . --self-test`; 26 positive and negative synthetic cases incl. restore DTO and forbidden Room import | negative gate pending |
-| Android lint, formatting and static analysis | `:app:lintDebug`, `spotlessCheck`, `detekt` in independent Phase 11 workflow | real Gradle check pending |
+| Typed errors, public fake contracts and DI composition | `CoreContractsTest`, `ApplicationCompositionTest`, `DataQualityContractsTest`, `PlaybackVoiceContractsTest` | PASS: 94/94 JVM tests |
+| Serialized command, Busy(32), cancellation and reconnect | `Phase7PlaybackFoundationTest`, `LifecycleScopesTest`, `ControllerSnapshotRelay` | PASS: 94/94 JVM tests |
+| One Voice generation, timeout 6000ms, one Retry | `Phase8VoiceFoundationTest` with virtual test scheduler and fake STT/TTS | PASS: 94/94 JVM tests |
+| P1 non-authoritative safe Paused policy | `SafePausedRestorePolicy` and **ten** `Phase11PlaybackPoliciesTest` methods; no autoplay; stale refs dropped; schema rejected | PASS: 94/94 JVM tests |
+| Previous >3000ms and seek-back 10000ms policy | `PlaybackNavigationPolicy`; no direct Player mutation; tested boundaries | PASS: 94/94 JVM tests |
+| MediaStore authority, Room projection and DataStore boundaries | `LocalFirstRepositoryTest`, `LocalDataStoreContractsTest` | PASS: 94/94 JVM tests |
+| Privacy allowlist and fault isolation | `Phase9PrivacyQualityTest`, `check_phase9_privacy.py --self-test` | PASS: JVM and negative checks |
+| Exact Compose token/ownership guard | `Phase10ComposeShellTest`, `check_phase10_design_tokens.py --self-test` | PASS: JVM and negative checks |
+| Dependency graph, FQN/alias/GlobalScope, forbidden import detection | `check_architecture_dependencies.py --root . --self-test`; 26 positive and negative synthetic cases incl. restore DTO and forbidden Room import | PASS: 26 synthetic positive/rejected cases |
+| Android lint, formatting and static analysis | `:app:lintDebug`, `spotlessCheck`, `detekt` in independent Phase 11 workflow | PASS: Lint 0 issues; Spotless, Detekt, JVM green |
 
-**No undocumented suppressions/baselines:** Android Lint uses `abortOnError=true`, `warningsAsErrors=true`; two pre-existing Gradle version/dependency freshness warnings are explicitly documented in `app/build.gradle.kts`, not added for Phase 11. Detekt and Spotless use real Gradle tasks; all failures must be fixed rather than reclassified as PASS.
+**Explicit, audited Lint exceptions (no undocumented baselines):** `app/lint.xml` contains exactly two path-scoped exceptions: `ExportedService` for `src/main/AndroidManifest.xml` (Media3 system/head-unit controller discovery requires exported service; typed app-private commands are checked by **both package and UID** in `onConnect` AND `onCustomCommand`, with four regression tests), and `KaptUsageInsteadOfKsp` solely for `build.gradle.kts` (a performance migration recommendation; retain validated Room KAPT until Issue #8 migrates and validates the schema). Both are documented in that file and checked by `Phase11ExportedMediaSessionSafetyTest`. No broad warning suppression or general baseline was added.\n\n**Original strict analyzer settings:** Android Lint uses `abortOnError=true`, `warningsAsErrors=true`; two pre-existing Gradle version/dependency freshness warnings are explicitly documented in `app/build.gradle.kts`, not added for Phase 11. Detekt and Spotless use real Gradle tasks; all failures must be fixed rather than reclassified as PASS.
 
-**Known discovered issue and fix:** The first strict Lint run found `createOnDeviceSpeechRecognizer()` (API31) indirectly guarded only by `isAvailable()`, not statically provable for minSdk29. A direct `Build.VERSION.SDK_INT < Build.VERSION_CODES.S` check was added in the invocation block. This preserves safe failure on Android 10/11 without replacing on-device STT with an online provider. Recheck with real Lint.
+**Known discovered issue and fix:** The first strict Lint run found `createOnDeviceSpeechRecognizer()` (API31) indirectly guarded only by `isAvailable()`, not statically provable for minSdk29. A direct `Build.VERSION.SDK_INT < Build.VERSION_CODES.S` check was added in the invocation block. This preserves safe failure on Android 10/11 without replacing on-device STT with an online provider. The API guard and additional Media3 `androidx.annotation.OptIn` corrections were rechecked with green Lint; unused bootstrap string and adaptive icon/monochrome resources were corrected without additional suppressions.
 
 ## Accepted Issue #16 test matrix: executed seam vs downstream responsibility
 
@@ -67,4 +67,12 @@ python3 scripts/check_phase10_design_tokens.py --root . --self-test
 ./gradlew :app:testDebugUnitTest :app:lintDebug spotlessCheck detekt --no-daemon --stacktrace
 ```
 
-JDK 17, compile SDK 36 and Android Build Tools 35.0.0 are supplied in the workflow. A green GitHub Actions run, not this file alone, is the evidence for PASS. Unit tests use synthetic media and fake providers; **no audio/credential/user media is uploaded to CI**.
+JDK 17, compile SDK 36 and Android Build Tools 35.0.0 are supplied in the workflow. The **green** GitHub Actions run above, not this file alone, is the Phase 11 PASS evidence. Unit tests use synthetic media and fake providers; **no audio/credential/user media is uploaded to CI**.
+
+## Final validation result
+
+- **Phase 11 PASS** on [run #38548276220](https://github.com/latticeward-labs/music-copilot/actions/runs/38548276220), successful, 14 October 2026.
+- **Real test artifact:** [11886011071](https://github.com/latticeward-labs/music-copilot/actions/runs/38548276220/artifacts/11886011071), 94 tests / 14 suites / 0 failed / 0 errors / 0 skipped.
+- **Android Lint report:** zero entries in `lint-results-debug.xml` (verified from the actual ZIP). `spotlessCheck` and `detekt` returned success and `BUILD SUCCESSFUL` is present in `app/build/reports/phase11/gradle.log`.
+- **Independent negative rules:** architecture self-test (26 synthetic allow/reject fixtures), privacy self-test and token negative fixtures all successful in Actions job.
+- **Scope honesty:** all 22 UT/IT/ST IDs are mapped; the not-yet-implemented device, head-unit, process loss, provider and product-feature behavior is delegated above and **not** claimed as executed here. Phases 12–14 remain pending their own evidence.
