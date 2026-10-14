@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Music Copilot</string>
-    <string name="foundation_bootstrap_message">Android foundation bootstrap — feature implementation pending.</string>
     <string name="foundation_shell_message">Local-first Android foundation. Playback, Voice and feature screens are being connected.</string>
     <string name="foundation_state_initializing">Checking local readiness.</string>
     <string name="foundation_state_unavailable">Local media is unavailable. Manual access and permission recovery are being prepared.</string>
