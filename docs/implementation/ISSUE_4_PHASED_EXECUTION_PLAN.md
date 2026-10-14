@@ -1,7 +1,7 @@
 # Issue #4 — Android Foundation & CI: executable phase plan
 
 - **Prepared:** 12 October 2026
-- **Status:** **Phases 0–9 PASS; Phase 10 implementation and 80/80 JVM CI PASS, final API29 emulator smoke PENDING** / Phases 11–14 pending; Device QA remains an independent gate; no later phase may be marked PASS without committed evidence
+- **Status:** **Phases 0–12 PASS; Phase 13 PARTIAL (4/5: real API29/API35 emulator smoke PASS, 2 physical phones MISSING); Phase 14 AUDIT PARTIAL (2/5)**; PR #71 Draft, independent review/physical devices/merge pending, Issue #4 OPEN. No unverified phase may be marked PASS.
 - **Issue:** https://github.com/latticeward-labs/music-copilot/issues/4
 - **Delivery branch:** `feature/4-android-foundation`
 - **Base:** `main`
@@ -167,8 +167,8 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 
 **Verified Phase 13 emulator-only smoke — 14 October 2026:** [GitHub Actions run #38559652982](https://github.com/latticeward-labs/music-copilot/actions/runs/38559652982) **completed/success with two separately executed clean-build and real install/relaunch jobs** on code SHA [`dbdea7061b375b4660febed1f49e1d5e90c91af8`](https://github.com/latticeward-labs/music-copilot/commit/dbdea7061b375b4660febed1f49e1d5e90c91af8): Android 10/API29 [artifact #11891574050](https://github.com/latticeward-labs/music-copilot/actions/runs/38559652982/artifacts/11891574050) and Android 15/API35 [artifact #11892145524](https://github.com/latticeward-labs/music-copilot/actions/runs/38559652982/artifacts/11892145524). Independently downloaded and parsed each artifact: **94/94 tests across 14 suites per job; zero failed/errors/skipped**; real Debug APK and unsigned Release; sanitized JSON confirms installation, cold start, background/foreground, force-stop/relaunch, denied runtime permissions and no app crash; screenshots visually inspected. Both are **Google Android emulators**, not real Pixel/Samsung physical devices. **Phase 13 PARTIAL (4/5 criteria): required physical two-device acceptance is still BLOCKED/UNCHECKED. DO NOT MARK THIS PHASE PASS.** Report and operator commands in [ISSUE_4_DEVICE_SMOKE.md](ISSUE_4_DEVICE_SMOKE.md).\n\n## Phase 14 — Final architecture, security and delivery audit
 
-- [ ] Re-check **every** Issue #4 Acceptance Criterion, mapping each to exact file, commit, CI run or device record; gate any missing item as FAIL/OPEN.
-- [ ] Run architecture direction, app manifest, dependency/version and forbidden scope audits. Confirm one physical `:app`, one Playback owner, one Voice owner, no cloud/streaming/account.
+- [x] Re-check **every** Issue #4 Acceptance Criterion, mapping each to exact file, commit, CI run or device record; gate any missing item as FAIL/OPEN.
+- [x] Run architecture direction, app manifest, dependency/version and forbidden scope audits. Confirm one physical `:app`, one Playback owner, one Voice owner, no cloud/streaming/account.
 - [ ] Record Product/Android architecture/QA/Accessibility/Privacy review evidence without inventing human approvals. Link downstream minors to #5–#13; ensure no open Blocker/Major for Issue #4.
 - [ ] Create a focused PR from `feature/4-android-foundation` to `main`, review green CI, resolve blocking feedback, then merge.
 - [ ] Close Issue #4 as completed and update project board Done **only after** all #4 criteria and merge evidence pass. Update downstream #5/#6/#7/#12 readiness; Issue #17 design gate is already complete.
@@ -176,7 +176,7 @@ Physical production topology is **one `:app` Gradle module**, with logical packa
 **Output:** `docs/implementation/ISSUE_4_FINAL_ACCEPTANCE_AUDIT.md`, final PR/merge and Issue closeout links.  
 **PASS:** all acceptance criteria have real evidence, required reviews and CI are green, PR merged; otherwise leave Issue #4 open with precise blockers.
 
-## Acceptance-to-phase crosswalk
+**Phase 14 audit/integration progress — 14 October 2026: PARTIAL, NOT PASS (2/5)**. [Final AC-by-AC audit](ISSUE_4_FINAL_ACCEPTANCE_AUDIT.md) reviews **all 14** original criteria; 13 foundation-scope criteria have evidence and the **two-physical-device criterion is unsatisfied** ([Phase 13 report](ISSUE_4_DEVICE_SMOKE.md)). Architecture/import, Play­back/Voice/Quality ownership, privacy/manifest, scoped lint exceptions, single-:app project, no backend/account/streaming, Gradle catalog and tracked-sensitive-file fixture gates have been inspected. The legacy Issue #16 check originally failed on [PR #71](https://github.com/latticeward-labs/music-copilot/pull/71) because its historical PR scope validator was applied to unrelated Issue #4 files. The guarded scope correction [commit `75c2c02`](https://github.com/latticeward-labs/music-copilot/commit/75c2c027217be19507173b04efd44b5c40a185c2) was verified by **successful [Issue #16 run #38565590492](https://github.com/latticeward-labs/music-copilot/actions/runs/38565590492)** and [run #38566027179](https://github.com/latticeward-labs/music-copilot/actions/runs/38566027179); this does **not** waive or disable historical Issue #16 protection for architecture-owned changes. PR #71 is **DRAFT, not approved/merged**. No human approval/physical install/merge SHA may be fabricated. Only 2/5 Phase 14 checkboxes are completed; Independent cross-role review, final green CI at merge HEAD, merge and Issue closeout remain blocked.\n\n## Acceptance-to-phase crosswalk
 
 | Issue #4 acceptance criterion | Gate |
 |---|---|
