@@ -44,12 +44,31 @@ jobs:
           set -euo pipefail
           if [[ "$EVENT_NAME" != "pull_request" ]]; then
             echo "requires_legacy=true" >> "$GITHUB_OUTPUT"
-          elif git diff --name-only "$PR_BASE" "$PR_HEAD" | grep -Eq '^(docs/architecture/|docs/adr/|docs/SOFTWARE_ARCHITECTURE[.]md$|README[.]md$|docs/DELIVERY_WORKFLOW[.]md$|docs/TECHNICAL_DECISIONS[.]md$|docs/DESIGN_DELIVERY_PLAN[.]md$|scripts/validate_issue16_(final_)?architecture[.]py$|[.]github/workflows/issue-16-architecture-validation[.]yml$)'; then
+          elif git diff --name-only "$PR_BASE" "$PR_HEAD" | grep -Eq '^(docs/architecture/|docs/adr/|docs/SOFTWARE_ARCHITECTURE[.]md$|README[.]md$|docs/DELIVERY_WORKFLOW[.]md$|docs/TECHNICAL_DECISIONS[.]md$|docs/DESIGN_DELIVERY_PLAN[.]md$|scripts/validate_issue16_(final_)?architecture[.]py$)'; then
             echo "requires_legacy=true" >> "$GITHUB_OUTPUT"
           else
             echo "requires_legacy=false" >> "$GITHUB_OUTPUT"
             echo "ISSUE16_HISTORICAL_SCOPE: NOT_APPLICABLE (no Issue 16-owned paths changed)"
           fi
+      # This workflow also triggers when its own code is edited. A workflow
+      # change by itself must not reclassify an unrelated Android implementation
+      # PR as an Issue 16 architecture document change. Keep the historical
+      # validator intact and prove the boundary classifier remains fail closed.
+      - name: Assert historical architecture scope remains protected
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path(".github/workflows/issue-16-architecture-validation.yml").read_text()
+          assert 'docs/architecture/' in text
+          assert 'docs/SOFTWARE_ARCHITECTURE[.]md' in text
+          assert 'scripts/validate_issue16_(final_)?architecture[.]py' in text
+          assert "if: steps.issue16_scope.outputs.requires_legacy == 'true'" in text
+          assert 'run: python scripts/validate_issue16_final_architecture.py' in text
+          assert "if: steps.issue16_scope.outputs.requires_legacy == 'false'" in text
+          print("ISSUE16_SCOPE_CLASSIFIER_GUARD PASS: doc-owned changes still use strict historical audit")
+          PY
       - name: Final link, status, review, traceability and scope audit
         if: steps.issue16_scope.outputs.requires_legacy == 'true'
         env:
