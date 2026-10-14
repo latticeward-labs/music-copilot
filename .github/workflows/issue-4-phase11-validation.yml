@@ -19,7 +19,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: issue4-phase11-${{ github.ref }}
+  group: issue4-phase11-${{ github.sha }}
   cancel-in-progress: true
 
 jobs:
