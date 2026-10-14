@@ -14,7 +14,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: android-foundation-${{ github.ref }}
+  # Each SHA retains its own verification; delayed older pushes cannot cancel newer checks.
+  group: android-foundation-${{ github.sha }}
   cancel-in-progress: true
 
 jobs:
@@ -66,7 +67,12 @@ jobs:
           ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee app/build/reports/foundation-ci/gradle-output.txt
           test -s app/build/outputs/apk/debug/app-debug.apk
           test -d app/build/test-results/testDebugUnitTest
-          echo "ANDROID_FOUNDATION_CORE_CI PASS: Spotless, Detekt, lint, JVM, real Debug APK"
+          find app/build/test-results/testDebugUnitTest -name 'TEST-*.xml' -print -quit | grep -q .
+          test -s app/build/reports/lint-results-debug.xml
+          test -s app/build/reports/lint-results-debug.html
+          test -s build/reports/detekt/detekt.xml
+          test -s app/build/reports/foundation-ci/gradle-output.txt
+          echo "ANDROID_FOUNDATION_CORE_CI PASS: Spotless, Detekt, lint, JVM, real Debug APK and reports"
 
       - name: Prove formatter fails closed, then restore clean checkout
         shell: bash
@@ -74,12 +80,16 @@ jobs:
           set -euo pipefail
           probe=app/src/test/java/com/latticeward/musiccopilot/foundation/Phase12FormatProbe.kt
           trap 'rm -f "$probe"' EXIT
+          mkdir -p "$(dirname "$probe")"
           printf 'package com.latticeward.musiccopilot.foundation\n\nclass Phase12FormatProbe  \n' > "$probe"
           if ./gradlew spotlessCheck --no-daemon > app/build/reports/foundation-ci/format-rejection.txt 2>&1; then
             echo "FAIL: Spotless accepted deliberate trailing-whitespace regression"
             exit 1
           fi
-          grep -Eq 'spotless|Spotless|format' app/build/reports/foundation-ci/format-rejection.txt
+          # Verify failure came from our deliberate formatting violation, not a Gradle outage.
+          grep -Fq ':spotlessKotlinAndGradleWhitespaceCheck FAILED' app/build/reports/foundation-ci/format-rejection.txt
+          grep -Fq 'The following files had format violations:' app/build/reports/foundation-ci/format-rejection.txt
+          grep -Fq "$probe" app/build/reports/foundation-ci/format-rejection.txt
           echo "FORMAT_NEGATIVE_FIXTURE PASS: real Spotless rejected a deliberately bad Kotlin file"
           rm -f "$probe"
           ./gradlew spotlessCheck --no-daemon
@@ -99,4 +109,4 @@ jobs:
             build/reports/detekt/**
             app/schemas/**
           retention-days: 14
-          if-no-files-found: warn
+          if-no-files-found: error
