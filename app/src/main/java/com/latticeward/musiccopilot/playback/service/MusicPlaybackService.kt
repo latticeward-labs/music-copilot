@@ -100,6 +100,10 @@ class MusicPlaybackService : MediaSessionService() {
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession = session
 
     private inner class PlaybackCallbacks : MediaSession.Callback {
+        private fun isPrivateCaller(controller: MediaSession.ControllerInfo): Boolean =
+            controller.packageName == packageName &&
+                controller.uid == android.os.Process.myUid()
+
         override fun onConnect(
             session: MediaSession,
             controller: MediaSession.ControllerInfo,
@@ -107,8 +111,7 @@ class MusicPlaybackService : MediaSessionService() {
             // Typed internal commands are app-private, not available to an
             // arbitrary external controller. Android media surface controls
             // still use the same service-owned Player through MediaSession.
-            val privateCaller = controller.packageName == packageName &&
-                controller.uid == android.os.Process.myUid()
+            val privateCaller = isPrivateCaller(controller)
             val commandBuilder = SessionCommands.Builder()
             if (privateCaller) {
                 commandBuilder.add(PlaybackWireProtocol.executeCommand())
@@ -125,7 +128,10 @@ class MusicPlaybackService : MediaSessionService() {
             controller: MediaSession.ControllerInfo,
             customCommand: SessionCommand,
             args: Bundle,
-        ): ListenableFuture<SessionResult> = when (customCommand.customAction) {
+        ): ListenableFuture<SessionResult> =
+            if (!isPrivateCaller(controller)) {
+                Futures.immediateFuture(SessionResult(SessionError.ERROR_NOT_SUPPORTED))
+            } else when (customCommand.customAction) {
             PlaybackWireProtocol.ACTION_SNAPSHOT ->
                 Futures.immediateFuture(
                     SessionResult(SessionResult.RESULT_SUCCESS, wrap(confirmed))

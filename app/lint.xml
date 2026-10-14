@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- Media3 requires exported=true for system/vehicle discovery and external
+         controller attachment. Scope this acknowledged ExportedService exception
+         ONLY to our app manifest, which is checked by the Phase 11 invariant
+         guard. All external custom commands are rejected at the service and
+         ordinary media transports retain the Media3 access model.
+         Do not widen this exemption without review of ADR-0002/ADR-0007. -->
+    <issue id="ExportedService">
+        <ignore path="src/main/AndroidManifest.xml" />
+    </issue>
+</lint>
