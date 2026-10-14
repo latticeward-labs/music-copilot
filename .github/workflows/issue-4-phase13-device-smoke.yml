@@ -1,0 +1,120 @@
+name: Issue 4 Phase 13 - Clean checkout and dual emulator evidence
+
+on:
+  push:
+    branches:
+      - feature/4-android-foundation
+    paths:
+      - "app/**"
+      - "gradle/**"
+      - "gradlew"
+      - "gradle.properties"
+      - "settings.gradle.kts"
+      - "build.gradle.kts"
+      - "scripts/issue4_phase13_device_smoke.sh"
+      - "scripts/check_phase13_device_evidence.py"
+      - ".github/workflows/issue-4-phase13-device-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # A late older push must not cancel evidence for a newer commit.
+  group: issue4-phase13-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  clean-root-android-and-emulator:
+    name: Clean root app / ${{ matrix.label }} emulator ONLY
+    runs-on: ubuntu-22.04
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - api: 29
+            profile: pixel_3a
+            label: pixel3a-api29
+          - api: 35
+            profile: pixel_6
+            label: pixel6-api35
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Document true fresh checkout, no checked-in credentials, and physical-claim rejection fixtures
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f gradle/wrapper/gradle-wrapper.jar
+          test -x gradlew
+          test ! -e local.properties
+          test ! -d app/build
+          test ! -d .gradle
+          grep -Fxq 'include(":app")' settings.gradle.kts
+          test -z "$(git status --porcelain)"
+          python3 scripts/check_phase13_device_evidence.py --self-test
+          python3 scripts/check_phase12_repository_safety.py --root . --self-test
+          python3 scripts/check_architecture_dependencies.py --root . --self-test
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-disabled: true
+          validate-wrappers: true
+      - name: Install Android compile SDK and clean-build tests and APKs
+        shell: bash
+        run: |
+          set -euo pipefail
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          # No local build state or Gradle dependency caches from an earlier run.
+          rm -rf .gradle app/build "$HOME/.gradle/caches"
+          mkdir -p app/build/outputs/phase13
+          ./gradlew projects :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease --no-daemon --no-build-cache --stacktrace 2>&1 | tee app/build/outputs/phase13/clean-build.log
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          test -s app/build/outputs/apk/release/app-release-unsigned.apk
+          find app/build/test-results/testDebugUnitTest -name 'TEST-*.xml' -print -quit | grep -q .
+          sha256sum app/build/outputs/apk/debug/app-debug.apk > app/build/outputs/phase13/apk_sha256.txt
+          echo "PHASE13_FRESH_ROOT_BUILD PASS: no private credentials; real unit tests and Debug/unsigned Release outputs"
+      - name: Enable KVM and reserve real AVD disk capacity
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          [ ! -d "${ANDROID_HOME}/ndk" ] || sudo rm -rf "${ANDROID_HOME}/ndk"
+          [ ! -d "${ANDROID_HOME}/cmake" ] || sudo rm -rf "${ANDROID_HOME}/cmake"
+          df -h .
+          test "$(df -Pk . | awk 'NR==2 {print $4}')" -ge 10485760
+      - name: Real emulator install, cold start, default-denied permissions, foreground/background and process recreation
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api }}
+          target: google_apis
+          arch: x86_64
+          profile: ${{ matrix.profile }}
+          disk-size: 2048M
+          disable-animations: false
+          emulator-boot-timeout: 900
+          emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
+          script: bash scripts/issue4_phase13_device_smoke.sh emulator "app/build/outputs/phase13/${{ matrix.label }}" "${{ matrix.api }}" "${{ matrix.label }}"
+      - name: Persist real run logs, synthetic-state screenshot, APK, tests and binary digest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue4-phase13-emulator-${{ matrix.label }}
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            app/build/outputs/phase13/**
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/apk/release/app-release-unsigned.apk
+            app/build/test-results/testDebugUnitTest/**
