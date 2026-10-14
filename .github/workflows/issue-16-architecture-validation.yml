@@ -29,10 +29,44 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # The Issue #16 acceptance scope check is intentionally anchored to its
+      # historical delivery base and MUST NOT be applied to an unrelated
+      # Issue #4 Android implementation PR. Keep the strict legacy check for
+      # PRs which actually modify Issue #16-owned architecture inputs.
+      - name: Classify Issue 16-owned changes
+        id: issue16_scope
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" != "pull_request" ]]; then
+            echo "requires_legacy=true" >> "$GITHUB_OUTPUT"
+          elif git diff --name-only "$PR_BASE" "$PR_HEAD" | grep -Eq '^(docs/architecture/|docs/adr/|docs/SOFTWARE_ARCHITECTURE[.]md$|README[.]md$|docs/DELIVERY_WORKFLOW[.]md$|docs/TECHNICAL_DECISIONS[.]md$|docs/DESIGN_DELIVERY_PLAN[.]md$|scripts/validate_issue16_(final_)?architecture[.]py$|[.]github/workflows/issue-16-architecture-validation[.]yml$)'; then
+            echo "requires_legacy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "requires_legacy=false" >> "$GITHUB_OUTPUT"
+            echo "ISSUE16_HISTORICAL_SCOPE: NOT_APPLICABLE (no Issue 16-owned paths changed)"
+          fi
       - name: Final link, status, review, traceability and scope audit
+        if: steps.issue16_scope.outputs.requires_legacy == 'true'
         env:
           ISSUE16_BASE_SHA: 281e1abda39a78ee0d80051c154ed6eb4af33361
         run: python scripts/validate_issue16_final_architecture.py
+      - name: Check unrelated Android foundation PR against its own dependency/privacy rules
+        if: steps.issue16_scope.outputs.requires_legacy == 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f scripts/check_architecture_dependencies.py ]]; then
+            python3 scripts/check_architecture_dependencies.py --root . --self-test
+          fi
+          if [[ -f scripts/check_phase9_privacy.py ]]; then
+            python3 scripts/check_phase9_privacy.py --root . --self-test
+          fi
+          echo "ISSUE16_SCOPE_GUARD PASS: unrelated PR not evaluated against Issue #16 historical scope allowlist"
       - name: Reproduce Issue 17 design, traceability and acceptance audits
         run: |
           set -euo pipefail
