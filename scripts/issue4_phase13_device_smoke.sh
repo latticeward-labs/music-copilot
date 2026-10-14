@@ -12,9 +12,17 @@ activity="com.latticeward.musiccopilot.app.MainActivity"
 [[ "$expected_api" =~ ^[0-9]+$ ]] || exit 1
 [[ "$label" =~ ^[a-zA-Z0-9_-]{3,48}$ ]] || exit 1
 mkdir -p "$out"
+if [[ "$kind" == physical && "${PHASE13_SYNTHETIC_DEVICE_ATTESTED:-}" != "yes" ]]; then
+  echo "PHYSICAL_EVIDENCE_REQUIRES_OPERATOR_ATTESTATION: use a dedicated test phone/profile containing synthetic or no music; set PHASE13_SYNTHETIC_DEVICE_ATTESTED=yes"
+  exit 1
+fi
 test -s app/build/outputs/apk/debug/app-debug.apk
 adb start-server >/dev/null
 timeout 150 adb wait-for-device
+# Do not rely on whichever ADB target happens to be first when multiple phones
+# or emulators are connected; the operator must expose exactly one device.
+targets="$(adb devices | awk '$2 == "device" {count++} END {print count+0}')"
+[[ "$targets" == "1" ]] || { echo "ONE_ADB_TARGET_REQUIRED: connected=$targets"; exit 1; }
 api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
 release="$(adb shell getprop ro.build.version.release | tr -d '\r')"
 maker="$(adb shell getprop ro.product.manufacturer | tr -d '\r')"
@@ -45,8 +53,12 @@ grep -Eq 'Status: ok|Status: OK' "$out/cold_start.txt"
 sleep 6
 [[ -n "$(adb shell pidof "$app" | tr -d '\r')" ]] || { echo "PROCESS_NOT_RUNNING"; exit 1; }
 adb shell dumpsys activity activities | grep -Fq "$app" || { echo "ACTIVITY_NOT_REGISTERED"; exit 1; }
-adb exec-out screencap -p > "$out/cold_start.png"
-test "$(stat -c '%s' "$out/cold_start.png")" -gt 1000
+if [[ "$kind" == emulator ]]; then
+  # Screenshots of a personal phone can expose local tracks and user content.
+  # Only a clean synthetic/no-media emulator screenshot can enter CI artifacts.
+  adb exec-out screencap -p > "$out/cold_start.png"
+  test "$(stat -c '%s' "$out/cold_start.png")" -gt 1000
+fi
 # Activity/background smoke, not complete MediaSession or Bluetooth certification.
 adb shell input keyevent KEYCODE_HOME
 sleep 2
