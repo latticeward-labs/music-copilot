@@ -44,3 +44,17 @@ The same requester expressly directed proceeding with this foundation merge and 
 - Fourteen **effective Issue #4 foundation criteria** under this addendum: 13 unchanged plus one explicitly revised AC-11; all fourteen may be marked **PASS only under this documented acceptance contract**.
 - Two physical-device coverage, instrumented physical test proof and independent human PR review remain **unperformed**. These are **deferred/not waived as having happened**.
 - Issue #5 is **untouched**; only Issue #4 docs/PR/state and the required final merge are in scope.
+
+
+## Verified merge and Issue #4 closeout — 16 October 2026
+
+- **Completed Issue #4:** [#4](https://github.com/music-copilot-organization/music-copilot/issues/4) = `closed / completed` at **2026-10-15 22:09:57 UTC**.
+- **Merged implementation PR:** [#71](https://github.com/music-copilot-organization/music-copilot/pull/71) = `closed / merged` at **2026-10-15 22:09:56 UTC**, squash merge commit [`4536cccced3cfbfa0e517bd0d81bd4a5a9060364`](https://github.com/music-copilot-organization/music-copilot/commit/4536cccced3cfbfa0e517bd0d81bd4a5a9060364); verified `main` ref points to that SHA.
+- **Pre-merge final branch HEAD:** `5c44c1fb6cb66a0026d378702f6813fa60f3798a`; Android Foundation CI [#38814216577](https://github.com/music-copilot-organization/music-copilot/actions/runs/38814216577), [#38814212030](https://github.com/music-copilot-organization/music-copilot/actions/runs/38814212030), and Architecture/Design [#38814357653](https://github.com/music-copilot-organization/music-copilot/actions/runs/38814357653) all completed **success**.
+- **Actual post-merge `main` Android CI:** [#38815204849](https://github.com/music-copilot-organization/music-copilot/actions/runs/38815204849) on merge SHA `4536cccced3cfbfa0e517bd0d81bd4a5a9060364` completed **success**.
+- **Owner-amended foundation contract:** 14/14 effective ACs passed, including one **user-reported** physical HONOR X7d Android 15 Bootstrap smoke under [formal exception](ISSUE_4_OWNER_SCOPE_AND_REVIEW_ADDENDUM_2026-10-16.md). Original two-phone ADB/physical matrix was **not performed**, deferred to later OEM/vehicle QA #13.
+- **Review governance disclosure:** zero independent human PR approvals submitted; owner authorized one-Issue accelerated review/merge exception, documented in the addendum. This is **not** fabricated human approval.
+- **Project board:** the [Issue #4 GitHub events](https://github.com/music-copilot-organization/music-copilot/issues/4) record an automated `project_v2_item_status_changed` event at **2026-10-15 22:10:00 UTC** immediately after closure. The specific Project V2 status *value* (`Done` vs another state) cannot be read using this available connector and is **not independently verified as Done**; only the observed status-change event is claimed.
+- **Issue #5 remains unchanged**. This closeout does not ship feature flows, nor claim OEM/device/vehicle production certification.
+
+**Result:** GitHub **PR merge and issue closeout completed** under the explicitly narrower, owner-approved Issue #4 scope; Project board `Done` exact value and independent human review are not claimed.
