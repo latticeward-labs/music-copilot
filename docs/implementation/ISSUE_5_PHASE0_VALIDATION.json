@@ -1,0 +1,37 @@
+{
+  "schema": "music-copilot.issue5.phase0.validation.v1",
+  "created": "2026-10-16",
+  "verification_kind": "live GitHub main tree metadata plus extracted attached archive SHA-256 and issue/contract inspections",
+  "reference_main_sha": "fbd7bb50238bc6a063ab75feb7f1a00aa969e81d",
+  "tree_sha": "fbd7bb50238bc6a063ab75feb7f1a00aa969e81d",
+  "tree_truncated": false,
+  "tree_entry_count": 1246,
+  "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "archive_pdf_members_verified": 12,
+  "archive_pdf_members_total": 12,
+  "repo_source_paths_checked": 51,
+  "repo_source_paths_found": 51,
+  "repo_source_paths_missing": [],
+  "acceptance_count": 13,
+  "acceptance_mapped": 13,
+  "acceptance_implemented_or_tested_by_phase0": 0,
+  "dor_total": 4,
+  "dor_passed": 4,
+  "test_scenarios_planned": 17,
+  "test_scenarios_executed": 0,
+  "architecture_blockers_open": 0,
+  "main_head_ci": {
+    "id": 38816374430,
+    "conclusion": "success",
+    "sha": "fbd7bb50238bc6a063ab75feb7f1a00aa969e81d"
+  },
+  "phase0_outcome": "PASS_READY_FOR_PHASE1",
+  "issue5_outcome": "OPEN_NOT_ACCEPTED",
+  "limitations": [
+    "repository tree path-level audit does not verify HTTP redirects/fragments",
+    "runtime permission, Accessibility, and device tests not run",
+    "Issue #4 one-device manually reported and expedited-review exception not transferable",
+    "no independent GitHub human review from this phase",
+    "Project V2 status not independently changed by this audit"
+  ]
+}
