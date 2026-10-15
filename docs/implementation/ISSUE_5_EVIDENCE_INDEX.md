@@ -30,7 +30,7 @@ Each future PASS must record tested commit SHA, run/time, actual test and CI pat
 | Phases | Required artifact | Status |
 |---|---|---|
 | P00 | SHA-locked 12-PDF English source, 51-path/13-AC/17-case baseline, 4/4 DoR | PASS_SPEC_ONLY |
-| P01 | Existing branch/ancestry, PR template, reviewer policy, machine CI gate and GitHub readback | PENDING_CI |
+| P01 | Existing branch/ancestry, PR template, reviewer policy and machine CI contract; [initial real run #38819186656](https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656) | PASS_DOC_CONTRACT_ONLY |
 | P02–P04 | DataStore/application truth, lifecycle, UI navigation and API-aware media/mic policies | NOT_RUN |
 | P05–P08 | Denial, Settings recheck, JIT mic and deferred notification recovery | NOT_RUN |
 | P09–P10 | Cloud consent disabled, no account/identity, real local-library/GS-01 integration | NOT_RUN |

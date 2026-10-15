@@ -1,6 +1,6 @@
 # Issue #5 — Phase 1 GitHub Execution and Delivery Contract
 
-**Date:** 2026-10-16 | **Gate:** P01 — documentation and delivery workflow only; NOT Android feature acceptance.
+**Date:** 2026-10-16 | **Gate:** P01 **PASS (documentation/CI contract only)**; NOT Android feature acceptance.
 **Issue:** [#5](https://github.com/music-copilot-organization/music-copilot/issues/5) | **Branch:** `feature/5-onboarding-permissions-recovery` | **Frozen main:** `fbd7bb50238bc6a063ab75feb7f1a00aa969e81d`.
 **Phase-0 commit:** `6152bbd2e3f3b62813185f189c9f655d05b418fe` | **Archive:** `MSM2(1)(1).rar`, confirmed SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 
@@ -37,7 +37,7 @@ Controlling product requirements: [English PRD](https://github.com/music-copilot
 - [x] Rechecked archive SHA, issue/open AC 0/13, existing branch ancestry, current main CI, and develop divergence.
 - [x] Scoped branch delivery contract, independent review gates, non-inherited #4 exception, and next-phase evidence responsibilities specified.
 - [x] PR template, Evidence Index, script and workflow committed to feature branch without app implementation.
-- [ ] New actual Phase-1 GitHub Actions check SUCCESS for final P01 head.
-- [ ] Post-commit GitHub read-back, comparison vs main and issue invariants verified.
+- [x] Real initial Phase-1 [GitHub Actions run #38819186656](https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656) succeeded at `6a9c663cb4999dd0f9a9a8b4e329aa8e4d2007e3` (job #116711292922; checkout and Python contract/negative fixture validation SUCCESS). The post-evidence final head must be checked separately.
+- [x] Prior-phase read-back verified the 13-AC/17-test contracts, real workflow result and Issue #5 OPEN (4/4 DoR, 13 AC still unchecked); final evidence commit comparison and CI will be reported in Issue #5 after their separate verification.
 
-**Nonclaims:** no Issue #5 feature implementation, no physical/instrumented Android permission evidence, no external PR reviewer approval, no PR merge, no Project Done. Next after actual P01 PASS: P02 bootstrap/state ownership.
+**Nonclaims:** no Issue #5 feature implementation, no physical/instrumented Android permission evidence, no external PR reviewer approval, no PR merge, no Project Done. Next: P02 bootstrap/state ownership only. Documentation CI does NOT imply any permissions, Android app or device AC passed.

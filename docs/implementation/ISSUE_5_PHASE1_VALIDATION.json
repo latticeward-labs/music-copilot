@@ -25,8 +25,13 @@
   "review_approved": false,
   "merged": false,
   "phase1_ci": {
-    "status": "NOT_YET_EXECUTED",
-    "run_id": null
+    "status": "SUCCESS_ON_PRE_CLOSEOUT_HEAD",
+    "run_id": 38819186656,
+    "conclusion": "success",
+    "head_sha": "6a9c663cb4999dd0f9a9a8b4e329aa8e4d2007e3",
+    "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656",
+    "job_id": 116711292922,
+    "scope": "DOC_CONTRACT_AND_NEGATIVE_FIXTURE_ONLY"
   },
   "phase1_checks": [
     {
@@ -47,17 +52,18 @@
     {
       "id": "P01-04",
       "name": "Fail-closed executable workflow",
-      "status": "PENDING_CI"
+      "status": "PASS_REAL_ACTIONS_CI"
     },
     {
       "id": "P01-05",
       "name": "Final GitHub readback/CI and comparison",
-      "status": "PENDING_CI"
+      "status": "PENDING_FINAL_EVIDENCE_COMMIT_RECHECK"
     }
   ],
   "limitations": [
     "No Issue #5 runtime feature tests run",
     "No reviewer, merge, new PR or Project V2 status asserted",
     "Main target proposed pending explicit final-merge policy approval"
-  ]
+  ],
+  "phase1_status": "PASS_DOCUMENTATION_CONTRACT_WITH_FINAL_HEAD_RECHECK_REQUIRED"
 }
