@@ -1,6 +1,6 @@
 # Issue #5 — 15-Phase Execution Plan (P00–P14)
 
-**Current stage:** P00 **PASS** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
+**Current stage:** P00 PASS, P01 contract files prepared (GitHub CI verification pending) as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
 
 **Source + audit:** [Phase-0 Source/Traceability/DoR](ISSUE_5_PHASE0_SOURCE_TRACEABILITY_DOR.md) · [machine traceability](ISSUE_5_PHASE0_TRACEABILITY.json) · [machine validation](ISSUE_5_PHASE0_VALIDATION.json).
 
@@ -11,7 +11,7 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 | Phase | Purpose | Required exit |
 |---|---|---|
 | P00 | Source, traceability, Definition of Ready audit | This audit only; baseline frozen and linked. **PASS_DOCUMENTATION_ONLY** |
-| P01 | Execution contracts and test fixtures | Create review/evidence index, synthetic fixture, phase gates; no product UX yet. **NOT_STARTED** |
+| P01 | Execution contracts and test fixtures | Create review/evidence index, synthetic fixture, phase gates; no product UX yet. **P01 ARTIFACT READY / CI PENDING** |
 | P02 | Bootstrap and state ownership | Wire application/use cases, DataStore ack, lifecycle-safe state holders. **NOT_STARTED** |
 | P03 | Two-slide onboarding UI | Implement WF-02 value copy, Continue/Skip/Back, replay, six-command education. **NOT_STARTED** |
 | P04 | Android permission capability policy | Version-aware permission types, OS current-truth states, rationale/request history. **NOT_STARTED** |
@@ -40,7 +40,10 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 - [x] GitHub current `main`, #4/#15/#16/#17 gates and 51/51 source paths verified.
 - [x] 13/13 Issue #5 acceptance criteria traced to sources, phases and test matrix; 17 test scenarios specified.
 - [x] DoR 4/4 evidence-linked; runtime/downstream non-claims preserved.
-- [ ] P01 execution setup.
+- [x] P01 branch/PR review/evidence/fixture contract prepared on feature branch.
+- [ ] P01 real GitHub Actions CI and read-back PASS (pending).
 - [ ] Issue #5 implementation and final acceptance (13 criteria).
 
-**No source PDF, accepted ADR, Wireframe or Hi-Fi design was changed in Phase 0.**
+**No source PDF, accepted ADR, Wireframe or Hi-Fi design was changed in Phases 0–1.**
+
+**P01:** [Execution contract](ISSUE_5_PHASE1_GITHUB_EXECUTION.md) · [Evidence index](ISSUE_5_EVIDENCE_INDEX.md) · [Validation](ISSUE_5_PHASE1_VALIDATION.json). Proposed final PR to main needs explicit P14 review of develop policy.

@@ -1,0 +1,63 @@
+{
+  "schema": "music-copilot.issue5.phase1.validation.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "base_main_commit": "fbd7bb50238bc6a063ab75feb7f1a00aa969e81d",
+  "phase0_commit": "6152bbd2e3f3b62813185f189c9f655d05b418fe",
+  "phase1_entry": {
+    "branch_ahead": 1,
+    "branch_behind": 0,
+    "develop_behind_main": 367,
+    "open_prs": 0,
+    "feature_ci_runs": 0,
+    "main_ci_id": 38816374430,
+    "main_ci_conclusion": "success"
+  },
+  "acceptance_mapped": 13,
+  "test_cases_planned": 17,
+  "runtime_ac_passed": 0,
+  "runtime_tests_executed": 0,
+  "proposed_pr_base": "main",
+  "base_exception_approved": false,
+  "pr_opened": false,
+  "review_approved": false,
+  "merged": false,
+  "phase1_ci": {
+    "status": "NOT_YET_EXECUTED",
+    "run_id": null
+  },
+  "phase1_checks": [
+    {
+      "id": "P01-01",
+      "name": "Existing main-aligned branch",
+      "status": "PASS_METADATA"
+    },
+    {
+      "id": "P01-02",
+      "name": "Open Issue, 4/4 DoR, 13 unchecked ACs",
+      "status": "PASS_METADATA"
+    },
+    {
+      "id": "P01-03",
+      "name": "Template/evidence/review/PR base policy",
+      "status": "PASS_ARTIFACT"
+    },
+    {
+      "id": "P01-04",
+      "name": "Fail-closed executable workflow",
+      "status": "PENDING_CI"
+    },
+    {
+      "id": "P01-05",
+      "name": "Final GitHub readback/CI and comparison",
+      "status": "PENDING_CI"
+    }
+  ],
+  "limitations": [
+    "No Issue #5 runtime feature tests run",
+    "No reviewer, merge, new PR or Project V2 status asserted",
+    "Main target proposed pending explicit final-merge policy approval"
+  ]
+}
