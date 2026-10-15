@@ -1,6 +1,6 @@
 # Issue #4 — Phase 13 clean checkout, install and two-device smoke evidence
 
-**Status:** **PARTIAL — Clean checkout plus both emulator installs PASS; required two physical devices remain UNVERIFIED. Phase 13 NOT PASS.**
+**Current status (16 October 2026):** **PASS only under the owner-approved single-physical-handset foundation acceptance addendum**; the original two-physical-device+ADB protocol is **UNEXECUTED/DEFERRED**. See [Issue #4 scoped amendment](ISSUE_4_OWNER_SCOPE_AND_REVIEW_ADDENDUM_2026-10-16.md). Original findings below are preserved historically.
 **Date:** 14 October 2026; **branch:** `feature/4-android-foundation`.
 **Code revision submitted for test:** [`dbdea7061b375b4660febed1f49e1d5e90c91af8`](https://github.com/latticeward-labs/music-copilot/commit/dbdea7061b375b4660febed1f49e1d5e90c91af8).
 
@@ -90,3 +90,8 @@ The physical evidence must be reviewed by Product/Android/Privacy owners before 
 ## HONOR X7d manual handset smoke — 16 October 2026
 
 [Full single-phone manual smoke record](ISSUE_4_HONOR_X7D_ANDROID15_MANUAL_SMOKE.md): the tester supplied a screenshot of the actual Bootstrap UI on a **HONOR X7d running Android 15** and verbally reported successful repeated Home → foreground returns and an app reopen from Recent Apps. The tester reported that **no runtime permission prompt appeared** on startup. Original screenshot JPEG SHA-256 `cb56e4825f7e78151c3bbec7b0392eb31d8a0b9773460b1c418b2c2e93c5e094` (image provided in ChatGPT conversation, not stored in this Git repository). This is **one physical-device *user report***, not a GitHub Actions physical-device launch, not an ADB attestation and not an independently validated device. No verified exact APK hash on the handset, timestamp, manufacturer getprop, OS-grant state, crash buffer or timed five-minute trial was provided. **Physical independently verified 0/2, user-reported 1/2, API29 physical 0/1.** Phase 13 acceptance stays BLOCKED; no old virtual-device evidence is rewritten as physical. Issue #5 remains untouched.
+
+
+## Effective Phase 13 acceptance after owner scope change — 16 October 2026
+
+[Owner-directed acceptance addendum](ISSUE_4_OWNER_SCOPE_AND_REVIEW_ADDENDUM_2026-10-16.md) **supersedes the two-physical-phone acceptance threshold for Issue #4 foundation only**. **PASS under revised criterion:** the actual user-reported HONOR X7d Android 15 handset presented the real root Debug Bootstrap screen (JPEG SHA-256 recorded), successful return from Home and after close/reopen; API29 and API35 independent emulator CI smoke remain green. **Not executed:** second real phone, physical ADB/provenance/getprop/UTC/logcat verification, instrumented OEM or 3+ vehicles. Continue these in Issue #13 QA. Earlier unverified physical check is *not* retroactively represented as successful. The user specifically authorized **one handset sufficient for Issue #4** and requested final merge; [single-phone evidence](ISSUE_4_HONOR_X7D_ANDROID15_MANUAL_SMOKE.md) records the limitations in full.

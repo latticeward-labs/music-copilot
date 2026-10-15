@@ -30,3 +30,8 @@
 - To finish correctly, record a real USB/ADB run for this HONOR and **another physically distinct** Android 10+ handset with the same APK. The preferred coverage is Android 10/API29 and Android 14+/API34+; check actual `ro.kernel.qemu=0`, app install/launch, return from Home, force stop/relaunch, permission denied, no crash, build SHA, APK digest and timestamp. Follow [`scripts/issue4_phase13_device_smoke.sh`](../../scripts/issue4_phase13_device_smoke.sh) and [`scripts/check_phase13_device_evidence.py`](../../scripts/check_phase13_device_evidence.py), without archiving identifying serials or personal media.
 - Independent cross-role PR approvals and explicit `main` integration-target exception are still pending. Do **not** merge [Draft PR #71](https://github.com/music-copilot-organization/music-copilot/pull/71), close Issue #4, alter Project Done, or claim Phase 13/14 PASS until all contractual gates truly pass.
 - **Issue #5 was not modified, opened for implementation, or changed as part of this record.**
+
+
+## Formal Issue #4 acceptance change — 16 October 2026
+
+The project owner/requester subsequently **reduced the foundation delivery criterion to one manually tested physical handset** and directly requested Issue #4 merge/closure. See [owner-directed acceptance addendum](ISSUE_4_OWNER_SCOPE_AND_REVIEW_ADDENDUM_2026-10-16.md). Accordingly **this manual one-device evidence suffices for the *revised* foundation-only AC-11**; it does **not** suddenly become ADB/independent verified, does **not** show the originally required second device, and does **not** satisfy broader QA (#13).
