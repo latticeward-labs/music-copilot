@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- Media3 requires exported=true for system/vehicle discovery and external
+         controller attachment. Scope this acknowledged ExportedService exception
+         ONLY to our app manifest, which is checked by the Phase 11 invariant
+         guard. All external custom commands are rejected at the service and
+         ordinary media transports retain the Media3 access model.
+         Do not widen this exemption without review of ADR-0002/ADR-0007. -->
+    <issue id="ExportedService">
+        <ignore path="src/main/AndroidManifest.xml" />
+    </issue>
+    <!-- KAPT is the previously verified Room 2.6.1 schema generator in this
+         Android foundation. Migrating to KSP changes the compiler/plugin toolchain
+         and requires separate Room migration/schema validation (Issue #8).
+         This is an optimization warning, not a runtime vulnerability. Scoped
+         to the one Gradle build file; all other lint findings remain errors. -->
+    <issue id="KaptUsageInsteadOfKsp">
+        <ignore path="build.gradle.kts" />
+    </issue>
+</lint>

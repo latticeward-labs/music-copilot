@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package com.latticeward.musiccopilot.storage;
+
+// Documentation of the manually-encoded protobuf wire contract.
+// We do not generate a second DTO or persist a live MediaSession queue.
+message RestorableQueueV1 {
+  int32 schema_version = 1;
+  int64 queue_revision = 2;
+  repeated string opaque_media_ref = 3;
+  int32 current_index = 4;
+  int64 position_ms = 5;
+  int64 captured_at_epoch_ms = 6;
+}

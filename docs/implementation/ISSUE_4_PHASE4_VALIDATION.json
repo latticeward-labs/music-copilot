@@ -1,0 +1,101 @@
+{
+  "schema": "issue4-phase4-validation-v1",
+  "date": "2026-10-13",
+  "status": "PASS",
+  "scope": "typed public API contracts and JVM test seam only; no real runtime or OEM evidence",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "source_authorities": [
+    "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
+    "docs/architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md",
+    "docs/SOFTWARE_ARCHITECTURE.md",
+    "docs/architecture/RUNTIME_POLICIES.md"
+  ],
+  "branch": "feature/4-android-foundation",
+  "tested_commit_sha": "995050eb6ee02bdb7cfcb823a062b6fcc67fd775",
+  "production_kotlin_contract_files_added": 14,
+  "junit_contract_test_suites_added": 3,
+  "phase4_checklist": {
+    "complete": 5,
+    "total": 5
+  },
+  "architecture_guard": {
+    "status": "PASS",
+    "self_test_fixtures": 24,
+    "allowed": 7,
+    "deliberately_rejected": 17,
+    "expected_package_paths": 52,
+    "observed_source_files": 68,
+    "production_modules": [
+      ":app"
+    ]
+  },
+  "github_actions": {
+    "run_id": 38427936983,
+    "job_id": 115402348173,
+    "workflow": ".github/workflows/issue-4-phase2-bootstrap.yml",
+    "url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38427936983",
+    "conclusion": "success",
+    "commands": [
+      "python3 scripts/check_architecture_dependencies.py --root . --self-test",
+      "./gradlew projects :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease --no-daemon --stacktrace"
+    ],
+    "build_log_marker": "BUILD SUCCESSFUL in 6m 6s",
+    "jvm_tests_status": "PASS",
+    "debug_build": "PASS",
+    "unsigned_release_build": "PASS",
+    "artifact_id": 11829238672,
+    "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38427936983/artifacts/11829238672"
+  },
+  "phase10_corrections": {
+    "playback_snapshot_last_error": "AppError? permits MediaItem/Playback/Interruption only",
+    "voice_confirming": "options List<VoiceConfirmationOption> with 1..2 indexes; production defensive copy in Phase 8"
+  },
+  "nonclaims": [
+    "no full Media3 service-owned playback",
+    "no real provider STT or TTS",
+    "no Room/MediaStore/DataStore production adapter",
+    "no production privacy sanitizer",
+    "no device launches or human approvals",
+    "original Issue #4 implementation acceptance remains pending"
+  ],
+  "original_issue4_acceptance": {
+    "checked": 1,
+    "total": 14
+  },
+  "prior_attempts": [
+    {
+      "run_id": 38427496212,
+      "conclusion": "failure"
+    },
+    {
+      "run_id": 38427770367,
+      "conclusion": "cancelled"
+    }
+  ],
+  "final_document_link_audit": {
+    "checked_at": "2026-10-13",
+    "audited_branch_head": "e2ccdb90dd0f288e5a8007e36ef8e4f4ec970c6f",
+    "method": "Read committed Markdown on audited branch and resolve relative Markdown targets against complete non-truncated repository Git tree; external URLs and fragment anchors not tested",
+    "audited_documents": [
+      {
+        "path": "docs/implementation/ISSUE_4_PHASE4_PUBLIC_CONTRACTS.md",
+        "relative_links": 23,
+        "missing": 0
+      },
+      {
+        "path": "docs/implementation/ISSUE_4_PHASED_EXECUTION_PLAN.md",
+        "relative_links": 14,
+        "missing": 0
+      },
+      {
+        "path": "docs/implementation/ISSUE_4_EVIDENCE_INDEX.md",
+        "relative_links": 24,
+        "missing": 0
+      }
+    ],
+    "checked_links": 61,
+    "unresolved_links": 0,
+    "result": "PASS"
+  },
+  "reverified_attached_rar_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8"
+}

@@ -1,0 +1,109 @@
+{
+  "schema": "issue4-phase10-compose-shell-v1",
+  "date_utc": "2026-10-13",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/4-android-foundation",
+  "phase10": {
+    "scope": "bounded Compose bootstrap shell and exact Night Signal token bridge",
+    "status": "PASS_COMPOSE_SHELL_AND_API29_EMULATOR",
+    "checklist": {
+      "total": 4,
+      "checked": 4,
+      "pending": null
+    }
+  },
+  "source": {
+    "archive": "MSM2(1)(1).rar",
+    "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "canonical_tokens": "docs/design-system/foundations/TOKENS.json",
+    "mapping": "docs/handoff/COMPOSE_TOKEN_MAPPING.md",
+    "design_version": "1.0.0",
+    "visual_direction": "Night Signal",
+    "min_api": 29
+  },
+  "implementation": {
+    "semantic_colors": 28,
+    "primitive_colors": 22,
+    "typography_roles": 10,
+    "logical_destinations": 9,
+    "active_destinations": [
+      "Bootstrap"
+    ],
+    "voice_as_nav_destination": false,
+    "theme": "fixed dark",
+    "activity_count": 1,
+    "app_owned_runtime": true
+  },
+  "ci": {
+    "run": 38460889744,
+    "job": 115515446979,
+    "conclusion": "success",
+    "sha": "ba7edcbd146fc7b259eef594199e733979705ccf",
+    "architecture_fixtures": 24,
+    "privacy_selftest_invalid_cases": 3,
+    "design_selftest_invalid_cases": 3,
+    "source_files": 112,
+    "logical_package_paths": 52,
+    "build": "BUILD SUCCESSFUL in 6m 52s",
+    "junit": {
+      "suites": 12,
+      "tests": 80,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "new_phase10": 9
+    },
+    "artifact_id": 11845627770,
+    "room_schema_export": "PASS",
+    "apks": [
+      "app-debug.apk",
+      "app-release-unsigned.apk"
+    ]
+  },
+  "emulator": {
+    "api": 29,
+    "run": 38475056625,
+    "status": "PASS_API29_COLD_BOOT_SCREENSHOT_AND_PERMISSIONS",
+    "screenshot_captured": true,
+    "app_crash_buffer_checked": false,
+    "job": 115563579785,
+    "conclusion": "success",
+    "tested_sha": "df23268a288813e5a4b5a59dd59ee72b47f61dcd",
+    "artifact_id": 11853821575,
+    "build": "BUILD SUCCESSFUL in 4m 2s",
+    "app_id": "com.latticeward.musiccopilot.debug",
+    "activity": "com.latticeward.musiccopilot.app.MainActivity",
+    "launch_status": "Status: ok; LaunchState: COLD; resumed MainActivity confirmed by activity_state.txt",
+    "process_alive": true,
+    "permission_read_external_storage_granted": false,
+    "permission_record_audio_granted": false,
+    "screenshot_size_bytes": 74600,
+    "screenshot_dimensions_px": [
+      1080,
+      2220
+    ],
+    "screenshot_sha256": "4d61cf50694b2a6463e8bc31a4e9a2ea5b021379f349c1f2210aaa2adf40bf88",
+    "crash_buffer_size_bytes": 0,
+    "permission_state_checked": true,
+    "activity_state_checked": true,
+    "previous_failed_runs": [
+      38461504919,
+      38462629926,
+      38463565982,
+      38466010944,
+      38469100082,
+      38471999196,
+      38473240996
+    ],
+    "previous_repair_rationale": "Disable emulator-runner automatic ADB animation toggles; read permission dumps using Android 10 never-granted semantics. Keep emulator disk cleanup >=10GiB.",
+    "caveat": "Android 10 emulator only; not a physical phone, not TalkBack/200% or full feature/device QA."
+  },
+  "unverified": [
+    "complete feature navigation and overlays",
+    "200% scaling physical visual audit",
+    "physical phone/OEM fleet",
+    "feature UX states and recoveries",
+    "full Issue #4 acceptance",
+    "physical phone two-device requirement and Android 14+ smoke (Issue #4 Phase 13)"
+  ]
+}

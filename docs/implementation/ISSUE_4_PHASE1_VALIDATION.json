@@ -1,0 +1,109 @@
+{
+  "schema": "issue4.phase1.github_setup.validation.v1",
+  "date": "2026-10-13",
+  "status": "PASS_GITHUB_SETUP_ONLY",
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/4-android-foundation",
+  "source": {
+    "uploaded_rar": "MSM2(1)(1).rar",
+    "measured_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "matches_official_source_register": true,
+    "phase0_verified_pdf_members": "12/12"
+  },
+  "github": {
+    "original_main_commit": "2c08bb2651ebb82cbb892e1b7648405cdd6d3ab4",
+    "feature_branch_from_main": true,
+    "branch_ahead_before_validation_file": 10,
+    "branch_behind_before_validation_file": 0,
+    "phase_entry_ahead": 6,
+    "phase_entry_behind": 0,
+    "issue4_state": "open",
+    "issue4_body_status": "IN PROGRESS — Phase 0 PASS (source/traceability); implementation pending",
+    "issue4_acceptance_checkboxes_checked": 1,
+    "issue4_acceptance_checkboxes_pending": 13,
+    "develop_commit": "a8944b287498aff557af3d7e17179b599c5c5ae5",
+    "merge_target_proposed": "main",
+    "merge_target_exception": "CONTRIBUTING.md prefers develop; main base proposed in keeping with Issue 16/17 actual merged PRs; reviewer must approve exception before phase14 merge",
+    "final_pull_request_created": false,
+    "project_v2_field_mutated_or_verified": false,
+    "branch_ahead_after_initial_validation_file": 11,
+    "branch_behind_after_initial_validation_file": 0
+  },
+  "setup_checklist": [
+    {
+      "id": "P1-01",
+      "criterion": "Feature branch from current main; no direct main writes",
+      "result": "PASS",
+      "proof": "Authenticated compare main...feature, merge-base equals main; behind 0; scoped diff only"
+    },
+    {
+      "id": "P1-02",
+      "criterion": "Issue #4 body In Progress; no premature acceptance ticks",
+      "result": "PASS",
+      "proof": "Authenticated Issue #4 read: open, 1/14 original AC checked, 13/14 pending"
+    },
+    {
+      "id": "P1-03",
+      "criterion": "Commit plan, scoped PR checklist, evidence index committed",
+      "result": "PASS",
+      "proof": "Read-back scoped .github/PULL_REQUEST_TEMPLATE/issue-4-android-foundation.md; docs/implementation/ISSUE_4_EVIDENCE_INDEX.md; docs/implementation/ISSUE_4_PHASE1_GITHUB_EXECUTION.md"
+    },
+    {
+      "id": "P1-04",
+      "criterion": "Verify production root separate and avoid overwriting spike",
+      "result": "PASS",
+      "proof": "main root no production app/settings Gradle; separately fetched spike settings/Gradle with spike applicationId; diff excludes spikes and official architecture"
+    }
+  ],
+  "preserved": [
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ".github/workflows/cluster-b-android-spikes.yml",
+    ".github/workflows/issue-16-architecture-validation.yml",
+    "spikes/android-validation/settings.gradle.kts",
+    "spikes/android-validation/app/build.gradle.kts",
+    "docs/SOFTWARE_ARCHITECTURE.md",
+    "docs/adr/README.md",
+    ".gitignore"
+  ],
+  "changed_paths_as_of_pre_validation": [
+    ".github/PULL_REQUEST_TEMPLATE/issue-4-android-foundation.md",
+    "docs/implementation/ISSUE_4_BASELINE_AND_TRACEABILITY.md",
+    "docs/implementation/ISSUE_4_EVIDENCE_INDEX.md",
+    "docs/implementation/ISSUE_4_PHASE0_TRACEABILITY.json",
+    "docs/implementation/ISSUE_4_PHASE0_VALIDATION.json",
+    "docs/implementation/ISSUE_4_PHASE1_GITHUB_EXECUTION.md",
+    "docs/implementation/ISSUE_4_PHASED_EXECUTION_PLAN.md"
+  ],
+  "relative_links_initial_audit": {
+    "file_sources": [
+      "docs/implementation/ISSUE_4_EVIDENCE_INDEX.md",
+      "docs/implementation/ISSUE_4_PHASE1_GITHUB_EXECUTION.md",
+      ".github/PULL_REQUEST_TEMPLATE/issue-4-android-foundation.md",
+      "docs/implementation/ISSUE_4_PHASED_EXECUTION_PLAN.md"
+    ],
+    "link_occurrences": 30,
+    "unique_targets": 16,
+    "verified_now": 15,
+    "pending_self_link": "docs/implementation/ISSUE_4_PHASE1_VALIDATION.json",
+    "broken_existing_links": 0
+  },
+  "final_audit_to_complete": {
+    "expected_targets_after_self_record": 16,
+    "confirmed_targets": 16,
+    "status": "PASS",
+    "expected_phase1_checklist_complete": 4,
+    "expected_final_issue_open": true,
+    "method": "15 existing targets individually fetched via GitHub, plus self validation JSON re-fetched after commit to complete 16/16",
+    "changed_path_allowlist_pass": true,
+    "issue_original_checkboxes_pass": true,
+    "readback_pass": true
+  },
+  "not_claimed": [
+    "Root production Android app created or compiled",
+    "Root production CI executed",
+    "Two Android device launches",
+    "PR created, reviewed, or merged",
+    "Independent human engineering review or Project field updated",
+    "Cloud STT/privacy authorization"
+  ]
+}

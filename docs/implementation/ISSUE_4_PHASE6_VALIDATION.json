@@ -1,0 +1,76 @@
+{
+  "schema": "issue4-phase6-validation-v1",
+  "date": "2026-10-13",
+  "status": "PASS — foundation only",
+  "branch": "feature/4-android-foundation",
+  "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "tested_sha": "f9f60fbcc2446c67ed4e4abf2167d5eacbf21202",
+  "phase6_checklist": {
+    "checked": 4,
+    "total": 4
+  },
+  "seams": [
+    "MediaStore platform authority with revalidation",
+    "Room v1 transactional derived-only library projection",
+    "Preferences DataStore for onboarding/Bluetooth hint/cloud-STT consent",
+    "Protocol Buffers wire-format snapshot v1 via DataStore with future-schema/corruption rejection",
+    "app-owned data bindings",
+    "foreground nonblocking reconciliation"
+  ],
+  "ci": {
+    "url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38435760787",
+    "run_id": 38435760787,
+    "job_id": 115429192025,
+    "conclusion": "success",
+    "architecture_fixtures": {
+      "passed": 24,
+      "total": 24
+    },
+    "architecture_tree": {
+      "modules": [
+        ":app"
+      ],
+      "package_paths": 52,
+      "production_sources": 93
+    },
+    "junit": {
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": 8
+    },
+    "tasks": [
+      "app:testDebugUnitTest",
+      "app:assembleDebug",
+      "app:assembleRelease"
+    ],
+    "build": "BUILD SUCCESSFUL in 7m 32s",
+    "room_schema_export": "PASS",
+    "artifact_id": 11833926331,
+    "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38435760787/artifacts/11833926331"
+  },
+  "room_schema": {
+    "path": "app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/1.json",
+    "blob_sha": "c3b1ba7affdaa1a9d6425d3b3dc7ddf10adf300b",
+    "identity_hash": "7cfd18f79e2f1c7e07fd57f4427d4f33",
+    "matched_ci_generated": true
+  },
+  "nonclaims": [
+    "Android on-device MediaStore permission and OEM matrix not executed",
+    "No released Room v2 migration exists; future released user-owned data migrations require instrumentation",
+    "P1 actual Safe-Paused MediaSession restoration is a playback responsibility not implemented here",
+    "No end-to-end Voice/backend/cloud/streaming",
+    "Issue #4 original full Acceptance Criteria 1/14 checked, 13 pending"
+  ],
+  "prior_runs": [
+    {
+      "id": 38434211649,
+      "result": "failure — versioned kapt already on classpath"
+    },
+    {
+      "id": 38434688490,
+      "result": "failure — invalid JUnit method return type"
+    }
+  ]
+}

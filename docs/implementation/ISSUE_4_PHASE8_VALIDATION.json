@@ -1,0 +1,102 @@
+{
+  "schema": "issue4-phase8-voice-provider-v1",
+  "date": "2026-10-13",
+  "verdict": "PASS — voice provider foundation only",
+  "branch": "feature/4-android-foundation",
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8"
+  },
+  "tested_source_sha": "5619393f10bc33b14e14d64b2b641971b8b8fe7b",
+  "phase8_checklist": {
+    "checked": 5,
+    "total": 5
+  },
+  "architecture": {
+    "owner": "single ApplicationBindings VoiceSessionCoordinator",
+    "ports": [
+      "SpeechToTextEngine",
+      "TextToSpeechEngine",
+      "PlaybackGateway"
+    ],
+    "stt_policy": "on-device only API 31+, no generic/cloud fallback",
+    "tts_policy": "installed non-network English voice only",
+    "generation": "single cancellable child Job",
+    "listening_limit_ms": 6000,
+    "max_attempts": 2,
+    "intent_types": [
+      "PLAY",
+      "PAUSE",
+      "NEXT",
+      "PREVIOUS",
+      "SEEK_BACK",
+      "PLAY_ARTIST"
+    ],
+    "artist_execution": "disabled pending issue #11",
+    "confidence_direct": 0.9,
+    "has_internet_permission": false
+  },
+  "ci": {
+    "id": 38454339598,
+    "job_id": 115493062059,
+    "url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38454339598",
+    "conclusion": "success",
+    "log": "BUILD SUCCESSFUL in 7m 22s",
+    "architecture_fixtures": {
+      "passed": 24,
+      "total": 24
+    },
+    "source_count": 103,
+    "package_paths": 52,
+    "gradle_module": ":app",
+    "unit_tests": {
+      "suites": 10,
+      "tests": 58,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "new_phase8_tests": 9
+    },
+    "tasks": [
+      "app:testDebugUnitTest",
+      "app:assembleDebug",
+      "app:assembleRelease"
+    ],
+    "room_schema_export": "PASS",
+    "artifact_id": 11842495336,
+    "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38454339598/artifacts/11842495336",
+    "room_schema_blob_sha": "c3b1ba7affdaa1a9d6425d3b3dc7ddf10adf300b"
+  },
+  "failed_prior_attempt": {
+    "run_id": 38453359125,
+    "reason": "STT/TTS Kotlin coroutine callback type inference",
+    "resolution": "explicit AppResult continuation type on tested SHA"
+  },
+  "open_work": [
+    "API29/30 device voice capability coverage",
+    "OEM/physical STT and TTS, microphone runtime permission",
+    "Full Voice UI and push-to-talk flow (Issue #10)",
+    "artist candidate/confirmation and artist command (Issue #11)",
+    "real playback/queue (Issue #7)",
+    "focus/route/call/ducking and real device QA (Issue #8/#13)",
+    "cloud provider disclosure/legal/retention/consent approval before any remote STT"
+  ],
+  "issue4": {
+    "state": "open",
+    "original_acceptance_checked": 1,
+    "original_acceptance_total": 14
+  },
+  "relative_link_audit": {
+    "checked": 83,
+    "missing": 0,
+    "result": "PASS",
+    "audited_head": "b7427ca1527fb38dc585ceae6b387f4db3ea92b1",
+    "source_tree": "complete untruncated recursive git tree",
+    "scope": [
+      "docs/implementation/ISSUE_4_PHASE8_VOICE_PROVIDER.md",
+      "docs/implementation/ISSUE_4_PHASED_EXECUTION_PLAN.md",
+      "docs/implementation/ISSUE_4_EVIDENCE_INDEX.md"
+    ],
+    "exceptions": "external links and fragment anchors were not included"
+  }
+}

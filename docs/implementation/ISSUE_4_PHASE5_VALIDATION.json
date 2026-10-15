@@ -1,0 +1,83 @@
+{
+  "schema": "issue4-phase5-validation-v1",
+  "date": "2026-10-13",
+  "status": "PASS",
+  "branch": "feature/4-android-foundation",
+  "tested_implementation_sha": "9cc97090b74d625221a0074670a5fce37b47f148",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "phase5_checklist": {
+    "complete": 4,
+    "total": 4
+  },
+  "ownership": {
+    "di": "manual constructor injection, exactly one ApplicationBindings constructed in MusicCopilotApplication.onCreate",
+    "controller": "app-scoped disconnected PlaybackGateway; typed rejection until real service",
+    "data": "app-owned fail-closed MediaStore/Room/Preferences/P1 ports; no fake persistence",
+    "voice": "single app-scoped coordinator, cancellable child Job; STT/TTS disabled in production Phase 5",
+    "quality": "DenyAllTelemetryPrivacyGate and NoOpTelemetrySink",
+    "service": "PlaybackServiceScopeOwner is service-only factory template, not bound in application graph",
+    "injection": "DispatcherProvider(Main.immediate/IO/Default) and Clock",
+    "modules": [
+      "app"
+    ]
+  },
+  "tests": [
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/ApplicationCompositionTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/LifecycleScopesTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/StaticOwnershipTest.kt"
+  ],
+  "ci": {
+    "run_id": 38431003572,
+    "job_id": 115413044246,
+    "url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38431003572",
+    "conclusion": "success",
+    "architecture_fixtures": {
+      "total": 24,
+      "positive": 7,
+      "negative": 17
+    },
+    "topology": {
+      "gradle_modules": [
+        ":app"
+      ],
+      "package_paths": 52,
+      "production_source_files": 83
+    },
+    "unit_test_task": "PASS: :app:testDebugUnitTest",
+    "debug_build": "PASS",
+    "unsigned_release_build": "PASS",
+    "build_log": "BUILD SUCCESSFUL in 6m 30s",
+    "artifact_id": 11831057163,
+    "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/38431003572/artifacts/11831057163"
+  },
+  "document_link_audit": {
+    "audited_head": "df2bcffe9d0757d812e2d3b4cb766404c132164a",
+    "method": "relative Markdown target paths checked against full git tree",
+    "checked": 24,
+    "missing": 0,
+    "result": "PASS"
+  },
+  "previous_attempts": [
+    {
+      "run_id": 38430619152,
+      "conclusion": "cancelled"
+    },
+    {
+      "run_id": 38430788629,
+      "conclusion": "cancelled"
+    }
+  ],
+  "deferred": [
+    "Phase 6 actual MediaStore/Room/DataStore",
+    "Phase 7 real MediaSessionService/Player/MediaSession and Activity recreation",
+    "Phase 8 actual STT/TTS and deterministic session policy",
+    "Phase 9 typed telemetry allowlist",
+    "Phases 10-13 ViewModel/real Android QA and two device launches",
+    "Phase 14 PR/merge/issue closure"
+  ],
+  "issue4_original_acceptance": {
+    "checked": 1,
+    "total": 14
+  },
+  "issue4_state": "OPEN / In Progress"
+}

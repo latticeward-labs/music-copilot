@@ -1,0 +1,500 @@
+{
+  "schema": "issue4.phase0.baseline.v1",
+  "date": "2026-10-12",
+  "issue": 4,
+  "repository": "latticeward-labs/music-copilot",
+  "delivery_branch": "feature/4-android-foundation",
+  "frozen_git": {
+    "main_sha": "2c08bb2651ebb82cbb892e1b7648405cdd6d3ab4",
+    "phase0_start_branch_sha": "6ba878f7b9f4a04c28c8d0bc5e848b15cb7f3d2d",
+    "merge_base": "2c08bb2651ebb82cbb892e1b7648405cdd6d3ab4",
+    "ahead_by_at_start": 1,
+    "behind_by_at_start": 0,
+    "production_android_root_exists": false,
+    "root_paths": [
+      ".editorconfig",
+      ".github",
+      ".gitignore",
+      "CONTRIBUTING.md",
+      "README.md",
+      "SECURITY.md",
+      "docs",
+      "scripts",
+      "spikes"
+    ],
+    "preexisting_workflows": [
+      ".github/workflows/cluster-b-android-spikes.yml",
+      ".github/workflows/issue-16-architecture-validation.yml"
+    ],
+    "isolated_spike_path": "spikes/android-validation"
+  },
+  "source": {
+    "archive_filename": "MSM2(1)(1).rar",
+    "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "verified_original_pdf_count": 12,
+    "comparison_register": "docs/architecture/SOURCE_AND_AUTHORITY_REGISTER.md",
+    "members": [
+      {
+        "path": "Music_Copilot_PRD_v1_EN_Clarified.pdf",
+        "sha256": "486fbd5057e4abf570cd1a4865b6243ee5e31d26a48596414903916d6d81e9cf",
+        "role": "tier1-product",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "Music_Copilot_MVP_v1_EN.pdf",
+        "sha256": "98e89a1c9d530f4eb878af94f4f480fc8d4669ce2ed5193ba71f201b032d47b0",
+        "role": "tier1-delivery",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "ADR-0001_Native_Android_Platform_Revised.pdf",
+        "sha256": "7569f77eeb9e10e5113d974244ceec0f6133e4cf29fbfa95907c022abfd4fd51",
+        "role": "historical-decision-input",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "ADR-0002_Service_Owned_Media3_Playback.pdf",
+        "sha256": "f9ba6adfac14d5c04a33de55cf845abc56dee06ea0301ae7e66f926e83e729c9",
+        "role": "historical-decision-input",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "ADR-0003_Local_First_Data_Boundaries_Revised.pdf",
+        "sha256": "1ceff4cd1f8d4021dd0e1c5ea3aec91c46b0b121d3f87919f913f3f53ce644a4",
+        "role": "historical-decision-input",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "ADR-0004_Replaceable_Voice_Provider.pdf",
+        "sha256": "b6acbaea7b7898306a6bd07254c24cec50e3de848d1d3631d5df357d3df29114",
+        "role": "historical-decision-input",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "ADR-0005_Restricted_Deterministic_Intent_Mapping.pdf",
+        "sha256": "92db78041240707928f0765cdb6873c4e224fee982c0eaf2cd7c1a92b0949c2a",
+        "role": "historical-decision-input",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "ADR-0006_No_Backend_Account_or_Streaming.pdf",
+        "sha256": "0d500e878742d0bb0e7a7ff90f25cd4ccd59e74b93e28f5414d370c7ea7a0baf",
+        "role": "historical-decision-input",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "Music_Copilot_System_Architecture_MVP_v1_EN.pdf",
+        "sha256": "b056e3b8d3125e6660c2fd9431f4f883128673ed5ad1a7f3f5184dd179715bfb",
+        "role": "tier5-proposal",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "Music_Copilot_Code_and_Technical_Documentation_MVP_v1_EN.pdf",
+        "sha256": "1d776396a88aebacbdb8b813fe8c6fe82418c951f301762ac594c55a7cd22cf3",
+        "role": "tier5-proposal",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "Music_Copilot_User_Flow_Phase_0_Foundation_v1.0_EN.pdf",
+        "sha256": "2393f443e5239a689f96e63d33648a696676a59d821858e12a5c57676b0b38e7",
+        "role": "historical-flow-input",
+        "match_source_authority_register": true
+      },
+      {
+        "path": "Music_Copilot_User_Flow_Phase_1_First_Readiness_v1.0_EN(4).pdf",
+        "sha256": "d30dbe83808123852e31e26e4268d4b2b82f579cf9aa75b390ccf07f18d58e1e",
+        "role": "historical-flow-input",
+        "match_source_authority_register": true
+      }
+    ],
+    "extraction_note": "Seven pre-existing /mnt/data/MSM2_extracted working copies had SHA mismatches; the canonical bytes were re-extracted directly from the verified archive via libarchive and all 12 matched the GitHub source register. The altered intermediate copies were not used as authority."
+  },
+  "authority": {
+    "product": [
+      "English PRD",
+      "English MVP"
+    ],
+    "binding": [
+      "ADR-0001..ADR-0008 Accepted",
+      "docs/SOFTWARE_ARCHITECTURE.md",
+      "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
+      "docs/architecture/review/ISSUE_16_CONTRACT_CORRECTIONS_2026-08-30.md",
+      "docs/architecture/RUNTIME_POLICIES.md",
+      "docs/architecture/ISSUE_16_VALIDATION.md"
+    ],
+    "design": [
+      "docs/ISSUE_17_AI_ACCEPTANCE_ADDENDUM_2026-10-12.md",
+      "docs/handoff/COMPOSE_TOKEN_MAPPING.md",
+      "docs/design-system/foundations/TOKENS.json"
+    ],
+    "non_authoritative": [
+      "historical proposed System Architecture PDF",
+      "historical proposed Code/Technical Blueprint PDF",
+      "archived ADR PDF header statuses/placeholder dates",
+      "unapproved Figma requirement"
+    ],
+    "state_issues": {
+      "4": "open-in-progress",
+      "16": "closed-merged",
+      "17": "closed-AI-assisted-design-accepted-human-review-deferred"
+    }
+  },
+  "binding_decisions": [
+    "Native Android API 29+ Kotlin Compose",
+    "one production :app module; logical app/core/feature/playback/voice/data/quality",
+    "service-owned single same-process Player/MediaSession and authoritative queue",
+    "single consumer command processor capacity 32; typed Busy",
+    "VoiceSessionCoordinator owner; six deterministic intents; timeout 6000 ms and one retry",
+    "immutable Voice Confirming options 1..2 current generation; no side-channel",
+    "PlaybackSnapshot.lastError AppError? limited to MediaItem Playback Interruption",
+    "MediaStore authority Room rebuildable DataStore preferences/Proto Safe-Paused only",
+    "typed privacy-gated NoOp quality path",
+    "only app/di cross-boundary composition; Hilt replaceable",
+    "no backend account streaming online catalog cloud sync wake word Android Auto or iOS"
+  ],
+  "upstream_gates": {
+    "issue16": {
+      "state": "closed",
+      "final_pr": 46,
+      "final_merge_sha": "0d3b8890ee37bd19ccbd2a7b0658f5b5d5745f2b",
+      "blocker_open": 0,
+      "major_open": 0
+    },
+    "issue17": {
+      "state": "closed",
+      "final_pr": 68,
+      "final_merged_at_commit": "567df7ff2cc4ffd1e202a2214b19df98574dca83",
+      "design_criteria": 14,
+      "independent_human_signoffs": 0,
+      "policy": "Human design signoff after MVP by owner instruction; not a runtime implementation or accessibility certification."
+    }
+  },
+  "downstream_nonblocking": [
+    {
+      "id": "PH10-MIN-001",
+      "owner": "Issue #4/UI feature implementation + Accessibility QA",
+      "gate": "Compose TalkBack/reflow 200% and component feature DoD"
+    },
+    {
+      "id": "PH10-MIN-002",
+      "owner": "Product + Privacy/Legal",
+      "gate": "Prior to remote/cloud STT activation"
+    },
+    {
+      "id": "PH10-MIN-003",
+      "owner": "QA / Field-Beta",
+      "gate": "Pixel/Samsung/Xiaomi and three vehicle models at release/field gate"
+    },
+    {
+      "id": "PH11-MIN-004",
+      "owner": "Product/Design/Android/QA/Accessibility/Privacy human reviewers",
+      "gate": "After MVP completion as required by Issue #17 accepted addendum"
+    }
+  ],
+  "phase0_checks": [
+    {
+      "id": "P0-01",
+      "description": "Reconcile all 14 Issue #4 acceptance criteria and final contracts/Issue #17 handoff",
+      "status": "PASS",
+      "evidence": "issue4.acceptance_criteria + authority chain in ISSUE_4_BASELINE_AND_TRACEABILITY.md"
+    },
+    {
+      "id": "P0-02",
+      "description": "Snapshot root main, existing spike and workflows; verify no production Android root",
+      "status": "PASS",
+      "evidence": "frozen_git root paths; GitHub contents listing"
+    },
+    {
+      "id": "P0-03",
+      "description": "Freeze criterion-to-phase/test/evidence matrix and prohibited features",
+      "status": "PASS",
+      "evidence": "14 AC entries and frozen scope inventory"
+    },
+    {
+      "id": "P0-04",
+      "description": "Classify unresolved implementation tool choices as replaceable and record blockers",
+      "status": "PASS",
+      "evidence": "open decisions triage: 0 architecture blockers; versions and CI tooling deferred to Phase 2"
+    }
+  ],
+  "implementation_blocker_count": 0,
+  "implementation_decisions_deferred": [
+    {
+      "item": "Exact AGP/Gradle/Kotlin/Compose/JDK/SDK tool versions",
+      "phase": 2,
+      "classification": "version compatibility verification; no change to locked minSdk=29 / Android+Kotlin+Compose"
+    },
+    {
+      "item": "DI binding library (Hilt or equivalent)",
+      "phase": 5,
+      "classification": "replaceable choice respecting app/di owner and scopes"
+    },
+    {
+      "item": "Formatting/static-analysis tool choices",
+      "phase": 11,
+      "classification": "implementation mechanism not architecture scope"
+    },
+    {
+      "item": "Privacy-safe nonproduction crash adapter selection",
+      "phase": 9,
+      "classification": "NoOp/default-disabled baseline; must respect Quality gate"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "criterion": "Issue #16 Software Architecture baseline approved before foundation",
+      "phases": [
+        0
+      ],
+      "required_verification": [
+        "Issue #16 closed; merged PR #46; final architecture in main"
+      ],
+      "evidence_paths": [
+        "docs/SOFTWARE_ARCHITECTURE.md",
+        "docs/architecture/PHASE11_FINAL_ACCEPTANCE_AUDIT.md"
+      ],
+      "status": "verified-upstream"
+    },
+    {
+      "id": "AC-02",
+      "criterion": "Kotlin and Jetpack Compose support Android 10+",
+      "phases": [
+        2,
+        10,
+        13
+      ],
+      "required_verification": [
+        "minSdk=29 build",
+        "API-29 launch smoke"
+      ],
+      "evidence_paths": [
+        "app/build.gradle.kts",
+        "docs/implementation/ISSUE_4_DEVICE_SMOKE.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-03",
+      "criterion": "Version-managed dependencies; no unused speculative framework",
+      "phases": [
+        2,
+        12,
+        14
+      ],
+      "required_verification": [
+        "catalog/Gradle review",
+        "dependency report",
+        "CI build"
+      ],
+      "evidence_paths": [
+        "gradle/libs.versions.toml",
+        "docs/implementation/BUILD_MATRIX.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-04",
+      "criterion": "Implemented package/module structure matches approved architecture",
+      "phases": [
+        3,
+        14
+      ],
+      "required_verification": [
+        "one :app module check",
+        "boundary tree audit"
+      ],
+      "evidence_paths": [
+        "settings.gradle.kts",
+        "docs/implementation/DEPENDENCY_RULES.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-05",
+      "criterion": "Dependency-direction checks prevent forbidden coupling",
+      "phases": [
+        3,
+        11,
+        12
+      ],
+      "required_verification": [
+        "positive/negative import checks",
+        "static analysis in CI"
+      ],
+      "evidence_paths": [
+        "scripts/",
+        "docs/implementation/ISSUE_4_TEST_EVIDENCE.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-06",
+      "criterion": "Player ownership independent of UI lifecycle by contract and test seam",
+      "phases": [
+        4,
+        5,
+        7,
+        11
+      ],
+      "required_verification": [
+        "service owner test",
+        "UI recreation/controller reconnect tests"
+      ],
+      "evidence_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/",
+        "docs/implementation/ISSUE_4_TEST_EVIDENCE.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-07",
+      "criterion": "Voice provider and quality services have replaceable interfaces",
+      "phases": [
+        4,
+        8,
+        9,
+        11
+      ],
+      "required_verification": [
+        "fake STT/TTS contract tests",
+        "NoOp sink fault isolation tests"
+      ],
+      "evidence_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/api/"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-08",
+      "criterion": "Debug and release builds separated",
+      "phases": [
+        2,
+        9,
+        12
+      ],
+      "required_verification": [
+        "variant config review",
+        "debug/release Gradle task validation"
+      ],
+      "evidence_paths": [
+        "app/build.gradle.kts",
+        "docs/implementation/BUILD_MATRIX.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-09",
+      "criterion": "CI executes formatting, static analysis, unit tests and debug build",
+      "phases": [
+        11,
+        12
+      ],
+      "required_verification": [
+        "real workflow successful jobs",
+        "negative regression detection"
+      ],
+      "evidence_paths": [
+        ".github/workflows/android-foundation.yml",
+        "docs/implementation/ISSUE_4_TEST_EVIDENCE.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-10",
+      "criterion": "Privacy-safe non-production crash logging configuration",
+      "phases": [
+        9,
+        11,
+        12
+      ],
+      "required_verification": [
+        "NoOp/no-secret default checks",
+        "prohibited-field negative tests"
+      ],
+      "evidence_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/quality/",
+        "docs/implementation/ISSUE_4_TEST_EVIDENCE.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-11",
+      "criterion": "App launches on two representative devices",
+      "phases": [
+        13
+      ],
+      "required_verification": [
+        "two recorded installed APK launches with actual OS/model/commit"
+      ],
+      "evidence_paths": [
+        "docs/implementation/ISSUE_4_DEVICE_SMOKE.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-12",
+      "criterion": "Clean checkout builds without private credentials",
+      "phases": [
+        2,
+        12,
+        13
+      ],
+      "required_verification": [
+        "fresh checkout without local.properties/private config",
+        "assembleDebug"
+      ],
+      "evidence_paths": [
+        "docs/implementation/ISSUE_4_DEVICE_SMOKE.md",
+        ".github/workflows/android-foundation.yml"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-13",
+      "criterion": "No signing key, service account, raw voice, media metadata or commercial audio committed",
+      "phases": [
+        2,
+        6,
+        9,
+        12,
+        14
+      ],
+      "required_verification": [
+        "secret scan",
+        "tracked-file diff audit",
+        "fixture/privacy review"
+      ],
+      "evidence_paths": [
+        ".gitignore",
+        "docs/implementation/ISSUE_4_FINAL_ACCEPTANCE_AUDIT.md"
+      ],
+      "status": "pending-implementation"
+    },
+    {
+      "id": "AC-14",
+      "criterion": "Architecture conformance notes link Issue #16 and accepted ADRs",
+      "phases": [
+        0,
+        3,
+        14
+      ],
+      "required_verification": [
+        "traceability references exist",
+        "post-code contract audit"
+      ],
+      "evidence_paths": [
+        "docs/implementation/ISSUE_4_BASELINE_AND_TRACEABILITY.md",
+        "docs/implementation/ISSUE_4_FINAL_ACCEPTANCE_AUDIT.md"
+      ],
+      "status": "pending-implementation"
+    }
+  ],
+  "acceptance_summary": {
+    "already_checked_in_issue4": 1,
+    "implementation_pending": 13,
+    "phase0_pass_does_not_close_issue4": true
+  },
+  "phase0_gate": "PASS_SPECIFICATION_BASELINE_ONLY"
+}
