@@ -1,0 +1,77 @@
+name: Issue 5 Phase 2 - State machine and Android contract CI
+
+on:
+  push:
+    branches:
+      - feature/5-onboarding-permissions-recovery
+    paths:
+      - "app/src/main/java/com/latticeward/musiccopilot/core/application/bootstrap/**"
+      - "app/src/main/java/com/latticeward/musiccopilot/core/application/permission/**"
+      - "app/src/main/java/com/latticeward/musiccopilot/data/api/PreferencesRepository.kt"
+      - "app/src/main/java/com/latticeward/musiccopilot/data/datastore/PreferencesDataStore.kt"
+      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase2*Test.kt"
+      - "docs/implementation/ISSUE_5_PHASE2_*"
+      - ".github/workflows/issue-5-phase2-state-machine.yml"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue5-p02-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  kotlin-state-machine-contract:
+    name: Real Android Gradle build, JVM state machine, architecture and privacy
+    runs-on: ubuntu-22.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Validate initial Issue 5 governance and AC nonclaims
+        run: python3 scripts/validate_issue5_phase1.py --root . --self-test
+      - name: Validate architectural direction and negative fixtures
+        run: python3 scripts/check_architecture_dependencies.py --root . --self-test
+      - name: Validate no prohibited Quality or privacy payloads
+        run: python3 scripts/check_phase9_privacy.py --root . --self-test
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install pinned Android SDK
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Build, lint, format and run real JVM tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/build/reports/issue5-phase2
+          ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee app/build/reports/issue5-phase2/gradle.log
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase2StateMachineTest.xml
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase2CheckpointPersistenceTest.xml
+          echo 'ISSUE5_P02_ANDROID_CONTRACT_CI PASS (not OS/dialog/phone QA)'
+      - name: Publish exact-run JVM, lint, static and APK proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p02-contract-and-android-evidence
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/reports/issue5-phase2/**
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/tests/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            build/reports/detekt/**
+            app/build/outputs/apk/debug/app-debug.apk

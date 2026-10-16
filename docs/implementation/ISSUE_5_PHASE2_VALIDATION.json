@@ -1,0 +1,41 @@
+{
+  "schema": "music-copilot.issue5.phase2.validation.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "reference_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "phase": "P02",
+  "scope": "PURE_CONTRACT_AND_DATASTORE_PROGRESS_ONLY",
+  "production_sources": [
+    "app/src/main/java/com/latticeward/musiccopilot/core/application/bootstrap/BootstrapRoutePolicy.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/core/application/bootstrap/FirstUseMachine.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/core/application/permission/PermissionMachine.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/data/api/PreferencesRepository.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/data/datastore/PreferencesDataStore.kt"
+  ],
+  "test_sources": [
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase2StateMachineTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase2CheckpointPersistenceTest.kt"
+  ],
+  "test_cases_authored": 19,
+  "actual_ci_status": "PENDING",
+  "actual_ci_url": null,
+  "android_device_tests": 0,
+  "permission_native_dialog_tests": 0,
+  "issue_acceptance_total": 13,
+  "issue_acceptance_passed": 0,
+  "issue5_status": "OPEN",
+  "arch_ownership_rules": "MUST_RUN",
+  "deferred": [
+    "P03 Compose onboarding UI",
+    "P04 Android permission adapter",
+    "P05/06 native request and Settings loop",
+    "P07 Mic intent integration",
+    "P08 notification manifest and OS behavior",
+    "P09 cloud/Legal",
+    "P10 media scan/GS-01",
+    "P11-P13 lifecycle/UI/device/Accessibility QA",
+    "P14 review/merge/close"
+  ],
+  "decision": "PARTIAL_PENDING_REAL_GITHUB_CI"
+}
