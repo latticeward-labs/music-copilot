@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.compose.runtime.LaunchedEffect
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -91,11 +90,6 @@ class MainActivity : ComponentActivity() {
             mediaPermission = permission,
             libraryStatus = library.status,
         )
-        LaunchedEffect(evidence.preferencesLoaded, evidence.onboardingComplete, permission) {
-            if (evidence.preferencesLoaded && evidence.onboardingComplete &&
-                permission == PermissionStatus.Granted
-            ) bindings.onForeground()
-        }
         val route = BootstrapRoutePolicy.project(evidence)
         MusicCopilotTheme {
             AppNavHost(

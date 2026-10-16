@@ -111,8 +111,11 @@ def verify(files, tokens):
     # the four approved First Launch destinations, never Voice/Driving/player.
     installed_routes = set(re.findall(r"composable\(Destination\.(\w+)\.route\)", nav))
     first_launch_routes = {"Bootstrap", "Onboarding", "PermissionRecovery", "Library"}
-    approved = first_launch_routes if ("activeInPhase3 = setOf(" in files.get("dest", "") or
-                                       "activeInPhase3: Set<Destination> get() = setOf(" in files.get("dest", "")) else {"Bootstrap"}
+    approved = (first_launch_routes | {"Settings"}) if "activeInPhase4:" in files.get("dest", "") else (
+        first_launch_routes if ("activeInPhase3 = setOf(" in files.get("dest", "") or
+                                "activeInPhase3: Set<Destination> get() = setOf(" in files.get("dest", ""))
+        else {"Bootstrap"}
+    )
     if (nav.count("    NavHost(") != 1 or installed_routes != approved or
             nav.count("composable(") != len(approved)):
         errors.append("UNAPPROVED_NAV_DESTINATION")

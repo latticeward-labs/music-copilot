@@ -83,9 +83,10 @@ class Issue5Phase3FirstLaunchTest {
         val nav = read("app/navigation/AppNavHost.kt")
         assertEquals(setOf(Destination.Bootstrap, Destination.Onboarding,
             Destination.PermissionRecovery, Destination.Library), Destination.activeInPhase3)
-        assertEquals(4, Regex("composable\\(").findAll(nav).count())
+        assertEquals(5, Regex("composable\\(").findAll(nav).count())
         assertTrue(nav.contains("startDestination = Destination.Bootstrap.route"))
         assertTrue(nav.contains("LaunchedEffect(target)"))
+        assertTrue(nav.contains("composable(Destination.Settings.route)"))
         assertFalse(nav.contains("composable(Destination.Driving.route)"))
         assertFalse(nav.contains("composable(Destination.FullPlayer.route)"))
     }
@@ -124,8 +125,8 @@ class Issue5Phase3FirstLaunchTest {
 
     @Test fun foundationReconcileCannotRunBeforeConfirmedOnboarding() {
         val binding = read("app/di/ApplicationBindings.kt")
-        assertTrue(binding.contains("preferencesRepository.loadState.value == PreferencesLoadState.Ready"))
-        assertTrue(binding.contains("preferencesRepository.preferences.value.onboardingComplete"))
+        assertFalse(binding.contains("libraryRepository.reconcile()"))
+        assertTrue(binding.contains("controller.ensureConnected()"))
     }
 
     @Test fun noMigrationsAreDestructivelyResetWhenStorageCannotOpen() {

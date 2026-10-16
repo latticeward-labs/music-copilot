@@ -25,11 +25,12 @@ class Phase10ComposeShellTest {
     @Test fun voiceIsOverlayNotASecondNavigationDestination() {
         assertFalse(Destination.declared.any { it.route.contains("voice") })
         val nav = read("app/navigation/AppNavHost.kt")
-        assertEquals(4, Regex("composable\\(").findAll(nav).count())
+        assertEquals(5, Regex("composable\\(").findAll(nav).count())
         assertTrue(nav.contains("composable(Destination.Bootstrap.route)"))
         assertTrue(nav.contains("composable(Destination.Onboarding.route)"))
         assertTrue(nav.contains("composable(Destination.PermissionRecovery.route)"))
         assertTrue(nav.contains("composable(Destination.Library.route)"))
+        assertTrue(nav.contains("composable(Destination.Settings.route)"))
     }
 
     @Test fun missingLibraryPermissionNeverPretendsReadyOrCrashes() {

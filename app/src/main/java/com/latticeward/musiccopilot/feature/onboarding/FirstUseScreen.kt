@@ -62,14 +62,16 @@ import kotlinx.coroutines.launch
 @Composable
 fun FirstUseScreen(
     repository: PreferencesRepository,
+    replay: Boolean = false,
     onComplete: () -> Unit,
     onExit: () -> Unit,
 ) {
-    var machine by remember(repository) {
+    var machine by remember(repository, replay) {
         mutableStateOf(
             FirstUseMachine.enter(
                 complete = repository.preferences.value.onboardingComplete,
                 checkpoint = repository.preferences.value.onboardingCheckpoint,
+                replay = replay,
             ),
         )
     }

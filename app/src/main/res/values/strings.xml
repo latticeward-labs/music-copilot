@@ -38,4 +38,7 @@
     <string name="first_use_page_one_a11y">Page 1 of 2</string>
     <string name="first_use_page_two_a11y">Page 2 of 2</string>
     <string name="first_use_saving">Saving your preference…</string>
+    <string name="first_use_settings">Settings</string>
+    <string name="first_use_replay_help">Review the welcome introduction without changing local music, playback or permissions.</string>
+    <string name="first_use_replay_action">Replay introduction</string>
 </resources>

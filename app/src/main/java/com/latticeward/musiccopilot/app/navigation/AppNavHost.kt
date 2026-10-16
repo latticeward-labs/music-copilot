@@ -49,17 +49,22 @@ fun AppNavHost(
 ) {
     val navController = rememberNavController()
     var manualFallback by rememberSaveable { mutableStateOf(false) }
+    var settingsOpen by rememberSaveable { mutableStateOf(false) }
+    var replayingEducation by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(permission) {
         if (permission == PermissionStatus.Granted) manualFallback = false
     }
     val actualRoute = if (route == BootstrapRoute.PermissionRecovery && manualFallback) {
         BootstrapRoute.HomeLibrary
     } else route
-    val target = when (actualRoute) {
-        BootstrapRoute.Preparing, BootstrapRoute.RetryStartup -> Destination.Bootstrap
-        BootstrapRoute.Onboarding -> Destination.Onboarding
-        BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
-        BootstrapRoute.HomeLibrary -> Destination.Library
+    val target = when {
+        actualRoute == BootstrapRoute.Preparing || actualRoute == BootstrapRoute.RetryStartup ->
+            Destination.Bootstrap
+        actualRoute == BootstrapRoute.Onboarding -> Destination.Onboarding
+        replayingEducation -> Destination.Onboarding
+        settingsOpen -> Destination.Settings
+        actualRoute == BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
+        else -> Destination.Library
     }
     LaunchedEffect(target) {
         if (navController.currentBackStackEntry?.destination?.route != target.route) {
@@ -85,8 +90,16 @@ fun AppNavHost(
         composable(Destination.Onboarding.route) {
             FirstUseScreen(
                 repository = preferencesRepository,
+                replay = replayingEducation,
                 onComplete = onFirstUseComplete,
-                onExit = onExit,
+                onExit = {
+                    if (replayingEducation) {
+                        replayingEducation = false
+                        settingsOpen = true
+                    } else {
+                        onExit()
+                    }
+                },
             )
         }
         composable(Destination.PermissionRecovery.route) {
@@ -112,6 +125,19 @@ fun AppNavHost(
                 },
                 primary = if (accessDenied) stringResource(R.string.action_review_access) else null,
                 onPrimary = { manualFallback = false; onRefreshPermission() },
+                secondary = stringResource(R.string.first_use_settings),
+                onSecondary = { settingsOpen = true },
+            )
+        }
+        composable(Destination.Settings.route) {
+            BackHandler { settingsOpen = false }
+            FirstLaunchBoundary(
+                title = stringResource(R.string.first_use_settings),
+                message = stringResource(R.string.first_use_replay_help),
+                primary = stringResource(R.string.first_use_replay_action),
+                onPrimary = { replayingEducation = true },
+                secondary = stringResource(R.string.action_back),
+                onSecondary = { settingsOpen = false },
             )
         }
     }

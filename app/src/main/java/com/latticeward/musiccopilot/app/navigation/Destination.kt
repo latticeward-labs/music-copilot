@@ -22,5 +22,9 @@ sealed class Destination(val route: String) {
         )
         val activeInPhase10: Set<Destination> get() = setOf(Bootstrap)
         val activeInPhase3: Set<Destination> get() = setOf(Bootstrap, Onboarding, PermissionRecovery, Library)
+        // The already-approved Settings destination is activated only for UF-01
+        // nonmutating replay. Full WF-10 settings features remain separate.
+        val activeInPhase4: Set<Destination> get() =
+            activeInPhase3 + Settings
     }
 }
