@@ -77,6 +77,8 @@ private class FakePreferences : PreferencesRepository {
     override val preferences: StateFlow<AppPreferences> = mutable
     override suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences> {
         mutable.value = when (update) {
+            is PreferenceUpdate.SetOnboardingCheckpoint ->
+                mutable.value.copy(onboardingCheckpoint = update.page)
             is PreferenceUpdate.SetOnboardingComplete ->
                 mutable.value.copy(onboardingComplete = update.complete)
             is PreferenceUpdate.SetBluetoothHint ->
