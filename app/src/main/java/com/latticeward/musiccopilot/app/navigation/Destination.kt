@@ -16,11 +16,11 @@ sealed class Destination(val route: String) {
     data object Settings : Destination("settings")
     data object LikedSongsP2 : Destination("liked_songs_p2")
     companion object {
-        val declared = listOf(
+        val declared: List<Destination> get() = listOf(
             Bootstrap, Onboarding, PermissionRecovery, Library,
             Search, FullPlayer, Driving, Settings, LikedSongsP2
         )
-        val activeInPhase10 = setOf(Bootstrap)
-        val activeInPhase3 = setOf(Bootstrap, Onboarding, PermissionRecovery, Library)
+        val activeInPhase10: Set<Destination> get() = setOf(Bootstrap)
+        val activeInPhase3: Set<Destination> get() = setOf(Bootstrap, Onboarding, PermissionRecovery, Library)
     }
 }
