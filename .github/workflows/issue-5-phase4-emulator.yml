@@ -79,6 +79,11 @@ jobs:
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'OPTIONAL VOICE'
             python3 scripts/issue5_phase4_emulator_ui.py --expect '6 supported commands'
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Page 2 of 2'
+            # Interrupted first launch must resume the ACKed second page.
+            adb shell am force-stop com.latticeward.musiccopilot.debug
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'OPTIONAL VOICE'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Page 2 of 2'
             # Tap at the disabled button's visual bounds; assert no route/permission effect.
             # UIAutomator may mark Text child enabled=true even when parent button is disabled.
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Practice Voice' --tap --scroll
