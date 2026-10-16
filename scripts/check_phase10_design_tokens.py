@@ -109,7 +109,7 @@ def verify(files, tokens):
     nav = files.get("nav", "")
     # Issue #4 initially approved Bootstrap alone. Issue #5 P03 activates ONLY
     # the four approved First Launch destinations, never Voice/Driving/player.
-    installed_routes = set(re.findall(r"composable\\(Destination\\.(\\w+)\\.route\\)", nav))
+    installed_routes = set(re.findall(r"composable\(Destination\.(\w+)\.route\)", nav))
     first_launch_routes = {"Bootstrap", "Onboarding", "PermissionRecovery", "Library"}
     approved = first_launch_routes if "activeInPhase3 = setOf(" in files.get("dest", "") else {"Bootstrap"}
     if (nav.count("    NavHost(") != 1 or installed_routes != approved or
