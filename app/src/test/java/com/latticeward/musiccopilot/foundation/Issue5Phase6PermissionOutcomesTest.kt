@@ -99,6 +99,7 @@ class Issue5Phase6PermissionOutcomesTest {
         assertTrue(nav.contains("onRetryMediaPermission()"))
         assertTrue(nav.contains("onOpenSettings = onOpenAndroidSettings"))
         assertTrue(act.contains("Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS"))
+        assertTrue(act.contains("toUri()"))
         assertTrue(act.contains("permissionUi.settingsTapped()"))
         assertTrue(act.contains("startActivity(intent)"))
         assertFalse(act.substringAfter("override fun onResume()").substringBefore("@Composable")

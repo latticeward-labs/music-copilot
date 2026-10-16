@@ -1,7 +1,7 @@
 package com.latticeward.musiccopilot.app
 
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import android.provider.Settings
 import android.content.pm.PackageManager
 import android.os.Build
@@ -157,7 +157,7 @@ class MainActivity : ComponentActivity() {
     private fun openMediaAppSettings() {
         // Only called from explicit SettingsOnly button. Never opens on startup.
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-            Uri.parse("package:$packageName"))
+            ("package:$packageName").toUri())
         try {
             permissionUi.settingsTapped()
             startActivity(intent)
