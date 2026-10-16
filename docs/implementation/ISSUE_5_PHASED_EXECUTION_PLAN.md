@@ -1,6 +1,6 @@
 # Issue #5 — 15-Phase Execution Plan (P00–P14)
 
-**Current stage:** P00 PASS, P01 **PASS documentation/CI contract**; P02 State Machine/Permission contract PASS; P03 Bootstrap and First Launch routing **CODE READY — CI/EMULATOR PENDING** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
+**Current stage:** P00 PASS, P01 **PASS documentation/CI contract**; P02 State Machine/Permission contract PASS; P03 Bootstrap and First Launch routing **PASS — real JVM/Android and API29 emulator smoke** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
 
 **Source + audit:** [Phase-0 Source/Traceability/DoR](ISSUE_5_PHASE0_SOURCE_TRACEABILITY_DOR.md) · [machine traceability](ISSUE_5_PHASE0_TRACEABILITY.json) · [machine validation](ISSUE_5_PHASE0_VALIDATION.json).
 
@@ -13,7 +13,7 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 | P00 | Source, traceability, Definition of Ready audit | This audit only; baseline frozen and linked. **PASS_DOCUMENTATION_ONLY** |
 | P01 | Execution contracts and test fixtures | Create review/evidence index, synthetic fixture, phase gates; no product UX yet. **P01 PASS — CONTRACT/CI ONLY** |
 | P02 | Bootstrap and state ownership | Define pure bootstrap/first-use/permission State Machines, persist checkpoint via DataStore, unit-test transition ownership; Android/native/UI binding later. **PASS — COMPILED STATE MACHINE + DATASTORE/UNIT CI [#38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346), NO RUNTIME OS REQUESTS** |
-| P03 | Bootstrap, real First Launch routing and initial WF-02 two-slide UI | Verify local preferences and Room startup, read OS access without requesting, activate exact 4 first-use routes, DataStore ACK for Continue/Skip/Back/Finish and run JVM + API29 first-run emulator. **CODE READY — REAL CI/EMULATOR PENDING**. Optional six-command/practice polish remains a later P07 deliverable; do not claim it here. |
+| P03 | Bootstrap, real First Launch routing and initial WF-02 two-slide UI | Verify local preferences and Room startup, read OS access without requesting, activate exact 4 first-use routes, DataStore ACK for Continue/Skip/Back/Finish and run JVM + API29 first-run emulator. **PASS — JVM/Android Actions #38869470585, API29 UI emulator #38869071281; CI and tested SHA recorded**. Optional six-command/practice polish remains a later P07 deliverable; do not claim it here. |
 | P04 | Android permission capability policy | Version-aware permission types, OS current-truth states, rationale/request history. **NOT_STARTED** |
 | P05 | Media permission rationale and denial screens | WF-03 native handoff, granted/requestable/permanent branching. **NOT_STARTED** |
 | P06 | Settings, cancellation and revocation recovery | Explicit Settings, three-way return, no loops, safe re-entry. **NOT_STARTED** |
@@ -43,7 +43,7 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 - [x] P01 branch/PR review/evidence/fixture contract prepared on feature branch.
 - [x] P01 [real contract GitHub CI run #38819186656](https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656) PASS; post-closeout final head recheck is recorded in Issue #5.
 - [x] P02 [real Gradle/JVM+APK CI #38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346) PASS on implementation head `0e943e03a0f8`; final report-only commit recheck recorded separately in Issue #5.
-- [ ] P03 real exact-head JVM/Android CI and API29 emulator first-run artifact; preserve 0/13 issue-wide runtime AC until final review.
+- [x] P03 [real JVM/Android CI #38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585) on code SHA `f4f071a0`, and [real API29 first-launch emulator #38869071281](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281) with screenshot artifact; 13 Issue-wide ACs still pending final acceptance.
 - [ ] P04–P14 further runtime acceptance remains pending.
 - [ ] Issue #5 implementation and final acceptance (13 criteria).
 

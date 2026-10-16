@@ -25,7 +25,9 @@
     38868295997,
     38868414557,
     38868575383,
-    38868658142
+    38868658142,
+    38869097320,
+    38869071223
   ],
   "checks": [
     {
@@ -34,29 +36,56 @@
     },
     {
       "id": "P03-CODE",
-      "status": "IMPLEMENTED_NOT_FINAL_CI_VERIFIED"
+      "status": "PASS_GITHUB_COMMITTED"
     },
     {
       "id": "P03-ARCH",
-      "status": "PENDING_EXACT_HEAD_CI"
+      "status": "PASS_REAL_GITHUB_ACTIONS"
     },
     {
       "id": "P03-JVM-APK",
-      "status": "PENDING_EXACT_HEAD_CI"
+      "status": "PASS_REAL_GITHUB_ACTIONS"
     },
     {
       "id": "P03-API29-UI",
-      "status": "PENDING_EMULATOR"
+      "status": "PASS_REAL_EMULATOR_TEST_ON_RECORDED_IMPLEMENTATION_COMMIT"
     },
     {
       "id": "P03-ISSUE-CLOSEOUT",
       "status": "PENDING"
     }
   ],
-  "result": "PENDING_REAL_CI_AND_EMULATOR",
+  "result": "PASS_P03_SCOPE_ON_VERIFIED_JVM_AND_API29_UI_RUNS_DOCUMENT_CLOSEOUT_PENDING",
   "limitations": [
     "No native runtime permission dialog or Settings recovery implementation",
     "No physical device or cross-version instrumentation",
     "No reviewer approval, PR merge or Issue close"
-  ]
+  ],
+  "verified": {
+    "jvm_android_ci": {
+      "id": 38869470585,
+      "result": "success",
+      "commit": "f4f071a0e3a741703b2242ceca1969a919c81ae5",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585"
+    },
+    "emulator_api29": {
+      "id": 38869071281,
+      "result": "success",
+      "commit": "3b53efa7e0e106438515db38011482870263d0cb",
+      "artifact_id": 12032378967,
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281"
+    },
+    "emulator_latest_resource_cleanup": {
+      "id": 38869470447,
+      "status": "PENDING",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470447"
+    },
+    "observations": [
+      "WF02 slide1, Continue, slide2, Finish",
+      "Permission boundary Not now; Library manual fallback",
+      "force-stop and relaunch preserves onboarding complete",
+      "OS media/microphone grants absent",
+      "app screenshot and debug APK uploaded"
+    ]
+  }
 }

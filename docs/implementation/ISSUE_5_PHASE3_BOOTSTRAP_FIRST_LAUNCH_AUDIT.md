@@ -51,7 +51,8 @@ On the first install the user sees two (and only two) value/safety slides. Conti
 - Next [#38868414557](https://github.com/music-copilot-organization/music-copilot/actions/runs/38868414557) FAIL: original Phase10 design token guard expected only Bootstrap; updated allowlist to **exactly** Bootstrap/Onboarding/PermissionRecovery/Library, preserving unapproved-route negative self-test.
 - [#38868575383](https://github.com/music-copilot-organization/music-copilot/actions/runs/38868575383) FAIL: escaped regex in amended guard; corrected without removing the guard.
 - [#38868658142](https://github.com/music-copilot-organization/music-copilot/actions/runs/38868658142) FAIL: JVM old Route Registry eagerly constructed typed singleton references; converted companion object collections to computed getters and kept strict allowlist.
-- Final code, CI and emulator outcomes must be sourced from the corresponding successful GitHub runs. Failed runs are historical evidence; NEVER relabeled pass.
+- [#38869097320](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869097320) FAIL: Android Lint detected unused legacy `foundation_shell_message`; removed unused resource instead of suppressing Lint. [#38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585) SUCCESS after correction.
+- Real [API29 emulator UI run #38869071281](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281) and [JVM/Android CI #38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585) independently verify state and compiled code at their explicitly identified commit SHAs. Failed runs are historical evidence and are NEVER relabeled PASS.
 
 ## P03 completion gate
 
@@ -60,8 +61,15 @@ On the first install the user sees two (and only two) value/safety slides. Conti
 - [x] Local DataStore ACK, Room verification and foreground platform permission read wired without native prompts.
 - [x] First-use two slides, persisted checkpoint, safe Back/Skip/Finish implemented.
 - [x] New JVM tests, stronger design validator and API29 emulator smoke workflow committed.
-- [ ] Actual latest code CI/JVM/build finished SUCCESS with tested SHA and artifacts (record only after verification).
-- [ ] Actual API29 emulator clean first-use/force-stop return passed with real screenshot/artifact (record only after verification).
-- [ ] Issue #5 P03 closure note and branch/readback remain consistent with 13 original implementation ACs pending.
+- [x] Actual latest app-code [Gradle/JVM/Android lint/Spotless/Detekt/APK CI #38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585) **SUCCESS** on `f4f071a0e3a741703b2242ceca1969a919c81ae5`. All JUnit classes were run; two new classes contain 13 tests. Resource-only cleanup fixed the last Lint issue.
+- [x] Actual [API29 emulator run #38869071281](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281) **SUCCESS** on `3b53efa7e0e106438515db38011482870263d0cb`: first slide → Continue → second slide → Finish → permission boundary → Not now manual Library → force-stop/restart returns to permission boundary, with OS media/mic grants still absent. Real APK and screenshot artifact ID `12032378967`. More recent resource-cleanup head's independent [emulator run #38869470447](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470447) is tracked separately and must not be called successful until it finishes.
+- [ ] Final documentation-only commit CI/readback and Issue #5 P03 closeout (record actual final SHA).
 
 **Not P03:** Real Permission request/rationale result classifications, permanent denial Settings handoff, notifications on Android 13+, JIT microphone/Voice practice, full playback/library browsing, cross-OEM Android/API matrix, production accessibility audit, human PR review/merge. These are downstream P04–P14. **No claim of Issue #5 final 13/13.**
+
+
+## Verified P03 build and emulator evidence
+
+- Exact built code commit: `f4f071a0e3a741703b2242ceca1969a919c81ae5`. [JVM/lint/assemble CI](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585) completed **SUCCESS**; log includes `:app:testDebugUnitTest`, `:app:lintDebug`, `:app:assembleDebug` and `BUILD SUCCESSFUL in 2m 10s`.
+- Real Android API29 [emulator smoke](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281) **SUCCESS** on stated commit `3b53efa7e0e106438515db38011482870263d0cb`; [artifact #12032378967](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281/artifacts/12032378967) contains screenshot, permission evidence and build. A pending later run is not represented as successful.
+- P03 **PASS for Bootstrap/first-use/app navigation + JVM/Android API29 smoke coverage only**; other device levels, native OS permission dialogs, final 13 ACs and independent review remain P04–P14 work.
