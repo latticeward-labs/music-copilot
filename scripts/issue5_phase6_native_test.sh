@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -eu
+API="$1"
+OUT="app/build/outputs/issue5-p06-api${API}"
+APK="com.latticeward.musiccopilot.debug"
+PERMISSION="android.permission.READ_EXTERNAL_STORAGE"
+if [ "$API" -ge 33 ]; then PERMISSION="android.permission.READ_MEDIA_AUDIO"; fi
+mkdir -p "$OUT"
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb shell pm clear "$APK"
+adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
+python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+python3 scripts/issue5_phase5_emulator_ui.py tap Skip
+python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+adb exec-out screencap -p > "$OUT/rationale.png"
+python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+python3 scripts/issue5_phase5_emulator_ui.py system-deny
+python3 scripts/issue5_phase5_emulator_ui.py app 'Access denied'
+python3 scripts/issue5_phase5_emulator_ui.py app 'Manual controls remain available.'
+adb exec-out screencap -p > "$OUT/denied_requestable.png"
+adb shell dumpsys package "$APK" > "$OUT/denied_os_truth.txt"
+! grep -Fq "$PERMISSION: granted=true" "$OUT/denied_os_truth.txt"
+# Try again returns to explanation, not a coercive native prompt loop.
+python3 scripts/issue5_phase5_emulator_ui.py tap 'Try again'
+python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+# Model the OS-fixed state using an actual Android permission flag,
+# not a fabricated Compose status. A second user tap must NOT
+# relaunch a consent dialog when the platform refuses it.
+adb shell pm set-permission-flags "$APK" "$PERMISSION" user-fixed
+python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+python3 scripts/issue5_phase5_emulator_ui.py app 'Open Android Settings'
+python3 scripts/issue5_phase5_emulator_ui.py app 'Permission must be changed explicitly.'
+adb exec-out screencap -p > "$OUT/settings_only.png"
+adb shell dumpsys package "$APK" > "$OUT/settings_only_os_truth.txt"
+! grep -Fq "$PERMISSION: granted=true" "$OUT/settings_only_os_truth.txt"
+# Explicitly open an Android-owned Settings Activity and return via Back.
+python3 scripts/issue5_phase5_emulator_ui.py tap 'Open Settings'
+sleep 2
+adb shell dumpsys activity activities > "$OUT/native_settings_activity.txt"
+grep -Eiq 'com.android.settings|subsettings' "$OUT/native_settings_activity.txt"
+adb shell input keyevent 4
+python3 scripts/issue5_phase5_emulator_ui.py app 'Open Android Settings'
+python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
+python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
+# A fresh install separates denial and grant scenarios.
+adb shell pm clear "$APK"
+adb shell pm clear-permission-flags "$APK" "$PERMISSION" user-fixed >/dev/null 2>&1 || true
+adb shell pm clear "com.android.permissioncontroller" >/dev/null 2>&1 || true
+adb shell pm clear "com.google.android.permissioncontroller" >/dev/null 2>&1 || true
+adb shell pm clear "$APK"
+adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
+python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+python3 scripts/issue5_phase5_emulator_ui.py tap Skip
+python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+python3 scripts/issue5_phase5_emulator_ui.py system-allow
+python3 scripts/issue5_phase5_emulator_ui.py app 'Access granted'
+python3 scripts/issue5_phase5_emulator_ui.py app 'Continue to the blocked action.'
+adb exec-out screencap -p > "$OUT/granted_before_explicit_continue.png"
+adb shell dumpsys package "$APK" > "$OUT/granted_os_truth.txt"
+grep -Fq "$PERMISSION: granted=true" "$OUT/granted_os_truth.txt"
+python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
+python3 scripts/issue5_phase5_emulator_ui.py app 'No local music is indexed yet.'
+adb exec-out screencap -p > "$OUT/post_grant_scan.png"
+adb logcat -d -b crash > "$OUT/crash_buffer.txt"
+! grep -Fq "Process: $APK" "$OUT/crash_buffer.txt"
+echo "ISSUE5_P06_ANDROID_API${API}_THREE_WF03_OUTCOMES_PASS"
