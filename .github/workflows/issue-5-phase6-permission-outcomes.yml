@@ -6,7 +6,7 @@ on:
       - feature/5-onboarding-permissions-recovery
     paths:
       - "app/src/main/**"
-      - "scripts/issue5_phase5_emulator_ui.py"
+      - "scripts/issue5_phase6_emulator_ui.py"
       - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase6*"
       - "scripts/issue5_phase6_native_test.sh"
       - ".github/workflows/issue-5-phase6-permission-outcomes.yml"
