@@ -11,7 +11,6 @@
     <string name="startup_failure_body">Your settings or local index could not be checked. Nothing was deleted. You can retry safely.</string>
     <string name="action_retry">Retry</string>
     <string name="action_not_now">Not now</string>
-    <string name="action_check_again">Check access again</string>
     <string name="action_review_access">Review music access</string>
     <string name="action_back">Back</string>
     <string name="action_skip">Skip</string>
