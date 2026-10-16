@@ -16,7 +16,7 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 | P03 | Real Bootstrap and First Launch routing | Verified preferences/Room/OS access, four registered destinations, preliminary functional UI, DataStore ACK; **PASS — JVM/Android CI #38869470585, API29 UI #38869470447**. Exact approved UI-copy/design fidelity belongs P04. |
 | P04 | **Two approved Onboarding Compose slides** | Match WF-02/HF-02 exact copy/hierarchy; Back/Skip/Finish, local persistence, 48dp, TalkBack labels, scroll/reflow; real JVM + Android 10 UI evidence. **PASS** — [JVM/APK #38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334), [real API29 UI/200% #38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678); consent/native permissions deliberately deferred.. Practice Voice affordance disabled until P09. |
 | P05 | Request access to audio files | WF-03 rationale → explicit Android `RequestPermission` native dialog; API29–32 `READ_EXTERNAL_STORAGE`, API33+ `READ_MEDIA_AUDIO`; Not now/denial manual fallback, fresh grant check and one scan, no mic/notification request. **PASS_SCOPED** — JVM/Lint/APK #38884070402 + API29/API33 native UI #38887620769 SUCCESS. |
-| P06 | Granted / Denied / Permanently Denied | Native OS outcomes and requestable/permanent distinction, clear explanations and safe fallback. **NOT_STARTED** |
+| P06 | Granted / Denied / Permanently Denied | Three WF-03 Compose screens, conservative OS denial classification, one-shot grant continuation, Retry/Not now/Back and explicit native Settings button. **IMPLEMENTED / REAL API29+33 NATIVE TEST PENDING** — [JVM/Lint/APK #38894487796](https://github.com/music-copilot-organization/music-copilot/actions/runs/38894487796) SUCCESS. |
 | P07 | Android Settings recovery and permission revocation | Explicit Settings handoff, fresh OS recheck, cancellation/revoked safe recovery. **NOT_STARTED** |
 | P08 | Connect permissions to truthful Library Readiness | MediaStore/Room authorization, Empty/Ready/Recoverable, never false playability. **NOT_STARTED** |
 | P09 | Six-command education and microphone access | Exactly 6 supported commands, optional Practice Voice, explicit JIT RECORD_AUDIO and separate provider readiness. **NOT_STARTED** |
@@ -63,3 +63,6 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 
 
 **P05:** [Actual native media rationale/OS request audit](ISSUE_5_PHASE5_MEDIA_PERMISSION_AUDIT.md) · [Run IDs and machine evidence](ISSUE_5_PHASE5_VALIDATION.json). **PASS within phase 5** on GitHub Actions, Android API29/API33 and JVM; no claim of final 13-AC acceptance or Android physical device QA. P06 next per owner's 15-phase sequence.
+
+
+**P06 in native validation:** [three-outcome source/architecture audit](ISSUE_5_PHASE6_PERMISSION_OUTCOMES_AUDIT.md) · [machine CI ledger](ISSUE_5_PHASE6_VALIDATION.json). Native Android10/13 workflow [#38894791348](https://github.com/music-copilot-organization/music-copilot/actions/runs/38894791348) is **PENDING**, not prematurely PASS. P07 Settings/revocation remains out of scope.
