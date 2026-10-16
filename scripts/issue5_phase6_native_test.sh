@@ -37,7 +37,7 @@ python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
 # under Android platform policy; do not fake Android grant/deny status.
 python3 scripts/issue5_phase5_emulator_ui.py tap Continue
 python3 scripts/issue5_phase5_emulator_ui.py system-never-ask-if-present
-python3 scripts/issue5_phase5_emulator_ui.py system-deny
+python3 scripts/issue5_phase5_emulator_ui.py system-deny-or-os-fixed
 adb shell dumpsys package "$APK" > "$OUT/twice_denied_native_flags.txt"
 ! grep -Fq "$PERMISSION: granted=true" "$OUT/twice_denied_native_flags.txt"
 python3 scripts/issue5_phase5_emulator_ui.py app 'Open Android Settings'
