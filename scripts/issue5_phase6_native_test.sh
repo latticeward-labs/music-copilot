@@ -94,4 +94,6 @@ python3 scripts/issue5_phase6_emulator_ui.py app 'No local music is indexed yet.
 adb exec-out screencap -p > "$OUT/post_grant_scan.png"
 adb logcat -d -b crash > "$OUT/crash_buffer.txt"
 ! grep -Fq "Process: $APK" "$OUT/crash_buffer.txt"
-echo "ISSUE5_P06_ANDROID_API${API}_THREE_WF03_OUTCOMES_PASS"
+# The outcome set is OS-dependent: API29 may remain USER_SET/requestable
+# after two native denials. Never claim Settings-only if OS did not create it.
+echo "ISSUE5_P06_ANDROID_API${API}_TRUTHFUL_NATIVE_RESULT_AND_GRANT_PASS"
