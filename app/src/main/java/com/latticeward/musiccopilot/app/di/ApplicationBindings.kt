@@ -1,6 +1,10 @@
 package com.latticeward.musiccopilot.app.di
 
 import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.launch
 
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
@@ -90,6 +94,23 @@ class ApplicationBindings(
     val qualityEventPublisher = QualityBindings.publisher(telemetryPrivacyGate, telemetrySink)
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
+    private val consentedScanMutex = Mutex()
+
+    /** Never invoked from bootstrap/resume; only a one-shot P05 ActivityResult grant. */
+    fun scanAfterExplicitMediaGrant(context: Context, permissionName: String) {
+        val application = context.applicationContext
+        repositoryScope.launch {
+            consentedScanMutex.withLock {
+                // Fresh Android grant check immediately before the real scanner.
+                // RoomLibraryRepository and MediaStoreScanner each check it again.
+                if (ContextCompat.checkSelfPermission(application, permissionName) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                    libraryRepository.reconcile()
+                }
+            }
+        }
+    }
+
     fun onForeground() {
         controller.ensureConnected()
         // P05/P08 must authorize explicit OS media permission before scan.

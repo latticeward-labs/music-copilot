@@ -34,6 +34,8 @@ import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.feature.onboarding.FirstUseScreen
+import com.latticeward.musiccopilot.feature.permission.MediaPermissionRationaleScreen
+import com.latticeward.musiccopilot.feature.permission.MediaRequestUiState
 
 /** P03: single NavHost, Bootstrap always entry, no second playback/Voice authority. */
 @Composable
@@ -44,6 +46,8 @@ fun AppNavHost(
     preferencesRepository: PreferencesRepository,
     onRetry: () -> Unit,
     onRefreshPermission: () -> Unit,
+    onRequestMediaPermission: () -> Unit,
+    mediaRequestUi: MediaRequestUiState,
     onFirstUseComplete: () -> Unit,
     onExit: () -> Unit,
 ) {
@@ -103,14 +107,10 @@ fun AppNavHost(
             )
         }
         composable(Destination.PermissionRecovery.route) {
-            BackHandler { manualFallback = true }
-            FirstLaunchBoundary(
-                title = stringResource(R.string.media_rationale_title),
-                message = stringResource(R.string.media_rationale_body),
-                primary = stringResource(R.string.action_not_now),
-                onPrimary = { manualFallback = true },
-                secondary = stringResource(R.string.action_check_again),
-                onSecondary = onRefreshPermission,
+            MediaPermissionRationaleScreen(
+                request = mediaRequestUi,
+                onContinue = onRequestMediaPermission,
+                onNotNow = { manualFallback = true },
             )
         }
         composable(Destination.Library.route) {

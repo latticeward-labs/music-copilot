@@ -17,8 +17,8 @@
     <string name="action_skip">Skip</string>
     <string name="action_continue">Continue</string>
     <string name="first_use_save_error">Could not save this step. Retry, or use Back to exit without claiming completion.</string>
-    <string name="media_rationale_title">Access to local music</string>
-    <string name="media_rationale_body">Music Copilot needs your permission to read audio on this device before scanning. This screen does not request permission yet. You can choose Not now and return later without signing in.</string>
+    <string name="media_rationale_title">Media access</string>
+    <string name="media_rationale_body">Index and play local music.</string>
     <string name="library_title">Your local music</string>
     <string name="library_without_access">Music access has not been granted. No library or playable tracks are claimed. You can review access later; manual controls remain available where supported.</string>
     <string name="first_use_welcome">Welcome</string>
@@ -41,4 +41,10 @@
     <string name="first_use_settings">Settings</string>
     <string name="first_use_replay_help">Review the welcome introduction without changing local music, playback or permissions.</string>
     <string name="first_use_replay_action">Replay introduction</string>
+    <string name="media_permission_app_bar">Permissions</string>
+    <string name="media_permission_label">PERMISSION</string>
+    <string name="media_permission_system_note">[ANDROID / SYSTEM] handoff</string>
+    <string name="media_permission_fresh_result">Fresh result is authoritative</string>
+    <string name="media_permission_denied_hint">Access was not granted. No audio was scanned. You can return later.</string>
+    <string name="media_permission_pending">Waiting for Android permission</string>
 </resources>
