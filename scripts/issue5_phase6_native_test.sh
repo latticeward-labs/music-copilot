@@ -19,7 +19,10 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell pm clear "$APK"
 adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
 adb exec-out screencap -p > "$OUT/initial_window.png"
-python3 scripts/issue5_phase3_emulator_ui.py --expect 'Play local music. No account needed.' --tap Continue
+# Use the bounded fresh-XML retry of the P05 UiAutomator tool to
+# tolerate transient PermissionController/UiAutomation startup on API33.
+python3 scripts/issue5_phase5_emulator_ui.py app 'Play local music. No account needed.'
+python3 scripts/issue5_phase5_emulator_ui.py tap Continue
 python3 scripts/issue5_phase6_emulator_ui.py tap Skip
 python3 scripts/issue5_phase6_emulator_ui.py app 'Media access'
 adb exec-out screencap -p > "$OUT/rationale.png"
