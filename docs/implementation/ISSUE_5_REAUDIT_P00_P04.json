@@ -54,14 +54,16 @@
     },
     {
       "id": "P04",
-      "status": "PENDING_150_PERCENT_EMULATOR",
+      "status": "PASS_SCOPED_JVM_AND_100_150_200_EMULATOR_WITH_EXTRA_INTERRUPTION_PROOF_PENDING",
       "changes": [
         "real read-only replay and origin restore",
         "150 percent and slide2 interruption checks"
       ],
       "CI": 38876334876,
       "emulator_initial": 38876334672,
-      "emulator_extended": 38876467719
+      "emulator_extended": 38876467719,
+      "emulator_verified": 38876334672,
+      "emulator_supplemental": 38876467719
     }
   ],
   "original_issue_ac_total": 13,
@@ -75,5 +77,6 @@
     "physical OEM/Goldens P13",
     "human review/merge P14"
   ],
-  "decision": "PENDING_EXTENDED_EMULATOR_AND_FINAL_READBACK"
+  "decision": "PASS_P00_TO_P04_SCOPED; ADDED_EMULATOR_INTERRUPTED_SLIDE2_PENDING",
+  "scope_caveat": "Native OS permission adapters P05/P07 and physical/complete accessibility QA P12/P13 not accepted. Extended interrupted Slide2 emulator not yet concluded; do not relabel."
 }
