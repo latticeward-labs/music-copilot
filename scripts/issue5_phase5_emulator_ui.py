@@ -72,7 +72,20 @@ def choose_never_ask_if_present():
             else:
                 print("ANDROID_NATIVE_NEVER_ASK_ALREADY_CHECKED")
             return
-    print("ANDROID_NATIVE_NEVER_ASK_CHECKBOX_NOT_AVAILABLE")
+    # Some API29 PermissionController layouts expose "Don't ask again" as
+    # a one-tap DENY OPTION rather than a separately checkable checkbox.
+    # A real prior API29 failure screenshot confirmed this native option
+    # immediately dismisses the OS dialog and shows Settings-only.
+    for n in ns:
+        if "permissioncontroller" not in n["package"] and "packageinstaller" not in n["package"]:
+            continue
+        label = (n["text"] or n["content-desc"]).strip().casefold()
+        if label in ("don't ask again", "don’t ask again", "never ask again"):
+            if BOUNDS.fullmatch(n["bounds"]):
+                tap(n)
+                print("ANDROID_NATIVE_DONT_ASK_DENY_OPTION_TAPPED")
+                return
+    print("ANDROID_NATIVE_NEVER_ASK_OPTION_NOT_AVAILABLE")
 
 
 def native_denial_or_proven_os_fixed():
