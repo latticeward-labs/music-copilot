@@ -1,0 +1,38 @@
+{
+  "schema": "music-copilot.issue5.phase5.validation.v1",
+  "date": "2026-10-16",
+  "repository": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "owner_plan_sha256": "32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f",
+  "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "permission_by_api": {
+    "29-32": "READ_EXTERNAL_STORAGE",
+    "33-36": "READ_MEDIA_AUDIO"
+  },
+  "new_unit_tests": 12,
+  "voice_permission_request": false,
+  "notification_permission_request": false,
+  "all_files_access": false,
+  "scan_on_app_start": false,
+  "only_explicit_user_request": true,
+  "denial_no_scan": true,
+  "native_result_fresh_os_checked": true,
+  "duplicate_request_guard": true,
+  "phase6_full_recovery_implemented": false,
+  "phase7_settings_handoff_implemented": false,
+  "phase8_full_library_readiness_implemented": false,
+  "issue_ac_formally_accepted": 0,
+  "issue_ac_total": 13,
+  "run_ids": {
+    "jvm": 38883438174,
+    "emulator_matrix": 38883438170
+  },
+  "checks": {
+    "jvm": "PENDING",
+    "api29": "PENDING",
+    "api33": "PENDING",
+    "P03_P04_regression": "PENDING",
+    "issue_closeout": "PENDING"
+  },
+  "decision": "PENDING_ACTUAL_CI"
+}
