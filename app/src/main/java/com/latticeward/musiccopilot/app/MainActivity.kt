@@ -1,9 +1,13 @@
 package com.latticeward.musiccopilot.app
 
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
@@ -25,6 +29,7 @@ import com.latticeward.musiccopilot.core.application.permission.PermissionCapabi
 import com.latticeward.musiccopilot.core.application.permission.PermissionPlatformPolicy
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.feature.permission.MediaRequestUiState
+import com.latticeward.musiccopilot.feature.permission.PermissionViewModel
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
 import kotlinx.coroutines.flow.MutableStateFlow
 import androidx.compose.ui.graphics.toArgb
@@ -35,27 +40,25 @@ import androidx.compose.ui.graphics.toArgb
  */
 class MainActivity : ComponentActivity() {
     private val mediaAccess = MutableStateFlow(PermissionStatus.Unknown)
-    private val requestUi = MutableStateFlow(MediaRequestUiState())
+    private val permissionUi: PermissionViewModel by viewModels()
     private val gate = MediaRequestGate(Build.VERSION.SDK_INT)
-    private val requestLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        // Never trust just the dialog result; check the OS capability again.
-        val freshGrant = hasMediaPermission()
-        val action = gate.complete(
-            NativePermissionObservation(
+    private val requestLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            // ActivityResult Boolean is not permission truth. Re-read Android OS.
+            val wasPending = gate.awaitingPlatformResult
+            val freshGrant = hasMediaPermission()
+            val observation = NativePermissionObservation(
                 granted = freshGrant,
                 requestedBefore = true,
-                shouldShowRationale = shouldShowRequestPermissionRationale(mediaPermissionName()),
-            ),
-        )
-        requestUi.value = MediaRequestUiState(
-            pending = false, attempted = true, denied = !freshGrant,
-        )
-        refreshMediaPermission()
-        if (action == BlockedAction.StartScan && freshGrant) {
-            (application as MusicCopilotApplication).bindings
-                .scanAfterExplicitMediaGrant(applicationContext, mediaPermissionName())
+                shouldShowRationale =
+                    shouldShowRequestPermissionRationale(mediaPermissionName()),
+            )
+            val action = gate.complete(observation)
+            if (wasPending) permissionUi.nativeResult(observation, action)
+            refreshMediaPermission()
+            // Never scan in the OS callback. Granted screen Continue owns that
+            // one remaining explicit action, with a second fresh OS recheck.
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +66,9 @@ class MainActivity : ComponentActivity() {
             // ActivityResultRegistry will deliver the interrupted native result.
             // Restoring a pending request does NOT open another dialog.
             gate.restoreAwaitingNativeResult()
-            requestUi.value = MediaRequestUiState(pending = true)
+            permissionUi.restorePending()
         } else if (savedInstanceState?.getBoolean("p05_media_attempted") == true) {
-            requestUi.value = MediaRequestUiState(attempted = true)
+            permissionUi.restoreAttempted()
         }
         window.statusBarColor = MusicColors.systemBar.toArgb()
         window.navigationBarColor = MusicColors.systemBar.toArgb()
@@ -81,7 +84,11 @@ class MainActivity : ComponentActivity() {
                 onExit = ::finish,
                 onRefreshPermission = ::refreshMediaPermission,
                 onRequestMediaPermission = ::requestMediaPermission,
-                mediaRequestUi = requestUi,
+                onContinueGranted = ::continueGrantedScan,
+                onRetryMediaPermission = permissionUi::retryRationale,
+                onExitPermissionResult = permissionUi::manualExit,
+                onOpenAndroidSettings = ::openMediaAppSettings,
+                mediaRequestUi = permissionUi.ui,
             )
         }
     }
@@ -109,44 +116,70 @@ class MainActivity : ComponentActivity() {
     private fun requestMediaPermission() {
         // Called ONLY by an explicit WF-03 Continue tap, not by onResume/bootstrap.
         val effect = gate.begin() ?: return
-        requestUi.value = MediaRequestUiState(pending = true)
+        permissionUi.requestStarting()
         val permission = requireNotNull(
             PermissionPlatformPolicy.manifestPermission(effect.capability, Build.VERSION.SDK_INT),
         )
         if (hasMediaPermission()) {
-            // If already granted externally, still consume exactly one verified action
-            // and never show a redundant native dialog.
+            // No redundant platform prompt: project only a real OS grant.
+            val freshGrant = hasMediaPermission()
             val action = gate.complete(NativePermissionObservation(
-                granted = hasMediaPermission(), requestedBefore = true,
+                granted = freshGrant, requestedBefore = true,
                 shouldShowRationale = false,
             ))
-            requestUi.value = MediaRequestUiState(attempted = true)
+            permissionUi.nativeResult(NativePermissionObservation(
+                granted = freshGrant, requestedBefore = true,
+                shouldShowRationale = false,
+            ), action)
             refreshMediaPermission()
-            if (action == BlockedAction.StartScan && hasMediaPermission()) {
-                (application as MusicCopilotApplication).bindings
-                    .scanAfterExplicitMediaGrant(applicationContext, permission)
-            }
         } else {
             try {
                 requestLauncher.launch(permission)
             } catch (failure: RuntimeException) {
-                // A failed launcher cannot claim grant or start a scan.
                 gate.abandon()
-                requestUi.value = MediaRequestUiState(attempted = true, denied = true)
+                permissionUi.nativeLaunchFailed()
                 refreshMediaPermission()
             }
         }
     }
 
+    private fun continueGrantedScan() {
+        // Consume the block-action first; even duplicate taps cannot scan twice.
+        val authorized = permissionUi.takeOneGrantedScan()
+        val freshGrant = hasMediaPermission()
+        refreshMediaPermission()
+        if (authorized && freshGrant) {
+            (application as MusicCopilotApplication).bindings
+                .scanAfterExplicitMediaGrant(applicationContext, mediaPermissionName())
+        }
+    }
+
+    private fun openMediaAppSettings() {
+        // Only called from explicit SettingsOnly button. Never opens on startup.
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+            Uri.parse("package:$packageName"))
+        try {
+            permissionUi.settingsTapped()
+            startActivity(intent)
+        } catch (failure: RuntimeException) {
+            // No coercive Settings loop or crash on OEMs without the Activity.
+            permissionUi.settingsLaunchFailed()
+        }
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean("p05_native_media_request_pending", gate.awaitingPlatformResult)
-        outState.putBoolean("p05_media_attempted", requestUi.value.attempted)
+        outState.putBoolean("p05_media_attempted", permissionUi.ui.value.attempted)
         super.onSaveInstanceState(outState)
     }
 
     override fun onResume() {
         super.onResume()
         refreshMediaPermission()
+        permissionUi.onReturnFromSettings(NativePermissionObservation(
+            granted = hasMediaPermission(), requestedBefore = permissionUi.requestsThisSession > 0,
+            shouldShowRationale = shouldShowRequestPermissionRationale(mediaPermissionName()),
+        ))
         (application as MusicCopilotApplication).bindings.onForeground()
     }
 
@@ -156,6 +189,10 @@ class MainActivity : ComponentActivity() {
         onExit: () -> Unit,
         onRefreshPermission: () -> Unit,
         onRequestMediaPermission: () -> Unit,
+        onContinueGranted: () -> Unit,
+        onRetryMediaPermission: () -> Unit,
+        onExitPermissionResult: () -> Unit,
+        onOpenAndroidSettings: () -> Unit,
         mediaRequestUi: kotlinx.coroutines.flow.StateFlow<MediaRequestUiState>,
     ) {
         val library by bindings.libraryRepository.index.collectAsStateWithLifecycle()
@@ -185,6 +222,10 @@ class MainActivity : ComponentActivity() {
                 onRetry = bindings::retryFirstLaunch,
                 onRefreshPermission = onRefreshPermission,
                 onRequestMediaPermission = onRequestMediaPermission,
+                onContinueGranted = onContinueGranted,
+                onRetryMediaPermission = onRetryMediaPermission,
+                onExitPermissionResult = onExitPermissionResult,
+                onOpenAndroidSettings = onOpenAndroidSettings,
                 mediaRequestUi = mediaRequest,
                 onFirstUseComplete = bindings::onForeground,
                 onExit = onExit,

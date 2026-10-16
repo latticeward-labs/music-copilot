@@ -34,6 +34,8 @@ import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.feature.onboarding.FirstUseScreen
+import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
+import com.latticeward.musiccopilot.feature.permission.MediaPermissionOutcomeScreen
 import com.latticeward.musiccopilot.feature.permission.MediaPermissionRationaleScreen
 import com.latticeward.musiccopilot.feature.permission.MediaRequestUiState
 
@@ -47,6 +49,10 @@ fun AppNavHost(
     onRetry: () -> Unit,
     onRefreshPermission: () -> Unit,
     onRequestMediaPermission: () -> Unit,
+    onContinueGranted: () -> Unit,
+    onRetryMediaPermission: () -> Unit,
+    onExitPermissionResult: () -> Unit,
+    onOpenAndroidSettings: () -> Unit,
     mediaRequestUi: MediaRequestUiState,
     onFirstUseComplete: () -> Unit,
     onExit: () -> Unit,
@@ -67,6 +73,8 @@ fun AppNavHost(
         actualRoute == BootstrapRoute.Onboarding -> Destination.Onboarding
         replayingEducation -> Destination.Onboarding
         settingsOpen -> Destination.Settings
+        mediaRequestUi.outcome != MediaPermissionOutcome.None ->
+            Destination.PermissionRecovery
         actualRoute == BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
         else -> Destination.Library
     }
@@ -107,11 +115,30 @@ fun AppNavHost(
             )
         }
         composable(Destination.PermissionRecovery.route) {
-            MediaPermissionRationaleScreen(
-                request = mediaRequestUi,
-                onContinue = onRequestMediaPermission,
-                onNotNow = { manualFallback = true },
-            )
+            if (mediaRequestUi.outcome == MediaPermissionOutcome.None) {
+                MediaPermissionRationaleScreen(
+                    request = mediaRequestUi,
+                    onContinue = onRequestMediaPermission,
+                    onNotNow = {
+                        onExitPermissionResult()
+                        manualFallback = true
+                    },
+                )
+            } else {
+                MediaPermissionOutcomeScreen(
+                    outcome = mediaRequestUi.outcome,
+                    onContinueGranted = onContinueGranted,
+                    onTryAgain = {
+                        onRetryMediaPermission()
+                        manualFallback = false
+                    },
+                    onOpenSettings = onOpenAndroidSettings,
+                    onNotNow = {
+                        onExitPermissionResult()
+                        manualFallback = true
+                    },
+                )
+            }
         }
         composable(Destination.Library.route) {
             BackHandler { onExit() }

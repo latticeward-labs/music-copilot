@@ -58,6 +58,21 @@ class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel(
         return eligible
     }
 
+    fun restorePending() {
+        mutableUi.value = MediaRequestUiState(pending = true)
+    }
+
+    fun restoreAttempted() {
+        if (!mutableUi.value.pending && mutableUi.value.outcome == MediaPermissionOutcome.None) {
+            mutableUi.value = MediaRequestUiState(attempted = true)
+        }
+    }
+
+    fun settingsLaunchFailed() {
+        settingsHandoff = false
+        // Preserve Settings-only recovery and manual Not now on failure.
+    }
+
     fun manualExit() {
         scanAuthorized = false
         mutableUi.value = MediaRequestUiState()
