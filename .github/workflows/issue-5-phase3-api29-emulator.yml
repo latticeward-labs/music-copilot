@@ -1,0 +1,102 @@
+name: Issue 5 Phase 3 - Android 10 real first-launch emulator smoke
+
+on:
+  push:
+    branches:
+      - feature/5-onboarding-permissions-recovery
+    paths:
+      - "app/src/main/java/com/latticeward/musiccopilot/app/**"
+      - "app/src/main/java/com/latticeward/musiccopilot/data/**"
+      - "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/**"
+      - "app/src/main/res/values/strings.xml"
+      - "scripts/issue5_phase3_emulator_ui.py"
+      - ".github/workflows/issue-5-phase3-api29-emulator.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue5-p03-api29-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  first-run-api29:
+    name: Android 10 real UI, persisted first launch and no automatic permission prompt
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Enable hardware acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Build same debug Android app used in tests
+        run: |
+          set -euo pipefail
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - name: Reclaim space for genuine API29 AVD
+        run: |
+          set -euo pipefail
+          df -h .
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          if [ -d "${ANDROID_HOME}/ndk" ]; then sudo rm -rf "${ANDROID_HOME}/ndk"; fi
+          if [ -d "${ANDROID_HOME}/cmake" ]; then sudo rm -rf "${ANDROID_HOME}/cmake"; fi
+          test "$(df -Pk . | awk 'NR == 2 {print $4}')" -ge 10485760
+      - name: Actual fresh-install and cold-return navigation on Android 10
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: google_apis
+          arch: x86_64
+          disk-size: 2048M
+          profile: pixel_3a
+          disable-animations: false
+          emulator-boot-timeout: 900
+          emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
+          script: |
+            set -eu
+            adb wait-for-device
+            mkdir -p app/build/outputs/issue5-phase3-api29
+            adb shell getprop ro.build.version.sdk | tr -d '\r' | grep -Fxq 29
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            adb shell pm clear com.latticeward.musiccopilot.debug
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Your music. Your control.' --expect 'STEP 1 OF 2' --tap Continue
+            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Keep your attention on the road' --expect 'STEP 2 OF 2' --tap Finish
+            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Access to local music' --expect 'Not now' --tap 'Not now'
+            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Your local music' --expect 'Review music access'
+            adb shell am force-stop com.latticeward.musiccopilot.debug
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Access to local music' --expect 'Not now'
+            adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/issue5-phase3-api29/package_permissions.txt
+            ! grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' app/build/outputs/issue5-phase3-api29/package_permissions.txt
+            ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/issue5-phase3-api29/package_permissions.txt
+            adb exec-out screencap -p > app/build/outputs/issue5-phase3-api29/return_permission_boundary.png
+            adb logcat -d -b crash > app/build/outputs/issue5-phase3-api29/crash_buffer.txt
+            ! grep -Fq 'Process: com.latticeward.musiccopilot.debug' app/build/outputs/issue5-phase3-api29/crash_buffer.txt
+            test -s app/build/outputs/issue5-phase3-api29/return_permission_boundary.png
+            echo 'ISSUE5_P03_API29_EMULATOR PASS: persisted two-stage education and safe permission boundary'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: issue5-phase3-android10-real-first-run
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/outputs/issue5-phase3-api29/**
+            app/build/outputs/apk/debug/*.apk
