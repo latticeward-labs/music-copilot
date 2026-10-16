@@ -1,0 +1,79 @@
+{
+  "schema": "music-copilot.issue5.reaudit.p00-p04.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "owner_plan_sha256": "32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f",
+  "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "issue4_pr71": {
+    "merged": true,
+    "merge_commit": "4536cccced3cfbfa0e517bd0d81bd4a5a9060364",
+    "state": "closed"
+  },
+  "issue17_pr68": {
+    "merged": true,
+    "merge_commit": "567df7ff2cc4ffd1e202a2214b19df98574dca83",
+    "state": "closed"
+  },
+  "phases": [
+    {
+      "id": "P00",
+      "status": "PASS_REAUDIT",
+      "changes": [
+        "13 AC phase/owner/evidence mapping corrected"
+      ],
+      "CI": 38877216814
+    },
+    {
+      "id": "P01",
+      "status": "PASS_REAUDIT",
+      "changes": [
+        "original issue4 draft is stale; current merged and independent branch verified"
+      ],
+      "CI": 38877216814
+    },
+    {
+      "id": "P02",
+      "status": "PASS_SCOPED_CORE_GATEWAY",
+      "changes": [
+        "fakeable gateway and conservative adapter",
+        "one-shot cancellable blocked action"
+      ],
+      "CI": 38876126473,
+      "physical_os_permission_request": false
+    },
+    {
+      "id": "P03",
+      "status": "PASS_REAUDIT",
+      "changes": [
+        "eliminated auto-reconcile before OS media grant",
+        "Settings read-only education entry"
+      ],
+      "CI": 38876126464,
+      "emulator": 38876126480
+    },
+    {
+      "id": "P04",
+      "status": "PENDING_150_PERCENT_EMULATOR",
+      "changes": [
+        "real read-only replay and origin restore",
+        "150 percent and slide2 interruption checks"
+      ],
+      "CI": 38876334876,
+      "emulator_initial": 38876334672,
+      "emulator_extended": 38876467719
+    }
+  ],
+  "original_issue_ac_total": 13,
+  "original_issue_ac_checked": 0,
+  "branch_merged": false,
+  "not_claimed": [
+    "native permission request/Settings OS handoff P05–P07",
+    "media scan/readiness P08",
+    "voice practice P09",
+    "notification/cloud P10",
+    "physical OEM/Goldens P13",
+    "human review/merge P14"
+  ],
+  "decision": "PENDING_EXTENDED_EMULATOR_AND_FINAL_READBACK"
+}

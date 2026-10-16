@@ -1,6 +1,6 @@
 # Issue #5 — 15-Phase Execution Plan (P00–P14)
 
-**Current stage:** P00 PASS, P01 **PASS documentation/CI contract**; P02 State Machine/Permission contract PASS; P03 Bootstrap and First Launch routing PASS; P04 approved two-page Onboarding Compose implementation **PASS — real JVM/API29 UI** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
+**2026-10-16 cross-source re-audit:** [P00–P04 audit](ISSUE_5_REAUDIT_P00_P04.md) · [machine evidence](ISSUE_5_REAUDIT_P00_P04.json). Original uploaded plan (SHA-256 `32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f`) supersedes older internal phase numbering. P02 gateway/blocked-action and P03 no-scan safety were corrected; P04 replay and 150%/interrupted checks added with verifiable runs. **Current stage:** P00 PASS, P01 **PASS documentation/CI contract**; P02 State Machine/Permission contract PASS; P03 Bootstrap and First Launch routing PASS; P04 approved two-page Onboarding Compose implementation **PASS — real JVM/API29 UI** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
 
 **Source + audit:** [Phase-0 Source/Traceability/DoR](ISSUE_5_PHASE0_SOURCE_TRACEABILITY_DOR.md) · [machine traceability](ISSUE_5_PHASE0_TRACEABILITY.json) · [machine validation](ISSUE_5_PHASE0_VALIDATION.json).
 
