@@ -1,10 +1,11 @@
 package com.latticeward.musiccopilot.core.application.bootstrap
 
+import com.latticeward.musiccopilot.data.api.FirstUsePage
+
 /**
  * P02 pure first-use contract. No Android/UI/Player access or implicit permission prompts.
  * Progress and completion are committed through PreferencesRepository in a later phase.
  */
-enum class FirstUsePage { Value, SafetyAndVoice }
 enum class FirstUseMode { Initial, EducationReplay }
 
 sealed interface FirstUseState {

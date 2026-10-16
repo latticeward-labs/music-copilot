@@ -16,6 +16,7 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.data.api.AppPreferences
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
+import com.latticeward.musiccopilot.data.api.FirstUsePage
 import com.latticeward.musiccopilot.data.api.PreferenceUpdate
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import kotlinx.coroutines.CancellationException
@@ -42,6 +43,7 @@ class DataStorePreferencesRepository(
     scope: CoroutineScope,
 ) : PreferencesRepository {
     private val onboardingKey = booleanPreferencesKey("onboarding_complete")
+    private val onboardingStepKey = stringPreferencesKey("onboarding_checkpoint")
     private val bluetoothKey = stringPreferencesKey("bluetooth_hint")
     private val consentKey = stringPreferencesKey("cloud_speech_consent")
 
@@ -62,6 +64,9 @@ class DataStorePreferencesRepository(
 
     private fun decode(p: Preferences): AppPreferences = AppPreferences(
         onboardingComplete = p[onboardingKey] ?: false,
+        onboardingCheckpoint = p[onboardingStepKey]?.let { value ->
+            FirstUsePage.entries.firstOrNull { it.name == value }
+        } ?: FirstUsePage.Value,
         selectedBluetoothHint = p[bluetoothKey],
         cloudSpeechConsent = p[consentKey]?.let { value ->
             CloudSpeechConsent.entries.firstOrNull { it.name == value }
@@ -73,6 +78,8 @@ class DataStorePreferencesRepository(
             try {
                 val committed = store.edit { p ->
                     when (update) {
+                        is PreferenceUpdate.SetOnboardingCheckpoint ->
+                            p[onboardingStepKey] = update.page.name
                         is PreferenceUpdate.SetOnboardingComplete ->
                             p[onboardingKey] = update.complete
                         is PreferenceUpdate.SetBluetoothHint ->

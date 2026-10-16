@@ -146,7 +146,8 @@ object PermissionMachine {
             PermissionIntent.Retry -> if (
                 state.stage == PermissionStage.Recovery &&
                 (state.status == PermissionStatus.DeniedRequestable ||
-                    state.status == PermissionStatus.NotRequested)
+                    state.status == PermissionStatus.NotRequested ||
+                    state.status == PermissionStatus.Revoked)
             ) PermissionStep(state.copy(stage = PermissionStage.Explanation))
             else PermissionStep(state)
             PermissionIntent.NotNow -> if (
