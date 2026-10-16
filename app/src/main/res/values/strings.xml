@@ -28,4 +28,21 @@
     <string name="media_rationale_body">Music Copilot needs your permission to read audio on this device before scanning. This screen does not request permission yet. You can choose Not now and return later without signing in.</string>
     <string name="library_title">Your local music</string>
     <string name="library_without_access">Music access has not been granted. No library or playable tracks are claimed. You can review access later; manual controls remain available where supported.</string>
+    <string name="first_use_welcome">Welcome</string>
+    <string name="first_use_local_music">LOCAL MUSIC</string>
+    <string name="first_use_device_music_placeholder">Device music placeholder</string>
+    <string name="first_use_local_heading">Play local music. No account needed.</string>
+    <string name="first_use_local_body">Your library stays on this device.</string>
+    <string name="first_use_optional_voice">OPTIONAL VOICE</string>
+    <string name="first_use_voice_heading">6 supported commands</string>
+    <string name="first_use_voice_body">Voice starts only after your tap.</string>
+    <string name="first_use_voice_manual">Skip keeps all manual controls.</string>
+    <string name="first_use_road_safety">Pay attention to the road. Voice does not make driving safe.</string>
+    <string name="first_use_voice_illustration">VOICE · OPTIONAL</string>
+    <string name="first_use_practice_voice">Practice Voice</string>
+    <string name="first_use_practice_deferred">Voice practice will be available in a later phase. No microphone access is requested here.</string>
+    <string name="first_use_finish_without_voice">Finish without Voice</string>
+    <string name="first_use_page_one_a11y">Page 1 of 2</string>
+    <string name="first_use_page_two_a11y">Page 2 of 2</string>
+    <string name="first_use_saving">Saving your preference…</string>
 </resources>
