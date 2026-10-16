@@ -1,0 +1,62 @@
+{
+  "schema": "music-copilot.issue5.phase3.validation.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "scope": "APP_BOOTSTRAP_FIRST_LAUNCH_AND_ABOVE_NATIVE_PERMISSION_BOUNDARY",
+  "routes": [
+    "Bootstrap",
+    "Onboarding",
+    "PermissionRecovery",
+    "Library"
+  ],
+  "new_jvm_test_cases": 13,
+  "planned_emulator_api": 29,
+  "first_run_screens": 2,
+  "dataStore_ack_required": true,
+  "android_os_grant_persisted": false,
+  "android_dialog_implemented": false,
+  "manifest_changed": false,
+  "native_settings_handoff_implemented": false,
+  "runtime_ac_accepted": 0,
+  "original_issue_ac_count": 13,
+  "retained_failure_runs": [
+    38868295997,
+    38868414557,
+    38868575383,
+    38868658142
+  ],
+  "checks": [
+    {
+      "id": "P03-SOURCE",
+      "status": "PASS_GITHUB_PROVENANCE"
+    },
+    {
+      "id": "P03-CODE",
+      "status": "IMPLEMENTED_NOT_FINAL_CI_VERIFIED"
+    },
+    {
+      "id": "P03-ARCH",
+      "status": "PENDING_EXACT_HEAD_CI"
+    },
+    {
+      "id": "P03-JVM-APK",
+      "status": "PENDING_EXACT_HEAD_CI"
+    },
+    {
+      "id": "P03-API29-UI",
+      "status": "PENDING_EMULATOR"
+    },
+    {
+      "id": "P03-ISSUE-CLOSEOUT",
+      "status": "PENDING"
+    }
+  ],
+  "result": "PENDING_REAL_CI_AND_EMULATOR",
+  "limitations": [
+    "No native runtime permission dialog or Settings recovery implementation",
+    "No physical device or cross-version instrumentation",
+    "No reviewer approval, PR merge or Issue close"
+  ]
+}
