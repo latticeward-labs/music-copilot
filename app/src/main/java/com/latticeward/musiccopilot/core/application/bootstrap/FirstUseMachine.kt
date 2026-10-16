@@ -96,6 +96,11 @@ object FirstUseMachine {
         if (current is FirstUseState.SaveError) {
             return if (event == FirstUseEvent.Retry) {
                 persist(current.pageBefore, current.target, current.revision)
+            } else if (event == FirstUseEvent.Back) {
+                FirstUseStep(
+                    FirstUseState.Finished(false, current.revision),
+                    listOf(FirstUseEffect.ExitWithoutCompletion),
+                )
             } else FirstUseStep(current)
         }
         if (current !is FirstUseState.Education) return FirstUseStep(current)
