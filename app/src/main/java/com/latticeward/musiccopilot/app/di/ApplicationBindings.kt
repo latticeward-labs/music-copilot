@@ -17,6 +17,8 @@ import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
 import com.latticeward.musiccopilot.voice.session.DefaultVoiceSessionCoordinator
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -53,6 +55,28 @@ class ApplicationBindings(
     val libraryRepository: LibraryRepository = dataComponents.library
     val preferencesRepository: PreferencesRepository = dataComponents.preferences
     val restorableQueueStore: RestorableQueueStore = dataComponents.restorableQueue
+
+    enum class StorageStartState { Preparing, Ready, Failed }
+    private val storageMutable = MutableStateFlow(StorageStartState.Preparing)
+    val storageStartState: StateFlow<StorageStartState> = storageMutable
+
+    init { retryStoragePreparation() }
+
+    fun retryStoragePreparation() {
+        storageMutable.value = StorageStartState.Preparing
+        repositoryScope.launch {
+            storageMutable.value = if (dataComponents.verifyStorage(dispatchers)) {
+                StorageStartState.Ready
+            } else {
+                StorageStartState.Failed
+            }
+        }
+    }
+
+    fun retryFirstLaunch() {
+        retryStoragePreparation()
+        repositoryScope.launch { preferencesRepository.reload() }
+    }
 
     val speechToTextEngine: SpeechToTextEngine = VoiceBindings.speechToText(context, dispatchers)
     val textToSpeechEngine: TextToSpeechEngine = VoiceBindings.textToSpeech(context)

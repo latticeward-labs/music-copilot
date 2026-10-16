@@ -18,6 +18,7 @@ import com.latticeward.musiccopilot.data.repository.RoomLibraryRepository
 import com.latticeward.musiccopilot.data.room.RoomLibraryProjection
 import com.latticeward.musiccopilot.data.room.MusicCopilotDatabase
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 
 /** One production graph for each process. The explicit null seam supports JVM tests only. */
 internal object DataBindings {
@@ -27,6 +28,18 @@ internal object DataBindings {
         val restorableQueue: RestorableQueueStore,
         private val database: MusicCopilotDatabase? = null,
     ) : AutoCloseable {
+        /** Open SQLite with Room migration validation, without destructive fallback. */
+        suspend fun verifyStorage(dispatchers: DispatcherProvider): Boolean =
+            withContext(dispatchers.io) {
+                if (database == null) return@withContext false
+                try {
+                    database.openHelper.readableDatabase
+                    true
+                } catch (failure: Exception) {
+                    false
+                }
+            }
+
         override fun close() { database?.close() }
     }
 

@@ -75,6 +75,8 @@ private class FakeLibrary : LibraryRepository {
 private class FakePreferences : PreferencesRepository {
     private val mutable = MutableStateFlow(AppPreferences(false, null, CloudSpeechConsent.NotAsked))
     override val preferences: StateFlow<AppPreferences> = mutable
+    override val loadState: StateFlow<PreferencesLoadState> = MutableStateFlow(PreferencesLoadState.Ready)
+    override suspend fun reload(): AppResult<AppPreferences> = AppResult.Success(mutable.value)
     override suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences> {
         mutable.value = when (update) {
             is PreferenceUpdate.SetOnboardingCheckpoint ->

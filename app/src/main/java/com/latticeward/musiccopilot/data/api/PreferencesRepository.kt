@@ -3,6 +3,8 @@ package com.latticeward.musiccopilot.data.api
 import com.latticeward.musiccopilot.core.result.AppResult
 import kotlinx.coroutines.flow.StateFlow
 
+enum class PreferencesLoadState { Loading, Ready, Failed }
+
 enum class FirstUsePage { Value, SafetyAndVoice }
 
 enum class CloudSpeechConsent { NotApplicable, NotAsked, Declined, Granted, Revoked }
@@ -24,5 +26,7 @@ sealed interface PreferenceUpdate {
 /** Permission grants are never persisted as authoritative OS permission truth. */
 interface PreferencesRepository {
     val preferences: StateFlow<AppPreferences>
+    val loadState: StateFlow<PreferencesLoadState>
+    suspend fun reload(): AppResult<AppPreferences>
     suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences>
 }

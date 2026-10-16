@@ -18,12 +18,14 @@ import com.latticeward.musiccopilot.data.api.AppPreferences
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.FirstUsePage
 import com.latticeward.musiccopilot.data.api.PreferenceUpdate
+import com.latticeward.musiccopilot.data.api.PreferencesLoadState
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -49,15 +51,20 @@ class DataStorePreferencesRepository(
 
     private val mutable = MutableStateFlow(AppPreferences(false, null, CloudSpeechConsent.NotAsked))
     override val preferences: StateFlow<AppPreferences> = mutable
+    private val mutableLoad = MutableStateFlow(PreferencesLoadState.Loading)
+    override val loadState: StateFlow<PreferencesLoadState> = mutableLoad
 
     init {
         scope.launch(dispatchers.io) {
             try {
-                store.data.collect { mutable.value = decode(it) }
+                store.data.collect {
+                    mutable.value = decode(it)
+                    mutableLoad.value = PreferencesLoadState.Ready
+                }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Exception) {
                 // Safe defaults remain visible; no fake permission/consent grants.
-                mutable.value = AppPreferences(false, null, CloudSpeechConsent.NotAsked)
+                mutableLoad.value = PreferencesLoadState.Failed
             }
         }
     }
@@ -72,6 +79,25 @@ class DataStorePreferencesRepository(
             CloudSpeechConsent.entries.firstOrNull { it.name == value }
         } ?: CloudSpeechConsent.NotAsked,
     )
+
+    override suspend fun reload(): AppResult<AppPreferences> =
+        withContext(dispatchers.io) {
+            mutableLoad.value = PreferencesLoadState.Loading
+            try {
+                val verified = decode(store.data.first())
+                mutable.value = verified
+                mutableLoad.value = PreferencesLoadState.Ready
+                AppResult.Success(verified)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (failure: Exception) {
+                mutableLoad.value = PreferencesLoadState.Failed
+                AppResult.Failure(
+                    AppError.Storage(AppErrorCodes.STORAGE_READ_FAILED,
+                        Recoverability.RECOVERABLE, RecoveryAction.Retry),
+                )
+            }
+        }
 
     override suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences> =
         withContext(dispatchers.io) {
