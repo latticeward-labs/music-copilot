@@ -15,14 +15,26 @@ def adb(*args):
                           capture_output=True).stdout
 
 def nodes():
-    adb("shell", "uiautomator", "dump", "/sdcard/issue5_p05.xml")
-    with tempfile.TemporaryDirectory() as folder:
-        dst = Path(folder) / "hierarchy.xml"
-        subprocess.run(["adb", "pull", "/sdcard/issue5_p05.xml", str(dst)], check=True,
-                       timeout=25, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return [{key: n.get(key, "") for key in
-                 ("text", "content-desc", "package", "resource-id", "bounds", "enabled")}
-                for n in ET.parse(dst).getroot().iter("node")]
+    # Android 13 UIAutomator sometimes reports a transient unavailable XML
+    # while PermissionController initializes. Dump and pull must both succeed,
+    # and the same attempt's fresh XML must parse, before examining UI state.
+    error = None
+    for attempt in range(6):
+        with tempfile.TemporaryDirectory() as folder:
+            dst = Path(folder) / "hierarchy.xml"
+            try:
+                adb("shell", "uiautomator", "dump", "/sdcard/issue5_p05.xml")
+                subprocess.run(["adb", "pull", "/sdcard/issue5_p05.xml", str(dst)],
+                               check=True, timeout=25, stdout=subprocess.DEVNULL,
+                               stderr=subprocess.DEVNULL)
+                return [{key: n.get(key, "") for key in
+                         ("text", "content-desc", "package", "resource-id", "bounds", "enabled")}
+                        for n in ET.parse(dst).getroot().iter("node")]
+            except (subprocess.CalledProcessError, subprocess.TimeoutExpired,
+                    ET.ParseError, OSError) as failure:
+                error = type(failure).__name__
+                time.sleep(2)
+    raise AssertionError("Native UI hierarchy unavailable after 6 fresh attempts: " + str(error))
 
 def tap(n):
     found = BOUNDS.fullmatch(n["bounds"])
