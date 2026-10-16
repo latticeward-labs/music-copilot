@@ -6,8 +6,12 @@ package com.latticeward.musiccopilot.core.application.permission
  */
 enum class PermissionCapability { MediaAudio, Microphone, Notifications }
 enum class PermissionStatus {
-    Unknown, NotRequested, Granted, DeniedRequestable, PermanentlyDenied, Revoked, NotApplicable
+    Unknown, NotRequested, Granted, DeniedRequestable, PermanentlyDenied, Revoked, NotApplicable,
+    Rechecking, Unavailable
 }
+
+/** One-shot intention, NEVER a permission grant or a persistent auto-retry. */
+enum class BlockedAction { None, StartScan, StartVoicePractice, StartVoiceCapture }
 
 enum class PermissionPurpose {
     FirstConsentedMediaScan, ExplicitMicrophoneTap, ExplicitVoicePractice, AcknowledgedPlaybackControls
@@ -69,6 +73,7 @@ data class PermissionFlowState(
     val stage: PermissionStage = PermissionStage.Explanation,
     val status: PermissionStatus = PermissionStatus.Unknown,
     val generation: Long = 0,
+    val pendingBlockedAction: BlockedAction = BlockedAction.None,
 )
 
 sealed interface PermissionIntent {
@@ -104,6 +109,8 @@ sealed interface PermissionEffect {
 data class PermissionStep(
     val state: PermissionFlowState,
     val effects: List<PermissionEffect> = emptyList(),
+    /** Only the same fresh acknowledged OS-grant transition may consume this action. */
+    val authorizedAction: BlockedAction = BlockedAction.None,
 )
 
 /**
@@ -115,18 +122,34 @@ object PermissionMachine {
         capability: PermissionCapability,
         purpose: PermissionPurpose,
         api: Int,
+        blockedAction: BlockedAction = when (purpose) {
+            PermissionPurpose.FirstConsentedMediaScan -> BlockedAction.StartScan
+            PermissionPurpose.ExplicitVoicePractice -> BlockedAction.StartVoicePractice
+            PermissionPurpose.ExplicitMicrophoneTap -> BlockedAction.StartVoiceCapture
+            PermissionPurpose.AcknowledgedPlaybackControls -> BlockedAction.None
+        },
     ): PermissionFlowState {
         require(api >= 29) { "Android 10+ required" }
         require(PermissionPlatformPolicy.compatible(capability, purpose)) {
             "Permission cannot be requested for an unrelated purpose"
         }
-        return PermissionFlowState(capability, purpose, api)
+        require(when (capability) {
+            PermissionCapability.MediaAudio -> blockedAction == BlockedAction.StartScan ||
+                blockedAction == BlockedAction.None
+            PermissionCapability.Microphone -> blockedAction == BlockedAction.StartVoicePractice ||
+                blockedAction == BlockedAction.StartVoiceCapture || blockedAction == BlockedAction.None
+            PermissionCapability.Notifications -> blockedAction == BlockedAction.None
+        }) { "Blocked action belongs to another capability" }
+        return PermissionFlowState(
+            capability, purpose, api, pendingBlockedAction = blockedAction,
+        )
     }
 
     fun reduce(state: PermissionFlowState, intent: PermissionIntent): PermissionStep {
         if (intent == PermissionIntent.Revoked) {
             return PermissionStep(
-                state.copy(stage = PermissionStage.Recovery, status = PermissionStatus.Revoked),
+                state.copy(stage = PermissionStage.Recovery, status = PermissionStatus.Revoked,
+                    pendingBlockedAction = BlockedAction.None),
                 when (state.capability) {
                     PermissionCapability.MediaAudio -> listOf(
                         PermissionEffect.ReconcileRevokedMedia,
@@ -154,7 +177,8 @@ object PermissionMachine {
                 state.stage == PermissionStage.Explanation ||
                 state.stage == PermissionStage.Recovery
             ) PermissionStep(
-                state.copy(stage = PermissionStage.ManualFallback),
+                state.copy(stage = PermissionStage.ManualFallback,
+                    pendingBlockedAction = BlockedAction.None),
                 listOf(PermissionEffect.PreserveManualControls),
             ) else PermissionStep(state)
             PermissionIntent.OpenSettings -> if (
@@ -187,9 +211,13 @@ object PermissionMachine {
 
     private fun request(state: PermissionFlowState): PermissionStep {
         if (PermissionPlatformPolicy.manifestPermission(state.capability, state.api) == null) {
+            val action = state.pendingBlockedAction
             return PermissionStep(
-                state.copy(stage = PermissionStage.Ready, status = PermissionStatus.NotApplicable),
-                listOf(PermissionEffect.ContinueBlockedAction),
+                state.copy(stage = PermissionStage.Ready, status = PermissionStatus.NotApplicable,
+                    pendingBlockedAction = BlockedAction.None),
+                if (action == BlockedAction.None) emptyList()
+                else listOf(PermissionEffect.ContinueBlockedAction),
+                action,
             )
         }
         val next = state.generation + 1
@@ -205,9 +233,13 @@ object PermissionMachine {
     ): PermissionStep {
         val result = PermissionPlatformPolicy.project(state.capability, state.api, observation)
         return if (result == PermissionStatus.Granted || result == PermissionStatus.NotApplicable) {
+            val action = state.pendingBlockedAction
             PermissionStep(
-                state.copy(status = result, stage = PermissionStage.Ready),
-                listOf(PermissionEffect.ContinueBlockedAction),
+                state.copy(status = result, stage = PermissionStage.Ready,
+                    pendingBlockedAction = BlockedAction.None),
+                if (action == BlockedAction.None) emptyList()
+                else listOf(PermissionEffect.ContinueBlockedAction),
+                action,
             )
         } else {
             val extras = when (result) {
