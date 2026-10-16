@@ -36,5 +36,9 @@
     "p05_native_regression": "PENDING",
     "issue_status": "OPEN_13_AC_UNCHECKED"
   },
-  "decision": "PENDING_REAL_NATIVE_API29_AND_API33"
+  "decision": "PENDING_REAL_NATIVE_API29_AND_API33",
+  "native_test_hardening": {
+    "reason": "Android 10 pm set-permission-flags unsupported; replaced by two real native Deny gestures and optional native checkbox",
+    "unknown_future_native_ci": "PENDING"
+  }
 }

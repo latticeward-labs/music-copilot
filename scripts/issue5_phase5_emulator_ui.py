@@ -28,7 +28,7 @@ def nodes():
                                check=True, timeout=25, stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL)
                 return [{key: n.get(key, "") for key in
-                         ("text", "content-desc", "package", "resource-id", "bounds", "enabled")}
+                         ("text", "content-desc", "package", "resource-id", "bounds", "enabled", "checked", "checkable")}
                         for n in ET.parse(dst).getroot().iter("node")]
             except (subprocess.CalledProcessError, subprocess.TimeoutExpired,
                     ET.ParseError, OSError) as failure:
@@ -51,6 +51,20 @@ def app(label, do_tap=False):
                 return
         time.sleep(1)
     raise AssertionError("Missing approved app text: " + label)
+
+def choose_never_ask_if_present():
+    # Android 10 may show a checkbox on the second request; Android 13
+    # may instead apply user-fixed after two real Deny presses.
+    for n in nodes():
+        if "permissioncontroller" not in n["package"] and "packageinstaller" not in n["package"]:
+            continue
+        txt = (n["text"] + " " + n["content-desc"]).casefold()
+        if any(x in txt for x in ("don't ask again", "don’t ask again", "never ask again")):
+            if n["checked"] != "true":
+                tap(n)
+                print("ANDROID_NATIVE_NEVER_ASK_CHECKED")
+            return
+    print("ANDROID_NATIVE_NEVER_ASK_CHECKBOX_ABSENT")
 
 def system(option):
     # Android 10 and 13 permissioncontroller can use different localized text.
@@ -79,8 +93,9 @@ def system(option):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["app", "tap", "system-deny", "system-allow"])
+    parser.add_argument("action", choices=["app", "tap", "system-deny", "system-allow", "system-never-ask-if-present"])
     parser.add_argument("label", nargs="?", default="")
     args = parser.parse_args()
     if args.action in ("app", "tap"): app(args.label, args.action == "tap")
+    elif args.action == "system-never-ask-if-present": choose_never_ask_if_present()
     else: system(args.action.split("-")[1])

@@ -23,11 +23,13 @@ adb shell dumpsys package "$APK" > "$OUT/denied_os_truth.txt"
 # Try again returns to explanation, not a coercive native prompt loop.
 python3 scripts/issue5_phase5_emulator_ui.py tap 'Try again'
 python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
-# Model the OS-fixed state using an actual Android permission flag,
-# not a fabricated Compose status. A second user tap must NOT
-# relaunch a consent dialog when the platform refuses it.
-adb shell pm set-permission-flags "$APK" "$PERMISSION" user-fixed
+# A genuine second user denial creates USER_FIXED / "don't ask again"
+# under Android platform policy; do not fake Android grant/deny status.
 python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+python3 scripts/issue5_phase5_emulator_ui.py system-never-ask-if-present
+python3 scripts/issue5_phase5_emulator_ui.py system-deny
+adb shell dumpsys package "$APK" > "$OUT/twice_denied_native_flags.txt"
+! grep -Fq "$PERMISSION: granted=true" "$OUT/twice_denied_native_flags.txt"
 python3 scripts/issue5_phase5_emulator_ui.py app 'Open Android Settings'
 python3 scripts/issue5_phase5_emulator_ui.py app 'Permission must be changed explicitly.'
 adb exec-out screencap -p > "$OUT/settings_only.png"
