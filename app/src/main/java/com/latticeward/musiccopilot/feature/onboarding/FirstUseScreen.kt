@@ -21,12 +21,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.latticeward.musiccopilot.R
-import com.latticeward.musiccopilot.app.theme.MusicColors
-import com.latticeward.musiccopilot.app.theme.MusicSize
-import com.latticeward.musiccopilot.app.theme.MusicSpacing
-import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseEffect
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseEvent
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseMachine
@@ -100,34 +97,34 @@ fun FirstUseScreen(
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
             modifier = Modifier.fillMaxSize().safeDrawingPadding()
-                .verticalScroll(rememberScrollState()).padding(MusicSpacing.lgDp),
+                .verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 stringResource(if (second) R.string.first_use_step_two else R.string.first_use_step_one),
-                color = MusicColors.textMuted, style = MusicTextStyles.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelLarge,
             )
             Text(
                 stringResource(if (second) R.string.first_use_second_title else R.string.first_use_first_title),
-                modifier = Modifier.padding(top = MusicSpacing.mdDp),
-                color = MusicColors.textPrimary, style = MusicTextStyles.titleLarge,
+                modifier = Modifier.padding(top = 16.dp),
+                color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleLarge,
             )
             Text(
                 stringResource(if (second) R.string.first_use_second_body else R.string.first_use_first_body),
-                modifier = Modifier.padding(top = MusicSpacing.mdDp),
-                color = MusicColors.textSecondary, style = MusicTextStyles.bodyLarge,
+                modifier = Modifier.padding(top = 16.dp),
+                color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyLarge,
             )
             if (error) {
                 Text(
                     stringResource(R.string.first_use_save_error),
-                    modifier = Modifier.padding(top = MusicSpacing.mdDp),
-                    color = MusicColors.error, style = MusicTextStyles.bodyMedium,
+                    modifier = Modifier.padding(top = 16.dp),
+                    color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium,
                 )
             }
             Button(
                 onClick = { dispatch(if (error) FirstUseEvent.Retry else FirstUseEvent.Continue) },
                 enabled = !saving && machine !is FirstUseState.Finished,
-                modifier = Modifier.padding(top = MusicSpacing.lgDp).heightIn(min = MusicSize.touchTargetMinDp),
+                modifier = Modifier.padding(top = 24.dp).heightIn(min = 48.dp),
             ) {
                 Text(stringResource(
                     if (error) R.string.action_retry
@@ -137,7 +134,7 @@ fun FirstUseScreen(
             OutlinedButton(
                 onClick = { dispatch(if (second) FirstUseEvent.Back else FirstUseEvent.Skip) },
                 enabled = !saving && machine !is FirstUseState.Finished,
-                modifier = Modifier.padding(top = MusicSpacing.smDp).heightIn(min = MusicSize.touchTargetMinDp),
+                modifier = Modifier.padding(top = 12.dp).heightIn(min = 48.dp),
             ) {
                 Text(stringResource(if (second) R.string.action_back else R.string.action_skip))
             }
