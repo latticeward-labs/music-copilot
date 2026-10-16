@@ -64,53 +64,48 @@ jobs:
           script: |
             set -eu
             adb wait-for-device
-            SDK="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
-            test "$SDK" = "${{ matrix.api }}"
-            OUT="app/build/outputs/issue5-p05-api${{ matrix.api }}"
-            mkdir -p "$OUT"
-            APK="com.latticeward.musiccopilot.debug"
-            ACT="$APK/com.latticeward.musiccopilot.app.MainActivity"
-            if [ "$SDK" -ge 33 ]; then AUDIO="android.permission.READ_MEDIA_AUDIO"; else AUDIO="android.permission.READ_EXTERNAL_STORAGE"; fi
+            test "$(adb shell getprop ro.build.version.sdk | tr -cd '0-9')" = "${{ matrix.api }}"
+            mkdir -p "app/build/outputs/issue5-p05-api${{ matrix.api }}"
             adb install -r app/build/outputs/apk/debug/app-debug.apk
-            adb shell pm clear "$APK"
-            adb shell am start -W -n "$ACT"
+            adb shell pm clear "com.latticeward.musiccopilot.debug"
+            adb shell am start -W -n "com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity"
             python3 scripts/issue5_phase5_emulator_ui.py tap Continue
             python3 scripts/issue5_phase5_emulator_ui.py tap Skip
             python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
             python3 scripts/issue5_phase5_emulator_ui.py app 'Index and play local music.'
             # No permission dialog until the WF-03 Continue touch.
-            adb shell dumpsys package "$APK" > "$OUT/before_native_request.txt"
-            ! grep -Fq "$AUDIO: granted=true" "$OUT/before_native_request.txt"
-            adb exec-out screencap -p > "$OUT/rationale_before_native.png"
+            adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/before_native_request.txt"
+            ! grep -Eq 'android.permission.(READ_EXTERNAL_STORAGE|READ_MEDIA_AUDIO): granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/before_native_request.txt"
+            adb exec-out screencap -p > "app/build/outputs/issue5-p05-api${{ matrix.api }}/rationale_before_native.png"
             python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
             python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
-            adb shell dumpsys package "$APK" > "$OUT/not_now_no_grant.txt"
-            ! grep -Fq "$AUDIO: granted=true" "$OUT/not_now_no_grant.txt"
+            adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/not_now_no_grant.txt"
+            ! grep -Eq 'android.permission.(READ_EXTERNAL_STORAGE|READ_MEDIA_AUDIO): granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/not_now_no_grant.txt"
             python3 scripts/issue5_phase5_emulator_ui.py tap 'Review music access'
             python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
             python3 scripts/issue5_phase5_emulator_ui.py tap Continue
-            adb exec-out screencap -p > "$OUT/android_native_denial_dialog.png"
+            adb exec-out screencap -p > "app/build/outputs/issue5-p05-api${{ matrix.api }}/android_native_denial_dialog.png"
             python3 scripts/issue5_phase5_emulator_ui.py system-deny
             python3 scripts/issue5_phase5_emulator_ui.py app 'Access was not granted. No audio was scanned. You can return later.'
-            adb shell dumpsys package "$APK" > "$OUT/denied_no_grant.txt"
-            ! grep -Fq "$AUDIO: granted=true" "$OUT/denied_no_grant.txt"
+            adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/denied_no_grant.txt"
+            ! grep -Eq 'android.permission.(READ_EXTERNAL_STORAGE|READ_MEDIA_AUDIO): granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/denied_no_grant.txt"
             python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
             python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
             # Fresh app data to avoid Android double-denial policy/OEM quirks.
-            adb shell pm clear "$APK"
-            adb shell am start -W -n "$ACT"
+            adb shell pm clear "com.latticeward.musiccopilot.debug"
+            adb shell am start -W -n "com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity"
             python3 scripts/issue5_phase5_emulator_ui.py tap Continue
             python3 scripts/issue5_phase5_emulator_ui.py tap Skip
             python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
             python3 scripts/issue5_phase5_emulator_ui.py tap Continue
             python3 scripts/issue5_phase5_emulator_ui.py system-allow
             python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
-            adb shell dumpsys package "$APK" > "$OUT/granted_os_truth.txt"
-            grep -Fq "$AUDIO: granted=true" "$OUT/granted_os_truth.txt"
+            adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"
+            if [ "${{ matrix.api }}" -ge 33 ]; then grep -Fq 'android.permission.READ_MEDIA_AUDIO: granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"; else grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"; fi
             python3 scripts/issue5_phase5_emulator_ui.py app 'No local music is indexed yet.'
-            adb exec-out screencap -p > "$OUT/post_grant_library_empty.png"
-            adb logcat -d -b crash > "$OUT/crash_buffer.txt"
-            ! grep -Fq "Process: $APK" "$OUT/crash_buffer.txt"
+            adb exec-out screencap -p > "app/build/outputs/issue5-p05-api${{ matrix.api }}/post_grant_library_empty.png"
+            adb logcat -d -b crash > "app/build/outputs/issue5-p05-api${{ matrix.api }}/crash_buffer.txt"
+            ! grep -Fq "Process: $APK" "app/build/outputs/issue5-p05-api${{ matrix.api }}/crash_buffer.txt"
             echo "ISSUE5_P05_API${{ matrix.api }}_NATIVE_DIALOG_DENY_GRANT_PASS"
       - if: always()
         uses: actions/upload-artifact@v4
