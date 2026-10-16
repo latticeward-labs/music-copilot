@@ -1,6 +1,7 @@
 package com.latticeward.musiccopilot.core.application.permission
 
-import com.latticeward.musiccopilot.feature.permission.MediaPermissionOutcome
+/** Presentation-only projection; not permission grant truth. */
+enum class MediaPermissionOutcome { None, Granted, DeniedRequestable, SettingsOnly }
 
 /**
  * Conservative denial presentation: shouldShowRationale=false alone is not

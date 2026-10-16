@@ -30,12 +30,14 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.latticeward.musiccopilot.R
+import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
 
 /** Transient ActivityResult presentation only; NEVER authoritative OS-grant storage. */
 data class MediaRequestUiState(
     val pending: Boolean = false,
     val attempted: Boolean = false,
     val denied: Boolean = false,
+    val outcome: MediaPermissionOutcome = MediaPermissionOutcome.None,
 )
 
 /**

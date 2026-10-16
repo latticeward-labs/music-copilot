@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.latticeward.musiccopilot.core.application.permission.BlockedAction
 import com.latticeward.musiccopilot.core.application.permission.MediaOutcomePolicy
+import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
 import com.latticeward.musiccopilot.core.application.permission.NativePermissionObservation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

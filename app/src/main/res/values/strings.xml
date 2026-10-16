@@ -46,4 +46,12 @@
     <string name="media_permission_fresh_result">Fresh result is authoritative</string>
     <string name="media_permission_denied_hint">Access was not granted. No audio was scanned. You can return later.</string>
     <string name="media_permission_pending">Waiting for Android permission</string>
+    <string name="p06_granted_title">Access granted</string>
+    <string name="p06_granted_description">Continue to the blocked action.</string>
+    <string name="p06_denied_title">Access denied</string>
+    <string name="p06_denied_description">Manual controls remain available.</string>
+    <string name="p06_settings_only_title">Open Android Settings</string>
+    <string name="p06_settings_only_description">Permission must be changed explicitly.</string>
+    <string name="p06_try_again">Try again</string>
+    <string name="p06_open_settings">Open Settings</string>
 </resources>

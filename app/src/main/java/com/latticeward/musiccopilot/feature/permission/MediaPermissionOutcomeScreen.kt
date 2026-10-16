@@ -28,13 +28,12 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.latticeward.musiccopilot.R
+import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
 
 /**
  * P06: three native-result projections, NOT OS permission authority.
  * The Android system dialog and Settings are NEVER Compose screens.
  */
-enum class MediaPermissionOutcome { None, Granted, DeniedRequestable, SettingsOnly }
-
 @Composable
 fun MediaPermissionOutcomeScreen(
     outcome: MediaPermissionOutcome,
