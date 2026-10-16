@@ -1,15 +1,25 @@
 #!/usr/bin/env bash
-set -eu
+set -eEuo pipefail
 API="$1"
 OUT="app/build/outputs/issue5-p06-api${API}"
 APK="com.latticeward.musiccopilot.debug"
 PERMISSION="android.permission.READ_EXTERNAL_STORAGE"
 if [ "$API" -ge 33 ]; then PERMISSION="android.permission.READ_MEDIA_AUDIO"; fi
 mkdir -p "$OUT"
+on_native_failure() {
+    status="$?"
+    adb exec-out screencap -p > "$OUT/failure_screen.png" 2>/dev/null || true
+    adb shell dumpsys activity activities > "$OUT/failure_activity.txt" 2>/dev/null || true
+    adb logcat -d -b crash > "$OUT/failure_crashes.txt" 2>/dev/null || true
+    echo "ISSUE5_P06_NATIVE_REAL_UI_FAILED_EXIT=$status" >&2
+    exit "$status"
+}
+trap on_native_failure ERR
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell pm clear "$APK"
 adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
-python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+adb exec-out screencap -p > "$OUT/initial_window.png"
+python3 scripts/issue5_phase3_emulator_ui.py --expect 'Play local music. No account needed.' --tap Continue
 python3 scripts/issue5_phase5_emulator_ui.py tap Skip
 python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
 adb exec-out screencap -p > "$OUT/rationale.png"
@@ -47,8 +57,6 @@ python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
 # A fresh install separates denial and grant scenarios.
 adb shell pm clear "$APK"
 adb shell pm clear-permission-flags "$APK" "$PERMISSION" user-fixed >/dev/null 2>&1 || true
-adb shell pm clear "com.android.permissioncontroller" >/dev/null 2>&1 || true
-adb shell pm clear "com.google.android.permissioncontroller" >/dev/null 2>&1 || true
 adb shell pm clear "$APK"
 adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
 python3 scripts/issue5_phase5_emulator_ui.py tap Continue
