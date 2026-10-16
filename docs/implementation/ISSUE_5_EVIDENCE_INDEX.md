@@ -59,3 +59,8 @@ The approved code structure expects a lifecycle-owned ViewModel/SavedState. `Fir
 
 
 **Final P00–P04 native re-audit correction:** [JVM/Lint/APK #38879558692](https://github.com/music-copilot-organization/music-copilot/actions/runs/38879558692) SUCCESS; [API29 current ViewModel UI #38879465871](https://github.com/music-copilot-organization/music-copilot/actions/runs/38879465871) SUCCESS. Screenshot/permission/APK [artifact #12037690290](https://github.com/music-copilot-organization/music-copilot/actions/runs/38879465871/artifacts/12037690290) covers 100/200% and 150% Settings Replay, suspended slide-2 force-stop and no mic/media auto grants. Owner P05 next, 13 Issue ACs still pending.
+
+
+### Phase 5 verified OS-native media permission evidence
+
+P05 **PASS_SCOPED** — [JVM/Lint/APK #38884070402](https://github.com/music-copilot-organization/music-copilot/actions/runs/38884070402) SUCCESS; [Android10/API29 + Android13/API33 native permission #38887620769](https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769) **BOTH SUCCESS** on `41e0f6ed52bcfbbe5a67b15caaa6451483921741`. [API29 APK/screenshots #12040133723](https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769/artifacts/12040133723) and [API33 APK/screenshots #12041121532](https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769/artifacts/12041121532) contain redacted/synthetic media test evidence. True native Deny→manual fallback, explicit Allow→fresh OS permission check→one media scan, no implicit startup scan, no Mic/Notification request. P06–P14 still open; 13 original integrated ACs not formally checked.

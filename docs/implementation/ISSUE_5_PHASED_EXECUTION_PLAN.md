@@ -45,7 +45,8 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 - [x] P02 [real Gradle/JVM+APK CI #38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346) PASS on implementation head `0e943e03a0f8`; final report-only commit recheck recorded separately in Issue #5.
 - [x] P03 [real JVM/Android CI #38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585) on code SHA `f4f071a0`, and [real API29 first-launch emulator #38869071281](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281) with screenshot artifact; 13 Issue-wide ACs still pending final acceptance.
 - [x] P04 exact approved HF-02 two-slide copy/semantics, [8 JVM tests + lint + APK #38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334), [Android 10 UI/200% screenshots #38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678) SUCCESS.
-- [ ] P05–P14 further phases remain not started.
+- [x] P05 explicit media rationale + lifecycle-safe native `RequestPermission` + fresh OS grant-gated scan: [JVM/Lint/APK #38884070402](https://github.com/music-copilot-organization/music-copilot/actions/runs/38884070402) SUCCESS and [API29/API33 real OS deny/allow #38887620769](https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769) BOTH SUCCESS, separate APK/screenshot artifacts.
+- [ ] P06–P14 further phases remain not started.
 - [ ] Issue #5 implementation and final acceptance (13 criteria).
 
 **No source PDF, accepted ADR, Wireframe or Hi-Fi design was changed in Phases 0–1.** Phase-1 CI is a documentation contract gate, not Android testing.
@@ -59,3 +60,6 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 **P01:** [Execution contract](ISSUE_5_PHASE1_GITHUB_EXECUTION.md) · [Evidence index](ISSUE_5_EVIDENCE_INDEX.md) · [Validation](ISSUE_5_PHASE1_VALIDATION.json). Proposed final PR to main needs explicit P14 review of develop policy.
 
 **Re-audit final native UI gate:** [API29 ViewModel 2-slide/interruption/100–200%/150% Replay #38879465871](https://github.com/music-copilot-organization/music-copilot/actions/runs/38879465871) **SUCCESS**, [APK + six screenshots #12037690290](https://github.com/music-copilot-organization/music-copilot/actions/runs/38879465871/artifacts/12037690290). Final Kotlin/JVM/Lint/Detekt and APK [P04 #38879558692](https://github.com/music-copilot-organization/music-copilot/actions/runs/38879558692) and P03 [#38879558699](https://github.com/music-copilot-organization/music-copilot/actions/runs/38879558699) **SUCCESS** on current Kotlin/test SHA. P00–P04 phase-scope ACCEPTED; P05 next. Issue #5 13 final ACs pending.
+
+
+**P05:** [Actual native media rationale/OS request audit](ISSUE_5_PHASE5_MEDIA_PERMISSION_AUDIT.md) · [Run IDs and machine evidence](ISSUE_5_PHASE5_VALIDATION.json). **PASS within phase 5** on GitHub Actions, Android API29/API33 and JVM; no claim of final 13-AC acceptance or Android physical device QA. P06 next per owner's 15-phase sequence.

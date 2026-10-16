@@ -24,15 +24,34 @@
   "issue_ac_formally_accepted": 0,
   "issue_ac_total": 13,
   "run_ids": {
-    "jvm": 38883438174,
-    "emulator_matrix": 38883438170
+    "jvm": 38884070402,
+    "emulator_matrix": 38887620769,
+    "initial_failed_api33_matrix": 38884594723
   },
   "checks": {
-    "jvm": "PENDING",
-    "api29": "PENDING",
-    "api33": "PENDING",
-    "P03_P04_regression": "PENDING",
-    "issue_closeout": "PENDING"
+    "jvm": "PASS_REAL_GRADLE_JUNIT_LINT_APK",
+    "api29": "PASS_NATIVE_OS_DENY_AND_GRANT",
+    "api33": "PASS_NATIVE_OS_DENY_AND_GRANT",
+    "P03_P04_regression": "PASS_JVM_CHECKS_ON_P05_CODE",
+    "issue_closeout": "PENDING_ISSUE_WRITE"
   },
-  "decision": "PENDING_ACTUAL_CI"
+  "decision": "PASS_P05_SCOPED_NATIVE_REQUEST_BEFORE_SCAN_API29_AND_API33",
+  "artifacts": {
+    "api29": {
+      "id": 12040133723,
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769/artifacts/12040133723"
+    },
+    "api33": {
+      "id": 12041121532,
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769/artifacts/12041121532"
+    }
+  },
+  "verified_real_native_run": {
+    "id": 38887620769,
+    "commit": "41e0f6ed52bcfbbe5a67b15caaa6451483921741",
+    "conclusion": "success",
+    "api29": "success",
+    "api33": "success",
+    "notes": "Both matrix jobs completed SUCCESS; UIAutomator fresh retry preserves every native deny/grant assertion."
+  }
 }

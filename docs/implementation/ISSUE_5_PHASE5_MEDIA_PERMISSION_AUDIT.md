@@ -35,3 +35,12 @@ Physical HONOR/API35 and independently reviewed full device matrix are P13. API3
 - Actual app implementation remains unaltered during this test-tool correction; P06 comprehensive denial/permanent UI, P07 Settings and P08 Library readiness remain explicitly excluded.
 
 **P05 final verification decision:** PENDING both API29 and API33 success of re-run; earlier P05 machine ledger is historical.
+
+
+## Final P05 native validation — confirmed results
+
+**P05 PASS / COMPLETE within the user-defined phase 5 scope.** [Actual JVM/Lint/Detekt/APK CI #38884070402](https://github.com/music-copilot-organization/music-copilot/actions/runs/38884070402) **SUCCESS**, including 12 new P05 JUnit tests. [Actual Android OS native permission matrix #38887620769](https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769) **SUCCESS for BOTH Android 10/API29 and Android 13/API33 jobs** on tested commit `41e0f6ed52bcfbbe5a67b15caaa6451483921741`. The emulator script did not fake a grant, bypass a UI assertion, or directly call `pm grant`. The uploaded screenshots, native permission state snapshots, crash buffer and app APK are [API29 artifact #12040133723](https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769/artifacts/12040133723) and [API33 artifact #12041121532](https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769/artifacts/12041121532).
+
+**Passed native path:** clean start → two-page first use → one-purpose media rationale → `Not now` manual Library fallback without grant or scan → explicit Review music access → Android-native Deny without scan → manual fallback → fresh install/reset → explicit rationale Continue → Android-native Allow of the correct API-specific media permission → fresh OS grant check → one eligible local scan → honest empty-library state with no app crash. The two OS-native dialog tests verify actual Android 10 and Android 13, not physical phones or untested Android 12/15.
+
+**Earlier failed runs remain failed as history** (Android13 UIAutomator file-pull transient). The re-run includes bounded fresh XML dump/pull retries. Comprehensive permanent-denial UI and Settings handoff belong to P06/P07, full Library readiness semantics and revocation belong to P08/P11, and physical device/OEM QA to P13. Final Issue #5 acceptance remains 0/13 formally accepted pending P14.
