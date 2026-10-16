@@ -10,6 +10,7 @@ on:
       - "app/src/main/java/com/latticeward/musiccopilot/data/api/PreferencesRepository.kt"
       - "app/src/main/java/com/latticeward/musiccopilot/data/datastore/PreferencesDataStore.kt"
       - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase2*Test.kt"
+      - "app/src/test/java/com/latticeward/musiccopilot/foundation/DataQualityContractsTest.kt"
       - "docs/implementation/ISSUE_5_PHASE2_*"
       - ".github/workflows/issue-5-phase2-state-machine.yml"
   pull_request:
