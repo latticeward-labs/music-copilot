@@ -133,14 +133,19 @@
       "behavior_source": "docs/user-flows/UF-01_FIRST_LAUNCH_AND_EDUCATION.md",
       "design_or_architecture_source": "docs/wireframes/app-states/WF-02_ONBOARDING_SLIDE_1.md",
       "implementation_phases": [
-        "P03"
+        "P04",
+        "P12"
       ],
       "test_scenarios": [
         "T01",
         "T02"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "feature/onboarding + DataStore Preferences",
+      "source_of_truth": "Approved WF-02 value slides and persisted onboarding acknowledgement",
+      "recovery_contract": "Resume ACKed step; Skip/Back/Finish",
+      "expected_evidence_type": "Compose UI; 100/150/200% Android screenshots; JUnit navigation"
     },
     {
       "id": "AC-02",
@@ -149,16 +154,20 @@
       "behavior_source": "docs/user-flows/UF-02_PERMISSION_RECOVERY.md",
       "design_or_architecture_source": "docs/handoff/SCREEN_SPECS.md",
       "implementation_phases": [
-        "P04",
         "P05",
-        "P07"
+        "P09",
+        "P12"
       ],
       "test_scenarios": [
         "T05",
         "T06"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "feature/permission + Android permission adapter + VoiceSessionCoordinator",
+      "source_of_truth": "Android native media/microphone grant; JIT purpose policy",
+      "recovery_contract": "Not now; typed Retry/Settings; manual fallback",
+      "expected_evidence_type": "Real OS API29/31/33/35 media and mic request integration"
     },
     {
       "id": "AC-03",
@@ -167,13 +176,18 @@
       "behavior_source": "docs/user-flows/UF-06_BACKGROUND_AND_SYSTEM_CONTROLS.md",
       "design_or_architecture_source": "docs/wireframes/recovery-system/WF-06_SYSTEM_NOTIFICATION_PERMISSION_BOUNDARY.md",
       "implementation_phases": [
-        "P08"
+        "P10",
+        "P12"
       ],
       "test_scenarios": [
         "T07"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "Android notification policy + MediaSession",
+      "source_of_truth": "API level; MediaSession notification exemption; native OS notifications",
+      "recovery_contract": "Unrestricted manual playback on notification denial",
+      "expected_evidence_type": "API33+ policy and media exemption emulator/instrumentation"
     },
     {
       "id": "AC-04",
@@ -182,8 +196,9 @@
       "behavior_source": "docs/user-flows/UF-02_PERMISSION_RECOVERY.md",
       "design_or_architecture_source": "docs/wireframes/app-states/WF-03_PERMISSIONS_PERMANENTLY_DENIED.md",
       "implementation_phases": [
-        "P04",
-        "P05"
+        "P02",
+        "P06",
+        "P12"
       ],
       "test_scenarios": [
         "T08",
@@ -191,7 +206,11 @@
         "T10"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "core/application/permission reducer + feature/permission",
+      "source_of_truth": "Fresh OS observation plus minimal native request context",
+      "recovery_contract": "Retry/Not now/Settings-only",
+      "expected_evidence_type": "State machine + native denied/permanent screenshots and test"
     },
     {
       "id": "AC-05",
@@ -200,14 +219,19 @@
       "behavior_source": "docs/wireframes/recovery-system/WF-03_SYSTEM_ANDROID_SETTINGS_HANDOFF.md",
       "design_or_architecture_source": "docs/high-fidelity/phase-7/system-only/SYS-04.md",
       "implementation_phases": [
-        "P06"
+        "P07",
+        "P13"
       ],
       "test_scenarios": [
         "T10",
         "T11"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "Android Settings handoff coordinator + feature/permission",
+      "source_of_truth": "Explicit tap, returned OS recheck",
+      "recovery_contract": "Granted/Requestable/StillSettingsOnly",
+      "expected_evidence_type": "Three-way Settings return emulator/device evidence"
     },
     {
       "id": "AC-06",
@@ -217,14 +241,21 @@
       "design_or_architecture_source": "docs/user-flows/UF-02_PERMISSION_RECOVERY.md",
       "implementation_phases": [
         "P06",
-        "P11"
+        "P07",
+        "P11",
+        "P12",
+        "P13"
       ],
       "test_scenarios": [
         "T03",
         "T12"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "permission coordinator + app/navigation + QA",
+      "source_of_truth": "OS permission & lifecycle state",
+      "recovery_contract": "Cancellation, Back, restore without crash or loop",
+      "expected_evidence_type": "Unit/recreation/native cancellation tests"
     },
     {
       "id": "AC-07",
@@ -233,8 +264,10 @@
       "behavior_source": "docs/user-flows/UF-03_LIBRARY_READINESS.md",
       "design_or_architecture_source": "docs/user-flows/golden-scenarios/GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md",
       "implementation_phases": [
-        "P07",
-        "P10"
+        "P05",
+        "P08",
+        "P09",
+        "P12"
       ],
       "test_scenarios": [
         "T06",
@@ -242,7 +275,11 @@
         "T13"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "MediaStoreScanner + LibraryRepository + VoiceSessionCoordinator",
+      "source_of_truth": "Fresh grant, current platform MediaStore/provider status",
+      "recovery_contract": "No scan/listen before consent; revocation stops eligible action",
+      "expected_evidence_type": "Synthetic scanner/provider fakes, native one-shot gate tests"
     },
     {
       "id": "AC-08",
@@ -251,14 +288,20 @@
       "behavior_source": "docs/user-flows/UF-02_PERMISSION_RECOVERY.md",
       "design_or_architecture_source": "docs/wireframes/recovery-system/WF-10_CLOUD_VOICE_CONSENT_OUTSIDE_DRIVING.md",
       "implementation_phases": [
-        "P09"
+        "P09",
+        "P10",
+        "P11"
       ],
       "test_scenarios": [
         "T14",
         "T15"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "voice/api + privacy consent policy + local DataStore",
+      "source_of_truth": "Processor-specific destination/purpose/retention and explicit consent",
+      "recovery_contract": "Remote STT disabled until approved, manual fallback",
+      "expected_evidence_type": "Fail-closed cloud consent negative test and review"
     },
     {
       "id": "AC-09",
@@ -267,16 +310,20 @@
       "behavior_source": "docs/adr/README.md",
       "design_or_architecture_source": "docs/PRD.md",
       "implementation_phases": [
-        "P02",
-        "P09",
-        "P12"
+        "P00",
+        "P04",
+        "P11"
       ],
       "test_scenarios": [
         "T15",
         "T17"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "app composition + privacy architecture reviewers",
+      "source_of_truth": "No identity/network/account architecture",
+      "recovery_contract": "No account gate under any first use route",
+      "expected_evidence_type": "Manifest/build static & privacy CI negative checks"
     },
     {
       "id": "AC-10",
@@ -285,8 +332,11 @@
       "behavior_source": "docs/handoff/STATE_ACTION_MATRIX.md",
       "design_or_architecture_source": "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
       "implementation_phases": [
-        "P02",
-        "P11"
+        "P03",
+        "P04",
+        "P07",
+        "P11",
+        "P12"
       ],
       "test_scenarios": [
         "T02",
@@ -294,7 +344,11 @@
         "T04"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "app/navigation + feature/onboarding + DataStore",
+      "source_of_truth": "ACKed checkpoint, OS fresh result, service-owned Playback",
+      "recovery_contract": "Recreate/resume/replay without mutation",
+      "expected_evidence_type": "First-use resume, rotation/process death emulator tests"
     },
     {
       "id": "AC-11",
@@ -303,6 +357,8 @@
       "behavior_source": "docs/high-fidelity/phase-7/app-visible/S-03.md",
       "design_or_architecture_source": "docs/handoff/SCREEN_SPECS.md",
       "implementation_phases": [
+        "P04",
+        "P06",
         "P12",
         "P13"
       ],
@@ -310,7 +366,11 @@
         "T16"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "Compose UI + accessibility QA",
+      "source_of_truth": "Approved HF copy, reading semantics and real TalkBack/reflow",
+      "recovery_contract": "Focus order, large font non-clipping, accessible manual controls",
+      "expected_evidence_type": "48dp target, TalkBack, contrast and 100/150/200% real UI"
     },
     {
       "id": "AC-12",
@@ -319,6 +379,13 @@
       "behavior_source": "docs/architecture/ISSUE_16_VALIDATION.md",
       "design_or_architecture_source": "docs/user-flows/golden-scenarios/GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md",
       "implementation_phases": [
+        "P02",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10",
         "P11",
         "P12",
         "P13"
@@ -327,7 +394,11 @@
         "T01-T17"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "Android/QA automated CI maintainers",
+      "source_of_truth": "Real OS native dialogs, reducers and fake seams",
+      "recovery_contract": "Tested failure/Settings/revocation paths",
+      "expected_evidence_type": "Unit, Compose UI, Android instrumented and physical QA matrix"
     },
     {
       "id": "AC-13",
@@ -337,14 +408,19 @@
       "design_or_architecture_source": "docs/architecture/RUNTIME_POLICIES.md",
       "implementation_phases": [
         "P09",
-        "P12",
-        "P13"
+        "P10",
+        "P11",
+        "P12"
       ],
       "test_scenarios": [
         "T17"
       ],
       "phase0_status": "MAPPED_NOT_IMPLEMENTED",
-      "implementation_evidence": null
+      "implementation_evidence": null,
+      "implementation_owner": "quality/privacy + Voice/MediaStore data owners",
+      "source_of_truth": "Strict telemetry allowlist; local media and OS source ownership",
+      "recovery_contract": "Drop prohibited payload; typed sanitized recovery",
+      "expected_evidence_type": "Negative CI with synthetic media/permission/audio identifiers"
     }
   ],
   "test_scenarios": [
@@ -438,7 +514,8 @@
     "phase0": "PASS_DOCUMENTATION_ONLY",
     "overall_issue5": "OPEN_NOT_IMPLEMENTED",
     "acceptance_passed": 0,
-    "acceptance_total": 13
+    "acceptance_total": 13,
+    "reaudit": "Phase0 traceability mapping corrected to owner P00–P14 order; implementation acceptance still 0/13"
   },
   "known_downstream_gates": [
     "PH10-MIN-001 real Compose accessibility",
@@ -498,5 +575,12 @@
     "app/src/main/java/com/latticeward/musiccopilot/app/navigation/Destination.kt",
     "app/src/main/java/com/latticeward/musiccopilot/data/api/PreferencesRepository.kt",
     "app/src/main/java/com/latticeward/musiccopilot/data/datastore/PreferencesDataStore.kt"
-  ]
+  ],
+  "phase_mapping_addendum": {
+    "updated": "2026-10-16",
+    "authority": "ISSUE_5_PHASED_EXECUTION_PLAN(1).md supplied by owner; phase order 0–14 supersedes earlier proposed P04–P10 numbering",
+    "source_plan_sha256": "32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f",
+    "old_entries_preserved_in_git_history": true,
+    "semantics": "Phase 0 remains source mapping only. Implementation evidence and final AC checkboxes are separate, do not assign retroactive PASS."
+  }
 }
