@@ -11,17 +11,20 @@ on_native_failure() {
     adb exec-out screencap -p > "$OUT/failure_screen.png" 2>/dev/null || true
     adb shell dumpsys activity activities > "$OUT/failure_activity.txt" 2>/dev/null || true
     adb logcat -d -b crash > "$OUT/failure_crashes.txt" 2>/dev/null || true
+    adb logcat -d -v threadtime -t 1600 > "$OUT/failure_recent_logcat.txt" 2>/dev/null || true
+    adb shell dumpsys package "$APK" > "$OUT/failure_package_permission.txt" 2>/dev/null || true
     echo "ISSUE5_P06_NATIVE_REAL_UI_FAILED_EXIT=$status" >&2
     exit "$status"
 }
 trap on_native_failure ERR
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell pm clear "$APK"
-adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
+# Android 10 emulator sometimes resumes Home after the first cold-start
+# intent even when am start -W returns OK. Require the actual app screen,
+# retry up to 3 real launches, and fail immediately for app crash logs.
+python3 scripts/issue5_phase6_emulator_ui.py launch-first-use
 adb exec-out screencap -p > "$OUT/initial_window.png"
-# P06's own fresh-XML retries handle transient UiAutomation null roots on API33.
-# Preserve approved copy and an actual user tap (no direct route injection).
-python3 scripts/issue5_phase6_emulator_ui.py app 'Play local music. No account needed.'
+# A real first-use UI, not a fabricated route, was just asserted.
 python3 scripts/issue5_phase6_emulator_ui.py tap Continue
 python3 scripts/issue5_phase6_emulator_ui.py tap Skip
 python3 scripts/issue5_phase6_emulator_ui.py app 'Media access'
@@ -74,7 +77,7 @@ fi
 # Do not bypass an OS denial with "pm grant" or global controller resets.
 adb uninstall "$APK"
 adb install -r app/build/outputs/apk/debug/app-debug.apk
-adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
+python3 scripts/issue5_phase6_emulator_ui.py launch-first-use
 python3 scripts/issue5_phase6_emulator_ui.py tap Continue
 python3 scripts/issue5_phase6_emulator_ui.py tap Skip
 python3 scripts/issue5_phase6_emulator_ui.py app 'Media access'

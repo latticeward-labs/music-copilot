@@ -52,6 +52,39 @@ def app(label, do_tap=False):
         time.sleep(1)
     raise AssertionError("Missing approved app text: " + label)
 
+
+def launch_first_use():
+    """Fail closed unless the REAL first-use text is observed in app UI.
+
+    API29 emulator can return from am start -W with the launcher resumed
+    during a cold OS boot. Bounded re-launch is acceptable only if there
+    is no fatal crash of our app. No route or permission state is injected.
+    """
+    package = "com.latticeward.musiccopilot.debug"
+    activity = package + "/com.latticeward.musiccopilot.app.MainActivity"
+    expected = "Play local music. No account needed."
+    last = ""
+    for attempt in range(1, 4):
+        last = adb("shell", "am", "start", "-W", "-n", activity)
+        for poll in range(5):
+            try:
+                observed = nodes()
+                if any(expected in (n["text"], n["content-desc"]) for n in observed):
+                    print("P06_NATIVE_FIRST_USE_VISIBLE after_launch=" + str(attempt))
+                    return
+            except (subprocess.CalledProcessError, subprocess.TimeoutExpired,
+                    ET.ParseError, OSError):
+                pass
+            time.sleep(2)
+        crashes = adb("logcat", "-d", "-b", "crash")
+        if "Process: " + package in crashes:
+            raise AssertionError("App crashed during cold start; cannot retry as emulator flake")
+        print("P06_NATIVE_START_RETRY_" + str(attempt) +
+              " expected_onboarding_not_yet_visible, last_am_start=" + repr(last[:280]))
+    current = adb("shell", "dumpsys", "activity", "activities")
+    raise AssertionError("App first-use not visible after 3 actual launches. " +
+                         "OS activity evidence=" + current[-1400:])
+
 def choose_never_ask_if_present():
     # Android 10 may show a checkable "Don't ask again" checkbox on the
     # second native prompt. Never tap a broad text/label parent: its bounds
@@ -140,10 +173,11 @@ def system(option):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["app", "tap", "system-deny", "system-allow", "system-never-ask-if-present", "system-deny-or-os-fixed"])
+    parser.add_argument("action", choices=["app", "tap", "system-deny", "system-allow", "system-never-ask-if-present", "system-deny-or-os-fixed", "launch-first-use"])
     parser.add_argument("label", nargs="?", default="")
     args = parser.parse_args()
-    if args.action in ("app", "tap"): app(args.label, args.action == "tap")
+    if args.action == "launch-first-use": launch_first_use()
+    elif args.action in ("app", "tap"): app(args.label, args.action == "tap")
     elif args.action == "system-never-ask-if-present": choose_never_ask_if_present()
     elif args.action == "system-deny-or-os-fixed": native_denial_or_proven_os_fixed()
     else: system(args.action.split("-")[1])
