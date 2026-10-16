@@ -1,0 +1,123 @@
+name: Issue 5 Phase 5 - Android 10 and 13 real audio permission dialog
+
+on:
+  push:
+    branches:
+      - feature/5-onboarding-permissions-recovery
+    paths:
+      - "app/src/main/**"
+      - "scripts/issue5_phase5_emulator_ui.py"
+      - ".github/workflows/issue-5-phase5-media-emulator.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-media-permission:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [29, 33]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Enable hardware virtualization
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Build real app
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - name: Prepare AVD disk
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          if [ -d "${ANDROID_HOME}/ndk" ]; then sudo rm -rf "${ANDROID_HOME}/ndk"; fi
+          if [ -d "${ANDROID_HOME}/cmake" ]; then sudo rm -rf "${ANDROID_HOME}/cmake"; fi
+          test "$(df -Pk . | awk 'NR == 2 {print $4}')" -ge 10485760
+      - name: Fresh startup no prompt, real denial and granted gated scan
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api }}
+          target: google_apis
+          arch: x86_64
+          disk-size: 2048M
+          profile: pixel_3a
+          disable-animations: false
+          emulator-boot-timeout: 900
+          emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
+          script: |
+            set -eu
+            adb wait-for-device
+            SDK="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
+            test "$SDK" = "${{ matrix.api }}"
+            OUT="app/build/outputs/issue5-p05-api${{ matrix.api }}"
+            mkdir -p "$OUT"
+            APK="com.latticeward.musiccopilot.debug"
+            ACT="$APK/com.latticeward.musiccopilot.app.MainActivity"
+            if [ "$SDK" -ge 33 ]; then AUDIO="android.permission.READ_MEDIA_AUDIO"; else AUDIO="android.permission.READ_EXTERNAL_STORAGE"; fi
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            adb shell pm clear "$APK"
+            adb shell am start -W -n "$ACT"
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            python3 scripts/issue5_phase5_emulator_ui.py tap Skip
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Index and play local music.'
+            # No permission dialog until the WF-03 Continue touch.
+            adb shell dumpsys package "$APK" > "$OUT/before_native_request.txt"
+            ! grep -Fq "$AUDIO: granted=true" "$OUT/before_native_request.txt"
+            adb exec-out screencap -p > "$OUT/rationale_before_native.png"
+            python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
+            adb shell dumpsys package "$APK" > "$OUT/not_now_no_grant.txt"
+            ! grep -Fq "$AUDIO: granted=true" "$OUT/not_now_no_grant.txt"
+            python3 scripts/issue5_phase5_emulator_ui.py tap 'Review music access'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            adb exec-out screencap -p > "$OUT/android_native_denial_dialog.png"
+            python3 scripts/issue5_phase5_emulator_ui.py system-deny
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Access was not granted. No audio was scanned. You can return later.'
+            adb shell dumpsys package "$APK" > "$OUT/denied_no_grant.txt"
+            ! grep -Fq "$AUDIO: granted=true" "$OUT/denied_no_grant.txt"
+            python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
+            # Fresh app data to avoid Android double-denial policy/OEM quirks.
+            adb shell pm clear "$APK"
+            adb shell am start -W -n "$ACT"
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            python3 scripts/issue5_phase5_emulator_ui.py tap Skip
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            python3 scripts/issue5_phase5_emulator_ui.py system-allow
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
+            adb shell dumpsys package "$APK" > "$OUT/granted_os_truth.txt"
+            grep -Fq "$AUDIO: granted=true" "$OUT/granted_os_truth.txt"
+            python3 scripts/issue5_phase5_emulator_ui.py app 'No local music is indexed yet.'
+            adb exec-out screencap -p > "$OUT/post_grant_library_empty.png"
+            adb logcat -d -b crash > "$OUT/crash_buffer.txt"
+            ! grep -Fq "Process: $APK" "$OUT/crash_buffer.txt"
+            echo "ISSUE5_P05_API${{ matrix.api }}_NATIVE_DIALOG_DENY_GRANT_PASS"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p05-android-api${{ matrix.api }}-native-dialog-evidence
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/outputs/issue5-p05-api${{ matrix.api }}/**
+            app/build/outputs/apk/debug/app-debug.apk
