@@ -101,11 +101,12 @@ jobs:
             adb shell settings put system font_scale 2.0
             adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Play local music. No account needed.' --scroll
+            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/reflow_200pct_slide_1.png
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Continue' --tap --scroll
             python3 scripts/issue5_phase4_emulator_ui.py --expect '6 supported commands' --scroll
+            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/reflow_200pct_slide_2.png
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Finish without Voice' --tap --scroll
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Access to local music'
-            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/reflow_200pct.png
             adb logcat -d -b crash > app/build/outputs/issue5-phase4-api29/crash_buffer.txt
             ! grep -Fq 'Process: com.latticeward.musiccopilot.debug' app/build/outputs/issue5-phase4-api29/crash_buffer.txt
             echo 'ISSUE5_P04_API29_REAL_UI_PASS two slides, back/skip, disabled practice, persistence, 200% reflow'
