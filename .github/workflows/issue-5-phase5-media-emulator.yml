@@ -86,7 +86,8 @@ jobs:
             python3 scripts/issue5_phase5_emulator_ui.py tap Continue
             adb exec-out screencap -p > "app/build/outputs/issue5-p05-api${{ matrix.api }}/android_native_denial_dialog.png"
             python3 scripts/issue5_phase5_emulator_ui.py system-deny
-            python3 scripts/issue5_phase5_emulator_ui.py app 'Access was not granted. No audio was scanned. You can return later.'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Access denied'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Manual controls remain available.'
             adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/denied_no_grant.txt"
             ! grep -Eq 'android.permission.(READ_EXTERNAL_STORAGE|READ_MEDIA_AUDIO): granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/denied_no_grant.txt"
             python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
@@ -99,6 +100,10 @@ jobs:
             python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
             python3 scripts/issue5_phase5_emulator_ui.py tap Continue
             python3 scripts/issue5_phase5_emulator_ui.py system-allow
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Access granted'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Continue to the blocked action.'
+            # P06 now owns the real WF-03 Granted page. No scan before its Continue.
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
             python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
             adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"
             if [ "${{ matrix.api }}" -ge 33 ]; then grep -Fq 'android.permission.READ_MEDIA_AUDIO: granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"; else grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"; fi
