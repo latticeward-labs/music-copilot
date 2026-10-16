@@ -59,11 +59,14 @@
         "real read-only replay and origin restore",
         "150 percent and slide2 interruption checks"
       ],
-      "CI": 38876334876,
+      "CI": 38879558692,
       "emulator_initial": 38876334672,
       "emulator_extended": 38876467719,
       "emulator_verified": 38876334672,
-      "emulator_supplemental": 38876467719
+      "emulator_supplemental": 38876467719,
+      "view_model_added": true,
+      "saved_state_handle_added": true,
+      "emulator_viewmodel_pending": 38879465871
     }
   ],
   "original_issue_ac_total": 13,
@@ -78,5 +81,29 @@
     "human review/merge P14"
   ],
   "decision": "PASS_P00_TO_P04_SCOPED; ADDED_EMULATOR_INTERRUPTED_SLIDE2_PENDING",
-  "scope_caveat": "Native OS permission adapters P05/P07 and physical/complete accessibility QA P12/P13 not accepted. Extended interrupted Slide2 emulator not yet concluded; do not relabel."
+  "scope_caveat": "Native OS permission adapters P05/P07 and physical/complete accessibility QA P12/P13 not accepted. Extended interrupted Slide2 emulator not yet concluded; do not relabel.",
+  "view_model_correction": {
+    "implemented": true,
+    "sha": "b5bd121ff29b460a7f03795a5c476bdcf867ecd7",
+    "file": "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseViewModel.kt",
+    "saved_state_handle": true,
+    "datastore_authoritative": true,
+    "ci_phase3": {
+      "id": 38879558699,
+      "conclusion": "success"
+    },
+    "ci_phase4": {
+      "id": 38879558692,
+      "conclusion": "success"
+    },
+    "emulator_on_viewmodel": {
+      "id": 38879465871,
+      "status": "in_progress"
+    },
+    "emulator_first_launch_on_viewmodel": {
+      "id": 38879466032,
+      "status": "in_progress"
+    },
+    "retained_regression_failure": 38879465973
+  }
 }
