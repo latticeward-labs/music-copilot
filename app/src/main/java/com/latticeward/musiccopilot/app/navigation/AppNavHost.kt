@@ -1,16 +1,25 @@
 package com.latticeward.musiccopilot.app.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
@@ -18,65 +27,143 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.latticeward.musiccopilot.R
 import com.latticeward.musiccopilot.app.theme.MusicColors
+import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
+import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
+import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
+import com.latticeward.musiccopilot.data.api.PreferencesRepository
+import com.latticeward.musiccopilot.feature.onboarding.FirstUseScreen
 
-/**
- * One real Compose NavHost, one boot destination. No user-facing navigation to
- * unimplemented UX, no duplicate Voice route, no fabricated playback success.
- */
+/** P03: single NavHost, Bootstrap always entry, no second playback/Voice authority. */
 @Composable
-fun AppNavHost(readiness: FoundationReadiness) {
+fun AppNavHost(
+    route: BootstrapRoute,
+    readiness: FoundationReadiness,
+    permission: PermissionStatus,
+    preferencesRepository: PreferencesRepository,
+    onRetry: () -> Unit,
+    onRefreshPermission: () -> Unit,
+    onFirstUseComplete: () -> Unit,
+    onExit: () -> Unit,
+) {
     val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-        startDestination = Destination.Bootstrap.route
-    ) {
+    var manualFallback by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(permission) {
+        if (permission == PermissionStatus.Granted) manualFallback = false
+    }
+    val actualRoute = if (route == BootstrapRoute.PermissionRecovery && manualFallback) {
+        BootstrapRoute.HomeLibrary
+    } else route
+    val target = when (actualRoute) {
+        BootstrapRoute.Preparing, BootstrapRoute.RetryStartup -> Destination.Bootstrap
+        BootstrapRoute.Onboarding -> Destination.Onboarding
+        BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
+        BootstrapRoute.HomeLibrary -> Destination.Library
+    }
+    LaunchedEffect(target) {
+        if (navController.currentBackStackEntry?.destination?.route != target.route) {
+            navController.navigate(target.route) {
+                popUpTo(Destination.Bootstrap.route) { inclusive = false }
+                launchSingleTop = true
+            }
+        }
+    }
+    NavHost(navController = navController, startDestination = Destination.Bootstrap.route) {
         composable(Destination.Bootstrap.route) {
-            FoundationBootstrapScreen(readiness)
+            if (route == BootstrapRoute.RetryStartup) {
+                FirstLaunchBoundary(
+                    title = stringResource(R.string.startup_failure_title),
+                    message = stringResource(R.string.startup_failure_body),
+                    primary = stringResource(R.string.action_retry),
+                    onPrimary = onRetry,
+                )
+            } else {
+                FoundationBootstrapScreen(readiness)
+            }
+        }
+        composable(Destination.Onboarding.route) {
+            FirstUseScreen(
+                repository = preferencesRepository,
+                onComplete = onFirstUseComplete,
+                onExit = onExit,
+            )
+        }
+        composable(Destination.PermissionRecovery.route) {
+            BackHandler { manualFallback = true }
+            FirstLaunchBoundary(
+                title = stringResource(R.string.media_rationale_title),
+                message = stringResource(R.string.media_rationale_body),
+                primary = stringResource(R.string.action_not_now),
+                onPrimary = { manualFallback = true },
+                secondary = stringResource(R.string.action_check_again),
+                onSecondary = onRefreshPermission,
+            )
+        }
+        composable(Destination.Library.route) {
+            BackHandler { onExit() }
+            val accessDenied = permission != PermissionStatus.Granted
+            FirstLaunchBoundary(
+                title = stringResource(R.string.library_title),
+                message = if (accessDenied) {
+                    stringResource(R.string.library_without_access)
+                } else {
+                    stringResource(readiness.messageResource())
+                },
+                primary = if (accessDenied) stringResource(R.string.action_review_access) else null,
+                onPrimary = { manualFallback = false; onRefreshPermission() },
+            )
         }
     }
 }
 
 @Composable
 internal fun FoundationBootstrapScreen(readiness: FoundationReadiness) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
+    FirstLaunchBoundary(
+        title = stringResource(R.string.app_name),
+        message = stringResource(R.string.foundation_state_initializing),
+    )
+}
+
+@Composable
+private fun FirstLaunchBoundary(
+    title: String,
+    message: String,
+    primary: String? = null,
+    onPrimary: () -> Unit = {},
+    secondary: String? = null,
+    onSecondary: () -> Unit = {},
+) {
+    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .safeDrawingPadding()
-                .verticalScroll(rememberScrollState())
-                .padding(MusicSpacing.lgDp),
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier.fillMaxSize().safeDrawingPadding()
+                .verticalScroll(rememberScrollState()).padding(MusicSpacing.lgDp),
+            verticalArrangement = Arrangement.Center,
         ) {
+            Text(title, color = MusicColors.textPrimary, style = MusicTextStyles.titleLarge)
             Text(
-                text = stringResource(R.string.app_name),
-                color = MusicColors.textPrimary,
-                style = MusicTextStyles.titleLarge
+                message, modifier = Modifier.padding(top = MusicSpacing.smDp),
+                color = MusicColors.textSecondary, style = MusicTextStyles.bodyLarge,
             )
-            Text(
-                modifier = Modifier.padding(top = MusicSpacing.smDp),
-                text = stringResource(R.string.foundation_shell_message),
-                color = MusicColors.textSecondary,
-                style = MusicTextStyles.bodyLarge
-            )
-            Text(
-                modifier = Modifier.padding(top = MusicSpacing.mdDp),
-                text = stringResource(readiness.messageResource()),
-                color = MusicColors.textMuted,
-                style = MusicTextStyles.bodyMedium
-            )
+            if (primary != null) {
+                Button(onClick = onPrimary, modifier = Modifier
+                    .padding(top = MusicSpacing.lgDp).heightIn(min = MusicSize.touchTargetMinDp)) {
+                    Text(primary)
+                }
+            }
+            if (secondary != null) {
+                OutlinedButton(onClick = onSecondary, modifier = Modifier
+                    .padding(top = MusicSpacing.smDp).heightIn(min = MusicSize.touchTargetMinDp)) {
+                    Text(secondary)
+                }
+            }
         }
     }
 }
 
 private fun FoundationReadiness.messageResource(): Int = when (this) {
     FoundationReadiness.Initializing -> R.string.foundation_state_initializing
-    FoundationReadiness.LibraryPermissionOrMediaUnavailable ->
-        R.string.foundation_state_unavailable
+    FoundationReadiness.LibraryPermissionOrMediaUnavailable -> R.string.foundation_state_unavailable
     FoundationReadiness.IndexingLocalLibrary -> R.string.foundation_state_indexing
     FoundationReadiness.LocalLibraryEmpty -> R.string.foundation_state_empty
     FoundationReadiness.LocalLibraryReady -> R.string.foundation_state_ready

@@ -1,8 +1,8 @@
 package com.latticeward.musiccopilot.app.navigation
 
 /**
- * Issue #16 typed destination registry. Only Bootstrap is registered in the
- * Phase 10 NavHost. The rest are contracts, NOT approved feature screens.
+ * Issue #16 typed destination registry. Bootstrap remains the start destination; P03 adds the approved First Launch
+ * routes. Other feature destinations remain declarative only.
  * Voice is intentionally absent: it is a cancellable origin-owned overlay.
  */
 sealed class Destination(val route: String) {
@@ -21,5 +21,6 @@ sealed class Destination(val route: String) {
             Search, FullPlayer, Driving, Settings, LikedSongsP2
         )
         val activeInPhase10 = setOf(Bootstrap)
+        val activeInPhase3 = setOf(Bootstrap, Onboarding, PermissionRecovery, Library)
     }
 }
