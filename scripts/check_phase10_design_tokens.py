@@ -111,7 +111,8 @@ def verify(files, tokens):
     # the four approved First Launch destinations, never Voice/Driving/player.
     installed_routes = set(re.findall(r"composable\(Destination\.(\w+)\.route\)", nav))
     first_launch_routes = {"Bootstrap", "Onboarding", "PermissionRecovery", "Library"}
-    approved = first_launch_routes if "activeInPhase3 = setOf(" in files.get("dest", "") else {"Bootstrap"}
+    approved = first_launch_routes if ("activeInPhase3 = setOf(" in files.get("dest", "") or
+                                       "activeInPhase3: Set<Destination> get() = setOf(" in files.get("dest", "")) else {"Bootstrap"}
     if (nav.count("    NavHost(") != 1 or installed_routes != approved or
             nav.count("composable(") != len(approved)):
         errors.append("UNAPPROVED_NAV_DESTINATION")
@@ -123,7 +124,8 @@ def verify(files, tokens):
     expected = {"Bootstrap", "Onboarding", "PermissionRecovery", "Library", "Search",
                 "FullPlayer", "Driving", "Settings", "LikedSongsP2"}
     found = set(re.findall(r"data object\s+(\w+)\s*:\s*Destination\(", dest))
-    if found != expected or "activeInPhase10 = setOf(Bootstrap)" not in dest:
+    if found != expected or not ("activeInPhase10 = setOf(Bootstrap)" in dest or
+                                "activeInPhase10: Set<Destination> get() = setOf(Bootstrap)" in dest):
         errors.append("DESTINATION_CONTRACT_DRIFT")
     gradle = files.get("gradle", "")
     catalog = files.get("catalog", "")
