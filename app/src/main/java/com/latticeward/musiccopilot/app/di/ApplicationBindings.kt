@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.core.time.Clock
 import com.latticeward.musiccopilot.data.api.LibraryRepository
+import com.latticeward.musiccopilot.data.api.PreferencesLoadState
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.data.api.RestorableQueueStore
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
@@ -92,7 +93,11 @@ class ApplicationBindings(
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
     fun onForeground() {
         controller.ensureConnected()
-        repositoryScope.launch { libraryRepository.reconcile() }
+        if (preferencesRepository.loadState.value == PreferencesLoadState.Ready &&
+            preferencesRepository.preferences.value.onboardingComplete
+        ) {
+            repositoryScope.launch { libraryRepository.reconcile() }
+        }
     }
 
     override fun close() {
