@@ -79,7 +79,12 @@ jobs:
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'OPTIONAL VOICE'
             python3 scripts/issue5_phase4_emulator_ui.py --expect '6 supported commands'
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Page 2 of 2'
-            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Practice Voice' --disabled --scroll
+            # Tap at the disabled button's visual bounds; assert no route/permission effect.
+            # UIAutomator may mark Text child enabled=true even when parent button is disabled.
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Practice Voice' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Page 2 of 2'
+            adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/issue5-phase4-api29/after_practice_tap.txt
+            ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/issue5-phase4-api29/after_practice_tap.txt
             adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/slide_2.png
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Back' --tap --scroll
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'LOCAL MUSIC'
