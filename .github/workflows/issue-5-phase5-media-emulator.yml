@@ -7,6 +7,7 @@ on:
     paths:
       - "app/src/main/**"
       - "scripts/issue5_phase5_emulator_ui.py"
+      - "scripts/issue5_phase6_emulator_ui.py"
       - ".github/workflows/issue-5-phase5-media-emulator.yml"
   workflow_dispatch:
 
@@ -68,7 +69,9 @@ jobs:
             mkdir -p "app/build/outputs/issue5-p05-api${{ matrix.api }}"
             adb install -r app/build/outputs/apk/debug/app-debug.apk
             adb shell pm clear "com.latticeward.musiccopilot.debug"
-            adb shell am start -W -n "com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity"
+            # Fail-closed bounded native startup: retry only when the emulator
+            # resumed Home, and never continue after a real app crash.
+            python3 scripts/issue5_phase6_emulator_ui.py launch-first-use
             python3 scripts/issue5_phase5_emulator_ui.py tap Continue
             python3 scripts/issue5_phase5_emulator_ui.py tap Skip
             python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
@@ -92,9 +95,13 @@ jobs:
             ! grep -Eq 'android.permission.(READ_EXTERNAL_STORAGE|READ_MEDIA_AUDIO): granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/denied_no_grant.txt"
             python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
             python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
-            # Fresh app data to avoid Android double-denial policy/OEM quirks.
-            adb shell pm clear "com.latticeward.musiccopilot.debug"
-            adb shell am start -W -n "com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity"
+            # New installation resets the OS permission decision as well.
+            # pm clear alone can preserve Android native denied flags.
+            adb uninstall "com.latticeward.musiccopilot.debug"
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            # Fail-closed bounded native startup: retry only when the emulator
+            # resumed Home, and never continue after a real app crash.
+            python3 scripts/issue5_phase6_emulator_ui.py launch-first-use
             python3 scripts/issue5_phase5_emulator_ui.py tap Continue
             python3 scripts/issue5_phase5_emulator_ui.py tap Skip
             python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
