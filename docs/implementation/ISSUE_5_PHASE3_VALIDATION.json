@@ -52,10 +52,10 @@
     },
     {
       "id": "P03-ISSUE-CLOSEOUT",
-      "status": "PENDING"
+      "status": "PENDING_READBACK_ISSUE_WRITE"
     }
   ],
-  "result": "PASS_P03_SCOPE_ON_VERIFIED_JVM_AND_API29_UI_RUNS_DOCUMENT_CLOSEOUT_PENDING",
+  "result": "PASS_P03_SCOPED_EXACT_IMPLEMENTATION_HEAD_JVM_AND_API29_UI",
   "limitations": [
     "No native runtime permission dialog or Settings recovery implementation",
     "No physical device or cross-version instrumentation",
@@ -77,8 +77,11 @@
     },
     "emulator_latest_resource_cleanup": {
       "id": 38869470447,
-      "status": "PENDING",
-      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470447"
+      "status": "SUCCESS",
+      "result": "success",
+      "commit": "f4f071a0e3a741703b2242ceca1969a919c81ae5",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470447",
+      "match_to_jvm_head": true
     },
     "observations": [
       "WF02 slide1, Continue, slide2, Finish",
