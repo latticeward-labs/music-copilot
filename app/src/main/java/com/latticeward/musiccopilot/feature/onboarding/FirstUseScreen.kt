@@ -27,11 +27,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,15 +42,10 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.latticeward.musiccopilot.R
-import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseEffect
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseEvent
-import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseMachine
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseState
-import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.data.api.FirstUsePage
-import com.latticeward.musiccopilot.data.api.PreferenceUpdate
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
-import kotlinx.coroutines.launch
 
 /**
  * Issue #5 P04: WF-02 / HF-02 approved TWO slides, not a third feature screen.
@@ -66,51 +59,12 @@ fun FirstUseScreen(
     onComplete: () -> Unit,
     onExit: () -> Unit,
 ) {
-    var machine by remember(repository, replay) {
-        mutableStateOf(
-            FirstUseMachine.enter(
-                complete = repository.preferences.value.onboardingComplete,
-                checkpoint = repository.preferences.value.onboardingCheckpoint,
-                replay = replay,
-            ),
-        )
-    }
-    val scope = rememberCoroutineScope()
-
-    fun dispatch(event: FirstUseEvent) {
-        val step = FirstUseMachine.reduce(machine, event)
-        machine = step.state
-        step.effects.forEach { effect ->
-            when (effect) {
-                is FirstUseEffect.PersistCheckpoint, is FirstUseEffect.PersistCompletion -> {
-                    scope.launch {
-                        val update = when (effect) {
-                            is FirstUseEffect.PersistCheckpoint ->
-                                PreferenceUpdate.SetOnboardingCheckpoint(effect.page)
-                            is FirstUseEffect.PersistCompletion ->
-                                PreferenceUpdate.SetOnboardingComplete(true)
-                            else -> error("Unreachable effect")
-                        }
-                        val operationId = when (effect) {
-                            is FirstUseEffect.PersistCheckpoint -> effect.operationId
-                            is FirstUseEffect.PersistCompletion -> effect.operationId
-                            else -> error("Unreachable effect")
-                        }
-                        val result = repository.update(update)
-                        val next = FirstUseMachine.reduce(
-                            machine,
-                            if (result is AppResult.Success) FirstUseEvent.Saved(operationId)
-                            else FirstUseEvent.SaveFailed(operationId),
-                        )
-                        machine = next.state
-                        if (next.effects.contains(FirstUseEffect.EnterReadiness)) onComplete()
-                    }
-                }
-                FirstUseEffect.EnterReadiness -> onComplete()
-                FirstUseEffect.ReturnToOrigin, FirstUseEffect.ExitWithoutCompletion -> onExit()
-            }
-        }
-    }
+    val controller: FirstUseViewModel = viewModel(
+        key = if (replay) "first_use_replay" else "first_use_initial",
+        factory = remember(repository, replay) { FirstUseViewModel.factory(repository, replay) },
+    )
+    val machine = controller.machine
+    fun dispatch(event: FirstUseEvent) = controller.dispatch(event, onComplete, onExit)
 
     BackHandler { dispatch(FirstUseEvent.Back) }
     val saving = machine is FirstUseState.Saving
