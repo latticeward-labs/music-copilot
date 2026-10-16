@@ -25,13 +25,13 @@
   "review_approved": false,
   "merged": false,
   "phase1_ci": {
-    "status": "SUCCESS_VERIFIED_AT_REVIEWED_CLOSEOUT_HEAD",
-    "run_id": 38819337217,
+    "status": "SUCCESS_ON_PRE_CLOSEOUT_HEAD",
+    "run_id": 38819186656,
     "conclusion": "success",
-    "head_sha": "71e5ff9c077f5ad0b41a4b9f61a6042430e2b3f7",
-    "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38819337217",
-    "scope": "PHASE1_DOCUMENTATION_AND_NEGATIVE_FIXTURE_ONLY",
-    "prior_success_run_id": 38819186656
+    "head_sha": "6a9c663cb4999dd0f9a9a8b4e329aa8e4d2007e3",
+    "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656",
+    "job_id": 116711292922,
+    "scope": "DOC_CONTRACT_AND_NEGATIVE_FIXTURE_ONLY"
   },
   "phase1_checks": [
     {
@@ -57,21 +57,13 @@
     {
       "id": "P01-05",
       "name": "Final GitHub readback/CI and comparison",
-      "status": "PASS_GITHUB_VERIFIED_AT_CLOSEOUT_COMMIT",
-      "evidence": {
-        "source_commit": "71e5ff9c077f5ad0b41a4b9f61a6042430e2b3f7",
-        "behind_main": 0,
-        "check": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38819337217",
-        "issue_status": "OPEN",
-        "unchecked_ac": 13
-      }
+      "status": "PENDING_FINAL_EVIDENCE_COMMIT_RECHECK"
     }
   ],
   "limitations": [
     "No Issue #5 runtime feature tests run",
     "No reviewer, merge, new PR or Project V2 status asserted",
-    "Main target proposed pending explicit final-merge policy approval",
-    "A subsequent report-only commit changes the git head; its new CI must be verified and linked from Issue #5 rather than pre-claimed in this file."
+    "Main target proposed pending explicit final-merge policy approval"
   ],
-  "phase1_status": "PASS_CONTRACT_ONLY_VERIFIED_ON_71E5FF9_AND_FINAL_REPORT_COMMIT_RECHECK_WILL_BE_RECORDED_IN_ISSUE"
+  "phase1_status": "PASS_DOCUMENTATION_CONTRACT_WITH_FINAL_HEAD_RECHECK_REQUIRED"
 }
