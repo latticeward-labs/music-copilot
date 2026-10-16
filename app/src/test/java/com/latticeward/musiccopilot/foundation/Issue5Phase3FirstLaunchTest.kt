@@ -104,10 +104,12 @@ class Issue5Phase3FirstLaunchTest {
 
     @Test fun firstUseUiEmitsOnlyCheckedInWritesAndNoNativePrompt() {
         val screen = read("feature/onboarding/FirstUseScreen.kt")
-        assertTrue(screen.contains("FirstUseMachine.reduce(machine, event)"))
-        assertTrue(screen.contains("PreferenceUpdate.SetOnboardingCheckpoint"))
-        assertTrue(screen.contains("PreferenceUpdate.SetOnboardingComplete(true)"))
-        assertTrue(screen.contains("FirstUseEvent.Saved(operationId)"))
+        val stateOwner = read("feature/onboarding/FirstUseViewModel.kt")
+        assertTrue(screen.contains("controller.dispatch(event, onComplete, onExit)"))
+        assertTrue(stateOwner.contains("FirstUseMachine.reduce(machine, event)"))
+        assertTrue(stateOwner.contains("PreferenceUpdate.SetOnboardingCheckpoint"))
+        assertTrue(stateOwner.contains("PreferenceUpdate.SetOnboardingComplete(true)"))
+        assertTrue(stateOwner.contains("FirstUseEvent.Saved(operationId)"))
         assertTrue(screen.contains("BackHandler"))
         assertTrue(screen.contains(".verticalScroll(scrollState)"))
         assertFalse(screen.contains("requestPermissions("))

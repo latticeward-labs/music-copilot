@@ -13,6 +13,7 @@ import java.io.File
 class Issue5Phase4OnboardingTest {
     private val ui = File("src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseScreen.kt").readText()
     private val strings = File("src/main/res/values/strings.xml").readText()
+    private val viewModel = File("src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseViewModel.kt").readText()
 
     @Test fun exactlyTwoValueSlidesWithApprovedHighFidelityCopy() {
         for (copy in listOf(
@@ -88,6 +89,18 @@ class Issue5Phase4OnboardingTest {
         }
     }
 
+    @Test fun destinationViewModelOwnsLifecycleAndOnlyStoresAcknowledgedUiState() {
+        assertTrue(ui.contains("viewModel("))
+        assertTrue(ui.contains("FirstUseViewModel.factory(repository, replay)"))
+        assertTrue(viewModel.contains("SavedStateHandle"))
+        assertTrue(viewModel.contains("viewModelScope.launch"))
+        assertTrue(viewModel.contains("ackedFirstUsePage"))
+        assertTrue(viewModel.contains("FirstUseMachine.enter("))
+        assertFalse(viewModel.contains("READ_MEDIA_AUDIO"))
+        assertFalse(viewModel.contains("MediaStoreScanner"))
+        assertFalse(viewModel.contains("ExoPlayer"))
+    }
+
     @Test fun settingsReplayIsRealReadOnlyAndPreservesCompletion() {
         val host = File("src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt").readText()
         assertTrue(host.contains("composable(Destination.Settings.route)"))
@@ -103,10 +116,10 @@ class Issue5Phase4OnboardingTest {
     }
 
     @Test fun screenDoesNotOptimisticallyNavigateOnFailedWriteOrDoubleTap() {
-        assertTrue(ui.contains("FirstUseEvent.SaveFailed(operationId)"))
-        assertTrue(ui.contains("FirstUseEvent.Saved(operationId)"))
+        assertTrue(viewModel.contains("FirstUseEvent.SaveFailed(operationId)"))
+        assertTrue(viewModel.contains("FirstUseEvent.Saved(operationId)"))
         assertTrue(ui.contains("val enabled = !saving && !finished"))
-        assertTrue(ui.contains("FirstUseEffect.EnterReadiness"))
+        assertTrue(viewModel.contains("FirstUseEffect.EnterReadiness"))
         val save = FirstUseMachine.reduce(FirstUseMachine.enter(false, FirstUsePage.Value), FirstUseEvent.Skip)
         assertTrue(FirstUseMachine.reduce(save.state, FirstUseEvent.Continue).effects.isEmpty())
         assertTrue(FirstUseMachine.reduce(save.state, FirstUseEvent.Saved(0)).effects.isEmpty())
