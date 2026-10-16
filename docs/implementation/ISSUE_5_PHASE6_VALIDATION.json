@@ -26,19 +26,52 @@
     "p05_jvm_regression": 38894487783,
     "p06_native": 38894791348,
     "older_failed_jvm": 38894019279,
-    "older_failed_native_harness": 38894019456
+    "older_failed_native_harness": 38894019456,
+    "p06_api29_green_job": {
+      "run_id": 38903110035,
+      "job_id": 116979950300,
+      "job_conclusion": "success",
+      "overall_run_conclusion": "failure",
+      "code_sha": "d42053f9ba74a78db15a7c884b264dea25409fa8",
+      "artifact_id": 12047376415
+    },
+    "p06_api33_green_job": {
+      "run_id": 38900423830,
+      "job_id": 116971017312,
+      "job_conclusion": "success",
+      "overall_run_conclusion": "failure",
+      "code_sha": "09bd087877c68d3f2336213387e5fd31c1469c45",
+      "artifact_id": 12046745585
+    },
+    "p05_native_regression": {
+      "run_id": 38903321428,
+      "conclusion": "success",
+      "api29": "success",
+      "api33": "success",
+      "artifacts": {
+        "api29": 12047298154,
+        "api33": 12046189896
+      }
+    },
+    "p06_latest_label_clarification": "60918ff4f33698ec37bb9dee869feb3c29313da0"
   },
   "checks": {
     "p06_jvm": "PASS_REAL_JUNIT_LINT_DETEKT_APK",
     "p05_jvm_regression": "PASS",
-    "p06_native_api29": "PENDING",
-    "p06_native_api33": "PENDING",
-    "p05_native_regression": "PENDING",
-    "issue_status": "OPEN_13_AC_UNCHECKED"
+    "p06_native_api29": "PASS_REAL_OS_NATIVE_GRANTED_AND_DENIED_REQUESTABLE_USER_SET_NOT_FIXED",
+    "p06_native_api33": "PASS_REAL_OS_NATIVE_GRANTED_DENIED_AND_SETTINGS_ONLY_USER_FIXED",
+    "p05_native_regression": "PASS_REAL_API29_API33_WHOLE_RUN",
+    "issue_status": "OPEN_13_AC_UNCHECKED",
+    "p06_all_jobs_single_workflow": "NOT_PASS_INTERMITTENT_ANDROID_EMULATOR_SYSTEM_UI_ANR",
+    "api29_settings_only_end_to_end": "NOT_ATTESTED_IN_GREEN_API29_JOB"
   },
-  "decision": "PENDING_REAL_NATIVE_API29_AND_API33",
+  "decision": "PASS_P06_SCOPED_COMPLEMENTARY_REAL_API29_API33_JOBS_NO_CLAIM_SINGLE_GREEN_MATRIX",
   "native_test_hardening": {
     "reason": "Android 10 pm set-permission-flags unsupported; replaced by two real native Deny gestures and optional native checkbox",
-    "unknown_future_native_ci": "PENDING"
-  }
+    "unknown_future_native_ci": "PENDING",
+    "latest_first_launch": "3 bounded actual Android Activity launches plus crash detection; no route injection",
+    "source_trace": "Android10 USER_SET; Android13 USER_FIXED",
+    "claimed_both_native_jobs_on_single_run": false
+  },
+  "verified_prod_source_unchanged_between_p06_successful_jobs": true
 }
