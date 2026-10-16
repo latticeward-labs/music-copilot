@@ -16,13 +16,6 @@
     <string name="action_back">Back</string>
     <string name="action_skip">Skip</string>
     <string name="action_continue">Continue</string>
-    <string name="action_finish">Finish</string>
-    <string name="first_use_step_one">STEP 1 OF 2</string>
-    <string name="first_use_step_two">STEP 2 OF 2</string>
-    <string name="first_use_first_title">Your music. Your control.</string>
-    <string name="first_use_first_body">Music Copilot helps you control locally stored tracks with simple playback actions. No sign-up or online music catalog is required.</string>
-    <string name="first_use_second_title">Keep your attention on the road</string>
-    <string name="first_use_second_body">Use push-to-talk when you choose voice control. This app does not make driving safe. Voice practice and microphone permission are optional. You can always use manual controls.</string>
     <string name="first_use_save_error">Could not save this step. Retry, or use Back to exit without claiming completion.</string>
     <string name="media_rationale_title">Access to local music</string>
     <string name="media_rationale_body">Music Copilot needs your permission to read audio on this device before scanning. This screen does not request permission yet. You can choose Not now and return later without signing in.</string>

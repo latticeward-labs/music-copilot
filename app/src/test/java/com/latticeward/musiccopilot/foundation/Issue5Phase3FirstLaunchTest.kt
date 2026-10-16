@@ -108,7 +108,7 @@ class Issue5Phase3FirstLaunchTest {
         assertTrue(screen.contains("PreferenceUpdate.SetOnboardingComplete(true)"))
         assertTrue(screen.contains("FirstUseEvent.Saved(operationId)"))
         assertTrue(screen.contains("BackHandler"))
-        assertTrue(screen.contains("verticalScroll(rememberScrollState())"))
+        assertTrue(screen.contains(".verticalScroll(scrollState)"))
         assertFalse(screen.contains("requestPermissions("))
         assertFalse(screen.contains("SpeechRecognizer"))
         assertFalse(screen.contains("MediaStoreScanner"))
