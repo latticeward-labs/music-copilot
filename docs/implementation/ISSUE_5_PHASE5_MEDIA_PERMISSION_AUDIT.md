@@ -25,3 +25,13 @@
 **Decision at first recording: PENDING native Android and Kotlin CI.** Source code and workflow existence alone do NOT prove runtime PASS. Final verdict requires actual GitHub success, path/hash readback, Issue #5 evidence and no privacy/architecture failures. Issue #5 remains OPEN and 13 integrated ACs unchecked; P06–P14 are untouched.
 
 Physical HONOR/API35 and independently reviewed full device matrix are P13. API31/35 runtime checks and complete accessibility are P12–P13 unless separately executed earlier. Android Emulator is never called a physical device.
+
+
+## Revalidation and native test hardening (2026-10-16)
+
+- Actual [P05 Gradle/JUnit/Android lint and APK #38884070402](https://github.com/music-copilot-organization/music-copilot/actions/runs/38884070402): **SUCCESS**, including 12 new test cases; P03/P04 JVM regressions on same implementation commit also succeeded.
+- Native [API29/API33 run #38884594723](https://github.com/music-copilot-organization/music-copilot/actions/runs/38884594723): **PARTIAL, not PASS**. API29 real native dialog, denial, explicit retry/allow and post-grant local scan succeeded with uploaded screenshots. API33 failed when the temporary UIAutomator XML could not be pulled as Android 13 permission controller was booting; this is a test-harness transport error, **not** a native Grant test pass.
+- Committed a bounded, fresh-dump-per-attempt Android UIAutomator retry in `scripts/issue5_phase5_emulator_ui.py` (`41e0f6ed52bcfbbe5a67b15caaa6451483921741`). No native result is simulated and no check is skipped. A real [re-run matrix #38887620769](https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769) is ongoing and must be evaluated for **both** API29 and API33 before P05 final PASS.
+- Actual app implementation remains unaltered during this test-tool correction; P06 comprehensive denial/permanent UI, P07 Settings and P08 Library readiness remain explicitly excluded.
+
+**P05 final verification decision:** PENDING both API29 and API33 success of re-run; earlier P05 machine ledger is historical.
