@@ -54,10 +54,11 @@ adb shell input keyevent 4
 python3 scripts/issue5_phase5_emulator_ui.py app 'Open Android Settings'
 python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
 python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
-# A fresh install separates denial and grant scenarios.
-adb shell pm clear "$APK"
-adb shell pm clear-permission-flags "$APK" "$PERMISSION" user-fixed >/dev/null 2>&1 || true
-adb shell pm clear "$APK"
+# A TRUE uninstall/reinstall is needed after USER_FIXED. "pm clear"
+# only wipes app storage and may preserve Android runtime permission flags.
+# Do not bypass an OS denial with "pm grant" or global controller resets.
+adb uninstall "$APK"
+adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
 python3 scripts/issue5_phase5_emulator_ui.py tap Continue
 python3 scripts/issue5_phase5_emulator_ui.py tap Skip
