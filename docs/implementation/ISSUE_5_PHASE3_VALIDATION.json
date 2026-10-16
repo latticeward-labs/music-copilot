@@ -90,5 +90,11 @@
       "OS media/microphone grants absent",
       "app screenshot and debug APK uploaded"
     ]
+  },
+  "final_reaudit_2026_10_16": {
+    "startup_scan": "NO_IMPLICIT_MEDIASTORE_RECONCILE_BEFORE_EXPLICIT_PERMISSION",
+    "jvm_ci": 38879558699,
+    "emulator_ci": 38879466032,
+    "status": "PASS_SCOPED_ANDROID10_NATIVE_BOOT"
   }
 }

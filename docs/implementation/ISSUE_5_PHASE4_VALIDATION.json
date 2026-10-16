@@ -70,5 +70,32 @@
       "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678"
     }
   ],
-  "overall_issue_status": "OPEN_13_AC_PENDING_INTEGRATED_ACCEPTANCE"
+  "overall_issue_status": "OPEN_13_AC_PENDING_INTEGRATED_ACCEPTANCE",
+  "final_reaudit_2026_10_16": {
+    "view_model": true,
+    "saved_state_handle": true,
+    "datastore_ack_authoritative": true,
+    "replay_from_settings": true,
+    "new_jvm_test_cases_total": 10,
+    "jvm_android_ci": {
+      "id": 38879558692,
+      "result": "success",
+      "tested_head": "b5bd121ff29b460a7f03795a5c476bdcf867ecd7"
+    },
+    "emulator_api29": {
+      "id": 38879465871,
+      "result": "success",
+      "tested_app_head": "baa3045c18b919a1260944ed9ba2618e81b15e97",
+      "artifact_id": 12037690290
+    },
+    "font_scaling": [
+      100,
+      150,
+      200
+    ],
+    "interrupted_slide2_android10": "PASS",
+    "practice_mic_request": false,
+    "overall_phase": "PASS_SCOPED_UI_ONLY",
+    "issue_final_ac_accepted": 0
+  }
 }

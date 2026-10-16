@@ -59,5 +59,11 @@
       "disposition": "RESOLVED"
     }
   ],
-  "closeout_note": "Final documentation-only commit triggers another CI run; record final verified head in Issue #5 after success."
+  "closeout_note": "Final documentation-only commit triggers another CI run; record final verified head in Issue #5 after success.",
+  "final_reaudit_2026_10_16": {
+    "gateway": "AndroidPermissionGateway fakeable port and typed one-shot BlockedAction",
+    "ci": 38876126473,
+    "result": "PASS_SCOPED_CONTRACT",
+    "native_launcher_implemented": false
+  }
 }
