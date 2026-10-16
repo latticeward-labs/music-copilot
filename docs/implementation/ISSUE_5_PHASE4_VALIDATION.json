@@ -1,0 +1,32 @@
+{
+  "schema": "music-copilot.issue5.phase4.validation.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "reference_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "user_authoritative_phase": "P04_TWO_ONBOARDING_SLIDES",
+  "slides": 2,
+  "approved": [
+    "WF-02_ONBOARDING_SLIDE_1",
+    "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE",
+    "HF-02_ONBOARDING_SLIDE_1",
+    "HF_FRAME_WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+  ],
+  "new_jvm_tests": 8,
+  "practice_voice_action": "VISIBLE_DISABLED_UNTIL_P09",
+  "native_permission_requests_implemented": 0,
+  "original_issue_acceptance_passed": 0,
+  "original_issue_acceptance_total": 13,
+  "jvm_ci_run": 38872429334,
+  "emulator_ci_run": 38872429339,
+  "checks": {
+    "copy": "IMPLEMENTED_PENDING_CI",
+    "jvm": "PENDING",
+    "lint": "PENDING",
+    "emulator_api29": "PENDING",
+    "reflow_200_percent": "PENDING",
+    "no_automatic_grant": "PENDING",
+    "issue_closeout": "PENDING"
+  },
+  "decision": "PENDING_VERIFIED_GITHUB_CI_AND_EMULATOR"
+}

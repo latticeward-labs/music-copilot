@@ -1,7 +1,7 @@
 # Issue #5 — Evidence Index and Synthetic Test Contract
 
 **Source:** [P00 canonical AC/test register](ISSUE_5_PHASE0_TRACEABILITY.json) · **Branch:** `feature/5-onboarding-permissions-recovery`.
-**Status:** Phase-1 specification only. All Issue #5 runtime tests are NOT_RUN, and AC pass count is 0/13.
+**Status:** Phase-0 traceability fixture IDs remain specifications; actual P03 runtime/Phase-4 UI evidence is logged per phase below. The original integrated Issue #5 AC pass count is still 0/13; do not rewrite specification-only T01–T17 as fully passed.
 
 Each future PASS must record tested commit SHA, run/time, actual test and CI path, expected/actual outcome and whether emulator, instrumented physical, or user-reported manual. Only synthetic media, IDs and speech may be used. Never upload real tracks, paths, titles, content URI, raw voice/transcripts, Bluetooth device IDs, permission outcomes or sensitive telemetry. Sanitize UI screenshots and logs.
 
@@ -32,9 +32,11 @@ Each future PASS must record tested commit SHA, run/time, actual test and CI pat
 | P00 | SHA-locked 12-PDF English source, 51-path/13-AC/17-case baseline, 4/4 DoR | PASS_SPEC_ONLY |
 | P01 | Existing branch/ancestry, PR template, reviewer policy and machine CI contract; [initial real run #38819186656](https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656) | PASS_DOC_CONTRACT_ONLY |
 | P02 | Pure first-use/bootstrap/permission state machine, DataStore checkpoint, 19 JVM tests and real Android Gradle [CI #38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346) | **PASS CONTRACT/JVM ONLY** |
-| P03–P04 | Real UI navigation and native API-aware media/mic adapter integration | NOT_RUN |
-| P05–P08 | Denial, Settings recheck, JIT mic and deferred notification recovery | NOT_RUN |
-| P09–P10 | Cloud consent disabled, no account/identity, real local-library/GS-01 integration | NOT_RUN |
+| P03 | Bootstrap, first launch route and real API29 first-run [CI #38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585), [emulator #38869470447](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470447) | PASS_BOOTSTRAP_SCOPE |
+| P04 | Exact WF-02/HF-02 two-slide Compose UI, 8 P04 JVM tests, native API29/200% UI emulator | PENDING_RUN_OUTCOME |
+| P05–P06 | Android-owned media request and Granted/Denied/Permanently Denied native flows | NOT_RUN |
+| P07–P08 | Android Settings/revocation and Library readiness | NOT_RUN |
+| P09–P10 | Six-command education/JIT microphone and Notification/Cloud STT consent | NOT_RUN |
 | P11–P12 | Rotation/recreation, privacy-negative tests, Compose TalkBack/scaling/contrast | NOT_RUN |
 | P13 | API29/32/33/35 emulator/physical/native Settings and permission QA; sanitized artifact identity | NOT_RUN |
 | P14 | 13/13 actual AC, exact-head green CI, independent review, approved base exception, real PR merge/Issue closure | NOT_RUN |
