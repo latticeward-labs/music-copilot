@@ -16,11 +16,11 @@
 
 | Gate | Requirement | Result |
 |---|---|---|
-| Visual hierarchy and exact product copy | Compare implementation resources with approved HF-02 frame text/ordering | Source implemented; separate JVM test proves text presence |
-| State machine + persistence | Unit/JVM assertions on ACK, Back, Skip/Finish, stale result, no automatic permission | 8 new P04 test cases; CI required |
-| Accessibility semantics | semantic headings, pager content labels, 48dp actions, disabled practice, scroll at 200% | Source encoded; real device/emulator test required |
-| Real Android UI | Emulator API29 fresh/Skip/Back and force-stop, screenshot and OS grants; optional font_scale=2.0 check | GitHub Action `issue-5-phase4-emulator.yml` required |
-| Privacy / architecture / regression | fail-closed source guards, P03 regression, Lint/Detekt, JVM, APK | CI required |
+| Visual hierarchy and exact product copy | Compare implementation resources with approved HF-02 frame text/ordering | **PASS** — exact approved resource copy + 8 JVM cases in [#38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334) |
+| State machine + persistence | Unit/JVM assertions on ACK, Back, Skip/Finish, stale result, no automatic permission | **PASS** — [real Android/Kotlin CI #38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334) and post-documentation [#38872782861](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872782861) SUCCESS |
+| Accessibility semantics | semantic headings, pager content labels, 48dp actions, disabled practice, scroll at 200% | **PASS on tested API29 emulator scope** — [#38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678), including 200% two-slide reflow screenshots; broader P12 TalkBack/other OS QA still due |
+| Real Android UI | Emulator API29 fresh/Skip/Back and force-stop, screenshot and OS grants; optional font_scale=2.0 check | **PASS** — [Android 10 run #38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678), real UI hierarchy and taps, screenshot + APK artifact #12034777234 |
+| Privacy / architecture / regression | fail-closed source guards, P03 regression, Lint/Detekt, JVM, APK | **PASS** — real JVM/Gradle and privacy/architecture/design checks in [#38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334) |
 | Wider Android/TalkBack | independent device OS/API/TalkBack and visual sign-off | deferred P12–P13 (NOT claimed) |
 
 ## Scope exclusions
@@ -29,4 +29,10 @@ P05 handles **media permission request**, P06 handles native Granted/Denied/Perm
 
 ## CI/QA ledger
 
-The exact test-run SHA and actual PASS/PARTIAL status are recorded in `ISSUE_5_PHASE4_VALIDATION.json` and Issue #5 **after** GitHub returns results. Do not interpret new workflow installation as a successful run.
+**P04 PASS / COMPLETE (within WF-02 two-page scope).** [JVM/Gradle/Android CI #38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334) SUCCESS on UI implementation `d996b7671346cc337deb7e5e62998c898af0ffcd`: 8 new JUnit tests, existing regression tests, source governance, architecture/privacy/token checks, Spotless, Detekt, Lint, built APK. [P04 post-doc CI #38872782861](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872782861) SUCCESS. [Real Android 10 Emulator #38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678) SUCCESS on final UI/workflow head `eb57eac9c6830bd854726963c33f0fcdb1af82e5`; screenshot/API29 evidence is in [artifact #12034777234](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678/artifacts/12034777234). This last commit differs from the JVM-tested code only in workflow/script and documentation, **not** in app bytecode/resources.
+
+### Preserved failure and recovery evidence
+
+The [initial P04 emulator run #38872429339](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429339) failed due to reading the `enabled` value of a Text child within a disabled Compose button; this is not authoritative for its clickable parent. Replaced brittle tree-attribute assertion with a real tap attempt followed by strict same-screen/no microphone-grant assertions. After a successful follow-up [run #38873155172](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873155172), the latest run #38873215678 also captured `slide_1.png`, `slide_2.png`, `reflow_200pct_slide_1.png` and `reflow_200pct_slide_2.png`, checked persisted Skip/first-use completion across relaunch, and verified no automatic media/mic grants. No failures are relabeled PASS.
+
+**Out of scope, still open:** native media permission dialog and rationale (P05), native outcomes (P06), Android Settings/revocation (P07), library readiness (P08), six-command practice and mic (P09), notifications/cloud STT (P10), comprehensive lifecycle/privacy (P11), independent TalkBack/accessibility QA (P12), physical device Golden Scenario (P13), final 13/13 Issue #5 acceptance/PR/merge (P14).

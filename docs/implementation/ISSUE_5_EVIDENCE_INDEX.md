@@ -33,7 +33,7 @@ Each future PASS must record tested commit SHA, run/time, actual test and CI pat
 | P01 | Existing branch/ancestry, PR template, reviewer policy and machine CI contract; [initial real run #38819186656](https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656) | PASS_DOC_CONTRACT_ONLY |
 | P02 | Pure first-use/bootstrap/permission state machine, DataStore checkpoint, 19 JVM tests and real Android Gradle [CI #38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346) | **PASS CONTRACT/JVM ONLY** |
 | P03 | Bootstrap, first launch route and real API29 first-run [CI #38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585), [emulator #38869470447](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470447) | PASS_BOOTSTRAP_SCOPE |
-| P04 | Exact WF-02/HF-02 two-slide Compose UI, 8 P04 JVM tests, native API29/200% UI emulator | PENDING_RUN_OUTCOME |
+| P04 | Approved WF-02/HF-02 two-page UI, [Kotlin/JVM/Lint/APK #38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334), [API29 UI/200% emulator #38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678), [screenshots+APK artifact #12034777234](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678/artifacts/12034777234) | **PASS_TWO_SLIDES_SCOPE** |
 | P05–P06 | Android-owned media request and Granted/Denied/Permanently Denied native flows | NOT_RUN |
 | P07–P08 | Android Settings/revocation and Library readiness | NOT_RUN |
 | P09–P10 | Six-command education/JIT microphone and Notification/Cloud STT consent | NOT_RUN |

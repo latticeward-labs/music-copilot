@@ -1,6 +1,6 @@
 # Issue #5 — 15-Phase Execution Plan (P00–P14)
 
-**Current stage:** P00 PASS, P01 **PASS documentation/CI contract**; P02 State Machine/Permission contract PASS; P03 Bootstrap and First Launch routing PASS; P04 approved two-page Onboarding Compose implementation **IN VALIDATION** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
+**Current stage:** P00 PASS, P01 **PASS documentation/CI contract**; P02 State Machine/Permission contract PASS; P03 Bootstrap and First Launch routing PASS; P04 approved two-page Onboarding Compose implementation **PASS — real JVM/API29 UI** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
 
 **Source + audit:** [Phase-0 Source/Traceability/DoR](ISSUE_5_PHASE0_SOURCE_TRACEABILITY_DOR.md) · [machine traceability](ISSUE_5_PHASE0_TRACEABILITY.json) · [machine validation](ISSUE_5_PHASE0_VALIDATION.json).
 
@@ -14,7 +14,7 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 | P01 | Execution contracts and test fixtures | Create review/evidence index, synthetic fixture, phase gates; no product UX yet. **P01 PASS — CONTRACT/CI ONLY** |
 | P02 | Bootstrap and state ownership | Define pure bootstrap/first-use/permission State Machines, persist checkpoint via DataStore, unit-test transition ownership; Android/native/UI binding later. **PASS — COMPILED STATE MACHINE + DATASTORE/UNIT CI [#38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346), NO RUNTIME OS REQUESTS** |
 | P03 | Real Bootstrap and First Launch routing | Verified preferences/Room/OS access, four registered destinations, preliminary functional UI, DataStore ACK; **PASS — JVM/Android CI #38869470585, API29 UI #38869470447**. Exact approved UI-copy/design fidelity belongs P04. |
-| P04 | **Two approved Onboarding Compose slides** | Match WF-02/HF-02 exact copy/hierarchy; Back/Skip/Finish, local persistence, 48dp, TalkBack labels, scroll/reflow; real JVM + Android 10 UI evidence. **IMPLEMENTED; CI/EMULATOR VERIFICATION PENDING**. Practice Voice affordance disabled until P09. |
+| P04 | **Two approved Onboarding Compose slides** | Match WF-02/HF-02 exact copy/hierarchy; Back/Skip/Finish, local persistence, 48dp, TalkBack labels, scroll/reflow; real JVM + Android 10 UI evidence. **PASS** — [JVM/APK #38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334), [real API29 UI/200% #38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678); consent/native permissions deliberately deferred.. Practice Voice affordance disabled until P09. |
 | P05 | Request access to audio files | API-aware Android media permission request only after an explicit rationale; no scan without a grant. **NOT_STARTED** |
 | P06 | Granted / Denied / Permanently Denied | Native OS outcomes and requestable/permanent distinction, clear explanations and safe fallback. **NOT_STARTED** |
 | P07 | Android Settings recovery and permission revocation | Explicit Settings handoff, fresh OS recheck, cancellation/revoked safe recovery. **NOT_STARTED** |
@@ -44,7 +44,8 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 - [x] P01 [real contract GitHub CI run #38819186656](https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656) PASS; post-closeout final head recheck is recorded in Issue #5.
 - [x] P02 [real Gradle/JVM+APK CI #38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346) PASS on implementation head `0e943e03a0f8`; final report-only commit recheck recorded separately in Issue #5.
 - [x] P03 [real JVM/Android CI #38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585) on code SHA `f4f071a0`, and [real API29 first-launch emulator #38869071281](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281) with screenshot artifact; 13 Issue-wide ACs still pending final acceptance.
-- [ ] P04 exact-head JVM/Android UI/emulator audit is pending; P05–P14 further phases remain not started.
+- [x] P04 exact approved HF-02 two-slide copy/semantics, [8 JVM tests + lint + APK #38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334), [Android 10 UI/200% screenshots #38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678) SUCCESS.
+- [ ] P05–P14 further phases remain not started.
 - [ ] Issue #5 implementation and final acceptance (13 criteria).
 
 **No source PDF, accepted ADR, Wireframe or Hi-Fi design was changed in Phases 0–1.** Phase-1 CI is a documentation contract gate, not Android testing.
