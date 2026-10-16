@@ -88,6 +88,20 @@ class Issue5Phase4OnboardingTest {
         }
     }
 
+    @Test fun settingsReplayIsRealReadOnlyAndPreservesCompletion() {
+        val host = File("src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt").readText()
+        assertTrue(host.contains("composable(Destination.Settings.route)"))
+        assertTrue(host.contains("onPrimary = { replayingEducation = true }"))
+        assertTrue(host.contains("replay = replayingEducation"))
+        assertTrue(host.contains("replayingEducation = false"))
+        val start = FirstUseMachine.enter(true, FirstUsePage.SafetyAndVoice, replay = true)
+        val next = FirstUseMachine.reduce(start, FirstUseEvent.Continue)
+        assertTrue(next.effects.isEmpty())
+        val done = FirstUseMachine.reduce(next.state, FirstUseEvent.Continue)
+        assertEquals(listOf(FirstUseEffect.ReturnToOrigin), done.effects)
+        assertFalse(done.effects.any { it is FirstUseEffect.PersistCompletion })
+    }
+
     @Test fun screenDoesNotOptimisticallyNavigateOnFailedWriteOrDoubleTap() {
         assertTrue(ui.contains("FirstUseEvent.SaveFailed(operationId)"))
         assertTrue(ui.contains("FirstUseEvent.Saved(operationId)"))
