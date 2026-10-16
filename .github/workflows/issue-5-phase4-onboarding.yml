@@ -1,0 +1,68 @@
+name: Issue 5 Phase 4 - Two approved Onboarding slides
+
+on:
+  push:
+    branches:
+      - feature/5-onboarding-permissions-recovery
+    paths:
+      - "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/**"
+      - "app/src/main/res/values/strings.xml"
+      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase4*"
+      - "docs/implementation/ISSUE_5_PHASE4_*"
+      - ".github/workflows/issue-5-phase4-onboarding.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue5-phase4-onboarding-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  approved-onboarding-jvm:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Guard architectural/privacy/design boundaries
+        run: |
+          python3 scripts/validate_issue5_phase1.py --root . --self-test
+          python3 scripts/check_architecture_dependencies.py --root . --self-test
+          python3 scripts/check_phase9_privacy.py --root . --self-test
+          python3 scripts/check_phase10_design_tokens.py --root . --self-test
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install pinned Android build platform
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Run lint, quality, JVM tests and build APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/build/reports/issue5-phase4
+          ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee app/build/reports/issue5-phase4/gradle.log
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase4OnboardingTest.xml
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          echo 'ISSUE5_P04_ONBOARDING_JVM_AND_APK_PASS'
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p04-onboarding-jvm-lint-apk
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/reports/issue5-phase4/**
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/tests/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            app/build/outputs/apk/debug/app-debug.apk
