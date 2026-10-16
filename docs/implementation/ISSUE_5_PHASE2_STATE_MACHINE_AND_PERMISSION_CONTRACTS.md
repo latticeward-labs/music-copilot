@@ -28,13 +28,13 @@ stateDiagram-v2
     Education --> SavingCompletion: Continue slide2 or Skip
     SavingCompletion --> Finished: exact completion DataStore ACK
     SavingCompletion --> SaveError: failed save
-    Education --> Replay: explicit Settings replay
+    [*] --> Replay: explicit Settings replay
     Replay --> FinishedReplay: Finish/Skip/Back
     Finished --> [*]: readiness handoff
     FinishedReplay --> [*]: origin return without mutation
 ```
 
-First-use checkpoint starts at `Value`, then `SafetyAndVoice` (approved **two slides**, not two extra screens). `AppPreferences.onboardingCheckpoint` persists only the pending page in existing local Preferences DataStore. Saving is a distinct state; neither slide navigation nor `onboardingComplete` may claim success before exact `operationId` ACK. Wrong/out-of-date ACKs, duplicate taps and stale failures are ignored. A persisted failed write produces Retry without manufacturing success. Replay starts at Value and has no DataStore writes, scan, microphone request, MediaSession mutation, grant mutation or playback restart. `Continue`/`Skip` only enqueue checkpoint or completion effects; **P03 must execute actual writes through PreferencesRepository**. Progress updates survive repository recreation in a JVM-backed DataStore test. No exact user-media content or speech is persisted by this addition.
+First-use checkpoint starts at `Value`, then `SafetyAndVoice` (approved **two slides**, not two extra screens). `AppPreferences.onboardingCheckpoint` persists only the pending page in existing local Preferences DataStore. Saving is a distinct state; neither slide navigation nor `onboardingComplete` may claim success before exact `operationId` ACK. Wrong/out-of-date ACKs, duplicate taps and stale failures are ignored. A persisted failed write produces Retry or safe Back/Exit without manufacturing completion. Replay starts at Value and has no DataStore writes, scan, microphone request, MediaSession mutation, grant mutation or playback restart. `Continue`/`Skip` only enqueue checkpoint or completion effects; **P03 must execute actual writes through PreferencesRepository**. Progress updates survive repository recreation in a JVM-backed DataStore test. No exact user-media content or speech is persisted by this addition.
 
 ## 3. Bootstrap route safety (UF-01..03 / WF-01 / GS-01)
 
@@ -48,7 +48,7 @@ First-use checkpoint starts at `Value`, then `SafetyAndVoice` (approved **two sl
 | Microphone | `RECORD_AUDIO` | `RECORD_AUDIO` | Explicit Mic tap or selected Practice only; NEVER app/Driving entry |
 | Notifications | Not applicable runtime `POST_NOTIFICATIONS` grant | `POST_NOTIFICATIONS` | Only after **acknowledged real** playback/background-controls value. Actual manifest declaration and adapter are deferred to P08. |
 
-Permission `Unknown`, `NotRequested`, `Granted`, `DeniedRequestable`, `PermanentlyDenied`, `Revoked`, `NotApplicable` are **projections** of a fresh native observation plus minimal request context. DataStore never owns a Grant. `requestedBefore`/`previouslyGranted` are classification hints, not persisted grant authority. When `shouldShowRequestPermissionRationale=false`, Android does not universally prove a permanent denial without request history; the P04 adapter must implement request tracking and a conservative Settings-only recovery outcome and test OEM variance. Android 13+ `POST_NOTIFICATIONS` denial must never be treated as playback stopped; lower API prompts are not triggered. Manifest currently does not declare `POST_NOTIFICATIONS`: P02 documents the gap but does NOT claim AC-03 implemented.
+Permission `Unknown`, `NotRequested`, `Granted`, `DeniedRequestable`, `PermanentlyDenied`, `Revoked`, `NotApplicable` are **projections** of a fresh native observation plus minimal request context. DataStore never owns a Grant. `requestedBefore`/`previouslyGranted` are classification hints, not persisted grant authority. When `shouldShowRequestPermissionRationale=false`, Android does not universally prove a permanent denial without request history; the P04 adapter must implement request tracking and a conservative Settings-only recovery outcome and test OEM variance. Android 13+ `POST_NOTIFICATIONS` denial must never be treated as playback stopped; lower API prompts are not triggered. A NotApplicable runtime grant **does not guarantee OS app notifications or channels are enabled**; NotificationManager/channel truth is checked separately in P08. Manifest currently does not declare `POST_NOTIFICATIONS`: P02 documents the gap but does NOT claim AC-03 implemented.
 
 ## 5. Permission finite state machine
 
@@ -89,6 +89,6 @@ Microphone Grant, provider available, policy for any network processor and expli
 | Pure typed machines with no OS/UI/Player imports | Implemented; architecture guard must pass CI |
 | Onboarding checkpoint persistent without grant truth | Implemented via DataStore port; JVM test must pass |
 | Denial/revocation/Settings/no auto-loop/duplicate guards | Implemented pure reducer; JVM tests must pass |
-| Exact-head Android CI + source readback | PENDING actual Actions result at author time |
+| Android CI against implementation head `0e943e03a0f8` | **PASS** — [run #38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346); report-only head will be rechecked |
 
-**P02 decision:** Do not label PASS until required Actions run is successful and branch + Issue #5 invariants are rechecked. No early merge.
+**P02 verification:** [Android/Gradle CI run #38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346) SUCCESS at `0e943e03a0f8b8af7d571abfe58a769825e1c728`: architecture/negative fixtures, privacy guard, P01 contract, Spotless, Detekt, Android Lint, Kotlin/JVM unit tests and real Debug APK all passed. Prior [failed run #38864012373](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864012373) exposed a preexisting Foundation test FakePreferences exhaustive-when mismatch after the new checkpoint event; fixed in `DataQualityContractsTest.kt` and revalidated. This PASS is restricted to P02 compiled design/contract/JVM scope; no native Android permission UI/Settings/physical tests were run. GitHub Issue #5 still has 13/13 ACs unchecked. A final report-only commit must have CI checked separately. No PR/merge.

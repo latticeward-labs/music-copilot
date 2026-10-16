@@ -18,8 +18,8 @@
     "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase2CheckpointPersistenceTest.kt"
   ],
   "test_cases_authored": 19,
-  "actual_ci_status": "PENDING",
-  "actual_ci_url": null,
+  "actual_ci_status": "SUCCESS_ON_IMPLEMENTATION_HEAD",
+  "actual_ci_url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346",
   "android_device_tests": 0,
   "permission_native_dialog_tests": 0,
   "issue_acceptance_total": 13,
@@ -37,5 +37,27 @@
     "P11-P13 lifecycle/UI/device/Accessibility QA",
     "P14 review/merge/close"
   ],
-  "decision": "PARTIAL_PENDING_REAL_GITHUB_CI"
+  "decision": "PASS_P02_CONTRACT_BUILD_JVM_ONLY",
+  "verified_implementation_head": "0e943e03a0f8b8af7d571abfe58a769825e1c728",
+  "verified_run_id": 38864555346,
+  "workflow_job_id": 116854282906,
+  "build_result": {
+    "spotless": "SUCCESS",
+    "detekt": "SUCCESS",
+    "lint_debug": "SUCCESS",
+    "unit_test": "SUCCESS",
+    "assemble_debug": "SUCCESS",
+    "apk": "EXISTS_IN_WORKFLOW",
+    "test_classes_xml_verified": 2
+  },
+  "correction_ledger": [
+    {
+      "run_id": 38864012373,
+      "result": "FAIL",
+      "cause": "existing DataQualityContractsTest FakePreferences missing new sealed PreferenceUpdate branch",
+      "fix": "add SetOnboardingCheckpoint handling and workflow path coverage",
+      "disposition": "RESOLVED"
+    }
+  ],
+  "closeout_note": "Final documentation-only commit triggers another CI run; record final verified head in Issue #5 after success."
 }

@@ -1,6 +1,6 @@
 # Issue #5 — 15-Phase Execution Plan (P00–P14)
 
-**Current stage:** P00 PASS, P01 **PASS documentation/CI contract**; P02 State Machine/Permission contract implementation **CI PENDING** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
+**Current stage:** P00 PASS, P01 **PASS documentation/CI contract**; P02 State Machine/Permission contract **PASS — real JVM/Android CI** as of 2026-10-16. **Execution branch:** `feature/5-onboarding-permissions-recovery`. **Implementation gate:** Issue #4 main merge verified. **Issue #5:** OPEN. Do not implement later phases within Phase 0.
 
 **Source + audit:** [Phase-0 Source/Traceability/DoR](ISSUE_5_PHASE0_SOURCE_TRACEABILITY_DOR.md) · [machine traceability](ISSUE_5_PHASE0_TRACEABILITY.json) · [machine validation](ISSUE_5_PHASE0_VALIDATION.json).
 
@@ -12,7 +12,7 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 |---|---|---|
 | P00 | Source, traceability, Definition of Ready audit | This audit only; baseline frozen and linked. **PASS_DOCUMENTATION_ONLY** |
 | P01 | Execution contracts and test fixtures | Create review/evidence index, synthetic fixture, phase gates; no product UX yet. **P01 PASS — CONTRACT/CI ONLY** |
-| P02 | Bootstrap and state ownership | Define pure bootstrap/first-use/permission State Machines, persist checkpoint via DataStore, unit-test transition ownership; Android/native/UI binding later. **IMPLEMENTED CONTRACTS — CI PENDING** |
+| P02 | Bootstrap and state ownership | Define pure bootstrap/first-use/permission State Machines, persist checkpoint via DataStore, unit-test transition ownership; Android/native/UI binding later. **PASS — COMPILED STATE MACHINE + DATASTORE/UNIT CI [#38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346), NO RUNTIME OS REQUESTS** |
 | P03 | Two-slide onboarding UI | Implement WF-02 value copy, Continue/Skip/Back, replay, six-command education. **NOT_STARTED** |
 | P04 | Android permission capability policy | Version-aware permission types, OS current-truth states, rationale/request history. **NOT_STARTED** |
 | P05 | Media permission rationale and denial screens | WF-03 native handoff, granted/requestable/permanent branching. **NOT_STARTED** |
@@ -42,7 +42,8 @@ Every implementation phase must record real code/configuration, relevant unit/Co
 - [x] DoR 4/4 evidence-linked; runtime/downstream non-claims preserved.
 - [x] P01 branch/PR review/evidence/fixture contract prepared on feature branch.
 - [x] P01 [real contract GitHub CI run #38819186656](https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656) PASS; post-closeout final head recheck is recorded in Issue #5.
-- [ ] P02 real JVM/Android Gradle CI and exact-head readback; P03–P14 runtime acceptance remains pending.
+- [x] P02 [real Gradle/JVM+APK CI #38864555346](https://github.com/music-copilot-organization/music-copilot/actions/runs/38864555346) PASS on implementation head `0e943e03a0f8`; final report-only commit recheck recorded separately in Issue #5.
+- [ ] P03–P14 runtime acceptance remains pending.
 - [ ] Issue #5 implementation and final acceptance (13 criteria).
 
 **No source PDF, accepted ADR, Wireframe or Hi-Fi design was changed in Phases 0–1.** Phase-1 CI is a documentation contract gate, not Android testing.
