@@ -61,6 +61,9 @@ class Issue5Phase2StateMachineTest {
         val failed = FirstUseMachine.reduce(saving, FirstUseEvent.SaveFailed(1)).state
         assertTrue(failed is FirstUseState.SaveError)
         assertEquals(FirstUsePage.Value, (failed as FirstUseState.SaveError).pageBefore)
+        val exit = FirstUseMachine.reduce(failed, FirstUseEvent.Back)
+        assertTrue(exit.state is FirstUseState.Finished)
+        assertEquals(listOf(FirstUseEffect.ExitWithoutCompletion), exit.effects)
         val retry = FirstUseMachine.reduce(failed, FirstUseEvent.Retry)
         assertEquals(FirstUseEffect.PersistCheckpoint(FirstUsePage.SafetyAndVoice, 2), retry.effects.single())
         assertEquals(retry.state, FirstUseMachine.reduce(retry.state, FirstUseEvent.Saved(1)).state)
