@@ -127,8 +127,11 @@ class Issue5Phase3FirstLaunchTest {
 
     @Test fun foundationReconcileCannotRunBeforeConfirmedOnboarding() {
         val binding = read("app/di/ApplicationBindings.kt")
-        assertFalse(binding.contains("libraryRepository.reconcile()"))
-        assertTrue(binding.contains("controller.ensureConnected()"))
+        assertTrue(binding.contains("fun scanAfterExplicitMediaGrant("))
+        assertTrue(binding.contains("ContextCompat.checkSelfPermission(application, permissionName)"))
+        val foreground = binding.substringAfter("fun onForeground()").substringBefore("override fun close()")
+        assertFalse(foreground.contains("libraryRepository.reconcile()"))
+        assertTrue(foreground.contains("controller.ensureConnected()"))
     }
 
     @Test fun noMigrationsAreDestructivelyResetWhenStorageCannotOpen() {

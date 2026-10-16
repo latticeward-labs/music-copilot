@@ -95,10 +95,10 @@ jobs:
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'LOCAL MUSIC'
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Continue' --tap --scroll
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Skip' --tap
-            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Access to local music'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
             adb shell am force-stop com.latticeward.musiccopilot.debug
             adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
-            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Access to local music'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
             adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/issue5-phase4-api29/permission_state.txt
             ! grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' app/build/outputs/issue5-phase4-api29/permission_state.txt
             ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/issue5-phase4-api29/permission_state.txt
@@ -111,13 +111,13 @@ jobs:
             python3 scripts/issue5_phase4_emulator_ui.py --expect '6 supported commands' --scroll
             adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/reflow_200pct_slide_2.png
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Finish without Voice' --tap --scroll
-            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Access to local music'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
             # The plan requires an additional 150% font run AND read-only
             # replay from an explicit non-driving Settings origin.
             adb shell settings put system font_scale 1.5
             adb shell am force-stop com.latticeward.musiccopilot.debug
             adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
-            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Access to local music'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Not now' --tap
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Your local music'
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Settings' --tap --scroll
@@ -131,7 +131,7 @@ jobs:
             python3 scripts/issue5_phase4_emulator_ui.py --expect 'Replay introduction'
             adb shell am force-stop com.latticeward.musiccopilot.debug
             adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
-            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Access to local music'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
             adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/issue5-phase4-api29/replay_150pct_permissions.txt
             ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/issue5-phase4-api29/replay_150pct_permissions.txt
             ! grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' app/build/outputs/issue5-phase4-api29/replay_150pct_permissions.txt

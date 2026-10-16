@@ -78,11 +78,11 @@ jobs:
             adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
             python3 scripts/issue5_phase3_emulator_ui.py --expect 'Play local music. No account needed.' --expect 'LOCAL MUSIC' --tap Continue
             python3 scripts/issue5_phase3_emulator_ui.py --expect '6 supported commands' --expect 'OPTIONAL VOICE' --tap 'Finish without Voice'
-            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Access to local music' --expect 'Not now' --tap 'Not now'
+            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Media access' --expect 'Not now' --tap 'Not now'
             python3 scripts/issue5_phase3_emulator_ui.py --expect 'Your local music' --expect 'Review music access'
             adb shell am force-stop com.latticeward.musiccopilot.debug
             adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
-            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Access to local music' --expect 'Not now'
+            python3 scripts/issue5_phase3_emulator_ui.py --expect 'Media access' --expect 'Not now'
             adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/issue5-phase3-api29/package_permissions.txt
             ! grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' app/build/outputs/issue5-phase3-api29/package_permissions.txt
             ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/issue5-phase3-api29/package_permissions.txt
