@@ -43,7 +43,7 @@ data class LibraryCandidate(
 interface LibraryRepository {
     val index: StateFlow<LibraryIndexSnapshot>
     /** Synchronous fail-closed projection: no stale Ready/Empty after OS revocation. */
-    fun invalidateMediaAccess()
+    fun invalidateMediaAccess() {} // Default for Foundation and JVM fakes; Room overrides.
     fun observeLibrary(): Flow<List<LibraryItem>>
     suspend fun reconcile(): AppResult<LibraryReconcileResult>
     suspend fun search(query: LibraryQuery): AppResult<List<LibraryItem>>
