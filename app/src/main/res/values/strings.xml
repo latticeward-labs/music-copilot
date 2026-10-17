@@ -19,6 +19,7 @@
     <string name="media_rationale_title">Media access</string>
     <string name="media_rationale_body">Index and play local music.</string>
     <string name="library_title">Your local music</string>
+    <string name="p08_scan_local_music">Scan local music</string>
     <string name="p08_rescan_local_music">Rescan local music</string>
     <string name="library_without_access">Music access has not been granted. No library or playable tracks are claimed. You can review access later; manual controls remain available where supported.</string>
     <string name="first_use_welcome">Welcome</string>
