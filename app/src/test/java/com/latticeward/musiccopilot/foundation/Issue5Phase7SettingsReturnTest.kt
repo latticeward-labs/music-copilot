@@ -126,7 +126,8 @@ class Issue5Phase7SettingsReturnTest {
         assertTrue(activity.contains("bindings.onMediaAccessRevoked()"))
         assertTrue(bindings.contains("activeMediaScan?.cancel()"))
         assertTrue(library.contains("accessEpoch.get() != epoch"))
-        assertTrue(library.contains("projection.replaceAll(emptyList())"))
+        assertTrue(library.contains("status = LibraryIndexStatus.Unavailable"))
+        assertFalse(library.contains("projection.replaceAll(emptyList())"))
         assertFalse(activity.substringAfter("override fun onResume()").substringBefore("@Composable")
             .contains("startActivity("))
     }
