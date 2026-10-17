@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.coroutines.Job
 import android.os.Build
 import android.Manifest
+import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
 import com.latticeward.musiccopilot.core.application.library.LibraryScanUseCase
 import com.latticeward.musiccopilot.core.application.library.LibraryScanReason
 import kotlinx.coroutines.launch
@@ -91,6 +92,16 @@ class ApplicationBindings(
     private val voiceOwner: DefaultVoiceSessionCoordinator =
         VoiceBindings.coordinator(voiceScope, speechToTextEngine, textToSpeechEngine, playbackGateway, context != null)
     val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
+
+    /**
+     * P09 provider probe only. This must be invoked after a fresh Android
+     * RECORD_AUDIO grant; no coordinator.start(), capture, playback command,
+     * language-pack download, network call or cloud provider is performed.
+     */
+    fun onDeviceVoicePracticeCapability(): VoiceProviderCapability =
+        if (speechToTextEngine.isAvailable()) VoiceProviderCapability.OnDeviceAvailable
+        else VoiceProviderCapability.ProviderUnavailable
+
 
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
     val telemetrySink: TelemetrySink = QualityBindings.sink()
