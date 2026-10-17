@@ -19,8 +19,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.foundation.focusable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.heading
@@ -45,6 +50,11 @@ fun MediaPermissionOutcomeScreen(
 ) {
     if (outcome == MediaPermissionOutcome.None) return
     BackHandler(onBack = onNotNow)
+    val outcomeFocus = remember { FocusRequester() }
+    LaunchedEffect(outcome) {
+        // Focus the actual recovery result after native Settings return/recreation.
+        outcomeFocus.requestFocus()
+    }
     val heading = if (revoked && outcome == MediaPermissionOutcome.SettingsOnly) {
         R.string.p07_revoked_title
     } else when (outcome) {
@@ -98,7 +108,7 @@ fun MediaPermissionOutcomeScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 stringResource(heading),
-                modifier = Modifier.semantics {
+                modifier = Modifier.focusRequester(outcomeFocus).focusable().semantics {
                     heading()
                     liveRegion = LiveRegionMode.Polite
                 },
