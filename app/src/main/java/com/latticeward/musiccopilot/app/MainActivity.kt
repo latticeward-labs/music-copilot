@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.latticeward.musiccopilot.app.di.ApplicationBindings
+import com.latticeward.musiccopilot.core.application.library.LibraryReadinessResolver
 import com.latticeward.musiccopilot.app.di.ApplicationBindings.StorageStartState
 import com.latticeward.musiccopilot.app.navigation.AppNavHost
 import com.latticeward.musiccopilot.app.navigation.RootNavigationStateHolder
@@ -247,14 +248,19 @@ class MainActivity : ComponentActivity() {
             libraryStatus = library.status,
         )
         val route = BootstrapRoutePolicy.project(evidence)
+        val verifiedLibraryStatus = LibraryReadinessResolver.verifiedStatus(
+            permission == PermissionStatus.Granted, library,
+        )
         MusicCopilotTheme {
             AppNavHost(
                 route = route,
-                readiness = RootNavigationStateHolder().readiness(library.status, playbackConnection),
+                readiness = RootNavigationStateHolder().readiness(verifiedLibraryStatus, playbackConnection),
                 permission = permission,
                 preferencesRepository = bindings.preferencesRepository,
                 onRetry = bindings::retryFirstLaunch,
                 onRefreshPermission = onRefreshPermission,
+                onRetryLibraryScan = bindings::retryLibraryAfterError,
+                onRescanLibrary = bindings::rescanLibraryOnUserRequest,
                 onRequestMediaPermission = onRequestMediaPermission,
                 onContinueGranted = onContinueGranted,
                 onRetryMediaPermission = onRetryMediaPermission,
