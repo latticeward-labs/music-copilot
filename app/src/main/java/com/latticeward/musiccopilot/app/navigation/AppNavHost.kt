@@ -48,6 +48,8 @@ fun AppNavHost(
     preferencesRepository: PreferencesRepository,
     onRetry: () -> Unit,
     onRefreshPermission: () -> Unit,
+    onRetryLibraryScan: () -> Unit,
+    onRescanLibrary: () -> Unit,
     onRequestMediaPermission: () -> Unit,
     onContinueGranted: () -> Unit,
     onRetryMediaPermission: () -> Unit,
@@ -151,8 +153,25 @@ fun AppNavHost(
                 } else {
                     stringResource(readiness.messageResource())
                 },
-                primary = if (accessDenied) stringResource(R.string.action_review_access) else null,
-                onPrimary = { manualFallback = false; onRefreshPermission() },
+                primary = when {
+                    accessDenied -> stringResource(R.string.action_review_access)
+                    readiness == FoundationReadiness.LocalLibraryRecoverableError ->
+                        stringResource(R.string.action_retry)
+                    readiness == FoundationReadiness.LocalLibraryReady ||
+                        readiness == FoundationReadiness.LocalLibraryEmpty ->
+                        stringResource(R.string.p08_rescan_local_music)
+                    else -> null
+                },
+                onPrimary = {
+                    when {
+                        accessDenied -> { manualFallback = false; onRefreshPermission() }
+                        readiness == FoundationReadiness.LocalLibraryRecoverableError ->
+                            onRetryLibraryScan()
+                        readiness == FoundationReadiness.LocalLibraryReady ||
+                            readiness == FoundationReadiness.LocalLibraryEmpty ->
+                            onRescanLibrary()
+                    }
+                },
                 secondary = stringResource(R.string.first_use_settings),
                 onSecondary = { settingsOpen = true },
             )
