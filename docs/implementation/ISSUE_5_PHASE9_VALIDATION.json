@@ -51,13 +51,16 @@
         "run_id": 39031814318,
         "conclusion": "failure",
         "all_jobs_steps": null,
-        "runner": "ubuntu-24.04"
+        "runner": "ubuntu-24.04",
+        "rerun_attempt": 2,
+        "rerun_conclusion": "failure",
+        "rerun_job_steps": null
       }
     ],
     "jvm_pass": false,
     "android13_pass": false,
     "root_cause": "UNVERIFIED_BEFORE_RUNNER_OR_JOB_STEPS",
-    "note": "Other Issue5 CI workflows also fail before checkout; repository connector cannot inspect org billing settings."
+    "note": "Run 39031814318, attempt 2 still exits before any job steps. No Gradle or Android test ran; cause unknown."
   },
   "excluded": [
     "Cloud STT disclosure/consent actual approval P10",
@@ -69,5 +72,19 @@
   "p08_status_unchanged": "PASS_SCOPED",
   "parent_issue_open": true,
   "issue_13_original_ac_accepted": false,
-  "next_phase_not_started": "P10"
+  "next_phase_not_started": "P10",
+  "source_static_audit": {
+    "checked_against": "GitHub current branch raw file contents",
+    "six_approved_commands": true,
+    "all_voice_p09_resource_references_exist": true,
+    "microphone_launcher_only_in_explicit_confirmation": true,
+    "checkSelfPermission_fresh_android": true,
+    "existing_p02_permission_machine_integrated": true,
+    "no_coordinator_start_from_activity_ui_or_bindings": true,
+    "no_RECORD_AUDIO_in_Compose_ui": true,
+    "manual_only_action_present": true,
+    "provider_probe_after_grant": true,
+    "no_third_value_slide": true,
+    "verdict": "PASS_STATIC_ONLY_NOT_A_COMPILE_OR_NATIVE_TEST"
+  }
 }
