@@ -127,6 +127,7 @@ fun AppNavHost(
             } else {
                 MediaPermissionOutcomeScreen(
                     outcome = mediaRequestUi.outcome,
+                    revoked = mediaRequestUi.revoked,
                     onContinueGranted = onContinueGranted,
                     onTryAgain = {
                         onRetryMediaPermission()

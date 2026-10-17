@@ -37,6 +37,7 @@ import com.latticeward.musiccopilot.core.application.permission.MediaPermissionO
 @Composable
 fun MediaPermissionOutcomeScreen(
     outcome: MediaPermissionOutcome,
+    revoked: Boolean = false,
     onContinueGranted: () -> Unit,
     onTryAgain: () -> Unit,
     onOpenSettings: () -> Unit,
@@ -44,13 +45,17 @@ fun MediaPermissionOutcomeScreen(
 ) {
     if (outcome == MediaPermissionOutcome.None) return
     BackHandler(onBack = onNotNow)
-    val heading = when (outcome) {
+    val heading = if (revoked && outcome == MediaPermissionOutcome.SettingsOnly) {
+        R.string.p07_revoked_title
+    } else when (outcome) {
         MediaPermissionOutcome.Granted -> R.string.p06_granted_title
         MediaPermissionOutcome.DeniedRequestable -> R.string.p06_denied_title
         MediaPermissionOutcome.SettingsOnly -> R.string.p06_settings_only_title
         MediaPermissionOutcome.None -> error("Not a result")
     }
-    val message = when (outcome) {
+    val message = if (revoked && outcome == MediaPermissionOutcome.SettingsOnly) {
+        R.string.p07_revoked_description
+    } else when (outcome) {
         MediaPermissionOutcome.Granted -> R.string.p06_granted_description
         MediaPermissionOutcome.DeniedRequestable -> R.string.p06_denied_description
         MediaPermissionOutcome.SettingsOnly -> R.string.p06_settings_only_description

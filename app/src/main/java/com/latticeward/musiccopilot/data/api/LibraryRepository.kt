@@ -42,6 +42,8 @@ data class LibraryCandidate(
 /** MediaStore is existence truth; derived Room index never owns a live queue. */
 interface LibraryRepository {
     val index: StateFlow<LibraryIndexSnapshot>
+    /** Synchronous fail-closed projection: no stale Ready/Empty after OS revocation. */
+    fun invalidateMediaAccess()
     fun observeLibrary(): Flow<List<LibraryItem>>
     suspend fun reconcile(): AppResult<LibraryReconcileResult>
     suspend fun search(query: LibraryQuery): AppResult<List<LibraryItem>>

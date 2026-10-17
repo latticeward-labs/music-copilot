@@ -111,6 +111,11 @@ class ApplicationBindings(
         }
     }
 
+    /** Invalidate the public library projection immediately; no auto scan or playback takeover. */
+    fun onMediaAccessRevoked() {
+        libraryRepository.invalidateMediaAccess()
+    }
+
     fun onForeground() {
         controller.ensureConnected()
         // P05/P08 must authorize explicit OS media permission before scan.

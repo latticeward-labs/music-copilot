@@ -38,6 +38,7 @@ data class MediaRequestUiState(
     val attempted: Boolean = false,
     val denied: Boolean = false,
     val outcome: MediaPermissionOutcome = MediaPermissionOutcome.None,
+    val revoked: Boolean = false,
 )
 
 /**

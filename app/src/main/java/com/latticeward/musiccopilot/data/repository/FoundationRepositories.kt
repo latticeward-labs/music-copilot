@@ -37,6 +37,9 @@ class FoundationLibraryRepository(repositoryScope: CoroutineScope) : LibraryRepo
         LibraryIndexSnapshot(0, LibraryIndexStatus.Unavailable, 0)
     )
     override val index: StateFlow<LibraryIndexSnapshot> = status
+    override fun invalidateMediaAccess() {
+        status.value = status.value.copy(status = LibraryIndexStatus.Unavailable, itemCount = 0)
+    }
     override fun observeLibrary(): Flow<List<LibraryItem>> = flowOf(emptyList())
 
     private fun unavailable() = AppResult.Failure(

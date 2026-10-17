@@ -52,6 +52,8 @@
     <string name="p06_denied_description">Manual controls remain available.</string>
     <string name="p06_settings_only_title">Open Android Settings</string>
     <string name="p06_settings_only_description">Permission must be changed explicitly.</string>
+    <string name="p07_revoked_title">Music access was removed</string>
+    <string name="p07_revoked_description">Your local library is unavailable. Restore music access in Android Settings, or choose Not now.</string>
     <string name="p06_try_again">Try again</string>
     <string name="p06_open_settings">Open Settings</string>
 </resources>

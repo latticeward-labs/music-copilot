@@ -108,8 +108,11 @@ class MainActivity : ComponentActivity() {
         mediaAccess.value = if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
             PermissionStatus.Granted
         } else {
-            // Denied and permanent Android/OEM recovery are P06/P07; false is never a grant.
-            PermissionStatus.NotRequested
+            // Preserve observed revocation, not a cached permission grant.
+            if (mediaAccess.value == PermissionStatus.Granted ||
+                mediaAccess.value == PermissionStatus.Revoked) {
+                PermissionStatus.Revoked
+            } else PermissionStatus.NotRequested
         }
     }
 
@@ -173,12 +176,26 @@ class MainActivity : ComponentActivity() {
         super.onSaveInstanceState(outState)
     }
 
+    override fun onPause() {
+        super.onPause()
+        // Only a real transition away from Activity can complete Settings return.
+        permissionUi.settingsDepartureObserved()
+    }
+
     override fun onResume() {
         super.onResume()
+        val previouslyGranted = mediaAccess.value == PermissionStatus.Granted
+        val freshGrant = hasMediaPermission()
         refreshMediaPermission()
+        if (previouslyGranted && !freshGrant) {
+            // Immediately make any previous derived Ready library untrustworthy.
+            (application as MusicCopilotApplication).bindings.onMediaAccessRevoked()
+            permissionUi.permissionRevoked()
+        }
         permissionUi.onReturnFromSettings(NativePermissionObservation(
-            granted = hasMediaPermission(), requestedBefore = permissionUi.requestsThisSession > 0,
+            granted = freshGrant, requestedBefore = permissionUi.requestsThisSession > 0,
             shouldShowRationale = shouldShowRequestPermissionRationale(mediaPermissionName()),
+            previouslyGranted = previouslyGranted && !freshGrant,
         ))
         (application as MusicCopilotApplication).bindings.onForeground()
     }
