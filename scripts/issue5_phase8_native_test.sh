@@ -16,8 +16,8 @@ trap fail ERR
 adb uninstall "$APK" >/dev/null 2>&1 || true
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 python3 scripts/issue5_phase6_emulator_ui.py launch-first-use
-python3 scripts/issue5_phase6_emulator_ui.py tap Continue
-python3 scripts/issue5_phase6_emulator_ui.py tap Skip
+python3 scripts/issue5_phase8_onboarding_tap.py "$OUT" Continue
+python3 scripts/issue5_phase8_onboarding_tap.py "$OUT" Skip
 python3 scripts/issue5_phase6_emulator_ui.py app 'Media access'
 adb shell dumpsys package "$APK" > "$OUT/denied_before_scan.txt"
 ! grep -Fq "$PERM: granted=true" "$OUT/denied_before_scan.txt"
