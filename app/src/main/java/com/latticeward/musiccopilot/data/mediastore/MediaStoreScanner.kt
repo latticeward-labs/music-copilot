@@ -83,7 +83,9 @@ class MediaStoreScanner(
             MediaStore.Audio.Media.DURATION,
         )
         val records = mutableListOf<ScannedAudio>()
-        resolver.query(uri, projection, where, args, null)?.use { cursor ->
+        val cursor = resolver.query(uri, projection, where, args, null)
+            ?: throw IllegalStateException("MediaStore query returned no cursor")
+        cursor.use { cursor ->
             val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
             val titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
             val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
