@@ -3,7 +3,7 @@
   "issue": 5,
   "repository": "music-copilot-organization/music-copilot",
   "branch": "feature/5-onboarding-permissions-recovery",
-  "status": "IMPLEMENTED_VALIDATION_PENDING",
+  "status": "IMPLEMENTED_JVM_PASS_NATIVE_EXACT_HEAD_BLOCKED",
   "source_contract": "User-uploaded ISSUE_5_PHASED_EXECUTION_PLAN(1).md P08 + MSM2 English UF-03/ADR-0003",
   "scope": [
     "permission_gated_explicit_scan",
@@ -23,12 +23,13 @@
     "P14_integrated_issue_closure"
   ],
   "exact_head_ci": {
-    "run_id": 39025341689,
-    "conclusion": null,
+    "run_id": 39027365725,
+    "conclusion": "failure",
     "required_jobs": [
       "p08-jvm-lint-apk",
       "p08-android-library-api33"
-    ]
+    ],
+    "no_steps_started": true
   },
   "tests": {
     "fake_media_room": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase8LibraryReadinessTest.kt",
@@ -36,12 +37,45 @@
     "workflow": ".github/workflows/issue-5-phase8-library.yml"
   },
   "required_gates": {
-    "denied_zero_scan": "PENDING_CI",
-    "grant_one_scan": "PENDING_CI",
-    "revoked_no_false_ready": "PENDING_CI",
-    "recoverable_errors": "PENDING_CI",
-    "no_physical_file_delete": "PENDING_CI"
+    "denied_zero_scan": "PASS_JVM",
+    "grant_one_scan": "PASS_JVM",
+    "revoked_no_false_ready": "PASS_JVM",
+    "recoverable_errors": "PASS_JVM",
+    "no_physical_file_delete": "PASS_JVM_STATIC",
+    "full_native_android33_on_final_head": "BLOCKED"
   },
   "parent_issue_open": true,
-  "parent_integrated_13_AC_not_all_accepted": true
+  "parent_integrated_13_AC_not_all_accepted": true,
+  "last_verified_production_test_commit": "64da7060fa565374a258c65cb0b32cf29febf231",
+  "verified_jvm": {
+    "run_id": 39026317313,
+    "job_id": 117377890466,
+    "conclusion": "success",
+    "scope": "all JVM tests, static architecture, Spotless, Detekt, lintDebug and debug APK"
+  },
+  "native_evidence": {
+    "prior_real_android13_success": {
+      "run_id": 39025291641,
+      "job_id": 117374973297,
+      "conclusion": "success",
+      "scope": "grant / verified empty / explicit rescan / real OS settings revoke / unavailable return on earlier revision"
+    },
+    "current_implementation": {
+      "run_id": 39026317313,
+      "job_id": 117379276430,
+      "conclusion": "failure",
+      "reason": "system_ui_anr_during_onboarding_before_permission_flow",
+      "not_a_pass": true
+    },
+    "latest_harness": {
+      "run_id": 39027365725,
+      "conclusion": "failure",
+      "rerun_attempt": 2,
+      "reason": "both jobs failed before any steps; no logs; underlying GitHub runner cause unverified",
+      "not_a_pass": true
+    },
+    "additional_native_success_same_production_head": false
+  },
+  "next_action": "Re-run GitHub Actions when runner is available; capture whole-green current-head JVM and Android13 OS evidence before scoped P08 PASS",
+  "note": "No PASS claimed: current head Android13 test did not run to completion; earlier full native success was a previous revision. Both latest GitHub runs failed with null job steps before checkout and cannot be diagnosed from available logs."
 }
