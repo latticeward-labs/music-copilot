@@ -20,7 +20,7 @@ adb uninstall "$APK" >/dev/null 2>&1 || true
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 python3 scripts/issue5_phase6_emulator_ui.py launch-first-use
 python3 scripts/issue5_phase6_emulator_ui.py tap Continue
-python3 scripts/issue5_phase6_emulator_ui.py tap Skip
+python3 scripts/issue5_phase7_emulator_health.py "$OUT"
 python3 scripts/issue5_phase6_emulator_ui.py app 'Media access'
 python3 scripts/issue5_phase6_emulator_ui.py tap Continue
 python3 scripts/issue5_phase6_emulator_ui.py system-deny
