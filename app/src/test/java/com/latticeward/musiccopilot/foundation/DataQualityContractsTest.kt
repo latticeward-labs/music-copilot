@@ -59,6 +59,9 @@ class DataQualityContractsTest {
 private class FakeLibrary : LibraryRepository {
     private val mutable = MutableStateFlow(LibraryIndexSnapshot(0, LibraryIndexStatus.Empty, 0))
     override val index: StateFlow<LibraryIndexSnapshot> = mutable
+    override fun invalidateMediaAccess() {
+        mutable.value = mutable.value.copy(status = LibraryIndexStatus.Unavailable, itemCount = 0)
+    }
     override fun observeLibrary(): Flow<List<LibraryItem>> = flowOf(emptyList())
     override suspend fun reconcile(): AppResult<LibraryReconcileResult> =
         AppResult.Success(LibraryReconcileResult(0, 0, 0, 0, 1))
