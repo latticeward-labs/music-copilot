@@ -17,6 +17,8 @@ import com.latticeward.musiccopilot.data.repository.RoomLibraryRepository
 import com.latticeward.musiccopilot.data.room.LibraryProjection
 import com.latticeward.musiccopilot.data.room.LibraryRow
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,10 +37,12 @@ class Issue5Phase8LibraryReadinessTest {
         var items: List<ScannedAudio> = emptyList()
         var scanCalls = 0
         var failScan = false
+        var suspendScan: (suspend () -> Unit)? = null
         override fun hasAccess() = permission
         override suspend fun scan(): List<ScannedAudio> {
             scanCalls++
             if (!permission) throw SecurityException("synthetic revoke")
+            suspendScan?.invoke()
             if (failScan) throw IllegalStateException("synthetic MediaStore failure")
             return items
         }
@@ -206,6 +210,38 @@ class Issue5Phase8LibraryReadinessTest {
         assertEquals(LibraryIndexStatus.RecoverableError,
             LibraryReadinessResolver.verifiedStatus(true,
                 LibraryIndexSnapshot(2, LibraryIndexStatus.RecoverableError, 0)))
+    }
+
+    @Test fun revokeDuringInFlightScanNeverPublishesStaleReady() = runBlocking {
+        val media = FakeMedia().apply { permission = true; items = listOf(alpha) }
+        val entered = CompletableDeferred<Unit>()
+        val resume = CompletableDeferred<Unit>()
+        media.suspendScan = { entered.complete(Unit); resume.await() }
+        val room = FakeRoom()
+        val repo = repository(media, room)
+        val gate = LibraryScanUseCase(repo) { media.permission }
+        val attempt = async { gate.execute(LibraryScanReason.AfterMediaGrant) }
+        entered.await()
+        assertEquals(LibraryIndexStatus.Scanning, repo.index.value.status)
+        media.permission = false
+        repo.invalidateMediaAccess()
+        resume.complete(Unit)
+        assertEquals(LibraryScanOutcome.PermissionUnavailable, attempt.await())
+        assertEquals(LibraryIndexStatus.Unavailable, repo.index.value.status)
+        assertEquals(0, room.rows.size)
+        assertEquals(1, media.scanCalls)
+    }
+
+    @Test fun duplicateAfterGrantCallbacksAreSerializedAndDoNotDoubleScan() = runBlocking {
+        val media = FakeMedia().apply { permission = true; items = listOf(alpha) }
+        val repo = repository(media, FakeRoom())
+        val gate = LibraryScanUseCase(repo) { media.permission }
+        val first = async { gate.execute(LibraryScanReason.AfterMediaGrant) }
+        val duplicate = async { gate.execute(LibraryScanReason.AfterMediaGrant) }
+        val result = listOf(first.await(), duplicate.await())
+        assertEquals(1, result.count { it is LibraryScanOutcome.Completed })
+        assertEquals(1, result.count { it == LibraryScanOutcome.AlreadyCurrentOrIneligible })
+        assertEquals(1, media.scanCalls)
     }
 
     @Test fun noUserScanActionMeansNoMediaMutationOrFileDeletion() {
