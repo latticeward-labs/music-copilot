@@ -41,6 +41,27 @@ if grep -F "$PERM: granted=false" "$OUT/two_denials.txt" | grep -Fq USER_FIXED; 
  adb shell input keyevent 4
  python3 scripts/issue5_phase6_emulator_ui.py app 'Open Android Settings'
  adb exec-out screencap -p > "$OUT/returned_without_grant.png"
+ if [ "$API" -ge 33 ]; then
+   # Third OS-owned return outcome. ADB clears USER_FIXED while genuine
+   # Settings is foreground: this exercises fresh OS rationale projection,
+   # but is NOT represented as a human tapping a Settings switch.
+   python3 scripts/issue5_phase6_emulator_ui.py tap 'Open Settings'
+   sleep 2
+   adb shell pm clear-permission-flags "$APK" "$PERM" user-fixed
+   adb shell dumpsys package "$APK" > "$OUT/requestable_os_flags.txt"
+   grep -F "$PERM: granted=false" "$OUT/requestable_os_flags.txt" | grep -Fq USER_SET
+   ! grep -F "$PERM: granted=false" "$OUT/requestable_os_flags.txt" | grep -Fq USER_FIXED
+   adb shell input keyevent 4
+   python3 scripts/issue5_phase6_emulator_ui.py app 'Access denied'
+   adb exec-out screencap -p > "$OUT/settings_denied_requestable.png"
+   echo "P07_REAL_OS_REQUESTABLE_RETURN_API$API"
+   python3 scripts/issue5_phase6_emulator_ui.py tap 'Try again'
+   python3 scripts/issue5_phase6_emulator_ui.py app 'Media access'
+   python3 scripts/issue5_phase6_emulator_ui.py tap Continue
+   python3 scripts/issue5_phase6_emulator_ui.py system-never-ask-if-present
+   python3 scripts/issue5_phase6_emulator_ui.py system-deny-or-os-fixed
+   python3 scripts/issue5_phase6_emulator_ui.py app 'Open Android Settings'
+ fi
  python3 scripts/issue5_phase6_emulator_ui.py tap 'Open Settings'
  sleep 2
  python3 scripts/issue5_phase7_settings_ui.py grant "$API"
