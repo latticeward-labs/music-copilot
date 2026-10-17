@@ -6,36 +6,38 @@ import com.latticeward.musiccopilot.core.application.permission.BlockedAction
 import com.latticeward.musiccopilot.core.application.permission.MediaOutcomePolicy
 import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
 import com.latticeward.musiccopilot.core.application.permission.NativePermissionObservation
+import com.latticeward.musiccopilot.core.application.permission.SettingsReturnCoordinator
+import com.latticeward.musiccopilot.core.application.permission.SettingsReturnOutcome
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * Result UI owner; SavedStateHandle only stores ephemeral request count and
- * presentation, NEVER authoritative OS grant/permission settings or user media.
+ * Presentation owner only. A saved Settings ticket is not a grant or an
+ * authorization to scan; Android's checkSelfPermission is always re-read.
+ * A Settings return can authorize one explicit Continue, never an auto-scan.
  */
 class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel() {
     private val mutableUi = MutableStateFlow(MediaRequestUiState())
     val ui: StateFlow<MediaRequestUiState> = mutableUi
     private var scanAuthorized: Boolean = false
-    // SavedStateHandle stores only whether Settings was explicitly entered and
-    // Android actually backgrounded this Activity. It NEVER stores OS grant truth.
+
     private var settingsHandoff: Boolean
         get() = savedState["p07_settings_handoff"] ?: false
         set(value) { savedState["p07_settings_handoff"] = value }
-    private var settingsLeft: Boolean
-        get() = savedState["p07_settings_departed"] ?: false
-        set(value) { savedState["p07_settings_departed"] = value }
+
+    private var settingsActivityLeft: Boolean
+        get() = savedState["p07_settings_activity_left"] ?: false
+        set(value) { savedState["p07_settings_activity_left"] = value }
 
     val requestsThisSession: Int get() = savedState["p06_media_requests"] ?: 0
 
     fun requestStarting() {
         savedState["p06_media_requests"] = requestsThisSession + 1
+        scanAuthorized = false
         mutableUi.value = MediaRequestUiState(pending = true)
     }
 
     fun nativeResult(observation: NativePermissionObservation, action: BlockedAction) {
-        settingsHandoff = false
-        settingsLeft = false
         scanAuthorized = observation.granted && action == BlockedAction.StartScan
         val outcome = MediaOutcomePolicy.project(observation, requestsThisSession)
         mutableUi.value = MediaRequestUiState(
@@ -56,12 +58,10 @@ class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel(
 
     fun retryRationale() {
         scanAuthorized = false
-        settingsHandoff = false
-        settingsLeft = false
         mutableUi.value = MediaRequestUiState()
     }
 
-    /** Consumption is irreversible, regardless of OS behavior after this tap. */
+    /** Consumption is irreversible, including after a duplicate tap or lost grant. */
     fun takeOneGrantedScan(): Boolean {
         val eligible = mutableUi.value.outcome == MediaPermissionOutcome.Granted && scanAuthorized
         scanAuthorized = false
@@ -81,53 +81,62 @@ class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel(
 
     fun settingsLaunchFailed() {
         settingsHandoff = false
-        settingsLeft = false
-        // Preserve recovery and manual Not now; never relaunch automatically.
+        settingsActivityLeft = false
+        scanAuthorized = false
+        // Keep Settings-only result and manual exit; do not re-open automatically.
     }
 
     fun manualExit() {
         scanAuthorized = false
         settingsHandoff = false
-        settingsLeft = false
+        settingsActivityLeft = false
         mutableUi.value = MediaRequestUiState()
     }
 
+    /** Only reached from the explicit Open Settings button. */
     fun settingsTapped() {
+        if (mutableUi.value.outcome != MediaPermissionOutcome.SettingsOnly) return
         scanAuthorized = false
-        settingsLeft = false
         settingsHandoff = true
+        settingsActivityLeft = false
     }
 
-    /** Called by Activity.onPause after a real system Settings handoff. */
-    fun settingsDepartureObserved() {
-        if (settingsHandoff) settingsLeft = true
+    /** Called by Activity.onPause, not by Compose recomposition or onResume. */
+    fun onActivityPaused() {
+        if (settingsHandoff) settingsActivityLeft = true
     }
 
-    /**
-     * Returning from Settings never scans. A fresh Android grant authorizes
-     * exactly one *user-tapped* Continue; cancellation leaves manual recovery.
-     * Startup and rotation without a completed handoff are not Settings returns.
-     */
-    fun onReturnFromSettings(observation: NativePermissionObservation) {
-        if (!settingsHandoff || !settingsLeft) return
+    /** Fresh OS observation required. Returns Ignored for startup or duplicate resumes. */
+    fun onReturnFromSettings(
+        observation: NativePermissionObservation,
+    ): SettingsReturnOutcome {
+        val result = SettingsReturnCoordinator.classify(
+            launchedByUser = settingsHandoff,
+            activityLeft = settingsActivityLeft,
+            observation = observation,
+            explicitRequests = requestsThisSession,
+        )
+        if (result == SettingsReturnOutcome.Ignored) return result
         settingsHandoff = false
-        settingsLeft = false
-        scanAuthorized = observation.granted
-        val outcome = MediaOutcomePolicy.project(observation, requestsThisSession)
+        settingsActivityLeft = false
+        // Preserved one-use blocked media intent: explicit Continue still required.
+        scanAuthorized = result == SettingsReturnOutcome.Granted
         mutableUi.value = MediaRequestUiState(
             attempted = true,
             denied = !observation.granted,
-            outcome = outcome,
-            revoked = !observation.granted && mutableUi.value.revoked,
+            outcome = SettingsReturnCoordinator.uiOutcome(result),
         )
+        return result
     }
 
-    /** Invalidate any pending grant continuation and show safe OS recovery. */
-    fun permissionRevoked() {
+    /**
+     * The OS revoked a grant while this app was away or in use. Never keep an
+     * optimistic "granted" result or an authorized scan across the revocation.
+     */
+    fun onMediaRevoked() {
         scanAuthorized = false
-        mutableUi.value = MediaRequestUiState(
-            attempted = true, denied = true,
-            outcome = MediaPermissionOutcome.SettingsOnly, revoked = true,
-        )
+        settingsHandoff = false
+        settingsActivityLeft = false
+        mutableUi.value = MediaRequestUiState()
     }
 }
