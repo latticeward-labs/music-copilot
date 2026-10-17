@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
     private val mediaAccess = MutableStateFlow(PermissionStatus.Unknown)
     private val permissionUi: PermissionViewModel by viewModels()
     private val gate = MediaRequestGate(Build.VERSION.SDK_INT)
+    private var observedMicrophoneGrant = false
     private val requestLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             // ActivityResult Boolean is not permission truth. Re-read Android OS.
@@ -179,7 +180,7 @@ class MainActivity : ComponentActivity() {
     override fun onPause() {
         super.onPause()
         // Only a real transition away from Activity can complete Settings return.
-        permissionUi.settingsDepartureObserved()
+        permissionUi.onActivityPaused()
     }
 
     override fun onResume() {
@@ -187,16 +188,32 @@ class MainActivity : ComponentActivity() {
         val previouslyGranted = mediaAccess.value == PermissionStatus.Granted
         val freshGrant = hasMediaPermission()
         refreshMediaPermission()
-        if (previouslyGranted && !freshGrant) {
+        val knownIndexed = (application as MusicCopilotApplication).bindings
+            .libraryRepository.index.value.status.let { status ->
+                status == com.latticeward.musiccopilot.data.api.LibraryIndexStatus.Ready ||
+                    status == com.latticeward.musiccopilot.data.api.LibraryIndexStatus.Empty ||
+                    status == com.latticeward.musiccopilot.data.api.LibraryIndexStatus.Scanning
+            }
+        if (!freshGrant && (previouslyGranted || knownIndexed)) {
             // Immediately make any previous derived Ready library untrustworthy.
             (application as MusicCopilotApplication).bindings.onMediaAccessRevoked()
-            permissionUi.permissionRevoked()
+            permissionUi.onMediaRevoked()
         }
         permissionUi.onReturnFromSettings(NativePermissionObservation(
             granted = freshGrant, requestedBefore = permissionUi.requestsThisSession > 0,
             shouldShowRationale = shouldShowRequestPermissionRationale(mediaPermissionName()),
             previouslyGranted = previouslyGranted && !freshGrant,
         ))
+        val freshMic = checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) ==
+            PackageManager.PERMISSION_GRANTED
+        val voiceState = (application as MusicCopilotApplication).bindings.voiceSessionCoordinator.state.value
+        if (!freshMic && (observedMicrophoneGrant ||
+                voiceState != com.latticeward.musiccopilot.voice.api.VoiceSessionState.Idle)) {
+            (application as MusicCopilotApplication).bindings.voiceSessionCoordinator.cancel(
+                com.latticeward.musiccopilot.voice.api.VoiceCancelReason.PermissionLost,
+            )
+        }
+        observedMicrophoneGrant = freshMic
         (application as MusicCopilotApplication).bindings.onForeground()
     }
 
