@@ -1,0 +1,73 @@
+{
+  "issue": 5,
+  "phase": "P09",
+  "status": "IMPLEMENTED_VALIDATION_BLOCKED_NOT_PASS",
+  "as_of": "2026-10-17",
+  "source_contract": {
+    "execution_plan_sha256": "32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f",
+    "msm2_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "refs": [
+      "UF-01",
+      "UF-02",
+      "CA-01",
+      "ADR-0004",
+      "ADR-0005",
+      "Issue16"
+    ]
+  },
+  "acceptance_gates": {
+    "exact_six_approved_commands": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
+    "skip_onboarding_driving_entry_no_mic_request_or_capture": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
+    "explicit_practice_then_rationale_then_android_record_audio": "IMPLEMENTED_NATIVE_TEST_AUTHORED_UNVERIFIED",
+    "os_truth_after_permission_and_one_use_handoff": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
+    "denied_provider_unavailable_language_unsupported_cloud_declined_distinct": "IMPLEMENTED_PURE_FAKE_TEST_AUTHORED_UNVERIFIED",
+    "all_outcomes_manual_fallback": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
+    "no_voice_session_or_playback_before_gate": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
+    "p04_earlier_ui_non_regression": "PENDING_CI"
+  },
+  "implementation_files": [
+    "app/src/main/java/com/latticeward/musiccopilot/core/application/permission/VoicePracticeGate.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseScreen.kt",
+    "app/src/main/res/values/strings.xml"
+  ],
+  "tests": [
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase9MicrophonePracticeTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase4OnboardingTest.kt",
+    "scripts/issue5_phase9_native_test.sh"
+  ],
+  "ci": {
+    "workflow": ".github/workflows/issue-5-phase9-microphone.yml",
+    "attempts": [
+      {
+        "run_id": 39031581585,
+        "conclusion": "failure",
+        "all_jobs_steps": null,
+        "runner": "ubuntu-22.04"
+      },
+      {
+        "run_id": 39031814318,
+        "conclusion": "failure",
+        "all_jobs_steps": null,
+        "runner": "ubuntu-24.04"
+      }
+    ],
+    "jvm_pass": false,
+    "android13_pass": false,
+    "root_cause": "UNVERIFIED_BEFORE_RUNNER_OR_JOB_STEPS",
+    "note": "Other Issue5 CI workflows also fail before checkout; repository connector cannot inspect org billing settings."
+  },
+  "excluded": [
+    "Cloud STT disclosure/consent actual approval P10",
+    "Voice live execution Issue9/Issue10",
+    "Full Voice UI overlay",
+    "device/OEM/accessibility P12/P13",
+    "integrated Issue5 acceptance and merge P14"
+  ],
+  "p08_status_unchanged": "PASS_SCOPED",
+  "parent_issue_open": true,
+  "issue_13_original_ac_accepted": false,
+  "next_phase_not_started": "P10"
+}
