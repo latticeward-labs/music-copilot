@@ -157,6 +157,8 @@ fun AppNavHost(
                     accessDenied -> stringResource(R.string.action_review_access)
                     readiness == FoundationReadiness.LocalLibraryRecoverableError ->
                         stringResource(R.string.action_retry)
+                    readiness == FoundationReadiness.LibraryPermissionOrMediaUnavailable ->
+                        stringResource(R.string.p08_scan_local_music)
                     readiness == FoundationReadiness.LocalLibraryReady ||
                         readiness == FoundationReadiness.LocalLibraryEmpty ->
                         stringResource(R.string.p08_rescan_local_music)
@@ -167,6 +169,8 @@ fun AppNavHost(
                         accessDenied -> { manualFallback = false; onRefreshPermission() }
                         readiness == FoundationReadiness.LocalLibraryRecoverableError ->
                             onRetryLibraryScan()
+                        readiness == FoundationReadiness.LibraryPermissionOrMediaUnavailable ->
+                            onRescanLibrary()
                         readiness == FoundationReadiness.LocalLibraryReady ||
                             readiness == FoundationReadiness.LocalLibraryEmpty ->
                             onRescanLibrary()
