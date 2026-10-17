@@ -1,0 +1,27 @@
+{
+  "phase": "P07",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "status": "VALIDATION_PENDING",
+  "implemented": [
+    "explicit_android_settings_handoff",
+    "activity_departure_guard",
+    "three_way_os_return",
+    "one_shot_fresh_grant_scan",
+    "revocation_invalidates_derived_index",
+    "native_no_automatic_scan",
+    "microphone_session_cancel_on_loss",
+    "non_coercive_manual_fallback"
+  ],
+  "test_assets": [
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase7SettingsRevocationTest.kt",
+    ".github/workflows/issue-5-phase7-settings.yml",
+    "scripts/issue5_phase7_native_test.sh",
+    "scripts/issue5_phase7_settings_ui.py"
+  ],
+  "verified_ci_runs": [],
+  "physical_device_qa": false,
+  "parent_issue_closed": false,
+  "parent_issue_13_acceptance_complete": false
+}
