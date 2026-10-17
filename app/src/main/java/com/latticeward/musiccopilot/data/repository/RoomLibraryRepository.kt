@@ -20,6 +20,7 @@ import com.latticeward.musiccopilot.data.room.LibraryRow
 import com.latticeward.musiccopilot.data.room.LibraryProjection
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,7 +34,7 @@ class RoomLibraryRepository(
     private val source: LocalAudioSource,
     private val projection: LibraryProjection,
     private val dispatchers: DispatcherProvider,
-    repositoryScope: CoroutineScope,
+    private val repositoryScope: CoroutineScope,
 ) : LibraryRepository {
     private val scanMutex = Mutex()
     private val accessLock = Any()
@@ -42,11 +43,23 @@ class RoomLibraryRepository(
     override val index: StateFlow<LibraryIndexSnapshot> = state
 
     override fun invalidateMediaAccess() {
-        synchronized(accessLock) {
-            accessEpoch.incrementAndGet()
+        val epoch = synchronized(accessLock) {
+            val epoch = accessEpoch.incrementAndGet()
             state.value = state.value.copy(
                 status = LibraryIndexStatus.Unavailable, itemCount = 0, lastError = null,
             )
+            epoch
+        }
+        // Room contains only a rebuildable derived index; never touch real music.
+        // Wait for any in-flight scan, and never erase a newer permitted scan.
+        repositoryScope.launch(dispatchers.io) {
+            scanMutex.withLock {
+                if (accessEpoch.get() == epoch && !source.hasAccess()) {
+                    try { projection.replaceAll(emptyList()) }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { /* UI remains fail-closed even if purge fails */ }
+                }
+            }
         }
     }
 
@@ -95,11 +108,16 @@ class RoomLibraryRepository(
                         )
                     )
                 } catch (cancelled: CancellationException) {
-                    state.value = last.copy(status = LibraryIndexStatus.Unavailable)
+                    state.value = state.value.copy(
+                        status = LibraryIndexStatus.Unavailable, itemCount = 0, lastError = null,
+                    )
                     throw cancelled
                 } catch (security: SecurityException) {
                     permissionUnavailable()
                 } catch (failure: Exception) {
+                    if (accessEpoch.get() != epoch || !source.hasAccess()) {
+                        return@withLock permissionUnavailable()
+                    }
                     val error = AppError.Library(AppErrorCodes.LIBRARY_RECONCILE_FAILED,
                         Recoverability.RECOVERABLE, RecoveryAction.Rebuild)
                     state.value = last.copy(status = LibraryIndexStatus.RecoverableError, lastError = error)
