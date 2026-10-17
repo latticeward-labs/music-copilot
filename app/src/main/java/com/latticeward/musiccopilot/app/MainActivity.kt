@@ -29,6 +29,9 @@ import com.latticeward.musiccopilot.core.application.permission.NativePermission
 import com.latticeward.musiccopilot.core.application.permission.PermissionCapability
 import com.latticeward.musiccopilot.core.application.permission.PermissionPlatformPolicy
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
+import com.latticeward.musiccopilot.core.application.permission.VoicePracticeGate
+import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
+import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
 import com.latticeward.musiccopilot.feature.permission.MediaRequestUiState
 import com.latticeward.musiccopilot.feature.permission.PermissionViewModel
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
@@ -44,6 +47,8 @@ class MainActivity : ComponentActivity() {
     private val permissionUi: PermissionViewModel by viewModels()
     private val gate = MediaRequestGate(Build.VERSION.SDK_INT)
     private var observedMicrophoneGrant = false
+    private val voicePracticeGate = VoicePracticeGate()
+    private val voicePracticeUi = MutableStateFlow(VoicePracticeStage.Idle)
     private val requestLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             // ActivityResult Boolean is not permission truth. Re-read Android OS.
@@ -62,6 +67,46 @@ class MainActivity : ComponentActivity() {
             // one remaining explicit action, with a second fresh OS recheck.
         }
 
+    private val microphoneLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            // Never trust ActivityResult Boolean as OS truth.
+            val freshGrant = checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) ==
+                PackageManager.PERMISSION_GRANTED
+            val provider = if (freshGrant)
+                (application as MusicCopilotApplication).bindings.onDeviceVoicePracticeCapability()
+            else VoiceProviderCapability.ProviderUnavailable
+            voicePracticeUi.value = voicePracticeGate.androidResult(freshGrant, provider)
+            // No VoiceSessionCoordinator.start(): live speech and playback belong
+            // to the separate Voice execution Issues, not P09 education.
+        }
+
+    private fun onExplicitPracticeTap() {
+        if (voicePracticeGate.practiceTapped())
+            voicePracticeUi.value = voicePracticeGate.stage
+    }
+
+    private fun onPracticeRationaleContinue() {
+        if (!voicePracticeGate.confirmRationale()) return
+        voicePracticeUi.value = voicePracticeGate.stage
+        if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) ==
+            PackageManager.PERMISSION_GRANTED) {
+            voicePracticeUi.value = voicePracticeGate.androidResult(
+                true, (application as MusicCopilotApplication).bindings.onDeviceVoicePracticeCapability()
+            )
+        } else {
+            try { microphoneLauncher.launch(android.Manifest.permission.RECORD_AUDIO) }
+            catch (_: RuntimeException) {
+                voicePracticeGate.requestLaunchFailed()
+                voicePracticeUi.value = voicePracticeGate.stage
+            }
+        }
+    }
+
+    private fun onPracticeManualOnly() {
+        voicePracticeGate.manualOnly()
+        voicePracticeUi.value = voicePracticeGate.stage
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState?.getBoolean("p05_native_media_request_pending") == true) {
@@ -71,6 +116,10 @@ class MainActivity : ComponentActivity() {
             permissionUi.restorePending()
         } else if (savedInstanceState?.getBoolean("p05_media_attempted") == true) {
             permissionUi.restoreAttempted()
+        }
+        if (savedInstanceState?.getBoolean("p09_native_microphone_request_pending") == true) {
+            voicePracticeGate.restorePending()
+            voicePracticeUi.value = voicePracticeGate.stage
         }
         window.statusBarColor = MusicColors.systemBar.toArgb()
         window.navigationBarColor = MusicColors.systemBar.toArgb()
@@ -91,6 +140,7 @@ class MainActivity : ComponentActivity() {
                 onExitPermissionResult = permissionUi::manualExit,
                 onOpenAndroidSettings = ::openMediaAppSettings,
                 mediaRequestUi = permissionUi.ui,
+                voicePracticeUi = voicePracticeUi,
             )
         }
     }
@@ -175,6 +225,7 @@ class MainActivity : ComponentActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean("p05_native_media_request_pending", gate.awaitingPlatformResult)
         outState.putBoolean("p05_media_attempted", permissionUi.ui.value.attempted)
+        outState.putBoolean("p09_native_microphone_request_pending", voicePracticeGate.awaitingAndroidResult)
         super.onSaveInstanceState(outState)
     }
 
@@ -215,6 +266,8 @@ class MainActivity : ComponentActivity() {
             )
         }
         observedMicrophoneGrant = freshMic
+        voicePracticeGate.recheck(freshMic)
+        voicePracticeUi.value = voicePracticeGate.stage
         (application as MusicCopilotApplication).bindings.onForeground()
     }
 
@@ -229,6 +282,7 @@ class MainActivity : ComponentActivity() {
         onExitPermissionResult: () -> Unit,
         onOpenAndroidSettings: () -> Unit,
         mediaRequestUi: kotlinx.coroutines.flow.StateFlow<MediaRequestUiState>,
+        voicePracticeUi: kotlinx.coroutines.flow.StateFlow<VoicePracticeStage>,
     ) {
         val library by bindings.libraryRepository.index.collectAsStateWithLifecycle()
         val playbackConnection by bindings.playbackGateway.connectionState.collectAsStateWithLifecycle()
@@ -237,6 +291,7 @@ class MainActivity : ComponentActivity() {
         val storage by bindings.storageStartState.collectAsStateWithLifecycle()
         val permission by mediaAccess.collectAsStateWithLifecycle()
         val mediaRequest by mediaRequestUi.collectAsStateWithLifecycle()
+        val practice by voicePracticeUi.collectAsStateWithLifecycle()
 
         val evidence = BootstrapEvidence(
             preferencesLoaded = preferencesLoad == PreferencesLoadState.Ready,
@@ -267,7 +322,14 @@ class MainActivity : ComponentActivity() {
                 onExitPermissionResult = onExitPermissionResult,
                 onOpenAndroidSettings = onOpenAndroidSettings,
                 mediaRequestUi = mediaRequest,
-                onFirstUseComplete = bindings::onForeground,
+                voicePracticeStage = practice,
+                onPracticeVoice = ::onExplicitPracticeTap,
+                onPracticeRationaleContinue = ::onPracticeRationaleContinue,
+                onPracticeManualOnly = ::onPracticeManualOnly,
+                onFirstUseComplete = {
+                    onPracticeManualOnly()
+                    bindings.onForeground()
+                },
                 onExit = onExit,
             )
         }
