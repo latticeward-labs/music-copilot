@@ -41,11 +41,6 @@ data class LibraryCandidate(
 
 /** MediaStore is existence truth; derived Room index never owns a live queue. */
 interface LibraryRepository {
-    /**
-     * Synchronous fail-closed readiness invalidation on OS permission revocation.
-     * Implementations must not delete real media. Default is for old fakes only.
-     */
-    fun onMediaAccessRevoked() {}
     val index: StateFlow<LibraryIndexSnapshot>
     /** Synchronous fail-closed projection: no stale Ready/Empty after OS revocation. */
     fun invalidateMediaAccess()
