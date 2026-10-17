@@ -28,6 +28,9 @@ class VoicePracticeGate {
         return true
     }
 
+    /** Future Player/Driving microphone buttons may enter this same JIT gate. */
+    fun microphoneTapped(): Boolean = practiceTapped()
+
     /** One system request maximum per explicit rationale confirmation. */
     fun confirmRationale(): Boolean {
         if (stage != VoicePracticeStage.Rationale || pending) return false
@@ -39,7 +42,6 @@ class VoicePracticeGate {
     fun androidResult(
         freshAndroidGrant: Boolean,
         provider: VoiceProviderCapability,
-        cloudConsent: Boolean = false,
     ): VoicePracticeStage {
         if (!pending) return stage // Ignore stale and duplicate callbacks.
         pending = false
@@ -49,7 +51,9 @@ class VoicePracticeGate {
                 VoicePracticeStage.ProviderUnavailable
             provider == VoiceProviderCapability.LanguageUnsupported ->
                 VoicePracticeStage.LanguageUnsupported
-            provider == VoiceProviderCapability.RemoteConsentRequired && !cloudConsent ->
+            // P09 has no remote provider or approved remote disclosure. Even a
+            // saved consent flag never authorizes cloud capture in this phase.
+            provider == VoiceProviderCapability.RemoteConsentRequired ->
                 VoicePracticeStage.CloudConsentDeclined
             else -> VoicePracticeStage.ReadyForVoiceHandoff
         }
