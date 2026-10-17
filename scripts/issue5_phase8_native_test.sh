@@ -35,11 +35,14 @@ adb exec-out screencap -p > "$OUT/verified_empty_after_grant.png"
 python3 scripts/issue5_phase6_emulator_ui.py tap 'Rescan local music'
 python3 scripts/issue5_phase6_emulator_ui.py app 'No local music is indexed yet.'
 adb exec-out screencap -p > "$OUT/explicit_rescan_empty.png"
-adb shell am start -a android.settings.APPLICATION_DETAILS_SETTINGS -d "package:$APK"
-sleep 2
-python3 scripts/issue5_phase7_settings_ui.py revoke "33"
+# Native PermissionController revocation is already covered in Phase 7.
+# For P08, use an explicit test-only ADB revocation of OS permission truth:
+# the tested app cannot alter this state or spoof MediaStore authorization.
+# Do NOT represent this fixture as a manual Android Settings UI tap.
+adb shell pm revoke "$APK" "$PERM"
 adb shell dumpsys package "$APK" > "$OUT/revoked_os_truth.txt"
 grep -Fq "$PERM: granted=false" "$OUT/revoked_os_truth.txt"
+echo "P08_OS_REVOKE_ADB_FIXTURE_VERIFIED_NOT_MANUAL_SETTINGS"
 adb shell am start -W -n "$APK/com.latticeward.musiccopilot.app.MainActivity"
 python3 scripts/issue5_phase6_emulator_ui.py app 'Media access'
 adb exec-out screencap -p > "$OUT/unavailable_after_revoke.png"
