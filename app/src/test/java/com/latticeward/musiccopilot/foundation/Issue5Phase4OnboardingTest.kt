@@ -46,11 +46,13 @@ class Issue5Phase4OnboardingTest {
         assertTrue(ui.contains("dispatch(if (failed) FirstUseEvent.Retry"))
     }
 
-    @Test fun practiceVoiceIsVisiblyUnavailableUntilJitMicrophonePhase() {
+    @Test fun voicePracticeIsOptionalJitOnTheSameSecondSlideAfterPhase9() {
         assertTrue(ui.contains("stringResource(R.string.first_use_practice_voice)"))
-        assertTrue(ui.contains("enabled = false"))
-        assertTrue(strings.contains("No microphone access is requested here."))
-        assertFalse(ui.contains("RequestPermission"))
+        assertTrue(ui.contains("onClick = onPracticeVoice"))
+        assertTrue(ui.contains("onClick = onPracticeRationaleContinue"))
+        assertTrue(ui.contains("onClick = onPracticeManualOnly"))
+        assertTrue(strings.contains("Continue to microphone permission"))
+        assertFalse(ui.contains("RequestPermission")) // Native launcher remains Activity-owned.
         assertFalse(ui.contains("RECORD_AUDIO"))
         assertFalse(ui.contains("SpeechRecognizer"))
         assertFalse(ui.contains("MediaStore"))
