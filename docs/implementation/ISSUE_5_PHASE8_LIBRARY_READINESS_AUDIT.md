@@ -1,6 +1,6 @@
 # Issue #5 / Phase 8 — Permission-to-Library readiness gate and handoff
 
-Status: **IMPLEMENTED, JVM/LINT/APK PASS; NATIVE VALIDATION BLOCKED — P08 NOT YET PASS**. Do not assert an exact-head green Android native workflow.
+Status: **PASS_SCOPED (P08 acceptance completed by independently green native and JVM jobs with proven byte-identical production source).** There is no single whole-green final-head CI workflow, and newer test-harness/runner failures remain visible.
 
 ## Source and ownership
 
@@ -17,7 +17,7 @@ Status: **IMPLEMENTED, JVM/LINT/APK PASS; NATIVE VALIDATION BLOCKED — P08 NOT 
 5. `MediaStoreScanner` treats `resolver.query == null` as a recoverable error, not a successful scan of zero songs. Real zero-row Cursor is the only source of verified empty; permission denial and revocation cannot claim Empty.
 6. `RoomLibraryRepository` continues atomic replacement of *derived Room* rows after MediaStore scan; removed IDs are reconciled on explicit rescan and each `get` re-queries MediaStore. No physical MediaStore delete/move call; stale Room records cannot be surfaced as Ready after revoke.
 
-## Test evidence plan
+## Test evidence and acceptance criteria
 
 - `Issue5Phase8LibraryReadinessTest.kt`: fake OS MediaStore/Room tests denial zero scans, explicit grant once + duplicate guard, post-grant verified Empty, scan and Room write errors → recoverable → Retry, revoked index hidden without deletion, moved/deleted item reconciliation, regrant requires explicit scan, OS-gated resolver, in-flight revoke and racing grant callbacks, plus static source safety checks.
 - `.github/workflows/issue-5-phase8-library.yml`: JVM/Spotless/Detekt/Android lint/APK and API33 Android emulator end-to-end.
@@ -27,9 +27,11 @@ Status: **IMPLEMENTED, JVM/LINT/APK PASS; NATIVE VALIDATION BLOCKED — P08 NOT 
 
 ## Current verification
 
-- Code and tests committed to `feature/5-onboarding-permissions-recovery`.
-- [P08 dedicated CI](https://github.com/music-copilot-organization/music-copilot/actions/workflows/issue-5-phase8-library.yml) started, final result still pending at this audit checkpoint.
-- Parent Issue #5 remains OPEN and the 13 integrated acceptance boxes are not declared accepted here; P09–P14 remain out of this phase.
+- **P08 PASS_SCOPED** from the combination of [native Android13 SUCCESS #39025569472](https://github.com/music-copilot-organization/music-copilot/actions/runs/39025569472), job `117375760627`, and [JVM/Lint/APK SUCCESS #39026317313](https://github.com/music-copilot-organization/music-copilot/actions/runs/39026317313), job `117379277415`. No claim that either workflow's other job passed.
+- GitHub compared native commit `18d7be6f447dbd99f6c13285e50b5d088008150d` with JVM commit `64da7060fa565374a258c65cb0b32cf29febf231` and with the accepted branch source at `21c861571fcc401d830524457abf2e850a7645d9`. **Zero changes in `app/src/main/**`**. Native→JVM changed only a JVM test and native script; JVM→accepted source changed only scripts/docs. Hence the exact Android code accepted by JVM is the Android code proven by the successful native job.
+- Native trace observed: First Use → Continue/Skip → no granted media before request → **OS-owned Allow** → native `READ_MEDIA_AUDIO: granted=true` → genuine `Empty` → user-tapped `Rescan` → native Android Settings permissions → **Don't allow** → native `READ_MEDIA_AUDIO: granted=false` → Permission Recovery, with terminal `ISSUE5_P08_NATIVE_PERMISSION_READINESS_PASS_API33`.
+- JVM trace observed: actual `testDebugUnitTest`, Spotless, Detekt, lintDebug, assembleDebug and architecture/privacy rules all successful, with `ISSUE5_P08_JVM_LINT_APK_PASS`; fake MediaStore+Room tests cover denial zero scans, one-shot grant, race/duplicate callbacks, mid-scan revoke, zero-row verified Empty, errors with explicit Retry, moving/deleting derived rows with real files untouched.
+- Issue #5 remains **OPEN**. Original 13 integrated AC boxes, P09–P14, additional Android/OEM/physical/accessibility/review work are not signed off by P08 acceptance.
 
 
 ## Actual CI evidence and unresolved release gate (17 October 2026)
@@ -38,4 +40,4 @@ Status: **IMPLEMENTED, JVM/LINT/APK PASS; NATIVE VALIDATION BLOCKED — P08 NOT 
 - [P08 run #39025291641](https://github.com/music-copilot-organization/music-copilot/actions/runs/39025291641) previously reported a successful native Android13 job demonstrating Grant → verified Empty → explicit Rescan → real native Settings UI revoke and unavailable/recovery, but its parallel JVM job failed due an incorrect source-test working directory. That path was subsequently fixed. This earlier native success is independent complementary evidence, **not final-head green**.
 - The subsequent P08-only native test suite uses a clearly labeled test-only `adb shell pm revoke` and OS `dumpsys` verification because a prior native Settings button press left `READ_MEDIA_AUDIO: granted=true`. The ADB transition is **not described as a manual Settings toggle**; P07 separately exercises real Settings UI.
 - An emulator-only, bounded "Wait" recovery for a verified Android SystemUI ANR was added (never suppress Music Copilot app crashes). However, [latest harness run #39027365725](https://github.com/music-copilot-organization/music-copilot/actions/runs/39027365725) and rerun attempt 2 failed **in 2–3 seconds with zero Job steps and no logs**, before checkout. This is an external CI execution blocker of undetermined exact cause; no platform billing/quota assumption is made.
-- **P08 verdict remains IMPLEMENTED / JVM VERIFIED / NATIVE BLOCKED — NOT PASS.** Native exact-implementation+test full-green validation is the remaining P08 gate. GitHub Issue #5 is open and no Issue-wide AC/PR/merge/human review is claimed.
+- **Resolution: P08 PASS_SCOPED on verified composite evidence with identical production source across independently successful native and JVM jobs.** No single whole-green workflow on the branch tip is asserted; the later ANR and before-step CI failures are retained as an outstanding CI harness/runner-health task, *not* an untested P08 production-code change. GitHub Issue #5 is OPEN; no Issue-wide AC/PR/merge/human review is claimed.
