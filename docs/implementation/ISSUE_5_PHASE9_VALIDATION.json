@@ -55,12 +55,27 @@
         "rerun_attempt": 2,
         "rerun_conclusion": "failure",
         "rerun_job_steps": null
+      },
+      {
+        "run_id": 39032641862,
+        "sha": "f8119cca3124a1b7bbf39d2920a845ffaf4b910e",
+        "conclusion": "failure",
+        "both_jobs_steps": 0,
+        "runner_usage_ms": 0
       }
     ],
     "jvm_pass": false,
     "android13_pass": false,
     "root_cause": "UNVERIFIED_BEFORE_RUNNER_OR_JOB_STEPS",
-    "note": "Run 39031814318, attempt 2 still exits before any job steps. No Gradle or Android test ran; cause unknown."
+    "note": "Run 39031814318, attempt 2 still exits before any job steps. No Gradle or Android test ran; cause unknown.",
+    "pre_execution_diagnosis": {
+      "classification": "GITHUB_HOSTED_JOB_NOT_STARTED_NOT_TEST_FAILURE",
+      "evidence": "All P09 jobs across ubuntu22 and ubuntu24 exit before checkout; two jobs in #39032641862 each reported 0 steps and 0 billable milliseconds; similar failures in P01-P08.",
+      "candidate_cause": "Organization Actions minutes, metered product budget, spending cap, payment/usage hold OR GitHub hosted-runner control plane issue. Cannot choose definitively without check-run annotation text and organization Billing view.",
+      "verify_in_github": "Organization music-copilot-organization > Settings > Billing & licensing (or Billing & plans) > Usage / Budgets and alerts / Payment information. Then failed run > each job > top annotation.",
+      "actual_compiler_result": "NOT_EXECUTED",
+      "actual_native_result": "NOT_EXECUTED"
+    }
   },
   "excluded": [
     "Cloud STT disclosure/consent actual approval P10",
@@ -86,5 +101,7 @@
     "provider_probe_after_grant": true,
     "no_third_value_slide": true,
     "verdict": "PASS_STATIC_ONLY_NOT_A_COMPILE_OR_NATIVE_TEST"
-  }
+  },
+  "scope_status_unchanged": "P09_NOT_PASS",
+  "note": "UI copy corrected in commit f8119cca to remove stale disabled-practice wording; no new functional behavior or Android native test success."
 }
