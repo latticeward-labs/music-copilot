@@ -256,9 +256,12 @@ class Issue5Phase8LibraryReadinessTest {
     }
 
     @Test fun noUserScanActionMeansNoMediaMutationOrFileDeletion() {
-        val source = java.io.File("app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt").readText()
-        val repository = java.io.File("app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt").readText()
-        val adapter = java.io.File("app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt").readText()
+        val current = java.io.File(System.getProperty("user.dir"))
+        val app = if (java.io.File(current, "src/main/java").isDirectory) current
+            else java.io.File(current, "app")
+        val source = java.io.File(app, "src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt").readText()
+        val repository = java.io.File(app, "src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt").readText()
+        val adapter = java.io.File(app, "src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt").readText()
         assertTrue(source.contains("throw IllegalStateException(\"MediaStore query returned no cursor\")"))
         assertFalse(source.contains("resolver.delete("))
         assertTrue(repository.contains("projection.replaceAll(rows)"))
