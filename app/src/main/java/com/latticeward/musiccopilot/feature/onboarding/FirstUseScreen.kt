@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import com.latticeward.musiccopilot.R
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseEvent
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseState
+import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.data.api.FirstUsePage
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 
@@ -56,6 +57,10 @@ import com.latticeward.musiccopilot.data.api.PreferencesRepository
 fun FirstUseScreen(
     repository: PreferencesRepository,
     replay: Boolean = false,
+    voicePracticeStage: VoicePracticeStage = VoicePracticeStage.Idle,
+    onPracticeVoice: () -> Unit = {},
+    onPracticeRationaleContinue: () -> Unit = {},
+    onPracticeManualOnly: () -> Unit = {},
     onComplete: () -> Unit,
     onExit: () -> Unit,
 ) {
@@ -64,7 +69,13 @@ fun FirstUseScreen(
         factory = remember(repository, replay) { FirstUseViewModel.factory(repository, replay) },
     )
     val machine = controller.machine
-    fun dispatch(event: FirstUseEvent) = controller.dispatch(event, onComplete, onExit)
+    fun dispatch(event: FirstUseEvent) {
+        if (event == FirstUseEvent.Back || event == FirstUseEvent.Skip ||
+            event == FirstUseEvent.Continue && machine is FirstUseState.Education &&
+                (machine as FirstUseState.Education).page == FirstUsePage.SafetyAndVoice
+        ) onPracticeManualOnly()
+        controller.dispatch(event, onComplete, onExit)
+    }
 
     BackHandler { dispatch(FirstUseEvent.Back) }
     val saving = machine is FirstUseState.Saving
@@ -147,6 +158,27 @@ fun FirstUseScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyLarge,
                 )
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    stringResource(R.string.p09_six_commands_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                listOf(
+                    R.string.p09_command_play,
+                    R.string.p09_command_pause,
+                    R.string.p09_command_next,
+                    R.string.p09_command_previous,
+                    R.string.p09_command_seek_back,
+                    R.string.p09_command_play_artist,
+                ).forEach { phrase ->
+                    Text(
+                        stringResource(phrase),
+                        modifier = Modifier.padding(top = 4.dp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     stringResource(R.string.first_use_road_safety),
@@ -178,18 +210,50 @@ fun FirstUseScreen(
             }
             Spacer(modifier = Modifier.height(24.dp))
             if (voiceSlide && !failed) {
-                // Approved visual affordance. P09 owns the explicit practice/mic integration.
-                OutlinedButton(
-                    onClick = {},
-                    enabled = false,
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-                ) { Text(stringResource(R.string.first_use_practice_voice)) }
-                Text(
-                    stringResource(R.string.first_use_practice_deferred),
-                    modifier = Modifier.padding(top = 4.dp, bottom = 8.dp),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.labelMedium,
-                )
+                // P09: an optional second-step JIT rationale, not auto-listening.
+                // Only the Activity owns the OS request, only VoiceSessionCoordinator
+                // can own eventual capture; no new onboarding value slide.
+                if (voicePracticeStage == VoicePracticeStage.Idle) {
+                    OutlinedButton(
+                        onClick = onPracticeVoice,
+                        enabled = enabled,
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                    ) { Text(stringResource(R.string.first_use_practice_voice)) }
+                } else {
+                    Text(
+                        stringResource(R.string.p09_microphone_purpose_title),
+                        modifier = Modifier.semantics { heading() },
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Text(
+                        stringResource(when (voicePracticeStage) {
+                            VoicePracticeStage.Idle -> R.string.first_use_voice_manual
+                            VoicePracticeStage.Rationale -> R.string.p09_microphone_purpose_body
+                            VoicePracticeStage.AwaitingAndroid -> R.string.p09_microphone_waiting
+                            VoicePracticeStage.ReadyForVoiceHandoff -> R.string.p09_voice_handoff_ready
+                            VoicePracticeStage.PermissionDenied -> R.string.p09_microphone_denied
+                            VoicePracticeStage.ProviderUnavailable -> R.string.p09_provider_unavailable
+                            VoicePracticeStage.LanguageUnsupported -> R.string.p09_language_unsupported
+                            VoicePracticeStage.CloudConsentDeclined -> R.string.p09_cloud_consent_declined
+                        }),
+                        modifier = Modifier.padding(top = 8.dp)
+                            .semantics { liveRegion = LiveRegionMode.Polite },
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    if (voicePracticeStage == VoicePracticeStage.Rationale) {
+                        Button(
+                            onClick = onPracticeRationaleContinue,
+                            enabled = enabled,
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                        ) { Text(stringResource(R.string.p09_allow_microphone)) }
+                    }
+                    OutlinedButton(
+                        onClick = onPracticeManualOnly,
+                        enabled = enabled && voicePracticeStage != VoicePracticeStage.AwaitingAndroid,
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                    ) { Text(stringResource(R.string.p09_manual_only)) }
+                }
             }
             Button(
                 onClick = {
