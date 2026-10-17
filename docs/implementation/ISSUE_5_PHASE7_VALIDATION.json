@@ -56,7 +56,12 @@
       "scripts/issue5_phase7_native_test.sh",
       "scripts/issue5_phase7_settings_ui.py"
     ],
-    "production_android_code_unchanged": true
+    "production_android_code_unchanged": true,
+    "current_branch_restored_native_harness_blob_identical_to_green": true,
+    "current_branch_restored_workflow_blob_identical_to_green": true,
+    "current_branch_production_source_blob_identical_to_green": true,
+    "current_diff_from_successful_run": "documentation only",
+    "previous_experimental_test_harness_changes": "reverted after unsuccessful emulator startup/SystemUI ANR runs"
   },
-  "note": "P07 scoped pass relies on a whole-green real native+JVM run on source-identical production code, not a claimed whole-green CI on later test-only or documentation HEAD. P12/P13 device matrix and P14 integrated ACs pending."
+  "note": "P07 PASS_SCOPED is grounded in the whole-green real JVM/Android13 native run #39020349923 and byte-identical current production sources, native test scripts, and workflow. Intermediate failed experimental harness attempts remain historically failed and have been reverted. Only documentation differs from the green source. Native API29 Settings-only/physical OEM/accessibility/P08-P14 integrated Issue AC remain separate pending gates."
 }
