@@ -32,6 +32,7 @@ import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
+import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.feature.onboarding.FirstUseScreen
 import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
@@ -56,6 +57,10 @@ fun AppNavHost(
     onExitPermissionResult: () -> Unit,
     onOpenAndroidSettings: () -> Unit,
     mediaRequestUi: MediaRequestUiState,
+    voicePracticeStage: VoicePracticeStage,
+    onPracticeVoice: () -> Unit,
+    onPracticeRationaleContinue: () -> Unit,
+    onPracticeManualOnly: () -> Unit,
     onFirstUseComplete: () -> Unit,
     onExit: () -> Unit,
 ) {
@@ -105,6 +110,10 @@ fun AppNavHost(
             FirstUseScreen(
                 repository = preferencesRepository,
                 replay = replayingEducation,
+                voicePracticeStage = voicePracticeStage,
+                onPracticeVoice = onPracticeVoice,
+                onPracticeRationaleContinue = onPracticeRationaleContinue,
+                onPracticeManualOnly = onPracticeManualOnly,
                 onComplete = onFirstUseComplete,
                 onExit = {
                     if (replayingEducation) {
