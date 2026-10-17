@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
     private val permissionUi: PermissionViewModel by viewModels()
     private val gate = MediaRequestGate(Build.VERSION.SDK_INT)
     private var observedMicrophoneGrant = false
-    private val voicePracticeGate = VoicePracticeGate()
+    private val voicePracticeGate = VoicePracticeGate(Build.VERSION.SDK_INT)
     private val voicePracticeUi = MutableStateFlow(VoicePracticeStage.Idle)
     private val requestLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
