@@ -12,7 +12,7 @@ permissions:
   contents: read
 jobs:
   p09-jvm-lint-apk:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v5
@@ -44,7 +44,7 @@ jobs:
             app/build/reports/lint-results-debug.*
             app/build/outputs/apk/debug/app-debug.apk
   p09-android-microphone-api33:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 55
     steps:
       - uses: actions/checkout@v5
