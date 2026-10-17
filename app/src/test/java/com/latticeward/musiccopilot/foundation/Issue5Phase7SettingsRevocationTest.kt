@@ -45,7 +45,8 @@ class Issue5Phase7SettingsRevocationTest {
         vm.onActivityPaused()
         vm.onReturnFromSettings(obs(false, false))
         assertEquals(MediaPermissionOutcome.SettingsOnly, vm.ui.value.outcome)
-        assertFalse(vm.takeOneGrantedScan())
+        // Denied has no Continue affordance. Start a distinct explicit Settings
+        // handoff rather than consuming the UI's grant-only action.
         vm.settingsTapped()
         vm.onActivityPaused()
         vm.onReturnFromSettings(obs(false, true))
