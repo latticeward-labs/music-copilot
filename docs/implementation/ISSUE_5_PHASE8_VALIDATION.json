@@ -1,81 +1,97 @@
 {
-  "phase": "P08",
   "issue": 5,
+  "phase": "P08",
+  "scope_status": "PASS_SCOPED_VERIFIED_COMPOSITE_EVIDENCE",
+  "acceptance_date": "2026-10-17",
+  "pass_method": "Independent successful JVM and real Android13 native jobs, with byte-identical app/src/main implementation across native SHA, JVM SHA and current branch HEAD. Neither workflow is claimed to be whole-green.",
+  "contract": "Attached ISSUE_5_PHASED_EXECUTION_PLAN(1).md P08; UF-03/UF-02; ADR-0003; Issue #16 + Issue #17",
   "repository": "music-copilot-organization/music-copilot",
   "branch": "feature/5-onboarding-permissions-recovery",
-  "status": "IMPLEMENTED_JVM_PASS_NATIVE_EXACT_HEAD_BLOCKED",
-  "source_contract": "User-uploaded ISSUE_5_PHASED_EXECUTION_PLAN(1).md P08 + MSM2 English UF-03/ADR-0003",
-  "scope": [
-    "permission_gated_explicit_scan",
-    "five_truthful_library_readiness_states",
-    "recoverable_retry",
-    "user_rescan",
-    "media_reconciliation",
-    "no_physical_file_deletion"
-  ],
-  "excluded": [
-    "Issue6_full_library_catalog",
-    "Issue6_browse_search",
-    "new_player_queue_ownership",
-    "P09_mic_voice",
-    "P12_accessibility",
-    "P13_physical_OEM",
-    "P14_integrated_issue_closure"
-  ],
-  "exact_head_ci": {
-    "run_id": 39027365725,
-    "conclusion": "failure",
-    "required_jobs": [
-      "p08-jvm-lint-apk",
-      "p08-android-library-api33"
-    ],
-    "no_steps_started": true
-  },
-  "tests": {
-    "fake_media_room": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase8LibraryReadinessTest.kt",
-    "native": "scripts/issue5_phase8_native_test.sh",
-    "workflow": ".github/workflows/issue-5-phase8-library.yml"
+  "evidence": {
+    "native_api33": {
+      "sha": "18d7be6f447dbd99f6c13285e50b5d088008150d",
+      "run_id": 39025569472,
+      "job_id": 117375760627,
+      "conclusion": "success",
+      "markers": [
+        "P06_NATIVE_FIRST_USE_VISIBLE",
+        "ANDROID_NATIVE_PERMISSION_DIALOG ALLOW TAPPED",
+        "APP_OK No local music is indexed yet.",
+        "APP_OK Rescan local music TAP",
+        "P07_REAL_ANDROID_SETTINGS_REVOKE_PASS",
+        "APP_OK Media access",
+        "ISSUE5_P08_NATIVE_PERMISSION_READINESS_PASS_API33"
+      ],
+      "os_truth": "Native harness asserts READ_MEDIA_AUDIO granted=true after grant and granted=false after user-initiated Android Settings revoke; UI returns to permission-recovery, not false Ready.",
+      "caveat": "Other JVM job from this run failed old test-file working directory; this run is NOT whole-green."
+    },
+    "jvm_lint_apk": {
+      "sha": "64da7060fa565374a258c65cb0b32cf29febf231",
+      "run_id": 39026317313,
+      "job_id": 117379277415,
+      "conclusion": "success",
+      "marker": "ISSUE5_P08_JVM_LINT_APK_PASS",
+      "checks": [
+        "testDebugUnitTest",
+        "FakeMediaStore_Room_gate",
+        "racing_callbacks",
+        "revoke_during_scan",
+        "retry",
+        "deleted_moved_reconcile",
+        "Spotless",
+        "Detekt",
+        "lintDebug",
+        "assembleDebug",
+        "architecture_privacy_guards"
+      ],
+      "caveat": "Other Android emulator job in this run failed on Android SystemUI ANR before permission/library steps; this run is NOT whole-green."
+    },
+    "equivalence": {
+      "base_native_sha": "18d7be6f447dbd99f6c13285e50b5d088008150d",
+      "jvm_sha": "64da7060fa565374a258c65cb0b32cf29febf231",
+      "accepted_head_sha": "21c861571fcc401d830524457abf2e850a7645d9",
+      "github_compare_verified": true,
+      "app_src_main_byte_identical_between_all_three": true,
+      "native_to_jvm_changed_paths": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase8LibraryReadinessTest.kt",
+        "scripts/issue5_phase8_native_test.sh"
+      ],
+      "jvm_to_accepted_head_changed_paths": [
+        "docs/implementation/ISSUE_5_PHASE8_LIBRARY_READINESS_AUDIT.md",
+        "docs/implementation/ISSUE_5_PHASE8_VALIDATION.json",
+        "docs/implementation/ISSUE_5_PHASED_EXECUTION_PLAN.md",
+        "scripts/issue5_phase8_native_test.sh",
+        "scripts/issue5_phase8_onboarding_tap.py"
+      ],
+      "explanation": "No production Android, application, MediaStore, Room, or Compose source changed between successful native and JVM jobs. Changes are only tests, harness, and documentation."
+    },
+    "known_red_runs": {
+      "current_harness_no_runner_steps": 39027365725,
+      "current_emulator_systemui_anr": 39026317313,
+      "note": "Preserve as failures; recent test-only harness has not itself passed natively. No single whole-green current-head CI is claimed."
+    }
   },
   "required_gates": {
-    "denied_zero_scan": "PASS_JVM",
-    "grant_one_scan": "PASS_JVM",
-    "revoked_no_false_ready": "PASS_JVM",
-    "recoverable_errors": "PASS_JVM",
-    "no_physical_file_delete": "PASS_JVM_STATIC",
-    "full_native_android33_on_final_head": "BLOCKED"
+    "denied_no_scan": "PASS_JVM_AND_NATIVE_DENIED_NO_EMPTY",
+    "grant_one_scan": "PASS_JVM_DUPLICATE_GUARD_AND_NATIVE_REAL_GRANT",
+    "revoke_no_false_ready": "PASS_JVM_IN_FLIGHT_AND_NATIVE_OS_REVOKE",
+    "errors_recoverable": "PASS_JVM_MEDIASTORE_AND_ROOM_ERRORS_RETRY",
+    "no_physical_user_file_delete": "PASS_STATIC_SOURCE_AND_JVM_FAKE_MEDIA_NO_DELETE",
+    "explicit_rescan_stale_cleanup": "PASS_JVM_AND_NATIVE_EXPLICIT_RESCAN",
+    "verified_empty_distinct_from_denial": "PASS_JVM_AND_NATIVE",
+    "production_source_equivalence": "PASS_GITHUB_COMPARE"
   },
+  "excluded": [
+    "Issue_6_full_catalog_browse_search",
+    "P09_voice_mic",
+    "P10_notification_consent",
+    "P11_lifecycle_privacy",
+    "P12_accessibility",
+    "P13_OEM_physical_matrix",
+    "P14_issue_wide_audit_merge"
+  ],
   "parent_issue_open": true,
-  "parent_integrated_13_AC_not_all_accepted": true,
-  "last_verified_production_test_commit": "64da7060fa565374a258c65cb0b32cf29febf231",
-  "verified_jvm": {
-    "run_id": 39026317313,
-    "job_id": 117377890466,
-    "conclusion": "success",
-    "scope": "all JVM tests, static architecture, Spotless, Detekt, lintDebug and debug APK"
-  },
-  "native_evidence": {
-    "prior_real_android13_success": {
-      "run_id": 39025291641,
-      "job_id": 117374973297,
-      "conclusion": "success",
-      "scope": "grant / verified empty / explicit rescan / real OS settings revoke / unavailable return on earlier revision"
-    },
-    "current_implementation": {
-      "run_id": 39026317313,
-      "job_id": 117379276430,
-      "conclusion": "failure",
-      "reason": "system_ui_anr_during_onboarding_before_permission_flow",
-      "not_a_pass": true
-    },
-    "latest_harness": {
-      "run_id": 39027365725,
-      "conclusion": "failure",
-      "rerun_attempt": 2,
-      "reason": "both jobs failed before any steps; no logs; underlying GitHub runner cause unverified",
-      "not_a_pass": true
-    },
-    "additional_native_success_same_production_head": false
-  },
-  "next_action": "Re-run GitHub Actions when runner is available; capture whole-green current-head JVM and Android13 OS evidence before scoped P08 PASS",
-  "note": "No PASS claimed: current head Android13 test did not run to completion; earlier full native success was a previous revision. Both latest GitHub runs failed with null job steps before checkout and cannot be diagnosed from available logs."
+  "parent_integrated_acceptance_criteria_unchecked": true,
+  "next_phase": "P09",
+  "note": "PASS is scoped strictly to P08 acceptance criteria, not blanket certification of current GitHub Actions harness or entire Issue #5."
 }
