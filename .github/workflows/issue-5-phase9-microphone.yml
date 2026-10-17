@@ -1,0 +1,89 @@
+name: Issue 5 Phase 9 - Optional six-command voice and JIT microphone
+on:
+  push:
+    branches: [feature/5-onboarding-permissions-recovery]
+    paths:
+      - "app/src/main/**"
+      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase9*"
+      - "scripts/issue5_phase9_*"
+      - ".github/workflows/issue-5-phase9-microphone.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  p09-jvm-lint-apk:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with: {persist-credentials: false}
+      - uses: actions/setup-java@v5
+        with: {distribution: temurin, java-version: "17"}
+      - uses: android-actions/setup-android@v3
+        with: {packages: "platform-tools"}
+      - uses: gradle/actions/setup-gradle@v4
+        with: {validate-wrappers: true}
+      - run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Real unit tests, static architecture, lint and APK
+        run: |
+          set -euo pipefail
+          python3 scripts/check_architecture_dependencies.py --root . --self-test
+          python3 scripts/check_phase9_privacy.py --root . --self-test
+          ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon --stacktrace
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase9MicrophonePracticeTest.xml
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          echo ISSUE5_P09_JVM_LINT_APK_PASS
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p09-jvm-and-apk
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            app/build/outputs/apk/debug/app-debug.apk
+  p09-android-microphone-api33:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v5
+        with: {persist-credentials: false}
+      - uses: actions/setup-java@v5
+        with: {distribution: temurin, java-version: "17"}
+      - uses: android-actions/setup-android@v3
+        with: {packages: "platform-tools"}
+      - uses: gradle/actions/setup-gradle@v4
+        with: {validate-wrappers: true}
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Build and reclaim disk
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          if [ -d "$ANDROID_HOME/ndk" ]; then sudo rm -rf "$ANDROID_HOME/ndk"; fi
+          if [ -d "$ANDROID_HOME/cmake" ]; then sudo rm -rf "$ANDROID_HOME/cmake"; fi
+          test "$(df -Pk . | awk 'NR == 2 {print $4}')" -ge 10485760
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          disk-size: 2048M
+          profile: pixel_3a
+          emulator-boot-timeout: 900
+          emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
+          script: bash scripts/issue5_phase9_native_test.sh "33"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p09-native-microphone-api33
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/outputs/issue5-p09-api33/**
+            app/build/outputs/apk/debug/app-debug.apk
