@@ -35,7 +35,8 @@ Each future PASS must record tested commit SHA, run/time, actual test and CI pat
 | P03 | Bootstrap, first launch route and real API29 first-run [CI #38869470585](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585), [emulator #38869470447](https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470447) | PASS_BOOTSTRAP_SCOPE |
 | P04 | Approved WF-02/HF-02 two-page UI, [Kotlin/JVM/Lint/APK #38872429334](https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334), [API29 UI/200% emulator #38873215678](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678), [screenshots+APK artifact #12034777234](https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678/artifacts/12034777234) | **PASS_TWO_SLIDES_SCOPE** |
 | P05–P06 | Android-owned media request and Granted/Denied/Permanently Denied native flows | NOT_RUN |
-| P07–P08 | Android Settings/revocation and Library readiness | NOT_RUN |
+| P07 | Android Settings/revocation: 3/3 OS-observed API33 outcomes, native grant/revoke, single scan, JVM/recreation | **PASS_SCOPED** — [whole-green run #39020349923](https://github.com/music-copilot-organization/music-copilot/actions/runs/39020349923), [native artifact #12096627786](https://github.com/music-copilot-organization/music-copilot/actions/runs/39020349923/artifacts/12096627786); restored source/test workflow blob-identical to green commit. |
+| P08 | Library readiness / full scan recovery | NOT_RUN |
 | P09–P10 | Six-command education/JIT microphone and Notification/Cloud STT consent | NOT_RUN |
 | P11–P12 | Rotation/recreation, privacy-negative tests, Compose TalkBack/scaling/contrast | NOT_RUN |
 | P13 | API29/32/33/35 emulator/physical/native Settings and permission QA; sanitized artifact identity | NOT_RUN |
