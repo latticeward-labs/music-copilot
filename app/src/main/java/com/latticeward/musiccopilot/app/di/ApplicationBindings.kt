@@ -3,9 +3,11 @@ package com.latticeward.musiccopilot.app.di
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.Job
+import android.os.Build
+import android.Manifest
+import com.latticeward.musiccopilot.core.application.library.LibraryScanUseCase
+import com.latticeward.musiccopilot.core.application.library.LibraryScanReason
 import kotlinx.coroutines.launch
 
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
@@ -95,21 +97,44 @@ class ApplicationBindings(
     val qualityEventPublisher = QualityBindings.publisher(telemetryPrivacyGate, telemetrySink)
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
-    private val consentedScanMutex = Mutex()
+    private val mediaAppContext = context?.applicationContext
+    private val libraryScanUseCase = LibraryScanUseCase(libraryRepository) {
+        val app = mediaAppContext
+        if (app == null) false
+        else {
+            val osPermission = if (Build.VERSION.SDK_INT >= 33)
+                Manifest.permission.READ_MEDIA_AUDIO
+            else Manifest.permission.READ_EXTERNAL_STORAGE
+            ContextCompat.checkSelfPermission(app, osPermission) ==
+                PackageManager.PERMISSION_GRANTED
+        }
+    }
     @Volatile private var activeMediaScan: Job? = null
 
     /** Never invoked from bootstrap/resume; only a one-shot P05 ActivityResult grant. */
     fun scanAfterExplicitMediaGrant(context: Context, permissionName: String) {
         val application = context.applicationContext
         activeMediaScan = repositoryScope.launch {
-            consentedScanMutex.withLock {
-                // Fresh Android grant check immediately before the real scanner.
-                // RoomLibraryRepository and MediaStoreScanner each check it again.
-                if (ContextCompat.checkSelfPermission(application, permissionName) ==
-                    PackageManager.PERMISSION_GRANTED) {
-                    libraryRepository.reconcile()
-                }
-            }
+            // Activity passed a platform-specific permission, but recheck OS here
+            // as well as in the use case and the MediaStore repository.
+            if (ContextCompat.checkSelfPermission(application, permissionName) ==
+                PackageManager.PERMISSION_GRANTED) {
+                libraryScanUseCase.execute(LibraryScanReason.AfterMediaGrant)
+            } else libraryRepository.invalidateMediaAccess()
+        }
+    }
+
+    /** User-visible Retry is only eligible after a genuine recoverable scan error. */
+    fun retryLibraryAfterError() {
+        activeMediaScan = repositoryScope.launch {
+            libraryScanUseCase.execute(LibraryScanReason.RetryRecoverableError)
+        }
+    }
+
+    /** Explicit Rescan only; never run from onResume/bootstrap or permission dialog. */
+    fun rescanLibraryOnUserRequest() {
+        activeMediaScan = repositoryScope.launch {
+            libraryScanUseCase.execute(LibraryScanReason.ExplicitRescan)
         }
     }
 
