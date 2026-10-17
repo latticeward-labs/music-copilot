@@ -98,6 +98,17 @@ class Issue5Phase8LibraryReadinessTest {
         assertEquals(1, repo.index.value.itemCount)
     }
 
+    @Test fun returningUserWithGrantedAccessCanStartExplicitColdStartScan() = runBlocking {
+        val media = FakeMedia().apply { permission = true; items = listOf(alpha) }
+        val repo = repository(media, FakeRoom())
+        val gate = LibraryScanUseCase(repo) { media.permission }
+        assertEquals(LibraryIndexStatus.Unavailable, repo.index.value.status)
+        assertEquals(0, media.scanCalls) // cold start/foreground is never an implicit scan
+        assertTrue(gate.execute(LibraryScanReason.ExplicitRescan) is LibraryScanOutcome.Completed)
+        assertEquals(LibraryIndexStatus.Ready, repo.index.value.status)
+        assertEquals(1, media.scanCalls)
+    }
+
     @Test fun zeroScanResultsOnlyAfterGrantAreVerifiedEmpty() = runBlocking {
         val media = FakeMedia().apply { permission = true }
         val repo = repository(media, FakeRoom())
