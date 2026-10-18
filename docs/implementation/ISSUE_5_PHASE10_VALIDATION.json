@@ -1,0 +1,33 @@
+{
+  "issue": 5,
+  "phase": "P10",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "status": "IMPLEMENTED_BUILD_PENDING_OWNER_PHONE_QA_PENDING",
+  "scope": "MediaSession exempt notification and fail-closed local Cloud STT consent",
+  "permission": {
+    "api29_32": "no POST_NOTIFICATIONS runtime concept",
+    "api33_plus": "media-session exemption, no non-exempt notification so zero runtime prompt",
+    "manifest_declares_post_notifications": false,
+    "non_exempt_scope": false
+  },
+  "cloud": {
+    "remote_provider_approved": false,
+    "legal_approved": false,
+    "disclosure_available": false,
+    "remote_processing_enabled": false,
+    "local_consent_in_datastore": true,
+    "user_revoke_in_settings": true
+  },
+  "tests": [
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase10NotificationCloudConsentTest.kt"
+  ],
+  "phoneChecklist": "docs/implementation/ISSUE_5_PHASE10_PHONE_QA_CHECKLIST.md",
+  "deviceEvidence": "PENDING_OWNER_REPORT",
+  "apkWorkflow": ".github/workflows/issue-5-apk-only.yml",
+  "apkArtifact": null,
+  "jvmUnitResult": "NOT_RUN_APK_ONLY_REQUEST",
+  "nativeDeviceResult": "NOT_RUN_OWNER_WILL_TEST",
+  "parentIssueOpen": true,
+  "p11Started": false
+}

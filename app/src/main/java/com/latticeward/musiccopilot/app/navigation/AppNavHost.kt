@@ -33,6 +33,8 @@ import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
+import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
+import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.feature.onboarding.FirstUseScreen
 import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
@@ -47,6 +49,8 @@ fun AppNavHost(
     readiness: FoundationReadiness,
     permission: PermissionStatus,
     preferencesRepository: PreferencesRepository,
+    remoteSpeechDecision: CloudSpeechGateDecision,
+    onRevokeCloudSpeechConsent: () -> Unit,
     onRetry: () -> Unit,
     onRefreshPermission: () -> Unit,
     onRetryLibraryScan: () -> Unit,
@@ -198,6 +202,39 @@ fun AppNavHost(
                 onPrimary = { replayingEducation = true },
                 secondary = stringResource(R.string.action_back),
                 onSecondary = { settingsOpen = false },
+                extraContent = {
+                    Text(
+                        stringResource(R.string.p10_notification_exempt_status),
+                        modifier = Modifier.padding(top = MusicSpacing.lgDp),
+                        style = MusicTextStyles.bodyLarge,
+                    )
+                    Text(
+                        stringResource(R.string.p10_cloud_stt_disabled),
+                        modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        style = MusicTextStyles.bodyLarge,
+                    )
+                    Text(
+                        stringResource(
+                            if (preferencesRepository.preferences.value.cloudSpeechConsent ==
+                                CloudSpeechConsent.Revoked
+                            ) R.string.p10_cloud_consent_revoked
+                            else R.string.p10_cloud_consent_not_active
+                        ),
+                        modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    // A saved Granted flag alone cannot approve an unregistered remote provider.
+                    if (remoteSpeechDecision != CloudSpeechGateDecision.DisabledNoApprovedAdapter) {
+                        Text(stringResource(R.string.p10_remote_gate_unexpected))
+                    }
+                    OutlinedButton(
+                        onClick = onRevokeCloudSpeechConsent,
+                        modifier = Modifier.padding(top = MusicSpacing.smDp)
+                            .heightIn(min = MusicSize.touchTargetMinDp),
+                    ) {
+                        Text(stringResource(R.string.p10_revoke_cloud_consent))
+                    }
+                },
             )
         }
     }
@@ -219,6 +256,7 @@ private fun FirstLaunchBoundary(
     onPrimary: () -> Unit = {},
     secondary: String? = null,
     onSecondary: () -> Unit = {},
+    extraContent: @Composable (() -> Unit)? = null,
 ) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
@@ -243,6 +281,7 @@ private fun FirstLaunchBoundary(
                     Text(secondary)
                 }
             }
+            extraContent?.invoke()
         }
     }
 }

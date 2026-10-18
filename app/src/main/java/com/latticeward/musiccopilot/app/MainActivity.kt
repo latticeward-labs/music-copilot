@@ -32,6 +32,7 @@ import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeGate
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
+import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.feature.permission.MediaRequestUiState
 import com.latticeward.musiccopilot.feature.permission.PermissionViewModel
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
@@ -312,6 +313,8 @@ class MainActivity : ComponentActivity() {
                 readiness = RootNavigationStateHolder().readiness(verifiedLibraryStatus, playbackConnection),
                 permission = permission,
                 preferencesRepository = bindings.preferencesRepository,
+                remoteSpeechDecision = bindings.remoteSpeechDecision(),
+                onRevokeCloudSpeechConsent = bindings::revokeCloudSpeechConsent,
                 onRetry = bindings::retryFirstLaunch,
                 onRefreshPermission = onRefreshPermission,
                 onRetryLibraryScan = bindings::retryLibraryAfterError,

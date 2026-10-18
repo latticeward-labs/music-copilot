@@ -74,4 +74,10 @@
     <string name="p07_revoked_description">Your local library is unavailable. Restore music access in Android Settings, or choose Not now.</string>
     <string name="p06_try_again">Try again</string>
     <string name="p06_open_settings">Open Settings</string>
+    <string name="p10_notification_exempt_status">Playback notifications: MediaSession-managed. No additional notification permission request is needed for this music player.</string>
+    <string name="p10_cloud_stt_disabled">Cloud speech recognition: disabled. No remote speech provider, processing destination or retention policy has been approved. On-device speech capability is separate.</string>
+    <string name="p10_cloud_consent_not_active">Remote processing consent is not active for this version.</string>
+    <string name="p10_cloud_consent_revoked">Any previously saved cloud speech consent has been revoked on this device.</string>
+    <string name="p10_revoke_cloud_consent">Revoke saved cloud speech consent</string>
+    <string name="p10_remote_gate_unexpected">Remote voice authorization unavailable. Manual controls remain enabled.</string>
 </resources>

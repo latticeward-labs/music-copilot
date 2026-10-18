@@ -7,6 +7,10 @@ import kotlinx.coroutines.Job
 import android.os.Build
 import android.Manifest
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
+import com.latticeward.musiccopilot.core.application.voice.CloudSpeechConsentPolicy
+import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
+import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
+import com.latticeward.musiccopilot.data.api.PreferenceUpdate
 import com.latticeward.musiccopilot.core.application.library.LibraryScanUseCase
 import com.latticeward.musiccopilot.core.application.library.LibraryScanReason
 import kotlinx.coroutines.launch
@@ -102,6 +106,27 @@ class ApplicationBindings(
         if (speechToTextEngine.isAvailable()) VoiceProviderCapability.OnDeviceAvailable
         else VoiceProviderCapability.ProviderUnavailable
 
+
+    /**
+     * P10 production is strictly local-only even for an old DataStore "Granted"
+     * flag: no approved remote adapter, legal signoff or disclosure exists.
+     */
+    fun remoteSpeechDecision(): CloudSpeechGateDecision =
+        CloudSpeechConsentPolicy.evaluate(
+            remoteAdapterApproved = false,
+            legalApproval = false,
+            disclosure = null,
+            consentGranted =
+                preferencesRepository.preferences.value.cloudSpeechConsent == CloudSpeechConsent.Granted,
+            drivingMode = false,
+        )
+
+    /** Revocation is a local DataStore preference, never an Android permission. */
+    fun revokeCloudSpeechConsent() {
+        repositoryScope.launch {
+            preferencesRepository.update(PreferenceUpdate.SetCloudSpeechConsent(CloudSpeechConsent.Revoked))
+        }
+    }
 
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
     val telemetrySink: TelemetrySink = QualityBindings.sink()
