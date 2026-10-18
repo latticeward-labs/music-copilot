@@ -3,7 +3,7 @@
   "phase": "P10",
   "repo": "latticeward-labs/music-copilot",
   "branch": "feature/5-onboarding-permissions-recovery",
-  "status": "IMPLEMENTED_APK_BUILD_PASS_PHONE_QA_PENDING_NOT_PASS",
+  "status": "OWNER_REPORTED_PHONE_QA_7_OF_7_PASS_TECHNICAL_GATES_PENDING_NOT_FULL_PASS",
   "scope": "MediaSession exempt notification and fail-closed local Cloud STT consent",
   "permission": {
     "api29_32": "no POST_NOTIFICATIONS runtime concept",
@@ -23,11 +23,11 @@
     "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase10NotificationCloudConsentTest.kt"
   ],
   "phoneChecklist": "docs/implementation/ISSUE_5_PHASE10_PHONE_QA_CHECKLIST.md",
-  "deviceEvidence": "PENDING_OWNER_REPORT",
+  "deviceEvidence": "OWNER_CHAT_SELF_ATTESTATION_ONLY_NO_MEDIA_OR_OS_LOGS",
   "apkWorkflow": ".github/workflows/issue-5-apk-only.yml",
   "apkArtifact": null,
   "jvmUnitResult": "AUTHORED_NOT_RUN_LOW_COST_OWNER_APK_ONLY",
-  "nativeDeviceResult": "PENDING_OWNER_PHONE_TEST_REPORT",
+  "nativeDeviceResult": "OWNER_REPORTED_HONOR_X7D_ANDROID15_P10_01_TO_07_PASS",
   "parentIssueOpen": true,
   "p11Started": false,
   "implementation_commit": "d7f6763a3ee2fa2f7f1f0b152dbf8cd9f2c0387a",
@@ -38,6 +38,40 @@
   "apkArtifactName": "issue5-phone-test-apk-1",
   "apkBuildStatus": "SUCCESS_assembleDebug_ONLY",
   "apkArtifactExpiration": "2026-10-25T19:26:44Z",
-  "phoneOwnerReported": false,
-  "issueWideAccepted": false
+  "phoneOwnerReported": true,
+  "issueWideAccepted": false,
+  "phoneOwnerReport": {
+    "date": "2026-10-18",
+    "attribution": "OWNER_SELF_REPORTED_PHYSICAL_PHONE_TEST",
+    "device": "HONOR X7d",
+    "androidVersion": "15",
+    "apkArtifactId": 12147657477,
+    "outcomeByTest": {
+      "P10-01": "PASS",
+      "P10-02": "PASS",
+      "P10-03": "PASS",
+      "P10-04": "PASS",
+      "P10-05": "PASS",
+      "P10-06": "PASS",
+      "P10-07": "PASS"
+    },
+    "summary": {
+      "pass": 7,
+      "fail": 0,
+      "notRun": 0
+    },
+    "notesOriginal": "همه پاس شد",
+    "reportFile": "docs/implementation/ISSUE_5_PHASE10_OWNER_PHONE_TEST_REPORT_2026-10-18.md",
+    "proofType": "OWNER_CHAT_REPORT_NOT_INDEPENDENT_HARDWARE_ATTESTATION",
+    "screenshotsSupplied": false,
+    "localApkSha256Supplied": false,
+    "buildProvenanceContentsSupplied": false,
+    "installationMethodSupplied": false,
+    "conditionalSubtestsIndividuallyDescribed": false
+  },
+  "remainingGates": [
+    "P10 policy JVM tests authored but not executed by APK-only workflow",
+    "Static/privacy & additional OS/API compatibility gates when required",
+    "P11-P14 integrated criteria and independent review"
+  ]
 }
