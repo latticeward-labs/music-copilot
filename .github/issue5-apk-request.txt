@@ -1,0 +1,5 @@
+Issue #5 / P10 — APK-only build for owner physical-phone QA
+requested_source_commit=d7f6763a3ee2fa2f7f1f0b152dbf8cd9f2c0387a
+requested_date=2026-10-18
+purpose=notification-exemption-cloud-consent-disabled-revoke-settings
+validation=compilation_and_artifact_only_no_device_or_emulator
