@@ -4,7 +4,7 @@
   "date": "2026-10-18",
   "repo": "latticeward-labs/music-copilot",
   "branch": "feature/5-onboarding-permissions-recovery",
-  "status": "IMPLEMENTED_PENDING_APK_BUILD_OWNER_PHONE_QA_TECHNICAL_VALIDATION_NOT_PASS",
+  "status": "IMPLEMENTED_APK_BUILD_SUCCESS_OWNER_PHONE_QA_PENDING_TECHNICAL_GATES_PENDING_NOT_FULL_PASS",
   "authoritativeSources": [
     "ISSUE_5_PHASED_EXECUTION_PLAN(1).md: P11",
     "MSM2 ADR-0002/0003/0004/0006",
@@ -40,7 +40,7 @@
     "composeInstrumentedExecuted": false,
     "phoneTestCases": 11,
     "phoneTestsReported": 0,
-    "apkOnlyBuild": "NOT_REQUESTED_YET",
+    "apkOnlyBuild": "SUCCESS_assembleDebug_ONLY",
     "deviceEvidence": "PENDING_OWNER_REPORT",
     "nativeEmulatorRun": "NOT_RUN_OWNER_APK_ONLY"
   },
@@ -49,13 +49,20 @@
     "phoneChecklist": "docs/implementation/ISSUE_5_PHASE11_PHONE_QA_CHECKLIST.md",
     "evidenceIndex": "docs/implementation/ISSUE_5_EVIDENCE_INDEX.md",
     "expectedWorkflow": ".github/workflows/issue-5-apk-only.yml",
-    "apkArtifactId": null,
-    "apkRunId": null,
-    "apkBuildSha": null
+    "apkArtifactId": 12149209198,
+    "apkRunId": 39163991680,
+    "apkBuildSha": "629caa6a1a3ebafd676cfa3fa8fb5b808c24de46",
+    "apkArtifactName": "issue5-phone-test-apk-3",
+    "apkArtifactUrl": "https://github.com/latticeward-labs/music-copilot/actions/runs/39163991680/artifacts/12149209198",
+    "apkSha256": "d6f93b5a5860c889ae02357d933c0584b7a40a6c1e1b388a14906bca4c4df978",
+    "apkSizeBytes": 35801124,
+    "apkExpiresAt": "2026-10-25T20:37:19Z",
+    "apkDeliveryZipMaterializedAndHashVerified": true,
+    "supersededInitialRunId": 39163624612
   },
   "acceptance": {
     "codeChangesCommitted": true,
-    "compileVerified": false,
+    "compileVerified": true,
     "ownerPhoneQaVerified": false,
     "privacyNegativeTestsVerified": false,
     "lifecycleRegressionVerified": false,
@@ -65,7 +72,7 @@
     "phase12Started": false
   },
   "limitations": [
-    "Code is committed, but compilation is not asserted until a real GitHub Actions build succeeds.",
+    "APK-only Gradle assembleDebug succeeded at build commit 629caa6a; no JVM/Lint/Android/emulator QA is inferred.",
     "Phone tests must be reported by owner.",
     "No JVM/Lint/instrumented success asserted.",
     "No release or issue closure in P11."
