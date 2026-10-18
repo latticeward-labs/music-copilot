@@ -12,6 +12,13 @@ import com.latticeward.musiccopilot.core.application.permission.VoicePracticeGat
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
 import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.data.api.AppPreferences
+import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
+import com.latticeward.musiccopilot.data.api.PreferenceUpdate
+import com.latticeward.musiccopilot.data.api.PreferencesLoadState
+import com.latticeward.musiccopilot.data.api.PreferencesRepository
+import com.latticeward.musiccopilot.feature.onboarding.FirstUseViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import com.latticeward.musiccopilot.data.api.FirstUsePage
 import com.latticeward.musiccopilot.feature.permission.PermissionViewModel
 import com.latticeward.musiccopilot.quality.api.ConfidenceBucket
@@ -142,6 +149,30 @@ class Issue5Phase11LifecyclePrivacyTest {
         assertEquals(FirstUsePage.SafetyAndVoice, (afterAck as FirstUseState.Education).page)
     }
 
+    @Test fun replayPageSurvivesProcessRecreationWithoutDataStoreWrite() {
+        val saved = SavedStateHandle()
+        var updates = 0
+        val snapshot = MutableStateFlow(AppPreferences(false, null, CloudSpeechConsent.NotAsked))
+        val load = MutableStateFlow(PreferencesLoadState.Ready)
+        val repository = object : PreferencesRepository {
+            override val preferences = snapshot
+            override val loadState = load
+            override suspend fun reload() = AppResult.Success(snapshot.value)
+            override suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences> {
+                updates++
+                return AppResult.Success(snapshot.value)
+            }
+        }
+        val original = FirstUseViewModel(repository, true, saved)
+        original.dispatch(FirstUseEvent.Continue, {}, {})
+        assertEquals(FirstUsePage.SafetyAndVoice,
+            (original.machine as FirstUseState.Education).page)
+        val restored = FirstUseViewModel(repository, true, saved)
+        assertEquals(FirstUsePage.SafetyAndVoice,
+            (restored.machine as FirstUseState.Education).page)
+        assertEquals(0, updates)
+    }
+
     @Test fun telemetryRejectsFakeTitlesTranscriptsPathsBluetoothAndLocation() {
         val gate = AllowlistedTelemetryPrivacyGate()
         val forbidden = listOf(
@@ -184,8 +215,11 @@ class Issue5Phase11LifecyclePrivacyTest {
         assertFalse(manifest.contains("android.permission.INTERNET"))
         assertFalse(manifest.contains("android.permission.POST_NOTIFICATIONS"))
         assertFalse(activity.contains("voiceSessionCoordinator.start("))
-        assertFalse(activity.contains("scanAfterExplicitMediaGrant(")
-            && !activity.contains("private fun continueGrantedScan()"))
+        val resumeOnly = activity.substringAfter("override fun onResume()")
+            .substringBefore("@Composable")
+        assertFalse(resumeOnly.contains("scanAfterExplicitMediaGrant("))
+        assertFalse(resumeOnly.contains("microphoneLauncher.launch("))
+        assertFalse(resumeOnly.contains("requestLauncher.launch("))
         assertFalse(activity.contains("Log.d("))
         assertFalse(quality.contains("printStackTrace("))
     }
