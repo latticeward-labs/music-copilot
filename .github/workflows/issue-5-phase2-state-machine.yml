@@ -1,21 +1,8 @@
 name: Issue 5 Phase 2 - State machine and Android contract CI
 
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
 on:
-  push:
-    branches:
-      - feature/5-onboarding-permissions-recovery
-    paths:
-      - "app/src/main/java/com/latticeward/musiccopilot/core/application/bootstrap/**"
-      - "app/src/main/java/com/latticeward/musiccopilot/core/application/permission/**"
-      - "app/src/main/java/com/latticeward/musiccopilot/data/api/PreferencesRepository.kt"
-      - "app/src/main/java/com/latticeward/musiccopilot/data/datastore/PreferencesDataStore.kt"
-      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase2*Test.kt"
-      - "app/src/test/java/com/latticeward/musiccopilot/foundation/DataQualityContractsTest.kt"
-      - "docs/implementation/ISSUE_5_PHASE2_*"
-      - ".github/workflows/issue-5-phase2-state-machine.yml"
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:

@@ -1,13 +1,9 @@
 name: Issue 5 Phase 7 - Settings recovery and revocation
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
 on:
-  push:
-    branches: [feature/5-onboarding-permissions-recovery]
-    paths:
-      - "app/src/main/**"
-      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase7*"
-      - "scripts/issue5_phase7_*"
-      - ".github/workflows/issue-5-phase7-settings.yml"
   workflow_dispatch:
+
 permissions:
   contents: read
 jobs:

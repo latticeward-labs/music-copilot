@@ -1,12 +1,7 @@
 name: Issue 5 Phase 6 - Permission outcome reducer UI and Android APK
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
 on:
-  push:
-    branches:
-      - feature/5-onboarding-permissions-recovery
-    paths:
-      - "app/src/main/**"
-      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase6*"
-      - ".github/workflows/issue-5-phase6-permission-jvm.yml"
   workflow_dispatch:
 
 permissions:

@@ -1,0 +1,73 @@
+name: "Issue 5 - APK only for physical-phone testing"
+# A fresh APK is built ONLY when the explicit request file changes on the issue
+# branch. Workflow dispatch is reserved for when this file exists on default.
+on:
+  push:
+    branches:
+      - feature/5-onboarding-permissions-recovery
+    paths:
+      - ".github/issue5-apk-request.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue5-apk-only-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-debug-apk:
+    name: "Single Gradle Debug APK - no emulator"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install Android compile SDK
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Compile Android debug APK only
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          mkdir -p app/build/outputs/issue5-apk-delivery
+          sha256sum app/build/outputs/apk/debug/app-debug.apk > app/build/outputs/issue5-apk-delivery/app-debug.apk.sha256
+          {
+            echo "repo=${{ github.repository }}"
+            echo "branch=${{ github.ref_name }}"
+            echo "commit=${{ github.sha }}"
+            echo "run_id=${{ github.run_id }}"
+            echo "run_attempt=${{ github.run_attempt }}"
+            echo "workflow_scope=compile-and-upload-debug-apk-only"
+            echo "device_qa=NOT_RUN_IN_ACTIONS"
+            echo "unit_lint_accessibility_security=NOT_RUN_IN_THIS_JOB"
+          } > app/build/outputs/issue5-apk-delivery/BUILD_PROVENANCE.txt
+          {
+            echo "## Issue #5 — APK-only build"
+            echo "Commit: \`${{ github.sha }}\`"
+            echo "APK: \`app-debug.apk\`"
+            echo "Emulator/device tests: **not run**. Follow the phone QA checklist and record a user-reported result separately."
+          } >> "${GITHUB_STEP_SUMMARY}"
+      - name: Upload APK, SHA256 and build provenance
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-phone-test-apk-${{ github.run_number }}
+          if-no-files-found: error
+          retention-days: 7
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/issue5-apk-delivery/app-debug.apk.sha256
+            app/build/outputs/issue5-apk-delivery/BUILD_PROVENANCE.txt

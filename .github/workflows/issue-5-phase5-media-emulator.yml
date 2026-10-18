@@ -1,14 +1,8 @@
 name: Issue 5 Phase 5 - Android 10 and 13 real audio permission dialog
 
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
 on:
-  push:
-    branches:
-      - feature/5-onboarding-permissions-recovery
-    paths:
-      - "app/src/main/**"
-      - "scripts/issue5_phase5_emulator_ui.py"
-      - "scripts/issue5_phase6_emulator_ui.py"
-      - ".github/workflows/issue-5-phase5-media-emulator.yml"
   workflow_dispatch:
 
 permissions:

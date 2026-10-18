@@ -1,16 +1,8 @@
 name: Issue 5 Phase 3 - Android 10 real first-launch emulator smoke
 
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
 on:
-  push:
-    branches:
-      - feature/5-onboarding-permissions-recovery
-    paths:
-      - "app/src/main/java/com/latticeward/musiccopilot/app/**"
-      - "app/src/main/java/com/latticeward/musiccopilot/data/**"
-      - "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/**"
-      - "app/src/main/res/values/strings.xml"
-      - "scripts/issue5_phase3_emulator_ui.py"
-      - ".github/workflows/issue-5-phase3-api29-emulator.yml"
   workflow_dispatch:
 
 permissions:

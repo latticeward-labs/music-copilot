@@ -1,17 +1,8 @@
 name: Issue 5 Phase 1 - Contract and traceability gate
 
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
 on:
-  push:
-    branches:
-      - feature/5-onboarding-permissions-recovery
-    paths:
-      - "docs/implementation/ISSUE_5_*"
-      - ".github/PULL_REQUEST_TEMPLATE/issue-5-onboarding-permissions-recovery.md"
-      - "scripts/validate_issue5_phase1.py"
-      - ".github/workflows/issue-5-phase1-contract.yml"
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:

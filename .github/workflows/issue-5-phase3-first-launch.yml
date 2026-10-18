@@ -1,22 +1,8 @@
 name: Issue 5 Phase 3 - Bootstrap and first-launch routing
 
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
 on:
-  push:
-    branches:
-      - feature/5-onboarding-permissions-recovery
-    paths:
-      - "app/src/main/java/com/latticeward/musiccopilot/app/**"
-      - "scripts/check_phase10_design_tokens.py"
-      - "app/src/main/java/com/latticeward/musiccopilot/data/**"
-      - "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/**"
-      - "app/src/main/res/values/strings.xml"
-      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase3*Test.kt"
-      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase10ComposeShellTest.kt"
-      - "docs/implementation/ISSUE_5_PHASE3_*"
-      - ".github/workflows/issue-5-phase3-first-launch.yml"
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:

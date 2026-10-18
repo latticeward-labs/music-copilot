@@ -1,13 +1,9 @@
 name: Issue 5 Phase 9 - Optional six-command voice and JIT microphone
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
 on:
-  push:
-    branches: [feature/5-onboarding-permissions-recovery]
-    paths:
-      - "app/src/main/**"
-      - "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase9*"
-      - "scripts/issue5_phase9_*"
-      - ".github/workflows/issue-5-phase9-microphone.yml"
   workflow_dispatch:
+
 permissions:
   contents: read
 jobs:
