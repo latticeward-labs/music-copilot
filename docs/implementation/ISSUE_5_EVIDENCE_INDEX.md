@@ -37,7 +37,7 @@ Each future PASS must record tested commit SHA, run/time, actual test and CI pat
 | P05–P06 | Android-owned media request and Granted/Denied/Permanently Denied native flows | NOT_RUN |
 | P07 | Android Settings/revocation: 3/3 OS-observed API33 outcomes, native grant/revoke, single scan, JVM/recreation | **PASS_SCOPED** — [whole-green run #39020349923](https://github.com/latticeward-labs/music-copilot/actions/runs/39020349923), [native artifact #12096627786](https://github.com/latticeward-labs/music-copilot/actions/runs/39020349923/artifacts/12096627786); restored source/test workflow blob-identical to green commit. |
 | P08 | Library readiness / full scan recovery | NOT_RUN |
-| P09–P10 | Six-command education/JIT microphone and Notification/Cloud STT consent | NOT_RUN |
+| P09–P10 | Six-command education/JIT microphone and Notification/Cloud STT consent | **P09 PASS_SCOPED**; **P10 7/7 OWNER-REPORTED PHONE PASS**, separate technical verification pending |
 | P11–P12 | Rotation/recreation, privacy-negative tests, Compose TalkBack/scaling/contrast | NOT_RUN |
 | P13 | API29/32/33/35 emulator/physical/native Settings and permission QA; sanitized artifact identity | NOT_RUN |
 | P14 | 13/13 actual AC, exact-head green CI, independent review, approved base exception, real PR merge/Issue closure | NOT_RUN |
@@ -95,4 +95,13 @@ P05 **PASS_SCOPED** — [JVM/Lint/APK #38884070402](https://github.com/latticewa
 
 [Implementation and platform audit](ISSUE_5_PHASE10_NOTIFICATION_CLOUD_CONSENT_AUDIT.md) · [Machine status](ISSUE_5_PHASE10_VALIDATION.json) · [Owner phone checklist](ISSUE_5_PHASE10_PHONE_QA_CHECKLIST.md). P10 adds no POST_NOTIFICATIONS request for MediaSession-only playback, no remote STT approval or endpoint; fail-closed privacy gate, DataStore consent revocation in Settings. Kotlin unit tests authored but **not executed** under user's low-cost APK-only / owner-performed phone QA constraint. Source commit and APK artifact to be recorded after separate marker-commit build. **NOT PASS without owner report and remaining technical gates.**
 
-**P10 built APK evidence (18 October 2026):** [APK-only workflow run #39158645552](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552) SUCCESS, source+marker commit `58150070e9ace936eda6d43f4d562903fb784996`, Gradle `assembleDebug` success. [Download owner-phone APK artifact #12147657477](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552/artifacts/12147657477) (ZIP includes app-debug.apk, SHA-256, BUILD_PROVENANCE; 7-day retention). **No emulator or phone test conducted by assistant; owner QA P10-01..07 pending.** Unit tests authored, not run. Formal phase acceptance requires owner report and remaining technical gates. 
+**P10 built APK evidence (18 October 2026):** [APK-only workflow run #39158645552](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552) SUCCESS, source+marker commit `58150070e9ace936eda6d43f4d562903fb784996`, Gradle `assembleDebug` success. [Download owner-phone APK artifact #12147657477](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552/artifacts/12147657477) (ZIP includes app-debug.apk, SHA-256, BUILD_PROVENANCE; 7-day retention). **No emulator or phone test conducted by assistant; owner's later report recorded below.** Unit tests authored, not run. Formal phase acceptance requires owner report and remaining technical gates. 
+
+
+### P10 — Owner-reported physical phone QA, 7/7 PASS (18 October 2026)
+
+**Source:** direct owner report in project chat. Device **HONOR X7d / Android 15**, APK **artifact #12147657477**. The owner explicitly reported **P10-01 PASS, P10-02 PASS, P10-03 PASS, P10-04 PASS, P10-05 PASS, P10-06 PASS, P10-07 PASS** and «همه پاس شد». Count: **7 owner-reported PASS, 0 FAIL, 0 NOT RUN**. See [owner's P10 device report](ISSUE_5_PHASE10_OWNER_PHONE_TEST_REPORT_2026-10-18.md) and [P10 QA checklist](ISSUE_5_PHASE10_PHONE_QA_CHECKLIST.md).
+
+**Evidence quality:** owner self-report, **not independent device attestation**; no screenshots, logcat/dumpsys, local APK SHA-256, installation mode or BUILD_PROVENANCE file were supplied. Conditional audio/rotation/OS toggle substeps were not separately described. [APK build #39158645552](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552) remains build-only; P10 policy JVM tests **authored but NOT RUN**. No API29/32/33+ cross-device evidence is inferred from the owner's Android 15 handset, and there is no approved remote Cloud STT provider to exercise.
+
+**P10 decision:** **PHONE_QA_OWNER_REPORTED_PASS_7_OF_7 / TECHNICAL_GATES_PENDING — NOT FULL PHASE PASS**. Issue #5 remains OPEN; 13 integrated ACs not automatically signed off, P11 untouched.
