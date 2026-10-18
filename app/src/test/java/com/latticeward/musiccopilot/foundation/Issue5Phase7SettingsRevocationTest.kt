@@ -76,7 +76,9 @@ class Issue5Phase7SettingsRevocationTest {
         old.settingsTapped()
         old.onActivityPaused()
         val replacement = PermissionViewModel(saved)
-        assertEquals(MediaPermissionOutcome.None, replacement.ui.value.outcome)
+        // P11 safely restores Settings-only display (not an OS grant or scan right).
+        assertEquals(MediaPermissionOutcome.SettingsOnly, replacement.ui.value.outcome)
+        assertFalse(replacement.takeOneGrantedScan())
         replacement.onReturnFromSettings(obs(true, false))
         assertEquals(MediaPermissionOutcome.Granted, replacement.ui.value.outcome)
         assertTrue(replacement.takeOneGrantedScan())
