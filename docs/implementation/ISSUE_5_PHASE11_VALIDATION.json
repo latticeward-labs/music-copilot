@@ -18,7 +18,8 @@
     "onboarding": "DataStore authoritative original checkpoint; replay page save only in SavedStateHandle",
     "dataProtection": "Typed storage errors, cancellation propagation, deny-by-default telemetry",
     "playbackOwnership": "Media3 service unchanged; UI and process restore never own Player or Queue",
-    "remoteCloudSpeech": "DISABLED_NO_APPROVED_REMOTE_ADAPTER"
+    "remoteCloudSpeech": "DISABLED_NO_APPROVED_REMOTE_ADAPTER",
+    "freshOSForegroundReconciliation": "Fresh OS grant discards restored denied/settings-only presentation unless explicit Settings-return ticket is pending; no auto scan"
   },
   "files": [
     "app/src/main/java/com/latticeward/musiccopilot/feature/permission/PermissionViewModel.kt",
@@ -31,7 +32,7 @@
     "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase7SettingsRevocationTest.kt"
   ],
   "testInventory": {
-    "phase11JvmTestsAuthored": 11,
+    "phase11JvmTestsAuthored": 12,
     "phase11JvmTestsExecuted": false,
     "priorP10JvmExecuted": false,
     "staticArchitectureExecuted": false,
