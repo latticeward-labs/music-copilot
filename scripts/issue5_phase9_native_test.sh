@@ -47,7 +47,8 @@ adb exec-out screencap -p > "$OUT/denied_manual_fallback.png"
 tap_app 'Not now — use manual controls'
 tap_app 'Practice Voice'
 tap_app 'Continue to microphone permission'
-python3 scripts/issue5_phase6_emulator_ui.py system-allow
+adb exec-out screencap -p > "$OUT/native_android_microphone_allow_dialog.png"
+python3 scripts/issue5_phase9_microphone_allow.py
 adb shell dumpsys package "$APK" > "$OUT/granted_mic_truth.txt"
 grep -Fq "$MIC: granted=true" "$OUT/granted_mic_truth.txt"
 python3 scripts/issue5_phase6_emulator_ui.py app 'Optional microphone access'
