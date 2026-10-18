@@ -159,6 +159,21 @@ class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel(
     }
 
     /**
+     * P11: a recovered Denied/Settings-only UI is display state, not OS truth.
+     * If a fresh foreground OS read is now Granted and no Settings-return ticket
+     * is pending, discard the stale denial. Do NOT create a scan authorization;
+     * the user still chooses a new explicit Scan/Rescan action.
+     */
+    fun reconcileFreshAndroidGrant(granted: Boolean) {
+        if (granted && !settingsHandoff && mutableUi.value.outcome in listOf(
+                MediaPermissionOutcome.DeniedRequestable, MediaPermissionOutcome.SettingsOnly,
+            )) {
+            scanAuthorized = false
+            publish(MediaRequestUiState())
+        }
+    }
+
+    /**
      * The OS revoked a grant while this app was away or in use. Never keep an
      * optimistic "granted" result or an authorized scan across the revocation.
      */
