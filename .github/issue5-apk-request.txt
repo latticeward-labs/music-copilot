@@ -1,6 +1,7 @@
-Issue #5 / P11 — APK-only build for owner physical-phone lifecycle/privacy QA
-requested_source_commit=d1dfdadaf1bcdb7804e02c7667204b33b6d7fef0
+Issue #5 / P11 — FINAL corrected APK-only build for owner physical-phone lifecycle/privacy QA
+requested_source_commit=a12173a2f74fa040782a16e59c78f0b2b4c02717
 requested_date=2026-10-18
-purpose=p11-lifecycle-permission-result-replay-recovery-privacy-no-autolaunch
+purpose=p11-lifecycle-safe-permission-result-fresh-OS-grant-reconciliation-education-replay-privacy
 validation=assembleDebug_and_artifact_only_no_device_emulator_jvm_lint_tests
+supersedes_run=39163624612
 owner_device=HONOR_X7d_Android15
