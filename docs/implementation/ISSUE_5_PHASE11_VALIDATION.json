@@ -1,0 +1,72 @@
+{
+  "issue": 5,
+  "phase": "P11",
+  "date": "2026-10-18",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "status": "IMPLEMENTED_PENDING_APK_BUILD_OWNER_PHONE_QA_TECHNICAL_VALIDATION_NOT_PASS",
+  "authoritativeSources": [
+    "ISSUE_5_PHASED_EXECUTION_PLAN(1).md: P11",
+    "MSM2 ADR-0002/0003/0004/0006",
+    "Issue #5/approved P00-P10 architecture contracts"
+  ],
+  "implementation": {
+    "permissionPresentation": "Safe denial/Settings-only saved in SavedStateHandle; never persist grant or one-shot scan authorization",
+    "settingsReturn": "Requires explicit Settings ticket and fresh OS permission observation",
+    "nativeRequests": "Native ActivityResult tickets restored without re-launch; no onResume auto-requests",
+    "voicePractice": "Rationale and bounded UI outcome recover; ready provider not restored; no auto capture",
+    "onboarding": "DataStore authoritative original checkpoint; replay page save only in SavedStateHandle",
+    "dataProtection": "Typed storage errors, cancellation propagation, deny-by-default telemetry",
+    "playbackOwnership": "Media3 service unchanged; UI and process restore never own Player or Queue",
+    "remoteCloudSpeech": "DISABLED_NO_APPROVED_REMOTE_ADAPTER"
+  },
+  "files": [
+    "app/src/main/java/com/latticeward/musiccopilot/feature/permission/PermissionViewModel.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/core/application/permission/VoicePracticeGate.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseViewModel.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/di/DataBindings.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/quality/adapters/BestEffortQualityEventPublisher.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase11LifecyclePrivacyTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase7SettingsRevocationTest.kt"
+  ],
+  "testInventory": {
+    "phase11JvmTestsAuthored": 11,
+    "phase11JvmTestsExecuted": false,
+    "priorP10JvmExecuted": false,
+    "staticArchitectureExecuted": false,
+    "staticPrivacyExecuted": false,
+    "composeInstrumentedExecuted": false,
+    "phoneTestCases": 11,
+    "phoneTestsReported": 0,
+    "apkOnlyBuild": "NOT_REQUESTED_YET",
+    "deviceEvidence": "PENDING_OWNER_REPORT",
+    "nativeEmulatorRun": "NOT_RUN_OWNER_APK_ONLY"
+  },
+  "artifacts": {
+    "audit": "docs/implementation/ISSUE_5_PHASE11_LIFECYCLE_PRIVACY_AUDIT.md",
+    "phoneChecklist": "docs/implementation/ISSUE_5_PHASE11_PHONE_QA_CHECKLIST.md",
+    "evidenceIndex": "docs/implementation/ISSUE_5_EVIDENCE_INDEX.md",
+    "expectedWorkflow": ".github/workflows/issue-5-apk-only.yml",
+    "apkArtifactId": null,
+    "apkRunId": null,
+    "apkBuildSha": null
+  },
+  "acceptance": {
+    "codeChangesCommitted": true,
+    "compileVerified": false,
+    "ownerPhoneQaVerified": false,
+    "privacyNegativeTestsVerified": false,
+    "lifecycleRegressionVerified": false,
+    "phase11PASS": false,
+    "originalIssue13AcceptanceSignedOff": false,
+    "parentIssueOpen": true,
+    "phase12Started": false
+  },
+  "limitations": [
+    "Code is committed, but compilation is not asserted until a real GitHub Actions build succeeds.",
+    "Phone tests must be reported by owner.",
+    "No JVM/Lint/instrumented success asserted.",
+    "No release or issue closure in P11."
+  ]
+}
