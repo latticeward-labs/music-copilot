@@ -40,13 +40,17 @@
 
 [Owner's physical phone checklist](ISSUE_5_PHASE11_PHONE_QA_CHECKLIST.md) requires the owner to install the exact new P11 APK and return each test ID with PASS/FAIL/NOT RUN. Do not infer undocumented conditional substeps from a blanket PASS. Record owner self-report separately from actual logs/screenshots.
 
-**Current P11 acceptance:** `IMPLEMENTED_PENDING_APK_BUILD_AND_OWNER_PHONE_QA_AND_TECHNICAL_GATES` until CI status and owner's report are recorded. A future APK-only SUCCESS and 11/11 reported phone PASS would **not** prove required JVM, negative policy regressions, automated access, cross-API matrix or P12/P13/P14 governance automatically. Issue #5 must remain OPEN; no merge and no reset of existing P10 outstanding technical gates.
+**Current P11 acceptance:** `IMPLEMENTED_APK_BUILD_SUCCESS_OWNER_PHONE_QA_PENDING_TECHNICAL_GATES_PENDING_NOT_FULL_PASS`. The exact-source APK-only run succeeded, but the owner's phone tests and technical gates are not yet verified. A future APK-only SUCCESS and 11/11 reported phone PASS would **not** prove required JVM, negative policy regressions, automated access, cross-API matrix or P12/P13/P14 governance automatically. Issue #5 must remain OPEN; no merge and no reset of existing P10 outstanding technical gates.
 
 ## Remaining gates
 
-- Exact-source Gradle compilation / debug APK: pending at initial authoring.
+- Exact-source Gradle compilation / debug APK: **SUCCESS**, [final P11 APK-only run #39163991680](https://github.com/latticeward-labs/music-copilot/actions/runs/39163991680), final build SHA `629caa6a1a3ebafd676cfa3fa8fb5b808c24de46`, [artifact #12149209198](https://github.com/latticeward-labs/music-copilot/actions/runs/39163991680/artifacts/12149209198), `BUILD SUCCESSFUL`. APK SHA-256 verified as `d6f93b5a5860c889ae02357d933c0584b7a40a6c1e1b388a14906bca4c4df978` (35,801,124 bytes). Earlier successful P11 run #39163624612 predates the fresh-OS UI guard and was superseded; do not deliver it.
 - Owner physical phone P11 manual tests: pending at initial authoring.
 - P11 local Kotlin/JVM lifecycle/privacy tests: authored, **NOT RUN**.
 - Privacy/architecture static checks and relevant regressions on final code: **NOT RUN** here.
 - API29/31/33/35+ native matrix, Compose automated accessibility/permission focus: P12/P13, not substituted by a single device.
 - Issue #5 original 13 integrated acceptance criteria / review / final merge: P14, not waived.
+
+### Final APK provenance (18 October 2026)
+
+GitHub job `117782995317`, run `39163991680`, final marker SHA `629caa6a1a3ebafd676cfa3fa8fb5b808c24de46`, artifact `12149209198`, `issue5-phone-test-apk-3` (expires 25 October 2026). Log confirms `BUILD SUCCESSFUL` and upload. Artifact downloaded, ZIP inspected, `app-debug.apk` byte hash matches provided SHA-256 `d6f93b5a5860c889ae02357d933c0584b7a40a6c1e1b388a14906bca4c4df978`. **Exactly an APK compilation check**, not JVM/Lint/Privacy static/instrumentation or owner/device QA.
