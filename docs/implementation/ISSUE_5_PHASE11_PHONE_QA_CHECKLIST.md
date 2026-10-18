@@ -4,8 +4,8 @@
 
 ## Before testing
 
-1. Download the **P11-specific** GitHub Actions artifact announced in Issue #5, not the older P10 #12147657477.
-2. Verify `app-debug.apk`, `app-debug.apk.sha256` and `BUILD_PROVENANCE.txt` inside the ZIP if feasible. Report artifact ID, commit and whether this is an update/clean install. **Do not clear app data** for persistence tests.
+1. Download the final [artifact #12149209198](https://github.com/latticeward-labs/music-copilot/actions/runs/39163991680/artifacts/12149209198) from [final P11 APK-only run #39163991680](https://github.com/latticeward-labs/music-copilot/actions/runs/39163991680) (build SHA `629caa6a1a3ebafd676cfa3fa8fb5b808c24de46`), not the superseded P11 run #39163624612 or the older P10 artifact #12147657477.
+2. Verify `app-debug.apk`, `app-debug.apk.sha256` and `BUILD_PROVENANCE.txt` inside the ZIP if feasible. Expected APK SHA-256: `d6f93b5a5860c889ae02357d933c0584b7a40a6c1e1b388a14906bca4c4df978` (the downloaded GitHub artifact was independently hash-checked after extraction). Report artifact ID, commit and whether this is an update/clean install. **Do not clear app data** for persistence tests.
 3. Use only personal phone test observations. No raw audio, speech transcript, media titles, path/URI, Bluetooth address, account data or exact location in screenshots/logs.
 4. If a test depends on already-granted permission, an OEM option, an available voice provider or screen rotation, say **NOT RUN / NOT TESTABLE** for that subcase rather than assuming PASS.
 
