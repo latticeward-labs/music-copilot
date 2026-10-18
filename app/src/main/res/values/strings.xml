@@ -51,7 +51,6 @@
     <string name="p09_language_unsupported">The requested voice language is not supported by this provider. Microphone permission does not fix language support. Use manual controls.</string>
     <string name="p09_cloud_consent_declined">Cloud speech consent was not provided. No remote recognition will start. Manual controls remain available.</string>
     <string name="p09_manual_only">Not now — use manual controls</string>
-    <string name="first_use_practice_deferred">Practice Voice checks microphone and on-device provider readiness after your confirmation. It never starts recording automatically.</string>
     <string name="first_use_finish_without_voice">Finish without Voice</string>
     <string name="first_use_page_one_a11y">Page 1 of 2</string>
     <string name="first_use_page_two_a11y">Page 2 of 2</string>
