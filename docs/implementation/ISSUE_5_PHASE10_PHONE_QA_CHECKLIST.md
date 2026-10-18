@@ -3,6 +3,8 @@
 **APK ONLY**. Testing is performed on the owner's phone and will be recorded only after the user sends actual results. No emulator/native test is authorized in this phase. Never infer a PASS from APK compilation.
 
 App: `latticeward-labs/music-copilot`, `feature/5-onboarding-permissions-recovery`.
+
+**Exact delivery:** [download APK artifact #12147657477](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552/artifacts/12147657477). ZIP contains `app-debug.apk`, `app-debug.apk.sha256`, and `BUILD_PROVENANCE.txt`. Successful build SHA `58150070e9ace936eda6d43f4d562903fb784996`. The artifact expires on 25 October 2026.
 Device expected from previous QA: HONOR X7d, Android 15, **must be reconfirmed by owner**.
 Install the exact APK from the P10 GitHub Actions artifact; record its `BUILD_PROVENANCE.txt`, artifact ID and SHA-256.
 

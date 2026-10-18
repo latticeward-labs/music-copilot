@@ -22,6 +22,6 @@ No new cloud endpoint, Internet permission, backend, identity, recording, VoiceS
 ## Acceptance
 
 - Policy unit tests: API29..36 no superfluous prompt; hypothetical non-exempt contextual gate; every remote fail-closed reason, negative source wiring and local revoke/persistence integration.
-- APK-only GitHub workflow builds the debug APK. **NO native/emulator test performed by assistant** per user instruction.
+- **APK build SUCCESS**: [Actions #39158645552](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552), commit `58150070e9ace936eda6d43f4d562903fb784996`, job `Single Gradle Debug APK - no emulator`; real Gradle `assembleDebug` printed `BUILD SUCCESSFUL`. [Artifact #12147657477](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552/artifacts/12147657477) contains `app-debug.apk`, SHA-256 and `BUILD_PROVENANCE.txt`, 7-day retention until 25 October 2026. **NO native/emulator test performed by assistant** per user instruction.
 - Owner physical QA [checklist](ISSUE_5_PHASE10_PHONE_QA_CHECKLIST.md) is required before declaring device/manual PASS.
-- P10 status: **IMPLEMENTED / BUILD PENDING / OWNER PHONE QA PENDING**. No Phase 11 changes; original Issue #5 remains OPEN.
+- P10 status: **IMPLEMENTED / APK BUILD SUCCESS / OWNER PHONE QA PENDING (NOT FULL PASS)**. No Phase 11 changes; original Issue #5 remains OPEN.

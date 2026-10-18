@@ -3,7 +3,7 @@
   "phase": "P10",
   "repo": "latticeward-labs/music-copilot",
   "branch": "feature/5-onboarding-permissions-recovery",
-  "status": "IMPLEMENTED_BUILD_PENDING_OWNER_PHONE_QA_PENDING",
+  "status": "IMPLEMENTED_APK_BUILD_PASS_PHONE_QA_PENDING_NOT_PASS",
   "scope": "MediaSession exempt notification and fail-closed local Cloud STT consent",
   "permission": {
     "api29_32": "no POST_NOTIFICATIONS runtime concept",
@@ -26,8 +26,18 @@
   "deviceEvidence": "PENDING_OWNER_REPORT",
   "apkWorkflow": ".github/workflows/issue-5-apk-only.yml",
   "apkArtifact": null,
-  "jvmUnitResult": "NOT_RUN_APK_ONLY_REQUEST",
-  "nativeDeviceResult": "NOT_RUN_OWNER_WILL_TEST",
+  "jvmUnitResult": "AUTHORED_NOT_RUN_LOW_COST_OWNER_APK_ONLY",
+  "nativeDeviceResult": "PENDING_OWNER_PHONE_TEST_REPORT",
   "parentIssueOpen": true,
-  "p11Started": false
+  "p11Started": false,
+  "implementation_commit": "d7f6763a3ee2fa2f7f1f0b152dbf8cd9f2c0387a",
+  "apkRequestCommit": "58150070e9ace936eda6d43f4d562903fb784996",
+  "apkWorkflowRunId": 39158645552,
+  "apkArtifactId": 12147657477,
+  "apkArtifactUrl": "https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552/artifacts/12147657477",
+  "apkArtifactName": "issue5-phone-test-apk-1",
+  "apkBuildStatus": "SUCCESS_assembleDebug_ONLY",
+  "apkArtifactExpiration": "2026-10-25T19:26:44Z",
+  "phoneOwnerReported": false,
+  "issueWideAccepted": false
 }
