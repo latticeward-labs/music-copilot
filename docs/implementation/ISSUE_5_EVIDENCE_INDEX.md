@@ -38,7 +38,7 @@ Each future PASS must record tested commit SHA, run/time, actual test and CI pat
 | P07 | Android Settings/revocation: 3/3 OS-observed API33 outcomes, native grant/revoke, single scan, JVM/recreation | **PASS_SCOPED** — [whole-green run #39020349923](https://github.com/latticeward-labs/music-copilot/actions/runs/39020349923), [native artifact #12096627786](https://github.com/latticeward-labs/music-copilot/actions/runs/39020349923/artifacts/12096627786); restored source/test workflow blob-identical to green commit. |
 | P08 | Library readiness / full scan recovery | NOT_RUN |
 | P09–P10 | Six-command education/JIT microphone and Notification/Cloud STT consent | **P09 PASS_SCOPED**; **P10 7/7 OWNER-REPORTED PHONE PASS**, separate technical verification pending |
-| P11–P12 | Rotation/recreation, privacy-negative tests, Compose TalkBack/scaling/contrast | NOT_RUN |
+| P11–P12 | Rotation/recreation, privacy-negative tests, Compose TalkBack/scaling/contrast | **P11 IMPLEMENTED / 11 JVM TESTS AUTHORED BUT NOT RUN / PHONE QA PENDING**; P12 NOT_STARTED |
 | P13 | API29/32/33/35 emulator/physical/native Settings and permission QA; sanitized artifact identity | NOT_RUN |
 | P14 | 13/13 actual AC, exact-head green CI, independent review, approved base exception, real PR merge/Issue closure | NOT_RUN |
 
@@ -105,3 +105,16 @@ P05 **PASS_SCOPED** — [JVM/Lint/APK #38884070402](https://github.com/latticewa
 **Evidence quality:** owner self-report, **not independent device attestation**; no screenshots, logcat/dumpsys, local APK SHA-256, installation mode or BUILD_PROVENANCE file were supplied. Conditional audio/rotation/OS toggle substeps were not separately described. [APK build #39158645552](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552) remains build-only; P10 policy JVM tests **authored but NOT RUN**. No API29/32/33+ cross-device evidence is inferred from the owner's Android 15 handset, and there is no approved remote Cloud STT provider to exercise.
 
 **P10 decision:** **PHONE_QA_OWNER_REPORTED_PASS_7_OF_7 / TECHNICAL_GATES_PENDING — NOT FULL PHASE PASS**. Issue #5 remains OPEN; 13 integrated ACs not automatically signed off, P11 untouched.
+
+
+### P11 — Lifecycle, persistence and privacy implementation (18 October 2026)
+
+**Implementation recorded on `feature/5-onboarding-permissions-recovery`.** [P11 audit](ISSUE_5_PHASE11_LIFECYCLE_PRIVACY_AUDIT.md) · [P11 machine ledger](ISSUE_5_PHASE11_VALIDATION.json) · [owner's phone checklist](ISSUE_5_PHASE11_PHONE_QA_CHECKLIST.md).
+
+- **Permission UI restore:** Denied/SettingsOnly only in SavedStateHandle; OS permission and one-use scan authorization are never persisted. Existing Settings ticket restores without auto-launch, rechecks actual Android grant on return. A killed process does not restore a stale Granted UI as scan permission.
+- **Mic/voice UI restore:** rationale/harmless terminal feedback and Android's already-pending ActivityResult are restored conservatively. ReadyForVoiceHandoff is not restored, no automatic capture, cloud access or second Android prompt.
+- **First use/replay:** DataStore ACKed initial checkpoint remains authoritative; read-only Replay retains its page in SavedStateHandle without a DataStore update or extra onboarding slide.
+- **Cancellation/privacy:** storage validation and quality event publisher rethrow CancellationException; no raw failure strings exposed. Existing typed/NoOp telemetry remains deny-by-default; P11 negative fixtures cover synthetic song/voice/path/URI/device/Bluetooth/location/permission-result strings.
+- **Authored:** `Issue5Phase11LifecyclePrivacyTest.kt`, **11 JVM tests**, plus updated P07 restoration expectation. **NOT EXECUTED** under current owner-requested APK-only cost protocol; no automatic JVM/Lint/Detekt/static/a11y/emulator runs or success inferred. P11 phone cases P11-01..11 **NOT RUN/PENDING OWNER REPORT** as of this record.
+
+**P11 STATUS:** `IMPLEMENTED / APK BUILD PENDING / OWNER-PHONE-QA PENDING / TECHNICAL VALIDATION PENDING — NOT FULL PASS`. The already owner-reported P10 7/7 PASS is preserved separately. P11 work does not close P10's pending JVM gates or satisfy the 13 issue-wide ACs; Issue #5 stays OPEN and P12 not started.
