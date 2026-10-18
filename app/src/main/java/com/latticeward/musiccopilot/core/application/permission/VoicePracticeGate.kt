@@ -102,6 +102,26 @@ class VoicePracticeGate(private val api: Int = 33) {
         stage = VoicePracticeStage.AwaitingAndroid
     }
 
+    /**
+     * P11: restore harmless education presentation, never a native permission
+     * capability or executable Voice handoff. A rationale remains user-driven.
+     * AwaitingAndroid is restored ONLY through the ActivityResult ticket.
+     */
+    fun restorePresentation(savedStageName: String?) {
+        if (awaitingAndroidResult) return
+        when (savedStageName) {
+            VoicePracticeStage.Rationale.name -> practiceTapped()
+            VoicePracticeStage.PermissionDenied.name -> stage = VoicePracticeStage.PermissionDenied
+            VoicePracticeStage.ProviderUnavailable.name -> stage = VoicePracticeStage.ProviderUnavailable
+            VoicePracticeStage.LanguageUnsupported.name -> stage = VoicePracticeStage.LanguageUnsupported
+            VoicePracticeStage.CloudConsentDeclined.name -> stage = VoicePracticeStage.CloudConsentDeclined
+            else -> {
+                permissionFlow = null
+                stage = VoicePracticeStage.Idle
+            }
+        }
+    }
+
     fun recheck(freshAndroidGrant: Boolean) {
         if (!freshAndroidGrant && stage == VoicePracticeStage.ReadyForVoiceHandoff) {
             permissionFlow = null
