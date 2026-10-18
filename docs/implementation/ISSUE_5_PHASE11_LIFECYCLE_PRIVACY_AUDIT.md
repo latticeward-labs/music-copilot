@@ -21,15 +21,16 @@
 
 1. UI-only preference checkpoints are never grants. `SavedStateHandle` stores denied/settings-only display outcomes, attempted flag and UI-only explanation; it does not store the one-shot `scanAuthorized` state. The OS is authoritative.
 2. After a killed process, a previously shown `Granted` UI projection restores to the **safe rationale** rather than a stale Continue that could try a forbidden scan. A new explicit Continue and fresh OS check are required to restore the one-use scan authorization.
-3. A previously offered Settings-only recovery screen restores as a **non-authoritative presentation**. Settings return classification needs a prior explicit Settings tap, observed activity departure and fresh Android permission observation, then a single explicit Continue. Duplicate return is ignored.
-4. A native microphone request interrupted by Activity recreation restores only its pending Android Result ticket. A saved `ReadyForVoiceHandoff` is discarded; rationale restores as a non-launching screen. Neither rotation nor resume starts actual capture or remote STT.
-5. Normal onboarding completion/checkpoint remains **DataStore ACK-owned**. A read-only two-page Education Replay may restore its page without DataStore mutation. No UI owns Media3 playback/queue or persistent VoiceSession.
-6. When Android revokes media access, `onMediaAccessRevoked()` invalidates the derived library projection and cancels active scan. No stale Ready/Playing can be synthesized from a SavedStateHandle.
-7. CancellationException is propagated from blocking storage validation and diagnostic publishing. Raw exception text is not logged/shown; errors use the existing recoverable state and typed `AppError` contracts.
+3. A fresh foreground Android grant invalidates a stale restored denial/Settings-only screen when there is no active Settings ticket; this only clears UI, **never** auto-scans or marks a blocked action authorized.
+4. A previously offered Settings-only recovery screen restores as a **non-authoritative presentation**. Settings return classification needs a prior explicit Settings tap, observed activity departure and fresh Android permission observation, then a single explicit Continue. Duplicate return is ignored.
+5. A native microphone request interrupted by Activity recreation restores only its pending Android Result ticket. A saved `ReadyForVoiceHandoff` is discarded; rationale restores as a non-launching screen. Neither rotation nor resume starts actual capture or remote STT.
+6. Normal onboarding completion/checkpoint remains **DataStore ACK-owned**. A read-only two-page Education Replay may restore its page without DataStore mutation. No UI owns Media3 playback/queue or persistent VoiceSession.
+7. When Android revokes media access, `onMediaAccessRevoked()` invalidates the derived library projection and cancels active scan. No stale Ready/Playing can be synthesized from a SavedStateHandle.
+8. CancellationException is propagated from blocking storage validation and diagnostic publishing. Raw exception text is not logged/shown; errors use the existing recoverable state and typed `AppError` contracts.
 
 ## Evidence and testing (never infer results)
 
-**Authored test suite:** `app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase11LifecyclePrivacyTest.kt`, including restore-denial, post-process one-use authorization, Settings return, manual cancel, Voice rationale/pending/unknown restored stage, first-run DataStore checkpoint, read-only Replay restoration, negative synthetic telemetry payloads, static no-auto-launch and cancellation guards. P07 historical restoration expectation was updated to reflect safer P11 denied/settings screen projection without persisting a grant.
+**Authored test suite:** `app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase11LifecyclePrivacyTest.kt`, including restore-denial, stale-denial fresh-OS reconciliation, post-process one-use authorization, Settings return, manual cancel, Voice rationale/pending/unknown restored stage, first-run DataStore checkpoint, read-only Replay restoration, negative synthetic telemetry payloads, static no-auto-launch and cancellation guards. P07 historical restoration expectation was updated to reflect safer P11 denied/settings screen projection without persisting a grant.
 
 **Existing regression:** P07/P09 permission/Voice native and JVM suites, P08 scan and root architecture checks. These were previously evidenced per phase but are **NOT re-executed by P11 documentation or APK-only build**.
 
