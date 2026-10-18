@@ -22,3 +22,10 @@ Install the exact APK from the P10 GitHub Actions artifact; record its `BUILD_PR
 
 **Report template:** `Device / Android version / APK artifact ID / install update or clean / P10-01..07 PASS, FAIL or NOT RUN + observed difference / screenshots if safe`.
 After reporting, results will be entered in Issue #5 and Evidence Index with attribution **owner-reported physical phone**. No AI-generated device attestation or invented PASS.
+
+
+## Reported execution results — 18 October 2026
+
+**Owner-reported** physical Android testing, device **HONOR X7d / Android 15**, APK artifact **#12147657477**: `P10-01 PASS`, `P10-02 PASS`, `P10-03 PASS`, `P10-04 PASS`, `P10-05 PASS`, `P10-06 PASS`, `P10-07 PASS`. Owner note: «همه پاس شد». **7/7 reported PASS, 0 FAIL, 0 NOT RUN.**
+
+See [attributed report](ISSUE_5_PHASE10_OWNER_PHONE_TEST_REPORT_2026-10-18.md). **No independent device observations/screenshots or APK hash were supplied**. Exact installation mode, conditional playback audio continuity and rotation support were not separately described. P10 JVM policy tests remain authored but unexecuted in the APK-only build. Physical-phone owner QA accepted as **self-report**, not full phase/device matrix sign-off.
