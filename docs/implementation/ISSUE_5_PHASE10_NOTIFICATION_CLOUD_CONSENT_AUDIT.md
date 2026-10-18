@@ -23,5 +23,10 @@ No new cloud endpoint, Internet permission, backend, identity, recording, VoiceS
 
 - Policy unit tests: API29..36 no superfluous prompt; hypothetical non-exempt contextual gate; every remote fail-closed reason, negative source wiring and local revoke/persistence integration.
 - **APK build SUCCESS**: [Actions #39158645552](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552), commit `58150070e9ace936eda6d43f4d562903fb784996`, job `Single Gradle Debug APK - no emulator`; real Gradle `assembleDebug` printed `BUILD SUCCESSFUL`. [Artifact #12147657477](https://github.com/latticeward-labs/music-copilot/actions/runs/39158645552/artifacts/12147657477) contains `app-debug.apk`, SHA-256 and `BUILD_PROVENANCE.txt`, 7-day retention until 25 October 2026. **NO native/emulator test performed by assistant** per user instruction.
-- Owner physical QA [checklist](ISSUE_5_PHASE10_PHONE_QA_CHECKLIST.md) is required before declaring device/manual PASS.
-- P10 status: **IMPLEMENTED / APK BUILD SUCCESS / OWNER PHONE QA PENDING (NOT FULL PASS)**. No Phase 11 changes; original Issue #5 remains OPEN.
+- Owner physical QA [checklist](ISSUE_5_PHASE10_PHONE_QA_CHECKLIST.md): **7/7 test-level PASS reported by the owner on HONOR X7d / Android 15** on 18 October 2026. See [attributed report](ISSUE_5_PHASE10_OWNER_PHONE_TEST_REPORT_2026-10-18.md). This is self-reported, not independently device-observed.
+- P10 status: **IMPLEMENTED / APK BUILD SUCCESS / OWNER PHONE QA SELF-REPORTED 7/7 PASS / TECHNICAL VERIFICATION PENDING (NOT FULL PHASE PASS)**. No Phase 11 changes; original Issue #5 remains OPEN.
+
+
+### Owner physical phone report (18 October 2026)
+
+Owner explicitly submitted P10-01..P10-07 **PASS** on HONOR X7d / Android 15 against APK artifact #12147657477, noting «همه پاس شد». No FAIL or NOT RUN test ID. Recorded in [P10 owner report](ISSUE_5_PHASE10_OWNER_PHONE_TEST_REPORT_2026-10-18.md) and [Evidence Index](ISSUE_5_EVIDENCE_INDEX.md). No screenshots, APK local hash, Android logs or independently confirmed playback continuity accompanied the report. The APK-only workflow did not execute authored policy JVM tests. **No full phase or Issue #5 closeout claim**; P11 not started.
