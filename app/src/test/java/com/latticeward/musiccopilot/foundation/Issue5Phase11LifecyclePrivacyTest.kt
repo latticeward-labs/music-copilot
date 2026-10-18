@@ -83,6 +83,19 @@ class Issue5Phase11LifecyclePrivacyTest {
         assertFalse(saved.keys().any { it.contains("grant", ignoreCase = true) })
     }
 
+    @Test fun freshOsGrantClearsRecoveredStaleDenialWithoutAutoScan() {
+        val saved = SavedStateHandle()
+        val original = PermissionViewModel(saved)
+        original.requestStarting()
+        original.nativeResult(observe(false, true), BlockedAction.None)
+        val replacement = PermissionViewModel(saved)
+        assertEquals(MediaPermissionOutcome.DeniedRequestable, replacement.ui.value.outcome)
+        replacement.reconcileFreshAndroidGrant(true)
+        assertEquals(MediaPermissionOutcome.None, replacement.ui.value.outcome)
+        assertFalse(replacement.takeOneGrantedScan())
+        assertEquals(MediaPermissionOutcome.None, PermissionViewModel(saved).ui.value.outcome)
+    }
+
     @Test fun cancellationAndManualExitDiscardPermissionPresentation() {
         val saved = SavedStateHandle()
         val vm = PermissionViewModel(saved)
