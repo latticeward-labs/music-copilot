@@ -17,6 +17,9 @@ tap_app() {
   if python3 scripts/issue5_phase6_emulator_ui.py tap "$1"; then return 0; fi
   # Long approved second slide is vertically scrollable at large font sizes.
   adb shell input swipe 500 1500 500 380 540
+  if python3 scripts/issue5_phase6_emulator_ui.py tap "$1"; then return 0; fi
+  # Top-bar Skip and Back require upward recovery after long command examples.
+  adb shell input swipe 500 350 500 1650 540
   python3 scripts/issue5_phase6_emulator_ui.py tap "$1"
 }
 adb uninstall "$APK" >/dev/null 2>&1 || true
@@ -31,7 +34,8 @@ adb shell dumpsys package "$APK" > "$OUT/voice_slide_no_mic.txt"
 ! grep -Fq "$MIC: granted=true" "$OUT/voice_slide_no_mic.txt"
 tap_app 'Practice Voice'
 python3 scripts/issue5_phase6_emulator_ui.py app 'Optional microphone access'
-python3 scripts/issue5_phase6_emulator_ui.py app 'Continue to microphone permission'
+# The rationale action is below six examples on the scrollable second slide.
+# tap_app first proves the actual UI label before pressing it; no assumed grant.
 adb shell dumpsys package "$APK" > "$OUT/rationale_no_mic.txt"
 ! grep -Fq "$MIC: granted=true" "$OUT/rationale_no_mic.txt"
 tap_app 'Continue to microphone permission'
