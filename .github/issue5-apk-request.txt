@@ -1,5 +1,6 @@
-Issue #5 / P10 — APK-only build for owner physical-phone QA
-requested_source_commit=d7f6763a3ee2fa2f7f1f0b152dbf8cd9f2c0387a
+Issue #5 / P11 — APK-only build for owner physical-phone lifecycle/privacy QA
+requested_source_commit=d1dfdadaf1bcdb7804e02c7667204b33b6d7fef0
 requested_date=2026-10-18
-purpose=notification-exemption-cloud-consent-disabled-revoke-settings
-validation=compilation_and_artifact_only_no_device_or_emulator
+purpose=p11-lifecycle-permission-result-replay-recovery-privacy-no-autolaunch
+validation=assembleDebug_and_artifact_only_no_device_emulator_jvm_lint_tests
+owner_device=HONOR_X7d_Android15
