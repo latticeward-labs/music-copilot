@@ -1,8 +1,8 @@
 {
   "issue": 5,
   "phase": "P09",
-  "status": "IMPLEMENTED_VALIDATION_BLOCKED_NOT_PASS",
-  "as_of": "2026-10-17",
+  "status": "PASS_SCOPED_WHOLE_GREEN_JVM_AND_ANDROID13",
+  "as_of": "2026-10-18",
   "source_contract": {
     "execution_plan_sha256": "32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f",
     "msm2_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -16,14 +16,14 @@
     ]
   },
   "acceptance_gates": {
-    "exact_six_approved_commands": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
-    "skip_onboarding_driving_entry_no_mic_request_or_capture": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
-    "explicit_practice_then_rationale_then_android_record_audio": "IMPLEMENTED_NATIVE_TEST_AUTHORED_UNVERIFIED",
-    "os_truth_after_permission_and_one_use_handoff": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
-    "denied_provider_unavailable_language_unsupported_cloud_declined_distinct": "IMPLEMENTED_PURE_FAKE_TEST_AUTHORED_UNVERIFIED",
-    "all_outcomes_manual_fallback": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
-    "no_voice_session_or_playback_before_gate": "IMPLEMENTED_TEST_AUTHORED_UNVERIFIED",
-    "p04_earlier_ui_non_regression": "PENDING_CI"
+    "exact_six_approved_commands": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "skip_onboarding_driving_entry_no_mic_request_or_capture": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "explicit_practice_then_rationale_then_android_record_audio": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "os_truth_after_permission_and_one_use_handoff": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "denied_provider_unavailable_language_unsupported_cloud_declined_distinct": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "all_outcomes_manual_fallback": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "no_voice_session_or_playback_before_gate": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "p04_earlier_ui_non_regression": "PASS_SCOPED_VERIFIED_REAL_CI"
   },
   "implementation_files": [
     "app/src/main/java/com/latticeward/musiccopilot/core/application/permission/VoicePracticeGate.kt",
@@ -64,10 +64,10 @@
         "runner_usage_ms": 0
       }
     ],
-    "jvm_pass": false,
-    "android13_pass": false,
-    "root_cause": "UNVERIFIED_BEFORE_RUNNER_OR_JOB_STEPS",
-    "note": "Run 39031814318, attempt 2 still exits before any job steps. No Gradle or Android test ran; cause unknown.",
+    "jvm_pass": true,
+    "android13_pass": true,
+    "root_cause": "Earlier zero-step runner allocation failure is resolved after transfer to personal account; exact root cause of prior org allocation failure remains unverified.",
+    "note": "A complete single workflow has both Jobs SUCCESS on SHA 9fb0603...; old red runs retained as historical evidence.",
     "pre_execution_diagnosis": {
       "classification": "GITHUB_HOSTED_JOB_NOT_STARTED_NOT_TEST_FAILURE",
       "evidence": "All P09 jobs across ubuntu22 and ubuntu24 exit before checkout; two jobs in #39032641862 each reported 0 steps and 0 billable milliseconds; similar failures in P01-P08.",
@@ -75,6 +75,29 @@
       "verify_in_github": "Organization music-copilot-organization > Settings > Billing & licensing (or Billing & plans) > Usage / Budgets and alerts / Payment information. Then failed run > each job > top annotation.",
       "actual_compiler_result": "NOT_EXECUTED",
       "actual_native_result": "NOT_EXECUTED"
+    },
+    "verified_success": {
+      "run_id": 39122946667,
+      "sha": "9fb0603ac6af9a0ca7ed552a873d5b1eba5a59cf",
+      "conclusion": "success",
+      "jvm_job": "p09-jvm-lint-apk",
+      "jvm_conclusion": "success",
+      "native_job": "p09-android-microphone-api33",
+      "native_conclusion": "success",
+      "jvm_artifact_id": 12135072645,
+      "native_artifact_id": 12134589753,
+      "markers": [
+        "ISSUE5_P09_JVM_LINT_APK_PASS",
+        "P06_NATIVE_FIRST_USE_VISIBLE",
+        "APP_OK 6 supported commands",
+        "APP_OK Practice Voice TAP",
+        "ANDROID_NATIVE_PERMISSION_DIALOG DENY TAPPED",
+        "APP_OK Not now — use manual controls TAP",
+        "P09_ANDROID_NATIVE_RECORD_AUDIO_ALLOW_TAPPED 'While using the app'",
+        "APP_OK Skip TAP",
+        "APP_OK Media access",
+        "ISSUE5_P09_NATIVE_JIT_MIC_AND_MANUAL_FALLBACK_PASS_API33"
+      ]
     }
   },
   "excluded": [
@@ -100,8 +123,10 @@
     "manual_only_action_present": true,
     "provider_probe_after_grant": true,
     "no_third_value_slide": true,
-    "verdict": "PASS_STATIC_ONLY_NOT_A_COMPILE_OR_NATIVE_TEST"
+    "verdict": "PASS_STATIC_AND_COMPLETE_JVM_NATIVE_CI"
   },
-  "scope_status_unchanged": "P09_NOT_PASS",
-  "note": "UI copy corrected in commit f8119cca to remove stale disabled-practice wording; no new functional behavior or Android native test success."
+  "scope_status_unchanged": "P09_PASS_SCOPED",
+  "note": "P09 scoped accepted with a whole-green run on identical app/harness commit; no Voice capture or cloud service introduced. Parent Issue #5 remains OPEN and 13 integrated AC await P10–P14.",
+  "repository": "latticeward-labs/music-copilot",
+  "acceptance_commit": "9fb0603ac6af9a0ca7ed552a873d5b1eba5a59cf"
 }

@@ -1,6 +1,16 @@
 # Issue #5 / P09 — Six-command education, optional microphone and provider boundary
 
-Status: **IMPLEMENTED — CI VALIDATION BLOCKED, NOT PASS** (17 October 2026).
+Status: **PASS_SCOPED — VERIFIED REAL WHOLE-GREEN JVM + ANDROID13 CI** (18 October 2026), accepted commit `9fb0603ac6af9a0ca7ed552a873d5b1eba5a59cf`.
+
+## Final P09 acceptance — 18 October 2026 (after personal-account repo transfer)
+
+**PASS_SCOPED on one genuinely whole-green CI run**: [Actions #39122946667](https://github.com/latticeward-labs/music-copilot/actions/runs/39122946667) for production+tests commit `9fb0603ac6af9a0ca7ed552a873d5b1eba5a59cf`. Both `p09-jvm-lint-apk` and `p09-android-microphone-api33` are **SUCCESS**. CI artifact IDs: [JVM/Lint/APK #12135072645](https://github.com/latticeward-labs/music-copilot/actions/runs/39122946667/artifacts/12135072645), [native Android13 OS permission dump/screenshots #12134589753](https://github.com/latticeward-labs/music-copilot/actions/runs/39122946667/artifacts/12134589753).
+
+**Actual JVM evidence:** `testDebugUnitTest`, `lintDebug`, `assembleDebug`, `detekt`, `spotlessCheck`, architecture and privacy self-tests completed; terminal `ISSUE5_P09_JVM_LINT_APK_PASS`. Unit tests verify exact six intents, no microphone on initial/Skip/Driving entry, explicit JIT one-shot grant path, denial, provider unavailable, language unsupported, remote consent declined, lifecycle restore and cancellation, stale callbacks and manual fallback.
+
+**Actual Android 13 evidence:** clean install → native First Use → approved second slide / six commands → explicit Practice Voice → standalone purpose rationale → real Android **Don't allow** dialog, `RECORD_AUDIO: granted=false` → manual fallback → second explicit Practice → real OS **While using the app** selection, `RECORD_AUDIO: granted=true` → Skip → Media access rationale, no application crash. Logs include `P09_ANDROID_NATIVE_RECORD_AUDIO_ALLOW_TAPPED 'While using the app'` and terminal `ISSUE5_P09_NATIVE_JIT_MIC_AND_MANUAL_FALLBACK_PASS_API33`. Native screenshots and `dumpsys package` proofs are in the attached artifact, not substituted with mocked permission state.
+
+**Scope boundary:** Voice capture/execution, real artist resolution, permission details on all Android/OEM devices, P10 cloud disclosures/notification, P12 accessibility and P13 physical QA remain later work. `VoiceSessionCoordinator` remains the single voice owner. No remote STT, auto recording, new account, backend or Media3 Player ownership changes. Full Issue #5 and all 13 original integrated ACs **remain OPEN/unaccepted**; **P10 NEXT**.
 
 ## Sources and exactly bounded scope
 
@@ -23,14 +33,14 @@ Status: **IMPLEMENTED — CI VALIDATION BLOCKED, NOT PASS** (17 October 2026).
 - `scripts/issue5_phase9_native_test.sh` E2E API33: clean install; no mic before Practice; six-command slide; purpose and explicit tap; real native OS deny and manual fallback; repeated explicit Practice + OS allow; permission grant OS dump; no app crash/capture; Skip continues to media recovery.
 - `.github/workflows/issue-5-phase9-microphone.yml`: architecture/privacy/Spotless/Detekt/lintDebug/testDebugUnitTest/assembleDebug plus Android13 real dialog UI screenshots and OS permission dumps. Runs on ubuntu-24.04 after ubuntu-22.04 failed before starting.
 
-## Validation status (no invented PASS)
+## Historical pre-transfer CI failures — resolved, preserved for traceability
 
-- [GitHub Actions run #39031581585](https://github.com/music-copilot-organization/music-copilot/actions/runs/39031581585): **failure; both jobs have null steps; no checkout, compiler or emulator ever started**. Triggered immediately on addition of P09 workflow.
-- [GitHub Actions run #39031814318](https://github.com/music-copilot-organization/music-copilot/actions/runs/39031814318): **failure; again both jobs have null steps** after changing to ubuntu-24.04. The same before-step failure is affecting multiple P02–P08 workflows from Issue #5. GitHub Actions/billing/runner allocation cannot be diagnosed with the repository-only app connector; cause UNKNOWN. Do not call it an app regression or claim anything was tested in these runs.
-- No successful JVM / Android13 native test for P09 has been retrieved. Mark unit test, Android native, and formal P09 PASS criteria **PENDING_VALIDATION**. P08 remains its separately accepted evidence-scoped phase. The user or organization administrator should review Actions failure banner, Actions permissions and billing/usage controls; only proceed with acceptance after a real job executes and passes.
+- [GitHub Actions run #39031581585](https://github.com/latticeward-labs/music-copilot/actions/runs/39031581585): **failure; both jobs have null steps; no checkout, compiler or emulator ever started**. Triggered immediately on addition of P09 workflow.
+- [GitHub Actions run #39031814318](https://github.com/latticeward-labs/music-copilot/actions/runs/39031814318): **failure; again both jobs have null steps** after changing to ubuntu-24.04. The same before-step failure is affecting multiple P02–P08 workflows from Issue #5. GitHub Actions/billing/runner allocation cannot be diagnosed with the repository-only app connector; cause UNKNOWN. Do not call it an app regression or claim anything was tested in these runs.
+- At the October 17 historical checkpoint no JVM/Android13 tests had run. On October 18, run #39122946667 completed fully green as documented above; **those former gates are now accepted within P09**. P08 remains its separately accepted evidence-scoped phase. The user or organization administrator should review Actions failure banner, Actions permissions and billing/usage controls; only proceed with acceptance after a real job executes and passes.
 
 ## PASS gate
 
-`Skip / Driving Entry / Onboarding Start -> zero mic request or capture`, `explicit Practice + OS grant -> single authorized readiness handoff only`, `PermissionDenied/ProviderUnavailable/LanguageUnsupported/CloudConsentDeclined -> truthful distinct manual controls`, `no session/recording before permission`, `no regression in previous onboarding/MediaStore flows`. Code present; actual CI/native execution evidence outstanding.
+`Skip / Driving Entry / Onboarding Start -> zero mic request or capture`, `explicit Practice + OS grant -> single authorized readiness handoff only`, `PermissionDenied/ProviderUnavailable/LanguageUnsupported/CloudConsentDeclined -> truthful distinct manual controls`, `no session/recording before permission`, `no regression in previous onboarding/MediaStore flows`. Code, unit/JVM and real Android13 native evidence confirmed via whole-green run #39122946667.
 
-**Parent Issue #5 remains OPEN, no PR merge, 13 issue-wide ACs remain for P09–P14. P10 NOT STARTED.**
+**Parent Issue #5 remains OPEN, no PR merge, original 13 issue-wide ACs remain for integrated later-phase audit. P09 PASS_SCOPED; P10 NOT STARTED.**
