@@ -120,8 +120,14 @@ class MainActivity : ComponentActivity() {
         }
         if (savedInstanceState?.getBoolean("p09_native_microphone_request_pending") == true) {
             voicePracticeGate.restorePending()
-            voicePracticeUi.value = voicePracticeGate.stage
+        } else {
+            // Reconstruct only display-safe voice education state. A previously
+            // ready provider/capability is never trusted after process death.
+            voicePracticeGate.restorePresentation(
+                savedInstanceState?.getString("p11_voice_practice_stage"),
+            )
         }
+        voicePracticeUi.value = voicePracticeGate.stage
         window.statusBarColor = MusicColors.systemBar.toArgb()
         window.navigationBarColor = MusicColors.systemBar.toArgb()
         WindowCompat.getInsetsController(window, window.decorView)
@@ -227,6 +233,9 @@ class MainActivity : ComponentActivity() {
         outState.putBoolean("p05_native_media_request_pending", gate.awaitingPlatformResult)
         outState.putBoolean("p05_media_attempted", permissionUi.ui.value.attempted)
         outState.putBoolean("p09_native_microphone_request_pending", voicePracticeGate.awaitingAndroidResult)
+        // Enum presentation only. Never write actual OS grant, provider status,
+        // media identity, voice transcript, or executable blocked action to Bundle.
+        outState.putString("p11_voice_practice_stage", voicePracticeGate.stage.name)
         super.onSaveInstanceState(outState)
     }
 
