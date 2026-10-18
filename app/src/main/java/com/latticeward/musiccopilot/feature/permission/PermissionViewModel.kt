@@ -17,7 +17,36 @@ import kotlinx.coroutines.flow.StateFlow
  * A Settings return can authorize one explicit Continue, never an auto-scan.
  */
 class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel() {
-    private val mutableUi = MutableStateFlow(MediaRequestUiState())
+    // P11: SavedStateHandle retains ONLY non-authoritative, safe presentation.
+    // Never save a granted result or a one-use scan authorization across process death.
+    private val mutableUi = MutableStateFlow(restorePresentation())
+
+    private fun restorePresentation(): MediaRequestUiState {
+        val outcome = when (savedState.get<String>("p11_media_ui_outcome")) {
+            MediaPermissionOutcome.DeniedRequestable.name -> MediaPermissionOutcome.DeniedRequestable
+            MediaPermissionOutcome.SettingsOnly.name -> MediaPermissionOutcome.SettingsOnly
+            else -> MediaPermissionOutcome.None
+        }
+        return MediaRequestUiState(
+            attempted = savedState["p11_media_ui_attempted"] ?: false,
+            denied = outcome != MediaPermissionOutcome.None,
+            outcome = outcome,
+            revoked = outcome == MediaPermissionOutcome.SettingsOnly &&
+                (savedState["p11_media_ui_revoked"] ?: false),
+        )
+    }
+
+    private fun publish(state: MediaRequestUiState) {
+        mutableUi.value = state
+        savedState["p11_media_ui_attempted"] = state.attempted
+        savedState["p11_media_ui_outcome"] = when (state.outcome) {
+            MediaPermissionOutcome.DeniedRequestable, MediaPermissionOutcome.SettingsOnly ->
+                state.outcome.name
+            else -> null // A Granted projection cannot survive a killed process.
+        }
+        savedState["p11_media_ui_revoked"] =
+            state.outcome == MediaPermissionOutcome.SettingsOnly && state.revoked
+    }
     val ui: StateFlow<MediaRequestUiState> = mutableUi
     private var scanAuthorized: Boolean = false
 
@@ -34,48 +63,48 @@ class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel(
     fun requestStarting() {
         savedState["p06_media_requests"] = requestsThisSession + 1
         scanAuthorized = false
-        mutableUi.value = MediaRequestUiState(pending = true)
+        publish(MediaRequestUiState(pending = true))
     }
 
     fun nativeResult(observation: NativePermissionObservation, action: BlockedAction) {
         scanAuthorized = observation.granted && action == BlockedAction.StartScan
         val outcome = MediaOutcomePolicy.project(observation, requestsThisSession)
-        mutableUi.value = MediaRequestUiState(
+        publish(MediaRequestUiState(
             pending = false,
             attempted = true,
             denied = !observation.granted,
             outcome = outcome,
-        )
+        ))
     }
 
     fun nativeLaunchFailed() {
         scanAuthorized = false
-        mutableUi.value = MediaRequestUiState(
+        publish(MediaRequestUiState(
             attempted = true, denied = true,
             outcome = MediaPermissionOutcome.DeniedRequestable,
-        )
+        ))
     }
 
     fun retryRationale() {
         scanAuthorized = false
-        mutableUi.value = MediaRequestUiState()
+        publish(MediaRequestUiState())
     }
 
     /** Consumption is irreversible, including after a duplicate tap or lost grant. */
     fun takeOneGrantedScan(): Boolean {
         val eligible = mutableUi.value.outcome == MediaPermissionOutcome.Granted && scanAuthorized
         scanAuthorized = false
-        mutableUi.value = MediaRequestUiState()
+        publish(MediaRequestUiState())
         return eligible
     }
 
     fun restorePending() {
-        mutableUi.value = MediaRequestUiState(pending = true)
+        publish(MediaRequestUiState(pending = true))
     }
 
     fun restoreAttempted() {
         if (!mutableUi.value.pending && mutableUi.value.outcome == MediaPermissionOutcome.None) {
-            mutableUi.value = MediaRequestUiState(attempted = true)
+            publish(MediaRequestUiState(attempted = true))
         }
     }
 
@@ -90,7 +119,7 @@ class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel(
         scanAuthorized = false
         settingsHandoff = false
         settingsActivityLeft = false
-        mutableUi.value = MediaRequestUiState()
+        publish(MediaRequestUiState())
     }
 
     /** Only reached from the explicit Open Settings button. */
@@ -121,11 +150,11 @@ class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel(
         settingsActivityLeft = false
         // Preserved one-use blocked media intent: explicit Continue still required.
         scanAuthorized = result == SettingsReturnOutcome.Granted
-        mutableUi.value = MediaRequestUiState(
+        publish(MediaRequestUiState(
             attempted = true,
             denied = !observation.granted,
             outcome = SettingsReturnCoordinator.uiOutcome(result),
-        )
+        ))
         return result
     }
 
@@ -137,6 +166,6 @@ class PermissionViewModel(private val savedState: SavedStateHandle) : ViewModel(
         scanAuthorized = false
         settingsHandoff = false
         settingsActivityLeft = false
-        mutableUi.value = MediaRequestUiState()
+        publish(MediaRequestUiState())
     }
 }
