@@ -266,6 +266,9 @@ class MainActivity : ComponentActivity() {
             shouldShowRationale = shouldShowRequestPermissionRationale(mediaPermissionName()),
             previouslyGranted = previouslyGranted && !freshGrant,
         ))
+        // P11: an old denial result is not authoritative after a fresh OS grant.
+        // Clearing stale UI never authorizes or triggers an automatic scan.
+        permissionUi.reconcileFreshAndroidGrant(freshGrant)
         val freshMic = checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) ==
             PackageManager.PERMISSION_GRANTED
         val voiceState = (application as MusicCopilotApplication).bindings.voiceSessionCoordinator.state.value
