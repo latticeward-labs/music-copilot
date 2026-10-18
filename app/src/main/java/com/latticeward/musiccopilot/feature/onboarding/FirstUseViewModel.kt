@@ -11,6 +11,8 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.createSavedStateHandle
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseEffect
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseEvent
+import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseMode
+import com.latticeward.musiccopilot.data.api.FirstUsePage
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseMachine
 import com.latticeward.musiccopilot.core.application.bootstrap.FirstUseState
 import com.latticeward.musiccopilot.core.result.AppResult
@@ -30,13 +32,25 @@ class FirstUseViewModel(
     private val replay: Boolean,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    var machine by mutableStateOf(
-        FirstUseMachine.enter(
+    // Initial mode always starts from the DataStore-ACKed checkpoint. Replay
+    // is a read-only UI journey and may restore its page from SavedStateHandle.
+    private fun initialState(): FirstUseState {
+        val authoritative = FirstUseMachine.enter(
             complete = repository.preferences.value.onboardingComplete,
             checkpoint = repository.preferences.value.onboardingCheckpoint,
             replay = replay,
-        ),
-    )
+        )
+        if (!replay || savedStateHandle.get<Boolean>("educationReplay") != true) {
+            return authoritative
+        }
+        val savedPage = savedStateHandle.get<String>("ackedFirstUsePage")
+        val page = FirstUsePage.entries.firstOrNull { it.name == savedPage }
+        return if (page != null)
+            FirstUseState.Education(page, FirstUseMode.EducationReplay)
+        else authoritative
+    }
+
+    var machine by mutableStateOf(initialState())
         private set
 
     init {
@@ -50,6 +64,9 @@ class FirstUseViewModel(
     fun dispatch(event: FirstUseEvent, onComplete: () -> Unit, onExit: () -> Unit) {
         val step = FirstUseMachine.reduce(machine, event)
         machine = step.state
+        if (replay && machine is FirstUseState.Education) {
+            savedStateHandle["ackedFirstUsePage"] = (machine as FirstUseState.Education).page.name
+        }
         step.effects.forEach { effect ->
             when (effect) {
                 is FirstUseEffect.PersistCheckpoint, is FirstUseEffect.PersistCompletion -> {
