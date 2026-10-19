@@ -42,7 +42,7 @@
 
 ## CI contract and non-claims
 
-`.github/workflows/issue-5-phase12-accessibility-validation.yml`: **no automatic run on production source/docs commits**. When the user explicitly authorizes verification, either a separate commit touching `.github/issue5-p12-verify-request.txt` can launch just the JVM/Lint gate on this branch, or `workflow_dispatch` supports JVM or one chosen native API after this workflow is available on default. The native branch job runs one emulator API at a time, `connectedDebugAndroidTest` and the real OS smoke; it does not claim all API versions checked from one run.
+`.github/workflows/issue-5-phase12-accessibility-validation.yml`: **no automatic run on production source/docs commits**. When the user explicitly authorizes verification, either a separate commit touching `.github/issue5-p12-verify-request.txt` can launch just the JVM/Lint gate on this branch, and explicitly set `scope=jvm` or `scope=native` plus `android_api=29|31|33|35|36`; `workflow_dispatch` also supports these choices after the workflow is available on default. The native branch job runs one emulator API at a time, `connectedDebugAndroidTest` and the real OS smoke; it does not claim all API versions checked from one run.
 
 - The phone APK build remains separate and never runs instrumentation, JVM unit tests, a device or an emulator.
 - The new instrumentation dependencies and UI test sources are **not proven compilable** by `:app:assembleDebug`; compilation requires `:app:assembleDebugAndroidTest`/instrumented job.
@@ -51,3 +51,8 @@
 - A genuine P12 PASS requires **all scoped tests executed green**, a real TalkBack/text-scale/device check, no P0 regressions, blocking accessibility issue count zero, and referenced CI run IDs. Merely authoring tests or building an APK does not satisfy it.
 
 **Decision at initial authoring:** `P12 IMPLEMENTATION_IN_PROGRESS / VERIFICATION_PENDING — NOT FULL PASS`. Issue #5 OPEN, 13 integrated acceptance checkboxes unchanged, P13 NOT STARTED.
+
+
+## Real P12 APK build — 19 October 2026
+
+[GitHub Actions #39243014999](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999) **SUCCESS**, `./gradlew :app:assembleDebug`; build commit `a152312ca3ce77151df5df1329b804746e567333`; [artifact #12181988538](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999/artifacts/12181988538) (`issue5-phone-test-apk-4`), ZIP includes APK, SHA and `BUILD_PROVENANCE.txt`. APK extracted and hash matched `ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8` (35801343 bytes); expires 26 Oct 2026 UTC. **Compiles the app only**, not the authored P12 JVM/Compose instrumentation suites, Lint, native OS matrix or physical phone QA. The subsequent P12 validation workflow-only adjustment did not modify the Android app sources included in this artifact. All source-registered P-01..17 P12 final-head automation results remain **NOT RUN**.
