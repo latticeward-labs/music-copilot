@@ -4,7 +4,7 @@
   "date": "2026-10-19",
   "repo": "latticeward-labs/music-copilot",
   "branch": "feature/5-onboarding-permissions-recovery",
-  "status": "IMPLEMENTED_ACCESSIBILITY_HARDENING_TEST_HARNESS_AUTHORED_PENDING_APK_BUILD_OWNER_PHONE_QA_AND_TECHNICAL_GATES_NOT_FULL_PASS",
+  "status": "IMPLEMENTED_FINAL_APK_BUILD_SUCCESS_OWNER_A11Y_PHONE_QA_PENDING_TECHNICAL_CI_PENDING_NOT_FULL_PASS",
   "originalP12Source": "User-supplied ISSUE_5_PHASED_EXECUTION_PLAN(1).md P12",
   "scope": "Automated first-use permission/recovery, 200pct font, TalkBack semantics, color contrast, 48dp, native API matrix, privacy/static/lint",
   "implementation": {
@@ -60,12 +60,12 @@
     "ownerPhoneReported": 0,
     "ownerPhoneEvidence": "PENDING",
     "noScreenshotsToGitHub": true,
-    "compiledDebugApk": "PENDING_EXPLICIT_SINGLE_JOB_REQUEST",
-    "exactFinalApkRunId": null
+    "compiledDebugApk": "SUCCESS_assembleDebug_ONLY_SHA256_VERIFIED",
+    "exactFinalApkRunId": 39243014999
   },
   "acceptance": {
     "implementationCommitted": true,
-    "codeCompilationVerified": false,
+    "codeCompilationVerified": true,
     "unitTestsPassed": false,
     "composeUiTestsPassed": false,
     "crossApiNativeValidated": false,
@@ -84,9 +84,15 @@
     "evidenceIndex": "docs/implementation/ISSUE_5_EVIDENCE_INDEX.md",
     "optInValidationWorkflow": ".github/workflows/issue-5-phase12-accessibility-validation.yml",
     "apkOnlyWorkflow": ".github/workflows/issue-5-apk-only.yml",
-    "apkArtifactId": null,
-    "apkRunId": null,
-    "apkSha256": null
+    "apkArtifactId": 12181988538,
+    "apkRunId": 39243014999,
+    "apkSha256": "ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8",
+    "apkBuildSha": "a152312ca3ce77151df5df1329b804746e567333",
+    "apkSizeBytes": 35801343,
+    "apkArtifactName": "issue5-phone-test-apk-4",
+    "apkArtifactExpiresAt": "2026-10-26T11:14:47Z",
+    "apkArtifactUrl": "https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999/artifacts/12181988538",
+    "apkHashVerifiedAgainstGithubProvenance": true
   },
   "explicitNonClaims": [
     "Normal commits do NOT run P12 JVM/Lint/native CI. Opt-in only.",
