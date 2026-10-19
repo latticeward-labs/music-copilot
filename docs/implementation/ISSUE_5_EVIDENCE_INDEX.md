@@ -127,3 +127,15 @@ P05 **PASS_SCOPED** — [JVM/Lint/APK #38884070402](https://github.com/latticewa
 **Screenshot handling:** Owner explicitly prohibited screenshot registration. **No image, attachment or screenshot URL was added** to the repository, Issue, or Evidence Index; no logs or personal media evidence submitted. APK local install mode, actual phone-side checksum, raw OS trace and conditional substeps were not separately documented.
 
 **Acceptance:** `P11 IMPLEMENTED / APK BUILD SUCCESS / PHONE QA OWNER-REPORTED 11/11 PASS / TECHNICAL VALIDATION PENDING — NOT FULL P11 PASS`. 12 P11 lifecycle/privacy JVM tests authored but **NOT RUN**; P10 deferred JVM gates unchanged. P12/13 cross-API/accessibility/device requirements and P14 integrated acceptance remain outstanding. Issue #5 **OPEN** with 13 original AC boxes unchanged; no merge.
+
+
+### P12 — Accessibility / automated and cross-API validation contract (19 October 2026)
+
+**Source plan authority:** user-uploaded P12 contract; see [P12 17-case test matrix](ISSUE_5_TEST_MATRIX.md), [Accessibility audit](ISSUE_5_ACCESSIBILITY_AUDIT.md), [P12 phone QA](ISSUE_5_PHASE12_PHONE_QA_CHECKLIST.md) and [machine validation](ISSUE_5_PHASE12_VALIDATION.json).
+
+- **Code updated:** media permission rationale now provides a one-time focusable semantic heading without native auto-request; Library/Settings/Bootstrap titles marked as TalkBack heading. Existing 48dp touch sizes and scrollable reflow retained; approved WF-02/WF-03, Media3 and permission ownership unchanged.
+- **Automation authored, NOT RUN:** `Issue5Phase12AccessibilityPolicyTest.kt` **6 JVM tests** (token contrast, negative fixture, headings/touch targets, reflow, no auto-permission, privacy); `Issue5Phase12AccessibilityUiTest.kt` **6 Compose instrumented tests** (native rationale/denial/Settings/grant UI, pending action disabled, 200% font-scale/48dp actions). Existing P02–P11 regressions and P10/P11 deferred policy JVM tests are **not automatically PASS**.
+- **Cross-API CI authored:** opt-in `issue-5-phase12-accessibility-validation.yml` (JVM/Spotless/Detekt/Lint and one selected Android OS emulator per run, API29/31/33/35, API36 optional), Android OS truth smoke script `scripts/issue5_phase12_native_test.sh`, deliberately zero screenshot attachments/log artifacts. **None run** while owner's APK-only cost control is in effect; no CI run ID or green matrix may be claimed.
+- **Phone testing required:** TalkBack focus/order, accessible named actions, 200% font when supported, 48dp, high-contrast status, denial/Settings recovery, notification/Cloud STT truth, no double action on HOME/rotation. Owner tests P12-01..12 **NOT RUN pending P12 APK delivery and owner's results**. Per explicit instruction, do **not** register screenshots.
+
+**Initial P12 status:** `IMPLEMENTATION_RECORDED / APK_BUILD_PENDING / P12 TECHNICAL AND OWNER QA PENDING — NOT FULL PASS`. P10 manual 7/7 and P11 manual 11/11 previously recorded remain unchanged, with their technical gates outstanding. Original 13 Issue #5 integrated ACs not accepted, Issue OPEN and P13 not started.
