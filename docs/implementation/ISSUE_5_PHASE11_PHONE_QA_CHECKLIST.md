@@ -47,3 +47,10 @@ Observed errors (no personal data):
 ```
 
 After the owner sends the results, record **OWNER-REPORTED PHYSICAL PHONE** in the Issue and Evidence Index. Do not claim independent hardware attestation. P11 JVM unit and privacy/static checks are **separate technical gates**, not phone tests.
+
+
+## Owner-reported execution — 19 October 2026
+
+**Owner:** HONOR X7d / Android 15, artifact `12149209198` (build run `39163991680`). Owner explicitly returned **P11-01..P11-11 PASS**, with «موردی گزارش نشده», then reconfirmed «همه ی تست ها اوکی بوده». Settings-only `Open Settings` was verbally confirmed to open Android App info. See [owner report](ISSUE_5_PHASE11_OWNER_PHONE_TEST_REPORT_2026-10-19.md) and [validation ledger](ISSUE_5_PHASE11_VALIDATION.json).
+
+**Disposition:** all 11 named phone test IDs **OWNER-REPORTED PASS**; 0 reported FAIL, 0 NOT RUN. No screenshots uploaded, linked or registered, as expressly requested. No independently witnessed Android/OS trace, separate conditional subtest log, screenshot or device hash was supplied. **NOT a JVM, accessibility, cross-API or full-P11 PASS.**
