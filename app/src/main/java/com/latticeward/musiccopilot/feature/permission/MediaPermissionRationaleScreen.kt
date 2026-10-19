@@ -20,6 +20,11 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.foundation.focusable
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,6 +57,10 @@ fun MediaPermissionRationaleScreen(
     onNotNow: () -> Unit,
 ) {
     BackHandler { if (!request.pending) onNotNow() }
+    // P12: make the actual rationale heading the accessibility entry focus.
+    // This is display-only; it never opens a native Android permission dialog.
+    val rationaleFocus = remember { FocusRequester() }
+    LaunchedEffect(Unit) { rationaleFocus.requestFocus() }
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
             modifier = Modifier.fillMaxSize().safeDrawingPadding()
@@ -83,7 +92,9 @@ fun MediaPermissionRationaleScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 stringResource(R.string.media_rationale_title),
-                modifier = Modifier.semantics { heading() },
+                modifier = Modifier.focusRequester(rationaleFocus).focusable().semantics {
+                    heading()
+                },
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
