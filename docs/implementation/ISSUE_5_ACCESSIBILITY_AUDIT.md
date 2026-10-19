@@ -41,3 +41,8 @@ The disabled-only gray `#7C8998` against `#202A36` is ~4.07:1; this does not sat
 **Status at initial authoring:** `P12_ACCESSIBILITY_IMPLEMENTED_SOURCES_AND_TESTS_AUTHORED / NO_BLOCKING_ISSUES_CLAIMED_AS_VERIFIED / RUNTIME_QA_PENDING`. Open-blocker count is *unknown*, not zero. **No full Phase 12 PASS** until required evidence actually exists.
 
 [17-scenario test matrix](ISSUE_5_TEST_MATRIX.md) · [owner phone checklist](ISSUE_5_PHASE12_PHONE_QA_CHECKLIST.md) · [machine ledger](ISSUE_5_PHASE12_VALIDATION.json).
+
+
+## APK-only delivery — 19 October 2026
+
+The final P12 debug APK built successfully: [run #39243014999](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999), commit `a152312ca3ce77151df5df1329b804746e567333`, [artifact #12181988538](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999/artifacts/12181988538), APK SHA-256 `ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8` (35801343 bytes), checked against the artifact's SHA file and BUILD_PROVENANCE. **APK-only compilation is NOT proof** of compiled/executed Compose androidTest code, contrast unit tests, TalkBack runtime, 200% reflow or zero blocking violations. Owner physical tests remain pending. No screenshot files or links registered.
