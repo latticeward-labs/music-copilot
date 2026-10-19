@@ -1,0 +1,105 @@
+name: "Issue 5 P12 — Explicit accessibility and real Android matrix"
+# Owner cost control: manual-only. NEVER runs automatically on feature push.
+# Separate APK-only workflow remains the sole phone APK build trigger.
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "Validated scope; choose native to run one emulator version"
+        required: true
+        type: choice
+        default: jvm
+        options: [jvm, native]
+      android_api:
+        description: "Android OS API for one native emulator job"
+        required: true
+        type: choice
+        default: "33"
+        options: ["29", "31", "33", "35", "36"]
+
+permissions:
+  contents: read
+concurrency:
+  group: issue5-p12-verification-${{ github.ref }}-${{ inputs.scope }}
+  cancel-in-progress: false
+
+jobs:
+  jvm-lint-static:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+        with: { persist-credentials: false }
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: "17" }
+      - uses: android-actions/setup-android@v3
+        with: { packages: "platform-tools" }
+      - uses: gradle/actions/setup-gradle@v4
+        with: { validate-wrappers: true }
+      - run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Architecture, privacy, JVM, format, Detekt and Lint
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/check_architecture_dependencies.py --root . --self-test
+          python3 scripts/check_phase9_privacy.py --root . --self-test
+          ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest --no-daemon --stacktrace
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase12AccessibilityPolicyTest.xml
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase11LifecyclePrivacyTest.xml
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p12-jvm-lint-${{ github.run_number }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+
+  android-ui-and-real-os:
+    needs: jvm-lint-static
+    if: inputs.scope == 'native'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+        with: { persist-credentials: false }
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: "17" }
+      - uses: android-actions/setup-android@v3
+        with: { packages: "platform-tools" }
+      - uses: gradle/actions/setup-gradle@v4
+        with: { validate-wrappers: true }
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Build test APK and reclaim disk
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --stacktrace
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          if [ -d "$ANDROID_HOME/ndk" ]; then sudo rm -rf "$ANDROID_HOME/ndk"; fi
+          if [ -d "$ANDROID_HOME/cmake" ]; then sudo rm -rf "$ANDROID_HOME/cmake"; fi
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ inputs.android_api }}
+          target: google_apis
+          arch: x86_64
+          disk-size: 2048M
+          profile: pixel_3a
+          emulator-boot-timeout: 900
+          emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
+          script: |
+            ./gradlew :app:connectedDebugAndroidTest --no-daemon --stacktrace
+            bash scripts/issue5_phase12_native_test.sh "${{ inputs.android_api }}"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p12-android-ui-api${{ inputs.android_api }}-${{ github.run_number }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            app/build/outputs/androidTest-results/connected/**
+            app/build/reports/androidTests/connected/**
