@@ -1,7 +1,8 @@
-Issue #5 / P11 — FINAL corrected APK-only build for owner physical-phone lifecycle/privacy QA
-requested_source_commit=a12173a2f74fa040782a16e59c78f0b2b4c02717
-requested_date=2026-10-18
-purpose=p11-lifecycle-safe-permission-result-fresh-OS-grant-reconciliation-education-replay-privacy
-validation=assembleDebug_and_artifact_only_no_device_emulator_jvm_lint_tests
-supersedes_run=39163624612
+Issue #5 / P12 — single APK-only build for owner TalkBack and 200-percent font QA
+requested_source_commit=7d0b5c56a73e8a83463261258124a310893868dc
+requested_date=2026-10-19
+purpose=P12_accessibility_headings_48dp_200pct_font_permission_privacy_hon_x7d
+validation=assembleDebug_only_NO_JVM_LINT_INSTRUMENTED_EMULATOR
 owner_device=HONOR_X7d_Android15
+owner_screenshot_policy=NO_SCREENSHOTS_TO_GITHUB
+p12_technical_qa=NOT_RUN_OWNER_COST_CONTROL
