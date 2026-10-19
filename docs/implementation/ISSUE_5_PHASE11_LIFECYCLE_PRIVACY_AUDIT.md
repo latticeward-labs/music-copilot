@@ -38,14 +38,14 @@
 
 ## Phone QA and decision
 
-[Owner's physical phone checklist](ISSUE_5_PHASE11_PHONE_QA_CHECKLIST.md) requires the owner to install the exact new P11 APK and return each test ID with PASS/FAIL/NOT RUN. Do not infer undocumented conditional substeps from a blanket PASS. Record owner self-report separately from actual logs/screenshots.
+[Owner's physical phone checklist](ISSUE_5_PHASE11_PHONE_QA_CHECKLIST.md) required the owner to install the P11 APK and return each test ID with PASS/FAIL/NOT RUN. On 19 October 2026 the owner reported **11/11 PASS** (see [attributed owner phone report](ISSUE_5_PHASE11_OWNER_PHONE_TEST_REPORT_2026-10-19.md)). Do not infer undocumented conditional substeps from a blanket PASS. Record owner self-report separately from actual logs/screenshots.
 
-**Current P11 acceptance:** `IMPLEMENTED_APK_BUILD_SUCCESS_OWNER_PHONE_QA_PENDING_TECHNICAL_GATES_PENDING_NOT_FULL_PASS`. The exact-source APK-only run succeeded, but the owner's phone tests and technical gates are not yet verified. A future APK-only SUCCESS and 11/11 reported phone PASS would **not** prove required JVM, negative policy regressions, automated access, cross-API matrix or P12/P13/P14 governance automatically. Issue #5 must remain OPEN; no merge and no reset of existing P10 outstanding technical gates.
+**Current P11 acceptance:** `IMPLEMENTED_APK_BUILD_SUCCESS_OWNER_REPORTED_PHONE_QA_11_OF_11_PASS_TECHNICAL_GATES_PENDING_NOT_FULL_PASS`. The exact-source APK-only run succeeded and the owner self-reported all 11 phone test IDs PASS; independent device/native telemetry, 12 P11 JVM tests and other technical gates remain pending. A future APK-only SUCCESS and 11/11 reported phone PASS would **not** prove required JVM, negative policy regressions, automated access, cross-API matrix or P12/P13/P14 governance automatically. Issue #5 must remain OPEN; no merge and no reset of existing P10 outstanding technical gates.
 
 ## Remaining gates
 
 - Exact-source Gradle compilation / debug APK: **SUCCESS**, [final P11 APK-only run #39163991680](https://github.com/latticeward-labs/music-copilot/actions/runs/39163991680), final build SHA `629caa6a1a3ebafd676cfa3fa8fb5b808c24de46`, [artifact #12149209198](https://github.com/latticeward-labs/music-copilot/actions/runs/39163991680/artifacts/12149209198), `BUILD SUCCESSFUL`. APK SHA-256 verified as `d6f93b5a5860c889ae02357d933c0584b7a40a6c1e1b388a14906bca4c4df978` (35,801,124 bytes). Earlier successful P11 run #39163624612 predates the fresh-OS UI guard and was superseded; do not deliver it.
-- Owner physical phone P11 manual tests: pending at initial authoring.
+- Owner physical phone P11 manual tests: **11/11 PASS owner-reported** on HONOR X7d Android 15 for APK artifact #12149209198, 19 October 2026. No screenshots registered; no independent hardware evidence claimed.
 - P11 local Kotlin/JVM lifecycle/privacy tests: authored, **NOT RUN**.
 - Privacy/architecture static checks and relevant regressions on final code: **NOT RUN** here.
 - API29/31/33/35+ native matrix, Compose automated accessibility/permission focus: P12/P13, not substituted by a single device.
@@ -54,3 +54,8 @@
 ### Final APK provenance (18 October 2026)
 
 GitHub job `117782995317`, run `39163991680`, final marker SHA `629caa6a1a3ebafd676cfa3fa8fb5b808c24de46`, artifact `12149209198`, `issue5-phone-test-apk-3` (expires 25 October 2026). Log confirms `BUILD SUCCESSFUL` and upload. Artifact downloaded, ZIP inspected, `app-debug.apk` byte hash matches provided SHA-256 `d6f93b5a5860c889ae02357d933c0584b7a40a6c1e1b388a14906bca4c4df978`. **Exactly an APK compilation check**, not JVM/Lint/Privacy static/instrumentation or owner/device QA.
+
+
+### Owner follow-up and screenshot restriction (19 October 2026)
+
+[Attributed owner report](ISSUE_5_PHASE11_OWNER_PHONE_TEST_REPORT_2026-10-19.md) records individually reported P11-01..P11-11 PASS, device and APK identity. The owner's later confirmation covered the Settings-only Android app settings handoff. Owner expressly requested **do not register screenshots**: none uploaded, embedded, linked or cited as repository evidence. The phone report is first-person self-attestation, not an emulator run, logcat, OS permission instrumentation or native proof. P11 remains **not full PASS** until other technical gates actually run and pass.
