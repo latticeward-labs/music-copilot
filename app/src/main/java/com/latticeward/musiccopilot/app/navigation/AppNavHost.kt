@@ -21,6 +21,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -264,7 +266,9 @@ private fun FirstLaunchBoundary(
                 .verticalScroll(rememberScrollState()).padding(MusicSpacing.lgDp),
             verticalArrangement = Arrangement.Center,
         ) {
-            Text(title, color = MusicColors.textPrimary, style = MusicTextStyles.titleLarge)
+            // P12: Library/Settings/Bootstrap have a navigable TalkBack heading.
+            Text(title, modifier = Modifier.semantics { heading() },
+                color = MusicColors.textPrimary, style = MusicTextStyles.titleLarge)
             Text(
                 message, modifier = Modifier.padding(top = MusicSpacing.smDp),
                 color = MusicColors.textSecondary, style = MusicTextStyles.bodyLarge,
