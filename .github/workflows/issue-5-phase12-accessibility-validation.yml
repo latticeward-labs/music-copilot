@@ -1,7 +1,11 @@
 name: "Issue 5 P12 — Explicit accessibility and real Android matrix"
-# Owner cost control: manual-only. NEVER runs automatically on feature push.
+# Owner cost control: opt-in marker ONLY, or manual workflow_dispatch when on default.
+# Ordinary source/docs commits NEVER launch this workflow.
 # Separate APK-only workflow remains the sole phone APK build trigger.
 on:
+  push:
+    branches: [feature/5-onboarding-permissions-recovery]
+    paths: [".github/issue5-p12-verify-request.txt"]
   workflow_dispatch:
     inputs:
       scope:
