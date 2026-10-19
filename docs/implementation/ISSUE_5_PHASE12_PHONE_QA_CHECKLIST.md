@@ -1,12 +1,12 @@
 # Issue #5 — P12 owner-only physical phone accessibility QA
 
-**Target owner device:** HONOR X7d, Android 15. Final **P12 APK artifact** and commit must be filled after APK-only GitHub Actions succeeds. **Never reuse the P11 artifact #12149209198 for P12 acceptance**.
+**Target owner device:** HONOR X7d, Android 15. Final **P12 APK artifact #12181988538** ([GitHub Actions #39243014999](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999)); exact-source build SHA `a152312ca3ce77151df5df1329b804746e567333`, APK SHA-256 `ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8` (35801343 bytes). Build `assembleDebug` SUCCESS; unit/Lint/native not run in APK workflow. **Never reuse the P11 artifact #12149209198 for P12 acceptance**.
 
 This is a **manual-phone** checklist. P12 additionally requires executed JVM, Compose instrumentation, native OS/API matrix and lint/static checks; phone PASS alone does **not** confer overall P12 PASS. Do **not** upload, attach or link screenshots in GitHub; the owner explicitly requested no screenshots. A text-only report is sufficient to record owner observation.
 
 ## Before starting
 
-1. Update-install the exact P12 APK. Keep data/preferences; do not clear storage. Record installation method as update or clean.
+1. Update-install P12 `app-debug.apk` from [artifact #12181988538](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999/artifacts/12181988538), NOT P11. Keep data/preferences; do not clear storage. Record installation method as update or clean.
 2. In Android **Settings → Accessibility → TalkBack**, enable screen reading when the test calls for it. The exact navigation may vary on HONOR. Use swipe-right to traverse content and double tap to activate while TalkBack is enabled. If not comfortable, mark TalkBack cases NOT RUN.
 3. For scaling cases, increase Android **Font size** to **200% if available**. If the phone cannot achieve or report 200%, record the maximum scale actually chosen; do **not** claim 200% proof from an unknown slider percentage. After tests, restore personal accessibility settings.
 4. Do not drive while performing voice or UI tests. No recording or private music evidence is necessary.
