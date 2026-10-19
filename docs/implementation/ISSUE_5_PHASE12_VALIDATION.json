@@ -1,0 +1,99 @@
+{
+  "issue": 5,
+  "phase": "P12",
+  "date": "2026-10-19",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "status": "IMPLEMENTED_ACCESSIBILITY_HARDENING_TEST_HARNESS_AUTHORED_PENDING_APK_BUILD_OWNER_PHONE_QA_AND_TECHNICAL_GATES_NOT_FULL_PASS",
+  "originalP12Source": "User-supplied ISSUE_5_PHASED_EXECUTION_PLAN(1).md P12",
+  "scope": "Automated first-use permission/recovery, 200pct font, TalkBack semantics, color contrast, 48dp, native API matrix, privacy/static/lint",
+  "implementation": {
+    "appUIChanges": [
+      "Rationale heading focus with accessible semantics",
+      "Root Library/Settings/Bootstrap headings with TalkBack heading semantics",
+      "No new permission prompt, service or remote STT feature"
+    ],
+    "nativeUI": "Existing ActivityResult OS truth, with P12 native opt-in smoke harness",
+    "contrast": "WCAG 2 source palette contrast checks 4.5-to-1 plus negative fixture; native visual signoff pending",
+    "uiTesting": "6 composed Android instrumentation tests authored for rationale/outcome 48dp, explicit actions, 200pct fontScale",
+    "jvmTesting": "6 new JVM accessibility contract tests authored; prior P00-P11 regression suites retained",
+    "nativeApiTargets": [
+      29,
+      31,
+      33,
+      35,
+      36
+    ],
+    "privacy": "No screenshots, personal media or logs uploaded; raw OS dumps kept temp only in P12 native script"
+  },
+  "sources": [
+    "app/src/main/java/com/latticeward/musiccopilot/feature/permission/MediaPermissionRationaleScreen.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseScreen.kt",
+    "app/build.gradle.kts",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase12AccessibilityPolicyTest.kt",
+    "app/src/androidTest/java/com/latticeward/musiccopilot/Issue5Phase12AccessibilityUiTest.kt",
+    ".github/workflows/issue-5-phase12-accessibility-validation.yml",
+    "scripts/issue5_phase12_native_test.sh"
+  ],
+  "testInventory": {
+    "priorP10JvmExecuted": false,
+    "priorP11JvmExecuted": false,
+    "newP12JvmTestsAuthored": 6,
+    "newP12JvmTestsExecuted": false,
+    "newP12ComposeUiTestsAuthored": 6,
+    "newP12ComposeUiTestsExecuted": false,
+    "AndroidNativeApiMatrix": {
+      "29": "NOT_RUN",
+      "31": "NOT_RUN",
+      "33": "NOT_RUN",
+      "35": "NOT_RUN",
+      "36": "NOT_RUN_OPTIONAL"
+    },
+    "pythonArchitectureChecks": "NOT_RUN",
+    "pythonPrivacyChecks": "NOT_RUN",
+    "spotlessCheck": "NOT_RUN",
+    "detekt": "NOT_RUN",
+    "lintDebug": "NOT_RUN",
+    "suiteJvmRegression": "NOT_RUN_P12_HEAD",
+    "phoneTestIds": 12,
+    "ownerPhoneReported": 0,
+    "ownerPhoneEvidence": "PENDING",
+    "noScreenshotsToGitHub": true,
+    "compiledDebugApk": "PENDING_EXPLICIT_SINGLE_JOB_REQUEST",
+    "exactFinalApkRunId": null
+  },
+  "acceptance": {
+    "implementationCommitted": true,
+    "codeCompilationVerified": false,
+    "unitTestsPassed": false,
+    "composeUiTestsPassed": false,
+    "crossApiNativeValidated": false,
+    "automatedA11yPassed": false,
+    "physicalPhoneOwnerQaPassed": false,
+    "noBlockingA11yIssuesProven": false,
+    "phase12PASS": false,
+    "issue5OriginalACVerifiedCount": 0,
+    "parentIssueOpen": true,
+    "phase13Started": false
+  },
+  "artifacts": {
+    "testMatrix": "docs/implementation/ISSUE_5_TEST_MATRIX.md",
+    "accessibilityAudit": "docs/implementation/ISSUE_5_ACCESSIBILITY_AUDIT.md",
+    "ownerChecklist": "docs/implementation/ISSUE_5_PHASE12_PHONE_QA_CHECKLIST.md",
+    "evidenceIndex": "docs/implementation/ISSUE_5_EVIDENCE_INDEX.md",
+    "optInValidationWorkflow": ".github/workflows/issue-5-phase12-accessibility-validation.yml",
+    "apkOnlyWorkflow": ".github/workflows/issue-5-apk-only.yml",
+    "apkArtifactId": null,
+    "apkRunId": null,
+    "apkSha256": null
+  },
+  "explicitNonClaims": [
+    "Normal commits do NOT run P12 JVM/Lint/native CI. Opt-in only.",
+    "P12 APK build is compile-only. Instrumentation is not compiled/executed by that job.",
+    "Existing P10/P11 deferred technical gates not silently passed.",
+    "One Android 15 handset cannot prove API29/31/33/35/36 compatibility or TalkBack 200pct automatically.",
+    "No screenshots or OS logs registered, uploaded or linked in Github at owner's request.",
+    "Issue #5 stays OPEN until P14 acceptance, review, merge."
+  ]
+}
