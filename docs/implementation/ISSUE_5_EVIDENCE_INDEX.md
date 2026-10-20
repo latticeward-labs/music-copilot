@@ -142,3 +142,12 @@ P05 **PASS_SCOPED** — [JVM/Lint/APK #38884070402](https://github.com/latticewa
 
 
 **P12 APK build evidence (19 October 2026):** [GitHub run #39243014999](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999) **SUCCESS**, exact build commit `a152312ca3ce77151df5df1329b804746e567333`, [artifact #12181988538](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999/artifacts/12181988538), APK SHA-256 `ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8`, 35801343 bytes. Original ZIP included hash and provenance; extracted file independently matched. This is `assembleDebug` only. P12 **6 authored JVM + 6 authored Compose UI tests, opt-in full lint/static and native API matrix have NOT BEEN RUN**; owner P12-01..12 phone QA also pending. No screenshots added to GitHub. P12 `IMPLEMENTED / APK_BUILD_SUCCESS / PHONE_QA_AND_TECHNICAL_GATES_PENDING — NOT FULL PASS`.
+
+
+### P12 — Owner-confirmed physical-phone QA 12/12 PASS (21 October 2026)
+
+**Source:** owner directly confirmed in this conversation that all `P12-01` through `P12-12` tests were performed and passed on **HONOR X7d / Android 15**. Results **12 owner-reported PASS, 0 FAIL, 0 NOT RUN**. Association: [P12 APK-only run #39243014999](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999), [artifact #12181988538](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999/artifacts/12181988538). [Attributed owner report](ISSUE_5_PHASE12_OWNER_PHONE_TEST_REPORT_2026-10-21.md) · [P12 validation](ISSUE_5_PHASE12_VALIDATION.json).
+
+**Evidence boundary:** This is owner self-attestation; no independent ADB/OS logs, measured screen-reader traversal, measured font-scale percentage, on-phone APK SHA, screenshot or separate per-conditional-step records. User explicitly prohibited screenshots in GitHub: **none added, embedded or linked**. In particular, an exact 200% font setting, 48dp native measurement, all OEM/API versions, zero accessibility blockers and privacy telemetry tests are **NOT** established by this report.
+
+**Status:** `P12 IMPLEMENTED / APK BUILD SUCCESS / OWNER-REPORTED PHONE QA 12/12 PASS / 6 JVM + 6 Compose UI + STATIC/LINT + NATIVE API MATRIX PENDING — NOT FULL P12 PASS`. P10/P11 deferred technical gates unchanged; Issue #5 still OPEN with 13 original integrated AC unchecked, P13 not started; no merge.
