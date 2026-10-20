@@ -56,3 +56,8 @@
 ## Real P12 APK build — 19 October 2026
 
 [GitHub Actions #39243014999](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999) **SUCCESS**, `./gradlew :app:assembleDebug`; build commit `a152312ca3ce77151df5df1329b804746e567333`; [artifact #12181988538](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999/artifacts/12181988538) (`issue5-phone-test-apk-4`), ZIP includes APK, SHA and `BUILD_PROVENANCE.txt`. APK extracted and hash matched `ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8` (35801343 bytes); expires 26 Oct 2026 UTC. **Compiles the app only**, not the authored P12 JVM/Compose instrumentation suites, Lint, native OS matrix or physical phone QA. The subsequent P12 validation workflow-only adjustment did not modify the Android app sources included in this artifact. All source-registered P-01..17 P12 final-head automation results remain **NOT RUN**.
+
+
+## Physical phone owner self-report — 21 October 2026
+
+**All 12 owner QA test IDs P12-01–P12-12** on HONOR X7d Android15: **PASS as directly reported by owner**, 0 FAIL, 0 NOT RUN; [text-only attributed report](ISSUE_5_PHASE12_OWNER_PHONE_TEST_REPORT_2026-10-21.md), APK-only artifact #12181988538. This updates **only** the physical owner-phone row. The P-01..P-17 source integration scenarios, Android API29/31/33/35(+36), `androidTest` Compose UI, JVM policy, Spotless/Detekt/Lint/static checks and measured 200% font/48dp remain **NOT VERIFIED** on this P12 head. Do not mark automated or cross-API matrix green. Owner requested no screenshot evidence: none attached or linked. P12 overall remains **PARTIAL**.
