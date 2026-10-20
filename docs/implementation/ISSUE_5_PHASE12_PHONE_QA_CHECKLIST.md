@@ -59,3 +59,10 @@ No screenshots to GitHub.
 ```
 
 [Matrix and technical caveats](ISSUE_5_TEST_MATRIX.md) · [Accessibility audit](ISSUE_5_ACCESSIBILITY_AUDIT.md) · [validation ledger](ISSUE_5_PHASE12_VALIDATION.json).
+
+
+## Owner's reported execution — 21 October 2026
+
+The owner directly confirmed that **all P12-01..P12-12 were executed and PASS** on HONOR X7d Android 15. **12/12 PASS owner-reported; 0 FAIL, 0 NOT RUN**. Source: [text-only attributed phone QA report](ISSUE_5_PHASE12_OWNER_PHONE_TEST_REPORT_2026-10-21.md) and [validation JSON](ISSUE_5_PHASE12_VALIDATION.json). P12 APK artifact #12181988538, APK-only run #39243014999.
+
+**Important limits:** Exact phone font-size percentage, on-phone checksum, actual installation method, and condition-specific OS/TalkBack tracing were not separately supplied. Do not infer verified 200%, measured 48dp targets, emulator coverage or completed technical JVM/Compose tests. **No screenshots, links to screenshots, private audio/media or device logs uploaded/registered**, at owner's request. P12 overall remains technically pending, not full PASS.
