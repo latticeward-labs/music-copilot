@@ -46,3 +46,8 @@ The disabled-only gray `#7C8998` against `#202A36` is ~4.07:1; this does not sat
 ## APK-only delivery — 19 October 2026
 
 The final P12 debug APK built successfully: [run #39243014999](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999), commit `a152312ca3ce77151df5df1329b804746e567333`, [artifact #12181988538](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999/artifacts/12181988538), APK SHA-256 `ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8` (35801343 bytes), checked against the artifact's SHA file and BUILD_PROVENANCE. **APK-only compilation is NOT proof** of compiled/executed Compose androidTest code, contrast unit tests, TalkBack runtime, 200% reflow or zero blocking violations. Owner physical tests remain pending. No screenshot files or links registered.
+
+
+## Owner-confirmed accessibility phone tests — 21 October 2026
+
+[Owner's direct phone QA report](ISSUE_5_PHASE12_OWNER_PHONE_TEST_REPORT_2026-10-21.md) attributes **P12-01..P12-12 PASS as self-reported (12/12, 0 FAIL, 0 NOT RUN)** to the HONOR X7d Android 15, APK artifact #12181988538. This includes test IDs for TalkBack (P12-04/05/06), font scaling, permissions and Settings, but no independent TalkBack traversal tree, exact 200% font-scale readout, measured 48dp targets, cross-API OS evidence or P12 automated CI results were supplied. Therefore **blocking accessibility defects have not been independently excluded**. No screenshot is registered/linked at owner's instruction. The author's 6 JVM + 6 Compose instrumented tests and multi-API validations are still **NOT RUN**; **P12 NOT FULL PASS**.
