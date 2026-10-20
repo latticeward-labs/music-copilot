@@ -1,0 +1,181 @@
+{
+  "issue": 5,
+  "phase": "P13",
+  "recordDate": "2026-10-21",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "status": "P13_DEVICE_QA_AND_GS01_CONTRACTS_COMMITTED_OWNER_PHYSICAL_TESTS_PENDING_NO_GITHUB_TESTS_EXECUTED_NOT_FULL_PASS",
+  "sources": [
+    "user-uploaded ISSUE_5_PHASED_EXECUTION_PLAN(1).md: Phase 13",
+    "MSM2(1)(1).rar SHA256 0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "docs/user-flows/golden-scenarios/GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md (approved Stage 2)",
+    "docs/user-flows/UF-01_FIRST_LAUNCH_AND_EDUCATION.md",
+    "docs/user-flows/UF-02_PERMISSION_RECOVERY.md",
+    "docs/user-flows/UF-03_LIBRARY_READINESS.md",
+    "docs/implementation/ISSUE_5_PHASE12_VALIDATION.json"
+  ],
+  "ownerExecutionContract": {
+    "noGitHubAppTestRun": true,
+    "noGitHubAutomationTriggered": true,
+    "noDeviceTestExecutedByAssistant": true,
+    "doNotUploadScreenshots": true,
+    "doNotRegisterScreenshotLinks": true,
+    "noRawOsLogs": true,
+    "onlyOwnerPerformsPhysicalAppTests": true,
+    "preserveOwnerPhoneData": true,
+    "noUnnecessaryApkRebuild": true
+  },
+  "apkCandidate": {
+    "sourcePhase": "P12",
+    "buildRunId": 39243014999,
+    "artifactId": 12181988538,
+    "commitSha": "a152312ca3ce77151df5df1329b804746e567333",
+    "apkSha256": "ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8",
+    "bytes": 35801343,
+    "debugPackage": "com.latticeward.musiccopilot.debug",
+    "changedAppOrBuildFilesSinceApk": 0,
+    "githubCommitComparison": {
+      "base": "a152312ca3ce77151df5df1329b804746e567333",
+      "headBeforeP13Docs": "feature/5-onboarding-permissions-recovery",
+      "totalCommits": 14,
+      "changedAppOrBuildFiles": 0
+    },
+    "reusedBecauseNoP13AppCodeModifications": true,
+    "apkOnlyBuildResult": "SUCCESS_assembleDebug_ONLY_NOT_P13_NATIVE_TEST",
+    "appInstalledOrTestedByAssistant": false
+  },
+  "devices": {
+    "DEV-A": {
+      "manufacturer": "HONOR",
+      "model": "HONOR X7d",
+      "android": "15",
+      "androidApi": 35,
+      "evidenceType": "NONE_FOR_P13_OWNER_TO_REPORT",
+      "isEmulator": false,
+      "preexistingP12OwnerReport": "12/12_PASS_P12_ONLY_NOT_REUSED_AS_P13",
+      "testStatuses": {
+        "P13-01": "NOT_RUN",
+        "P13-02": "NOT_RUN",
+        "P13-03": "NOT_RUN",
+        "P13-04": "NOT_RUN",
+        "P13-05": "NOT_RUN",
+        "P13-06": "NOT_RUN",
+        "P13-07": "NOT_RUN",
+        "P13-08": "NOT_RUN",
+        "P13-09": "NOT_RUN",
+        "P13-10": "NOT_RUN",
+        "P13-11": "NOT_RUN",
+        "P13-12": "NOT_RUN",
+        "P13-13": "NOT_RUN",
+        "P13-14": "NOT_RUN",
+        "P13-15": "NOT_RUN",
+        "P13-16": "NOT_RUN",
+        "P13-17": "NOT_RUN"
+      },
+      "gs01Steps": {
+        "GS01-01": "NOT_RUN",
+        "GS01-02": "NOT_RUN",
+        "GS01-03": "NOT_RUN",
+        "GS01-04": "NOT_RUN",
+        "GS01-05": "NOT_RUN",
+        "GS01-06": "NOT_RUN",
+        "GS01-07": "NOT_RUN",
+        "GS01-08": "NOT_RUN",
+        "GS01-09": "NOT_RUN",
+        "GS01-10": "NOT_RUN",
+        "GS01-11": "NOT_RUN",
+        "GS01-12": "NOT_RUN"
+      },
+      "goldenScenarioVerdict": "NOT_RUN",
+      "phoneSideApkShaVerified": false,
+      "localAudioFixture": "UNKNOWN",
+      "testedUtc": null
+    },
+    "DEV-B": {
+      "manufacturer": null,
+      "model": null,
+      "android": null,
+      "androidApi": null,
+      "evidenceType": "MISSING_SECOND_REAL_DEVICE",
+      "isEmulator": false,
+      "testStatuses": {
+        "P13-01": "NOT_RUN",
+        "P13-02": "NOT_RUN",
+        "P13-03": "NOT_RUN",
+        "P13-04": "NOT_RUN",
+        "P13-05": "NOT_RUN",
+        "P13-06": "NOT_RUN",
+        "P13-07": "NOT_RUN",
+        "P13-08": "NOT_RUN",
+        "P13-09": "NOT_RUN",
+        "P13-10": "NOT_RUN",
+        "P13-11": "NOT_RUN",
+        "P13-12": "NOT_RUN",
+        "P13-13": "NOT_RUN",
+        "P13-14": "NOT_RUN",
+        "P13-15": "NOT_RUN",
+        "P13-16": "NOT_RUN",
+        "P13-17": "NOT_RUN"
+      },
+      "gs01Steps": {
+        "GS01-01": "NOT_RUN",
+        "GS01-02": "NOT_RUN",
+        "GS01-03": "NOT_RUN",
+        "GS01-04": "NOT_RUN",
+        "GS01-05": "NOT_RUN",
+        "GS01-06": "NOT_RUN",
+        "GS01-07": "NOT_RUN",
+        "GS01-08": "NOT_RUN",
+        "GS01-09": "NOT_RUN",
+        "GS01-10": "NOT_RUN",
+        "GS01-11": "NOT_RUN",
+        "GS01-12": "NOT_RUN"
+      },
+      "goldenScenarioVerdict": "NOT_RUN",
+      "phoneSideApkShaVerified": false,
+      "localAudioFixture": "UNKNOWN",
+      "testedUtc": null
+    }
+  },
+  "mandatoryOutputs": {
+    "deviceQa": "docs/implementation/ISSUE_5_DEVICE_QA.md",
+    "gs01Execution": "docs/implementation/ISSUE_5_GS01_EXECUTION.md",
+    "validation": "docs/implementation/ISSUE_5_PHASE13_VALIDATION.json",
+    "evidenceIndex": "docs/implementation/ISSUE_5_EVIDENCE_INDEX.md"
+  },
+  "gs01": {
+    "canonicalName": "First Launch to Ready Library",
+    "scenarioSpecificationApproved": true,
+    "physicalExecutionApproved": false,
+    "primaryReadyTestCompleted": false,
+    "emptyAlternativeTestCompleted": false,
+    "issue6BrowsingHandoffNotImplementedInIssue5": true,
+    "deviceVerdicts": {
+      "DEV-A": "NOT_RUN",
+      "DEV-B": "NOT_RUN"
+    },
+    "note": "Verified Empty is a truthful alternate outcome, NOT a primary Ready GS-01 PASS."
+  },
+  "exitGates": {
+    "deviceCountRequired": 2,
+    "deviceCountWithP13Evidence": 0,
+    "differentAndroidOrOemCoverageRequired": true,
+    "mandatoryPhoneScenariosVerified": false,
+    "verifiedReadyPrimaryGS01": false,
+    "verifiedThreeWayOSSettingsRecheck": false,
+    "zeroOpenP0Demonstrated": false,
+    "nativeEvidenceComplete": false,
+    "earlierP10ToP12ReportsNotReclassified": true,
+    "phase13PASS": false,
+    "originalIssue13AcceptanceSignedOff": false,
+    "parentIssueOpen": true,
+    "phase14Started": false
+  },
+  "pending": [
+    "Owner to execute P13-01..17 and GS01-01..12 on DEV-A HONOR X7d, report results per ID.",
+    "Second independent real Android phone (different Android version/OEM preferred) to be supplied by owner; do not substitute emulator.",
+    "Actual local accessible audio needed to verify primary GS01 Ready; otherwise Empty is valid alternate but not Ready PASS.",
+    "Follow up exact UTC/device build identification, permission outcome and privacy-safe text observations without personal media/screenshots.",
+    "Prior P10, P11, P12 JVM/Compose/static/native technical checks remain pending under owner no-GitHub-tests directive."
+  ]
+}
