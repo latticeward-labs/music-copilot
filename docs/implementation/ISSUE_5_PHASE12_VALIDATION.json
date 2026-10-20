@@ -1,10 +1,10 @@
 {
   "issue": 5,
   "phase": "P12",
-  "date": "2026-10-19",
+  "date": "2026-10-21",
   "repo": "latticeward-labs/music-copilot",
   "branch": "feature/5-onboarding-permissions-recovery",
-  "status": "IMPLEMENTED_FINAL_APK_BUILD_SUCCESS_OWNER_A11Y_PHONE_QA_PENDING_TECHNICAL_CI_PENDING_NOT_FULL_PASS",
+  "status": "P12_IMPLEMENTED_APK_BUILD_SUCCESS_OWNER_REPORTED_PHONE_QA_12_OF_12_PASS_TECHNICAL_VALIDATION_PENDING_NOT_FULL_PASS",
   "originalP12Source": "User-supplied ISSUE_5_PHASED_EXECUTION_PLAN(1).md P12",
   "scope": "Automated first-use permission/recovery, 200pct font, TalkBack semantics, color contrast, 48dp, native API matrix, privacy/static/lint",
   "implementation": {
@@ -57,11 +57,21 @@
     "lintDebug": "NOT_RUN",
     "suiteJvmRegression": "NOT_RUN_P12_HEAD",
     "phoneTestIds": 12,
-    "ownerPhoneReported": 0,
-    "ownerPhoneEvidence": "PENDING",
+    "ownerPhoneReported": 12,
+    "ownerPhoneEvidence": "OWNER_SELF_REPORTED_12_OF_12_PASS_HONOR_X7D_ANDROID15_NO_SCREENSHOTS_NO_INDEPENDENT_INSTRUMENTATION",
     "noScreenshotsToGitHub": true,
     "compiledDebugApk": "SUCCESS_assembleDebug_ONLY_SHA256_VERIFIED",
-    "exactFinalApkRunId": 39243014999
+    "exactFinalApkRunId": 39243014999,
+    "ownerPhonePassReported": 12,
+    "ownerPhoneFailReported": 0,
+    "ownerPhoneNotRunReported": 0,
+    "ownerReportedExactFontScale": null,
+    "ownerReportedTalkBackTests": [
+      "P12-04",
+      "P12-05",
+      "P12-06"
+    ],
+    "ownerPhoneSeparateConditionalSubstepsRecorded": false
   },
   "acceptance": {
     "implementationCommitted": true,
@@ -75,7 +85,9 @@
     "phase12PASS": false,
     "issue5OriginalACVerifiedCount": 0,
     "parentIssueOpen": true,
-    "phase13Started": false
+    "phase13Started": false,
+    "physicalPhoneOwnerQaReportedPass": true,
+    "ownerPhoneTestIdsRecorded": 12
   },
   "artifacts": {
     "testMatrix": "docs/implementation/ISSUE_5_TEST_MATRIX.md",
@@ -101,5 +113,43 @@
     "One Android 15 handset cannot prove API29/31/33/35/36 compatibility or TalkBack 200pct automatically.",
     "No screenshots or OS logs registered, uploaded or linked in Github at owner's request.",
     "Issue #5 stays OPEN until P14 acceptance, review, merge."
-  ]
+  ],
+  "ownerPhoneReport": {
+    "source": "OWNER_DIRECT_CONFIRMATION_IN_CHAT_NOT_ADB_OR_INDEPENDENT_HARDWARE_TEST",
+    "date": "2026-10-21",
+    "ownerStatement": "بله تست های P12-01 تا P12-12 را روی گوشی HONOR X7d انجام دادم پاس شد",
+    "device": "HONOR X7d",
+    "androidVersion": "15",
+    "associatedApkArtifactId": 12181988538,
+    "associatedBuildRunId": 39243014999,
+    "ownerOnPhoneApkShaIndependentlyVerified": false,
+    "installMode": "NOT_REPORTED",
+    "actualFontScalePercent": "NOT_REPORTED",
+    "TalkBackExecution": "OWNER_REPORTED_PASS_P12_04_TO_06_NO_TRAVERSAL_LOG",
+    "results": {
+      "P12-01": "PASS",
+      "P12-02": "PASS",
+      "P12-03": "PASS",
+      "P12-04": "PASS",
+      "P12-05": "PASS",
+      "P12-06": "PASS",
+      "P12-07": "PASS",
+      "P12-08": "PASS",
+      "P12-09": "PASS",
+      "P12-10": "PASS",
+      "P12-11": "PASS",
+      "P12-12": "PASS"
+    },
+    "summary": {
+      "pass": 12,
+      "fail": 0,
+      "notRun": 0
+    },
+    "evidenceClassification": "OWNER_REPORTED_MANUAL_DEVICE_QA_ONLY",
+    "screenshotFilesUploaded": false,
+    "screenshotLinksRecorded": false,
+    "independentDeviceObservation": false,
+    "conditionalsIndividuallyEvidenced": false,
+    "reportFile": "docs/implementation/ISSUE_5_PHASE12_OWNER_PHONE_TEST_REPORT_2026-10-21.md"
+  }
 }
