@@ -8,7 +8,7 @@
   "base": "main",
   "branchAheadByAtAuditStart": 257,
   "branchBehindByAtAuditStart": 0,
-  "status": "P14_FINAL_ACCEPTANCE_AUDIT_COMPLETE_DRAFT_PR_72_OPEN_FULL_ACCEPTANCE_BLOCKED",
+  "status": "OWNER_ACCEPTED_WITH_DEFERRED_TECHNICAL_VERIFICATION_MERGE_AUTHORIZED_PENDING_GITHUB_CONFIRMATION",
   "definitionOfReady": {
     "issue4": {
       "status": "PASS",
@@ -195,7 +195,9 @@
         "priorWorkflowRunIds": [],
         "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
       }
-    ]
+    ],
+    "ownerAcceptedUnderException": 13,
+    "note": "All 13 are owner-accepted for issue delivery under an explicit exception. Zero have new independent exact-head evidence; AC12 final-head CI and Review are deferred to issue #73, not fabricated PASS."
   },
   "ownerPhoneQA": {
     "p10": "7/7 OWNER_REPORTED_PASS",
@@ -219,7 +221,8 @@
     "finalHeadComposeInstrumented": "NOT_RUN",
     "api29_31_33_35Native": "NOT_RUN_ON_FINAL_HEAD",
     "githubActionsLaunchedByP14": false,
-    "noNewPrTriggeredWorkflowObservedAtCheck": true
+    "noNewPrTriggeredWorkflowObservedAtCheck": true,
+    "deferredToIssue": 73
   },
   "security": {
     "manifestInternetPermissionPresent": false,
@@ -231,11 +234,12 @@
     "draftPrCreated": true,
     "draftPrNumber": 72,
     "independentApprovals": 0,
-    "required": true,
-    "ownerExplicitWaiverSpecificToIssue5": false,
+    "required": false,
+    "ownerExplicitWaiverSpecificToIssue5": true,
     "draftPrUrl": "https://github.com/latticeward-labs/music-copilot/pull/72",
     "draftPrHeadAtCreation": "a96de73d73efc84529184b3a5de5591ffaa7cc3b",
-    "draftPrState": "OPEN_DRAFT_NOT_MERGED"
+    "draftPrState": "OPEN_DRAFT_NOT_MERGED",
+    "deferredToIssue": 73
   },
   "merge": {
     "performed": false,
@@ -246,14 +250,14 @@
     "issue5State": "open",
     "issue5Completed": false,
     "issue6DependencyCleared": false,
-    "phase14PASS": false
+    "phase14PASS": false,
+    "ownerApprovedMerge": true,
+    "ownerApprovedClose": true,
+    "ownerScopePass": true
   },
   "blockedBy": [
-    "EXACT_HEAD_TESTS_NOT_RUN_UNDER_USER_GITHUB_ACTIONS_COST_AND_NO_AUTOMATED_TEST_POLICY",
-    "UNVERIFIED_SECOND_PHONE_OS_MODEL_AND_NATIVE_2_DEVICE_MATRIX",
-    "GS01_PRIMARY_READY_NONZERO_INDEXED_TRACK_COUNT_NOT_EVIDENCED",
-    "INDEPENDENT_CODE_SECURITY_A11Y_REVIEW_NOT_RECORDED",
-    "MERGE_AND_ISSUE_CLOSE_NOT_AUTHORIZED_UNTIL_GATES"
+    "AWAIT_GITHUB_VERIFIED_PR_MERGE_AND_ISSUE_CLOSE_ONLY",
+    "POST_MERGE_QA_DEFERRED_ISSUE_73_NOT_A_CLOSEOUT_GATE_UNDER_OWNER_EXCEPTION"
   ],
   "sources": [
     "docs/implementation/ISSUE_5_FINAL_ACCEPTANCE_AUDIT.md",
@@ -265,5 +269,17 @@
     "noScreenshotsUploaded": true,
     "noRawLogsOrPersonalMediaOnGithub": true,
     "noNewDeviceTestingByAssistant": true
+  },
+  "ownerScopeAmendment": {
+    "date": "2026-10-22",
+    "source": "Explicit owner message to defer final technical tests and independent review and merge/close Issue #5 now",
+    "ownerAcceptedIssue5Delivery": true,
+    "ownerAcceptanceVerdict": "PASS_OWNER_ACCEPTED_WITH_DEFERRED_VERIFICATION",
+    "technicallyVerifiedFullPass": false,
+    "approvalAppliesTo": "Issue5 only",
+    "exceptionDocument": "docs/implementation/ISSUE_5_OWNER_ACCEPTANCE_EXCEPTION_2026-10-22.md",
+    "followUpIssueNumber": 73,
+    "followUpIssueUrl": "https://github.com/latticeward-labs/music-copilot/issues/73",
+    "readyForMerge": true
   }
 }
