@@ -1,6 +1,6 @@
 # Issue #5 / Phase 13 — Physical-device QA contract and owner execution checklist
 
-**Status:** `P13_TEST_PLAN_READY / REAL_DEVICE_TESTS_NOT_RUN / NOT_FULL_PASS` (21 October 2026). This file prepares owner-executed validation; it is NOT a device test report and makes no claim that GS-01 was executed.
+**Status (updated 21 October 2026):** `OWNER_REPORTED_P13_17_OF_17_PASS / TECHNICAL_FULL_PASS_PENDING`. The original test checklist below remains the acceptance standard; [owner's attributed report](ISSUE_5_PHASE13_OWNER_PHONE_TEST_REPORT_2026-10-21.md) supersedes the former 'no tests reported' baseline. This file prepares owner-executed validation; it is NOT a device test report and makes no claim that GS-01 was executed.
 
 ## Evidence authority and phase gate
 
@@ -93,3 +93,9 @@ NO SCREENSHOTS OR RAW LOGS IN GITHUB.
 - P13 full PASS requires all mandatory applicable physical cases with real native evidence, meaningful two-device coverage, verified GS-01 primary branch, zero open P0 issues and truthful tracking of untestable cases; P12's unexecuted technical gates remain separate.
 
 [Issue #5](https://github.com/latticeward-labs/music-copilot/issues/5) · [Approved GS-01](../user-flows/golden-scenarios/GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md) · [P12 build provenance](ISSUE_5_PHASE12_VALIDATION.json).
+
+## 21 October 2026 owner testing update
+
+Owner explicitly declared **P13-01 through P13-17 passed (17/17 as a consolidated self-report)**. DEV-A HONOR X7d / Android 15 showed onboarding and Ready-facing local library; owner used a genuine **second physical phone** with no music and showed an Empty outcome. The second model/Android/API are unreported, and individual cases were not mapped across both phones. The owner's final collective PASS declaration covers any cases advanced with 'next' rather than a separate earlier verdict. **Do not conflate this owner assertion with 17 independently witnessed cases or 17 passes per phone.** The media Ready UI text alone does not prove positive indexed count; GS01 Ready and full two-device/native evidence gate remain pending.
+
+**Record:** [P13 owner phone report](ISSUE_5_PHASE13_OWNER_PHONE_TEST_REPORT_2026-10-21.md) · [machine validation](ISSUE_5_PHASE13_VALIDATION.json). No screenshots, image links, ADB output or raw logs added to GitHub. P14 not automatically begun; Issue #5 stays open.
