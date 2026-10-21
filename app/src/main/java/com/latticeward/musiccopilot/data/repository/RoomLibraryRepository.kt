@@ -17,6 +17,7 @@ import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.data.mapping.LibraryRowMapper
 import com.latticeward.musiccopilot.data.mediastore.LocalAudioSource
 import com.latticeward.musiccopilot.data.room.LibraryRow
+import com.latticeward.musiccopilot.data.room.LibraryDeltaPlanner
 import com.latticeward.musiccopilot.data.room.LibraryProjection
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +26,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -41,6 +44,15 @@ class RoomLibraryRepository(
     private val state = MutableStateFlow(LibraryIndexSnapshot(0, LibraryIndexStatus.Unavailable, 0))
     override val index: StateFlow<LibraryIndexSnapshot> = state
 
+    /**
+     * Publish the verified item set together with its revision, independently
+     * of Room's asynchronous invalidation Flow. Until a newly committed
+     * revision is approved, readers see only the previous verified items.
+     * None of these rows proves media existence: get(ref) re-queries OS.
+     */
+    private data class VerifiedRows(val revision: Long, val items: List<LibraryItem>)
+    private val verifiedRows = MutableStateFlow(VerifiedRows(0L, emptyList()))
+
     override fun invalidateMediaAccess() {
         // Derived Room rows are retained, but remain completely inaccessible
         // while the OS permission is absent. Do not purge app-owned cache or
@@ -54,54 +66,107 @@ class RoomLibraryRepository(
     }
 
     override fun observeLibrary(): Flow<List<LibraryItem>> =
-        combine(projection.observeAll(), index) { rows, status ->
-            if (status.status != LibraryIndexStatus.Ready) emptyList()
-            else rows.map(LibraryRowMapper::toItem)
+        combine(verifiedRows, index) { committed, snapshot ->
+            // A previous successful revision stays readable during a later
+            // authorized Scanning/RecoverableError, but NEVER after revoke.
+            val visible = snapshot.status == LibraryIndexStatus.Ready ||
+                snapshot.status == LibraryIndexStatus.Scanning ||
+                snapshot.status == LibraryIndexStatus.RecoverableError
+            if (!visible || !source.hasAccess() ||
+                committed.revision != snapshot.revision ||
+                committed.items.size != snapshot.itemCount
+            ) emptyList()
+            else committed.items
         }
 
     override suspend fun reconcile(): AppResult<LibraryReconcileResult> =
         withContext(dispatchers.io) {
+            // Scan attempts serialize on the repository, not the Activity.
             scanMutex.withLock {
                 if (!source.hasAccess()) return@withLock permissionUnavailable()
                 val epoch = accessEpoch.get()
-                val last = state.value
-                state.value = last.copy(status = LibraryIndexStatus.Scanning, lastError = null)
+                val previousSnapshot = state.value
+                state.value = previousSnapshot.copy(
+                    status = LibraryIndexStatus.Scanning, lastError = null,
+                )
                 try {
+                    // A cancelled or failing MediaStore scan MUST NOT touch Room.
                     val scanned = source.scan()
-                    // P04 normalizes and selects one deterministic row per
-                    // verified source ref. Duplicate titles remain distinct.
-                    val rows = LibraryRowMapper.deriveIndexRows(scanned)
-                    // A revocation while MediaStore was scanning invalidates this generation.
-                    if (accessEpoch.get() != epoch || !source.hasAccess()) {
-                        return@withLock permissionUnavailable()
+                    currentCoroutineContext().ensureActive()
+                    val normalized = LibraryRowMapper.deriveIndexRows(scanned)
+                    currentCoroutineContext().ensureActive()
+
+                    val guard = {
+                        if (accessEpoch.get() != epoch || !source.hasAccess()) {
+                            throw SecurityException("media access invalidated")
+                        }
                     }
-                    val before = projection.all().map { it.mediaRef }.toSet()
-                    val after = rows.map { it.mediaRef }.toSet()
-                    projection.replaceAll(rows) // Atomic Room transaction in adapter.
-                    val revision = last.revision + 1
-                    val nextSnapshot = LibraryIndexSnapshot(
-                        revision, if (rows.isEmpty()) LibraryIndexStatus.Empty
-                        else LibraryIndexStatus.Ready, rows.size
-                    )
-                    val accepted = synchronized(accessLock) {
+                    guard()
+                    val stored = projection.all()
+                    currentCoroutineContext().ensureActive()
+                    guard()
+
+                    // Whole source snapshot is needed to confirm removals; the
+                    // SQLite update itself is genuinely incremental.
+                    val delta = LibraryDeltaPlanner.calculate(stored, normalized)
+                    currentCoroutineContext().ensureActive()
+                    guard()
+                    // Room's production adapter writes/deletes only delta rows,
+                    // in a single cancellable transaction and with a guard
+                    // inside it. No delete-all on successful reconciliation.
+                    projection.applyDelta(delta, guard)
+                    currentCoroutineContext().ensureActive()
+                    guard()
+
+                    // Empty first scan must produce revision > 0; no-op scans
+                    // retain a stable version for paginated Browse/Search.
+                    // Regrant after permission loss requires a fresh revision.
+                    val revision = if (previousSnapshot.revision == 0L ||
+                        previousSnapshot.status == LibraryIndexStatus.Unavailable ||
+                        delta.changed
+                    ) previousSnapshot.revision + 1L else previousSnapshot.revision
+                    val approved = synchronized(accessLock) {
                         if (accessEpoch.get() != epoch || !source.hasAccess()) false
                         else {
-                            state.value = nextSnapshot
+                            verifiedRows.value = VerifiedRows(
+                                revision, normalized.map(LibraryRowMapper::toItem),
+                            )
+                            state.value = LibraryIndexSnapshot(
+                                revision = revision,
+                                status = if (normalized.isEmpty()) LibraryIndexStatus.Empty
+                                    else LibraryIndexStatus.Ready,
+                                itemCount = normalized.size,
+                                lastError = null,
+                            )
                             true
                         }
                     }
-                    if (!accepted) return@withLock permissionUnavailable()
+                    if (!approved) return@withLock permissionUnavailable()
+
                     AppResult.Success(
                         LibraryReconcileResult(
-                            scanned = scanned.size, insertedOrUpdated = rows.size,
-                            removedStale = (before - after).size,
-                            skippedInvalid = scanned.size - rows.size, revision = revision
-                        )
+                            scanned = scanned.size,
+                            insertedOrUpdated = delta.changedCount,
+                            removedStale = delta.removedCount,
+                            // Duplicate provider rows are merged, not malformed.
+                            skippedInvalid = scanned.count {
+                                com.latticeward.musiccopilot.data.mediastore.MediaStoreRefCodec
+                                    .decodeScoped(it.ref) == null
+                            },
+                            revision = revision,
+                        ),
                     )
                 } catch (cancelled: CancellationException) {
-                    state.value = state.value.copy(
-                        status = LibraryIndexStatus.Unavailable, itemCount = 0, lastError = null,
-                    )
+                    // Room withTransaction rolls back its write on coroutine
+                    // cancellation. A previously verified revision is still
+                    // valid when access was not revoked.
+                    synchronized(accessLock) {
+                        if (accessEpoch.get() == epoch && source.hasAccess()) {
+                            state.value = previousSnapshot
+                        } else {
+                            invalidateMediaAccess()
+                        }
+                    }
                     throw cancelled
                 } catch (security: SecurityException) {
                     permissionUnavailable()
@@ -109,9 +174,16 @@ class RoomLibraryRepository(
                     if (accessEpoch.get() != epoch || !source.hasAccess()) {
                         return@withLock permissionUnavailable()
                     }
-                    val error = AppError.Library(AppErrorCodes.LIBRARY_RECONCILE_FAILED,
-                        Recoverability.RECOVERABLE, RecoveryAction.Rebuild)
-                    state.value = last.copy(status = LibraryIndexStatus.RecoverableError, lastError = error)
+                    val error = AppError.Library(
+                        AppErrorCodes.LIBRARY_RECONCILE_FAILED,
+                        Recoverability.RECOVERABLE, RecoveryAction.Rebuild,
+                    )
+                    // Preserve the previously accepted count/revision/cache,
+                    // but report a truthful recoverable refresh failure.
+                    state.value = previousSnapshot.copy(
+                        status = LibraryIndexStatus.RecoverableError,
+                        lastError = error,
+                    )
                     AppResult.Failure(error)
                 }
             }
