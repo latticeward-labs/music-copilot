@@ -4,6 +4,12 @@ import androidx.room.withTransaction
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
+import com.latticeward.musiccopilot.data.api.LibraryBrowseCategory
+import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
+import com.latticeward.musiccopilot.data.api.LibraryBrowsePage
+import com.latticeward.musiccopilot.data.api.LibraryBrowseRequest
+import com.latticeward.musiccopilot.data.api.LibraryGroupId
+import com.latticeward.musiccopilot.data.mapping.LibraryRowMapper
 
 /** Derived Room projection seam; MediaStore still verifies actual existence. */
 interface LibraryProjection {
@@ -15,6 +21,20 @@ interface LibraryProjection {
      * Never used in the P05 production reconcile path.
      */
     suspend fun replaceAll(rows: List<LibraryRow>)
+
+    /** SQL-backed in production. Existing pre-P06 fake projections may omit it. */
+    suspend fun browsePage(
+        request: LibraryBrowseRequest,
+        acceptedRevision: Long,
+    ): LibraryBrowsePage = throw UnsupportedOperationException("browse query unavailable")
+
+    /** SQLite bounded in production. Legacy JVM fake uses a safe in-memory seam. */
+    suspend fun searchLocal(needle: String, limit: Int): List<LibraryRow> =
+        all().filter {
+            it.normalizedTitle.contains(needle) ||
+                it.normalizedArtist.contains(needle) ||
+                (it.normalizedAlbum?.contains(needle) == true)
+        }.take(limit)
 
     /**
      * Apply only changed rows in one logical transaction.
@@ -48,6 +68,71 @@ class RoomLibraryProjection(private val database: MusicCopilotDatabase) : Librar
 
     override fun observeAll(): Flow<List<LibraryRow>> = dao.observeAll()
     override suspend fun all(): List<LibraryRow> = dao.all()
+
+
+    override suspend fun browsePage(
+        request: LibraryBrowseRequest,
+        acceptedRevision: Long,
+    ): LibraryBrowsePage = database.withTransaction {
+        val category = request.category
+        val id = request.groupId?.value
+        val limit = request.page.limit
+        val offset = request.page.offset
+
+        // Keep both the total and page in the SAME SQLite read transaction.
+        // The repository gates permission/revision before and after this read.
+        val count = when (category) {
+            LibraryBrowseCategory.Songs -> dao.songCount()
+            LibraryBrowseCategory.Artists ->
+                if (id != null) dao.artistSongCount(id) else dao.artistCount()
+            LibraryBrowseCategory.Albums ->
+                if (id != null) dao.albumSongCount(id) else dao.albumCount()
+            LibraryBrowseCategory.Folders ->
+                if (id != null) dao.folderSongCount(id) else dao.folderCount()
+        }
+        val entries: List<LibraryBrowseEntry> = if (id != null ||
+            category == LibraryBrowseCategory.Songs
+        ) {
+            val rows = when (category) {
+                LibraryBrowseCategory.Songs -> dao.songPage(limit, offset)
+                LibraryBrowseCategory.Artists -> dao.artistSongs(id!!, limit, offset)
+                LibraryBrowseCategory.Albums -> dao.albumSongs(id!!, limit, offset)
+                LibraryBrowseCategory.Folders -> dao.folderSongs(id!!, limit, offset)
+            }
+            rows.map { LibraryBrowseEntry.Song(LibraryRowMapper.toItem(it)) }
+        } else {
+            val groups = when (category) {
+                LibraryBrowseCategory.Artists -> dao.artists(limit, offset)
+                LibraryBrowseCategory.Albums -> dao.albums(limit, offset)
+                LibraryBrowseCategory.Folders -> dao.folders(limit, offset)
+                LibraryBrowseCategory.Songs -> emptyList()
+            }
+            groups.map { item ->
+                when (category) {
+                    LibraryBrowseCategory.Artists -> LibraryBrowseEntry.Artist(
+                        LibraryGroupId(item.groupId), item.label, item.songCount,
+                    )
+                    LibraryBrowseCategory.Albums -> LibraryBrowseEntry.Album(
+                        LibraryGroupId(item.groupId), item.label,
+                        item.artistLabel, item.songCount,
+                    )
+                    LibraryBrowseCategory.Folders -> LibraryBrowseEntry.Folder(
+                        LibraryGroupId(item.groupId), item.label, item.songCount,
+                    )
+                    LibraryBrowseCategory.Songs -> error("unexpected songs group")
+                }
+            }
+        }
+        val next = if (offset.toLong() + entries.size.toLong() < count.toLong())
+            offset + entries.size else null
+        LibraryBrowsePage(
+            entries = entries, totalCount = count, revision = acceptedRevision,
+            nextOffset = next,
+        )
+    }
+
+    override suspend fun searchLocal(needle: String, limit: Int): List<LibraryRow> =
+        dao.searchLocal(needle, limit)
 
     override suspend fun replaceAll(rows: List<LibraryRow>) {
         // Historical/internal recovery helper, not called by the repository.
