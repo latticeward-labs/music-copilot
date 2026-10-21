@@ -6,6 +6,8 @@ import android.content.ContentUris
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.CancellationSignal
+import android.os.OperationCanceledException
 import android.provider.MediaStore
 import androidx.core.content.ContextCompat
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
@@ -13,6 +15,7 @@ import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.data.api.LibraryTextNormalization
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
@@ -241,8 +244,22 @@ class MediaStoreScanner(
         }.toTypedArray()
 
         val results = ArrayList<ScannedAudio>()
-        val cursor = resolver.query(uri, projection, where, null, null)
-            ?: throw IllegalStateException("media provider returned null cursor")
+        // Android ContentResolver may block before it yields a Cursor; wire
+        // coroutine Job cancellation to the platform CancellationSignal.
+        val signal = CancellationSignal()
+        val onCompletion = currentCoroutineContext()[Job]?.invokeOnCompletion { cause ->
+            if (cause != null) signal.cancel()
+        }
+        val cursor = try {
+            resolver.query(uri, projection, where, null, null, signal)
+        } catch (cancelled: OperationCanceledException) {
+            // An actual coroutine cancellation must propagate as
+            // CancellationException, not be misclassified as a retryable scan.
+            currentCoroutineContext().ensureActive()
+            throw cancelled
+        } finally {
+            onCompletion?.dispose()
+        } ?: throw IllegalStateException("media provider returned null cursor")
         cursor.use { data ->
             val idCol = data.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
             val musicCol = data.getColumnIndexOrThrow(MediaStore.Audio.Media.IS_MUSIC)
