@@ -33,3 +33,11 @@ The owner previously prohibited running assistant-triggered application/JVM/UI/n
 (1) resolve/explicitly accept every evidence blocker under a new #5-specific owner-reviewed policy; (2) demonstrably green final PR head checks rather than APK compile alone; (3) independent reviewer decision explicitly recorded on the PR, or a specific documented exception when the owner explicitly authorizes it; (4) authorized merge and GitHub-confirmed main merge SHA; (5) 13 AC evidence accepted/checklists updated and Issue #5 closed; (6) correctly scoped downstream #6 readiness cleared. **None of these future results may be pre-filled.**
 
 **Current conclusion:** completed audit artifact and **GitHub-confirmed open Draft PR #72** do not equal Phase 14 PASS. PR head at creation `a96de73d73efc84529184b3a5de5591ffaa7cc3b`. No independent approval or exact-head full CI evidence was seen; issue remains open.
+
+## Additional source-only link and permission boundary inspection (22 October 2026)
+
+Performed a **non-executing** GitHub API comparison of all **39 distinct repository-file links** embedded in [P14 final acceptance audit](ISSUE_5_FINAL_ACCEPTANCE_AUDIT.md) against the branch's recursive Git tree (1,360 entries): **39/39 target paths exist, 0 missing**. This verifies that the audit points at real tracked sources, not that their prose or runtime outcomes are correct.
+
+Also read the actual source of `app/src/main/AndroidManifest.xml`, `MediaRequestGate.kt`, `LibraryScanUseCase.kt`, `VoicePracticeGate.kt` and `NotificationPermissionPolicy.kt`. Limited source inspection finds explicit media permission gate, post-scan Ready resolver requiring `itemCount > 0`, separate optional voice permission stage, API-conditioned notification policy, and no declared `INTERNET` or `POST_NOTIFICATIONS` permission in the app manifest. **This is a bounded source inspection, not an independent security signoff or execution of tests**; runtime gaps and formal P14 blockers remain exactly as listed above.
+
+**No test, GitHub Actions workflow, emulator, APK build, native/ADB operation or personal-media upload was performed during this inspection.**
