@@ -1,6 +1,9 @@
 package com.latticeward.musiccopilot.app.navigation
 
 import androidx.activity.compose.BackHandler
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +19,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -38,6 +42,12 @@ import com.latticeward.musiccopilot.core.application.permission.VoicePracticeSta
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
+import com.latticeward.musiccopilot.data.api.LibraryRepository
+import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
+import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
+import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
+import com.latticeward.musiccopilot.feature.library.LibraryBrowseScreen
+import com.latticeward.musiccopilot.feature.library.LibraryBrowseViewModel
 import com.latticeward.musiccopilot.feature.onboarding.FirstUseScreen
 import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
 import com.latticeward.musiccopilot.feature.permission.MediaPermissionOutcomeScreen
@@ -50,6 +60,10 @@ fun AppNavHost(
     route: BootstrapRoute,
     readiness: FoundationReadiness,
     permission: PermissionStatus,
+    libraryRepository: LibraryRepository,
+    libraryIndex: LibraryIndexSnapshot,
+    playbackConnection: PlaybackConnectionState,
+    playbackSnapshot: PlaybackSnapshot,
     preferencesRepository: PreferencesRepository,
     remoteSpeechDecision: CloudSpeechGateDecision,
     onRevokeCloudSpeechConsent: () -> Unit,
@@ -159,42 +173,32 @@ fun AppNavHost(
             }
         }
         composable(Destination.Library.route) {
-            BackHandler { onExit() }
-            // Pure presentation policy; the repository/Android OS still own
-            // actual scan validity, versioning and permission truth.
-            val action = LibraryActionPolicy.nextAction(permission, readiness)
-            FirstLaunchBoundary(
-                title = stringResource(R.string.library_title),
-                message = when (action) {
-                    LibraryUiAction.ReviewAccess ->
-                        stringResource(R.string.library_without_access)
-                    else -> stringResource(readiness.messageResource())
-                },
-                primary = when (action) {
-                    LibraryUiAction.None -> null
-                    LibraryUiAction.ReviewAccess ->
-                        stringResource(R.string.action_review_access)
-                    LibraryUiAction.StartScan ->
-                        stringResource(R.string.p08_scan_local_music)
-                    LibraryUiAction.RetryScan ->
-                        stringResource(R.string.action_retry)
-                    LibraryUiAction.Rescan ->
-                        stringResource(R.string.p08_rescan_local_music)
-                },
-                onPrimary = {
-                    when (action) {
-                        LibraryUiAction.None -> Unit
-                        LibraryUiAction.ReviewAccess -> {
-                            manualFallback = false
-                            onRefreshPermission()
+            val browseModel: LibraryBrowseViewModel = viewModel(
+                factory = remember(libraryRepository) {
+                    object : ViewModelProvider.Factory {
+                        @Suppress("UNCHECKED_CAST")
+                        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                            check(modelClass == LibraryBrowseViewModel::class.java)
+                            return LibraryBrowseViewModel(libraryRepository) as T
                         }
-                        LibraryUiAction.StartScan,
-                        LibraryUiAction.Rescan -> onRescanLibrary()
-                        LibraryUiAction.RetryScan -> onRetryLibraryScan()
                     }
                 },
-                secondary = stringResource(R.string.first_use_settings),
-                onSecondary = { settingsOpen = true },
+            )
+            LibraryBrowseScreen(
+                model = browseModel,
+                index = libraryIndex,
+                readiness = readiness,
+                permission = permission,
+                playbackConnection = playbackConnection,
+                playback = playbackSnapshot,
+                onRefreshPermission = {
+                    manualFallback = false
+                    onRefreshPermission()
+                },
+                onRetryLibraryScan = onRetryLibraryScan,
+                onRescanLibrary = onRescanLibrary,
+                onSettings = { settingsOpen = true },
+                onExit = onExit,
             )
         }
         composable(Destination.Settings.route) {
