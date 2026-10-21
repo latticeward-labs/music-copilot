@@ -19,13 +19,12 @@ class LibraryScanLaunchGate(private val scope: CoroutineScope) {
 
     /** Returns false when an explicit request was coalesced. */
     fun launchExplicit(block: suspend () -> Unit): Boolean {
-        val launched: Job
-        synchronized(lock) {
+        val launched = synchronized(lock) {
             if (inFlight?.isCompleted == false) return false
             // LAZY ensures registration precedes execution even on an
             // Unconfined test dispatcher that runs launch inline.
-            launched = scope.launch(start = CoroutineStart.LAZY) { block() }
-            inFlight = launched
+            scope.launch(start = CoroutineStart.LAZY) { block() }
+                .also { inFlight = it }
         }
         launched.invokeOnCompletion {
             synchronized(lock) {
