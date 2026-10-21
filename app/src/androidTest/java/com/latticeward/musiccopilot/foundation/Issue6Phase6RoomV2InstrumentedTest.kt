@@ -189,6 +189,38 @@ class Issue6Phase6RoomV2InstrumentedTest {
         }
     }
 
+    @Test fun nativeRoomV2CreatesExpectedIndexesAndSqlPlannerIsInspectable() = runBlocking {
+        val name = "issue6-p06-indexes.db"
+        context.deleteDatabase(name)
+        val db = database(name)
+        try {
+            db.libraryDao().upsert(listOf(
+                LibraryRowMapper.fromSource(source(1, "Synthetic Alpha"))
+            ))
+            val names = mutableSetOf<String>()
+            db.openHelper.readableDatabase.query("PRAGMA index_list('library_items')")
+                .use { cursor ->
+                    val column = cursor.getColumnIndexOrThrow("name")
+                    while (cursor.moveToNext()) names.add(cursor.getString(column))
+                }
+            assertTrue(names.contains("index_library_items_normalizedTitle_mediaRef"))
+            assertTrue(names.contains("index_library_items_artistGroupId_normalizedTitle_mediaRef"))
+            assertTrue(names.contains("index_library_items_albumGroupId_normalizedTitle_mediaRef"))
+            assertTrue(names.contains("index_library_items_folderGroupId_normalizedTitle_mediaRef"))
+            assertTrue(names.contains("index_library_items_indexedGeneration_mediaRef"))
+            // The planner output is evidence to inspect at P12, not a
+            // fabricated speed result or guarantee for small fixture sizes.
+            db.openHelper.readableDatabase.query(
+                "EXPLAIN QUERY PLAN SELECT * FROM library_items " +
+                    "WHERE artistGroupId = 'synthetic-test' " +
+                    "ORDER BY normalizedTitle, mediaRef LIMIT 50"
+            ).use { cursor -> assertTrue(cursor.moveToFirst()) }
+        } finally {
+            db.close()
+            context.deleteDatabase(name)
+        }
+    }
+
     @Test fun distinctMissingAndLiteralUnknownArtistRemainSeparateGroups() = runBlocking {
         val name = "issue6-p06-unknown.db"
         context.deleteDatabase(name)
