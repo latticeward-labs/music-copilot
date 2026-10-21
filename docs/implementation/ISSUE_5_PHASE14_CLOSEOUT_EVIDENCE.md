@@ -18,7 +18,7 @@
 | P10/P11/P12/P13 owner handset QA | **OWNER-REPORTED PASS** | [P13 owner report](ISSUE_5_PHASE13_OWNER_PHONE_TEST_REPORT_2026-10-21.md) with earlier phase reports |
 | Independent DEV-A/DEV-B OS/media evidence | **INCOMPLETE** | DEV-B identity and per-handset cases missing; Ready positive media index not independently evidenced |
 | Exact-final-head JVM/static/privacy/instrumented/native CI | **NOT RUN / NOT GREEN** | Historical success was APK-only [run 39243014999](https://github.com/latticeward-labs/music-copilot/actions/runs/39243014999), not current-head integrated CI |
-| Draft PR | **TO BE CREATED** | PR URL/number will be added once GitHub confirms |
+| Draft PR | **OPEN / DRAFT / UNMERGED — PR #72** | [PR #72](https://github.com/latticeward-labs/music-copilot/pull/72), branch `feature/5-onboarding-permissions-recovery` → `main` |
 | Independent code/UX/security accessibility review | **NOT RECORDED** | No named independent reviewer approval for #5 |
 | Merge into main | **NOT MERGED** | No merge SHA |
 | Close Issue #5 as Completed | **NOT CLOSED** | [Issue #5 remains Open](https://github.com/latticeward-labs/music-copilot/issues/5) |
@@ -32,4 +32,4 @@ The owner previously prohibited running assistant-triggered application/JVM/UI/n
 
 (1) resolve/explicitly accept every evidence blocker under a new #5-specific owner-reviewed policy; (2) demonstrably green final PR head checks rather than APK compile alone; (3) independent reviewer decision explicitly recorded on the PR, or a specific documented exception when the owner explicitly authorizes it; (4) authorized merge and GitHub-confirmed main merge SHA; (5) 13 AC evidence accepted/checklists updated and Issue #5 closed; (6) correctly scoped downstream #6 readiness cleared. **None of these future results may be pre-filled.**
 
-**Current conclusion:** completed audit artifact and queued draft review do not equal Phase 14 PASS.
+**Current conclusion:** completed audit artifact and **GitHub-confirmed open Draft PR #72** do not equal Phase 14 PASS. PR head at creation `a96de73d73efc84529184b3a5de5591ffaa7cc3b`. No independent approval or exact-head full CI evidence was seen; issue remains open.
