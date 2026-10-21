@@ -3,8 +3,6 @@ package com.latticeward.musiccopilot.data.api
 import com.latticeward.musiccopilot.core.model.MediaRef
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
-import java.text.Normalizer
-import java.util.Locale
 
 /**
  * Issue #6 P02: presentation-independent contract for the FOUR local browse views.
@@ -124,14 +122,9 @@ object LibraryGroupIdentity {
     const val UNKNOWN_ALBUM: String = "Unknown Album"
     const val UNKNOWN_FOLDER: String = "Unknown Folder"
 
-    private val whitespace = Regex("\\s+")
-
-    fun normalize(input: String?): String? = input
-        ?.takeIf { it.isNotBlank() }
-        ?.let { Normalizer.normalize(it.trim(), Normalizer.Form.NFKC) }
-        ?.lowercase(Locale.ROOT)
-        ?.replace(whitespace, " ")
-        ?.takeIf { it.isNotBlank() }
+    // Shared P04 keys for Browse, Room and Search; no device locale drift.
+    fun normalize(input: String?): String? =
+        LibraryTextNormalization.display(input)?.let { LibraryTextNormalization.key(it) }
 
     fun artistId(artist: String?): LibraryGroupId =
         digest("artist", identityPart(normalize(artist)))
@@ -162,25 +155,13 @@ object LibraryGroupIdentity {
             identityPart(normalizeRelativePath(relativePath)))
 
     fun folderLabel(relativePath: String?): String =
-        normalizeRelativePathDisplay(relativePath)?.substringAfterLast('/')
-            ?.takeIf(String::isNotBlank) ?: UNKNOWN_FOLDER
+        LibraryTextNormalization.folderLabel(relativePath)
 
     private fun identityPart(value: String?): String =
         if (value == null) "missing" else "present:$value"
 
     private fun normalizeRelativePath(value: String?): String? =
-        normalizeRelativePathDisplay(value)?.let(::normalize)
-
-    private fun normalizeRelativePathDisplay(value: String?): String? {
-        if (value == null) return null
-        val raw = value.trim()
-        if (raw.startsWith('/') || raw.startsWith('\\')) return null
-        val p = raw.replace('\\', '/').trimEnd('/')
-        if (p.isBlank() || p.split('/').any {
-                it.isBlank() || it == "." || it == ".."
-            }) return null
-        return p
-    }
+        LibraryTextNormalization.relativeFolder(value)?.let(::normalize)
 
     private fun digest(kind: String, vararg components: String): LibraryGroupId {
         // A length-prefixed encoding prevents ambiguous tuples or separator
