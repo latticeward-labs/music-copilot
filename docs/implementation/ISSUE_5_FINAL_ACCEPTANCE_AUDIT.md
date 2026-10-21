@@ -86,3 +86,9 @@ GitHub branch diff `main...feature/5-onboarding-permissions-recovery` was report
 - **No screenshots or private device evidence uploaded to GitHub**; only linked textual owner reports, source-controlled files and pre-existing workflow run identifiers.
 
 This audit preserves both the owner's positive real-phone reports and the stricter original closeout contract. There is **no fabricated PASS, CI, independent Review, native device attestation, merge or closeout**.
+
+## 22 October 2026 — Effective owner acceptance amendment (supersedes historical P14 prerequisite timing)
+
+The owner explicitly requested **defer final technical tests and independent review until the future; merge PR #72 and close Issue #5 now**. See [recorded exact owner waiver](ISSUE_5_OWNER_ACCEPTANCE_EXCEPTION_2026-10-22.md). This is **not** evidence of green final-head CI, executed P10–P12 native/JVM/Compose tests, independent reviewer sign-off, identified DEV-B hardware or positive-index GS01 Ready. All those outstanding items are transferred without false PASS to [Issue #73](https://github.com/latticeward-labs/music-copilot/issues/73).
+
+**Superseding acceptance rule (Issue #5 only):** *owner accepts existing implementation and owner-reported handset QA for merge/closeout; the pending verification and independent review gates are follow-up obligations, no longer prerequisites to close Issue #5.* Accordingly, the earlier `P14 BLOCKED` verdict above remains correct for **full technical proof**, but no longer bars **owner-authorized delivery closure**. After GitHub actually reports Merge and Issue Closed, label `PASS_OWNER_ACCEPTED_WITH_DEFERRED_VERIFICATION`; never `ALL_CI_GREEN` or `INDEPENDENT_REVIEW_PASS`. No new tests or Actions are launched for this owner request.
