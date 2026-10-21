@@ -128,12 +128,27 @@
     {
       "id": "P06",
       "title": "Room browse and search performance",
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE6_ROOM_QUERY_IMPLEMENTATION.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "5b87744e40915f3d8e975ad186b109dbe8584ed6",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryRow.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryMigrations.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/MusicCopilotDatabase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/DataBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase6BrowsePortTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase6RoomV2InstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE6_ROOM_QUERY_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE6_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P06 SOURCE IMPLEMENTED / 32/32 static readback PASS; NATIVE P06 gate BLOCKED by missing genuine compiler-generated Room V2 2.json, no Gradle/KAPT/migration/5k result. All P12 actual tests NOT_RUN."
     },
     {
       "id": "P07",
@@ -801,6 +816,53 @@
       "kind": "transactional_derived_room_delta_with_native_query_cancellation_and_authored_tests",
       "rollback": "Revert Issue #6 P05 code commits on feature branch with a follow-up commit, preserving audit history; V1 Room and actual MediaStore files must not be deleted. No force reset of main.",
       "note": "Production changed rows only; MediaStore source still full, authorized enumeration; no executed tests or APK."
+    },
+    {
+      "id": "I6-CHG-P06-001",
+      "phase": "P06",
+      "status": "COMMITTED_SOURCE_PENDING_NATIVE",
+      "commits": [
+        "319f96f87db2dfc20c0e22f2935e8b0aa81500fc",
+        "f6bd0b3ad1b287ceacffa1420372de599ad74840",
+        "d79200e1f188bb8fe037284b4d624bb9fb53d52b",
+        "14098f2a46202b860c900c7141db1c0515e80b76",
+        "114de41038f9d954c83657c6b3b78c5e7c4577a3",
+        "0efd5a75dfb6a6a4304ee3cc63ae6daacacd9009",
+        "ed109e3a4d33cabffd51d876eef627b0202218c8",
+        "ac2e9319cd029bd959a6658576f1ec1a093762a9",
+        "2d37d4aef9d61bd9c57e66f3c2e97b742d4f03cf",
+        "0092b5d1910ff03084b0ba73efac302e0abcf359",
+        "e2d59fdc23cce576f3ccda82bd06bf881238e872",
+        "b2ea5b99f49e88d94d05c144c93ce20bc3c6edfc",
+        "93a571fd2c3d2152eb95586f71e22e249c9df057",
+        "34db03a2cd160a72a61f65b387bf89a91d21fff5",
+        "e580be021ae7b81c4415d30b8db96b8fc2f2a333",
+        "3b2b7d658b2377fac5166dd13287c080098d2213",
+        "27500bff80fba6a3dc34ab9c9c6408b25b29a0eb",
+        "dbf1ef454c711d25258def53bbf1db6e8408b240",
+        "139738629d70dd8f1e442a75b5528e832f6a11b3",
+        "ef5c6d8c90851ac486ef9ce41502ee42090651fe",
+        "5b87744e40915f3d8e975ad186b109dbe8584ed6"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryRow.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryMigrations.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/MusicCopilotDatabase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/DataBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase6BrowsePortTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase6RoomV2InstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE6_ROOM_QUERY_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE6_VALIDATION.json"
+      ],
+      "kind": "Room_V2_migration_grouped_sql_browse_search_and_authored_tests",
+      "rollback": "Before merge revert P06 commits only on feature branch. Do not install older V1 app over already opened V2 database; no destructive rollback. Keep User Media untouched.",
+      "note": "Cannot fully PASS P06 native/schema export: compiler-produced Room V2 2.json missing, requires P12 KAPT and tests; source 32/32 static checks passed."
     }
   ],
   "evidence_records": [
@@ -853,6 +915,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "Source-only. 15 authored JUnit tests NOT_RUN; no Gradle build, native Room rollback, Android CancellationSignal integration tests, CI, 5000-song benchmark or handset testing. All 12 original issue AC checkboxes unchecked."
+    },
+    {
+      "id": "I6-EVD-P06-001",
+      "phase": "P06",
+      "source_sha": "5b87744e40915f3d8e975ad186b109dbe8584ed6",
+      "method": "Authenticated GitHub readback: V2 entity/migration/DAO/repository 32 source checks, seven authored JVM and six native methods",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE6_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "Compiler/KAPT-generated schema 2.json missing (GitHub 404), no Android Gradle compile, actual migration, native or JVM test, 5000 query plan benchmark, APK, phone or independent review. P06 full verified gate unresolved."
     }
   ],
   "evidence_id_contract": {
