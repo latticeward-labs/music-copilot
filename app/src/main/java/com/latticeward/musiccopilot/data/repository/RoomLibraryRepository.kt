@@ -68,8 +68,9 @@ class RoomLibraryRepository(
                 state.value = last.copy(status = LibraryIndexStatus.Scanning, lastError = null)
                 try {
                     val scanned = source.scan()
-                    // Reject duplicate IDs deterministically; no personal media in logs.
-                    val rows = scanned.map(LibraryRowMapper::fromSource).distinctBy { it.mediaRef }
+                    // P04 normalizes and selects one deterministic row per
+                    // verified source ref. Duplicate titles remain distinct.
+                    val rows = LibraryRowMapper.deriveIndexRows(scanned)
                     // A revocation while MediaStore was scanning invalidates this generation.
                     if (accessEpoch.get() != epoch || !source.hasAccess()) {
                         return@withLock permissionUnavailable()
