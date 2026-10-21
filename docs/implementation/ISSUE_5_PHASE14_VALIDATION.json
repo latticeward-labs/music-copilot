@@ -8,7 +8,7 @@
   "base": "main",
   "branchAheadByAtAuditStart": 257,
   "branchBehindByAtAuditStart": 0,
-  "status": "P14_FINAL_ACCEPTANCE_AUDIT_RECORDED_DRAFT_PR_REVIEW_PREPARATION_FORMAL_CLOSEOUT_BLOCKED",
+  "status": "P14_FINAL_ACCEPTANCE_AUDIT_COMPLETE_DRAFT_PR_72_OPEN_FULL_ACCEPTANCE_BLOCKED",
   "definitionOfReady": {
     "issue4": {
       "status": "PASS",
@@ -218,7 +218,8 @@
     "finalHeadLintStatic": "NOT_RUN",
     "finalHeadComposeInstrumented": "NOT_RUN",
     "api29_31_33_35Native": "NOT_RUN_ON_FINAL_HEAD",
-    "githubActionsLaunchedByP14": false
+    "githubActionsLaunchedByP14": false,
+    "noNewPrTriggeredWorkflowObservedAtCheck": true
   },
   "security": {
     "manifestInternetPermissionPresent": false,
@@ -227,11 +228,14 @@
     "finalHeadPrivacyNegativeSuite": "NOT_RUN"
   },
   "review": {
-    "draftPrCreated": false,
-    "draftPrNumber": null,
+    "draftPrCreated": true,
+    "draftPrNumber": 72,
     "independentApprovals": 0,
     "required": true,
-    "ownerExplicitWaiverSpecificToIssue5": false
+    "ownerExplicitWaiverSpecificToIssue5": false,
+    "draftPrUrl": "https://github.com/latticeward-labs/music-copilot/pull/72",
+    "draftPrHeadAtCreation": "a96de73d73efc84529184b3a5de5591ffaa7cc3b",
+    "draftPrState": "OPEN_DRAFT_NOT_MERGED"
   },
   "merge": {
     "performed": false,
