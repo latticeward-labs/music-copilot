@@ -8,7 +8,7 @@
   "base": "main",
   "branchAheadByAtAuditStart": 257,
   "branchBehindByAtAuditStart": 0,
-  "status": "OWNER_ACCEPTED_WITH_DEFERRED_TECHNICAL_VERIFICATION_MERGE_AUTHORIZED_PENDING_GITHUB_CONFIRMATION",
+  "status": "PASS_OWNER_ACCEPTED_WITH_DEFERRED_VERIFICATION_PR72_MERGED_ISSUE5_CLOSED_COMPLETED",
   "definitionOfReady": {
     "issue4": {
       "status": "PASS",
@@ -34,7 +34,7 @@
     "count": 13,
     "mapped": 13,
     "formallyAccepted": 0,
-    "originalCheckboxesChecked": 0,
+    "originalCheckboxesChecked": 13,
     "criteria": [
       {
         "id": "AC-01",
@@ -197,7 +197,7 @@
       }
     ],
     "ownerAcceptedUnderException": 13,
-    "note": "All 13 are owner-accepted for issue delivery under an explicit exception. Zero have new independent exact-head evidence; AC12 final-head CI and Review are deferred to issue #73, not fabricated PASS."
+    "note": "All 13 owner-accepted/checkbox checked under explicit 22 Oct exception. Independent, exact-head native/Compose/JVM QA remains unverified, deferred in issue #73; do not treat 'checkbox checked' as a green test run."
   },
   "ownerPhoneQA": {
     "p10": "7/7 OWNER_REPORTED_PASS",
@@ -216,10 +216,10 @@
     "runBuildSha": "a152312ca3ce77151df5df1329b804746e567333",
     "buildApkSha256": "ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8",
     "finalHeadWholeGreen": false,
-    "finalHeadJVM": "NOT_RUN",
-    "finalHeadLintStatic": "NOT_RUN",
-    "finalHeadComposeInstrumented": "NOT_RUN",
-    "api29_31_33_35Native": "NOT_RUN_ON_FINAL_HEAD",
+    "finalHeadJVM": "NOT_RUN_DEFERRED_ISSUE_73",
+    "finalHeadLintStatic": "NOT_RUN_DEFERRED_ISSUE_73",
+    "finalHeadComposeInstrumented": "NOT_RUN_DEFERRED_ISSUE_73",
+    "api29_31_33_35Native": "NOT_RUN_ON_FINAL_HEAD_DEFERRED_ISSUE_73",
     "githubActionsLaunchedByP14": false,
     "noNewPrTriggeredWorkflowObservedAtCheck": true,
     "deferredToIssue": 73
@@ -238,27 +238,31 @@
     "ownerExplicitWaiverSpecificToIssue5": true,
     "draftPrUrl": "https://github.com/latticeward-labs/music-copilot/pull/72",
     "draftPrHeadAtCreation": "a96de73d73efc84529184b3a5de5591ffaa7cc3b",
-    "draftPrState": "OPEN_DRAFT_NOT_MERGED",
+    "draftPrState": "MERGED",
     "deferredToIssue": 73
   },
   "merge": {
-    "performed": false,
-    "mergedSha": null,
-    "verifiedMainContainsImplementation": false
+    "performed": true,
+    "prNumber": 72,
+    "prUrl": "https://github.com/latticeward-labs/music-copilot/pull/72",
+    "mergedSha": "9cb2df09f90e9c7881e743b491c9f13b48f7323c",
+    "verifiedMainContainsImplementation": true,
+    "mergeMethod": "merge",
+    "mergeCheckedGitHub": true
   },
   "closeout": {
-    "issue5State": "open",
-    "issue5Completed": false,
-    "issue6DependencyCleared": false,
-    "phase14PASS": false,
+    "issue5State": "closed",
+    "issue5Completed": true,
+    "issue6DependencyCleared": true,
+    "phase14PASS": true,
     "ownerApprovedMerge": true,
     "ownerApprovedClose": true,
-    "ownerScopePass": true
+    "ownerScopePass": true,
+    "phase14AcceptanceScope": "OWNER_ACCEPTED_WITH_DEFERRED_VERIFICATION_NOT_FULL_TECHNICAL_PASS",
+    "issue6ClearanceScope": "Onboarding, permission/recovery, and local readiness handoff only; no Issue6 catalog or app-store QA",
+    "issuesClosedAsCompletedVerified": true
   },
-  "blockedBy": [
-    "AWAIT_GITHUB_VERIFIED_PR_MERGE_AND_ISSUE_CLOSE_ONLY",
-    "POST_MERGE_QA_DEFERRED_ISSUE_73_NOT_A_CLOSEOUT_GATE_UNDER_OWNER_EXCEPTION"
-  ],
+  "blockedBy": [],
   "sources": [
     "docs/implementation/ISSUE_5_FINAL_ACCEPTANCE_AUDIT.md",
     "docs/implementation/ISSUE_5_PHASED_EXECUTION_PLAN.md",
@@ -280,6 +284,17 @@
     "exceptionDocument": "docs/implementation/ISSUE_5_OWNER_ACCEPTANCE_EXCEPTION_2026-10-22.md",
     "followUpIssueNumber": 73,
     "followUpIssueUrl": "https://github.com/latticeward-labs/music-copilot/issues/73",
-    "readyForMerge": true
-  }
+    "readyForMerge": true,
+    "mergedAndClosedVerified": true,
+    "actualMergeSha": "9cb2df09f90e9c7881e743b491c9f13b48f7323c",
+    "followUpIssueRemainsOpen": true
+  },
+  "recordDate": "2026-10-22",
+  "deferredNotVerified": [
+    "Final-head Kotlin JVM/Spotless/Detekt/Lint/privacy and Compose instrumented/native OS runs",
+    "Independent review after merge",
+    "DEV-B model/version+per-handset native proof",
+    "GS01 primary nonzero indexed accessible item verification",
+    "External pre-release acceptance/regression as relevant"
+  ]
 }
