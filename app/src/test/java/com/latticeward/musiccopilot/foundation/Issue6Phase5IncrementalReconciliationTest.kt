@@ -83,7 +83,7 @@ class Issue6Phase5IncrementalReconciliationTest {
             if (!delta.changed) return
             // Simulate a transaction's private write set before publication.
             val draft = rows.associateBy { it.mediaRef }.toMutableMap()
-            delta.removedRefs.forEach(draft::remove)
+            delta.removedRefs.forEach { draft.remove(it) }
             delta.upserts.forEach { draft[it.mediaRef] = it }
             beforeCommit?.invoke()
             currentCoroutineContext().ensureActive()
