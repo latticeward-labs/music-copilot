@@ -25,7 +25,7 @@ User-supplied English PRD FR-01, MVP US-02, System Architecture §MediaStore→n
 | `core/result/AppError.kt` | Added privacy-safe `LIBRARY_BROWSE_STALE` (no personal media metadata in code or error) |
 | `data/room/LibrarySchemaEvolution.kt` | Updated source status to true version 2 **with explicit P12 KAPT-generated 2.json and SQLite migration audit outstanding** |
 | `app/src/test/java/.../Issue6Phase6BrowsePortTest.kt` | **7 authored JVM tests**, no execution: denied/readiness/stale/paging/error and album search contract checks |
-| `app/src/androidTest/java/.../Issue6Phase6RoomV2InstrumentedTest.kt` | **5 authored native tests**, no execution: real V1 SQLite → V2 Room migration with preserved row; four category/member counts; pagination; literal/bounded three-field search; missing-vs-literal unknown artist grouping |
+| `app/src/androidTest/java/.../Issue6Phase6RoomV2InstrumentedTest.kt` | **6 authored native tests**, no execution: real V1 SQLite → V2 Room migration with preserved row; four category/member counts; pagination; literal/bounded three-field search; missing-vs-literal unknown artist grouping; native index presence and EXPLAIN plan inspection |
 
 **File identity:** existing exported `app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/1.json` preserved unchanged. **The new `2.json` is NOT claimed generated or validated.** KAPT/Gradle did not run in this environment (Android SDK/Gradle unavailable; user explicitly reserved consolidated technical testing for P12). The Room compiler must export and check in **its real** `2.json` with genuine compiler identity hash during P12, not a hand-written/guessed hash. P06 final native acceptance remains gated by this deliverable and matching migration validation.
 
@@ -58,7 +58,7 @@ User-supplied English PRD FR-01, MVP US-02, System Architecture §MediaStore→n
 - [x] Normalized album and folder metadata persisted; local hash group IDs, unknown and cross-volume rules enforced.
 - [x] Registered V1→V2 migration code and non-destructive Room 2 source annotation.
 - [x] Repository page/search real SQL integration with permission/revision error handling.
-- [x] 7 JVM and 5 Android instrumented test methods authored (NOT_RUN).
+- [x] 7 JVM and 6 Android instrumented test methods authored (NOT_RUN).
 - [x] No per-phase APK and no Issue #6 product AC checkoff.
 - [ ] **Compiler-generated `2.json` and KAPT/Kotlin compilation evidence — NOT_RUN; REQUIRED.**
 - [ ] **Real SQLite migration, Room index/SQL parser checks, EXPLAIN, 5k benchmark, API/OEM device evidence — NOT_RUN; REQUIRED.**
