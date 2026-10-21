@@ -23,6 +23,7 @@ object LibraryMigrations {
             db.execSQL("ALTER TABLE library_items ADD COLUMN albumGroupId TEXT")
             db.execSQL("ALTER TABLE library_items ADD COLUMN normalizedAlbum TEXT")
             db.execSQL("ALTER TABLE library_items ADD COLUMN normalizedFolder TEXT")
+            db.execSQL("ALTER TABLE library_items ADD COLUMN folderLabel TEXT")
             db.execSQL("ALTER TABLE library_items ADD COLUMN metadataFingerprint TEXT")
             db.execSQL("ALTER TABLE library_items ADD COLUMN indexedGeneration INTEGER")
             db.execSQL("CREATE INDEX IF NOT EXISTS index_library_items_normalizedTitle_mediaRef " +
