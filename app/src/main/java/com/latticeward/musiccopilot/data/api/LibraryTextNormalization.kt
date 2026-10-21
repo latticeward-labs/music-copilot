@@ -68,8 +68,8 @@ object LibraryTextNormalization {
         if (canonical.isEmpty()) return null
         val segments = canonical.split('/')
         if (segments.any { part ->
-                part.isEmpty() || part == "." || part == ".." ||
-                    display(part) == null || display(part) != part.trim()
+                part.isBlank() || part == "." || part == ".." ||
+                    part.any { Character.isISOControl(it) || unsafeFormat(it) }
             }) return null
         return segments.joinToString("/") + "/"
     }
