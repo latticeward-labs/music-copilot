@@ -256,9 +256,11 @@ class MainActivity : ComponentActivity() {
                     status == com.latticeward.musiccopilot.data.api.LibraryIndexStatus.Empty ||
                     status == com.latticeward.musiccopilot.data.api.LibraryIndexStatus.Scanning
             }
+        // One process-scoped owner handles permission revocation + cancellation.
+        // A Settings return, onResume or rotation never requests a new scan.
+        (application as MusicCopilotApplication).bindings
+            .onForegroundMediaPermissionObserved(freshGrant)
         if (!freshGrant && (previouslyGranted || knownIndexed)) {
-            // Immediately make any previous derived Ready library untrustworthy.
-            (application as MusicCopilotApplication).bindings.onMediaAccessRevoked()
             permissionUi.onMediaRevoked()
         }
         permissionUi.onReturnFromSettings(NativePermissionObservation(
@@ -306,6 +308,12 @@ class MainActivity : ComponentActivity() {
         val mediaRequest by mediaRequestUi.collectAsStateWithLifecycle()
         val practice by voicePracticeUi.collectAsStateWithLifecycle()
 
+        // Permission-aware readiness is computed from the same OS observation
+        // and repository revision for navigation AND the visible Library status.
+        // A migrated Room row or stale cached Ready is never proof of access.
+        val verifiedLibraryStatus = LibraryReadinessResolver.verifiedStatus(
+            permission == PermissionStatus.Granted, library,
+        )
         val evidence = BootstrapEvidence(
             preferencesLoaded = preferencesLoad == PreferencesLoadState.Ready,
             migrationsVerified = storage == StorageStartState.Ready,
@@ -313,12 +321,9 @@ class MainActivity : ComponentActivity() {
                 storage == StorageStartState.Failed,
             onboardingComplete = preferences.onboardingComplete,
             mediaPermission = permission,
-            libraryStatus = library.status,
+            libraryStatus = verifiedLibraryStatus,
         )
         val route = BootstrapRoutePolicy.project(evidence)
-        val verifiedLibraryStatus = LibraryReadinessResolver.verifiedStatus(
-            permission == PermissionStatus.Granted, library,
-        )
         MusicCopilotTheme {
             AppNavHost(
                 route = route,
