@@ -157,4 +157,5 @@ object LibraryRowMapper {
             .thenBy { it.artist.orEmpty() }
             .thenBy { it.album.orEmpty() }
             .thenBy { it.durationMs ?: Long.MAX_VALUE }
+            .thenBy { it.metadataFingerprint.orEmpty() }
 }
