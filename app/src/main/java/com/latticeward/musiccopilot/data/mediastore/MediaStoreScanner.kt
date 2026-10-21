@@ -13,6 +13,7 @@ import com.latticeward.musiccopilot.core.model.MediaRef
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 /**
  * P03 platform scan DTO. Additive trailing defaults retain every Issue #4/#5
@@ -184,6 +185,18 @@ class MediaStoreScanner(
         requireAccess()
         currentCoroutineContext().ensureActive()
         if (current == null) return@withContext null
+        // Only one selected item is probed. Scanning 5,000 library rows MUST
+        // NOT open 5,000 audio descriptors; playback is still service-owned.
+        // A provider that can list an entry but cannot open it does not prove
+        // the track can be handed off as playable.
+        val readable = try {
+            resolver.openFileDescriptor(itemUri, "r")?.use { true } ?: false
+        } catch (_: IOException) {
+            false
+        }
+        if (!readable) return@withContext null
+        requireAccess()
+        currentCoroutineContext().ensureActive()
         if (key.volumeName == null) current.copy(ref = ref) else current
     }
 
