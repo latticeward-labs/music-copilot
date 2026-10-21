@@ -89,6 +89,9 @@ fun LibraryBrowseScreen(
     val canBrowse = permission == PermissionStatus.Granted &&
         readiness == FoundationReadiness.LocalLibraryReady
     val listState = rememberLazyListState()
+    LaunchedEffect(state.category, state.groupId) {
+        listState.scrollToItem(0)
+    }
     val lastVisibleIndex by remember {
         derivedStateOf { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1 }
     }
@@ -153,7 +156,6 @@ fun LibraryBrowseScreen(
                         style = MusicTextStyles.titleMedium,
                         color = MusicColors.textPrimary,
                         modifier = Modifier.weight(1f).padding(start = MusicSpacing.mdDp),
-                        maxLines = 2,
                     )
                 }
             }
@@ -259,8 +261,8 @@ fun LibraryBrowseScreen(
                         items(state.entries, key = { it.stableItemKey() }) { entry ->
                             LibraryBrowseRow(
                                 entry = entry,
-                                selected = state.selectedSong?.ref ==
-                                    (entry as? LibraryBrowseEntry.Song)?.media?.ref,
+                                selected = entry is LibraryBrowseEntry.Song &&
+                                    state.selectedSong?.ref == entry.media.ref,
                                 onClick = {
                                     when (entry) {
                                         is LibraryBrowseEntry.Song ->
@@ -304,7 +306,6 @@ fun LibraryBrowseScreen(
                         modifier = Modifier.weight(1f),
                         color = MusicColors.textPrimary,
                         style = MusicTextStyles.bodyMedium,
-                        maxLines = 2,
                     )
                     OutlinedButton(onClick = model::closePreview,
                         modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp)) {
@@ -420,11 +421,11 @@ private fun LibraryBrowseRow(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 title, style = MusicTextStyles.bodyLarge,
-                color = MusicColors.textPrimary, maxLines = 2,
+                color = MusicColors.textPrimary,
             )
             if (meta.isNotBlank()) Text(
                 meta, style = MusicTextStyles.bodyMedium,
-                color = MusicColors.textMuted, maxLines = 2,
+                color = MusicColors.textMuted,
             )
         }
         if (entry !is LibraryBrowseEntry.Song) {
