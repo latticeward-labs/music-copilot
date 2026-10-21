@@ -3,6 +3,7 @@ package com.latticeward.musiccopilot.foundation
 import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.data.api.LibraryIndexStatus
+import com.latticeward.musiccopilot.data.api.LibraryReconcileResult
 import com.latticeward.musiccopilot.data.mapping.LibraryRowMapper
 import com.latticeward.musiccopilot.data.mediastore.LocalAudioSource
 import com.latticeward.musiccopilot.data.mediastore.MediaStoreRefCodec
@@ -15,7 +16,6 @@ import com.latticeward.musiccopilot.data.room.LibraryRow
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.currentCoroutineContext
@@ -100,6 +100,14 @@ class Issue6Phase5IncrementalReconciliationTest {
         RoomLibraryRepository(media, store, TestDispatcherProvider(),
             CoroutineScope(SupervisorJob()))
 
+    private suspend fun successfulReconcile(
+        repo: RoomLibraryRepository,
+    ): LibraryReconcileResult {
+        val outcome = repo.reconcile()
+        assertTrue(outcome is AppResult.Success<*>)
+        return (outcome as AppResult.Success<*>).value as LibraryReconcileResult
+    }
+
     @Test fun deltaOnlyContainsAddedChangedAndDeletedRows() {
         val before = listOf(audio(1), audio(2), audio(3)).map(LibraryRowMapper::fromSource)
         val after = listOf(audio(1), audio(2, "Synthetic Changed"), audio(4))
@@ -125,11 +133,11 @@ class Issue6Phase5IncrementalReconciliationTest {
         val media = FakeSource().apply { tracks = listOf(audio(1), audio(2)) }
         val room = FakeStore()
         val repo = repository(media, room)
-        val first = repo.reconcile() as AppResult.Success
-        assertEquals(2, first.value.insertedOrUpdated)
-        assertEquals(0, first.value.removedStale)
-        assertEquals(2, first.value.scanned)
-        assertEquals(1L, first.value.revision)
+        val first = successfulReconcile(repo)
+        assertEquals(2, first.insertedOrUpdated)
+        assertEquals(0, first.removedStale)
+        assertEquals(2, first.scanned)
+        assertEquals(1L, first.revision)
         assertEquals(1, room.commits)
         assertEquals(0, room.rebuildCalls)
         assertEquals(LibraryIndexStatus.Ready, repo.index.value.status)
@@ -140,10 +148,10 @@ class Issue6Phase5IncrementalReconciliationTest {
         val room = FakeStore()
         val repo = repository(media, room)
         repo.reconcile()
-        val repeat = repo.reconcile() as AppResult.Success
-        assertEquals(0, repeat.value.insertedOrUpdated)
-        assertEquals(0, repeat.value.removedStale)
-        assertEquals(1L, repeat.value.revision)
+        val repeat = successfulReconcile(repo)
+        assertEquals(0, repeat.insertedOrUpdated)
+        assertEquals(0, repeat.removedStale)
+        assertEquals(1L, repeat.revision)
         assertEquals(1, room.commits)
         assertEquals(2, room.previousDeltas.size)
         assertFalse(room.previousDeltas.last().changed)
@@ -156,10 +164,10 @@ class Issue6Phase5IncrementalReconciliationTest {
         val repo = repository(media, room)
         repo.reconcile()
         media.tracks = listOf(audio(1), audio(2, "Synthetic Edit"), audio(3))
-        val result = repo.reconcile() as AppResult.Success
-        assertEquals(1, result.value.insertedOrUpdated)
-        assertEquals(0, result.value.removedStale)
-        assertEquals(2L, result.value.revision)
+        val result = successfulReconcile(repo)
+        assertEquals(1, result.insertedOrUpdated)
+        assertEquals(0, result.removedStale)
+        assertEquals(2L, result.revision)
         assertEquals(audio(2).ref.value, room.previousDeltas.last().upserts.single().mediaRef)
         assertEquals(0, room.rebuildCalls)
     }
@@ -170,9 +178,9 @@ class Issue6Phase5IncrementalReconciliationTest {
         val repo = repository(media, room)
         repo.reconcile()
         media.tracks = listOf(audio(2), audio(3))
-        val result = repo.reconcile() as AppResult.Success
-        assertEquals(1, result.value.insertedOrUpdated)
-        assertEquals(1, result.value.removedStale)
+        val result = successfulReconcile(repo)
+        assertEquals(1, result.insertedOrUpdated)
+        assertEquals(1, result.removedStale)
         assertEquals(setOf(audio(2).ref.value, audio(3).ref.value),
             room.rows.map { it.mediaRef }.toSet())
         assertEquals(0, room.rebuildCalls)
@@ -182,11 +190,11 @@ class Issue6Phase5IncrementalReconciliationTest {
         val media = FakeSource()
         val room = FakeStore()
         val repo = repository(media, room)
-        val first = repo.reconcile() as AppResult.Success
+        val first = successfulReconcile(repo)
         assertEquals(LibraryIndexStatus.Empty, repo.index.value.status)
-        assertEquals(1L, first.value.revision)
-        val second = repo.reconcile() as AppResult.Success
-        assertEquals(1L, second.value.revision)
+        assertEquals(1L, first.revision)
+        val second = successfulReconcile(repo)
+        assertEquals(1L, second.revision)
         assertEquals(0, room.commits)
         assertEquals(0, room.rebuildCalls)
     }
@@ -292,9 +300,9 @@ class Issue6Phase5IncrementalReconciliationTest {
         repo.invalidateMediaAccess()
         assertEquals(LibraryIndexStatus.Unavailable, repo.index.value.status)
         media.granted = true
-        val refreshed = repo.reconcile() as AppResult.Success
-        assertEquals(2L, refreshed.value.revision)
-        assertEquals(0, refreshed.value.insertedOrUpdated)
+        val refreshed = successfulReconcile(repo)
+        assertEquals(2L, refreshed.revision)
+        assertEquals(0, refreshed.insertedOrUpdated)
         assertEquals(1, room.commits)
     }
 
@@ -304,8 +312,8 @@ class Issue6Phase5IncrementalReconciliationTest {
         val repo = repository(media, room)
         val first = async { repo.reconcile() }
         val second = async { repo.reconcile() }
-        assertTrue(first.await() is AppResult.Success)
-        assertTrue(second.await() is AppResult.Success)
+        assertTrue(first.await() is AppResult.Success<*>)
+        assertTrue(second.await() is AppResult.Success<*>)
         assertEquals(2, media.scanCount)
         assertEquals(1, room.commits)
         assertEquals(1L, repo.index.value.revision)
@@ -317,7 +325,7 @@ class Issue6Phase5IncrementalReconciliationTest {
         }
         val room = FakeStore()
         val repo = repository(media, room)
-        val success = repo.reconcile() as AppResult.Success
+        val success = successfulReconcile(repo)
         assertEquals(2, success.value.insertedOrUpdated)
         assertEquals(2, room.rows.size)
         assertNotEquals(room.rows[0].mediaRef, room.rows[1].mediaRef)
