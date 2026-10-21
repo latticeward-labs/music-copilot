@@ -1,52 +1,38 @@
 package com.latticeward.musiccopilot.data.room
 
 /**
- * Issue #6 P02 migration specification, NOT an executed Room migration.
- *
- * Keep Room @Database(version=1), LibraryRow and exported 1.json unchanged in
- * P02: changing any one without the others would make existing installations
- * fail to open. P06 atomically delivers the V1_TO_V2 migration, annotated V2
- * row/indices, databaseBuilder registration and generated 2.json.
+ * The actual P06 Room V2 source contract. `LibraryMigrations.V1_TO_V2`
+ * is registered on the production database builder. Native Room annotation
+ * processor schema export (2.json) and migrated SQLite verification are
+ * still NOT_RUN until P12 build/test; do not assert exported/validated yet.
  */
 internal object LibrarySchemaEvolution {
-    const val INSTALLED_SCHEMA_VERSION: Int = 1
-    const val PLANNED_BROWSE_SCHEMA_VERSION: Int = 2
-    const val STATUS: String = "PLAN_ONLY_P06_IMPLEMENTATION_REQUIRED"
+    const val INSTALLED_SCHEMA_VERSION: Int = 2
+    const val PREVIOUS_SCHEMA_VERSION: Int = 1
+    const val STATUS: String = "V2_SOURCE_IMPLEMENTED_SCHEMA_EXPORT_PENDING_KAPT_P12"
 
-    // New V2 columns on DERIVED library_items; nullable initially so existing
-    // v1 data survives. Reconcile P05/P06 fills values only after OS grant.
-    val plannedDerivedColumns: List<String> = listOf(
-        "volumeName",
-        "relativeFolderPath",
-        "folderGroupId",
-        "artistGroupId",
-        "albumGroupId",
-        "normalizedAlbum",
-        "normalizedFolder",
-        "metadataFingerprint",
-        "indexedGeneration",
+    // Additive derived columns, nullable for V1 migration without data loss.
+    val derivedColumns: List<String> = listOf(
+        "volumeName", "relativeFolderPath",
+        "folderGroupId", "artistGroupId", "albumGroupId",
+        "normalizedAlbum", "normalizedFolder", "folderLabel",
+        "metadataFingerprint", "indexedGeneration",
     )
 
-    // Logical query access patterns, NOT an assertion that indexes already
-    // exist. '%substring%' needs a measured search strategy/FTS or bounded
-    // scan; SQLite B-tree alone cannot optimize a leading wildcard.
-    val requiredQueryPatterns: List<String> = listOf(
-        "Songs: normalizedTitle, mediaRef",
-        "Artists: artistGroupId, normalizedTitle, mediaRef",
-        "Albums: albumGroupId, normalizedTitle, mediaRef",
-        "Folders: folderGroupId, normalizedTitle, mediaRef",
-        "Search: normalizedTitle / normalizedArtist / normalizedAlbum, bounded",
-        "Reconciliation: indexedGeneration, mediaRef",
+    val sqlIndexes: List<String> = listOf(
+        "index_library_items_normalizedTitle_mediaRef",
+        "index_library_items_artistGroupId_normalizedTitle_mediaRef",
+        "index_library_items_albumGroupId_normalizedTitle_mediaRef",
+        "index_library_items_folderGroupId_normalizedTitle_mediaRef",
+        "index_library_items_indexedGeneration_mediaRef",
     )
 
     const val MIGRATION_POLICY =
-        "V1_TO_V2 must be transactionally registered with @Database(version=2), " +
-            "Room entity and generated schema; no destructive fallback, no deletion " +
-            "of app-owned tables or user audio, and prior index must be " +
-            "permission-revalidated before publishing Ready."
+        "V1_TO_V2 preserves all old rows; nullable derived fields are populated " +
+            "only by authorized MediaStore reconcile. Android Room KAPT 2.json " +
+            "and native migrations must be verified at P12, no destructive fallback."
 
     const val ROLLBACK_POLICY =
-        "Never downgrade a released V2 database by force-clearing it. " +
-            "Use a forward repair migration or gate an older binary before " +
-            "rollback; MediaStore remains the audio authority."
+        "Never install a V1 APK over a released V2 database or delete user audio; " +
+            "fix-forward or use a reviewed non-destructive schema strategy."
 }
