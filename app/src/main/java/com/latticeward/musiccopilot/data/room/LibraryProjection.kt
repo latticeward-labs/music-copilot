@@ -33,7 +33,7 @@ interface LibraryProjection {
         preCommitGuard()
         if (!delta.changed) return
         val rows = all().associateBy { it.mediaRef }.toMutableMap()
-        delta.removedRefs.forEach(rows::remove)
+        delta.removedRefs.forEach { rows.remove(it) }
         delta.upserts.forEach { rows[it.mediaRef] = it }
         currentCoroutineContext().ensureActive()
         preCommitGuard()
