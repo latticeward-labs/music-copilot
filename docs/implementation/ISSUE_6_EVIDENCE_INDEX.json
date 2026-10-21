@@ -109,12 +109,21 @@
     {
       "id": "P05",
       "title": "Incremental cancellable reconciliation",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE5_RECONCILIATION_IMPLEMENTATION.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "26016e2dc9adbaffac9fb1ea5289f9bb57efb2b0",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryReconcileDelta.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase5IncrementalReconciliationTest.kt",
+        "docs/implementation/ISSUE_6_PHASE5_RECONCILIATION_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE5_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P05_PASS_SCOPED_STATIC_SOURCE; 28/28 GitHub source checks, 15 synthetic JVM methods authored NOT_RUN. Room v1 retained; actual SQL transaction/OS cancellation/JVM/Android QA P12; P06 query and migration pending."
     },
     {
       "id": "P06",
@@ -759,6 +768,39 @@
       "kind": "additive_mapper_normalization_scanner_title_fallback_and_synthetic_jvm_tests",
       "rollback": "Revert Issue #6 P04 commits on feature branch with review; preserve Room V1 and platform-owned media; never force-reset main or delete audio",
       "note": "No functional migration, incremental index, APK, CI or user device testing in P04."
+    },
+    {
+      "id": "I6-CHG-P05-001",
+      "phase": "P05",
+      "status": "COMMITTED",
+      "commits": [
+        "a594142c85ea9e0f9dd484e365ce3593f410298c",
+        "9e91ada5f1c2612b4eb7dfab5954b5eb6e1237aa",
+        "a0a4602613846d661519da41234fe624f96248f2",
+        "8037cc6d104b235b94475ef03975b9be7fc22467",
+        "0f59bf16d686d155418fbc4bb1c409a5c674cc96",
+        "31c197d2414387107ccfb720504fdb454ea7aef1",
+        "2e0d016b55b60b8c7879cfd4a8422712649cddb3",
+        "01ea7ad0a6cb51503a3091f3d8ada4d3d1768d36",
+        "2bbfbeed00608748eb3ff228d1ca998f0abf4a9f",
+        "f0e37232053a4c09ba6b4aed9e9b8289bf5128d0",
+        "0e9792065ac65830a05d6dfd0dcc03ecca35dda3",
+        "3ce29ee5ec5a159e1c90d1a641fde583004638e3",
+        "26016e2dc9adbaffac9fb1ea5289f9bb57efb2b0"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryReconcileDelta.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase5IncrementalReconciliationTest.kt",
+        "docs/implementation/ISSUE_6_PHASE5_RECONCILIATION_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE5_VALIDATION.json"
+      ],
+      "kind": "transactional_derived_room_delta_with_native_query_cancellation_and_authored_tests",
+      "rollback": "Revert Issue #6 P05 code commits on feature branch with a follow-up commit, preserving audit history; V1 Room and actual MediaStore files must not be deleted. No force reset of main.",
+      "note": "Production changed rows only; MediaStore source still full, authorized enumeration; no executed tests or APK."
     }
   ],
   "evidence_records": [
@@ -801,6 +843,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "15 synthetic JVM tests authored but NOT_RUN. No Android build, CI, emulator, Room migration, 5000-file run or phone QA. No Issue #6 acceptance checkbox verified."
+    },
+    {
+      "id": "I6-EVD-P05-001",
+      "phase": "P05",
+      "source_sha": "26016e2dc9adbaffac9fb1ea5289f9bb57efb2b0",
+      "method": "Live GitHub branch/code/document readback, 28 bounded static checks and authored synthetic fixture inventory",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE5_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "Source-only. 15 authored JUnit tests NOT_RUN; no Gradle build, native Room rollback, Android CancellationSignal integration tests, CI, 5000-song benchmark or handset testing. All 12 original issue AC checkboxes unchecked."
     }
   ],
   "evidence_id_contract": {
