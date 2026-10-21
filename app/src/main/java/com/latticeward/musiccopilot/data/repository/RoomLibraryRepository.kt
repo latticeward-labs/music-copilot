@@ -123,9 +123,12 @@ class RoomLibraryRepository(
                     // Empty first scan must produce revision > 0; no-op scans
                     // retain a stable version for paginated Browse/Search.
                     // Regrant after permission loss requires a fresh revision.
+                    // Any recovery/regrant must invalidate stale pagination,
+                    // even when the derived rows happen to match the cache.
+                    val stablePrevious = previousSnapshot.status == LibraryIndexStatus.Ready ||
+                        previousSnapshot.status == LibraryIndexStatus.Empty
                     val revision = if (previousSnapshot.revision == 0L ||
-                        previousSnapshot.status == LibraryIndexStatus.Unavailable ||
-                        delta.changed
+                        !stablePrevious || delta.changed
                     ) previousSnapshot.revision + 1L else previousSnapshot.revision
                     val approved = synchronized(accessLock) {
                         if (accessEpoch.get() != epoch || !source.hasAccess()) false
