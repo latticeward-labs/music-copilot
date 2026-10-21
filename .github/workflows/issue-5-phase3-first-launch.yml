@@ -1,0 +1,67 @@
+name: Issue 5 Phase 3 - Bootstrap and first-launch routing
+
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue5-p03-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  first-launch-android-jvm:
+    name: Source policy, Kotlin/JUnit, Android lint and APK
+    runs-on: ubuntu-22.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Verify issue governance and traceability
+        run: python3 scripts/validate_issue5_phase1.py --root . --self-test
+      - name: Verify dependency direction and fail-closed regression fixtures
+        run: python3 scripts/check_architecture_dependencies.py --root . --self-test
+      - name: Verify privacy negative fixtures
+        run: python3 scripts/check_phase9_privacy.py --root . --self-test
+      - name: Verify approved Compose design tokens
+        run: python3 scripts/check_phase10_design_tokens.py --root . --self-test
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install exact Android build prerequisites
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Run real build and first launch JVM tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/build/reports/issue5-phase3
+          ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee app/build/reports/issue5-phase3/gradle.log
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase3FirstLaunchTest.xml
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase3PreferencesLoadingTest.xml
+          echo "ISSUE5_PHASE3_JVM_AND_APK_PASS; native OS permission/device QA NOT YET RUN"
+      - name: Retain actual reports and build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-phase3-first-launch-evidence
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/reports/issue5-phase3/**
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/tests/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            build/reports/detekt/**
+            app/build/outputs/apk/debug/app-debug.apk

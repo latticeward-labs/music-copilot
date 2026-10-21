@@ -1,6 +1,18 @@
 package com.latticeward.musiccopilot.app.di
 
 import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+import kotlinx.coroutines.Job
+import android.os.Build
+import android.Manifest
+import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
+import com.latticeward.musiccopilot.core.application.voice.CloudSpeechConsentPolicy
+import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
+import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
+import com.latticeward.musiccopilot.data.api.PreferenceUpdate
+import com.latticeward.musiccopilot.core.application.library.LibraryScanUseCase
+import com.latticeward.musiccopilot.core.application.library.LibraryScanReason
 import kotlinx.coroutines.launch
 
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
@@ -17,6 +29,8 @@ import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
 import com.latticeward.musiccopilot.voice.session.DefaultVoiceSessionCoordinator
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -54,6 +68,28 @@ class ApplicationBindings(
     val preferencesRepository: PreferencesRepository = dataComponents.preferences
     val restorableQueueStore: RestorableQueueStore = dataComponents.restorableQueue
 
+    enum class StorageStartState { Preparing, Ready, Failed }
+    private val storageMutable = MutableStateFlow(StorageStartState.Preparing)
+    val storageStartState: StateFlow<StorageStartState> = storageMutable
+
+    init { retryStoragePreparation() }
+
+    fun retryStoragePreparation() {
+        storageMutable.value = StorageStartState.Preparing
+        repositoryScope.launch {
+            storageMutable.value = if (dataComponents.verifyStorage(dispatchers)) {
+                StorageStartState.Ready
+            } else {
+                StorageStartState.Failed
+            }
+        }
+    }
+
+    fun retryFirstLaunch() {
+        retryStoragePreparation()
+        repositoryScope.launch { preferencesRepository.reload() }
+    }
+
     val speechToTextEngine: SpeechToTextEngine = VoiceBindings.speechToText(context, dispatchers)
     val textToSpeechEngine: TextToSpeechEngine = VoiceBindings.textToSpeech(context)
 
@@ -61,14 +97,94 @@ class ApplicationBindings(
         VoiceBindings.coordinator(voiceScope, speechToTextEngine, textToSpeechEngine, playbackGateway, context != null)
     val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
 
+    /**
+     * P09 provider probe only. This must be invoked after a fresh Android
+     * RECORD_AUDIO grant; no coordinator.start(), capture, playback command,
+     * language-pack download, network call or cloud provider is performed.
+     */
+    fun onDeviceVoicePracticeCapability(): VoiceProviderCapability =
+        if (speechToTextEngine.isAvailable()) VoiceProviderCapability.OnDeviceAvailable
+        else VoiceProviderCapability.ProviderUnavailable
+
+
+    /**
+     * P10 production is strictly local-only even for an old DataStore "Granted"
+     * flag: no approved remote adapter, legal signoff or disclosure exists.
+     */
+    fun remoteSpeechDecision(): CloudSpeechGateDecision =
+        CloudSpeechConsentPolicy.evaluate(
+            remoteAdapterApproved = false,
+            legalApproval = false,
+            disclosure = null,
+            consentGranted =
+                preferencesRepository.preferences.value.cloudSpeechConsent == CloudSpeechConsent.Granted,
+            drivingMode = false,
+        )
+
+    /** Revocation is a local DataStore preference, never an Android permission. */
+    fun revokeCloudSpeechConsent() {
+        repositoryScope.launch {
+            preferencesRepository.update(PreferenceUpdate.SetCloudSpeechConsent(CloudSpeechConsent.Revoked))
+        }
+    }
+
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
     val telemetrySink: TelemetrySink = QualityBindings.sink()
     val qualityEventPublisher = QualityBindings.publisher(telemetryPrivacyGate, telemetrySink)
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
+    private val mediaAppContext = context?.applicationContext
+    private val libraryScanUseCase = LibraryScanUseCase(libraryRepository) {
+        val app = mediaAppContext
+        if (app == null) false
+        else {
+            val osPermission = if (Build.VERSION.SDK_INT >= 33)
+                Manifest.permission.READ_MEDIA_AUDIO
+            else Manifest.permission.READ_EXTERNAL_STORAGE
+            ContextCompat.checkSelfPermission(app, osPermission) ==
+                PackageManager.PERMISSION_GRANTED
+        }
+    }
+    @Volatile private var activeMediaScan: Job? = null
+
+    /** Never invoked from bootstrap/resume; only a one-shot P05 ActivityResult grant. */
+    fun scanAfterExplicitMediaGrant(context: Context, permissionName: String) {
+        val application = context.applicationContext
+        activeMediaScan = repositoryScope.launch {
+            // Activity passed a platform-specific permission, but recheck OS here
+            // as well as in the use case and the MediaStore repository.
+            if (ContextCompat.checkSelfPermission(application, permissionName) ==
+                PackageManager.PERMISSION_GRANTED) {
+                libraryScanUseCase.execute(LibraryScanReason.AfterMediaGrant)
+            } else libraryRepository.invalidateMediaAccess()
+        }
+    }
+
+    /** User-visible Retry is only eligible after a genuine recoverable scan error. */
+    fun retryLibraryAfterError() {
+        activeMediaScan = repositoryScope.launch {
+            libraryScanUseCase.execute(LibraryScanReason.RetryRecoverableError)
+        }
+    }
+
+    /** Explicit Rescan only; never run from onResume/bootstrap or permission dialog. */
+    fun rescanLibraryOnUserRequest() {
+        activeMediaScan = repositoryScope.launch {
+            libraryScanUseCase.execute(LibraryScanReason.ExplicitRescan)
+        }
+    }
+
+    /** Invalidate the public library projection immediately; no auto scan or playback takeover. */
+    fun onMediaAccessRevoked() {
+        activeMediaScan?.cancel()
+        activeMediaScan = null
+        libraryRepository.invalidateMediaAccess()
+    }
+
     fun onForeground() {
         controller.ensureConnected()
-        repositoryScope.launch { libraryRepository.reconcile() }
+        // P05/P08 must authorize explicit OS media permission before scan.
+        // Bootstrap/return-to-foreground MUST NOT initiate a MediaStore scan.
     }
 
     override fun close() {

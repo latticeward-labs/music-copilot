@@ -1,0 +1,53 @@
+name: Issue 5 Phase 6 - Permission outcome reducer UI and Android APK
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p06-recovery-jvm:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Source, architecture, design and privacy guards
+        run: |
+          python3 scripts/validate_issue5_phase1.py --root . --self-test
+          python3 scripts/check_architecture_dependencies.py --root . --self-test
+          python3 scripts/check_phase9_privacy.py --root . --self-test
+          python3 scripts/check_phase10_design_tokens.py --root . --self-test
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install Android SDK
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Full real Kotlin JVM, Lint, Detekt, Spotless and APK
+        run: |
+          set -euo pipefail
+          ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon --stacktrace
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase6PermissionOutcomesTest.xml
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          echo ISSUE5_P06_JVM_LINT_APK_PASS
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p06-jvm-lint-apk
+          if-no-files-found: warn
+          retention-days: 14
+          path: |
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/tests/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            app/build/outputs/apk/debug/app-debug.apk

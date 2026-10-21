@@ -1,0 +1,122 @@
+{
+  "schema": "music-copilot.issue5.reaudit.p00-p04.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "owner_plan_sha256": "32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f",
+  "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "issue4_pr71": {
+    "merged": true,
+    "merge_commit": "4536cccced3cfbfa0e517bd0d81bd4a5a9060364",
+    "state": "closed"
+  },
+  "issue17_pr68": {
+    "merged": true,
+    "merge_commit": "567df7ff2cc4ffd1e202a2214b19df98574dca83",
+    "state": "closed"
+  },
+  "phases": [
+    {
+      "id": "P00",
+      "status": "PASS_REAUDIT",
+      "changes": [
+        "13 AC phase/owner/evidence mapping corrected"
+      ],
+      "CI": 38877216814
+    },
+    {
+      "id": "P01",
+      "status": "PASS_REAUDIT",
+      "changes": [
+        "original issue4 draft is stale; current merged and independent branch verified"
+      ],
+      "CI": 38877216814
+    },
+    {
+      "id": "P02",
+      "status": "PASS_SCOPED_CORE_GATEWAY",
+      "changes": [
+        "fakeable gateway and conservative adapter",
+        "one-shot cancellable blocked action"
+      ],
+      "CI": 38876126473,
+      "physical_os_permission_request": false
+    },
+    {
+      "id": "P03",
+      "status": "PASS_REAUDIT",
+      "changes": [
+        "eliminated auto-reconcile before OS media grant",
+        "Settings read-only education entry"
+      ],
+      "CI": 38879558699,
+      "emulator": 38879466032
+    },
+    {
+      "id": "P04",
+      "status": "PASS_SCOPED_EXACT_VIEWMODEL_APK_AND_ANDROID10_REAL_UI",
+      "changes": [
+        "real read-only replay and origin restore",
+        "150 percent and slide2 interruption checks"
+      ],
+      "CI": 38879558692,
+      "emulator_initial": 38876334672,
+      "emulator_extended": 38876467719,
+      "emulator_verified": 38876334672,
+      "emulator_supplemental": 38876467719,
+      "view_model_added": true,
+      "saved_state_handle_added": true,
+      "emulator_viewmodel_pending": 38879465871,
+      "emulator_viewmodel": 38879465871,
+      "emulator_viewmodel_status": "success",
+      "emulator_artifact": 12037690290,
+      "interrupted_slide2": "PASS_ANDROID10_REAL_DEVICE_SIMULATOR",
+      "font_scaling_verified": [
+        100,
+        150,
+        200
+      ],
+      "replay_verified": true
+    }
+  ],
+  "original_issue_ac_total": 13,
+  "original_issue_ac_checked": 0,
+  "branch_merged": false,
+  "not_claimed": [
+    "native permission request/Settings OS handoff P05–P07",
+    "media scan/readiness P08",
+    "voice practice P09",
+    "notification/cloud P10",
+    "physical OEM/Goldens P13",
+    "human review/merge P14"
+  ],
+  "decision": "PASS_P00_TO_P04_SCOPED_WITH_ANDROID10_REPLAY_150_200_AND_INTERRUPTED_SLIDE2",
+  "scope_caveat": "Native audio permission/OS Settings request not implemented before P05/P07. TalkBack and physical multi-API/OEM QA remain P12–P13. Issue #5 13 original ACs unchecked; no PR merge.",
+  "view_model_correction": {
+    "implemented": true,
+    "sha": "b5bd121ff29b460a7f03795a5c476bdcf867ecd7",
+    "file": "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseViewModel.kt",
+    "saved_state_handle": true,
+    "datastore_authoritative": true,
+    "ci_phase3": {
+      "id": 38879558699,
+      "conclusion": "success"
+    },
+    "ci_phase4": {
+      "id": 38879558692,
+      "conclusion": "success"
+    },
+    "emulator_on_viewmodel": {
+      "id": 38879465871,
+      "status": "success",
+      "artifact_id": 12037690290,
+      "verified_code_head": "baa3045c18b919a1260944ed9ba2618e81b15e97"
+    },
+    "emulator_first_launch_on_viewmodel": {
+      "id": 38879466032,
+      "status": "success",
+      "verified_code_head": "baa3045c18b919a1260944ed9ba2618e81b15e97"
+    },
+    "retained_regression_failure": 38879465973
+  }
+}

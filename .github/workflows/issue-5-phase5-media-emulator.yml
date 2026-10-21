@@ -1,0 +1,124 @@
+name: Issue 5 Phase 5 - Android 10 and 13 real audio permission dialog
+
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-media-permission:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [29, 33]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Enable hardware virtualization
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Build real app
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - name: Prepare AVD disk
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          if [ -d "${ANDROID_HOME}/ndk" ]; then sudo rm -rf "${ANDROID_HOME}/ndk"; fi
+          if [ -d "${ANDROID_HOME}/cmake" ]; then sudo rm -rf "${ANDROID_HOME}/cmake"; fi
+          test "$(df -Pk . | awk 'NR == 2 {print $4}')" -ge 10485760
+      - name: Fresh startup no prompt, real denial and granted gated scan
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api }}
+          target: google_apis
+          arch: x86_64
+          disk-size: 2048M
+          profile: pixel_3a
+          disable-animations: false
+          emulator-boot-timeout: 900
+          emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
+          script: |
+            set -eu
+            adb wait-for-device
+            test "$(adb shell getprop ro.build.version.sdk | tr -cd '0-9')" = "${{ matrix.api }}"
+            mkdir -p "app/build/outputs/issue5-p05-api${{ matrix.api }}"
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            adb shell pm clear "com.latticeward.musiccopilot.debug"
+            # Fail-closed bounded native startup: retry only when the emulator
+            # resumed Home, and never continue after a real app crash.
+            python3 scripts/issue5_phase6_emulator_ui.py launch-first-use
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            python3 scripts/issue5_phase5_emulator_ui.py tap Skip
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Index and play local music.'
+            # No permission dialog until the WF-03 Continue touch.
+            adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/before_native_request.txt"
+            ! grep -Eq 'android.permission.(READ_EXTERNAL_STORAGE|READ_MEDIA_AUDIO): granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/before_native_request.txt"
+            adb exec-out screencap -p > "app/build/outputs/issue5-p05-api${{ matrix.api }}/rationale_before_native.png"
+            python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
+            adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/not_now_no_grant.txt"
+            ! grep -Eq 'android.permission.(READ_EXTERNAL_STORAGE|READ_MEDIA_AUDIO): granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/not_now_no_grant.txt"
+            python3 scripts/issue5_phase5_emulator_ui.py tap 'Review music access'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            adb exec-out screencap -p > "app/build/outputs/issue5-p05-api${{ matrix.api }}/android_native_denial_dialog.png"
+            python3 scripts/issue5_phase5_emulator_ui.py system-deny
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Access denied'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Manual controls remain available.'
+            adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/denied_no_grant.txt"
+            ! grep -Eq 'android.permission.(READ_EXTERNAL_STORAGE|READ_MEDIA_AUDIO): granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/denied_no_grant.txt"
+            python3 scripts/issue5_phase5_emulator_ui.py tap 'Not now'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
+            # New installation resets the OS permission decision as well.
+            # pm clear alone can preserve Android native denied flags.
+            adb uninstall "com.latticeward.musiccopilot.debug"
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            # Fail-closed bounded native startup: retry only when the emulator
+            # resumed Home, and never continue after a real app crash.
+            python3 scripts/issue5_phase6_emulator_ui.py launch-first-use
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            python3 scripts/issue5_phase5_emulator_ui.py tap Skip
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Media access'
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            python3 scripts/issue5_phase5_emulator_ui.py system-allow
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Access granted'
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Continue to the blocked action.'
+            # P06 now owns the real WF-03 Granted page. No scan before its Continue.
+            python3 scripts/issue5_phase5_emulator_ui.py tap Continue
+            python3 scripts/issue5_phase5_emulator_ui.py app 'Your local music'
+            adb shell dumpsys package "com.latticeward.musiccopilot.debug" > "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"
+            if [ "${{ matrix.api }}" -ge 33 ]; then grep -Fq 'android.permission.READ_MEDIA_AUDIO: granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"; else grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' "app/build/outputs/issue5-p05-api${{ matrix.api }}/granted_os_truth.txt"; fi
+            python3 scripts/issue5_phase5_emulator_ui.py app 'No local music is indexed yet.'
+            adb exec-out screencap -p > "app/build/outputs/issue5-p05-api${{ matrix.api }}/post_grant_library_empty.png"
+            adb logcat -d -b crash > "app/build/outputs/issue5-p05-api${{ matrix.api }}/crash_buffer.txt"
+            ! grep -Fq "Process: $APK" "app/build/outputs/issue5-p05-api${{ matrix.api }}/crash_buffer.txt"
+            echo "ISSUE5_P05_API${{ matrix.api }}_NATIVE_DIALOG_DENY_GRANT_PASS"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p05-android-api${{ matrix.api }}-native-dialog-evidence
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/outputs/issue5-p05-api${{ matrix.api }}/**
+            app/build/outputs/apk/debug/app-debug.apk

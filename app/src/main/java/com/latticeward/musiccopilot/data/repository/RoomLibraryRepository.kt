@@ -36,8 +36,22 @@ class RoomLibraryRepository(
     repositoryScope: CoroutineScope,
 ) : LibraryRepository {
     private val scanMutex = Mutex()
+    private val accessLock = Any()
+    private val accessEpoch = java.util.concurrent.atomic.AtomicLong(0L)
     private val state = MutableStateFlow(LibraryIndexSnapshot(0, LibraryIndexStatus.Unavailable, 0))
     override val index: StateFlow<LibraryIndexSnapshot> = state
+
+    override fun invalidateMediaAccess() {
+        // Derived Room rows are retained, but remain completely inaccessible
+        // while the OS permission is absent. Do not purge app-owned cache or
+        // race a fresh authorized reconciliation after a later re-grant.
+        synchronized(accessLock) {
+            accessEpoch.incrementAndGet()
+            state.value = state.value.copy(
+                status = LibraryIndexStatus.Unavailable, itemCount = 0, lastError = null,
+            )
+        }
+    }
 
     override fun observeLibrary(): Flow<List<LibraryItem>> =
         combine(projection.observeAll(), index) { rows, status ->
@@ -49,20 +63,33 @@ class RoomLibraryRepository(
         withContext(dispatchers.io) {
             scanMutex.withLock {
                 if (!source.hasAccess()) return@withLock permissionUnavailable()
+                val epoch = accessEpoch.get()
                 val last = state.value
                 state.value = last.copy(status = LibraryIndexStatus.Scanning, lastError = null)
                 try {
                     val scanned = source.scan()
                     // Reject duplicate IDs deterministically; no personal media in logs.
                     val rows = scanned.map(LibraryRowMapper::fromSource).distinctBy { it.mediaRef }
+                    // A revocation while MediaStore was scanning invalidates this generation.
+                    if (accessEpoch.get() != epoch || !source.hasAccess()) {
+                        return@withLock permissionUnavailable()
+                    }
                     val before = projection.all().map { it.mediaRef }.toSet()
                     val after = rows.map { it.mediaRef }.toSet()
                     projection.replaceAll(rows) // Atomic Room transaction in adapter.
                     val revision = last.revision + 1
-                    state.value = LibraryIndexSnapshot(
+                    val nextSnapshot = LibraryIndexSnapshot(
                         revision, if (rows.isEmpty()) LibraryIndexStatus.Empty
                         else LibraryIndexStatus.Ready, rows.size
                     )
+                    val accepted = synchronized(accessLock) {
+                        if (accessEpoch.get() != epoch || !source.hasAccess()) false
+                        else {
+                            state.value = nextSnapshot
+                            true
+                        }
+                    }
+                    if (!accepted) return@withLock permissionUnavailable()
                     AppResult.Success(
                         LibraryReconcileResult(
                             scanned = scanned.size, insertedOrUpdated = rows.size,
@@ -71,11 +98,16 @@ class RoomLibraryRepository(
                         )
                     )
                 } catch (cancelled: CancellationException) {
-                    state.value = last.copy(status = LibraryIndexStatus.Unavailable)
+                    state.value = state.value.copy(
+                        status = LibraryIndexStatus.Unavailable, itemCount = 0, lastError = null,
+                    )
                     throw cancelled
                 } catch (security: SecurityException) {
                     permissionUnavailable()
                 } catch (failure: Exception) {
+                    if (accessEpoch.get() != epoch || !source.hasAccess()) {
+                        return@withLock permissionUnavailable()
+                    }
                     val error = AppError.Library(AppErrorCodes.LIBRARY_RECONCILE_FAILED,
                         Recoverability.RECOVERABLE, RecoveryAction.Rebuild)
                     state.value = last.copy(status = LibraryIndexStatus.RecoverableError, lastError = error)
@@ -85,10 +117,7 @@ class RoomLibraryRepository(
         }
 
     private fun permissionUnavailable(): AppResult.Failure {
-        state.value = state.value.copy(
-            status = LibraryIndexStatus.Unavailable,
-            itemCount = 0, lastError = null
-        )
+        invalidateMediaAccess()
         return AppResult.Failure(
             AppError.Permission(AppErrorCodes.PERMISSION_REVOKED,
                 Recoverability.USER_ACTION_REQUIRED, RecoveryAction.OpenSettings)

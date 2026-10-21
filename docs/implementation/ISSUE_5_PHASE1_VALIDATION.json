@@ -1,0 +1,69 @@
+{
+  "schema": "music-copilot.issue5.phase1.validation.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "base_main_commit": "fbd7bb50238bc6a063ab75feb7f1a00aa969e81d",
+  "phase0_commit": "6152bbd2e3f3b62813185f189c9f655d05b418fe",
+  "phase1_entry": {
+    "branch_ahead": 1,
+    "branch_behind": 0,
+    "develop_behind_main": 367,
+    "open_prs": 0,
+    "feature_ci_runs": 0,
+    "main_ci_id": 38816374430,
+    "main_ci_conclusion": "success"
+  },
+  "acceptance_mapped": 13,
+  "test_cases_planned": 17,
+  "runtime_ac_passed": 0,
+  "runtime_tests_executed": 0,
+  "proposed_pr_base": "main",
+  "base_exception_approved": false,
+  "pr_opened": false,
+  "review_approved": false,
+  "merged": false,
+  "phase1_ci": {
+    "status": "SUCCESS_ON_PRE_CLOSEOUT_HEAD",
+    "run_id": 38819186656,
+    "conclusion": "success",
+    "head_sha": "6a9c663cb4999dd0f9a9a8b4e329aa8e4d2007e3",
+    "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38819186656",
+    "job_id": 116711292922,
+    "scope": "DOC_CONTRACT_AND_NEGATIVE_FIXTURE_ONLY"
+  },
+  "phase1_checks": [
+    {
+      "id": "P01-01",
+      "name": "Existing main-aligned branch",
+      "status": "PASS_METADATA"
+    },
+    {
+      "id": "P01-02",
+      "name": "Open Issue, 4/4 DoR, 13 unchecked ACs",
+      "status": "PASS_METADATA"
+    },
+    {
+      "id": "P01-03",
+      "name": "Template/evidence/review/PR base policy",
+      "status": "PASS_ARTIFACT"
+    },
+    {
+      "id": "P01-04",
+      "name": "Fail-closed executable workflow",
+      "status": "PASS_REAL_ACTIONS_CI"
+    },
+    {
+      "id": "P01-05",
+      "name": "Final GitHub readback/CI and comparison",
+      "status": "PENDING_FINAL_EVIDENCE_COMMIT_RECHECK"
+    }
+  ],
+  "limitations": [
+    "No Issue #5 runtime feature tests run",
+    "No reviewer, merge, new PR or Project V2 status asserted",
+    "Main target proposed pending explicit final-merge policy approval"
+  ],
+  "phase1_status": "PASS_DOCUMENTATION_CONTRACT_WITH_FINAL_HEAD_RECHECK_REQUIRED"
+}

@@ -1,5 +1,6 @@
 package com.latticeward.musiccopilot.quality.adapters
 
+import kotlinx.coroutines.CancellationException
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.quality.api.TelemetryEvent
 import com.latticeward.musiccopilot.quality.api.TelemetryPrivacyGate
@@ -17,7 +18,18 @@ class BestEffortQualityEventPublisher(
     fun tryRecord(event: TelemetryEvent): Boolean = try {
         when (val outcome = privacyGate.sanitize(event)) {
             is AppResult.Failure -> false
-            is AppResult.Success -> try { sink.tryEmit(outcome.value) } catch (_: Exception) { false }
+            is AppResult.Success -> try {
+                sink.tryEmit(outcome.value)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                false
+            }
         }
-    } catch (_: Exception) { false }
+    } catch (cancelled: CancellationException) {
+        throw cancelled
+    } catch (_: Exception) {
+        // Fail closed: diagnostics never carry raw exception messages.
+        false
+    }
 }

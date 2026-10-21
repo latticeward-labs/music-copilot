@@ -1,0 +1,67 @@
+{
+  "phase": "P07",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "status": "PASS_SCOPED_SOURCE_IDENTICAL_GREEN_ANDROID13_AND_JVM",
+  "implemented": [
+    "explicit_android_settings_handoff",
+    "activity_departure_guard",
+    "three_way_os_return",
+    "one_shot_fresh_grant_scan",
+    "revocation_invalidates_derived_index",
+    "native_no_automatic_scan",
+    "microphone_session_cancel_on_loss",
+    "non_coercive_manual_fallback"
+  ],
+  "test_assets": [
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase7SettingsRevocationTest.kt",
+    ".github/workflows/issue-5-phase7-settings.yml",
+    "scripts/issue5_phase7_native_test.sh",
+    "scripts/issue5_phase7_settings_ui.py"
+  ],
+  "verified_ci_runs": [
+    {
+      "run_id": 39020349923,
+      "sha": "9ebe9d5e963189e4315f4e73e87c4b6a3baf88ae",
+      "whole_run": "success",
+      "jvm": "success",
+      "native_android_api33": "success",
+      "jvm_artifact": 12096631289,
+      "native_artifact": 12096627786
+    }
+  ],
+  "physical_device_qa": false,
+  "parent_issue_closed": false,
+  "parent_issue_13_acceptance_complete": false,
+  "native_scope": {
+    "granted_os": true,
+    "denied_requestable_os": true,
+    "still_settings_only_os": true,
+    "real_settings_grant_ui": true,
+    "real_settings_revoke_ui": true,
+    "one_shot_scan": true,
+    "android_process_kill_recovery": true,
+    "systemui_anr_failures_retained": [
+      39020477545,
+      39021551274
+    ],
+    "exact_later_test_only_head_green": false,
+    "api29_full_settings_only_not_attested": true
+  },
+  "source_equivalence": {
+    "proven_green_sha": "9ebe9d5e963189e4315f4e73e87c4b6a3baf88ae",
+    "later_test_harness_only_paths": [
+      "scripts/issue5_phase7_emulator_health.py",
+      "scripts/issue5_phase7_native_test.sh",
+      "scripts/issue5_phase7_settings_ui.py"
+    ],
+    "production_android_code_unchanged": true,
+    "current_branch_restored_native_harness_blob_identical_to_green": true,
+    "current_branch_restored_workflow_blob_identical_to_green": true,
+    "current_branch_production_source_blob_identical_to_green": true,
+    "current_diff_from_successful_run": "documentation only",
+    "previous_experimental_test_harness_changes": "reverted after unsuccessful emulator startup/SystemUI ANR runs"
+  },
+  "note": "P07 PASS_SCOPED is grounded in the whole-green real JVM/Android13 native run #39020349923 and byte-identical current production sources, native test scripts, and workflow. Intermediate failed experimental harness attempts remain historically failed and have been reverted. Only documentation differs from the green source. Native API29 Settings-only/physical OEM/accessibility/P08-P14 integrated Issue AC remain separate pending gates."
+}

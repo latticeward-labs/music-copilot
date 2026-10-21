@@ -16,13 +16,16 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.data.api.AppPreferences
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
+import com.latticeward.musiccopilot.data.api.FirstUsePage
 import com.latticeward.musiccopilot.data.api.PreferenceUpdate
+import com.latticeward.musiccopilot.data.api.PreferencesLoadState
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -42,37 +45,67 @@ class DataStorePreferencesRepository(
     scope: CoroutineScope,
 ) : PreferencesRepository {
     private val onboardingKey = booleanPreferencesKey("onboarding_complete")
+    private val onboardingStepKey = stringPreferencesKey("onboarding_checkpoint")
     private val bluetoothKey = stringPreferencesKey("bluetooth_hint")
     private val consentKey = stringPreferencesKey("cloud_speech_consent")
 
     private val mutable = MutableStateFlow(AppPreferences(false, null, CloudSpeechConsent.NotAsked))
     override val preferences: StateFlow<AppPreferences> = mutable
+    private val mutableLoad = MutableStateFlow(PreferencesLoadState.Loading)
+    override val loadState: StateFlow<PreferencesLoadState> = mutableLoad
 
     init {
         scope.launch(dispatchers.io) {
             try {
-                store.data.collect { mutable.value = decode(it) }
+                store.data.collect {
+                    mutable.value = decode(it)
+                    mutableLoad.value = PreferencesLoadState.Ready
+                }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Exception) {
                 // Safe defaults remain visible; no fake permission/consent grants.
-                mutable.value = AppPreferences(false, null, CloudSpeechConsent.NotAsked)
+                mutableLoad.value = PreferencesLoadState.Failed
             }
         }
     }
 
     private fun decode(p: Preferences): AppPreferences = AppPreferences(
         onboardingComplete = p[onboardingKey] ?: false,
+        onboardingCheckpoint = p[onboardingStepKey]?.let { value ->
+            FirstUsePage.entries.firstOrNull { it.name == value }
+        } ?: FirstUsePage.Value,
         selectedBluetoothHint = p[bluetoothKey],
         cloudSpeechConsent = p[consentKey]?.let { value ->
             CloudSpeechConsent.entries.firstOrNull { it.name == value }
         } ?: CloudSpeechConsent.NotAsked,
     )
 
+    override suspend fun reload(): AppResult<AppPreferences> =
+        withContext(dispatchers.io) {
+            mutableLoad.value = PreferencesLoadState.Loading
+            try {
+                val verified = decode(store.data.first())
+                mutable.value = verified
+                mutableLoad.value = PreferencesLoadState.Ready
+                AppResult.Success(verified)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (failure: Exception) {
+                mutableLoad.value = PreferencesLoadState.Failed
+                AppResult.Failure(
+                    AppError.Storage(AppErrorCodes.STORAGE_READ_FAILED,
+                        Recoverability.RECOVERABLE, RecoveryAction.Retry),
+                )
+            }
+        }
+
     override suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences> =
         withContext(dispatchers.io) {
             try {
                 val committed = store.edit { p ->
                     when (update) {
+                        is PreferenceUpdate.SetOnboardingCheckpoint ->
+                            p[onboardingStepKey] = update.page.name
                         is PreferenceUpdate.SetOnboardingComplete ->
                             p[onboardingKey] = update.complete
                         is PreferenceUpdate.SetBluetoothHint ->

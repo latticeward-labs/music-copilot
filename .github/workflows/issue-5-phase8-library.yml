@@ -1,0 +1,85 @@
+name: Issue 5 Phase 8 - Permission-gated library readiness
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+jobs:
+  p08-jvm-lint-apk:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with: {persist-credentials: false}
+      - uses: actions/setup-java@v5
+        with: {distribution: temurin, java-version: "17"}
+      - uses: android-actions/setup-android@v3
+        with: {packages: "platform-tools"}
+      - uses: gradle/actions/setup-gradle@v4
+        with: {validate-wrappers: true}
+      - run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Real unit tests, static architecture, lint and APK
+        run: |
+          set -euo pipefail
+          python3 scripts/check_architecture_dependencies.py --root . --self-test
+          python3 scripts/check_phase9_privacy.py --root . --self-test
+          ./gradlew spotlessCheck detekt :app:lintDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon --stacktrace
+          test -s app/build/test-results/testDebugUnitTest/TEST-com.latticeward.musiccopilot.foundation.Issue5Phase8LibraryReadinessTest.xml
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          echo ISSUE5_P08_JVM_LINT_APK_PASS
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p08-jvm-and-apk
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            app/build/outputs/apk/debug/app-debug.apk
+  p08-android-library-api33:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v5
+        with: {persist-credentials: false}
+      - uses: actions/setup-java@v5
+        with: {distribution: temurin, java-version: "17"}
+      - uses: android-actions/setup-android@v3
+        with: {packages: "platform-tools"}
+      - uses: gradle/actions/setup-gradle@v4
+        with: {validate-wrappers: true}
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Build and reclaim disk
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          if [ -d "$ANDROID_HOME/ndk" ]; then sudo rm -rf "$ANDROID_HOME/ndk"; fi
+          if [ -d "$ANDROID_HOME/cmake" ]; then sudo rm -rf "$ANDROID_HOME/cmake"; fi
+          test "$(df -Pk . | awk 'NR == 2 {print $4}')" -ge 10485760
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          disk-size: 2048M
+          profile: pixel_3a
+          emulator-boot-timeout: 900
+          emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
+          script: bash scripts/issue5_phase8_native_test.sh "33"
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p08-native-library-api33
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/outputs/issue5-p08-api33/**
+            app/build/outputs/apk/debug/app-debug.apk

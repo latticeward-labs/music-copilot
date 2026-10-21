@@ -1,0 +1,121 @@
+{
+  "issue": 5,
+  "phase": "P11",
+  "date": "2026-10-19",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "status": "IMPLEMENTED_APK_BUILD_SUCCESS_OWNER_REPORTED_PHONE_QA_11_OF_11_PASS_TECHNICAL_GATES_PENDING_NOT_FULL_PASS",
+  "authoritativeSources": [
+    "ISSUE_5_PHASED_EXECUTION_PLAN(1).md: P11",
+    "MSM2 ADR-0002/0003/0004/0006",
+    "Issue #5/approved P00-P10 architecture contracts"
+  ],
+  "implementation": {
+    "permissionPresentation": "Safe denial/Settings-only saved in SavedStateHandle; never persist grant or one-shot scan authorization",
+    "settingsReturn": "Requires explicit Settings ticket and fresh OS permission observation",
+    "nativeRequests": "Native ActivityResult tickets restored without re-launch; no onResume auto-requests",
+    "voicePractice": "Rationale and bounded UI outcome recover; ready provider not restored; no auto capture",
+    "onboarding": "DataStore authoritative original checkpoint; replay page save only in SavedStateHandle",
+    "dataProtection": "Typed storage errors, cancellation propagation, deny-by-default telemetry",
+    "playbackOwnership": "Media3 service unchanged; UI and process restore never own Player or Queue",
+    "remoteCloudSpeech": "DISABLED_NO_APPROVED_REMOTE_ADAPTER",
+    "freshOSForegroundReconciliation": "Fresh OS grant discards restored denied/settings-only presentation unless explicit Settings-return ticket is pending; no auto scan"
+  },
+  "files": [
+    "app/src/main/java/com/latticeward/musiccopilot/feature/permission/PermissionViewModel.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/core/application/permission/VoicePracticeGate.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseViewModel.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/di/DataBindings.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/quality/adapters/BestEffortQualityEventPublisher.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase11LifecyclePrivacyTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase7SettingsRevocationTest.kt"
+  ],
+  "testInventory": {
+    "phase11JvmTestsAuthored": 12,
+    "phase11JvmTestsExecuted": false,
+    "priorP10JvmExecuted": false,
+    "staticArchitectureExecuted": false,
+    "staticPrivacyExecuted": false,
+    "composeInstrumentedExecuted": false,
+    "phoneTestCases": 11,
+    "phoneTestsReported": 11,
+    "apkOnlyBuild": "SUCCESS_assembleDebug_ONLY",
+    "deviceEvidence": "OWNER_SELF_REPORTED_HONOR_X7D_ANDROID15_11_OF_11_PASS_NO_SCREENSHOTS_IN_GITHUB",
+    "nativeEmulatorRun": "NOT_RUN_OWNER_APK_ONLY",
+    "ownerPhoneQATestLevelPass": 11,
+    "ownerPhoneQATestLevelFail": 0,
+    "ownerPhoneQATestLevelNotRun": 0
+  },
+  "artifacts": {
+    "audit": "docs/implementation/ISSUE_5_PHASE11_LIFECYCLE_PRIVACY_AUDIT.md",
+    "phoneChecklist": "docs/implementation/ISSUE_5_PHASE11_PHONE_QA_CHECKLIST.md",
+    "evidenceIndex": "docs/implementation/ISSUE_5_EVIDENCE_INDEX.md",
+    "expectedWorkflow": ".github/workflows/issue-5-apk-only.yml",
+    "apkArtifactId": 12149209198,
+    "apkRunId": 39163991680,
+    "apkBuildSha": "629caa6a1a3ebafd676cfa3fa8fb5b808c24de46",
+    "apkArtifactName": "issue5-phone-test-apk-3",
+    "apkArtifactUrl": "https://github.com/latticeward-labs/music-copilot/actions/runs/39163991680/artifacts/12149209198",
+    "apkSha256": "d6f93b5a5860c889ae02357d933c0584b7a40a6c1e1b388a14906bca4c4df978",
+    "apkSizeBytes": 35801124,
+    "apkExpiresAt": "2026-10-25T20:37:19Z",
+    "apkDeliveryZipMaterializedAndHashVerified": true,
+    "supersededInitialRunId": 39163624612
+  },
+  "acceptance": {
+    "codeChangesCommitted": true,
+    "compileVerified": true,
+    "ownerPhoneQaVerified": false,
+    "privacyNegativeTestsVerified": false,
+    "lifecycleRegressionVerified": false,
+    "phase11PASS": false,
+    "originalIssue13AcceptanceSignedOff": false,
+    "parentIssueOpen": true,
+    "phase12Started": false,
+    "ownerPhoneQaReportedPass": true,
+    "ownerPhoneQaReportRecorded": true
+  },
+  "limitations": [
+    "APK-only Gradle assembleDebug succeeded at build commit 629caa6a; no JVM/Lint/Android/emulator QA is inferred.",
+    "Owner reported all 11 manual phone test IDs PASS; no independent OS/log confirmation and no screenshots stored at owner's request.",
+    "No JVM/Lint/instrumented success asserted.",
+    "No release or issue closure in P11."
+  ],
+  "ownerPhoneReport": {
+    "reportedOn": "2026-10-19",
+    "source": "OWNER_DIRECT_CHAT_SELF_REPORT_NOT_INDEPENDENT_HARDWARE_ATTESTATION",
+    "device": "HONOR X7d",
+    "androidVersion": "15",
+    "apkArtifactId": 12149209198,
+    "outcomeByTest": {
+      "P11-01": "PASS",
+      "P11-02": "PASS",
+      "P11-03": "PASS",
+      "P11-04": "PASS",
+      "P11-05": "PASS",
+      "P11-06": "PASS",
+      "P11-07": "PASS",
+      "P11-08": "PASS",
+      "P11-09": "PASS",
+      "P11-10": "PASS",
+      "P11-11": "PASS"
+    },
+    "summary": {
+      "pass": 11,
+      "fail": 0,
+      "notRun": 0
+    },
+    "ownerOriginalNote": "موردی گزارش نشده",
+    "ownerFollowup": "همه ی تست ها اوکی بوده",
+    "settingsOnlyFollowup": "Owner verbally confirmed in-app Open Settings opened Android App info; all test IDs reconfirmed PASS. Not independent OS/log verification.",
+    "reportedFile": "docs/implementation/ISSUE_5_PHASE11_OWNER_PHONE_TEST_REPORT_2026-10-19.md",
+    "noScreenshotsUploaded": true,
+    "noScreenshotsLinked": true,
+    "noScreenRecordingUploaded": true,
+    "noOSLogsSupplied": true,
+    "onDeviceApkHashIndependentlySupplied": false,
+    "installModeSupplied": false,
+    "conditionalSubchecksIndividuallyInstrumented": false
+  }
+}

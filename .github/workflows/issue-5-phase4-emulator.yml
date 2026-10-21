@@ -1,0 +1,143 @@
+name: Issue 5 Phase 4 - Android 10 Onboarding UI and reflow emulator
+
+# Issue #5 cost-control: archived full validation, manual-only.
+# Keep for deliberate regression runs; the APK-only workflow handles phone QA.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue5-p04-api29-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  api29-two-slides:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 48
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Build actual debug APK
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - name: Reclaim disk space for API29 AVD
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/hostedtoolcache/CodeQL /usr/local/share/powershell
+          if [ -d "${ANDROID_HOME}/ndk" ]; then sudo rm -rf "${ANDROID_HOME}/ndk"; fi
+          if [ -d "${ANDROID_HOME}/cmake" ]; then sudo rm -rf "${ANDROID_HOME}/cmake"; fi
+          test "$(df -Pk . | awk 'NR == 2 {print $4}')" -ge 10485760
+      - name: Real first launch, back/skip, font scaling and no automatic grants
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: google_apis
+          arch: x86_64
+          disk-size: 2048M
+          profile: pixel_3a
+          disable-animations: false
+          emulator-boot-timeout: 900
+          emulator-options: "-no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim"
+          script: |
+            set -eu
+            adb wait-for-device
+            mkdir -p app/build/outputs/issue5-phase4-api29
+            test "$(adb shell getprop ro.build.version.sdk | tr -d '\r')" = "29"
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            adb shell pm clear com.latticeward.musiccopilot.debug
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Welcome'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'LOCAL MUSIC'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Play local music. No account needed.'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Page 1 of 2'
+            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/slide_1.png
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Continue' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'OPTIONAL VOICE'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect '6 supported commands'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Page 2 of 2'
+            # Interrupted first launch must resume the ACKed second page.
+            adb shell am force-stop com.latticeward.musiccopilot.debug
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'OPTIONAL VOICE'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Page 2 of 2'
+            # Tap at the disabled button's visual bounds; assert no route/permission effect.
+            # UIAutomator may mark Text child enabled=true even when parent button is disabled.
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Practice Voice' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Page 2 of 2'
+            adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/issue5-phase4-api29/after_practice_tap.txt
+            ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/issue5-phase4-api29/after_practice_tap.txt
+            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/slide_2.png
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Back' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'LOCAL MUSIC'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Continue' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Skip' --tap
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
+            adb shell am force-stop com.latticeward.musiccopilot.debug
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
+            adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/issue5-phase4-api29/permission_state.txt
+            ! grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' app/build/outputs/issue5-phase4-api29/permission_state.txt
+            ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/issue5-phase4-api29/permission_state.txt
+            adb shell pm clear com.latticeward.musiccopilot.debug
+            adb shell settings put system font_scale 2.0
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Play local music. No account needed.' --scroll
+            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/reflow_200pct_slide_1.png
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Continue' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect '6 supported commands' --scroll
+            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/reflow_200pct_slide_2.png
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Finish without Voice' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
+            # The plan requires an additional 150% font run AND read-only
+            # replay from an explicit non-driving Settings origin.
+            adb shell settings put system font_scale 1.5
+            adb shell am force-stop com.latticeward.musiccopilot.debug
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Not now' --tap
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Your local music'
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Settings' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Replay introduction' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Play local music. No account needed.' --scroll
+            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/replay_150pct_slide_1.png
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Continue' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect '6 supported commands' --scroll
+            adb exec-out screencap -p > app/build/outputs/issue5-phase4-api29/replay_150pct_slide_2.png
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Finish without Voice' --tap --scroll
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Replay introduction'
+            adb shell am force-stop com.latticeward.musiccopilot.debug
+            adb shell am start -W -n com.latticeward.musiccopilot.debug/com.latticeward.musiccopilot.app.MainActivity
+            python3 scripts/issue5_phase4_emulator_ui.py --expect 'Media access'
+            adb shell dumpsys package com.latticeward.musiccopilot.debug > app/build/outputs/issue5-phase4-api29/replay_150pct_permissions.txt
+            ! grep -Fq 'android.permission.RECORD_AUDIO: granted=true' app/build/outputs/issue5-phase4-api29/replay_150pct_permissions.txt
+            ! grep -Fq 'android.permission.READ_EXTERNAL_STORAGE: granted=true' app/build/outputs/issue5-phase4-api29/replay_150pct_permissions.txt
+            adb logcat -d -b crash > app/build/outputs/issue5-phase4-api29/crash_buffer.txt
+            ! grep -Fq 'Process: com.latticeward.musiccopilot.debug' app/build/outputs/issue5-phase4-api29/crash_buffer.txt
+            echo 'ISSUE5_P04_API29_REAL_UI_PASS two slides, back/skip, disabled practice, persistence, 200% reflow'
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue5-p04-android10-onboarding-visuals
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            app/build/outputs/issue5-phase4-api29/**
+            app/build/outputs/apk/debug/app-debug.apk

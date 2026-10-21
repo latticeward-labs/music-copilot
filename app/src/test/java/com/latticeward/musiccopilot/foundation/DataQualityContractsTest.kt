@@ -59,6 +59,9 @@ class DataQualityContractsTest {
 private class FakeLibrary : LibraryRepository {
     private val mutable = MutableStateFlow(LibraryIndexSnapshot(0, LibraryIndexStatus.Empty, 0))
     override val index: StateFlow<LibraryIndexSnapshot> = mutable
+    override fun invalidateMediaAccess() {
+        mutable.value = mutable.value.copy(status = LibraryIndexStatus.Unavailable, itemCount = 0)
+    }
     override fun observeLibrary(): Flow<List<LibraryItem>> = flowOf(emptyList())
     override suspend fun reconcile(): AppResult<LibraryReconcileResult> =
         AppResult.Success(LibraryReconcileResult(0, 0, 0, 0, 1))
@@ -75,8 +78,12 @@ private class FakeLibrary : LibraryRepository {
 private class FakePreferences : PreferencesRepository {
     private val mutable = MutableStateFlow(AppPreferences(false, null, CloudSpeechConsent.NotAsked))
     override val preferences: StateFlow<AppPreferences> = mutable
+    override val loadState: StateFlow<PreferencesLoadState> = MutableStateFlow(PreferencesLoadState.Ready)
+    override suspend fun reload(): AppResult<AppPreferences> = AppResult.Success(mutable.value)
     override suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences> {
         mutable.value = when (update) {
+            is PreferenceUpdate.SetOnboardingCheckpoint ->
+                mutable.value.copy(onboardingCheckpoint = update.page)
             is PreferenceUpdate.SetOnboardingComplete ->
                 mutable.value.copy(onboardingComplete = update.complete)
             is PreferenceUpdate.SetBluetoothHint ->

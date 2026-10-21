@@ -1,0 +1,57 @@
+{
+  "schema": "music-copilot.issue5.phase5.validation.v1",
+  "date": "2026-10-16",
+  "repository": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "owner_plan_sha256": "32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f",
+  "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "permission_by_api": {
+    "29-32": "READ_EXTERNAL_STORAGE",
+    "33-36": "READ_MEDIA_AUDIO"
+  },
+  "new_unit_tests": 12,
+  "voice_permission_request": false,
+  "notification_permission_request": false,
+  "all_files_access": false,
+  "scan_on_app_start": false,
+  "only_explicit_user_request": true,
+  "denial_no_scan": true,
+  "native_result_fresh_os_checked": true,
+  "duplicate_request_guard": true,
+  "phase6_full_recovery_implemented": false,
+  "phase7_settings_handoff_implemented": false,
+  "phase8_full_library_readiness_implemented": false,
+  "issue_ac_formally_accepted": 0,
+  "issue_ac_total": 13,
+  "run_ids": {
+    "jvm": 38884070402,
+    "emulator_matrix": 38887620769,
+    "initial_failed_api33_matrix": 38884594723
+  },
+  "checks": {
+    "jvm": "PASS_REAL_GRADLE_JUNIT_LINT_APK",
+    "api29": "PASS_NATIVE_OS_DENY_AND_GRANT",
+    "api33": "PASS_NATIVE_OS_DENY_AND_GRANT",
+    "P03_P04_regression": "PASS_JVM_CHECKS_ON_P05_CODE",
+    "issue_closeout": "PENDING_ISSUE_WRITE"
+  },
+  "decision": "PASS_P05_SCOPED_NATIVE_REQUEST_BEFORE_SCAN_API29_AND_API33",
+  "artifacts": {
+    "api29": {
+      "id": 12040133723,
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769/artifacts/12040133723"
+    },
+    "api33": {
+      "id": 12041121532,
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38887620769/artifacts/12041121532"
+    }
+  },
+  "verified_real_native_run": {
+    "id": 38887620769,
+    "commit": "41e0f6ed52bcfbbe5a67b15caaa6451483921741",
+    "conclusion": "success",
+    "api29": "success",
+    "api33": "success",
+    "notes": "Both matrix jobs completed SUCCESS; UIAutomator fresh retry preserves every native deny/grant assertion."
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "schema": "music-copilot.issue5.phase14.validation.v1",
+  "date": "2026-10-21",
+  "sourceArchiveSha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "sourcePlan": "uploaded ISSUE_5_PHASED_EXECUTION_PLAN.md / indexed ISSUE_5_PHASED_EXECUTION_PLAN(1).md",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "base": "main",
+  "branchAheadByAtAuditStart": 257,
+  "branchBehindByAtAuditStart": 0,
+  "status": "OWNER_ACCEPTED_WITH_DEFERRED_TECHNICAL_VERIFICATION_MERGE_AUTHORIZED_PENDING_GITHUB_CONFIRMATION",
+  "definitionOfReady": {
+    "issue4": {
+      "status": "PASS",
+      "pr": 71,
+      "merged": true
+    },
+    "issue17": {
+      "status": "PASS",
+      "pr": 68,
+      "merged": true
+    },
+    "issue16": {
+      "status": "PASS",
+      "pr": 46,
+      "merged": true
+    },
+    "approvedFlows": {
+      "status": "APPROVED_SPEC",
+      "runtimeP13FinalGate": "PENDING"
+    }
+  },
+  "originalAcceptance": {
+    "count": 13,
+    "mapped": 13,
+    "formallyAccepted": 0,
+    "originalCheckboxesChecked": 0,
+    "criteria": [
+      {
+        "id": "AC-01",
+        "scope": "P04/P12 two slides",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseScreen.kt",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_PHASE4_TWO_SLIDE_ONBOARDING_AUDIT.md"
+        ],
+        "priorWorkflowRunIds": [
+          38872429334,
+          38873215678
+        ],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-02",
+        "scope": "JIT Media+Mic",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_PHASE9_MIC_VOICE_BOUNDARY_AUDIT.md"
+        ],
+        "priorWorkflowRunIds": [
+          38887620769,
+          39122946667
+        ],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-03",
+        "scope": "MediaSession notification policy",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/AndroidManifest.xml",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_PHASE10_VALIDATION.json"
+        ],
+        "priorWorkflowRunIds": [
+          39158645552
+        ],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-04",
+        "scope": "tri-state permission outcomes",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/java/com/latticeward/musiccopilot/feature/permission/MediaPermissionOutcomeScreen.kt",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_PHASE6_VALIDATION.json"
+        ],
+        "priorWorkflowRunIds": [
+          38900423830,
+          38903110035
+        ],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-05",
+        "scope": "Settings/recovery",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/java/com/latticeward/musiccopilot/core/application/permission/SettingsReturnCoordinator.kt",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_PHASE7_VALIDATION.json"
+        ],
+        "priorWorkflowRunIds": [
+          39020349923
+        ],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-06",
+        "scope": "lifecycle no-crash",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase11LifecyclePrivacyTest.kt",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_PHASE11_OWNER_PHONE_TEST_REPORT_2026-10-19.md"
+        ],
+        "priorWorkflowRunIds": [],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-07",
+        "scope": "scan/voice gate",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/java/com/latticeward/musiccopilot/core/application/permission/MediaRequestGate.kt",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/java/com/latticeward/musiccopilot/core/application/permission/VoicePracticeGate.kt"
+        ],
+        "priorWorkflowRunIds": [
+          39025569472,
+          39122946667
+        ],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-08",
+        "scope": "Cloud STT fail-closed",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_PHASE10_NOTIFICATION_CLOUD_CONSENT_AUDIT.md",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase10NotificationCloudConsentTest.kt"
+        ],
+        "priorWorkflowRunIds": [],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-09",
+        "scope": "local only; no login/identity",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/AndroidManifest.xml",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/SOFTWARE_ARCHITECTURE.md"
+        ],
+        "priorWorkflowRunIds": [],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-10",
+        "scope": "configuration persistence",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseViewModel.kt",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase11LifecyclePrivacyTest.kt"
+        ],
+        "priorWorkflowRunIds": [],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-11",
+        "scope": "accessibility",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_ACCESSIBILITY_AUDIT.md",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/androidTest/java/com/latticeward/musiccopilot/Issue5Phase12AccessibilityUiTest.kt"
+        ],
+        "priorWorkflowRunIds": [],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-12",
+        "scope": "unit/ui/native integration",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_TEST_MATRIX.md",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/.github/workflows/issue-5-phase12-accessibility-validation.yml"
+        ],
+        "priorWorkflowRunIds": [],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      },
+      {
+        "id": "AC-13",
+        "scope": "no sensitive telemetry",
+        "evidenceType": "IMPLEMENTATION_AND_OR_SCOPED_HISTORY_NO_FINAL_HEAD_INTEGRATED_VERIFICATION",
+        "refs": [
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/docs/implementation/ISSUE_5_PHASE11_LIFECYCLE_PRIVACY_AUDIT.md",
+          "https://github.com/latticeward-labs/music-copilot/blob/feature/5-onboarding-permissions-recovery/app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase11LifecyclePrivacyTest.kt"
+        ],
+        "priorWorkflowRunIds": [],
+        "status": "PENDING_P14_FINAL_INTEGRATION_GATE"
+      }
+    ],
+    "ownerAcceptedUnderException": 13,
+    "note": "All 13 are owner-accepted for issue delivery under an explicit exception. Zero have new independent exact-head evidence; AC12 final-head CI and Review are deferred to issue #73, not fabricated PASS."
+  },
+  "ownerPhoneQA": {
+    "p10": "7/7 OWNER_REPORTED_PASS",
+    "p11": "11/11 OWNER_REPORTED_PASS",
+    "p12": "12/12 OWNER_REPORTED_PASS",
+    "p13": "17/17 OWNER_REPORTED_PASS",
+    "notAssistantVerified": true,
+    "nonemptyGS01IndexedCountIndependentlyConfirmed": false,
+    "secondPhoneObserved": true,
+    "secondPhoneModelAndroidApi": "UNKNOWN",
+    "nativePerDeviceMatrixComplete": false
+  },
+  "ci": {
+    "lastKnownSuccessType": "assembleDebug APK-only",
+    "lastKnownSuccessRunId": 39243014999,
+    "runBuildSha": "a152312ca3ce77151df5df1329b804746e567333",
+    "buildApkSha256": "ba4425364016ab9c969095756a01a57f5c814624c8166e247e707cd41cc23dc8",
+    "finalHeadWholeGreen": false,
+    "finalHeadJVM": "NOT_RUN",
+    "finalHeadLintStatic": "NOT_RUN",
+    "finalHeadComposeInstrumented": "NOT_RUN",
+    "api29_31_33_35Native": "NOT_RUN_ON_FINAL_HEAD",
+    "githubActionsLaunchedByP14": false,
+    "noNewPrTriggeredWorkflowObservedAtCheck": true,
+    "deferredToIssue": 73
+  },
+  "security": {
+    "manifestInternetPermissionPresent": false,
+    "cloudSTTActive": false,
+    "noAccountOrBackendSourceContract": true,
+    "finalHeadPrivacyNegativeSuite": "NOT_RUN"
+  },
+  "review": {
+    "draftPrCreated": true,
+    "draftPrNumber": 72,
+    "independentApprovals": 0,
+    "required": false,
+    "ownerExplicitWaiverSpecificToIssue5": true,
+    "draftPrUrl": "https://github.com/latticeward-labs/music-copilot/pull/72",
+    "draftPrHeadAtCreation": "a96de73d73efc84529184b3a5de5591ffaa7cc3b",
+    "draftPrState": "OPEN_DRAFT_NOT_MERGED",
+    "deferredToIssue": 73
+  },
+  "merge": {
+    "performed": false,
+    "mergedSha": null,
+    "verifiedMainContainsImplementation": false
+  },
+  "closeout": {
+    "issue5State": "open",
+    "issue5Completed": false,
+    "issue6DependencyCleared": false,
+    "phase14PASS": false,
+    "ownerApprovedMerge": true,
+    "ownerApprovedClose": true,
+    "ownerScopePass": true
+  },
+  "blockedBy": [
+    "AWAIT_GITHUB_VERIFIED_PR_MERGE_AND_ISSUE_CLOSE_ONLY",
+    "POST_MERGE_QA_DEFERRED_ISSUE_73_NOT_A_CLOSEOUT_GATE_UNDER_OWNER_EXCEPTION"
+  ],
+  "sources": [
+    "docs/implementation/ISSUE_5_FINAL_ACCEPTANCE_AUDIT.md",
+    "docs/implementation/ISSUE_5_PHASED_EXECUTION_PLAN.md",
+    "docs/implementation/ISSUE_5_PHASE13_VALIDATION.json",
+    "docs/implementation/ISSUE_5_TEST_MATRIX.md"
+  ],
+  "privacy": {
+    "noScreenshotsUploaded": true,
+    "noRawLogsOrPersonalMediaOnGithub": true,
+    "noNewDeviceTestingByAssistant": true
+  },
+  "ownerScopeAmendment": {
+    "date": "2026-10-22",
+    "source": "Explicit owner message to defer final technical tests and independent review and merge/close Issue #5 now",
+    "ownerAcceptedIssue5Delivery": true,
+    "ownerAcceptanceVerdict": "PASS_OWNER_ACCEPTED_WITH_DEFERRED_VERIFICATION",
+    "technicallyVerifiedFullPass": false,
+    "approvalAppliesTo": "Issue5 only",
+    "exceptionDocument": "docs/implementation/ISSUE_5_OWNER_ACCEPTANCE_EXCEPTION_2026-10-22.md",
+    "followUpIssueNumber": 73,
+    "followUpIssueUrl": "https://github.com/latticeward-labs/music-copilot/issues/73",
+    "readyForMerge": true
+  }
+}

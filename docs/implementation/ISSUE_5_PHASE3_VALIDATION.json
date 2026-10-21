@@ -1,0 +1,100 @@
+{
+  "schema": "music-copilot.issue5.phase3.validation.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "scope": "APP_BOOTSTRAP_FIRST_LAUNCH_AND_ABOVE_NATIVE_PERMISSION_BOUNDARY",
+  "routes": [
+    "Bootstrap",
+    "Onboarding",
+    "PermissionRecovery",
+    "Library"
+  ],
+  "new_jvm_test_cases": 13,
+  "planned_emulator_api": 29,
+  "first_run_screens": 2,
+  "dataStore_ack_required": true,
+  "android_os_grant_persisted": false,
+  "android_dialog_implemented": false,
+  "manifest_changed": false,
+  "native_settings_handoff_implemented": false,
+  "runtime_ac_accepted": 0,
+  "original_issue_ac_count": 13,
+  "retained_failure_runs": [
+    38868295997,
+    38868414557,
+    38868575383,
+    38868658142,
+    38869097320,
+    38869071223
+  ],
+  "checks": [
+    {
+      "id": "P03-SOURCE",
+      "status": "PASS_GITHUB_PROVENANCE"
+    },
+    {
+      "id": "P03-CODE",
+      "status": "PASS_GITHUB_COMMITTED"
+    },
+    {
+      "id": "P03-ARCH",
+      "status": "PASS_REAL_GITHUB_ACTIONS"
+    },
+    {
+      "id": "P03-JVM-APK",
+      "status": "PASS_REAL_GITHUB_ACTIONS"
+    },
+    {
+      "id": "P03-API29-UI",
+      "status": "PASS_REAL_EMULATOR_TEST_ON_RECORDED_IMPLEMENTATION_COMMIT"
+    },
+    {
+      "id": "P03-ISSUE-CLOSEOUT",
+      "status": "PENDING_READBACK_ISSUE_WRITE"
+    }
+  ],
+  "result": "PASS_P03_SCOPED_EXACT_IMPLEMENTATION_HEAD_JVM_AND_API29_UI",
+  "limitations": [
+    "No native runtime permission dialog or Settings recovery implementation",
+    "No physical device or cross-version instrumentation",
+    "No reviewer approval, PR merge or Issue close"
+  ],
+  "verified": {
+    "jvm_android_ci": {
+      "id": 38869470585,
+      "result": "success",
+      "commit": "f4f071a0e3a741703b2242ceca1969a919c81ae5",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470585"
+    },
+    "emulator_api29": {
+      "id": 38869071281,
+      "result": "success",
+      "commit": "3b53efa7e0e106438515db38011482870263d0cb",
+      "artifact_id": 12032378967,
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38869071281"
+    },
+    "emulator_latest_resource_cleanup": {
+      "id": 38869470447,
+      "status": "SUCCESS",
+      "result": "success",
+      "commit": "f4f071a0e3a741703b2242ceca1969a919c81ae5",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38869470447",
+      "match_to_jvm_head": true
+    },
+    "observations": [
+      "WF02 slide1, Continue, slide2, Finish",
+      "Permission boundary Not now; Library manual fallback",
+      "force-stop and relaunch preserves onboarding complete",
+      "OS media/microphone grants absent",
+      "app screenshot and debug APK uploaded"
+    ]
+  },
+  "final_reaudit_2026_10_16": {
+    "startup_scan": "NO_IMPLICIT_MEDIASTORE_RECONCILE_BEFORE_EXPLICIT_PERMISSION",
+    "jvm_ci": 38879558699,
+    "emulator_ci": 38879466032,
+    "status": "PASS_SCOPED_ANDROID10_NATIVE_BOOT"
+  }
+}

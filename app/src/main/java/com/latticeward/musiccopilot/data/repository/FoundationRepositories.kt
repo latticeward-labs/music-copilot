@@ -16,6 +16,7 @@ import com.latticeward.musiccopilot.data.api.LibraryQuery
 import com.latticeward.musiccopilot.data.api.LibraryReconcileResult
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.data.api.PreferenceUpdate
+import com.latticeward.musiccopilot.data.api.PreferencesLoadState
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.data.api.RestorableQueueSnapshot
 import com.latticeward.musiccopilot.data.api.RestorableQueueStore
@@ -36,6 +37,9 @@ class FoundationLibraryRepository(repositoryScope: CoroutineScope) : LibraryRepo
         LibraryIndexSnapshot(0, LibraryIndexStatus.Unavailable, 0)
     )
     override val index: StateFlow<LibraryIndexSnapshot> = status
+    override fun invalidateMediaAccess() {
+        status.value = status.value.copy(status = LibraryIndexStatus.Unavailable, itemCount = 0)
+    }
     override fun observeLibrary(): Flow<List<LibraryItem>> = flowOf(emptyList())
 
     private fun unavailable() = AppResult.Failure(
@@ -64,6 +68,12 @@ class FoundationPreferencesRepository(repositoryScope: CoroutineScope) : Prefere
         )
     )
     override val preferences: StateFlow<AppPreferences> = localDefaults
+    override val loadState: StateFlow<PreferencesLoadState> = MutableStateFlow(PreferencesLoadState.Failed)
+    override suspend fun reload(): AppResult<AppPreferences> =
+        AppResult.Failure(
+            AppError.Storage(AppErrorCodes.STORAGE_READ_FAILED,
+                Recoverability.RECOVERABLE, RecoveryAction.Retry),
+        )
 
     // Do not falsely acknowledge persistence until Phase 6's actual DataStore is bound.
     override suspend fun update(update: PreferenceUpdate): AppResult<AppPreferences> =

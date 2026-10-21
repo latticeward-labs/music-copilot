@@ -1,0 +1,101 @@
+{
+  "schema": "music-copilot.issue5.phase4.validation.v1",
+  "date": "2026-10-16",
+  "repo": "music-copilot-organization/music-copilot",
+  "branch": "feature/5-onboarding-permissions-recovery",
+  "reference_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "user_authoritative_phase": "P04_TWO_ONBOARDING_SLIDES",
+  "slides": 2,
+  "approved": [
+    "WF-02_ONBOARDING_SLIDE_1",
+    "WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE",
+    "HF-02_ONBOARDING_SLIDE_1",
+    "HF_FRAME_WF-02_ONBOARDING_SLIDE_2_SKIP_VOICE"
+  ],
+  "new_jvm_tests": 8,
+  "practice_voice_action": "VISIBLE_DISABLED_UNTIL_P09",
+  "native_permission_requests_implemented": 0,
+  "original_issue_acceptance_passed": 0,
+  "original_issue_acceptance_total": 13,
+  "jvm_ci_run": 38872429334,
+  "emulator_ci_run": 38873215678,
+  "checks": {
+    "copy": "PASS_EXACT_RESOURCE_COPY_AND_JVM",
+    "jvm": "PASS",
+    "lint": "PASS",
+    "emulator_api29": "PASS",
+    "reflow_200_percent": "PASS_ANDROID_10_UI_AND_SCREENSHOTS",
+    "no_automatic_grant": "PASS_ANDROID_10_PLATFORM_PERMISSION_STATE",
+    "issue_closeout": "PENDING_ISSUE_WRITE"
+  },
+  "decision": "PASS_PHASE4_TWO_APPROVED_ONBOARDING_SLIDES_ONLY",
+  "docs_code_ci_run": 38872782861,
+  "emulator_artifact_id": 12034777234,
+  "tested_app_code_head": "d996b7671346cc337deb7e5e62998c898af0ffcd",
+  "emulator_head": "eb57eac9c6830bd854726963c33f0fcdb1af82e5",
+  "runs": [
+    {
+      "run_id": 38872429334,
+      "kind": "P04 JVM/Lint/APK",
+      "status": "success",
+      "commit": "d996b7671346cc337deb7e5e62998c898af0ffcd",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429334"
+    },
+    {
+      "run_id": 38872782861,
+      "kind": "P04 documentation/main regression",
+      "status": "success",
+      "commit": "3df7fd96b16c01971932d9b7c1599c6d134d44e5",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38872782861"
+    },
+    {
+      "run_id": 38872429339,
+      "kind": "first P04 emulator",
+      "status": "failure",
+      "cause": "Text-node enabled flag not disabled-parent authority",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38872429339"
+    },
+    {
+      "run_id": 38873155172,
+      "kind": "fixed behavioral practice tap emulator",
+      "status": "success",
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38873155172"
+    },
+    {
+      "run_id": 38873215678,
+      "kind": "final API29 emulator screenshots 100/200%",
+      "status": "success",
+      "commit": "eb57eac9c6830bd854726963c33f0fcdb1af82e5",
+      "artifact_id": 12034777234,
+      "url": "https://github.com/music-copilot-organization/music-copilot/actions/runs/38873215678"
+    }
+  ],
+  "overall_issue_status": "OPEN_13_AC_PENDING_INTEGRATED_ACCEPTANCE",
+  "final_reaudit_2026_10_16": {
+    "view_model": true,
+    "saved_state_handle": true,
+    "datastore_ack_authoritative": true,
+    "replay_from_settings": true,
+    "new_jvm_test_cases_total": 10,
+    "jvm_android_ci": {
+      "id": 38879558692,
+      "result": "success",
+      "tested_head": "b5bd121ff29b460a7f03795a5c476bdcf867ecd7"
+    },
+    "emulator_api29": {
+      "id": 38879465871,
+      "result": "success",
+      "tested_app_head": "baa3045c18b919a1260944ed9ba2618e81b15e97",
+      "artifact_id": 12037690290
+    },
+    "font_scaling": [
+      100,
+      150,
+      200
+    ],
+    "interrupted_slide2_android10": "PASS",
+    "practice_mic_request": false,
+    "overall_phase": "PASS_SCOPED_UI_ONLY",
+    "issue_final_ac_accepted": 0
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "issue": 5,
+  "phase": "P09",
+  "status": "PASS_SCOPED_WHOLE_GREEN_JVM_AND_ANDROID13",
+  "as_of": "2026-10-18",
+  "source_contract": {
+    "execution_plan_sha256": "32f8095cac6c4f85a9654bd006ca73e6c27f0db3644a5bd4adef847cf738276f",
+    "msm2_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "refs": [
+      "UF-01",
+      "UF-02",
+      "CA-01",
+      "ADR-0004",
+      "ADR-0005",
+      "Issue16"
+    ]
+  },
+  "acceptance_gates": {
+    "exact_six_approved_commands": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "skip_onboarding_driving_entry_no_mic_request_or_capture": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "explicit_practice_then_rationale_then_android_record_audio": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "os_truth_after_permission_and_one_use_handoff": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "denied_provider_unavailable_language_unsupported_cloud_declined_distinct": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "all_outcomes_manual_fallback": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "no_voice_session_or_playback_before_gate": "PASS_SCOPED_VERIFIED_REAL_CI",
+    "p04_earlier_ui_non_regression": "PASS_SCOPED_VERIFIED_REAL_CI"
+  },
+  "implementation_files": [
+    "app/src/main/java/com/latticeward/musiccopilot/core/application/permission/VoicePracticeGate.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/feature/onboarding/FirstUseScreen.kt",
+    "app/src/main/res/values/strings.xml"
+  ],
+  "tests": [
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase9MicrophonePracticeTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue5Phase4OnboardingTest.kt",
+    "scripts/issue5_phase9_native_test.sh"
+  ],
+  "ci": {
+    "workflow": ".github/workflows/issue-5-phase9-microphone.yml",
+    "attempts": [
+      {
+        "run_id": 39031581585,
+        "conclusion": "failure",
+        "all_jobs_steps": null,
+        "runner": "ubuntu-22.04"
+      },
+      {
+        "run_id": 39031814318,
+        "conclusion": "failure",
+        "all_jobs_steps": null,
+        "runner": "ubuntu-24.04",
+        "rerun_attempt": 2,
+        "rerun_conclusion": "failure",
+        "rerun_job_steps": null
+      },
+      {
+        "run_id": 39032641862,
+        "sha": "f8119cca3124a1b7bbf39d2920a845ffaf4b910e",
+        "conclusion": "failure",
+        "both_jobs_steps": 0,
+        "runner_usage_ms": 0
+      }
+    ],
+    "jvm_pass": true,
+    "android13_pass": true,
+    "root_cause": "Earlier zero-step runner allocation failure is resolved after transfer to personal account; exact root cause of prior org allocation failure remains unverified.",
+    "note": "A complete single workflow has both Jobs SUCCESS on SHA 9fb0603...; old red runs retained as historical evidence.",
+    "pre_execution_diagnosis": {
+      "classification": "GITHUB_HOSTED_JOB_NOT_STARTED_NOT_TEST_FAILURE",
+      "evidence": "All P09 jobs across ubuntu22 and ubuntu24 exit before checkout; two jobs in #39032641862 each reported 0 steps and 0 billable milliseconds; similar failures in P01-P08.",
+      "candidate_cause": "Organization Actions minutes, metered product budget, spending cap, payment/usage hold OR GitHub hosted-runner control plane issue. Cannot choose definitively without check-run annotation text and organization Billing view.",
+      "verify_in_github": "Organization music-copilot-organization > Settings > Billing & licensing (or Billing & plans) > Usage / Budgets and alerts / Payment information. Then failed run > each job > top annotation.",
+      "actual_compiler_result": "NOT_EXECUTED",
+      "actual_native_result": "NOT_EXECUTED"
+    },
+    "verified_success": {
+      "run_id": 39122946667,
+      "sha": "9fb0603ac6af9a0ca7ed552a873d5b1eba5a59cf",
+      "conclusion": "success",
+      "jvm_job": "p09-jvm-lint-apk",
+      "jvm_conclusion": "success",
+      "native_job": "p09-android-microphone-api33",
+      "native_conclusion": "success",
+      "jvm_artifact_id": 12135072645,
+      "native_artifact_id": 12134589753,
+      "markers": [
+        "ISSUE5_P09_JVM_LINT_APK_PASS",
+        "P06_NATIVE_FIRST_USE_VISIBLE",
+        "APP_OK 6 supported commands",
+        "APP_OK Practice Voice TAP",
+        "ANDROID_NATIVE_PERMISSION_DIALOG DENY TAPPED",
+        "APP_OK Not now — use manual controls TAP",
+        "P09_ANDROID_NATIVE_RECORD_AUDIO_ALLOW_TAPPED 'While using the app'",
+        "APP_OK Skip TAP",
+        "APP_OK Media access",
+        "ISSUE5_P09_NATIVE_JIT_MIC_AND_MANUAL_FALLBACK_PASS_API33"
+      ]
+    }
+  },
+  "excluded": [
+    "Cloud STT disclosure/consent actual approval P10",
+    "Voice live execution Issue9/Issue10",
+    "Full Voice UI overlay",
+    "device/OEM/accessibility P12/P13",
+    "integrated Issue5 acceptance and merge P14"
+  ],
+  "p08_status_unchanged": "PASS_SCOPED",
+  "parent_issue_open": true,
+  "issue_13_original_ac_accepted": false,
+  "next_phase_not_started": "P10",
+  "source_static_audit": {
+    "checked_against": "GitHub current branch raw file contents",
+    "six_approved_commands": true,
+    "all_voice_p09_resource_references_exist": true,
+    "microphone_launcher_only_in_explicit_confirmation": true,
+    "checkSelfPermission_fresh_android": true,
+    "existing_p02_permission_machine_integrated": true,
+    "no_coordinator_start_from_activity_ui_or_bindings": true,
+    "no_RECORD_AUDIO_in_Compose_ui": true,
+    "manual_only_action_present": true,
+    "provider_probe_after_grant": true,
+    "no_third_value_slide": true,
+    "verdict": "PASS_STATIC_AND_COMPLETE_JVM_NATIVE_CI"
+  },
+  "scope_status_unchanged": "P09_PASS_SCOPED",
+  "note": "P09 scoped accepted with a whole-green run on identical app/harness commit; no Voice capture or cloud service introduced. Parent Issue #5 remains OPEN and 13 integrated AC await P10–P14.",
+  "repository": "latticeward-labs/music-copilot",
+  "acceptance_commit": "9fb0603ac6af9a0ca7ed552a873d5b1eba5a59cf"
+}
