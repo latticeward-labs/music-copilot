@@ -57,12 +57,20 @@
     {
       "id": "P02",
       "title": "Library domain/repository/Room migration contract",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "c2074b6f57ef4d8259f0cdad83487e5f24ccdb62",
+      "artifact_links": [
+        "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md",
+        "docs/implementation/ISSUE_6_PHASE2_VALIDATION.json",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase2BrowseContractsTest.kt"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P02_PASS_CONTRACT_ONLY; 14/14 static GitHub readback checks, 8 authored JVM tests NOT_RUN. Actual V1→V2 migration and SQL category queries P06; full QA and one APK P12."
     },
     {
       "id": "P03",
@@ -659,6 +667,33 @@
       "kind": "documentation_only",
       "rollback": "git revert relevant commits on feature branch; retain history",
       "note": "No Android code modification or build"
+    },
+    {
+      "id": "I6-CHG-P02-001",
+      "phase": "P02",
+      "status": "COMMITTED",
+      "commits": [
+        "e0c2ebb32eaa74b1c708425935de7eec9d5f8cb3",
+        "271cbbada2600a5aa5a84a5020c3b0937fb14e56",
+        "4ee40af6a3385e5a034b35be1b202d12fd5582b4",
+        "55efb0587f68d671d6c344e5a6e9d6e8e0a8554c",
+        "c947aac19b8a79c0311117a46a77ba0734c368bd",
+        "d7e5b4e32283ddd55af9ffdf3d512a6ed126f26b",
+        "3b34d006bcbb37c99ac8361c950a0868808255bf",
+        "c2074b6f57ef4d8259f0cdad83487e5f24ccdb62"
+      ],
+      "paths": [
+        "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md",
+        "docs/implementation/ISSUE_6_PHASE2_VALIDATION.json",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase2BrowseContractsTest.kt"
+      ],
+      "kind": "additive_kotlin_contracts_docs_and_authored_tests",
+      "rollback": "Revert only Issue #6 feature commits on feature branch; preserve Room v1 and original public #16 methods.",
+      "note": "Default browse returns typed unavailable until actual P06 Room adapter; no UI, migration, emulator, APK or user-data changes."
     }
   ],
   "evidence_records": [
@@ -671,6 +706,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_DOC_AUDIT",
       "limits": "No CI, instrumentation, APK, ADB, phone or independent reviewer approval. All 12 product ACs remain unverified."
+    },
+    {
+      "id": "I6-EVD-P02-001",
+      "phase": "P02",
+      "source_sha": "c2074b6f57ef4d8259f0cdad83487e5f24ccdb62",
+      "method": "Authenticated GitHub readback, typed Kotlin contract/static compatibility + 14 scoped validation checks",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE2_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_DOC_AND_SOURCE_AUDIT",
+      "limits": "Authored 8 JVM tests NOT_RUN; no Android build/Gradle CI, Room migration, emulator, ADB or physical QA. 12 original AC unchecked."
     }
   ],
   "evidence_id_contract": {
