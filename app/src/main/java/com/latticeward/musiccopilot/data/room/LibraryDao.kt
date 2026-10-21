@@ -85,7 +85,8 @@ interface LibraryDao {
     @Query("""
         SELECT albumGroupId AS groupId,
                MIN(COALESCE(album, 'Unknown Album')) AS label,
-               MIN(artist) AS artistLabel,
+               CASE WHEN COUNT(DISTINCT COALESCE(artist, '<unknown>')) > 1
+                    THEN 'Various Artists' ELSE MIN(artist) END AS artistLabel,
                COUNT(*) AS songCount
         FROM library_items
         WHERE albumGroupId IS NOT NULL
