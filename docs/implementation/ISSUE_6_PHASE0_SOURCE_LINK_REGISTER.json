@@ -1,0 +1,480 @@
+{
+  "schema": "music-copilot.issue6.phase0.source-link-register.v1",
+  "generated_date": "2026-10-22",
+  "phase": "P00",
+  "disposition": "PASS_AUDIT_ONLY_READY_FOR_P01",
+  "not_claimed": [
+    "issue6_implementation_completed",
+    "issue6_CI_pass",
+    "issue6_APK_built",
+    "issue6_owner_phone_tested",
+    "issue6_issue_closed"
+  ],
+  "repository": "latticeward-labs/music-copilot",
+  "audited_main_head": "bb022341bb12a1b12c22a078a70b8bf8217d2176",
+  "audited_feature_head_before_audit": "3693f209cc665997edccf9ba9d0f7a867acad7c9",
+  "execution_branch": "feature/6-mediastore-library-browse-search",
+  "archive": {
+    "supplied_filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "document_count": 12,
+    "provenance": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/architecture/SOURCE_AND_AUTHORITY_REGISTER.md",
+    "entries": [
+      {
+        "filename": "Music_Copilot_PRD_v1_EN_Clarified.pdf",
+        "authority": "tier1_product",
+        "pages": [
+          8,
+          9
+        ]
+      },
+      {
+        "filename": "Music_Copilot_MVP_v1_EN.pdf",
+        "authority": "tier1_delivery",
+        "pages": [
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "filename": "ADR-0001_Native_Android_Platform_Revised.pdf",
+        "authority": "historic_adr_pdf_current_acceptance_github"
+      },
+      {
+        "filename": "ADR-0002_Service_Owned_Media3_Playback.pdf",
+        "authority": "historic_adr_pdf_current_acceptance_github"
+      },
+      {
+        "filename": "ADR-0003_Local_First_Data_Boundaries_Revised.pdf",
+        "authority": "historic_adr_pdf_current_acceptance_github",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "ADR-0004_Replaceable_Voice_Provider.pdf",
+        "authority": "historic_adr_pdf_current_acceptance_github"
+      },
+      {
+        "filename": "ADR-0005_Restricted_Deterministic_Intent_Mapping.pdf",
+        "authority": "historic_adr_pdf_current_acceptance_github"
+      },
+      {
+        "filename": "ADR-0006_No_Backend_Account_or_Streaming.pdf",
+        "authority": "historic_adr_pdf_current_acceptance_github"
+      },
+      {
+        "filename": "Music_Copilot_System_Architecture_MVP_v1_EN.pdf",
+        "authority": "engineering_reference",
+        "pages": [
+          13,
+          14
+        ]
+      },
+      {
+        "filename": "Music_Copilot_Code_and_Technical_Documentation_MVP_v1_EN.pdf",
+        "authority": "engineering_reference",
+        "pages": [
+          34,
+          35
+        ]
+      },
+      {
+        "filename": "Music_Copilot_User_Flow_Phase_0_Foundation_v1.0_EN.pdf",
+        "authority": "historical_user_flow_foundation"
+      },
+      {
+        "filename": "Music_Copilot_User_Flow_Phase_1_First_Readiness_v1.0_EN(4).pdf",
+        "authority": "historical_user_flow_phase1"
+      }
+    ]
+  },
+  "current_sources": [
+    {
+      "id": "PRD",
+      "path": "docs/PRD.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/PRD.md"
+    },
+    {
+      "id": "MVP",
+      "path": "docs/MVP.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/MVP.md"
+    },
+    {
+      "id": "ARCH",
+      "path": "docs/SOFTWARE_ARCHITECTURE.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/SOFTWARE_ARCHITECTURE.md"
+    },
+    {
+      "id": "ARCH_CONTRACT",
+      "path": "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md"
+    },
+    {
+      "id": "RUNTIME",
+      "path": "docs/architecture/RUNTIME_POLICIES.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/architecture/RUNTIME_POLICIES.md"
+    },
+    {
+      "id": "UF-02",
+      "path": "docs/user-flows/UF-02_PERMISSION_RECOVERY.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/user-flows/UF-02_PERMISSION_RECOVERY.md"
+    },
+    {
+      "id": "UF-03",
+      "path": "docs/user-flows/UF-03_LIBRARY_READINESS.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/user-flows/UF-03_LIBRARY_READINESS.md"
+    },
+    {
+      "id": "UF-04",
+      "path": "docs/user-flows/UF-04_BROWSE_AND_SEARCH.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/user-flows/UF-04_BROWSE_AND_SEARCH.md"
+    },
+    {
+      "id": "UF-05",
+      "path": "docs/user-flows/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/user-flows/UF-05_MANUAL_PLAYBACK_AND_QUEUE_CONTROL.md"
+    },
+    {
+      "id": "GS-01",
+      "path": "docs/user-flows/golden-scenarios/GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/user-flows/golden-scenarios/GS-01_FIRST_LAUNCH_TO_READY_LIBRARY.md"
+    },
+    {
+      "id": "GS-02",
+      "path": "docs/user-flows/golden-scenarios/GS-02_FIND_MUSIC_AND_START_PLAYBACK.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/user-flows/golden-scenarios/GS-02_FIND_MUSIC_AND_START_PLAYBACK.md"
+    },
+    {
+      "id": "TS-06",
+      "path": "docs/user-flows/evidence/TS-06_MEDIASTORE_RECONCILIATION.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/user-flows/evidence/TS-06_MEDIASTORE_RECONCILIATION.md"
+    },
+    {
+      "id": "WF-04",
+      "path": "docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-04_HOME_LIBRARY_READY.md"
+    },
+    {
+      "id": "WF-05",
+      "path": "docs/wireframes/app-states/WF-05_SEARCH_RESULTS.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/wireframes/app-states/WF-05_SEARCH_RESULTS.md"
+    },
+    {
+      "id": "HF-04",
+      "path": "docs/high-fidelity/WF-04/HF-04_HOME_LIBRARY_READY.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/high-fidelity/WF-04/HF-04_HOME_LIBRARY_READY.md"
+    },
+    {
+      "id": "HF-05",
+      "path": "docs/high-fidelity/WF-05/HF-05_SEARCH_RESULTS.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/main/docs/high-fidelity/WF-05/HF-05_SEARCH_RESULTS.md"
+    },
+    {
+      "id": "P00-P12_PLAN",
+      "path": "docs/implementation/ISSUE_6_PHASED_EXECUTION_PLAN.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/feature/6-mediastore-library-browse-search/docs/implementation/ISSUE_6_PHASED_EXECUTION_PLAN.md"
+    },
+    {
+      "id": "P12_TEST_PROTOCOL",
+      "path": "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
+      "url": "https://github.com/latticeward-labs/music-copilot/blob/feature/6-mediastore-library-browse-search/docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md"
+    }
+  ],
+  "dependencies": [
+    {
+      "issue": 4,
+      "status": "closed",
+      "classification": "ready",
+      "url": "https://github.com/latticeward-labs/music-copilot/issues/4"
+    },
+    {
+      "issue": 5,
+      "status": "closed_owner_accepted",
+      "classification": "ready_with_deferred_qa",
+      "url": "https://github.com/latticeward-labs/music-copilot/issues/5"
+    },
+    {
+      "issue": 16,
+      "status": "closed",
+      "classification": "ready",
+      "url": "https://github.com/latticeward-labs/music-copilot/issues/16"
+    },
+    {
+      "issue": 17,
+      "status": "closed_ai_assisted_accepted",
+      "classification": "ready_human_review_deferred",
+      "url": "https://github.com/latticeward-labs/music-copilot/issues/17"
+    },
+    {
+      "issue": 73,
+      "status": "open",
+      "classification": "separate_deferred_qa_risk",
+      "url": "https://github.com/latticeward-labs/music-copilot/issues/73"
+    },
+    {
+      "issue": 7,
+      "status": "open",
+      "classification": "handoff_not_start_blocker",
+      "url": "https://github.com/latticeward-labs/music-copilot/issues/7"
+    },
+    {
+      "issue": 11,
+      "status": "open",
+      "classification": "downstream_consumer",
+      "url": "https://github.com/latticeward-labs/music-copilot/issues/11"
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "AC-01",
+      "baseline": "partial",
+      "phases": [
+        "P03",
+        "P07"
+      ],
+      "manual": [
+        "M01",
+        "M02",
+        "M03",
+        "M04"
+      ],
+      "technical": [
+        "T01",
+        "T02"
+      ]
+    },
+    {
+      "id": "AC-02",
+      "baseline": "open",
+      "phases": [
+        "P02",
+        "P04",
+        "P06",
+        "P08"
+      ],
+      "manual": [
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10"
+      ],
+      "technical": [
+        "T03"
+      ]
+    },
+    {
+      "id": "AC-03",
+      "baseline": "open",
+      "phases": [
+        "P05"
+      ],
+      "manual": [
+        "M11",
+        "M12",
+        "M13",
+        "M14"
+      ],
+      "technical": [
+        "T02"
+      ]
+    },
+    {
+      "id": "AC-04",
+      "baseline": "partial",
+      "phases": [
+        "P07",
+        "P08"
+      ],
+      "manual": [
+        "M03",
+        "M04",
+        "M11",
+        "M15",
+        "M16"
+      ],
+      "technical": [
+        "T05"
+      ]
+    },
+    {
+      "id": "AC-05",
+      "baseline": "open",
+      "phases": [
+        "P06",
+        "P09"
+      ],
+      "manual": [
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22"
+      ],
+      "technical": [
+        "T04"
+      ]
+    },
+    {
+      "id": "AC-06",
+      "baseline": "open",
+      "phases": [
+        "P07",
+        "P08",
+        "P09"
+      ],
+      "manual": [
+        "M23",
+        "M24"
+      ],
+      "technical": [
+        "T05"
+      ]
+    },
+    {
+      "id": "AC-07",
+      "baseline": "open",
+      "phases": [
+        "P05",
+        "P06",
+        "P08",
+        "P11"
+      ],
+      "manual": [
+        "M25"
+      ],
+      "technical": [
+        "T06"
+      ]
+    },
+    {
+      "id": "AC-08",
+      "baseline": "partial",
+      "phases": [
+        "P03",
+        "P04"
+      ],
+      "manual": [
+        "M26"
+      ],
+      "technical": [
+        "T01",
+        "T02"
+      ]
+    },
+    {
+      "id": "AC-09",
+      "baseline": "partial",
+      "phases": [
+        "P03",
+        "P04",
+        "P11"
+      ],
+      "manual": [],
+      "technical": [
+        "T08"
+      ]
+    },
+    {
+      "id": "AC-10",
+      "baseline": "open",
+      "phases": [
+        "P02",
+        "P06",
+        "P11"
+      ],
+      "manual": [],
+      "technical": [
+        "T01",
+        "T02",
+        "T03",
+        "T04"
+      ]
+    },
+    {
+      "id": "AC-11",
+      "baseline": "open",
+      "phases": [
+        "P08",
+        "P09",
+        "P11"
+      ],
+      "manual": [
+        "M27",
+        "M28",
+        "M29"
+      ],
+      "technical": [
+        "T07"
+      ]
+    },
+    {
+      "id": "AC-12",
+      "baseline": "scope_deferred_p2",
+      "phases": [],
+      "manual": [],
+      "technical": []
+    }
+  ],
+  "implementation_gaps": [
+    {
+      "id": "G01",
+      "finding": "Room projection has no folder identity or 4-category query surface",
+      "phases": [
+        "P02",
+        "P06"
+      ]
+    },
+    {
+      "id": "G02",
+      "finding": "Current scan is full-collection replaceAll, not incremental delta",
+      "phases": [
+        "P05"
+      ]
+    },
+    {
+      "id": "G03",
+      "finding": "search reads all rows in memory, matches only title/artist and lacks indexed DAO query",
+      "phases": [
+        "P06",
+        "P09"
+      ]
+    },
+    {
+      "id": "G04",
+      "finding": "Library and Search UI feature code is placeholder only",
+      "phases": [
+        "P08",
+        "P09"
+      ]
+    },
+    {
+      "id": "G05",
+      "finding": "Selection UX/acknowledgement boundary not implemented; full playback is #7",
+      "phases": [
+        "P10"
+      ]
+    },
+    {
+      "id": "G06",
+      "finding": "Final 5k, OS matrix, actual Compose accessibility and privacy tests not run for Issue6",
+      "phases": [
+        "P11",
+        "P12"
+      ]
+    }
+  ],
+  "validation": {
+    "method": "pdf_sha256_and_text_extraction_plus_live_github_issue_file_branch_code_reads",
+    "unit_tests": "NOT_RUN",
+    "instrumentation": "NOT_RUN",
+    "ci": "NOT_RUN",
+    "apk": "NOT_BUILT",
+    "manual_device": "NOT_RUN",
+    "issue6_ac_pass_count": 0
+  }
+}
