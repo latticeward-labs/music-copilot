@@ -29,6 +29,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -115,11 +116,11 @@ fun LibraryBrowseScreen(
                     color = MusicColors.textPrimary,
                     modifier = Modifier.weight(1f).semantics { heading() },
                 )
-                if (action == LibraryUiAction.Rescan) {
-                    OutlinedButton(onClick = onRescanLibrary,
-                        modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp)) {
-                        Text(stringResource(R.string.p08_action_rescan_short))
-                    }
+                TextButton(
+                    onClick = onSettings,
+                    modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
+                ) {
+                    Text(stringResource(R.string.p08_more))
                 }
             }
 
@@ -163,14 +164,24 @@ fun LibraryBrowseScreen(
             val headingCount = if (canBrowse && !state.loading && state.failure == null)
                 state.totalCount else null
             if (headingCount != null) {
-                Text(
-                    stringResource(R.string.p08_item_count, headingCount),
-                    modifier = Modifier.padding(
-                        horizontal = MusicSpacing.mdDp, vertical = MusicSpacing.xsDp
-                    ),
-                    color = MusicColors.textMuted,
-                    style = MusicTextStyles.bodyMedium,
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(horizontal = MusicSpacing.mdDp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        stringResource(R.string.p08_item_count, headingCount),
+                        modifier = Modifier.weight(1f),
+                        color = MusicColors.textMuted,
+                        style = MusicTextStyles.bodyMedium,
+                    )
+                    if (action == LibraryUiAction.Rescan) {
+                        OutlinedButton(
+                            onClick = onRescanLibrary,
+                            modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
+                        ) { Text(stringResource(R.string.p08_action_rescan_short)) }
+                    }
+                }
             }
 
             when {
