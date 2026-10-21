@@ -4,7 +4,7 @@
   "recordDate": "2026-10-21",
   "repo": "latticeward-labs/music-copilot",
   "branch": "feature/5-onboarding-permissions-recovery",
-  "status": "P13_DEVICE_QA_AND_GS01_CONTRACTS_COMMITTED_OWNER_PHYSICAL_TESTS_PENDING_NO_GITHUB_TESTS_EXECUTED_NOT_FULL_PASS",
+  "status": "OWNER_SIGNED_OFF_P13_PHONE_QA_17_OF_17_REPORTED_PASS_FORMAL_NATIVE_GATES_PENDING_NOT_FULL_VERIFIED_PASS",
   "sources": [
     "user-uploaded ISSUE_5_PHASED_EXECUTION_PLAN(1).md: Phase 13",
     "MSM2(1)(1).rar SHA256 0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -50,14 +50,14 @@
       "model": "HONOR X7d",
       "android": "15",
       "androidApi": 35,
-      "evidenceType": "NONE_FOR_P13_OWNER_TO_REPORT",
+      "evidenceType": "OWNER_REPORTED_PHYSICAL_TESTING_AND_CHAT_OBSERVATIONS_NO_ADB",
       "isEmulator": false,
       "preexistingP12OwnerReport": "12/12_PASS_P12_ONLY_NOT_REUSED_AS_P13",
       "testStatuses": {
-        "P13-01": "NOT_RUN",
-        "P13-02": "NOT_RUN",
-        "P13-03": "NOT_RUN",
-        "P13-04": "NOT_RUN",
+        "P13-01": "PASS",
+        "P13-02": "PASS",
+        "P13-03": "PASS",
+        "P13-04": "PASS",
         "P13-05": "NOT_RUN",
         "P13-06": "NOT_RUN",
         "P13-07": "NOT_RUN",
@@ -86,24 +86,25 @@
         "GS01-11": "NOT_RUN",
         "GS01-12": "NOT_RUN"
       },
-      "goldenScenarioVerdict": "NOT_RUN",
+      "goldenScenarioVerdict": "OWNER_REPORTED_PASS_PRIMARY_READY_EVIDENCE_INCOMPLETE",
       "phoneSideApkShaVerified": false,
-      "localAudioFixture": "UNKNOWN",
-      "testedUtc": null
+      "localAudioFixture": "READY_UI_OBSERVED_NONEMPTY_INDEX_COUNT_UNCONFIRMED",
+      "testedUtc": null,
+      "statusNotes": "P13-01..04 attributed via conversation to early first-use/Ready handset; owner collectively reports all 17 PASS, but remaining IDs not reliably allocated by handset. P13-05 was seen on DEV-B."
     },
     "DEV-B": {
       "manufacturer": null,
       "model": null,
       "android": null,
       "androidApi": null,
-      "evidenceType": "MISSING_SECOND_REAL_DEVICE",
+      "evidenceType": "OWNER_REPORTED_REAL_SECOND_PHONE_EMPTY_LIBRARY_CHAT_IMAGE_NO_ADB",
       "isEmulator": false,
       "testStatuses": {
         "P13-01": "NOT_RUN",
         "P13-02": "NOT_RUN",
         "P13-03": "NOT_RUN",
         "P13-04": "NOT_RUN",
-        "P13-05": "NOT_RUN",
+        "P13-05": "PASS",
         "P13-06": "NOT_RUN",
         "P13-07": "NOT_RUN",
         "P13-08": "NOT_RUN",
@@ -131,10 +132,11 @@
         "GS01-11": "NOT_RUN",
         "GS01-12": "NOT_RUN"
       },
-      "goldenScenarioVerdict": "NOT_RUN",
+      "goldenScenarioVerdict": "EMPTY_BRANCH_OBSERVED_OWNER_REPORTED",
       "phoneSideApkShaVerified": false,
-      "localAudioFixture": "UNKNOWN",
-      "testedUtc": null
+      "localAudioFixture": "OWNER_REPORTED_GENUINELY_EMPTY",
+      "testedUtc": null,
+      "statusNotes": "Owner explicitly tested empty-media outcome on another physical phone, but handset model, OS/API, APK build verification and per-case allocation not reported."
     }
   },
   "mandatoryOutputs": {
@@ -148,17 +150,18 @@
     "scenarioSpecificationApproved": true,
     "physicalExecutionApproved": false,
     "primaryReadyTestCompleted": false,
-    "emptyAlternativeTestCompleted": false,
+    "emptyAlternativeTestCompleted": true,
     "issue6BrowsingHandoffNotImplementedInIssue5": true,
     "deviceVerdicts": {
-      "DEV-A": "NOT_RUN",
-      "DEV-B": "NOT_RUN"
+      "DEV-A": "OWNER_REPORTED_SUCCESS_READY_COUNT_UNVERIFIED",
+      "DEV-B": "EMPTY_BRANCH_ONLY_OWNER_OBSERVED"
     },
-    "note": "Verified Empty is a truthful alternate outcome, NOT a primary Ready GS-01 PASS."
+    "note": "All P13 cases and overall GS01 completion are owner-asserted; primary READY_PASS still requires positive accessible MediaStore indexed evidence and device attribution. Empty branch separately observed on DEV-B.",
+    "ownerCollectiveAttestation": true
   },
   "exitGates": {
     "deviceCountRequired": 2,
-    "deviceCountWithP13Evidence": 0,
+    "deviceCountWithP13Evidence": 2,
     "differentAndroidOrOemCoverageRequired": true,
     "mandatoryPhoneScenariosVerified": false,
     "verifiedReadyPrimaryGS01": false,
@@ -169,13 +172,48 @@
     "phase13PASS": false,
     "originalIssue13AcceptanceSignedOff": false,
     "parentIssueOpen": true,
-    "phase14Started": false
+    "phase14Started": false,
+    "ownerReportedAll17Pass": true,
+    "ownerReportedSecondPhysicalPhone": true,
+    "secondPhoneDeviceIdentityConfirmed": false,
+    "firstPhoneReadyUiObserved": true,
+    "secondPhoneEmptyUiObserved": true,
+    "formalPassGateExplanation": "OWNER-REPORTED 17/17 PHYSICAL QA PASS; signed off from owner viewpoint. Full evidence-verified PASS requires DEV-B model/OS and case allocation, Ready positive index count, native OS verification and relevant matrix. Do not invent data."
   },
   "pending": [
-    "Owner to execute P13-01..17 and GS01-01..12 on DEV-A HONOR X7d, report results per ID.",
-    "Second independent real Android phone (different Android version/OEM preferred) to be supplied by owner; do not substitute emulator.",
-    "Actual local accessible audio needed to verify primary GS01 Ready; otherwise Empty is valid alternate but not Ready PASS.",
-    "Follow up exact UTC/device build identification, permission outcome and privacy-safe text observations without personal media/screenshots.",
-    "Prior P10, P11, P12 JVM/Compose/static/native technical checks remain pending under owner no-GitHub-tests directive."
-  ]
+    "Owner's 17/17 phone QA declaration recorded, no more P13 case-by-case retesting implied unless verifying formal gates.",
+    "Identify second physical phone model/OEM and Android/API and associate applicable P13 IDs to DEV-A and DEV-B.",
+    "Evidence that DEV-A Ready represents >=1 currently accessible MediaStore indexed item, not merely status string; otherwise GS01 primary Ready not independently verified.",
+    "Native permission/OS device evidence needed for formal two-device coverage; neither ADB nor GitHub application tests executed under owner instruction.",
+    "Earlier unexecuted P10–P12 JVM/Compose and multi-API validation remain outside P13 owner QA."
+  ],
+  "ownerFinalDeclaration": {
+    "dateLocal": "2026-10-21",
+    "source": "Direct owner user message and progressive phone QA in chat",
+    "reportedCaseCount": 17,
+    "reportedResults": {
+      "P13-01": "OWNER_REPORTED_PASS",
+      "P13-02": "OWNER_REPORTED_PASS",
+      "P13-03": "OWNER_REPORTED_PASS",
+      "P13-04": "OWNER_REPORTED_PASS",
+      "P13-05": "OWNER_REPORTED_PASS",
+      "P13-06": "OWNER_REPORTED_PASS",
+      "P13-07": "OWNER_REPORTED_PASS",
+      "P13-08": "OWNER_REPORTED_PASS",
+      "P13-09": "OWNER_REPORTED_PASS",
+      "P13-10": "OWNER_REPORTED_PASS",
+      "P13-11": "OWNER_REPORTED_PASS",
+      "P13-12": "OWNER_REPORTED_PASS",
+      "P13-13": "OWNER_REPORTED_PASS",
+      "P13-14": "OWNER_REPORTED_PASS",
+      "P13-15": "OWNER_REPORTED_PASS",
+      "P13-16": "OWNER_REPORTED_PASS",
+      "P13-17": "OWNER_REPORTED_PASS"
+    },
+    "interpretation": "Owner asserts all P13 cases passed across physical-phone testing; not 17 verified executions on each device",
+    "evidenceAttribution": "OWNER_REPORTED_PHYSICAL_NO_ADB",
+    "technicalApprovalGranted": false,
+    "ownerReportPath": "docs/implementation/ISSUE_5_PHASE13_OWNER_PHONE_TEST_REPORT_2026-10-21.md",
+    "noFailedCaseReported": true
+  }
 }
