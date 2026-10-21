@@ -42,12 +42,17 @@
     {
       "id": "P01",
       "title": "GitHub execution and delivery contract",
-      "status": "IN_PROGRESS",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "f4996a7418e47d044270681fb60f7a84cb209400",
+      "artifact_links": [
+        "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md",
+        ".github/PULL_REQUEST_TEMPLATE/issue-6-mediastore-library-browse-search.md",
+        "docs/implementation/ISSUE_6_PHASE1_VALIDATION.json",
+        "docs/implementation/ISSUE_6_EVIDENCE_INDEX.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P01_PASS_CONTRACT_ONLY: 14/14 documentary checks; no Android tests, CI, owner phone or PR."
     },
     {
       "id": "P02",
@@ -634,8 +639,40 @@
       "notes": null
     }
   ],
-  "change_log": [],
-  "evidence_records": [],
+  "change_log": [
+    {
+      "id": "I6-CHG-P01-001",
+      "phase": "P01",
+      "status": "COMMITTED",
+      "commits": [
+        "67cc8dc2fa98bfe35e387f0a37359ae968ce6d66",
+        "554d73eaac5b76fa865dee9022dac8c4252fc412",
+        "3fffddb2f4830495838efd91837ce6b0c2bb671d",
+        "f4996a7418e47d044270681fb60f7a84cb209400"
+      ],
+      "paths": [
+        "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md",
+        ".github/PULL_REQUEST_TEMPLATE/issue-6-mediastore-library-browse-search.md",
+        "docs/implementation/ISSUE_6_PHASE1_VALIDATION.json",
+        "docs/implementation/ISSUE_6_EVIDENCE_INDEX.json"
+      ],
+      "kind": "documentation_only",
+      "rollback": "git revert relevant commits on feature branch; retain history",
+      "note": "No Android code modification or build"
+    }
+  ],
+  "evidence_records": [
+    {
+      "id": "I6-EVD-P01-001",
+      "phase": "P01",
+      "source_sha": "3fffddb2f4830495838efd91837ce6b0c2bb671d",
+      "method": "GitHub file/branch/issue/PR/Actions readback and P01 structure validation",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE1_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_DOC_AUDIT",
+      "limits": "No CI, instrumentation, APK, ADB, phone or independent reviewer approval. All 12 product ACs remain unverified."
+    }
+  ],
   "evidence_id_contract": {
     "change": "I6-CHG-PNN-NNN",
     "evidence": "I6-EVD-PNN-NNN",
