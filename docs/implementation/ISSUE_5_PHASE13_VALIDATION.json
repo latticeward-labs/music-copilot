@@ -170,8 +170,8 @@
     "nativeEvidenceComplete": false,
     "earlierP10ToP12ReportsNotReclassified": true,
     "phase13PASS": false,
-    "originalIssue13AcceptanceSignedOff": false,
-    "parentIssueOpen": true,
+    "originalIssue13AcceptanceSignedOff": true,
+    "parentIssueOpen": false,
     "phase14Started": true,
     "ownerReportedAll17Pass": true,
     "ownerReportedSecondPhysicalPhone": true,
@@ -181,7 +181,11 @@
     "formalPassGateExplanation": "OWNER-REPORTED 17/17 PHYSICAL QA PASS; signed off from owner viewpoint. Full evidence-verified PASS requires DEV-B model/OS and case allocation, Ready positive index count, native OS verification and relevant matrix. Do not invent data.",
     "phase14FormalPass": false,
     "phase14AuditPath": "docs/implementation/ISSUE_5_FINAL_ACCEPTANCE_AUDIT.md",
-    "phase14Note": "Final acceptance audit has started; P13 owner reported pass but P13 evidence closure still incomplete; P14 not fully passed"
+    "phase14Note": "Final acceptance audit has started; P13 owner reported pass but P13 evidence closure still incomplete; P14 not fully passed",
+    "ownerScopeWaiverPassed": true,
+    "issue5ClosedUnderOwnerWaiver": true,
+    "phase14OwnerAcceptedWithDeferredVerification": true,
+    "formalEvidenceGateNote": "P13 17/17 owner-reported, independent native matrix and primary indexed Ready proof still missing; tracked #73. Issue #5 accepted+closed by explicit owner exception."
   },
   "pending": [
     "Owner's 17/17 phone QA declaration recorded, no more P13 case-by-case retesting implied unless verifying formal gates.",
@@ -218,5 +222,12 @@
     "technicalApprovalGranted": false,
     "ownerReportPath": "docs/implementation/ISSUE_5_PHASE13_OWNER_PHONE_TEST_REPORT_2026-10-21.md",
     "noFailedCaseReported": true
+  },
+  "issue5Closeout": {
+    "pr": 72,
+    "mergeSha": "9cb2df09f90e9c7881e743b491c9f13b48f7323c",
+    "state": "closed",
+    "acceptance": "OWNER_ACCEPTED_WITH_DEFERRED_VERIFICATION",
+    "deferredIssue": 73
   }
 }
