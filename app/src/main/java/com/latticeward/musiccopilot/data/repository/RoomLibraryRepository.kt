@@ -7,6 +7,8 @@ import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
+import com.latticeward.musiccopilot.data.api.LibraryBrowsePage
+import com.latticeward.musiccopilot.data.api.LibraryBrowseRequest
 import com.latticeward.musiccopilot.data.api.LibraryCandidate
 import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
 import com.latticeward.musiccopilot.data.api.LibraryIndexStatus
@@ -214,25 +216,63 @@ class RoomLibraryRepository(
         )
     }
 
+    /** True local, capped SQL page; a stale/revoked scan is never No Results. */
     override suspend fun search(query: LibraryQuery): AppResult<List<LibraryItem>> =
         withContext(dispatchers.io) {
             if (!source.hasAccess()) return@withContext permissionUnavailable()
-            if (index.value.status != LibraryIndexStatus.Ready)
+            val needle = LibraryRowMapper.normalize(query.text)
+            if (needle.isBlank() || query.limit <= 0)
                 return@withContext AppResult.Success(emptyList())
-            val requested = LibraryRowMapper.normalize(query.text)
-            if (requested.isBlank() || query.limit <= 0)
-                return@withContext AppResult.Success(emptyList())
+            val before = index.value
+            if (before.status != LibraryIndexStatus.Ready)
+                return@withContext libraryReadUnavailable()
             try {
-                val matched = projection.all().filter {
-                    it.normalizedTitle.contains(requested) ||
-                        it.normalizedArtist.contains(requested)
-                }.take(query.limit.coerceAtMost(100)).map(LibraryRowMapper::toItem)
-                AppResult.Success(matched)
+                val matched = projection.searchLocal(needle, query.limit.coerceAtMost(100))
+                currentCoroutineContext().ensureActive()
+                if (!source.hasAccess()) return@withContext permissionUnavailable()
+                val after = index.value
+                if (after.revision != before.revision || after.status != before.status)
+                    return@withContext staleBrowsePage()
+                AppResult.Success(matched.map(LibraryRowMapper::toItem))
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (failure: Exception) { AppResult.Failure(
-                AppError.Library(AppErrorCodes.LIBRARY_SCAN_FAILED,
-                    Recoverability.RECOVERABLE, RecoveryAction.Rebuild)) }
+            catch (security: SecurityException) { permissionUnavailable() }
+            catch (failure: Exception) { libraryReadUnavailable() }
         }
+
+    override suspend fun browse(request: LibraryBrowseRequest): AppResult<LibraryBrowsePage> =
+        withContext(dispatchers.io) {
+            if (!source.hasAccess()) return@withContext permissionUnavailable()
+            val before = index.value
+            if (before.status != LibraryIndexStatus.Ready &&
+                before.status != LibraryIndexStatus.Empty
+            ) return@withContext libraryReadUnavailable()
+            val expected = request.page.expectedRevision
+            if (expected != null && expected != before.revision)
+                return@withContext staleBrowsePage()
+            try {
+                val page = projection.browsePage(request, before.revision)
+                currentCoroutineContext().ensureActive()
+                if (!source.hasAccess()) return@withContext permissionUnavailable()
+                val after = index.value
+                if (after.revision != before.revision || after.status != before.status)
+                    return@withContext staleBrowsePage()
+                AppResult.Success(page)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (security: SecurityException) { permissionUnavailable() }
+            catch (failure: Exception) { libraryReadUnavailable() }
+        }
+
+    private fun libraryReadUnavailable(): AppResult.Failure =
+        AppResult.Failure(AppError.Library(
+            AppErrorCodes.LIBRARY_BROWSE_UNAVAILABLE,
+            Recoverability.RECOVERABLE, RecoveryAction.Retry,
+        ))
+
+    private fun staleBrowsePage(): AppResult.Failure =
+        AppResult.Failure(AppError.Library(
+            AppErrorCodes.LIBRARY_BROWSE_STALE,
+            Recoverability.RECOVERABLE, RecoveryAction.Retry,
+        ))
 
     override suspend fun get(ref: MediaRef): AppResult<LibraryItem> =
         withContext(dispatchers.io) {
