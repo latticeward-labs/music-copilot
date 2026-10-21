@@ -301,6 +301,7 @@ class MainActivity : ComponentActivity() {
     ) {
         val library by bindings.libraryRepository.index.collectAsStateWithLifecycle()
         val playbackConnection by bindings.playbackGateway.connectionState.collectAsStateWithLifecycle()
+        val playbackSnapshot by bindings.playbackGateway.snapshot.collectAsStateWithLifecycle()
         val preferences by bindings.preferencesRepository.preferences.collectAsStateWithLifecycle()
         val preferencesLoad by bindings.preferencesRepository.loadState.collectAsStateWithLifecycle()
         val storage by bindings.storageStartState.collectAsStateWithLifecycle()
@@ -329,6 +330,10 @@ class MainActivity : ComponentActivity() {
                 route = route,
                 readiness = RootNavigationStateHolder().readiness(verifiedLibraryStatus, playbackConnection),
                 permission = permission,
+                libraryRepository = bindings.libraryRepository,
+                libraryIndex = library,
+                playbackConnection = playbackConnection,
+                playbackSnapshot = playbackSnapshot,
                 preferencesRepository = bindings.preferencesRepository,
                 remoteSpeechDecision = bindings.remoteSpeechDecision(),
                 onRevokeCloudSpeechConsent = bindings::revokeCloudSpeechConsent,
