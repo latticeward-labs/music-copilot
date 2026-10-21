@@ -75,12 +75,17 @@
     {
       "id": "P03",
       "title": "Permission-aware MediaStore scanner",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE3_MEDIASTORE_IMPLEMENTATION.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "70bf778218377140814fdaa98d96166b42d5fd39",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase3MediaStoreContractTest.kt",
+        "docs/implementation/ISSUE_6_PHASE3_MEDIASTORE_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE3_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P03_PASS_SCOPED_STATIC_SOURCE; 17/17 GitHub readback checks, 9 authored JUnit methods. Actual Android builds, JVM tests, native API/OEM and phone QA NOT_RUN until P12."
     },
     {
       "id": "P04",
@@ -694,6 +699,27 @@
       "kind": "additive_kotlin_contracts_docs_and_authored_tests",
       "rollback": "Revert only Issue #6 feature commits on feature branch; preserve Room v1 and original public #16 methods.",
       "note": "Default browse returns typed unavailable until actual P06 Room adapter; no UI, migration, emulator, APK or user-data changes."
+    },
+    {
+      "id": "I6-CHG-P03-001",
+      "phase": "P03",
+      "status": "COMMITTED",
+      "commits": [
+        "14c0904ba51708d28b2773a9166762a0d7f44ed0",
+        "1f7cc79db67608a79eddc1bf58a9806a4ddfdadc",
+        "9395deb784d58500353acba696d806ab8e31fd2a",
+        "e280b7e32dba6da5e7bface52e765ef1856c146c",
+        "70bf778218377140814fdaa98d96166b42d5fd39"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase3MediaStoreContractTest.kt",
+        "docs/implementation/ISSUE_6_PHASE3_MEDIASTORE_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE3_VALIDATION.json"
+      ],
+      "kind": "scanner_source_and_synthetic_tests",
+      "rollback": "Use new feature-branch git revert commits; old Room schema stays v1; never delete user audio",
+      "note": "Separate mounted MediaStore volume refs, API-aware scan/one-item requery, scoped privacy. Native behavior pending P12."
     }
   ],
   "evidence_records": [
@@ -716,6 +742,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_DOC_AND_SOURCE_AUDIT",
       "limits": "Authored 8 JVM tests NOT_RUN; no Android build/Gradle CI, Room migration, emulator, ADB or physical QA. 12 original AC unchecked."
+    },
+    {
+      "id": "I6-EVD-P03-001",
+      "phase": "P03",
+      "source_sha": "70bf778218377140814fdaa98d96166b42d5fd39",
+      "method": "Actual GitHub source/commit readback with 17 static invariants",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE3_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "Android/JVM compilation, local unit tests, ContentResolver instrumentation, 5k, API matrix, APK, phone and CI NOT_RUN. All 12 issue ACs unchecked."
     }
   ],
   "evidence_id_contract": {
