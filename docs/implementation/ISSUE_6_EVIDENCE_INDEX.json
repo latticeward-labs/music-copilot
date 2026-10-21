@@ -90,12 +90,21 @@
     {
       "id": "P04",
       "title": "Normalization and deterministic indexing",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE4_NORMALIZATION_IMPLEMENTATION.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "18a1242c6352073b94dac2dd94be5161b7532283",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryTextNormalization.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase4MetadataNormalizationTest.kt",
+        "docs/implementation/ISSUE_6_PHASE4_NORMALIZATION_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE4_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P04_PASS_SCOPED_STATIC_SOURCE; 20/20 static GitHub readback, 15 authored JVM tests NOT_RUN; Room v1 unchanged. No APK, CI, Gradle, native or phone test. Full test execution remains P12."
     },
     {
       "id": "P05",
@@ -720,6 +729,36 @@
       "kind": "scanner_source_and_synthetic_tests",
       "rollback": "Use new feature-branch git revert commits; old Room schema stays v1; never delete user audio",
       "note": "Separate mounted MediaStore volume refs, API-aware scan/one-item requery, scoped privacy. Native behavior pending P12."
+    },
+    {
+      "id": "I6-CHG-P04-001",
+      "phase": "P04",
+      "status": "COMMITTED",
+      "commits": [
+        "937a57ef29dcda905295836a46eef2198aa1bd74",
+        "548dd54c0403ae9019cd2a79f96f4ff824caf42b",
+        "78ca0e02563cfa6400d1e19ffd9fb65f7373123e",
+        "7154a1a901b184e296aa6d0c2bae2b4e0e1a12cd",
+        "c877b4fa4a7b59ed47cf1b53ff1aed42a2fdaa6f",
+        "e90a9e42be12e4daffa2d6b4c0bb04afeb16164b",
+        "a9920a9f83a10d3cbd727a3324114f6aaeeef89a",
+        "df95a232659df19f719f59621a94d12ee3c9325f",
+        "043b7433af072abb96864e9480974c8df144b1c8",
+        "18a1242c6352073b94dac2dd94be5161b7532283"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryTextNormalization.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase4MetadataNormalizationTest.kt",
+        "docs/implementation/ISSUE_6_PHASE4_NORMALIZATION_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE4_VALIDATION.json"
+      ],
+      "kind": "additive_mapper_normalization_scanner_title_fallback_and_synthetic_jvm_tests",
+      "rollback": "Revert Issue #6 P04 commits on feature branch with review; preserve Room V1 and platform-owned media; never force-reset main or delete audio",
+      "note": "No functional migration, incremental index, APK, CI or user device testing in P04."
     }
   ],
   "evidence_records": [
@@ -752,6 +791,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "Android/JVM compilation, local unit tests, ContentResolver instrumentation, 5k, API matrix, APK, phone and CI NOT_RUN. All 12 issue ACs unchecked."
+    },
+    {
+      "id": "I6-EVD-P04-001",
+      "phase": "P04",
+      "source_sha": "18a1242c6352073b94dac2dd94be5161b7532283",
+      "method": "GitHub live file/readback and 20 source/static contract invariants",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE4_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "15 synthetic JVM tests authored but NOT_RUN. No Android build, CI, emulator, Room migration, 5000-file run or phone QA. No Issue #6 acceptance checkbox verified."
     }
   ],
   "evidence_id_contract": {
