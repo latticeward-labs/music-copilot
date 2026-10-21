@@ -173,8 +173,10 @@ object LibraryGroupIdentity {
 
     private fun normalizeRelativePathDisplay(value: String?): String? {
         if (value == null) return null
-        val p = value.trim().replace('\\\\', '/').trim('/')
-        if (p.isBlank() || p.startsWith('.') || p.split('/').any {
+        val raw = value.trim()
+        if (raw.startsWith('/') || raw.startsWith('\\')) return null
+        val p = raw.replace('\\', '/').trimEnd('/')
+        if (p.isBlank() || p.split('/').any {
                 it.isBlank() || it == "." || it == ".."
             }) return null
         return p
