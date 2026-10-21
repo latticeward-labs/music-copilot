@@ -153,12 +153,22 @@
     {
       "id": "P07",
       "title": "Library readiness and lifecycle integration",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE7_READINESS_INTEGRATION.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "5830970dbddf5a8119626f7d48f7eebc90e9aab7",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanLaunchGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/LibraryActionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase7ReadinessLifecycleTest.kt",
+        "docs/implementation/ISSUE_6_PHASE7_READINESS_INTEGRATION.md",
+        "docs/implementation/ISSUE_6_PHASE7_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P07_PASS_SCOPED_SOURCE: 27/27 GitHub code checks, 12 synthetic tests AUTHORED but NOT_RUN, no Gradle/device/Settings/rotation proof. P06 genuine Room 2.json and native migration remains IN_PROGRESS; T01–T10 and M01–M34 at P12."
     },
     {
       "id": "P08",
@@ -863,6 +873,37 @@
       "kind": "Room_V2_migration_grouped_sql_browse_search_and_authored_tests",
       "rollback": "Before merge revert P06 commits only on feature branch. Do not install older V1 app over already opened V2 database; no destructive rollback. Keep User Media untouched.",
       "note": "Cannot fully PASS P06 native/schema export: compiler-produced Room V2 2.json missing, requires P12 KAPT and tests; source 32/32 static checks passed."
+    },
+    {
+      "id": "I6-CHG-P07-001",
+      "phase": "P07",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "85a0820e5ebc30586edb10a6dae297257e41f5f1",
+        "571f21f0ad17f17ca0a4599e3e70f41d7a6a5610",
+        "1c0478c45fe9cad1e4d237279b6a517ab2d27565",
+        "cedb43f30c246b132a64e3f068809201c816711f",
+        "50a2b48de8b094727093512febaa8c27ffa6bd71",
+        "21c1969f414bd0ee65f02ee5509a557f3e5305a6",
+        "27e700307d0ff37255414ffd39a4d0b7df7ac54a",
+        "22f1e81cf106a63f34ef590e827a38c3bebe8914",
+        "1b8aff6bb5dd63d72012fd0807cbfc83a1cf60a0",
+        "5830970dbddf5a8119626f7d48f7eebc90e9aab7"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanLaunchGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/LibraryActionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase7ReadinessLifecycleTest.kt",
+        "docs/implementation/ISSUE_6_PHASE7_READINESS_INTEGRATION.md",
+        "docs/implementation/ISSUE_6_PHASE7_VALIDATION.json"
+      ],
+      "kind": "readiness_lifecycle_singleflight_explicit_actions_and_recovery_fixtures",
+      "rollback": "Revert P07 change commits on the feature branch (not main); preserve #5 PermissionViewModel and Android OS grants. No user media deletion; no API authority change.",
+      "note": "No new Room migration, APK, or actual JVM/native tests. P06 Room V2 native/schema gate still unresolved."
     }
   ],
   "evidence_records": [
@@ -925,6 +966,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "Compiler/KAPT-generated schema 2.json missing (GitHub 404), no Android Gradle compile, actual migration, native or JVM test, 5000 query plan benchmark, APK, phone or independent review. P06 full verified gate unresolved."
+    },
+    {
+      "id": "I6-EVD-P07-001",
+      "phase": "P07",
+      "source_sha": "5830970dbddf5a8119626f7d48f7eebc90e9aab7",
+      "method": "Live GitHub readback across application graph, Activity, LibraryScanUseCase, Compose, 27 static invariants and test fixtures",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE7_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "12 authored tests NOT_RUN. No Android permission lifecycle/instrumentation, Gradle, APK, real device evidence, CI or approval. Original 12 issue ACs unverified. P06 Room 2.json remains missing."
     }
   ],
   "evidence_id_contract": {
