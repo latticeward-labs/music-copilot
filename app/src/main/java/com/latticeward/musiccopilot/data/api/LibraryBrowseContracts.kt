@@ -136,7 +136,10 @@ object LibraryGroupIdentity {
         platformAlbumId: Long? = null,
     ): LibraryGroupId {
         val volume = normalize(volumeName) ?: "unknown-volume"
-        val albumIdentity = if (platformAlbumId != null && platformAlbumId >= 0) {
+        // Missing metadata must not accidentally merge with a literal
+        // user-authored "Unknown Album" simply because a provider reused an ID.
+        val albumIdentity = if (normalize(album) != null &&
+            platformAlbumId != null && platformAlbumId >= 0) {
             listOf("platform", volume, platformAlbumId.toString())
         } else {
             listOf("fallback", volume, identityPart(normalize(album)),
@@ -161,7 +164,9 @@ object LibraryGroupIdentity {
         if (value == null) "missing" else "present:$value"
 
     private fun normalizeRelativePath(value: String?): String? =
-        LibraryTextNormalization.relativeFolder(value)?.let(::normalize)
+        // Actual Android folder paths are case/spacing sensitive. Never
+        // merge "Live  Session" with "Live Session" or Rock with rock.
+        LibraryTextNormalization.relativeFolder(value)
 
     private fun digest(kind: String, vararg components: String): LibraryGroupId {
         // A length-prefixed encoding prevents ambiguous tuples or separator
