@@ -1,6 +1,6 @@
 # Issue #5 / Phase 13 — GS-01 First Launch to Ready Library physical execution ledger
 
-**Evidence state (21 October 2026):** `GS01_NOT_EXECUTED_ON_P13_PHYSICAL_DEVICE`. This is an owner-execution protocol plus a **blank evidence ledger**, not a test result.
+**Evidence state (updated 21 October 2026):** `GS01_OWNER_REPORTED_COMPLETE; DEV-B EMPTY OBSERVED; PRIMARY READY INDEPENDENT VERIFICATION PENDING`. The tables below preserve the pre-test baseline; owner execution update is appended below.
 
 ## Approved source contract — NOT the distinct driving/voice MVP sample
 
@@ -72,3 +72,17 @@ No screenshots, screen recordings, private files, filename/title/artist/path/URI
 **P13 status:** `GS01_SCENARIO_MAPPED / OWNER_PHYSICAL_EXECUTION_PENDING / NO_GITHUB_APP_TESTS_RUN / NOT_FULL_PASS`.
 
 [Issue #5](https://github.com/latticeward-labs/music-copilot/issues/5) · [P13 device test plan](ISSUE_5_DEVICE_QA.md) · [P13 validation](ISSUE_5_PHASE13_VALIDATION.json).
+
+## 21 October 2026 owner-execution update — supersedes blank baseline
+
+The owner finished the walkthrough and expressly declared all **P13-01..17 PASS**. During this conversation, the first phone's Library displayed `Local library indexing is available.` after permission/Continue; the owner also ran the Empty case on a **second real phone** without music and showed `No local music is indexed yet.` with a Rescan control. These are genuine **owner-reported phone UI observations**, not assistant-executed device tests. There is no phone-side indexed count or named DEV-B model/Android/API in the reports.
+
+| GS-01 evidence area | Owner observation/attestation | Evidence disposition |
+| --- | --- | --- |
+| GS01-01..05 first use/permissions/explicit scan | Owner reports success; first-use and post-grant UI were shown | `OWNER_REPORTED_PASS`; detailed native evidence not independently reproduced |
+| GS01-06 Ready primary with at least one accessible indexed audio file | Ready **UI text** was shown; no positive track count directly confirmed | `OWNER_REPORTED_PASS / PRIMARY_READY_VERIFICATION_PENDING` |
+| GS01-07 Empty alternate | No-music result displayed on another phone | `EMPTY_BRANCH_ONLY_OWNER_OBSERVED` |
+| GS01-08..11 recovery, microphone and lifecycle | Owner collectively declared P13 cases passed; device-by-device attribution not supplied | `OWNER_REPORTED_PASS`, conditional paths not independent-device-verified |
+| GS01-12 final | Owner declares all Phase-13 cases PASSED | `OWNER_SIGNOFF_RECORDED`; not formal `GS01_READY_PASS` yet |
+
+**Formal GS01_PRIMARY_READY_PASS cannot be issued from a Ready label alone**; accessible nonempty MediaStore/index evidence is required. DEV-B model/OS details and two-device scenario allocation also remain missing. The owner-reported complete Phase-13 QA is documented in [owner's report](ISSUE_5_PHASE13_OWNER_PHONE_TEST_REPORT_2026-10-21.md) and the [machine validation ledger](ISSUE_5_PHASE13_VALIDATION.json). We have not uploaded personal screenshots or run CI/ADB/app tests. No claim of Issue #6 browse/search completion or Phase-14 acceptance is made.
