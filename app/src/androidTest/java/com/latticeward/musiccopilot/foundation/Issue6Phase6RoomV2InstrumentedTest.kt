@@ -2,7 +2,7 @@ package com.latticeward.musiccopilot.foundation
 
 import android.content.Context
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
@@ -10,8 +10,6 @@ import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import com.latticeward.musiccopilot.data.api.LibraryBrowseCategory
 import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
 import com.latticeward.musiccopilot.data.api.LibraryBrowseRequest
-import com.latticeward.musiccopilot.data.api.LibraryGroupId
-import com.latticeward.musiccopilot.data.api.LibraryGroupIdentity
 import com.latticeward.musiccopilot.data.api.LibraryPageRequest
 import com.latticeward.musiccopilot.data.mapping.LibraryRowMapper
 import com.latticeward.musiccopilot.data.mediastore.MediaStoreRefCodec
@@ -31,7 +29,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class Issue6Phase6RoomV2InstrumentedTest {
 
-    private val context: Context get() = ApplicationProvider.getApplicationContext()
+    private val context: Context get() = InstrumentationRegistry.getInstrumentation().targetContext
 
     private fun source(
         id: Long, title: String, artist: String? = "Synthetic Artist",
