@@ -1,0 +1,672 @@
+{
+  "schema": "music-copilot.issue6.execution-evidence-index.v1",
+  "created_on": "2026-10-22",
+  "issue": "https://github.com/latticeward-labs/music-copilot/issues/6",
+  "branch": "feature/6-mediastore-library-browse-search",
+  "base_branch": "main",
+  "main_sha_at_p01_entry": "bb022341bb12a1b12c22a078a70b8bf8217d2176",
+  "feature_sha_at_p01_entry": "86a284daf9ccb99bf9c28dcd7276cadce7ecbf25",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "status_policy": {
+    "allowed_phase": [
+      "NOT_STARTED",
+      "IN_PROGRESS",
+      "PASS_AUDIT_ONLY",
+      "PASS_SCOPED",
+      "PASS_VERIFIED",
+      "BLOCKED",
+      "FAIL"
+    ],
+    "allowed_case": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "NOT_RUN"
+    ],
+    "p00_or_p01_pass_does_not_complete_issue_acceptance": true,
+    "unit_ci_manual_pass_only_with_actual_execution": true,
+    "owner_report_not_adb_verification": true,
+    "privacy": "Use synthetic media and sanitized error codes; never store titles, paths, search queries, raw logs, content URIs, personal audio"
+  },
+  "phase_artifacts": [
+    {
+      "id": "P00",
+      "title": "Source audit and prerequisites",
+      "status": "PASS_AUDIT_ONLY",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE0_READINESS_AUDIT.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P01",
+      "title": "GitHub execution and delivery contract",
+      "status": "IN_PROGRESS",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P02",
+      "title": "Library domain/repository/Room migration contract",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P03",
+      "title": "Permission-aware MediaStore scanner",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE3_MEDIASTORE_IMPLEMENTATION.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P04",
+      "title": "Normalization and deterministic indexing",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE4_NORMALIZATION_IMPLEMENTATION.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P05",
+      "title": "Incremental cancellable reconciliation",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE5_RECONCILIATION_IMPLEMENTATION.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P06",
+      "title": "Room browse and search performance",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE6_ROOM_QUERY_IMPLEMENTATION.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P07",
+      "title": "Library readiness and lifecycle integration",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE7_READINESS_INTEGRATION.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P08",
+      "title": "Compose Library four browse categories",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE8_LIBRARY_UI_IMPLEMENTATION.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P09",
+      "title": "Compose local Search states",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P10",
+      "title": "Media selection and PlaybackGateway boundary",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE10_SELECTION_HANDOFF.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P11",
+      "title": "Quality hardening and integrated test readiness",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE11_TEST_READINESS.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P12",
+      "title": "Single consolidated APK and final integrated test/closeout",
+      "status": "NOT_STARTED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_FINAL_ACCEPTANCE_AUDIT.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "AC-01",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-02",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-03",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-04",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-05",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-06",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-07",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-08",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-09",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-10",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-11",
+      "status": "NOT_VERIFIED",
+      "verified_evidence": [],
+      "note": null
+    },
+    {
+      "id": "AC-12",
+      "status": "SCOPE_DEFERRED_P2",
+      "verified_evidence": [],
+      "note": "P2 Like/Liked Songs optional; no P0 completion claim"
+    }
+  ],
+  "manual_cases": [
+    {
+      "id": "M01",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M02",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M03",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M04",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M05",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M06",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M07",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M08",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M09",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M10",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M11",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M12",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M13",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M14",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M15",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M16",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M17",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M18",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M19",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M20",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M21",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M22",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M23",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M24",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M25",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M26",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M27",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M28",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M29",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M30",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M31",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M32",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M33",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    },
+    {
+      "id": "M34",
+      "status": "NOT_RUN",
+      "executor": "OWNER_PHYSICAL_DEVICE",
+      "evidence_url": null,
+      "observed_at": null,
+      "candidate_sha": null,
+      "notes": null
+    }
+  ],
+  "technical_suites": [
+    {
+      "id": "T01",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T02",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T03",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T04",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T05",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T06",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T07",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T08",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T09",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T10",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    }
+  ],
+  "change_log": [],
+  "evidence_records": [],
+  "evidence_id_contract": {
+    "change": "I6-CHG-PNN-NNN",
+    "evidence": "I6-EVD-PNN-NNN",
+    "issue_acceptance": "AC-01..AC-12",
+    "owner_phone": "M01..M34",
+    "technical": "T01..T10",
+    "stable_ids": "Never recycle IDs; update state with new URL/commit while retaining history",
+    "normalized_paths": "app/src/main/, app/src/test/, app/src/androidTest/, docs/implementation/"
+  },
+  "p12_candidate": {
+    "source_sha": null,
+    "apk_name": null,
+    "apk_sha256": null,
+    "actions_run_url": null,
+    "artifact_id": null,
+    "phone_device": null,
+    "owner_case_pass": 0,
+    "technical_suite_pass": 0,
+    "status": "NOT_BUILT"
+  },
+  "constraints": {
+    "single_consolidated_apk_only_in_p12": true,
+    "phase_apks_allowed": false,
+    "issue7_real_playback_owned_elsewhere": true,
+    "issue73_deferred_qa_not_inherited": true,
+    "review_required_before_final_merge": true
+  },
+  "provenance": {
+    "phase0_report": "docs/implementation/ISSUE_6_PHASE0_READINESS_AUDIT.md",
+    "phase0_register": "docs/implementation/ISSUE_6_PHASE0_SOURCE_LINK_REGISTER.json",
+    "phase_plan": "docs/implementation/ISSUE_6_PHASED_EXECUTION_PLAN.md",
+    "p12_qa_checklist": "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md"
+  }
+}
