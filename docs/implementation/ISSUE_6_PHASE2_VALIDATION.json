@@ -1,0 +1,122 @@
+{
+  "schema": "music-copilot.issue6.phase2.contract-validation.v1",
+  "date": "2026-10-22",
+  "phase": "P02",
+  "disposition": "PASS_CONTRACT_ONLY",
+  "scope": "Static verified GitHub readback: Kotlin data contracts, compatibility, synthetic test authoring and migration plan. No runtime, full project compilation or P12 tests claimed.",
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/6-mediastore-library-browse-search",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "checks": [
+    {
+      "id": "C01",
+      "description": "English FR-01 and MVP US-02 plus accepted Issue #16/ADR-0003/UF-04 authority reconciled",
+      "result": "PASS"
+    },
+    {
+      "id": "C02",
+      "description": "Four browse categories and explicit Song/Artist/Album/Folder typed entries committed",
+      "result": "PASS"
+    },
+    {
+      "id": "C03",
+      "description": "Category-member selection via local groupId without playback queue authority",
+      "result": "PASS"
+    },
+    {
+      "id": "C04",
+      "description": "Bounded page 1..100 (default 50), nonnegative cursor offset and optional expectedRevision",
+      "result": "PASS"
+    },
+    {
+      "id": "C05",
+      "description": "Stable synthetic/local group identity by known/missing artist, scoped album and media-relative volume/folder; hashed group tokens",
+      "result": "PASS"
+    },
+    {
+      "id": "C06",
+      "description": "Unknown metadata, duplicate-title distinct references, deterministic tie-break semantics documented",
+      "result": "PASS"
+    },
+    {
+      "id": "C07",
+      "description": "Existing accepted #16 LibraryRepository signatures preserved and new browse source-compatible default fails closed",
+      "result": "PASS"
+    },
+    {
+      "id": "C08",
+      "description": "Safe Library-family unavailable error present without private labels in error code",
+      "result": "PASS"
+    },
+    {
+      "id": "C09",
+      "description": "Existing Room @Database version 1, entity and DAO unchanged; no half-installed v2 schema",
+      "result": "PASS"
+    },
+    {
+      "id": "C10",
+      "description": "V1->V2 migration field/index specification, transaction/backfill requirements and released app-owned-data preservation documented",
+      "result": "PASS"
+    },
+    {
+      "id": "C11",
+      "description": "No destructive Room fallback, no MediaStore file mutation or unauthorized player/queue ownership introduced",
+      "result": "PASS"
+    },
+    {
+      "id": "C12",
+      "description": "Eight synthetic JUnit contract tests authored; no test execution PASS claimed",
+      "result": "PASS"
+    },
+    {
+      "id": "C13",
+      "description": "Contract report and changed files physically re-read via authenticated GitHub branch with nonempty blob SHAs",
+      "result": "PASS"
+    },
+    {
+      "id": "C14",
+      "description": "No per-phase APK, emulator, ADB or Actions workflow intentionally triggered; one final P12 APK rule retained",
+      "result": "PASS"
+    }
+  ],
+  "file_sha_observations": {
+    "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt": "8402564182d33fde4fc7b527483715aa3c8af347",
+    "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt": "07481969e9848bfbcd683ff21ae41020cf9a5ef1",
+    "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt": "b7d2fb3da88e66f922184137f032aff1b6a3675a",
+    "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt": "9403f9a7950bdff65c88227da5afd0ac35eb2929",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase2BrowseContractsTest.kt": "49b02a31b40b8bf0cb928bd69236e0f4afa0678c",
+    "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md": "5573c7f7be86837da8d19d95e71a4d46faac64da"
+  },
+  "authored_junit_tests": 8,
+  "actually_executed": {
+    "android_gradle_compile": "NOT_RUN",
+    "p02_jvm_tests": "NOT_RUN",
+    "Room_migration": "PLAN_ONLY_NOT_IMPLEMENTED",
+    "Room_category_sql": "NOT_IMPLEMENTED_P06",
+    "github_actions": "NOT_TRIGGERED",
+    "physical_device": "NOT_RUN",
+    "apk": "NOT_BUILT"
+  },
+  "issue_acceptance": {
+    "unchecked": 12,
+    "passed_from_this_phase": 0,
+    "optional_like": "P2_DEFERRED"
+  },
+  "follow_on": [
+    "P03 source/MediaStore metadata",
+    "P04 normalization",
+    "P05 incremental reconciliation",
+    "P06 Room schema migration and read queries",
+    "P07-10 integrations",
+    "P11 test authoring",
+    "P12 actual verification and one consolidated APK"
+  ],
+  "provenance": {
+    "source_contract_report": "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md",
+    "existing_phase_contract": "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md"
+  },
+  "reviewer": {
+    "independent_review": "NOT_PERFORMED",
+    "architecture_ownership_change": false
+  }
+}
