@@ -82,6 +82,7 @@
     <string name="p10_remote_gate_unexpected">Remote voice authorization unavailable. Manual controls remain enabled.</string>
     <!-- Issue #6 P08: WF-04/HF-04 English-first local Library copy. -->
     <string name="p08_library_heading">Library</string>
+    <string name="p08_more">More</string>
     <string name="p08_songs">Songs</string>
     <string name="p08_artists">Artists</string>
     <string name="p08_albums">Albums</string>
