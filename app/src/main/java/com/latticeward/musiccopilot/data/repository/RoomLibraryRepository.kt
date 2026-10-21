@@ -89,6 +89,7 @@ class RoomLibraryRepository(
                 state.value = previousSnapshot.copy(
                     status = LibraryIndexStatus.Scanning, lastError = null,
                 )
+                var deltaWriteReturned = false
                 try {
                     // A cancelled or failing MediaStore scan MUST NOT touch Room.
                     val scanned = source.scan()
@@ -115,6 +116,7 @@ class RoomLibraryRepository(
                     // in a single cancellable transaction and with a guard
                     // inside it. No delete-all on successful reconciliation.
                     projection.applyDelta(delta, guard)
+                    deltaWriteReturned = delta.changed
                     currentCoroutineContext().ensureActive()
                     guard()
 
@@ -161,10 +163,22 @@ class RoomLibraryRepository(
                     // cancellation. A previously verified revision is still
                     // valid when access was not revoked.
                     synchronized(accessLock) {
-                        if (accessEpoch.get() == epoch && source.hasAccess()) {
-                            state.value = previousSnapshot
-                        } else {
+                        if (accessEpoch.get() != epoch || !source.hasAccess()) {
                             invalidateMediaAccess()
+                        } else if (deltaWriteReturned) {
+                            // Cancellation raced just AFTER the SQLite commit.
+                            // The old cached revision cannot claim it represents
+                            // the now-updated table. Require a fresh scan.
+                            verifiedRows.value = VerifiedRows(-1L, emptyList())
+                            state.value = previousSnapshot.copy(
+                                status = LibraryIndexStatus.RecoverableError,
+                                lastError = AppError.Library(
+                                    AppErrorCodes.LIBRARY_RECONCILE_FAILED,
+                                    Recoverability.RECOVERABLE, RecoveryAction.Rebuild,
+                                ),
+                            )
+                        } else {
+                            state.value = previousSnapshot
                         }
                     }
                     throw cancelled
