@@ -20,6 +20,10 @@ interface LibraryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(items: List<LibraryRow>)
 
+    /** P05 row-wise stale deletion, called in <= 400-reference chunks. */
+    @Query("DELETE FROM library_items WHERE mediaRef IN (:refs)")
+    suspend fun deleteByRefs(refs: List<String>)
+
     @Query("DELETE FROM library_items")
     suspend fun clearDerived()
 }
