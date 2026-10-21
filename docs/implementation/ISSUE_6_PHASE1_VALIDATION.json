@@ -1,0 +1,147 @@
+{
+  "schema": "music-copilot.issue6.phase1.contract-validation.v1",
+  "audited_at": "2026-10-22",
+  "issue": 6,
+  "repository": "latticeward-labs/music-copilot",
+  "phase": "P01",
+  "result": "PASS_CONTRACT_ONLY",
+  "scope": "Live GitHub source/branch/readback validation; NOT native Android CI or issue acceptance",
+  "archive": {
+    "filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "matching_phase0": true
+  },
+  "start": {
+    "main_sha": "bb022341bb12a1b12c22a078a70b8bf8217d2176",
+    "feature_sha": "86a284daf9ccb99bf9c28dcd7276cadce7ecbf25",
+    "ahead_by": 5,
+    "behind_by": 0
+  },
+  "readback_before_validation": {
+    "main_sha": "bb022341bb12a1b12c22a078a70b8bf8217d2176",
+    "feature_sha": "3fffddb2f4830495838efd91837ce6b0c2bb671d",
+    "actions_runs_in_feature_branch": 0,
+    "open_prs_for_feature_branch": 0
+  },
+  "expected_releases": {
+    "one_final_p12_apk_only": true,
+    "pre_p12_apk_allowed": false,
+    "expected_owner_tests": 34,
+    "expected_technical_tests": 10,
+    "device_result_is_owner_report_not_adb_until_executed": true
+  },
+  "documentary_checks": [
+    {
+      "id": "C01",
+      "description": "Live issue open and 12 original ACs unchecked",
+      "result": "PASS"
+    },
+    {
+      "id": "C02",
+      "description": "Existing feature branch retained; main unchanged; feature ahead/behind recorded",
+      "result": "PASS"
+    },
+    {
+      "id": "C03",
+      "description": "Archive SHA-256 matches P00 and accepted English source register",
+      "result": "PASS"
+    },
+    {
+      "id": "C04",
+      "description": "Canonical phase execution contract committed and successfully re-read",
+      "result": "PASS"
+    },
+    {
+      "id": "C05",
+      "description": "Change control, per-phase ownership, evidence ID syntax and privacy policy documented",
+      "result": "PASS"
+    },
+    {
+      "id": "C06",
+      "description": "13 phase entries and stable P00..P12 IDs in JSON ledger",
+      "result": "PASS"
+    },
+    {
+      "id": "C07",
+      "description": "12 AC entries remain unverified or scope-deferred P2",
+      "result": "PASS"
+    },
+    {
+      "id": "C08",
+      "description": "34 M01..M34 phone cases and 10 T01..T10 technical suites are NOT_RUN",
+      "result": "PASS"
+    },
+    {
+      "id": "C09",
+      "description": "Issue-specific P12-only PR template with 12 ACs, privacy/QA/reviewer gates committed and re-read",
+      "result": "PASS"
+    },
+    {
+      "id": "C10",
+      "description": "Main/develop discrepancy and not-yet-approved PR target exception documented",
+      "result": "PASS"
+    },
+    {
+      "id": "C11",
+      "description": "No existing branch PR and GitHub Actions feature-branch run count remains zero",
+      "result": "PASS"
+    },
+    {
+      "id": "C12",
+      "description": "No app production changes, APK, ADB, local build or user device QA in P01",
+      "result": "PASS"
+    },
+    {
+      "id": "C13",
+      "description": "P00 source audit and QA checklist preserved; #7 and #73 boundaries explicitly noted",
+      "result": "PASS"
+    },
+    {
+      "id": "C14",
+      "description": "No merge and no Issue #6 product AC PASS claimed",
+      "result": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md",
+      "git_blob_sha": "1ff8051d57aec5b8ff1da4e8172c87e4fa4e52f0"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_EVIDENCE_INDEX.json",
+      "git_blob_sha_at_first_readback": "5d7415d21ae208869247c778be336844b27ba46c"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE/issue-6-mediastore-library-browse-search.md",
+      "git_blob_sha": "34b24ebadd9d0dc86cf2d3bf1823ac90cf07700e"
+    }
+  ],
+  "provenance": {
+    "created_feature_commits": [
+      "67cc8dc2fa98bfe35e387f0a37359ae968ce6d66",
+      "554d73eaac5b76fa865dee9022dac8c4252fc412",
+      "3fffddb2f4830495838efd91837ce6b0c2bb671d"
+    ],
+    "issue_url": "https://github.com/latticeward-labs/music-copilot/issues/6"
+  },
+  "exceptions": {
+    "develop_vs_main": "develop@a8944b287498aff557af3d7e17179b599c5c5ae5; 646 commits behind main",
+    "final_merge_target": "main_proposed_owner_review_approval_required",
+    "main_branch_protected": false,
+    "project_v2_status": "NOT_VERIFIED_NOT_CHANGED",
+    "issue73": "OPEN_DEFERRED_QA",
+    "issue7": "OPEN_PLAYBACK_BOUNDARY"
+  },
+  "not_executed": {
+    "android_build": "NOT_RUN",
+    "android_tests": "NOT_RUN",
+    "JVM": "NOT_RUN",
+    "emulator": "NOT_RUN",
+    "ADB": "NOT_RUN",
+    "hardware_phone": "NOT_RUN",
+    "apk": "NOT_BUILT",
+    "CI": "NOT_RUN",
+    "PR": "NOT_CREATED"
+  },
+  "next_phase": "P02"
+}
