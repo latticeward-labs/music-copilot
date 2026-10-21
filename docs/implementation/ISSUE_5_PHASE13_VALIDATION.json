@@ -172,13 +172,16 @@
     "phase13PASS": false,
     "originalIssue13AcceptanceSignedOff": false,
     "parentIssueOpen": true,
-    "phase14Started": false,
+    "phase14Started": true,
     "ownerReportedAll17Pass": true,
     "ownerReportedSecondPhysicalPhone": true,
     "secondPhoneDeviceIdentityConfirmed": false,
     "firstPhoneReadyUiObserved": true,
     "secondPhoneEmptyUiObserved": true,
-    "formalPassGateExplanation": "OWNER-REPORTED 17/17 PHYSICAL QA PASS; signed off from owner viewpoint. Full evidence-verified PASS requires DEV-B model/OS and case allocation, Ready positive index count, native OS verification and relevant matrix. Do not invent data."
+    "formalPassGateExplanation": "OWNER-REPORTED 17/17 PHYSICAL QA PASS; signed off from owner viewpoint. Full evidence-verified PASS requires DEV-B model/OS and case allocation, Ready positive index count, native OS verification and relevant matrix. Do not invent data.",
+    "phase14FormalPass": false,
+    "phase14AuditPath": "docs/implementation/ISSUE_5_FINAL_ACCEPTANCE_AUDIT.md",
+    "phase14Note": "Final acceptance audit has started; P13 owner reported pass but P13 evidence closure still incomplete; P14 not fully passed"
   },
   "pending": [
     "Owner's 17/17 phone QA declaration recorded, no more P13 case-by-case retesting implied unless verifying formal gates.",
