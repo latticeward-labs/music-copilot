@@ -35,6 +35,7 @@ data class LibraryRow(
     val albumGroupId: String? = null,
     val normalizedAlbum: String? = null,
     val normalizedFolder: String? = null,
+    val folderLabel: String? = null,
     val metadataFingerprint: String? = null,
     val indexedGeneration: Long? = null,
 )
