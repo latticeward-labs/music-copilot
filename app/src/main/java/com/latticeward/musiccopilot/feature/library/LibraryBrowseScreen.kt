@@ -284,8 +284,18 @@ fun LibraryBrowseScreen(
                         }
                         if (state.failure != null) {
                             item(key = "library_load_more_error") {
-                                Button(onClick = model::retryPage) {
-                                    Text(stringResource(R.string.p08_retry_page))
+                                Button(
+                                    onClick = if (state.failure == LibraryPageFailure.IndexChanged)
+                                        onRescanLibrary else model::retryPage,
+                                    modifier = Modifier.heightIn(
+                                        min = MusicSize.touchTargetMinDp
+                                    ),
+                                ) {
+                                    Text(stringResource(
+                                        if (state.failure == LibraryPageFailure.IndexChanged)
+                                            R.string.p08_rescan_local_music
+                                        else R.string.p08_retry_page
+                                    ))
                                 }
                             }
                         }
