@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import androidx.core.content.ContextCompat
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.core.model.MediaRef
+import com.latticeward.musiccopilot.data.api.LibraryTextNormalization
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
@@ -267,10 +268,10 @@ class MediaStoreScanner(
                     data.getInt(musicCol) == 0) continue
                 val id = data.getLong(idCol)
                 if (id < 0L) continue
-                // Rows with missing required title or a non-audio MIME are not
-                // supported music. P04 owns future title fallback policy.
-                val title = MediaStoreAudioPolicy.usableTitle(data.getString(titleCol))
-                    ?: continue
+                // P04: a provider can expose valid music with a missing
+                // TITLE. Preserve the song with a safe local display fallback;
+                // source identity and IS_MUSIC/MIME remain the eligibility gate.
+                val title = LibraryTextNormalization.title(data.getString(titleCol))
                 val mime = data.getString(mimeCol)
                 if (!MediaStoreAudioPolicy.acceptableMime(mime)) continue
                 // The volume name from this concrete query is canonical; a
