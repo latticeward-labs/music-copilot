@@ -160,35 +160,37 @@ fun AppNavHost(
         }
         composable(Destination.Library.route) {
             BackHandler { onExit() }
-            val accessDenied = permission != PermissionStatus.Granted
+            // Pure presentation policy; the repository/Android OS still own
+            // actual scan validity, versioning and permission truth.
+            val action = LibraryActionPolicy.nextAction(permission, readiness)
             FirstLaunchBoundary(
                 title = stringResource(R.string.library_title),
-                message = if (accessDenied) {
-                    stringResource(R.string.library_without_access)
-                } else {
-                    stringResource(readiness.messageResource())
+                message = when (action) {
+                    LibraryUiAction.ReviewAccess ->
+                        stringResource(R.string.library_without_access)
+                    else -> stringResource(readiness.messageResource())
                 },
-                primary = when {
-                    accessDenied -> stringResource(R.string.action_review_access)
-                    readiness == FoundationReadiness.LocalLibraryRecoverableError ->
-                        stringResource(R.string.action_retry)
-                    readiness == FoundationReadiness.LibraryPermissionOrMediaUnavailable ->
+                primary = when (action) {
+                    LibraryUiAction.None -> null
+                    LibraryUiAction.ReviewAccess ->
+                        stringResource(R.string.action_review_access)
+                    LibraryUiAction.StartScan ->
                         stringResource(R.string.p08_scan_local_music)
-                    readiness == FoundationReadiness.LocalLibraryReady ||
-                        readiness == FoundationReadiness.LocalLibraryEmpty ->
+                    LibraryUiAction.RetryScan ->
+                        stringResource(R.string.action_retry)
+                    LibraryUiAction.Rescan ->
                         stringResource(R.string.p08_rescan_local_music)
-                    else -> null
                 },
                 onPrimary = {
-                    when {
-                        accessDenied -> { manualFallback = false; onRefreshPermission() }
-                        readiness == FoundationReadiness.LocalLibraryRecoverableError ->
-                            onRetryLibraryScan()
-                        readiness == FoundationReadiness.LibraryPermissionOrMediaUnavailable ->
-                            onRescanLibrary()
-                        readiness == FoundationReadiness.LocalLibraryReady ||
-                            readiness == FoundationReadiness.LocalLibraryEmpty ->
-                            onRescanLibrary()
+                    when (action) {
+                        LibraryUiAction.None -> Unit
+                        LibraryUiAction.ReviewAccess -> {
+                            manualFallback = false
+                            onRefreshPermission()
+                        }
+                        LibraryUiAction.StartScan,
+                        LibraryUiAction.Rescan -> onRescanLibrary()
+                        LibraryUiAction.RetryScan -> onRetryLibraryScan()
                     }
                 },
                 secondary = stringResource(R.string.first_use_settings),
