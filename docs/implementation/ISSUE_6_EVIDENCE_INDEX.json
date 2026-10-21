@@ -173,12 +173,23 @@
     {
       "id": "P08",
       "title": "Compose Library four browse categories",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE8_LIBRARY_UI_IMPLEMENTATION.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "d6d350ae865cbf7e8c68b0c73381796a8d18312a",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryBrowseViewModelTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE8_UI_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE8_LIBRARY_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE8_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P08 PASS_SCOPED_STATIC_SOURCE: 41/41 live code/readback checks, 12 JVM + 4 native Compose methods AUTHORED NOT_RUN; 20 QA screenshots/a11y scenarios defined NOT_RUN. No APK/CI/compile/5000 performance. P06 Room V2 2.json pending."
     },
     {
       "id": "P09",
@@ -904,6 +915,44 @@
       "kind": "readiness_lifecycle_singleflight_explicit_actions_and_recovery_fixtures",
       "rollback": "Revert P07 change commits on the feature branch (not main); preserve #5 PermissionViewModel and Android OS grants. No user media deletion; no API authority change.",
       "note": "No new Room migration, APK, or actual JVM/native tests. P06 Room V2 native/schema gate still unresolved."
+    },
+    {
+      "id": "I6-CHG-P08-001",
+      "phase": "P08",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "cc58159301a19bdba719bb33dc1eedd8ea79b746",
+        "a303b21aaf95ebdf7f4940c113f07b0b2665daeb",
+        "ef4879f63ac48960ecae6062a5f05b16e278d1e2",
+        "40e44c0bc6f6457016681792c82dd40c536edb54",
+        "a1f7e8c8bb092fe3aac9cd68e28c3f123a4fa4fd",
+        "0ccae5d6cd95a331c8efd7df0f729978db68c850",
+        "1105be9da98c130967cfe64515482b3d60d7edad",
+        "651d36389045b5f16200acb9d39df8697b7719a8",
+        "641387166cff6816b386df1e5e8bd991f178cd0f",
+        "160297800ac787da54ee3e57f04862fc644f534e",
+        "1dc2d2c3876a04f3d76fb3979d0568d334ceed63",
+        "0c83053a0b8ad3456bdb013a28cdcfc308d55e27",
+        "4669e03718e87643cf8ba61805980533d0277021",
+        "8c63c5332e90fdd04077c044d04d1015fd0be387",
+        "c1cd6012fcc8b2ce49f86ca75e4c068f9e598192",
+        "d6d350ae865cbf7e8c68b0c73381796a8d18312a"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryBrowseViewModelTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE8_UI_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE8_LIBRARY_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE8_VALIDATION.json"
+      ],
+      "kind": "compose_library_four_categories_viewmodel_lazy_revision_paging_nested_back_and_source_only_tests",
+      "rollback": "Revert only P08 feature branch source commits by follow-up reviewed changes, preserve P00-P07 and MediaStore original files. No merge or destructive DB reset.",
+      "note": "Real code/readback only; P08 runtime/semantics/200-percent/5k scrolling and 16 authored tests still NOT_RUN; P09 Search and P10 playback selection intentionally pending."
     }
   ],
   "evidence_records": [
@@ -976,6 +1025,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "12 authored tests NOT_RUN. No Android permission lifecycle/instrumentation, Gradle, APK, real device evidence, CI or approval. Original 12 issue ACs unverified. P06 Room 2.json remains missing."
+    },
+    {
+      "id": "I6-EVD-P08-001",
+      "phase": "P08",
+      "source_sha": "d6d350ae865cbf7e8c68b0c73381796a8d18312a",
+      "method": "GitHub feature-branch real source readback, 41 static invariants across ViewModel, Compose, navigation, 22 localized UI strings, 16 authored tests, and 20 screenshot/a11y scenarios",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE8_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "No Kotlin/Android compilation, UI screenshots, JVM/native execution, 200% font scaling, 5000-song benchmark, APK or phone. Original 12 product AC checkboxes remain unchecked. P06 Room V2 generated schema is missing."
     }
   ],
   "evidence_id_contract": {
