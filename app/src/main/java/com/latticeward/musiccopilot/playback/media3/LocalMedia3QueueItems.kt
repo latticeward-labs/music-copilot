@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot.playback.media3
 
 import android.net.Uri
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import com.latticeward.musiccopilot.playback.service.PreparedPlaybackQueue
 
 /**
@@ -19,6 +20,13 @@ object LocalMedia3QueueItems {
             MediaItem.Builder()
                 .setMediaId(verified.ref.value)
                 .setUri(uri)
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setTitle(verified.displayTitle)
+                        .setArtist(verified.displayArtist)
+                        .setAlbumTitle(verified.displayAlbum)
+                        .build()
+                )
                 .build()
         }
 }
