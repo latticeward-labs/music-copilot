@@ -106,6 +106,9 @@ class ServiceQueueEngine(
             )
         }
 
+    /** Re-query an existing queue item before changing its selected occurrence. */
+    suspend fun revalidate(ref: MediaRef): AppResult<VerifiedLocalMedia> = resolver.resolve(ref)
+
     /** Invalidate resolver's pending permission/volume generations. */
     fun invalidate() = resolver.invalidate()
 
