@@ -49,6 +49,9 @@ import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
 import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
 import com.latticeward.musiccopilot.feature.library.selectedSongFeedback
+import com.latticeward.musiccopilot.feature.library.SelectedSongUiStatus
+import com.latticeward.musiccopilot.feature.player.MiniPlayerBar
+import com.latticeward.musiccopilot.feature.player.PlayerUiState
 
 /**
  * WF-05/HF-05: Back+Search bar, editable local SearchField, result count,
@@ -60,12 +63,25 @@ fun LocalSearchScreen(
     model: LocalSearchViewModel,
     index: LibraryIndexSnapshot,
     permission: PermissionStatus,
+    playerUi: PlayerUiState,
+    onOpenPlayer: () -> Unit,
+    onTogglePlayback: () -> Unit,
     onBack: () -> Unit,
     onOpenGroup: (LibraryBrowseEntry) -> Unit,
     onSettings: () -> Unit,
     onReviewAccess: () -> Unit,
 ) {
     val state by model.ui.collectAsStateWithLifecycle()
+    LaunchedEffect(state.selectionStatus, state.selectedSong?.ref) {
+        // Navigate only AFTER verified service ACK, not when the row is tapped.
+        // Clearing transient feedback avoids reopen loops on return to Search.
+        if (state.selectionStatus == SelectedSongUiStatus.ServicePlaying ||
+            state.selectionStatus == SelectedSongUiStatus.ServiceAcceptedPending
+        ) {
+            model.closePreview()
+            onOpenPlayer()
+        }
+    }
     val focus = LocalFocusManager.current
     LaunchedEffect(index.revision, index.status, index.itemCount, permission) {
         model.onVerifiedIndex(index, permission == PermissionStatus.Granted)
@@ -263,6 +279,14 @@ fun LocalSearchScreen(
                         modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
                     ) { Text(stringResource(R.string.p08_close_selection)) }
                 }
+            }
+
+            if (permission == PermissionStatus.Granted) {
+                MiniPlayerBar(
+                    state = playerUi,
+                    onOpenPlayer = onOpenPlayer,
+                    onTogglePlayback = onTogglePlayback,
+                )
             }
 
             NavigationBar(containerColor = MusicColors.surface) {
