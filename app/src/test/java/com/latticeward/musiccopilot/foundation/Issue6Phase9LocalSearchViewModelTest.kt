@@ -271,7 +271,7 @@ class Issue6Phase9LocalSearchViewModelTest {
 
     @Test fun emptyAuthorizedIndexMayShowNoResultsAfterLocalQuery() = runTest {
         val f = FakeLibrary()
-        f.reply = success()
+        f.reply = success(revision = 8)
         val vm = LocalSearchViewModel(f)
         vm.onVerifiedIndex(LibraryIndexSnapshot(8, LibraryIndexStatus.Empty, 0), true)
         vm.updateQuery("aurora")
