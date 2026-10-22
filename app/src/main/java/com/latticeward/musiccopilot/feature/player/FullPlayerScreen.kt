@@ -58,7 +58,7 @@ fun FullPlayerScreen(
 ) {
     BackHandler(onBack = onBack)
     val snap = state.snapshot
-    val title = state.title?.takeIf { it.isNotBlank() }
+    val title = state.title?.takeIf { canReadLocalMetadata && it.isNotBlank() }
         ?: stringResource(R.string.i7_unknown_track)
     val duration = snap.durationMs?.takeIf { it > 0L }
     var scrubFraction by remember { mutableFloatStateOf(0f) }
@@ -93,7 +93,9 @@ fun FullPlayerScreen(
                         style = MusicTextStyles.titleLarge,
                         color = MusicColors.textPrimary)
                     Text(
-                        listOfNotNull(state.artist, state.album).filter { it.isNotBlank() }
+                        listOfNotNull(state.artist, state.album).filter {
+                            canReadLocalMetadata && it.isNotBlank()
+                        }
                             .joinToString(" • ").ifBlank {
                                 stringResource(R.string.i7_local_music)
                             },
@@ -212,10 +214,10 @@ fun FullPlayerScreen(
                 "queue-${snap.queueRevision}-$index"
             }) { index, ref ->
                 val isSelected = index == snap.currentIndex
-                val rowTitle = if (isSelected) state.title else null
+                val rowTitle = if (isSelected && canReadLocalMetadata) state.title else null
                 val fallback = stringResource(R.string.i7_queue_track_number, index + 1)
                 val display by produceState(initialValue = rowTitle,
-                    key1 = ref, key2 = canReadLocalMetadata) {
+                    key1 = ref, key2 = canReadLocalMetadata, key3 = rowTitle) {
                     value = rowTitle
                     if (canReadLocalMetadata && rowTitle == null) {
                         val resolved = withContext(Dispatchers.IO) { library.get(ref) }
