@@ -18,6 +18,7 @@ kotlinc \
   "$SRC/core/result/AppResult.kt" \
   "$SRC/playback/api/PlaybackCommand.kt" \
   "$SRC/playback/api/PlaybackSnapshot.kt" \
+  "$SRC/playback/api/PlaybackMediaResolutionPort.kt" \
   "$SRC/playback/command/PlaybackQueuePolicy.kt" \
   "$SRC/playback/command/PlaybackNavigationPolicy.kt" \
   "$SRC/playback/command/PlaybackCommandProcessor.kt" \
