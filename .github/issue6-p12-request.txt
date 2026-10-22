@@ -1,0 +1,8 @@
+Issue #6 P12 — single integrated final-gate execution request
+Date: 2026-10-22
+Branch: feature/6-mediastore-library-browse-search
+Workflow: .github/workflows/issue-6-p12-integrated-final.yml
+Scope: full P00–P11 compiled Android app, Room V2 KAPT, JVM, lint, API35 instrumentation, one installable APK candidate.
+Owner physical M01–M34: NOT_RUN until the actual candidate is provided and installed.
+Issue #7 real Media3 service playback: BLOCKED_DEPENDENCY_7 until implementation.
+This sentinel is the sole push trigger for the final integrated build, not per-phase builds.
