@@ -92,3 +92,11 @@ Notes / observed failures:
 ```
 
 **Closeout policy:** If the owner reports some tests later, record exact reported statuses and dates. Never bulk-PASS, treat N/A as PASS, merge on unverified safety behavior, or overwrite Issue #6/#74 historical evidence. CI/JVM/Android validation is a separate technical category and may be NOT_RUN even when a phone case is PASS.
+
+## P12 source-only integration handoff — no early PASS
+
+[Cross-phase P12 readiness report](ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md) committed six fixes: Android WAKE_LOCK required by `C.WAKE_MODE_LOCAL`, command-receipt generation fencing of stale MediaStore queue requests, detached old-controller result rejection and longer bounded large-queue acknowledgements, no Application-constructor premature MediaSessionService bind, legitimate recovered-track playback surviving Recents with position checkpoints, correct WF-06 Queue shortcut with error panel.
+
+**Do not execute this list on an interim build:** only the **one P13 cumulative debug APK** may be handed to the owner. Before performing M01–M36, write exact **APK SHA-256, commit SHA, Android device version and local install outcome**. The assistant has **not** run a P12 build/test on any platform, nor dispatched GitHub Actions. If the non-Actions Android SDK/Gradle toolchain is unavailable in P13, record **BLOCKED** rather than publish an unverified APK. Phone tests M01–M36 are owner-observed; technical T01–T15 need their own genuine logs/test evidence and cannot be inferred from tapping a screen.
+
+Specifically check: **M15–M19** (Home/Recents/reconnect), **M20–M25** (OS notification/BT media keys), **M26–M28** (headset unplug/BT/call and manual Pause priority), **M29–M31** (real corrupt/removed/revoked local media using safe disposable copies), **M32–M35** (live session versus cold Safe-Paused/force-stop), and **M36** (airplane mode). New P12 source contracts: 15 JUnit + 2 Android read-only instrumentation cases **authored only; NOT_RUN**. Do not claim perfect no-speaker-leak or process-death playback guarantee based on static sources.
