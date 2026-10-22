@@ -224,7 +224,7 @@
       ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": "345e5db7923b7fe1d4e12cb882b017ace1d24136"
+      "commit_sha": "2c5d3c904668ddf4a48e12aee3a414bc0ae24f3a"
     },
     {
       "id": "P12",
@@ -691,7 +691,9 @@
         "docs/implementation/ISSUE_7_PHASE11_SAFE_PAUSED_RESTORE_AUDIT.md"
       ],
       "source_commit": "345e5db7923b7fe1d4e12cb882b017ace1d24136",
-      "status": "PASS_SCOPED_SOURCE_ONLY_ANDROID_NOT_VERIFIED"
+      "status": "PASS_SCOPED_SOURCE_ONLY_ANDROID_NOT_VERIFIED",
+      "final_fix_commit": "2c5d3c904668ddf4a48e12aee3a414bc0ae24f3a",
+      "final_fix": "Service remains sole checkpoint state producer; writes use existing application Main CoroutineScope so normal service teardown does not cancel final atomic store update, no separate audio authority"
     }
   ],
   "evidence_records": [
@@ -1184,7 +1186,7 @@
       "phone_tests_run": 0,
       "apk_sha256": null,
       "known_p12_risks": [
-        "Service-scoped final DataStore write may be canceled by rapid service teardown",
+        "In-flight application-scoped write may still be interrupted by abrupt app-process termination/force-stop",
         "MediaStore full queue revalidation potentially > controller 10-second request timeout",
         "Actual force-stop/rotation/live-session behavior OEM-specific"
       ],
