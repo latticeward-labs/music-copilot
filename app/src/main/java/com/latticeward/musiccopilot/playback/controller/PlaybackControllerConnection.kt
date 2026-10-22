@@ -23,6 +23,7 @@ import com.latticeward.musiccopilot.playback.service.MusicPlaybackService
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -32,6 +33,8 @@ import kotlin.coroutines.resume
 /**
  * Application-owned Media3 controller. Never creates Player/MediaSession.
  * Ready is published only *after* one complete authoritative service snapshot.
+ * A short snapshot refresh closes an onConnect race without overwriting later
+ * monotonic service revisions. No second service/Player is created.
  */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class PlaybackControllerConnection(
@@ -90,6 +93,26 @@ class PlaybackControllerConnection(
                         relay.failed()
                         active = null
                         MediaController.releaseFuture(future)
+                    } else {
+                        // The first accepted complete snapshot establishes
+                        // Ready. Race-safe follow-up rereads actual service
+                        // state in case playback changed during connecting.
+                        ownerScope.launch {
+                            val response = try {
+                                withTimeoutOrNull(3_000L) {
+                                    await(controller.sendCustomCommand(
+                                        PlaybackWireProtocol.snapshotCommand(),
+                                        Bundle.EMPTY,
+                                    ))
+                                }
+                            } catch (cancelled: CancellationException) {
+                                throw cancelled
+                            } catch (_: Exception) { null }
+                            if (!released && generation == token &&
+                                active === controller &&
+                                response?.resultCode == SessionResult.RESULT_SUCCESS
+                            ) accept(response.extras, false)
+                        }
                     }
                 } catch (_: Exception) {
                     connecting = null
