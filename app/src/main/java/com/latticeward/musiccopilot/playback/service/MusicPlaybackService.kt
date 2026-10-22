@@ -294,7 +294,7 @@ class MusicPlaybackService : MediaSessionService() {
                 commandBuilder.add(PlaybackWireProtocol.snapshotCommand())
             }
             val commands = commandBuilder.build()
-            return MediaSession.ConnectionResult.AcceptedResultBuilder(session, controller)
+            return MediaSession.ConnectionResult.AcceptedResultBuilder(session)
                 .setAvailableSessionCommands(commands)
                 .setAvailablePlayerCommands(ServiceSessionTransportPlayer.permittedCommands())
                 .build()
