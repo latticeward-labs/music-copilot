@@ -25,7 +25,7 @@ Android 10+ local playback via the existing **same-process, service-owned** Medi
 |---|---|---|
 | P00 | [P00 readiness audit](../../docs/implementation/ISSUE_7_PHASE0_READINESS_AUDIT.md) | PASS_AUDIT_ONLY |
 | P01 | [P01 governance contract](../../docs/implementation/ISSUE_7_PHASE1_EXECUTION_CONTRACT.md) | PASS_CONTRACT_ONLY after GitHub read-back |
-| P02 | TBD: queue/navigation policy review and tests | NOT_STARTED |
+| P02 | [P02 policy report](../../docs/implementation/ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md); pure Kotlin queue/navigation contracts, 13 JUnit methods authored, local policy-only 14 checks | PASS_SCOPED — Media3/Gradle/JUnit NOT_RUN |
 | P03 | TBD: local URI/permission resolver and tests | NOT_STARTED |
 | P04 | TBD: queue implementation/edge cases | NOT_STARTED |
 | P05 | TBD: audible ExoPlayer/selection contract | NOT_STARTED |
