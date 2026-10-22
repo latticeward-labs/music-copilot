@@ -159,7 +159,7 @@
       ],
       "tests_executed": true,
       "product_ac_pass_count": 0,
-      "commit_sha": "63fc361cff5fdf6e862561297ced1796ba50fcd8"
+      "commit_sha": "3ff432ba3674f7a38ad923f9ec6d48a1c5fccca9"
     },
     {
       "id": "P07",
@@ -579,7 +579,9 @@
         "docs/implementation/ISSUE_7_PHASE6_MEDIASESSION_CONTROLLER_PARITY_AUDIT.md"
       ],
       "status": "SCOPED_SOURCE_AND_LOCAL_PURE_KOTLIN_PASS_ANDROID_NOT_RUN",
-      "source_commit": "63fc361cff5fdf6e862561297ced1796ba50fcd8"
+      "source_commit": "63fc361cff5fdf6e862561297ced1796ba50fcd8",
+      "final_fix_commit": "3ff432ba3674f7a38ad923f9ec6d48a1c5fccca9",
+      "final_fix": "Explicit androidx.annotation.OptIn(UnstableApi) for Media3 1.5.1 ForwardingPlayer API"
     }
   ],
   "evidence_records": [
