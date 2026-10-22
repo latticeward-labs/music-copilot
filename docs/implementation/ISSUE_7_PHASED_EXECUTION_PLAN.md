@@ -1,6 +1,6 @@
 # Issue #7 — Executable phased plan: Media3 Playback, Queue, Background Playback and MediaSession
 
-> **Status:** **P00 STATIC AUDIT PASS + P01 EXECUTION CONTRACT PASS** (2026-10-22); **P02 NEXT**. This establishes governance, not implementation or any Issue #7 feature, test, CI, APK or owner-phone PASS.
+> **Status:** **P00 AUDIT PASS, P01 CONTRACT PASS, P02 PURE PLAYBACK/QUEUE POLICY PASS_SCOPED** (2026-10-22); **P03 NEXT**. This is not audible playback, service integration, final Android/JUnit, CI, APK or owner-phone PASS.
 > **Issue:** https://github.com/latticeward-labs/music-copilot/issues/7
 > **Execution branch:** `feature/7-media3-playback-queue-session`; based on `main` commit `5679ee5b5f68b09b7715f3c31c339a2201b3c960` (2026-10-22).
 > **Owner requirement:** Implement P00–P12 sequentially on one feature branch; **build and hand off exactly ONE consolidated, installable debug APK from the combined P00–P12 code in P13.** There is **no per-phase user APK** or per-phase owner handset test. User performs the final phone checklist and reports results; record only reported outcomes.
@@ -9,6 +9,8 @@
 **P00 execution evidence:** [Source, dependency, AC and code readiness audit](ISSUE_7_PHASE0_READINESS_AUDIT.md) — verified 12-PDF archive, GitHub baseline, #4/#5/#6/#16/#17 and #73/#74 dependency state, real Kotlin code gaps, and AC01–AC13 mapping. Audit PASS permits P01; **all 13 runtime ACs and 51 final cases remain unverified/NOT_RUN.**
 
 **P01 execution evidence:** [GitHub contract, scope, exact P00–P13 gate rules, one-owner-APK policy and rollback](ISSUE_7_PHASE1_EXECUTION_CONTRACT.md); [machine-readable 14-phase / 13-AC evidence index](ISSUE_7_EVIDENCE_INDEX.json); [P13-only PR checklist](../../.github/PULL_REQUEST_TEMPLATE/issue-7-media3-playback-queue-session.md). **P01 PASS_CONTRACT_ONLY** following actual GitHub file read-back; no PR created, no runtime/phone test executed. Proposed final merge `main` is subject to explicit exception approval because `CONTRIBUTING.md` recommends outdated `develop` (831 commits behind main at P01). Rulesets remain NOT_VERIFIED (403). **Next P02** freezes deterministic playback/queue domain contracts.
+
+**P02 execution evidence:** [Reviewed playback/queue rules, normative source reconciliation, edge-case policy and test inventory](ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md). Added pure Kotlin `PlaybackQueuePolicy.kt`, updated `PlaybackNavigationPolicy.kt`, authored 13 JUnit methods, corrected two legacy Previous assertions and committed standalone `kotlinc` smoke scripts. **Exactly 14 compatible-source checks ran locally and passed; full Gradle/JUnit, exact 17-check repo smoke and Android system tests NOT_RUN.** Resolved the historical `>3000` versus approved UF-05 `>=3000` discrepancy in favor of the approved UF-05. Queue wiring and audible playback remain P03–P05, system command parity P06. **P03 NEXT**; all Issue #7 AC and M/T outcomes remain NOT_VERIFIED/NOT_RUN.
 
 ## Current starting point and honest dependency assessment
 
