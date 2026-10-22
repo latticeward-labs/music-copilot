@@ -36,7 +36,7 @@ class Issue6Phase10SelectionBoundaryTest {
     private val other = MediaRef("audio:v:external_primary:10")
     private fun item(ref: MediaRef) =
         LibraryItem(ref, "Synthetic Nine", "Synthetic Artist", "Fixture Album", 20_000L)
-    private fun snapshot(
+    private fun sampleSnapshot(
         state: PlaybackState = PlaybackState.Playing,
         current: MediaRef? = ref,
         revision: Long = 11L,
@@ -78,9 +78,9 @@ class Issue6Phase10SelectionBoundaryTest {
     private inner class FakeGateway : PlaybackGateway {
         val connection = MutableStateFlow(PlaybackConnectionState.Ready)
         override val connectionState: StateFlow<PlaybackConnectionState> = connection
-        override val snapshot: StateFlow<PlaybackSnapshot> = MutableStateFlow(snapshot())
+        override val snapshot: StateFlow<PlaybackSnapshot> = MutableStateFlow(sampleSnapshot())
         val commands = mutableListOf<PlaybackCommand>()
-        var answer: AppResult<PlaybackSnapshot> = AppResult.Success(snapshot())
+        var answer: AppResult<PlaybackSnapshot> = AppResult.Success(sampleSnapshot())
         var onExecute: () -> Unit = {}
         override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
             commands += command
@@ -221,7 +221,7 @@ class Issue6Phase10SelectionBoundaryTest {
     @Test fun acceptedBufferingIsNotOptimisticallyCalledPlaying() = runBlocking {
         val lib = FakeLibrary(item(ref))
         val player = FakeGateway()
-        player.answer = AppResult.Success(snapshot(PlaybackState.Buffering))
+        player.answer = AppResult.Success(sampleSnapshot(PlaybackState.Buffering))
         val result = boundary(lib, player).select(ref, 7)
         assertEquals(SelectedPlaybackState.AcceptedNotPlaying,
             (result as AppResult.Success).value.state)
@@ -230,7 +230,7 @@ class Issue6Phase10SelectionBoundaryTest {
     @Test fun fakeSuccessfulAckWithWrongSelectedItemIsRejected() = runBlocking {
         val lib = FakeLibrary(item(ref))
         val player = FakeGateway()
-        player.answer = AppResult.Success(snapshot(current = other))
+        player.answer = AppResult.Success(sampleSnapshot(current = other))
         val result = boundary(lib, player).select(ref, 7)
         assertEquals(AppErrorCodes.PLAYBACK_REJECTED,
             (result as AppResult.Failure).error.code)
@@ -239,7 +239,7 @@ class Issue6Phase10SelectionBoundaryTest {
     @Test fun fakeAckWithNoCurrentItemOrIdleCannotClaimPlaying() = runBlocking {
         val lib = FakeLibrary(item(ref))
         val player = FakeGateway()
-        player.answer = AppResult.Success(snapshot(PlaybackState.Idle))
+        player.answer = AppResult.Success(sampleSnapshot(PlaybackState.Idle))
         val result = boundary(lib, player).select(ref, 7)
         assertTrue(result is AppResult.Failure)
     }
