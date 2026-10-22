@@ -15,6 +15,7 @@ import androidx.media3.session.SessionResult
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.SettableFuture
+import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
@@ -211,6 +212,32 @@ class MusicPlaybackService : MediaSessionService() {
                         player.play()
                     }
                 }
+                is PlaybackCommand.SelectQueueIndex -> {
+                    val observedQueueRevision = confirmed.queueRevision
+                    if (command.expectedQueueRevision != observedQueueRevision ||
+                        command.index !in 0 until player.mediaItemCount
+                    ) return rejected()
+                    val selectedMedia = player.getMediaItemAt(command.index)
+                    val validated = when (val check = queueEngine.revalidate(
+                        MediaRef(selectedMedia.mediaId)
+                    )) {
+                        is AppResult.Success -> check.value
+                        is AppResult.Failure -> return check
+                    }
+                    // Revalidate the exact URI and authoritative timeline AFTER
+                    // the IO suspension; never act on a stale UI queue index.
+                    if (confirmed.queueRevision != observedQueueRevision ||
+                        selectedMedia != player.getMediaItemAt(command.index) ||
+                        selectedMedia.localConfiguration?.uri?.toString() !=
+                            validated.contentUri
+                    ) return rejected()
+                    if (!command.playWhenReady) player.pause()
+                    player.seekTo(command.index, 0L)
+                    if (command.playWhenReady) {
+                        if (player.playbackState == Player.STATE_IDLE) player.prepare()
+                        player.play()
+                    }
+                }
                 is PlaybackCommand.Play -> {
                     if (player.mediaItemCount == 0) return rejected()
                     player.play()
@@ -222,7 +249,12 @@ class MusicPlaybackService : MediaSessionService() {
                     when (val decision = PlaybackQueuePolicy.next(index, player.mediaItemCount)) {
                         is PlaybackQueuePolicy.NextDecision.Advance ->
                             player.seekTo(decision.index, 0L)
-                        PlaybackQueuePolicy.NextDecision.EndOfQueue -> player.pause()
+                        PlaybackQueuePolicy.NextDecision.EndOfQueue -> {
+                            // Remain on the final occurrence without wrap/repeat.
+                            player.pause()
+                            val duration = player.duration
+                            if (duration >= 0L) player.seekTo(duration)
+                        }
                         PlaybackQueuePolicy.NextDecision.NoTrack -> return rejected()
                     }
                 }
