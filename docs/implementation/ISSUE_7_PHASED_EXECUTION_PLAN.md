@@ -55,7 +55,7 @@
 - Original Issue #7 acceptance checkboxes remain unchecked until corresponding implementation + evidence is actually verified; P1 FR-08 retains its lower priority without undermining P0.
 - Project completion means feature code, system sync and regressions verified, real QA classifications saved, review/merge policy honored and any deferred QA explicitly tracked; never silently close unverified P0 safety criteria.
 
-## Original Issue #7 AC traceability
+## Original Issue #7 AC01–AC13 traceability
 
 | AC | Primary phases | Final tests |
 |---|---|---|
@@ -72,6 +72,5 @@
 | AC11 P1 queue & position restoration | P11 | M32–M35,T10–T11 |
 | AC12 Honest process-death contract | P08,P11 | M35,T10–T12 |
 | AC13 No streaming/network catalog | all | M36,T13 |
-| AC14 Source/contract/readiness gate | P00,P01 | T14–T15 |
 
 **Final QA companion:** [Issue #7 one-APK phone checklist](ISSUE_7_FINAL_PHONE_QA_CHECKLIST.md). All statuses initially `NOT_RUN`.
