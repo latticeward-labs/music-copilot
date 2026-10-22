@@ -1,0 +1,184 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "43f4cff3a774bfc112a60796c83386ed",
+    "entities": [
+      {
+        "tableName": "library_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mediaRef` TEXT NOT NULL, `title` TEXT NOT NULL, `artist` TEXT, `album` TEXT, `durationMs` INTEGER, `normalizedTitle` TEXT NOT NULL, `normalizedArtist` TEXT NOT NULL, `volumeName` TEXT, `relativeFolderPath` TEXT, `folderGroupId` TEXT, `artistGroupId` TEXT, `albumGroupId` TEXT, `normalizedAlbum` TEXT, `normalizedFolder` TEXT, `folderLabel` TEXT, `metadataFingerprint` TEXT, `indexedGeneration` INTEGER, PRIMARY KEY(`mediaRef`))",
+        "fields": [
+          {
+            "fieldPath": "mediaRef",
+            "columnName": "mediaRef",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artist",
+            "columnName": "artist",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "album",
+            "columnName": "album",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "durationMs",
+            "columnName": "durationMs",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "normalizedTitle",
+            "columnName": "normalizedTitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedArtist",
+            "columnName": "normalizedArtist",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "volumeName",
+            "columnName": "volumeName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "relativeFolderPath",
+            "columnName": "relativeFolderPath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "folderGroupId",
+            "columnName": "folderGroupId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "artistGroupId",
+            "columnName": "artistGroupId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "albumGroupId",
+            "columnName": "albumGroupId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "normalizedAlbum",
+            "columnName": "normalizedAlbum",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "normalizedFolder",
+            "columnName": "normalizedFolder",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "folderLabel",
+            "columnName": "folderLabel",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "metadataFingerprint",
+            "columnName": "metadataFingerprint",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "indexedGeneration",
+            "columnName": "indexedGeneration",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "mediaRef"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_library_items_normalizedTitle_mediaRef",
+            "unique": false,
+            "columnNames": [
+              "normalizedTitle",
+              "mediaRef"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_library_items_normalizedTitle_mediaRef` ON `${TABLE_NAME}` (`normalizedTitle`, `mediaRef`)"
+          },
+          {
+            "name": "index_library_items_artistGroupId_normalizedTitle_mediaRef",
+            "unique": false,
+            "columnNames": [
+              "artistGroupId",
+              "normalizedTitle",
+              "mediaRef"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_library_items_artistGroupId_normalizedTitle_mediaRef` ON `${TABLE_NAME}` (`artistGroupId`, `normalizedTitle`, `mediaRef`)"
+          },
+          {
+            "name": "index_library_items_albumGroupId_normalizedTitle_mediaRef",
+            "unique": false,
+            "columnNames": [
+              "albumGroupId",
+              "normalizedTitle",
+              "mediaRef"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_library_items_albumGroupId_normalizedTitle_mediaRef` ON `${TABLE_NAME}` (`albumGroupId`, `normalizedTitle`, `mediaRef`)"
+          },
+          {
+            "name": "index_library_items_folderGroupId_normalizedTitle_mediaRef",
+            "unique": false,
+            "columnNames": [
+              "folderGroupId",
+              "normalizedTitle",
+              "mediaRef"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_library_items_folderGroupId_normalizedTitle_mediaRef` ON `${TABLE_NAME}` (`folderGroupId`, `normalizedTitle`, `mediaRef`)"
+          },
+          {
+            "name": "index_library_items_indexedGeneration_mediaRef",
+            "unique": false,
+            "columnNames": [
+              "indexedGeneration",
+              "mediaRef"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_library_items_indexedGeneration_mediaRef` ON `${TABLE_NAME}` (`indexedGeneration`, `mediaRef`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '43f4cff3a774bfc112a60796c83386ed')"
+    ]
+  }
+}

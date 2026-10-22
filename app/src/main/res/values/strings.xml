@@ -80,4 +80,55 @@
     <string name="p10_cloud_consent_revoked">Any previously saved cloud speech consent has been revoked on this device.</string>
     <string name="p10_revoke_cloud_consent">Revoke saved cloud speech consent</string>
     <string name="p10_remote_gate_unexpected">Remote voice authorization unavailable. Manual controls remain enabled.</string>
+    <!-- Issue #6 P08: WF-04/HF-04 English-first local Library copy. -->
+    <string name="p08_library_heading">Library</string>
+    <string name="p08_more">More</string>
+    <string name="p08_songs">Songs</string>
+    <string name="p08_artists">Artists</string>
+    <string name="p08_albums">Albums</string>
+    <string name="p08_folders">Folders</string>
+    <string name="p08_item_count">%1$d items</string>
+    <string name="p08_song_count">%1$d songs</string>
+    <string name="p08_action_rescan_short">Rescan</string>
+    <string name="p08_loading_categories">Loading local library…</string>
+    <string name="p08_stale_index">Your local library changed. Rescan to refresh.</string>
+    <string name="p08_browse_error">The local library could not be opened. Retry without deleting music.</string>
+    <string name="p08_retry_page">Retry loading</string>
+    <string name="p08_empty_group">This collection contains no accessible songs.</string>
+    <string name="p08_empty_category">No items found in this category.</string>
+    <string name="p08_selected_not_playing">Selected: %1$s · Not playing</string>
+    <string name="p08_close_selection">Close</string>
+    <string name="p08_current_track">Current track</string>
+    <string name="p08_nav_home">Home</string>
+    <string name="p08_nav_search">Search</string>
+    <string name="p08_nav_liked">Liked</string>
+    <string name="p08_nav_settings">Settings</string>
+    <!-- Issue #6 P09, approved WF-05/HF-05 local Search. -->
+    <string name="i6_search_title">Search</string>
+    <string name="i6_search_field">Search local music</string>
+    <string name="i6_search_hint">Song, artist or album</string>
+    <string name="i6_search_clear">Clear</string>
+    <string name="i6_search_idle">Search your local library.</string>
+    <string name="i6_search_searching">Searching this device…</string>
+    <string name="i6_search_unavailable">Local music is unavailable. Review access and scan before searching.</string>
+    <string name="i6_search_no_results">No local results</string>
+    <string name="i6_search_no_results_hint">Edit or clear the preserved query.</string>
+    <string name="i6_search_failed">Search failed</string>
+    <string name="i6_search_error_hint">The verified library is still available. Retry, edit or clear the query.</string>
+    <string name="i6_search_stale_hint">The local library changed. Return to Library and rescan if needed, or retry.</string>
+    <string name="i6_search_local_results">%1$d local results</string>
+    <string name="i6_search_artist_result">Artist result</string>
+    <string name="i6_search_album_result">Album result</string>
+    <string name="i6_search_track_result">Track</string>
+    <string name="i6_search_folder_result">Folder result</string>
+    <string name="i6_search_open">Open</string>
+    <string name="i6_search_select_song">Select</string>
+    <!-- Issue #6 P10: service-acknowledged selection, never fake playback. -->
+    <string name="i6_selection_verifying">Checking local file and playback service…</string>
+    <string name="i6_selection_playing">Service reports Playing: %1$s</string>
+    <string name="i6_selection_accepted_pending">Service accepted %1$s; playback has not started.</string>
+    <string name="i6_selection_permission">Music access changed. Review permission and rescan.</string>
+    <string name="i6_selection_missing">The selected file is missing or cannot be read. Rescan your library.</string>
+    <string name="i6_selection_stale">The local library changed. Rescan before playing.</string>
+    <string name="i6_selection_unavailable">Playback is not available yet. Your music is unchanged.</string>
 </resources>

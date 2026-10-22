@@ -1,6 +1,9 @@
 package com.latticeward.musiccopilot.app.navigation
 
 import androidx.activity.compose.BackHandler
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +19,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,11 +37,21 @@ import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
+import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
+import com.latticeward.musiccopilot.data.api.LibraryRepository
+import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
+import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
+import com.latticeward.musiccopilot.feature.search.LocalSearchScreen
+import com.latticeward.musiccopilot.feature.search.LocalSearchViewModel
+import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
+import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
+import com.latticeward.musiccopilot.feature.library.LibraryBrowseScreen
+import com.latticeward.musiccopilot.feature.library.LibraryBrowseViewModel
 import com.latticeward.musiccopilot.feature.onboarding.FirstUseScreen
 import com.latticeward.musiccopilot.core.application.permission.MediaPermissionOutcome
 import com.latticeward.musiccopilot.feature.permission.MediaPermissionOutcomeScreen
@@ -50,6 +64,11 @@ fun AppNavHost(
     route: BootstrapRoute,
     readiness: FoundationReadiness,
     permission: PermissionStatus,
+    libraryRepository: LibraryRepository,
+    mediaSelection: LibraryMediaSelectionUseCase,
+    libraryIndex: LibraryIndexSnapshot,
+    playbackConnection: PlaybackConnectionState,
+    playbackSnapshot: PlaybackSnapshot,
     preferencesRepository: PreferencesRepository,
     remoteSpeechDecision: CloudSpeechGateDecision,
     onRevokeCloudSpeechConsent: () -> Unit,
@@ -73,9 +92,18 @@ fun AppNavHost(
     val navController = rememberNavController()
     var manualFallback by rememberSaveable { mutableStateOf(false) }
     var settingsOpen by rememberSaveable { mutableStateOf(false) }
+    var searchOpen by rememberSaveable { mutableStateOf(false) }
+    var pendingSearchGroup by remember { mutableStateOf<LibraryBrowseEntry?>(null) }
     var replayingEducation by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(permission) {
-        if (permission == PermissionStatus.Granted) manualFallback = false
+        if (permission == PermissionStatus.Granted) {
+            manualFallback = false
+        } else {
+            // OS denial/revocation owns recovery; never expose old Search
+            // rows when no longer authorized to browse local audio.
+            searchOpen = false
+            pendingSearchGroup = null
+        }
     }
     val actualRoute = if (route == BootstrapRoute.PermissionRecovery && manualFallback) {
         BootstrapRoute.HomeLibrary
@@ -89,13 +117,25 @@ fun AppNavHost(
         mediaRequestUi.outcome != MediaPermissionOutcome.None ->
             Destination.PermissionRecovery
         actualRoute == BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
+        searchOpen && actualRoute == BootstrapRoute.HomeLibrary ->
+            Destination.Search
         else -> Destination.Library
     }
     LaunchedEffect(target) {
         if (navController.currentBackStackEntry?.destination?.route != target.route) {
-            navController.navigate(target.route) {
-                popUpTo(Destination.Bootstrap.route) { inclusive = false }
-                launchSingleTop = true
+            // Return to an EXISTING destination when present. In particular,
+            // Search -> Library must pop Search, not push a duplicate Library
+            // above it and retain a private search query in its ViewModel.
+            // Settings -> Search similarly restores only the active surface.
+            // Bootstrap/PermissionRecovery remain system-state authoritative.
+            val returnedToExisting = navController.popBackStack(
+                target.route, inclusive = false,
+            )
+            if (!returnedToExisting) {
+                navController.navigate(target.route) {
+                    popUpTo(Destination.Bootstrap.route) { inclusive = false }
+                    launchSingleTop = true
+                }
             }
         }
     }
@@ -159,40 +199,64 @@ fun AppNavHost(
             }
         }
         composable(Destination.Library.route) {
-            BackHandler { onExit() }
-            val accessDenied = permission != PermissionStatus.Granted
-            FirstLaunchBoundary(
-                title = stringResource(R.string.library_title),
-                message = if (accessDenied) {
-                    stringResource(R.string.library_without_access)
-                } else {
-                    stringResource(readiness.messageResource())
-                },
-                primary = when {
-                    accessDenied -> stringResource(R.string.action_review_access)
-                    readiness == FoundationReadiness.LocalLibraryRecoverableError ->
-                        stringResource(R.string.action_retry)
-                    readiness == FoundationReadiness.LibraryPermissionOrMediaUnavailable ->
-                        stringResource(R.string.p08_scan_local_music)
-                    readiness == FoundationReadiness.LocalLibraryReady ||
-                        readiness == FoundationReadiness.LocalLibraryEmpty ->
-                        stringResource(R.string.p08_rescan_local_music)
-                    else -> null
-                },
-                onPrimary = {
-                    when {
-                        accessDenied -> { manualFallback = false; onRefreshPermission() }
-                        readiness == FoundationReadiness.LocalLibraryRecoverableError ->
-                            onRetryLibraryScan()
-                        readiness == FoundationReadiness.LibraryPermissionOrMediaUnavailable ->
-                            onRescanLibrary()
-                        readiness == FoundationReadiness.LocalLibraryReady ||
-                            readiness == FoundationReadiness.LocalLibraryEmpty ->
-                            onRescanLibrary()
+            val browseModel: LibraryBrowseViewModel = viewModel(
+                factory = remember(libraryRepository, mediaSelection) {
+                    object : ViewModelProvider.Factory {
+                        @Suppress("UNCHECKED_CAST")
+                        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                            check(modelClass == LibraryBrowseViewModel::class.java)
+                            return LibraryBrowseViewModel(libraryRepository, mediaSelection) as T
+                        }
                     }
                 },
-                secondary = stringResource(R.string.first_use_settings),
-                onSecondary = { settingsOpen = true },
+            )
+            LibraryBrowseScreen(
+                model = browseModel,
+                index = libraryIndex,
+                readiness = readiness,
+                permission = permission,
+                playbackConnection = playbackConnection,
+                playback = playbackSnapshot,
+                onRefreshPermission = {
+                    manualFallback = false
+                    onRefreshPermission()
+                },
+                onRetryLibraryScan = onRetryLibraryScan,
+                onRescanLibrary = onRescanLibrary,
+                onSettings = { settingsOpen = true },
+                onSearch = { searchOpen = true },
+                initialGroup = pendingSearchGroup,
+                onGroupConsumed = { pendingSearchGroup = null },
+                onExit = onExit,
+            )
+        }
+        composable(Destination.Search.route) {
+            val searchModel: LocalSearchViewModel = viewModel(
+                factory = remember(libraryRepository) {
+                    object : ViewModelProvider.Factory {
+                        @Suppress("UNCHECKED_CAST")
+                        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                            check(modelClass == LocalSearchViewModel::class.java)
+                            return LocalSearchViewModel(libraryRepository, mediaSelection) as T
+                        }
+                    }
+                },
+            )
+            LocalSearchScreen(
+                model = searchModel,
+                index = libraryIndex,
+                permission = permission,
+                onBack = { searchOpen = false },
+                onOpenGroup = { group ->
+                    pendingSearchGroup = group
+                    searchOpen = false
+                },
+                onSettings = { settingsOpen = true },
+                onReviewAccess = {
+                    searchOpen = false
+                    manualFallback = false
+                    onRefreshPermission()
+                },
             )
         }
         composable(Destination.Settings.route) {

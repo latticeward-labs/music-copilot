@@ -1,0 +1,1427 @@
+{
+  "schema": "music-copilot.issue6.execution-evidence-index.v1",
+  "created_on": "2026-10-22",
+  "issue": "https://github.com/latticeward-labs/music-copilot/issues/6",
+  "branch": "feature/6-mediastore-library-browse-search",
+  "base_branch": "main",
+  "main_sha_at_p01_entry": "bb022341bb12a1b12c22a078a70b8bf8217d2176",
+  "feature_sha_at_p01_entry": "86a284daf9ccb99bf9c28dcd7276cadce7ecbf25",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "status_policy": {
+    "allowed_phase": [
+      "NOT_STARTED",
+      "IN_PROGRESS",
+      "PASS_AUDIT_ONLY",
+      "PASS_SCOPED",
+      "PASS_VERIFIED",
+      "BLOCKED",
+      "FAIL",
+      "OWNER_ACCEPTED_WITH_DEFERRED_QA"
+    ],
+    "allowed_case": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "NOT_RUN",
+      "NA_DEFERRED_POST_MVP"
+    ],
+    "p00_or_p01_pass_does_not_complete_issue_acceptance": true,
+    "unit_ci_manual_pass_only_with_actual_execution": true,
+    "owner_report_not_adb_verification": true,
+    "privacy": "Use synthetic media and sanitized error codes; never store titles, paths, search queries, raw logs, content URIs, personal audio"
+  },
+  "phase_artifacts": [
+    {
+      "id": "P00",
+      "title": "Source audit and prerequisites",
+      "status": "PASS_AUDIT_ONLY",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE0_READINESS_AUDIT.md",
+      "commit_sha": null,
+      "artifact_links": [],
+      "reviewer": null,
+      "validation": null
+    },
+    {
+      "id": "P01",
+      "title": "GitHub execution and delivery contract",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md",
+      "commit_sha": "f4996a7418e47d044270681fb60f7a84cb209400",
+      "artifact_links": [
+        "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md",
+        ".github/PULL_REQUEST_TEMPLATE/issue-6-mediastore-library-browse-search.md",
+        "docs/implementation/ISSUE_6_PHASE1_VALIDATION.json",
+        "docs/implementation/ISSUE_6_EVIDENCE_INDEX.json"
+      ],
+      "reviewer": null,
+      "validation": "P01_PASS_CONTRACT_ONLY: 14/14 documentary checks; no Android tests, CI, owner phone or PR."
+    },
+    {
+      "id": "P02",
+      "title": "Library domain/repository/Room migration contract",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md",
+      "commit_sha": "c2074b6f57ef4d8259f0cdad83487e5f24ccdb62",
+      "artifact_links": [
+        "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md",
+        "docs/implementation/ISSUE_6_PHASE2_VALIDATION.json",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase2BrowseContractsTest.kt"
+      ],
+      "reviewer": null,
+      "validation": "P02_PASS_CONTRACT_ONLY; 14/14 static GitHub readback checks, 8 authored JVM tests NOT_RUN. Actual V1→V2 migration and SQL category queries P06; full QA and one APK P12."
+    },
+    {
+      "id": "P03",
+      "title": "Permission-aware MediaStore scanner",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE3_MEDIASTORE_IMPLEMENTATION.md",
+      "commit_sha": "70bf778218377140814fdaa98d96166b42d5fd39",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase3MediaStoreContractTest.kt",
+        "docs/implementation/ISSUE_6_PHASE3_MEDIASTORE_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE3_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "P03_PASS_SCOPED_STATIC_SOURCE; 17/17 GitHub readback checks, 9 authored JUnit methods. Actual Android builds, JVM tests, native API/OEM and phone QA NOT_RUN until P12."
+    },
+    {
+      "id": "P04",
+      "title": "Normalization and deterministic indexing",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE4_NORMALIZATION_IMPLEMENTATION.md",
+      "commit_sha": "18a1242c6352073b94dac2dd94be5161b7532283",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryTextNormalization.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase4MetadataNormalizationTest.kt",
+        "docs/implementation/ISSUE_6_PHASE4_NORMALIZATION_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE4_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "P04_PASS_SCOPED_STATIC_SOURCE; 20/20 static GitHub readback, 15 authored JVM tests NOT_RUN; Room v1 unchanged. No APK, CI, Gradle, native or phone test. Full test execution remains P12."
+    },
+    {
+      "id": "P05",
+      "title": "Incremental cancellable reconciliation",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE5_RECONCILIATION_IMPLEMENTATION.md",
+      "commit_sha": "26016e2dc9adbaffac9fb1ea5289f9bb57efb2b0",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryReconcileDelta.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase5IncrementalReconciliationTest.kt",
+        "docs/implementation/ISSUE_6_PHASE5_RECONCILIATION_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE5_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "P05_PASS_SCOPED_STATIC_SOURCE; 28/28 GitHub source checks, 15 synthetic JVM methods authored NOT_RUN. Room v1 retained; actual SQL transaction/OS cancellation/JVM/Android QA P12; P06 query and migration pending."
+    },
+    {
+      "id": "P06",
+      "title": "Room browse and search performance",
+      "status": "IN_PROGRESS",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE6_ROOM_QUERY_IMPLEMENTATION.md",
+      "commit_sha": "5b87744e40915f3d8e975ad186b109dbe8584ed6",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryRow.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryMigrations.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/MusicCopilotDatabase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/DataBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase6BrowsePortTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase6RoomV2InstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE6_ROOM_QUERY_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE6_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "P06 SOURCE IMPLEMENTED / 32/32 static readback PASS; NATIVE P06 gate BLOCKED by missing genuine compiler-generated Room V2 2.json, no Gradle/KAPT/migration/5k result. All P12 actual tests NOT_RUN. Genuine KAPT V2 schema 2.json later checked in; Android V1->V2 migration/performance remains unverified and tracked post-MVP in #74. Do not claim full P06 native PASS."
+    },
+    {
+      "id": "P07",
+      "title": "Library readiness and lifecycle integration",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE7_READINESS_INTEGRATION.md",
+      "commit_sha": "5830970dbddf5a8119626f7d48f7eebc90e9aab7",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanLaunchGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/LibraryActionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase7ReadinessLifecycleTest.kt",
+        "docs/implementation/ISSUE_6_PHASE7_READINESS_INTEGRATION.md",
+        "docs/implementation/ISSUE_6_PHASE7_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "P07_PASS_SCOPED_SOURCE: 27/27 GitHub code checks, 12 synthetic tests AUTHORED but NOT_RUN, no Gradle/device/Settings/rotation proof. P06 genuine Room 2.json and native migration remains IN_PROGRESS; T01–T10 and M01–M34 at P12."
+    },
+    {
+      "id": "P08",
+      "title": "Compose Library four browse categories",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE8_LIBRARY_UI_IMPLEMENTATION.md",
+      "commit_sha": "d6d350ae865cbf7e8c68b0c73381796a8d18312a",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryBrowseViewModelTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE8_UI_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE8_LIBRARY_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE8_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "P08 PASS_SCOPED_STATIC_SOURCE: 41/41 live code/readback checks, 12 JVM + 4 native Compose methods AUTHORED NOT_RUN; 20 QA screenshots/a11y scenarios defined NOT_RUN. No APK/CI/compile/5000 performance. P06 Room V2 2.json pending."
+    },
+    {
+      "id": "P09",
+      "title": "Compose local Search states",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+      "commit_sha": "717bc142cde7a535b38bca0759cea852c977a45a",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibrarySearchContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase9LocalSearchViewModelTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchSqlInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "PASS_SCOPED_STATIC_SOURCE: 52/52 actual GitHub code/readback invariants, including Search Back-stack disposal; 14 JVM + 7 Compose + 4 Room/SQLite synthetic methods AUTHORED NOT_RUN; 23 QA cases authored NOT_RUN. No Gradle compile, Room KAPT, CI, benchmarks, screenshots, APK or phone. P06 native Room 2.json still absent."
+    },
+    {
+      "id": "P10",
+      "title": "Media selection and PlaybackGateway boundary",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE10_SELECTION_HANDOFF.md",
+      "commit_sha": "790b4c0870b57ea35f91fdbc1c94eac3530f2468",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongUiStatus.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongFeedback.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+        "docs/implementation/ISSUE_6_PHASE10_SELECTION_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE10_SELECTION_HANDOFF.md",
+        "docs/implementation/ISSUE_6_PHASE10_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "P10 PASS_SCOPED_STATIC_SOURCE: 43/43 GitHub source checks, 16 synthetic JVM methods authored NOT_RUN and 24 P12 QA scenarios NOT_RUN. OS MediaStore get/requery and PlaybackGateway connected, but actual Issue #7 MusicPlaybackService rejects ReplaceQueue by design; no actual playback claim. P06 native Room schema 2.json still blocked; no Kotlin/Gradle, JVM/Android, APK, CI or handset execution."
+    },
+    {
+      "id": "P11",
+      "title": "Quality hardening and integrated test readiness",
+      "status": "PASS_SCOPED",
+      "planned_primary_report": "docs/implementation/ISSUE_6_PHASE11_TEST_READINESS.md",
+      "commit_sha": "b5c16218289052ce7c32da3abdcfbddb3cfb658e",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase11HardeningContractTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11FiveThousandRoomBenchmarkTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11MediaStorePermissionInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+        "tools/qa/issue6_static_guardrails.py",
+        "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_6_PHASE11_TEST_READINESS.md",
+        "docs/implementation/ISSUE_6_PHASE11_VALIDATION.json"
+      ],
+      "reviewer": null,
+      "validation": "P11 PASS_SCOPED_STATIC_SOURCE: 42 source readback assertions, 20 newly authored or extended JVM/native/Compose test methods NOT_RUN; 20 P12 CLI guardrails NOT_RUN; 34 owner phone and 10 technical cases preserved NOT_RUN. Real Room V2 2.json absent; Issue7 actual PlaybackCommand.ReplaceQueue still rejected. NO BUILD/APK/CI/EMULATOR/PHONE."
+    },
+    {
+      "id": "P12",
+      "title": "Single consolidated APK and final integrated test/closeout",
+      "status": "OWNER_ACCEPTED_WITH_DEFERRED_QA",
+      "planned_primary_report": "docs/implementation/ISSUE_6_FINAL_ACCEPTANCE_AUDIT.md",
+      "commit_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "artifact_links": [
+        "docs/implementation/ISSUE_6_FINAL_ACCEPTANCE_AUDIT.md",
+        "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
+        ".github/workflows/issue-6-p12-integrated-final.yml",
+        "app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/2.json",
+        "https://github.com/latticeward-labs/music-copilot/actions/runs/39755773243/artifacts/12415363520",
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md",
+        "https://github.com/latticeward-labs/music-copilot/issues/74"
+      ],
+      "reviewer": null,
+      "validation": "Owner provided 34-case self-report: 28 PASS, 0 FAIL, 6 NA deferred to Issue #74; owner explicitly authorized MVP integration and closure. APK SHA matches original build from bdafa124; 343 earlier JVM PASS; 10 Lint errors, native migration/5k/200% unverified. No further GitHub Actions. This is NOT full engineering PASS."
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "AC-01",
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M01-M04/M11: owner reports permission/index flow PASS; independently unverified."
+    },
+    {
+      "id": "AC-02",
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M05-M08: four Library categories passed on owner phone. Native schema migration still deferred #74."
+    },
+    {
+      "id": "AC-03",
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M11-M14: rescan/add/move/interruption PASS by owner; technical cancellation QA not fully run."
+    },
+    {
+      "id": "AC-04",
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M10-M14/M29 PASS per owner; fault-injection M15/M16 deferred #74."
+    },
+    {
+      "id": "AC-05",
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M17-M21 PASS per owner; injected Error M22 deferred #74."
+    },
+    {
+      "id": "AC-06",
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M23/M24 PASS per owner; broader lifecycle matrix not run."
+    },
+    {
+      "id": "AC-07",
+      "status": "DEFERRED_POST_MVP_74",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M25 real 5,000-file scan and scroll NA; no measured user-device performance PASS."
+    },
+    {
+      "id": "AC-08",
+      "status": "DEFERRED_POST_MVP_74",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M26 corrupt/incomplete metadata NA; source fallback exists, real fault execution remains deferred."
+    },
+    {
+      "id": "AC-09",
+      "status": "SOURCE_SCOPED_TECHNICAL_DEFERRED",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M33 offline PASS; full privacy/analytics instrumentation not performed; tracked #74."
+    },
+    {
+      "id": "AC-10",
+      "status": "PARTIAL_JVM_PASS_NATIVE_DEFERRED",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "Earlier 343 JVM tests PASS, but native Room migration/instrumented tests not run; #74."
+    },
+    {
+      "id": "AC-11",
+      "status": "PARTIAL_OWNER_TALKBACK_FONT_DEFERRED",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M27/M29 owner TalkBack PASS; M28 200% font NA; native a11y matrix #74."
+    },
+    {
+      "id": "AC-12",
+      "status": "SCOPE_DEFERRED_P2",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "Liked Songs explicitly out of Issue #6 MVP; belongs P2 after MVP."
+    }
+  ],
+  "manual_cases": [
+    {
+      "id": "M01",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M02",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M03",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M04",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M05",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M06",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M07",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M08",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M09",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M10",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M11",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M12",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M13",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M14",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M15",
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
+    },
+    {
+      "id": "M16",
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
+    },
+    {
+      "id": "M17",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M18",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M19",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M20",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M21",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M22",
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
+    },
+    {
+      "id": "M23",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M24",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M25",
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
+    },
+    {
+      "id": "M26",
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
+    },
+    {
+      "id": "M27",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M28",
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
+    },
+    {
+      "id": "M29",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M30",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M31",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M32",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M33",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    },
+    {
+      "id": "M34",
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "observed_at": null,
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
+    }
+  ],
+  "technical_suites": [
+    {
+      "id": "T01",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T02",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T03",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T04",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T05",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T06",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T07",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T08",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T09",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    },
+    {
+      "id": "T10",
+      "status": "NOT_RUN",
+      "executor": "AUTOMATED_OR_ENGINEERING",
+      "evidence_url": null,
+      "observed_at": null,
+      "source_sha": null,
+      "notes": null
+    }
+  ],
+  "change_log": [
+    {
+      "id": "I6-CHG-P01-001",
+      "phase": "P01",
+      "status": "COMMITTED",
+      "commits": [
+        "67cc8dc2fa98bfe35e387f0a37359ae968ce6d66",
+        "554d73eaac5b76fa865dee9022dac8c4252fc412",
+        "3fffddb2f4830495838efd91837ce6b0c2bb671d",
+        "f4996a7418e47d044270681fb60f7a84cb209400"
+      ],
+      "paths": [
+        "docs/implementation/ISSUE_6_PHASE1_EXECUTION_CONTRACT.md",
+        ".github/PULL_REQUEST_TEMPLATE/issue-6-mediastore-library-browse-search.md",
+        "docs/implementation/ISSUE_6_PHASE1_VALIDATION.json",
+        "docs/implementation/ISSUE_6_EVIDENCE_INDEX.json"
+      ],
+      "kind": "documentation_only",
+      "rollback": "git revert relevant commits on feature branch; retain history",
+      "note": "No Android code modification or build"
+    },
+    {
+      "id": "I6-CHG-P02-001",
+      "phase": "P02",
+      "status": "COMMITTED",
+      "commits": [
+        "e0c2ebb32eaa74b1c708425935de7eec9d5f8cb3",
+        "271cbbada2600a5aa5a84a5020c3b0937fb14e56",
+        "4ee40af6a3385e5a034b35be1b202d12fd5582b4",
+        "55efb0587f68d671d6c344e5a6e9d6e8e0a8554c",
+        "c947aac19b8a79c0311117a46a77ba0734c368bd",
+        "d7e5b4e32283ddd55af9ffdf3d512a6ed126f26b",
+        "3b34d006bcbb37c99ac8361c950a0868808255bf",
+        "c2074b6f57ef4d8259f0cdad83487e5f24ccdb62"
+      ],
+      "paths": [
+        "docs/implementation/ISSUE_6_PHASE2_DATA_CONTRACT.md",
+        "docs/implementation/ISSUE_6_PHASE2_VALIDATION.json",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase2BrowseContractsTest.kt"
+      ],
+      "kind": "additive_kotlin_contracts_docs_and_authored_tests",
+      "rollback": "Revert only Issue #6 feature commits on feature branch; preserve Room v1 and original public #16 methods.",
+      "note": "Default browse returns typed unavailable until actual P06 Room adapter; no UI, migration, emulator, APK or user-data changes."
+    },
+    {
+      "id": "I6-CHG-P03-001",
+      "phase": "P03",
+      "status": "COMMITTED",
+      "commits": [
+        "14c0904ba51708d28b2773a9166762a0d7f44ed0",
+        "1f7cc79db67608a79eddc1bf58a9806a4ddfdadc",
+        "9395deb784d58500353acba696d806ab8e31fd2a",
+        "e280b7e32dba6da5e7bface52e765ef1856c146c",
+        "70bf778218377140814fdaa98d96166b42d5fd39"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase3MediaStoreContractTest.kt",
+        "docs/implementation/ISSUE_6_PHASE3_MEDIASTORE_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE3_VALIDATION.json"
+      ],
+      "kind": "scanner_source_and_synthetic_tests",
+      "rollback": "Use new feature-branch git revert commits; old Room schema stays v1; never delete user audio",
+      "note": "Separate mounted MediaStore volume refs, API-aware scan/one-item requery, scoped privacy. Native behavior pending P12."
+    },
+    {
+      "id": "I6-CHG-P04-001",
+      "phase": "P04",
+      "status": "COMMITTED",
+      "commits": [
+        "937a57ef29dcda905295836a46eef2198aa1bd74",
+        "548dd54c0403ae9019cd2a79f96f4ff824caf42b",
+        "78ca0e02563cfa6400d1e19ffd9fb65f7373123e",
+        "7154a1a901b184e296aa6d0c2bae2b4e0e1a12cd",
+        "c877b4fa4a7b59ed47cf1b53ff1aed42a2fdaa6f",
+        "e90a9e42be12e4daffa2d6b4c0bb04afeb16164b",
+        "a9920a9f83a10d3cbd727a3324114f6aaeeef89a",
+        "df95a232659df19f719f59621a94d12ee3c9325f",
+        "043b7433af072abb96864e9480974c8df144b1c8",
+        "18a1242c6352073b94dac2dd94be5161b7532283"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryTextNormalization.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase4MetadataNormalizationTest.kt",
+        "docs/implementation/ISSUE_6_PHASE4_NORMALIZATION_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE4_VALIDATION.json"
+      ],
+      "kind": "additive_mapper_normalization_scanner_title_fallback_and_synthetic_jvm_tests",
+      "rollback": "Revert Issue #6 P04 commits on feature branch with review; preserve Room V1 and platform-owned media; never force-reset main or delete audio",
+      "note": "No functional migration, incremental index, APK, CI or user device testing in P04."
+    },
+    {
+      "id": "I6-CHG-P05-001",
+      "phase": "P05",
+      "status": "COMMITTED",
+      "commits": [
+        "a594142c85ea9e0f9dd484e365ce3593f410298c",
+        "9e91ada5f1c2612b4eb7dfab5954b5eb6e1237aa",
+        "a0a4602613846d661519da41234fe624f96248f2",
+        "8037cc6d104b235b94475ef03975b9be7fc22467",
+        "0f59bf16d686d155418fbc4bb1c409a5c674cc96",
+        "31c197d2414387107ccfb720504fdb454ea7aef1",
+        "2e0d016b55b60b8c7879cfd4a8422712649cddb3",
+        "01ea7ad0a6cb51503a3091f3d8ada4d3d1768d36",
+        "2bbfbeed00608748eb3ff228d1ca998f0abf4a9f",
+        "f0e37232053a4c09ba6b4aed9e9b8289bf5128d0",
+        "0e9792065ac65830a05d6dfd0dcc03ecca35dda3",
+        "3ce29ee5ec5a159e1c90d1a641fde583004638e3",
+        "26016e2dc9adbaffac9fb1ea5289f9bb57efb2b0"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryReconcileDelta.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase5IncrementalReconciliationTest.kt",
+        "docs/implementation/ISSUE_6_PHASE5_RECONCILIATION_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE5_VALIDATION.json"
+      ],
+      "kind": "transactional_derived_room_delta_with_native_query_cancellation_and_authored_tests",
+      "rollback": "Revert Issue #6 P05 code commits on feature branch with a follow-up commit, preserving audit history; V1 Room and actual MediaStore files must not be deleted. No force reset of main.",
+      "note": "Production changed rows only; MediaStore source still full, authorized enumeration; no executed tests or APK."
+    },
+    {
+      "id": "I6-CHG-P06-001",
+      "phase": "P06",
+      "status": "COMMITTED_SOURCE_PENDING_NATIVE",
+      "commits": [
+        "319f96f87db2dfc20c0e22f2935e8b0aa81500fc",
+        "f6bd0b3ad1b287ceacffa1420372de599ad74840",
+        "d79200e1f188bb8fe037284b4d624bb9fb53d52b",
+        "14098f2a46202b860c900c7141db1c0515e80b76",
+        "114de41038f9d954c83657c6b3b78c5e7c4577a3",
+        "0efd5a75dfb6a6a4304ee3cc63ae6daacacd9009",
+        "ed109e3a4d33cabffd51d876eef627b0202218c8",
+        "ac2e9319cd029bd959a6658576f1ec1a093762a9",
+        "2d37d4aef9d61bd9c57e66f3c2e97b742d4f03cf",
+        "0092b5d1910ff03084b0ba73efac302e0abcf359",
+        "e2d59fdc23cce576f3ccda82bd06bf881238e872",
+        "b2ea5b99f49e88d94d05c144c93ce20bc3c6edfc",
+        "93a571fd2c3d2152eb95586f71e22e249c9df057",
+        "34db03a2cd160a72a61f65b387bf89a91d21fff5",
+        "e580be021ae7b81c4415d30b8db96b8fc2f2a333",
+        "3b2b7d658b2377fac5166dd13287c080098d2213",
+        "27500bff80fba6a3dc34ab9c9c6408b25b29a0eb",
+        "dbf1ef454c711d25258def53bbf1db6e8408b240",
+        "139738629d70dd8f1e442a75b5528e832f6a11b3",
+        "ef5c6d8c90851ac486ef9ce41502ee42090651fe",
+        "5b87744e40915f3d8e975ad186b109dbe8584ed6"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryRow.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryMigrations.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/MusicCopilotDatabase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/DataBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase6BrowsePortTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase6RoomV2InstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE6_ROOM_QUERY_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE6_VALIDATION.json"
+      ],
+      "kind": "Room_V2_migration_grouped_sql_browse_search_and_authored_tests",
+      "rollback": "Before merge revert P06 commits only on feature branch. Do not install older V1 app over already opened V2 database; no destructive rollback. Keep User Media untouched.",
+      "note": "Cannot fully PASS P06 native/schema export: compiler-produced Room V2 2.json missing, requires P12 KAPT and tests; source 32/32 static checks passed."
+    },
+    {
+      "id": "I6-CHG-P07-001",
+      "phase": "P07",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "85a0820e5ebc30586edb10a6dae297257e41f5f1",
+        "571f21f0ad17f17ca0a4599e3e70f41d7a6a5610",
+        "1c0478c45fe9cad1e4d237279b6a517ab2d27565",
+        "cedb43f30c246b132a64e3f068809201c816711f",
+        "50a2b48de8b094727093512febaa8c27ffa6bd71",
+        "21c1969f414bd0ee65f02ee5509a557f3e5305a6",
+        "27e700307d0ff37255414ffd39a4d0b7df7ac54a",
+        "22f1e81cf106a63f34ef590e827a38c3bebe8914",
+        "1b8aff6bb5dd63d72012fd0807cbfc83a1cf60a0",
+        "5830970dbddf5a8119626f7d48f7eebc90e9aab7"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanLaunchGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/LibraryActionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase7ReadinessLifecycleTest.kt",
+        "docs/implementation/ISSUE_6_PHASE7_READINESS_INTEGRATION.md",
+        "docs/implementation/ISSUE_6_PHASE7_VALIDATION.json"
+      ],
+      "kind": "readiness_lifecycle_singleflight_explicit_actions_and_recovery_fixtures",
+      "rollback": "Revert P07 change commits on the feature branch (not main); preserve #5 PermissionViewModel and Android OS grants. No user media deletion; no API authority change.",
+      "note": "No new Room migration, APK, or actual JVM/native tests. P06 Room V2 native/schema gate still unresolved."
+    },
+    {
+      "id": "I6-CHG-P08-001",
+      "phase": "P08",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "cc58159301a19bdba719bb33dc1eedd8ea79b746",
+        "a303b21aaf95ebdf7f4940c113f07b0b2665daeb",
+        "ef4879f63ac48960ecae6062a5f05b16e278d1e2",
+        "40e44c0bc6f6457016681792c82dd40c536edb54",
+        "a1f7e8c8bb092fe3aac9cd68e28c3f123a4fa4fd",
+        "0ccae5d6cd95a331c8efd7df0f729978db68c850",
+        "1105be9da98c130967cfe64515482b3d60d7edad",
+        "651d36389045b5f16200acb9d39df8697b7719a8",
+        "641387166cff6816b386df1e5e8bd991f178cd0f",
+        "160297800ac787da54ee3e57f04862fc644f534e",
+        "1dc2d2c3876a04f3d76fb3979d0568d334ceed63",
+        "0c83053a0b8ad3456bdb013a28cdcfc308d55e27",
+        "4669e03718e87643cf8ba61805980533d0277021",
+        "8c63c5332e90fdd04077c044d04d1015fd0be387",
+        "c1cd6012fcc8b2ce49f86ca75e4c068f9e598192",
+        "d6d350ae865cbf7e8c68b0c73381796a8d18312a"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryBrowseViewModelTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE8_UI_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE8_LIBRARY_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE8_VALIDATION.json"
+      ],
+      "kind": "compose_library_four_categories_viewmodel_lazy_revision_paging_nested_back_and_source_only_tests",
+      "rollback": "Revert only P08 feature branch source commits by follow-up reviewed changes, preserve P00-P07 and MediaStore original files. No merge or destructive DB reset.",
+      "note": "Real code/readback only; P08 runtime/semantics/200-percent/5k scrolling and 16 authored tests still NOT_RUN; P09 Search and P10 playback selection intentionally pending."
+    },
+    {
+      "id": "I6-CHG-P09-001",
+      "phase": "P09",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "87c5847cf2dd164d6d66e633978a2961d5a8f0d4",
+        "67d5ce4da2a7d747060fc8c1ab771bacb1e4fd3c",
+        "c6edd2bc295f079e4fa2a442aca5e3077d4ac2f5",
+        "06dbc1adf8019a1c169f1b21febce9209067016e",
+        "a098ed380134508f9e4ae8ec11e7fddd627162d4",
+        "8047487598ff33bdc9be43fb70e72a4f1ee58435",
+        "5d95a404670533495eabc167729e8ba0beaa1937",
+        "5bfc0f35639f0e6fc3d0b3262d95fcb8be70c787",
+        "ae53319972287fa3b899fa505cf396b13a0226f2",
+        "52d62093658402f37b8195be0f78af62951f240d",
+        "62f57b5b83ec32257997d66d6e7f35d3ebd7cf93",
+        "5081804ae9eaf7398bff03a448b6e43eda1cfa9b",
+        "346126f07d8bf1524529f8a3b3cf1248d7bc7c13",
+        "22750a459c6c8fe8563462d0233951f67ad391bf",
+        "0497719d2eed7ce0c5f86c0361c743dd475695bb",
+        "0c3c13983d9cb09fa5aca2c4614e402c93f04f93",
+        "47c6394710671b59df4a286d30b4f529ed3cecb6",
+        "fb418ec40257d97d3714b076b4254991b4b436e3",
+        "e3f88a879dabb4f324f14131b3df84d07866aab1",
+        "ab3f7bf6574af90badda06ee41c38ee27dfb986f",
+        "20a46000b160ad94216c4aeac176d3cbb3a4293b",
+        "7674f538dd46e17d64709cf94750519a1b969ca0"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibrarySearchContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase9LocalSearchViewModelTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchSqlInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json"
+      ],
+      "kind": "local_room_grouped_search_compose_results_noresults_error_recovery_and_revision_safe_navigation",
+      "rollback": "Revert only P09 feature branch commits after review; keep P08 Library and accepted #5 Permissions, no media file or database user-data deletion.",
+      "note": "P09 source-only pass, 25 tests authored but NOT_RUN. Group Open returns to approved Library browsing; real song play remains P10 and service Issue #7. Room V2 compiler schema pending."
+    },
+    {
+      "id": "I6-CHG-P09-002",
+      "phase": "P09",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "c46b3718c35d4a616053a66d3273b7cc437652b8",
+        "3b6ab26973c3147519fa6e6a78ffac3641f29b93",
+        "59e42479f33e4306892acca6c6d5341cc3e0cfd5",
+        "717bc142cde7a535b38bca0759cea852c977a45a"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json"
+      ],
+      "kind": "return_to_existing_Library_back_stack_query_retention_hardening",
+      "rollback": "Revert P09-only follow-up commits with reviewed additional feature-branch changes; preserve P08 Library entry and all other phase evidence. No user media mutation.",
+      "note": "P09 existing PASS_SCOPED unchanged: 52 static review checks, NOT native-tested. Returning to Library now pops Search rather than stacking a duplicate route; navigation QA only P12."
+    },
+    {
+      "id": "I6-CHG-P10-001",
+      "phase": "P10",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "53aaeaab707609bdbf950d95948f3f7778091e52",
+        "32b36b0fa43c68e21426474693e83caafb7ae278",
+        "3e9cff48abae6de5476514a4890ffe4acfa91abf",
+        "4b165a5239d94726a8e6a39c15f22f5827164b75",
+        "ad180cb792becc0ee851c5609227384e42c623f2",
+        "32cbc7a13a0bba2f553f990ecff03b4e9b9b5731",
+        "665908ebdfe3544fd68ad2812eb6a2fbaa071fa5",
+        "feba0cdceaabf829ee494103eb6d4c79d8879dae",
+        "375756e045ce7246906056861fded014f2b9163b",
+        "94b5611a6780a447bbc901183304b13da88d8ebb",
+        "6ac341d2c4b80a57b418c8f884a7f716e1b21379",
+        "50bc30729757b0b9f9efde704c56132eebd0c1de",
+        "528d4753d5c78ed917962b896fa64c3122e0dec1",
+        "3561866751a6fa4b0159e1cf9c6107db0a7d64c6",
+        "c7b4ceb8fd52689613f52be1670c707b41f8e0cb",
+        "8fde03b6282e9dceb5b704cad61ef5bb245bcc5f",
+        "790b4c0870b57ea35f91fdbc1c94eac3530f2468"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongUiStatus.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongFeedback.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+        "docs/implementation/ISSUE_6_PHASE10_SELECTION_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE10_SELECTION_HANDOFF.md",
+        "docs/implementation/ISSUE_6_PHASE10_VALIDATION.json"
+      ],
+      "kind": "platform_revalidated_song_selection_service_owned_playback_gateway_handoff_and_safe_failure_ui",
+      "rollback": "Revert P10-only feature commits before merge after review; keep P00–P09 and original music untouched. No MediaSession, Room or song-file destructive writes.",
+      "note": "Service Issue #7 remains OPEN and ReplaceQueue rejected; fake accepted snapshots for boundary tests only, no actual real-song playing. P06 native verification still unresolved."
+    },
+    {
+      "id": "I6-CHG-P11-001",
+      "phase": "P11",
+      "status": "COMMITTED_SOURCE",
+      "kind": "quality_hardening_a11y_permission_room5000_tests_privacy_gate_phone_checklist",
+      "commits": [
+        "94c1cd64f38c59a0545102fb65a188089116b9ad",
+        "4e3e19f4ecf8fc82147f8a05395e2113016f1e22",
+        "7a840fb82f92b0deef74f7a7f5627b8a83c64c19",
+        "717633f3894488238895bae84590c62515a88f3c",
+        "31492bb5e9fbd3ed5b83ca438cf75e9b3ae4f9b1",
+        "82cdeb3f970589ff3346a3c2f39687098185b045",
+        "25649066640b0b00375f54f824c15f29ef9c7a54",
+        "00142fdefe6817f73dc810e7fbfe298d7cbb3282",
+        "71fb4be8c9e5c6d8826ae3d7a86bb27514398864",
+        "7493ce2faf32ea97ff00bc852c615e361a23c454",
+        "6da5dc1ff5453fbdbd0c0e0fb8b9bb68b6564581",
+        "d92b0ad10242c0de5419946c71db1a591bc493a9",
+        "aa7e6e7f352a36e4de263c04fcacc8a19adeb831",
+        "3f76406e4cc856d6c6849ee9e44c230a1412b6e4",
+        "6d662d780618b956ecbcec547dab19ecabf8c23e",
+        "b5c16218289052ce7c32da3abdcfbddb3cfb658e"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase11HardeningContractTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11FiveThousandRoomBenchmarkTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11MediaStorePermissionInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+        "tools/qa/issue6_static_guardrails.py",
+        "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_6_PHASE11_TEST_READINESS.md",
+        "docs/implementation/ISSUE_6_PHASE11_VALIDATION.json"
+      ],
+      "rollback": "Review and revert P11-only feature branch changes if necessary; preserve all P00–P10 work, original MediaStore/user media, and previous evidence. Never destructive-recreate Room to hide migration debt.",
+      "note": "Source static audit only. P11 has NOT_RUN all runtime, 5000 measured benchmark, native OS permission, 34 physical and 10 technical suites. Still P06 schema/migration blocker and #7 playback service boundary."
+    },
+    {
+      "id": "I6-CHG-P12-OWNER-APK-001",
+      "phase": "P12",
+      "status": "APK_DELIVERED_OWNER_TEST_PENDING",
+      "kind": "retrieved_existing_integrated_apk_from_run3_and_disabled_future_ci_tests",
+      "source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "run_id": 39755773243,
+      "artifact_id": 12415363520,
+      "apk_path_in_artifact": "build/outputs/apk/debug/app-debug.apk",
+      "apk_sha256": "1587527f5a9a99c5cc664eb84e64a3865035a079f464e9cecbe0bb60d3fcb0de",
+      "size_bytes": 36312971,
+      "paths": [
+        "docs/implementation/ISSUE_6_FINAL_ACCEPTANCE_AUDIT.md",
+        "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
+        ".github/workflows/issue-6-p12-integrated-final.yml",
+        "app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/2.json",
+        "https://github.com/latticeward-labs/music-copilot/actions/runs/39755773243/artifacts/12415363520"
+      ],
+      "warning": "Lint FAILED 10 issues in earlier attempt; instrumented and owner tests NOT_RUN. No GitHub CI run launched after owner's no-tests instruction."
+    },
+    {
+      "id": "I6-CHG-P12-OWNER-RESULTS-002",
+      "phase": "P12",
+      "status": "OWNER_ACCEPTED_WITH_DEFERRED_QA",
+      "kind": "user_supplied_28_pass_6_na_results_and_after_mvp_deferral",
+      "paths": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md",
+        "docs/implementation/ISSUE_6_EVIDENCE_INDEX.json"
+      ],
+      "compiled_source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "apk_sha256": "1587527f5a9a99c5cc664eb84e64a3865035a079f464e9cecbe0bb60d3fcb0de",
+      "note": "Owner requests integration, PR, merge and Issue #6 closure by MVP exception, not 12/12 technical PASS. Six NA in #74; do not consume Actions."
+    }
+  ],
+  "evidence_records": [
+    {
+      "id": "I6-EVD-P01-001",
+      "phase": "P01",
+      "source_sha": "3fffddb2f4830495838efd91837ce6b0c2bb671d",
+      "method": "GitHub file/branch/issue/PR/Actions readback and P01 structure validation",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE1_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_DOC_AUDIT",
+      "limits": "No CI, instrumentation, APK, ADB, phone or independent reviewer approval. All 12 product ACs remain unverified."
+    },
+    {
+      "id": "I6-EVD-P02-001",
+      "phase": "P02",
+      "source_sha": "c2074b6f57ef4d8259f0cdad83487e5f24ccdb62",
+      "method": "Authenticated GitHub readback, typed Kotlin contract/static compatibility + 14 scoped validation checks",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE2_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_DOC_AND_SOURCE_AUDIT",
+      "limits": "Authored 8 JVM tests NOT_RUN; no Android build/Gradle CI, Room migration, emulator, ADB or physical QA. 12 original AC unchecked."
+    },
+    {
+      "id": "I6-EVD-P03-001",
+      "phase": "P03",
+      "source_sha": "70bf778218377140814fdaa98d96166b42d5fd39",
+      "method": "Actual GitHub source/commit readback with 17 static invariants",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE3_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "Android/JVM compilation, local unit tests, ContentResolver instrumentation, 5k, API matrix, APK, phone and CI NOT_RUN. All 12 issue ACs unchecked."
+    },
+    {
+      "id": "I6-EVD-P04-001",
+      "phase": "P04",
+      "source_sha": "18a1242c6352073b94dac2dd94be5161b7532283",
+      "method": "GitHub live file/readback and 20 source/static contract invariants",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE4_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "15 synthetic JVM tests authored but NOT_RUN. No Android build, CI, emulator, Room migration, 5000-file run or phone QA. No Issue #6 acceptance checkbox verified."
+    },
+    {
+      "id": "I6-EVD-P05-001",
+      "phase": "P05",
+      "source_sha": "26016e2dc9adbaffac9fb1ea5289f9bb57efb2b0",
+      "method": "Live GitHub branch/code/document readback, 28 bounded static checks and authored synthetic fixture inventory",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE5_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "Source-only. 15 authored JUnit tests NOT_RUN; no Gradle build, native Room rollback, Android CancellationSignal integration tests, CI, 5000-song benchmark or handset testing. All 12 original issue AC checkboxes unchecked."
+    },
+    {
+      "id": "I6-EVD-P06-001",
+      "phase": "P06",
+      "source_sha": "5b87744e40915f3d8e975ad186b109dbe8584ed6",
+      "method": "Authenticated GitHub readback: V2 entity/migration/DAO/repository 32 source checks, seven authored JVM and six native methods",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE6_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "Compiler/KAPT-generated schema 2.json missing (GitHub 404), no Android Gradle compile, actual migration, native or JVM test, 5000 query plan benchmark, APK, phone or independent review. P06 full verified gate unresolved."
+    },
+    {
+      "id": "I6-EVD-P07-001",
+      "phase": "P07",
+      "source_sha": "5830970dbddf5a8119626f7d48f7eebc90e9aab7",
+      "method": "Live GitHub readback across application graph, Activity, LibraryScanUseCase, Compose, 27 static invariants and test fixtures",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE7_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "12 authored tests NOT_RUN. No Android permission lifecycle/instrumentation, Gradle, APK, real device evidence, CI or approval. Original 12 issue ACs unverified. P06 Room 2.json remains missing."
+    },
+    {
+      "id": "I6-EVD-P08-001",
+      "phase": "P08",
+      "source_sha": "d6d350ae865cbf7e8c68b0c73381796a8d18312a",
+      "method": "GitHub feature-branch real source readback, 41 static invariants across ViewModel, Compose, navigation, 22 localized UI strings, 16 authored tests, and 20 screenshot/a11y scenarios",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE8_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "No Kotlin/Android compilation, UI screenshots, JVM/native execution, 200% font scaling, 5000-song benchmark, APK or phone. Original 12 product AC checkboxes remain unchecked. P06 Room V2 generated schema is missing."
+    },
+    {
+      "id": "I6-EVD-P09-001",
+      "phase": "P09",
+      "source_sha": "7674f538dd46e17d64709cf94750519a1b969ca0",
+      "method": "Authenticated GitHub P09 branch source readback: 51 static Kotlin/SQL/Compose/resource/navigation checks, 14 JVM + 7 Compose + 4 native SQL tests written, 22 synthetic QA cases authored",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "No Gradle KAPT/Kotlin compile, actual JVM/Compose/Room native tests, 200% font/TalkBack, 5000-song measured latency, screenshot, device/CI, APK, phone tests, reviewer or acceptance PASS. P06 schema 2.json absent."
+    },
+    {
+      "id": "I6-EVD-P09-002",
+      "phase": "P09",
+      "source_sha": "717bc142cde7a535b38bca0759cea852c977a45a",
+      "method": "Authenticated Github readback of NavHost popBackStack against existing route, updated report, 23-case synthetic QA plan and 52 static source conditions",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "NavBackStackEntry/ViewModel disposal behavior not device-tested, 25 authored tests not executed. No Gradle/Room V2 schema/SQLite native tests/CI/APK/handset. Product acceptance 12 original checkboxes unchecked."
+    },
+    {
+      "id": "I6-EVD-P10-001",
+      "phase": "P10",
+      "source_sha": "790b4c0870b57ea35f91fdbc1c94eac3530f2468",
+      "method": "Authenticated GitHub source readback across selected source requery/read descriptor, app-owned DI, Library/Search ViewModels and status, real PlaybackGateway/MediaSession service rejection, 43 structural invariants; 16 synthetic JVM tests and 24 cases authored",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE10_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "No Kotlin/Android Gradle compilation, JVM/test runtime, native MediaStore/Media3 playback, Android UI/device, QA/5k benchmark/CI/APK/independent review. Current MusicPlaybackService intentionally rejects ReplaceQueue until Issue #7. Original 12 Issue #6 acceptance ACs unchecked."
+    },
+    {
+      "id": "I6-EVD-P11-001",
+      "phase": "P11",
+      "source_sha": "b5c16218289052ce7c32da3abdcfbddb3cfb658e",
+      "method": "Authenticated GitHub live file and source SHA readback after extracting and reading 12 user RAR PDFs, 42 static source criteria, 20 authored tests and 34 existing owner cases; no executed runtime checks",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE11_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "No Gradle/KAPT/Room native migration/Android instrumentation/CI/APK/phone. 20 executable static CLI checks not run. Room V2 2.json missing; actual #7 ReplaceQueue rejected."
+    },
+    {
+      "id": "I6-EVD-P12-OWNER-APK-001",
+      "phase": "P12",
+      "status": "APK_ARTIFACT_VERIFIED_OWNER_QA_PENDING",
+      "source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "method": "Downloaded existing run3 artifact 12415363520, extracted unchanged one APK, verified APK ZIP + signing block, SHA256 and manifest; inspected 39 actual JVM XML report suites (343/343 PASS), lint report with 10 errors; native and phone remain NOT_RUN",
+      "evidence_path": "docs/implementation/ISSUE_6_FINAL_ACCEPTANCE_AUDIT.md",
+      "executor_class": "EXISTING_ACTIONS_ARTIFACT_AND_LOCAL_ARCHIVE_VERIFICATION",
+      "limits": "APK built and handed to owner for self-testing; prior CI overall failed lint; full Issue6 acceptance not established; no further Actions runs authorized"
+    },
+    {
+      "id": "I6-EVD-P12-OWNER-RESULTS-002",
+      "phase": "P12",
+      "status": "OWNER_SELF_REPORTED_28_PASS_6_NA",
+      "source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "method": "Owner-uploaded Persian exported phone-results text; 34/34 case records, 28 PASS, 6 N/A, 0 FAIL; source text SHA256 recorded; no independent phone recording.",
+      "evidence_path": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "executor_class": "OWNER_SELF_REPORT",
+      "limits": "No phone model, Android version or per-case notes provided. Six N/A deferred #74. CI lint failed 10 issues; native API/Room/5k not run; playback #7."
+    }
+  ],
+  "evidence_id_contract": {
+    "change": "I6-CHG-PNN-NNN",
+    "evidence": "I6-EVD-PNN-NNN",
+    "issue_acceptance": "AC-01..AC-12",
+    "owner_phone": "M01..M34",
+    "technical": "T01..T10",
+    "stable_ids": "Never recycle IDs; update state with new URL/commit while retaining history",
+    "normalized_paths": "app/src/main/, app/src/test/, app/src/androidTest/, docs/implementation/"
+  },
+  "p12_candidate": {
+    "source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+    "apk_name": "app-debug.apk",
+    "apk_sha256": "1587527f5a9a99c5cc664eb84e64a3865035a079f464e9cecbe0bb60d3fcb0de",
+    "actions_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39755773243",
+    "artifact_id": 12415363520,
+    "phone_device": null,
+    "owner_case_pass": 28,
+    "owner_case_fail": 0,
+    "owner_case_na_deferred": 6,
+    "technical_suite_pass": 0,
+    "status": "OWNER_ACCEPTED_WITH_DEFERRED_QA",
+    "source_test_file_sha256": "ea1b579a88a8d77f40f96d80f227219e60d37fdf61c61c85f895cecce9592fe8",
+    "followup_issue": 74
+  },
+  "constraints": {
+    "single_consolidated_apk_only_in_p12": true,
+    "phase_apks_allowed": false,
+    "issue7_real_playback_owned_elsewhere": true,
+    "issue73_deferred_qa_not_inherited": true,
+    "review_required_before_final_merge": true,
+    "owner_explicit_exception_after_mvp": true,
+    "defer_six_manual_cases_to_issue": 74,
+    "github_actions_new_runs_forbidden": true
+  },
+  "provenance": {
+    "phase0_report": "docs/implementation/ISSUE_6_PHASE0_READINESS_AUDIT.md",
+    "phase0_register": "docs/implementation/ISSUE_6_PHASE0_SOURCE_LINK_REGISTER.json",
+    "phase_plan": "docs/implementation/ISSUE_6_PHASED_EXECUTION_PLAN.md",
+    "p12_qa_checklist": "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md"
+  }
+}

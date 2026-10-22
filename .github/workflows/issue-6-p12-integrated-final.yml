@@ -1,0 +1,47 @@
+name: "Issue #6 - APK only (manual opt-in, no tests)"
+# User-requested low-cost delivery mode. This workflow has NO push trigger.
+# Do NOT dispatch without a new explicit owner request for a replacement APK.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  assemble-one-apk:
+    name: "Build one integrated debug APK, no CI tests"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout integrated Issue 6 source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install Android compile SDK
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Build ONE app APK only - NO JVM, NO lint, NO emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon :app:assembleDebug --stacktrace
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          sha256sum app/build/outputs/apk/debug/app-debug.apk > app/build/outputs/apk/debug/app-debug.apk.sha256
+      - name: Upload single owner-phone APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue6-one-integrated-phone-apk
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/apk/debug/app-debug.apk.sha256

@@ -1,0 +1,165 @@
+{
+  "schema": "music-copilot.issue6.phase4.source-validation.v1",
+  "date": "2026-10-22",
+  "phase": "P04",
+  "result": "PASS_SCOPED_STATIC_SOURCE",
+  "verification_method": "Live GitHub read-back of committed Kotlin and documentation with 20 static invariants. NOT compilation, execution or runtime QA.",
+  "archive": {
+    "filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "extracted_pdfs": 12
+  },
+  "source_readback": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryTextNormalization.kt",
+      "blob_sha": "5d7b4c8165f1eb5198c590200cd08055c4f17e26"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryBrowseContracts.kt",
+      "blob_sha": "e270fc51b947eddbaea39bbd0ca846f5099df511"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+      "blob_sha": "3108e2d61ea498113d6eaed5c1dd9f303c2139c0"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+      "blob_sha": "069b2dce3e8929b2d64d028ae26b3012cc05ef6b"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+      "blob_sha": "8a153e4122e5e77abe99972c392b3005dc067a20"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase4MetadataNormalizationTest.kt",
+      "blob_sha": "b6f152ee213b487ba6c71f1a10c65fd38843e96a"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE4_NORMALIZATION_IMPLEMENTATION.md",
+      "blob_sha": "1d4b6fb1dab0433e322612d385f20ac915bc463d"
+    }
+  ],
+  "static_checks": [
+    {
+      "id": "P04-C01",
+      "description": "Shared Android-free NFKC and Locale.ROOT text policy",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C02",
+      "description": "Unicode whitespace and controls sanitized",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C03",
+      "description": "Unknown and malformed optional metadata become null",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C04",
+      "description": "Source title fallback is known and non-sensitive",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C05",
+      "description": "Negative/zero duration not invented",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C06",
+      "description": "Relative folder rejects absolute/traversal",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C07",
+      "description": "Folder full path case/spacing is preserved",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C08",
+      "description": "Artist grouping shares the same text normalization",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C09",
+      "description": "Missing vs literal album ID grouping separated",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C10",
+      "description": "Normalized album and folder group projections authored",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C11",
+      "description": "Legacy LibraryRow / LibraryItem models unchanged",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C12",
+      "description": "Malformed refs filtered before index",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C13",
+      "description": "One deterministic winner per identical source ID",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C14",
+      "description": "Two distinct sources with equal display titles not collapsed",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C15",
+      "description": "Stable final sorted index order",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C16",
+      "description": "Existing Room reconciliation calls new mapper",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C17",
+      "description": "No external user media mutation or logging",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C18",
+      "description": "15 synthetic JVM test methods authored",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C19",
+      "description": "Source package and Android architecture boundaries documented",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P04-C20",
+      "description": "One consolidated APK and real tests deferred to P12",
+      "result": "PASS_STATIC"
+    }
+  ],
+  "authored_jvm_tests": 15,
+  "executed": {
+    "kotlin_gradle_compilation": "NOT_RUN",
+    "jvm_tests": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "native_volume_permission_tests": "NOT_RUN",
+    "ci": "NOT_TRIGGERED",
+    "apk": "NOT_BUILT",
+    "phone": "NOT_RUN",
+    "benchmark_5000": "NOT_RUN"
+  },
+  "technical_status_note": "All Issue #6 T01–T10 and manual M01–M34 remain NOT_RUN until P12. 15 test methods written is not proof of passing tests.",
+  "runtime_migration": "ROOM_V1_UNCHANGED; v2 fields still only planned for P06",
+  "issue_ac_passed": 0,
+  "risks": [
+    "Room P06 indexed album/folder search and Room V1-to-V2 migration pending",
+    "P05 true incremental delta, cancellation and accurate insertedOrUpdated accounting pending",
+    "Android physical provider and JVM build/test verification pending P12",
+    "Metadata normalization alone cannot prove source byte-level playability or service playback (#7)"
+  ],
+  "downstream": "P05_NEXT"
+}

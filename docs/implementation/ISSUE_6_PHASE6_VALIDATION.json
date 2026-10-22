@@ -1,0 +1,260 @@
+{
+  "schema": "music-copilot.issue6.phase6.static-implementation-validation.v1",
+  "date": "2026-10-22",
+  "phase": "P06",
+  "disposition": "SOURCE_IMPLEMENTED_STATIC_PASS_NATIVE_BLOCKED",
+  "method": "Actual GitHub feature-branch source readback: 32 independently compared static conditions; no compilation, runtime, instrumentation or throughput measurement.",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "static_checks": [
+    {
+      "id": "P06-C01",
+      "description": "source authority/hash",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C02",
+      "description": "V1 source schema integrity",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C03",
+      "description": "V2 schema annotation",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C04",
+      "description": "10 nullable V2 fields",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C05",
+      "description": "migration SQL covers 10 fields",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C06",
+      "description": "five matching indexes",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C07",
+      "description": "production migration registration",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C08",
+      "description": "no destructive migration fallback",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C09",
+      "description": "persistent group IDs",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C10",
+      "description": "persistent normalized album and SHA metadata",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C11",
+      "description": "incremental transaction retained",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C12",
+      "description": "bounded Songs SQL",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C13",
+      "description": "Artists grouped SQL",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C14",
+      "description": "Albums grouped SQL",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C15",
+      "description": "Folders grouped SQL",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C16",
+      "description": "one Room transaction for total/page",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C17",
+      "description": "bounded offset and limit",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C18",
+      "description": "overflow-safe nextOffset",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C19",
+      "description": "three-field literal SQL search",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C20",
+      "description": "SQLite result cap 100",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C21",
+      "description": "no in-memory all() production search",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C22",
+      "description": "public Browse port override",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C23",
+      "description": "expected revision fail-closed",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C24",
+      "description": "OS permission and post-query revision recheck",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C25",
+      "description": "sanitized stale/error codes",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C26",
+      "description": "migrated V1 new columns default NULL",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C27",
+      "description": "KAPT 2.json requirement explicit",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C28",
+      "description": "7 authored JVM tests",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C29",
+      "description": "6 authored native tests",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C30",
+      "description": "migration/index planner tests authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C31",
+      "description": "no false build or 5k benchmark PASS",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P06-C32",
+      "description": "no raw metadata logs / network library",
+      "status": "PASS_STATIC"
+    }
+  ],
+  "source_blob_evidence": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryRow.kt",
+      "sha": "c7cbae3be61542a01377228842641dfd406f0d41"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryMigrations.kt",
+      "sha": "6de266f0cc28206aed5e75432dcba49be2025aab"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/MusicCopilotDatabase.kt",
+      "sha": "903544909c2fae96e1518afb0219b486b182b2ce"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/di/DataBindings.kt",
+      "sha": "17d86bf4865169b76a308739953934fb95367290"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+      "sha": "a3e32e1e91a8baa5e04065b0e1fe6f45a7bc1fe0"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+      "sha": "559be790e78cac13cc470e089bd8ed78806607e1"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/mapping/LibraryRowMapper.kt",
+      "sha": "f94963b8b12a2a6158ff61cedc6118395fcabe85"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+      "sha": "9fd3ab69a48a66b006b38c465d29b77550a911db"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+      "sha": "c1179aeb2c3e098a92b69d803171992cee87ea4a"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/LibrarySchemaEvolution.kt",
+      "sha": "e788e5bbeb6deedda0f849711a032569fd3e87e1"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase6BrowsePortTest.kt",
+      "sha": "2db4a33f9a1497c0d4164d769aa68354abbd19b9"
+    },
+    {
+      "path": "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase6RoomV2InstrumentedTest.kt",
+      "sha": "fa8b2087988ae867ec398e49a862fca2762e3d25"
+    },
+    {
+      "path": "app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/1.json",
+      "sha": "c3b1ba7affdaa1a9d6425d3b3dc7ddf10adf300b"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE6_ROOM_QUERY_IMPLEMENTATION.md",
+      "sha": "02b60883f09921358216ed4227c961d5720b9698"
+    }
+  ],
+  "missing_required_artifact": {
+    "path": "app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/2.json",
+    "exists": false,
+    "verified_by": "GitHub fetch_file returned NOT_FOUND/404 for this path on the feature branch",
+    "reason": "Actual Room compiler/KAPT generation requires full Gradle/Android SDK; never invent Room identityHash",
+    "resolution": "P12 actual :app:kaptDebugKotlin or equivalent generates verified exported 2.json; commit exact generated artifact, run migration validation before full release PASS"
+  },
+  "authored_tests": {
+    "jvm_methods": 7,
+    "instrumented_room_methods": 6,
+    "executed_jvm": 0,
+    "executed_native": 0
+  },
+  "execution": {
+    "gradle_compile": "NOT_RUN",
+    "room_kapt_schema": "NOT_GENERATED",
+    "sqlite_migration": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "github_actions": "NOT_TRIGGERED",
+    "perf_5000": "NOT_RUN",
+    "apk": "NOT_BUILT",
+    "owner_phone": "NOT_RUN"
+  },
+  "correctness_limitations": [
+    "32 static PASS checks cannot prove Java/Kotlin/Room compiler accepts all files.",
+    "Migration preservation and Room identity hash require generated schema and Android SQLite test.",
+    "Substring SQL search is bounded but not guaranteed indexed; EXPLAIN / 5000 measurements outstanding.",
+    "Room P05 row diff correctness remains subject to full integrated test at P12.",
+    "No Issue #6 original acceptance criterion was verified by runtime evidence."
+  ],
+  "issue_acceptance_passed": 0,
+  "next": "P07 development can depend on source contracts but P06 must not be treated as native-verified until P12."
+}

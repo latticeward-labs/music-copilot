@@ -1,0 +1,375 @@
+{
+  "schema": "music-copilot.issue6.phase9.source-validation.v1",
+  "phase": "P09",
+  "date": "2026-10-22",
+  "branch": "feature/6-mediastore-library-browse-search",
+  "source_archive": {
+    "filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdfs": 12
+  },
+  "method": "Authenticated GitHub feature-branch UTF-8 source readback: 52 structural invariants including source-pinned Search Back-stack privacy fix. No compilation, JVM, SQLite or Android runtime execution.",
+  "disposition": "PASS_SCOPED_STATIC_SOURCE_NOT_NATIVE_VERIFIED",
+  "static_checks": [
+    {
+      "id": "P09-C01",
+      "name": "bounded typed SearchResult contract",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C02",
+      "name": "LibraryRepository backward compatible searchResults",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C03",
+      "name": "local SQL title instr",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C04",
+      "name": "local SQL grouped artist instr",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C05",
+      "name": "local SQL grouped album instr",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C06",
+      "name": "SQLite LIMIT on all search projections",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C07",
+      "name": "transactionally consistent Song/Artist/Album projections",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C08",
+      "name": "balanced per-kind budgets",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C09",
+      "name": "actual SQL-backed result source",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C10",
+      "name": "no full DAO all() in local search",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C11",
+      "name": "repository searchResults production override",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C12",
+      "name": "OS audio access pre-post query",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C13",
+      "name": "expected revision and new index stale guard",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C14",
+      "name": "empty-query authorized result not interpreted error",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C15",
+      "name": "debounce 280 ms",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C16",
+      "name": "active query max 120 chars",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C17",
+      "name": "active-surface-only ephemeral private query",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C18",
+      "name": "editable/Clear active query",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C19",
+      "name": "ViewModel invokes actual typed Search repo port",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C20",
+      "name": "Idle Searching Results NoResults Error Stale Unavailable statuses",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C21",
+      "name": "No Results only after success empty",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C22",
+      "name": "error state preserves user query",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C23",
+      "name": "async generation drops obsolete query responses",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C24",
+      "name": "revocation clears displayed rows",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C25",
+      "name": "no scan or playback command in Search ViewModel",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C26",
+      "name": "WF-05 UI renders typed status",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C27",
+      "name": "editable SearchField + Clear",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C28",
+      "name": "local Android keyboard and no web handoff",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C29",
+      "name": "written result count",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C30",
+      "name": "LazyColumn stable unique row keys",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C31",
+      "name": "No Results explanation",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C32",
+      "name": "Error with explicit Retry",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C33",
+      "name": "Artist/Album Open callback",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C34",
+      "name": "Song Select not auto-play",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C35",
+      "name": "48dp target minimum via semantic tokens",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C36",
+      "name": "Night Signal colors/type",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C37",
+      "name": "bottom Home/Search/Liked/Settings slots",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C38",
+      "name": "Library Search enabled under Ready or Empty only",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C39",
+      "name": "typed Destination.Search UI active in NavHost",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C40",
+      "name": "group open to Library validated browse",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C41",
+      "name": "Search Settings existing screen",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C42",
+      "name": "revoked permission routes safely",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C43",
+      "name": "Navigation-scoped Search ViewModel",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C44",
+      "name": "no new backend/API/network",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C45",
+      "name": "all Search resources present exactly once",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C46",
+      "name": "P08 regression test updated for activated Search",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C47",
+      "name": "14 synthetic JVM methods authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C48",
+      "name": "7 synthetic Compose methods authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C49",
+      "name": "4 SQLite native methods authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C50",
+      "name": "no private media logging or telemetry",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C51",
+      "name": "no unsupported Compose weight import",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C52",
+      "name": "Search Back navigates to existing Library destination, disposing popped Search ViewModel and query instead of stacking duplicate Library",
+      "status": "PASS_STATIC"
+    }
+  ],
+  "source_blobs": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/api/LibrarySearchContracts.kt",
+      "blob_sha": "3a48c5eb0af3e2a0477246cf611d4719b0368a40"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+      "blob_sha": "99f8957da704b90c20a8382458e1c7f32d2dbb0d"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+      "blob_sha": "251d8f2c15ebb2b30fc03b2769c0c3f343e6b9c7"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+      "blob_sha": "d12b5649a0ae40eef8bb604a48202882d7cf698e"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+      "blob_sha": "326b038ce5b74f1fdf673c89df5734daa25e7ede"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+      "blob_sha": "5175d587de0621a052affd17196fc632b24789ec"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+      "blob_sha": "3582874a196dd90166d97f093d678f414651cf56"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+      "blob_sha": "e19b916a6187fcbb08e3312e33533751955a662c"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+      "blob_sha": "b70f16bc274d368eac04b902541a84c8c3d53649"
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "blob_sha": "7c53ae1bc3e17082068b71e202a0cc3781f12448"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase9LocalSearchViewModelTest.kt",
+      "blob_sha": "0ab7e45f1ca15acecc6f8d9a6e10eb8fbdcfb3ff"
+    },
+    {
+      "path": "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+      "blob_sha": "08297a8533bdce22612efde2a18de3b092d6c54b"
+    },
+    {
+      "path": "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchSqlInstrumentedTest.kt",
+      "blob_sha": "729b4d4efe53aeea14f0c28373fd3d1b7888e42a"
+    },
+    {
+      "path": "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+      "blob_sha": "6f3c1c9d1e4a6bed506d22fe7b5072634bc2c75f"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE9_SEARCH_QA_MATRIX.md",
+      "blob_sha": "ced2cb01366f867c4ad88667f1456116e77c2d7d"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+      "blob_sha": "0bba6acae02d023689f847ddd159694d8806a3e9"
+    }
+  ],
+  "authored_tests": {
+    "jvm": 14,
+    "compose": 7,
+    "room": 4
+  },
+  "qa_scenarios": 23,
+  "executed": {
+    "gradle_compile": "NOT_RUN",
+    "room_v2_kapt": "NOT_RUN",
+    "jvm": "NOT_RUN",
+    "android_compose": "NOT_RUN",
+    "native_sqlite": "NOT_RUN",
+    "accessibility_talkback": "NOT_RUN",
+    "font_scale_200_percent": "NOT_RUN",
+    "five_thousand_song_benchmark": "NOT_RUN",
+    "CI": "NOT_TRIGGERED",
+    "apk": "NOT_BUILT",
+    "physical_phone": "NOT_RUN",
+    "technical_T01_to_T10": "NOT_RUN",
+    "manual_M01_to_M34": "NOT_RUN"
+  },
+  "required_inherited_blocker": "P06 genuine compiler-generated Room 2.json and native V1-to-V2 preservation tests missing",
+  "scope_boundaries": [
+    "No live playback dispatch before P10/#7",
+    "No remote/fuzzy/streaming search",
+    "Active Search query kept only in Nav ViewModel",
+    "Liked Songs P2 disabled"
+  ],
+  "original_issue6_product_acceptance_checkboxes_passed": 0,
+  "next": "P10 verified MediaStore song selection to PlaybackGateway; final QA and one APK P12 only",
+  "additional_limits": [
+    "Navigation privacy improvement statically verified; actual NavController disposal and rotation Settings round-trip are P12 only.",
+    "P06 generated Room V2 2.json / genuine SQLite migration remain incomplete."
+  ]
+}

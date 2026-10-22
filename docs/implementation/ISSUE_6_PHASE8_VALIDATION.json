@@ -1,0 +1,287 @@
+{
+  "schema": "music-copilot.issue6.phase8.source-validation.v1",
+  "date": "2026-10-22",
+  "phase": "P08",
+  "result": "PASS_SCOPED_STATIC_SOURCE",
+  "archive": {
+    "filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "extracted_source_pdfs": 12
+  },
+  "verification_method": "Actual authenticated GitHub branch source readback; 41 structural invariants observed; not Gradle or runtime execution",
+  "static_checks": [
+    {
+      "id": "P08-C01",
+      "name": "MSM2 exact archive SHA-256 matched",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C02",
+      "name": "Approved WF-04/HF-04 and Night Signal authority referenced",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C03",
+      "name": "Real feature LibraryBrowseViewModel",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C04",
+      "name": "UI uses injected application LibraryRepository",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C05",
+      "name": "ViewModel is Navigation-scoped",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C06",
+      "name": "Root passes actual LibraryRepository and index",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C07",
+      "name": "Root supplies authoritative playback snapshot",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C08",
+      "name": "Four categories in Compose",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C09",
+      "name": "UI ViewModel invokes repository.browse",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C10",
+      "name": "Bounded 50-row query requests",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C11",
+      "name": "All pages use expectedRevision",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C12",
+      "name": "Stale page coroutines rejected by epoch",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C13",
+      "name": "Category/group/revision changes cancel old jobs",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C14",
+      "name": "LoadMore only with nextOffset",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C15",
+      "name": "Nested artists/albums/folders",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C16",
+      "name": "Back exits member view before app exit",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C17",
+      "name": "Scroll resets on category/group changes",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C18",
+      "name": "LazyColumn used for 5000-size lists",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C19",
+      "name": "Stable keys for Songs and groups",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C20",
+      "name": "48dp minimum controls",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C21",
+      "name": "Readable text reflow and horizontal category scroll",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C22",
+      "name": "Approved semantic Night Signal tokens",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C23",
+      "name": "More opens existing Settings",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C24",
+      "name": "Visible count and explicit rescan",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C25",
+      "name": "Revocation hides stale local rows",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C26",
+      "name": "Scanning has spinner/no duplicate button",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C27",
+      "name": "Empty differentiated from no permission",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C28",
+      "name": "Local page recoverable retry",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C29",
+      "name": "Stale revision requires manual Rescan",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C30",
+      "name": "Selection explicitly not Playing",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C31",
+      "name": "MiniPlayer only from real service snapshot",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C32",
+      "name": "Home Search Liked Settings navigation slots",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C33",
+      "name": "Search and P2 Likes disabled until owning phase",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C34",
+      "name": "No new upload, media file deletion or telemetry",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C35",
+      "name": "All resource names declared exactly once",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C36",
+      "name": "12 JVM tests authored",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C37",
+      "name": "4 native Compose tests authored",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C38",
+      "name": "20 synthetic P12 screenshot/a11y scenarios defined",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C39",
+      "name": "No fabricated screenshot, benchmark, JUnit or emulator claims",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C40",
+      "name": "P06 compiler-generated Room V2 schema still unresolved",
+      "result": "PASS_STATIC"
+    },
+    {
+      "id": "P08-C41",
+      "name": "Only one final consolidated APK at P12",
+      "result": "PASS_STATIC"
+    }
+  ],
+  "source_blob_evidence": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+      "blob_sha": "9390c40df96835e7a593653aa6caccba95b08c9b"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+      "blob_sha": "b2d5259719b9169c3822770ae5f636919c1deada"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+      "blob_sha": "ed8e1c2c4c4cbb24779d9c86ef96c43423720d73"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+      "blob_sha": "0ec8c1fd5bec1a1effc7dccbc1c012548636bfd2"
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "blob_sha": "a275f3c018b79ea2e1c928d908582fdb16ea073c"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryBrowseViewModelTest.kt",
+      "blob_sha": "625f2dbf6357b65ba933c89ff00d44f54794558e"
+    },
+    {
+      "path": "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+      "blob_sha": "d4751b13bfe9d234c03fc4d9e35b26b57b92ef3d"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE8_UI_QA_MATRIX.md",
+      "blob_sha": "e5e0ce722bd4ba279216925aab310610fcf7ef0d"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE8_LIBRARY_UI_IMPLEMENTATION.md",
+      "blob_sha": "865582badb02f66832f13d8ef938ad9ff842b208"
+    }
+  ],
+  "authoring": {
+    "jvm_test_methods": 12,
+    "android_compose_test_methods": 4,
+    "synthetic_screenshot_semantic_scenarios": 20
+  },
+  "execution": {
+    "gradle": "NOT_RUN",
+    "kotlin_compilation": "NOT_RUN",
+    "jvm_tests": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "compose_screenshots": "NOT_CAPTURED",
+    "android_talkback": "NOT_RUN",
+    "font_scale_200_percent": "NOT_RUN",
+    "scroll_benchmark_5000": "NOT_RUN",
+    "CI": "NOT_TRIGGERED",
+    "APK": "NOT_BUILT",
+    "phone": "NOT_RUN"
+  },
+  "phase_gate": "SOURCE_IMPLEMENTED_ONLY",
+  "blocked_or_deferred": [
+    "P06 genuinely generated Room 2.json and native Room V1->V2 migration",
+    "P08 5k-scroll smoothness and 200% reflow not proven",
+    "P08 instrumentation/semantics/screenshots require P12",
+    "P09 Search destination is disabled until its implementation",
+    "P10 authenticated selection-to-playback and #7 service remain separate"
+  ],
+  "original_issue_ac_passed": 0,
+  "all_phone_M01_to_M34": "NOT_RUN",
+  "all_technical_T01_to_T10": "NOT_RUN",
+  "next_phase": "P09 Compose local search; P08 final user-facing proof at P12"
+}

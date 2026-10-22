@@ -1,0 +1,205 @@
+{
+  "schema": "music-copilot.issue6.phase7.source-validation.v1",
+  "date": "2026-10-22",
+  "phase": "P07",
+  "result": "PASS_SCOPED_SOURCE",
+  "description": "P07 source implementation and live GitHub readback; not verified by a real executable",
+  "source_authority": {
+    "upload": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "english_pdfs": 12
+  },
+  "method": "Authenticated GitHub fetch_file readback of actual Feature Branch Kotlin and documentation",
+  "static_checks": [
+    {
+      "id": "P07-C01",
+      "name": "Application graph owns one scan launcher",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C02",
+      "name": "Duplicate in-flight taps are coalesced rather than queued",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C03",
+      "name": "Atomic lazy coroutine job reservation",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C04",
+      "name": "Revocation cancels active scan job",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C05",
+      "name": "Job completion uses identity guard against new lease",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C06",
+      "name": "Explicit grant Continue remains single-use",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C07",
+      "name": "Manual retry still passes through LibraryScanUseCase",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C08",
+      "name": "Manual rescan still passes through LibraryScanUseCase",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C09",
+      "name": "Grant scan still passes through LibraryScanUseCase",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C10",
+      "name": "OS permission refreshed at both Activity and scan boundary",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C11",
+      "name": "Foreground cannot silently start a scan",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C12",
+      "name": "onResume contains no auto-scan call",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C13",
+      "name": "Settings return still requires explicit Continue",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C14",
+      "name": "Bootstrap and Library share the same verified status",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C15",
+      "name": "Ready requires positive count and verified revision",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C16",
+      "name": "Empty requires verified zero count and nonzero revision",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C17",
+      "name": "Revoked or denied permission always projects Unavailable",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C18",
+      "name": "Library action decision is pure presentation only",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C19",
+      "name": "Scanning exposes no new scan button",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C20",
+      "name": "Compose Library action comes from unified policy",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C21",
+      "name": "RecoverableError presents explicit Retry",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C22",
+      "name": "MainActivity reuses process ApplicationBindings",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C23",
+      "name": "No physical media modifications",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C24",
+      "name": "No media metadata log calls",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C25",
+      "name": "12 synthetic P07 JUnit tests authored, not executed",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C26",
+      "name": "P06 schema blocker and P12-only tests explicitly tracked",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P07-C27",
+      "name": "Existing Bootstrap permission recovery preserved",
+      "status": "PASS_STATIC"
+    }
+  ],
+  "source_blobs": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanLaunchGate.kt",
+      "sha": "b05cf2ad2a6f72db228a6d013fd7c040b4b8bbb3"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+      "sha": "04b7b4b04834cbb75716194aab28ef60e43fc2a3"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+      "sha": "ec76921c5838aa29a16a368e2783424e2a7e4d1c"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/core/application/library/LibraryScanUseCase.kt",
+      "sha": "a95505a6cd7c70deba37342646f4f6e71624532a"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/LibraryActionPolicy.kt",
+      "sha": "7dbfbeb4189754ee45ded470097be5127a274993"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+      "sha": "bc97995a4074c5559028e61d5b1a46619c0e7b66"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase7ReadinessLifecycleTest.kt",
+      "sha": "51bb028e18589f8cccf813011cad335558dec800"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE7_READINESS_INTEGRATION.md",
+      "sha": "afda190bb72bbf57e723ba1a9481e6213ebcf579"
+    }
+  ],
+  "authored_test_methods": 12,
+  "executed": {
+    "jvm": "NOT_RUN",
+    "gradle_compile": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "real_permission_settings_revoke": "NOT_RUN",
+    "rotation_process_reentry": "NOT_RUN",
+    "CI": "NOT_TRIGGERED",
+    "apk": "NOT_BUILT",
+    "phone": "NOT_RUN",
+    "owner_M01_to_M34": "NOT_RUN",
+    "technical_T01_to_T10": "NOT_RUN"
+  },
+  "independent_runtime_gate": "P12_REQUIRED",
+  "inherited_blockers": [
+    "P06 compiler-generated Room V2 2.json missing",
+    "P06 migration SQLite and 5000-item query benchmark NOT_RUN"
+  ],
+  "product_acceptance_criteria_passed": 0,
+  "next_phase": "P08 four category Library Compose UX using derived readiness and Room Browse port",
+  "no_merge_or_issue_close": true
+}

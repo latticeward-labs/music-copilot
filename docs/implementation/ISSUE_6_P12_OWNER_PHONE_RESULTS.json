@@ -1,0 +1,315 @@
+{
+  "schema": "music-copilot.issue6.owner-phone-results.v1",
+  "recorded_date": "2026-10-22",
+  "reported_by": "product_owner",
+  "original_upload": {
+    "filename": "music-copilot-issue6-phone-results.txt",
+    "sha256": "ea1b579a88a8d77f40f96d80f227219e60d37fdf61c61c85f895cecce9592fe8",
+    "source": "owner-provided complete text with 34 M-cases, all case notes blank"
+  },
+  "device": {
+    "model": null,
+    "android_version": null,
+    "reason": "Phone and Android fields were blank in owner's exported text"
+  },
+  "tested_apk": {
+    "sha256": "1587527f5a9a99c5cc664eb84e64a3865035a079f464e9cecbe0bb60d3fcb0de",
+    "compiled_source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+    "artifact_run": 39755773243,
+    "artifact_id": 12415363520
+  },
+  "totals": {
+    "all": 34,
+    "pass_owner_reported": 28,
+    "fail_owner_reported": 0,
+    "not_applicable_post_mvp": 6
+  },
+  "case_results": [
+    {
+      "id": "M01",
+      "status": "PASS",
+      "description": "اجرای اول، پیش از دادن مجوز موسیقی",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M02",
+      "status": "PASS",
+      "description": "رد کردن مجوز موسیقی",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M03",
+      "status": "PASS",
+      "description": "اجازه دادن و زدن Continue",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M04",
+      "status": "PASS",
+      "description": "لغو مجوز از تنظیمات Android و برگشت به برنامه",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M05",
+      "status": "PASS",
+      "description": "باز کردن Songs با چند آهنگ واقعی",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M06",
+      "status": "PASS",
+      "description": "ورود به Artists و انتخاب هنرمند",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M07",
+      "status": "PASS",
+      "description": "ورود به Albums و انتخاب آلبوم",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M08",
+      "status": "PASS",
+      "description": "ورود به Folders و انتخاب پوشه",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M09",
+      "status": "PASS",
+      "description": "دو آهنگ با عنوان یکسان اما فایل متفاوت",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M10",
+      "status": "PASS",
+      "description": "کتابخانه بدون فایل موسیقی (اگر قابل آزمایش است)",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M11",
+      "status": "PASS",
+      "description": "زدن دستی Rescan",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M12",
+      "status": "PASS",
+      "description": "اضافه کردن فایل موسیقی مجاز و زدن Rescan",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M13",
+      "status": "PASS",
+      "description": "جابه‌جایی یک فایل آزمایشی و زدن Rescan",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M14",
+      "status": "PASS",
+      "description": "قطع مجوز یا خروج هنگام Scanning",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M15",
+      "status": "NA",
+      "description": "شبیه‌سازی خطای ذخیره‌سازی/MediaStore (فقط در صورت داشتن محیط آزمایش)",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": "https://github.com/latticeward-labs/music-copilot/issues/74"
+    },
+    {
+      "id": "M16",
+      "status": "NA",
+      "description": "Retry پس از رفع خطا (در صورت قابلیت آزمایش)",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": "https://github.com/latticeward-labs/music-copilot/issues/74"
+    },
+    {
+      "id": "M17",
+      "status": "PASS",
+      "description": "بازکردن Search از کتابخانه",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M18",
+      "status": "PASS",
+      "description": "جست‌وجوی بخشی از نام یک آهنگ موجود",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M19",
+      "status": "PASS",
+      "description": "جست‌وجوی نام هنرمند و آلبوم",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M20",
+      "status": "PASS",
+      "description": "جست‌وجوی یک نام بی‌نتیجه",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M21",
+      "status": "PASS",
+      "description": "پاک کردن متن جست‌وجو",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M22",
+      "status": "NA",
+      "description": "خطای جست‌وجو/تغییر داده همزمان (در صورت امکان)",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": "https://github.com/latticeward-labs/music-copilot/issues/74"
+    },
+    {
+      "id": "M23",
+      "status": "PASS",
+      "description": "چرخاندن گوشی هنگام اسکرول کتابخانه",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M24",
+      "status": "PASS",
+      "description": "چرخاندن گوشی هنگام Search یا رفتن به Settings و بازگشت",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M25",
+      "status": "NA",
+      "description": "کتابخانه نزدیک ۵۰۰۰ فایل واقعی (فقط در صورت وجود)",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": "https://github.com/latticeward-labs/music-copilot/issues/74"
+    },
+    {
+      "id": "M26",
+      "status": "NA",
+      "description": "آهنگ با فراداده ناقص/خراب (اگر دارید)",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": "https://github.com/latticeward-labs/music-copilot/issues/74"
+    },
+    {
+      "id": "M27",
+      "status": "PASS",
+      "description": "فعال‌کردن TalkBack و پیمایش تب‌ها/آهنگ‌ها",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M28",
+      "status": "NA",
+      "description": "بزرگ‌کردن اندازه فونت به ۲۰۰٪",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": "https://github.com/latticeward-labs/music-copilot/issues/74"
+    },
+    {
+      "id": "M29",
+      "status": "PASS",
+      "description": "TalkBack در Empty / Loading / Error",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M30",
+      "status": "PASS",
+      "description": "ضربه روی آهنگ در Library",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M31",
+      "status": "PASS",
+      "description": "انتخاب آهنگ حذف‌شده از Search (در صورت امکان)",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M32",
+      "status": "PASS",
+      "description": "زمانی که سرویس پخش در دسترس نیست",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M33",
+      "status": "PASS",
+      "description": "فعال‌کردن Airplane Mode و Browse/Search",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    },
+    {
+      "id": "M34",
+      "status": "PASS",
+      "description": "بستن کامل برنامه، بازکردن دوباره، بررسی تنظیمات و مجوز",
+      "notes": null,
+      "evidence": "OWNER_SELF_REPORT_ONLY",
+      "followup_issue": null
+    }
+  ],
+  "interpretation": {
+    "pass": "Owner reported performing the scenario successfully; no independent phone recording or evidence uploaded.",
+    "NA": "Not applicable/untested for this run. Deferred after MVP by explicit owner request, NOT PASS.",
+    "M30_to_M32": "PASS refers to UI selection/safe-failure outcomes in owner export; does NOT imply audible playback or full Issue #7 Media3 queue support."
+  },
+  "technical_gate": {
+    "real_jvm": "343 PASS from previous CI, inherited compilation source SHA noted in final audit",
+    "lint": "10 ISSUES, existing integrated run concluded FAILURE",
+    "native_room_migration": "NOT_RUN",
+    "five_thousand_real_media": "NA/DEFERRED",
+    "api_matrix": "NOT_RUN"
+  },
+  "owner_approval": "Owner explicitly requests merge/close of Issue #6 with six NA scenarios deferred until after MVP; engineering QA debt separately tracked in Issue #74.",
+  "ci_policy": "No new GitHub Actions tests or builds to be started; PR/merge use [skip ci]."
+}

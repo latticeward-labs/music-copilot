@@ -262,9 +262,10 @@ class Issue5Phase8LibraryReadinessTest {
         val source = java.io.File(app, "src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt").readText()
         val repository = java.io.File(app, "src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt").readText()
         val adapter = java.io.File(app, "src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt").readText()
-        assertTrue(source.contains("throw IllegalStateException(\"MediaStore query returned no cursor\")"))
+        assertTrue(source.contains("throw IllegalStateException(\"media provider returned null cursor\")"))
         assertFalse(source.contains("resolver.delete("))
-        assertTrue(repository.contains("projection.replaceAll(rows)"))
+        assertTrue(repository.contains("projection.applyDelta("))
+        assertFalse(repository.contains("projection.replaceAll(rows)"))
         assertFalse(repository.contains("projection.replaceAll(emptyList())"))
         assertFalse(adapter.contains("fun onForeground() {\n        libraryRepository.reconcile()"))
     }

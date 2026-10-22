@@ -3,7 +3,6 @@ package com.latticeward.musiccopilot.app.di
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import kotlinx.coroutines.Job
 import android.os.Build
 import android.Manifest
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
@@ -12,7 +11,9 @@ import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecisi
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferenceUpdate
 import com.latticeward.musiccopilot.core.application.library.LibraryScanUseCase
+import com.latticeward.musiccopilot.core.application.library.LibraryScanLaunchGate
 import com.latticeward.musiccopilot.core.application.library.LibraryScanReason
+import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import kotlinx.coroutines.launch
 
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
@@ -145,39 +146,68 @@ class ApplicationBindings(
                 PackageManager.PERMISSION_GRANTED
         }
     }
-    @Volatile private var activeMediaScan: Job? = null
+    /** P10 shared contract, not a second Player. OS permission remains source of truth. */
+    val mediaSelection = LibraryMediaSelectionUseCase(
+        library = libraryRepository,
+        gateway = playbackGateway,
+        hasOsMediaAccess = {
+            val app = mediaAppContext
+            app != null && ContextCompat.checkSelfPermission(
+                app,
+                if (Build.VERSION.SDK_INT >= 33) Manifest.permission.READ_MEDIA_AUDIO
+                else Manifest.permission.READ_EXTERNAL_STORAGE,
+            ) == PackageManager.PERMISSION_GRANTED
+        },
+    )
+    private val scanLaunchGate = LibraryScanLaunchGate(repositoryScope)
 
-    /** Never invoked from bootstrap/resume; only a one-shot P05 ActivityResult grant. */
+    /**
+     * Explicit one-use permission Continue: never called by onResume or
+     * ActivityResult callback. OS permission is checked both here and by
+     * LibraryScanUseCase before any MediaStore query.
+     */
     fun scanAfterExplicitMediaGrant(context: Context, permissionName: String) {
         val application = context.applicationContext
-        activeMediaScan = repositoryScope.launch {
-            // Activity passed a platform-specific permission, but recheck OS here
-            // as well as in the use case and the MediaStore repository.
+        scanLaunchGate.launchExplicit {
             if (ContextCompat.checkSelfPermission(application, permissionName) ==
                 PackageManager.PERMISSION_GRANTED) {
                 libraryScanUseCase.execute(LibraryScanReason.AfterMediaGrant)
-            } else libraryRepository.invalidateMediaAccess()
+            } else {
+                libraryRepository.invalidateMediaAccess()
+            }
         }
     }
 
-    /** User-visible Retry is only eligible after a genuine recoverable scan error. */
+    /** Retry only from a visible recoverable error; rapid taps coalesce. */
     fun retryLibraryAfterError() {
-        activeMediaScan = repositoryScope.launch {
+        scanLaunchGate.launchExplicit {
             libraryScanUseCase.execute(LibraryScanReason.RetryRecoverableError)
         }
     }
 
-    /** Explicit Rescan only; never run from onResume/bootstrap or permission dialog. */
+    /** Never launched by bootstrap, permission callback, or foreground. */
     fun rescanLibraryOnUserRequest() {
-        activeMediaScan = repositoryScope.launch {
+        scanLaunchGate.launchExplicit {
             libraryScanUseCase.execute(LibraryScanReason.ExplicitRescan)
         }
     }
 
-    /** Invalidate the public library projection immediately; no auto scan or playback takeover. */
+    /**
+     * On a fresh foreground OS observation, invalidate all cached Ready/Empty
+     * and cancel any scan on revoked access. Do not infer revocation from a
+     * stale ActivityResult Boolean, and do not auto-scan after an OS regrant.
+     */
+    fun onForegroundMediaPermissionObserved(granted: Boolean) {
+        if (!granted && (scanLaunchGate.isScanInFlight() ||
+                libraryRepository.index.value.status !=
+                com.latticeward.musiccopilot.data.api.LibraryIndexStatus.Unavailable)) {
+            onMediaAccessRevoked()
+        }
+    }
+
+    /** No user audio or Room rows are deleted; app index is hidden immediately. */
     fun onMediaAccessRevoked() {
-        activeMediaScan?.cancel()
-        activeMediaScan = null
+        scanLaunchGate.cancelInFlight()
         libraryRepository.invalidateMediaAccess()
     }
 

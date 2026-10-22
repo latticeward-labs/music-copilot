@@ -16,6 +16,7 @@ import com.latticeward.musiccopilot.data.repository.FoundationPreferencesReposit
 import com.latticeward.musiccopilot.data.repository.FoundationRestorableQueueStore
 import com.latticeward.musiccopilot.data.repository.RoomLibraryRepository
 import com.latticeward.musiccopilot.data.room.RoomLibraryProjection
+import com.latticeward.musiccopilot.data.room.LibraryMigrations
 import com.latticeward.musiccopilot.data.room.MusicCopilotDatabase
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -61,7 +62,7 @@ internal object DataBindings {
         val app = context.applicationContext
         val database = Room.databaseBuilder(
             app, MusicCopilotDatabase::class.java, "musiccopilot_projection.db"
-        ).build() // No destructive migration fallback for future user-owned records.
+        ).addMigrations(LibraryMigrations.V1_TO_V2).build() // No destructive migration fallback.
         val library = RoomLibraryRepository(
             source = MediaStoreScanner(app, dispatchers),
             projection = RoomLibraryProjection(database), dispatchers = dispatchers, repositoryScope = scope

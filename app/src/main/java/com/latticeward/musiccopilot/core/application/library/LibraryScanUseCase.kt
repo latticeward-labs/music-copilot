@@ -70,7 +70,8 @@ object LibraryReadinessResolver {
         if (!permissionGranted) return LibraryIndexStatus.Unavailable
         return when (snapshot.status) {
             LibraryIndexStatus.Ready ->
-                if (snapshot.itemCount > 0) LibraryIndexStatus.Ready
+                if (snapshot.itemCount > 0 && snapshot.revision > 0L)
+                    LibraryIndexStatus.Ready
                 else LibraryIndexStatus.Unavailable
             LibraryIndexStatus.Empty ->
                 if (snapshot.itemCount == 0 && snapshot.revision > 0L)
