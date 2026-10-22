@@ -7,8 +7,8 @@ import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
-import com.latticeward.musiccopilot.data.mediastore.LocalPlaybackMediaResolver
-import com.latticeward.musiccopilot.data.mediastore.VerifiedLocalMedia
+import com.latticeward.musiccopilot.playback.api.PlaybackMediaResolutionPort
+import com.latticeward.musiccopilot.playback.api.VerifiedPlaybackMedia
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.command.PlaybackQueuePolicy
 import kotlinx.coroutines.CancellationException
@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
  * Never log or persist entries: each includes an internal content URI.
  */
 class PreparedPlaybackQueue internal constructor(
-    val entries: List<VerifiedLocalMedia>,
+    val entries: List<VerifiedPlaybackMedia>,
     val selectedIndex: Int,
     val startPositionMs: Long,
     val playWhenReady: Boolean,
@@ -44,7 +44,7 @@ class PreparedPlaybackQueue internal constructor(
  * commits. Main-thread Media3 mutations belong exclusively to the service.
  */
 class ServiceQueueEngine(
-    private val resolver: LocalPlaybackMediaResolver,
+    private val resolver: PlaybackMediaResolutionPort,
     private val dispatchers: DispatcherProvider,
 ) {
     suspend fun prepare(command: PlaybackCommand.ReplaceQueue): AppResult<PreparedPlaybackQueue> =
@@ -61,7 +61,7 @@ class ServiceQueueEngine(
                 is AppResult.Success -> result.value
                 is AppResult.Failure -> return@withContext AppResult.Failure(result.error)
             }
-            val validated = arrayOfNulls<VerifiedLocalMedia>(decision.items.size)
+            val validated = arrayOfNulls<VerifiedPlaybackMedia>(decision.items.size)
             validated[decision.selectedIndex] = selected
 
             for ((index, ref) in decision.items.withIndex()) {
@@ -107,7 +107,7 @@ class ServiceQueueEngine(
         }
 
     /** Re-query an existing queue item before changing its selected occurrence. */
-    suspend fun revalidate(ref: MediaRef): AppResult<VerifiedLocalMedia> = resolver.resolve(ref)
+    suspend fun revalidate(ref: MediaRef): AppResult<VerifiedPlaybackMedia> = resolver.resolve(ref)
 
     /** Invalidate resolver's pending permission/volume generations. */
     fun invalidate() = resolver.invalidate()
