@@ -122,8 +122,7 @@ fun main() = runBlocking {
         val action = PlaybackCommand.Pause(CommandId("p04-retry"))
         val first = worker.submit(action)
         expect(first === worker.submit(action.copy()))
-        val conflicting = worker.submit(PlaybackCommand.Play(action.commandId)) as
-            kotlinx.coroutines.CompletableDeferred<AppResult<PlaybackSnapshot>>
+        val conflicting = worker.submit(PlaybackCommand.Play(action.commandId))
         expect((conflicting.await() as AppResult.Failure).error.code ==
             AppErrorCodes.PLAYBACK_REJECTED)
         release.complete(Unit)
