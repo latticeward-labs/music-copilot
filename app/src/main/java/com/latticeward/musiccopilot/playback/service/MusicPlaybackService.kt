@@ -590,6 +590,38 @@ class MusicPlaybackService : MediaSessionService() {
                 }
                 is PlaybackCommand.Play -> {
                     if (player.mediaItemCount == 0) return rejected()
+                    if (runtimeError?.code == AppErrorCodes.PERMISSION_REVOKED) {
+                        // A revoked Android music grant must be verified
+                        // AGAIN after a user leaves Settings. Never trust a
+                        // cached valid URI merely because an old queue exists.
+                        val index = player.currentMediaItemIndex
+                            .takeIf { it in 0 until player.mediaItemCount }
+                            ?: return rejected()
+                        val selectedMedia = player.getMediaItemAt(index)
+                        val queueAtStart = confirmed.queueRevision
+                        val routeAtStart = interruptionGate.routeGeneration
+                        val checked = queueEngine.revalidate(
+                            MediaRef(selectedMedia.mediaId)
+                        )
+                        if (queueAtStart != confirmed.queueRevision ||
+                            routeAtStart != interruptionGate.routeGeneration ||
+                            selectedMedia != player.getMediaItemAt(index)
+                        ) return rejected()
+                        when (checked) {
+                            is AppResult.Failure -> {
+                                queueEngine.invalidate()
+                                runtimeError = safeMediaFailure(
+                                    PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked
+                                )
+                                publishSnapshot()
+                                return AppResult.Failure(runtimeError!!)
+                            }
+                            is AppResult.Success -> if (
+                                selectedMedia.localConfiguration?.uri?.toString() !=
+                                    checked.value.contentUri
+                            ) return rejected()
+                        }
+                    }
                     interruptionGate.onExplicitUserPlaybackRequest()
                     // setMediaItems(... playWhenReady=false) and Stop leave
                     // STATE_IDLE; play() alone cannot start an unprepared item.
