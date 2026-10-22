@@ -61,7 +61,7 @@ import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 /**
  * WF-04/HF-04 approved hierarchy: Library bar → categories → local rows →
  * service-observing mini-player → four-slot bottom navigation.
- * Search (P09), actual playback (P10/#7) and optional Likes (P2) have no
+ * Actual playback (P10/#7) and optional Likes (P2) have no
  * fabricated behavior here. All personal metadata stays in local UI only.
  */
 @Composable
@@ -76,11 +76,33 @@ fun LibraryBrowseScreen(
     onRetryLibraryScan: () -> Unit,
     onRescanLibrary: () -> Unit,
     onSettings: () -> Unit,
+    onSearch: () -> Unit = {},
+    initialGroup: LibraryBrowseEntry? = null,
+    onGroupConsumed: () -> Unit = {},
     onExit: () -> Unit,
 ) {
     val state by model.ui.collectAsStateWithLifecycle()
-    LaunchedEffect(index.revision, index.status, permission) {
+    LaunchedEffect(index.revision, index.status, permission, initialGroup) {
         model.onVerifiedIndex(index, permission == PermissionStatus.Granted)
+        // P09 group Open is navigational, never implicit audio playback.
+        // The verified index MUST be Ready with nonzero revision before
+        // exposing a previous Search result as an active Library member list.
+        if (initialGroup != null && permission == PermissionStatus.Granted &&
+            readiness == FoundationReadiness.LocalLibraryReady &&
+            index.revision > 0L
+        ) {
+            val kind = when (initialGroup) {
+                is LibraryBrowseEntry.Artist -> LibraryBrowseCategory.Artists
+                is LibraryBrowseEntry.Album -> LibraryBrowseCategory.Albums
+                is LibraryBrowseEntry.Folder -> LibraryBrowseCategory.Folders
+                is LibraryBrowseEntry.Song -> LibraryBrowseCategory.Songs
+            }
+            if (initialGroup !is LibraryBrowseEntry.Song) {
+                model.selectCategory(kind)
+                model.openGroup(initialGroup)
+            }
+            onGroupConsumed()
+        }
     }
     BackHandler {
         if (!model.backToGroups()) onExit()
@@ -369,7 +391,8 @@ fun LibraryBrowseScreen(
                     label = { Text(stringResource(R.string.p08_nav_home)) },
                 )
                 NavigationBarItem(
-                    selected = false, onClick = {}, enabled = false,
+                    selected = false, onClick = onSearch,
+                    enabled = canBrowse,
                     icon = { Text("⌕") },
                     label = { Text(stringResource(R.string.p08_nav_search)) },
                 )
