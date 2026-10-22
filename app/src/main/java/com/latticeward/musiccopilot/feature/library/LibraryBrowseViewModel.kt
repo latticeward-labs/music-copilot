@@ -184,6 +184,14 @@ class LibraryBrowseViewModel(
             mutable.value.selectionStatus == SelectedSongUiStatus.Validating) return
         cancelSelection()
         val ticket = selectTicket
+        // P05: snapshot the ordered Song occurrences presently shown on this
+        // Library/group/Search surface. Pagination cannot change this pending
+        // request; service must revalidate all members before queue replacement.
+        val visibleRefs = mutable.value.entries.mapNotNull { entry ->
+            (entry as? LibraryBrowseEntry.Song)?.media?.ref
+        }
+        val selectedIndex = visibleRefs.indexOf(song.ref)
+        if (selectedIndex < 0) return
         val delegate = selection
         mutable.value = mutable.value.copy(
             selectedSong = song,
@@ -193,7 +201,7 @@ class LibraryBrowseViewModel(
         if (delegate == null) return
         selectJob = viewModelScope.launch {
             try {
-                val answer = delegate.select(song.ref, revision)
+                val answer = delegate.select(song.ref, revision, visibleRefs, selectedIndex)
                 if (selectTicket != ticket || acceptedRevision != revision ||
                     mutable.value.selectedSong?.ref != song.ref) return@launch
                 mutable.value = mutable.value.copy(
