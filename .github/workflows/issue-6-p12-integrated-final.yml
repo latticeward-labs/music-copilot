@@ -1,0 +1,101 @@
+name: "Issue #6 P12 - Integrated Gradle, Android QA and single phone APK"
+# Only an explicit request sentinel starts this CI; no per-phase APKs.
+on:
+  push:
+    branches:
+      - feature/6-mediastore-library-browse-search
+    paths:
+      - ".github/issue6-p12-request.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue6-p12-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  integrated-qa-and-phone-apk:
+    name: "One source SHA - Kotlin, Room, JVM, lint, API35 instrumentation and APK"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - name: Checkout exact requested source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: JDK 17 for repository toolchain
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Android SDK setup
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - name: Gradle wrapper validation
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Android SDK 36 and pinned build-tools
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Compile Room V2, run JVM, lint and assemble ONE complete APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/build/outputs/issue6-p12
+          ./gradlew --no-daemon :app:kaptDebugKotlin :app:compileDebugKotlin :app:testDebugUnitTest :app:lintDebug :app:assembleDebug --stacktrace 2>&1 | tee app/build/outputs/issue6-p12/gradle-core.log
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          test -s app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/2.json
+          sha256sum app/build/outputs/apk/debug/app-debug.apk | tee app/build/outputs/issue6-p12/apk-sha256.txt
+          sha256sum app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/2.json > app/build/outputs/issue6-p12/room2-sha256.txt
+      - name: Offline privacy and architecture guardrails
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/qa/issue6_static_guardrails.py | tee app/build/outputs/issue6-p12/static-guards.log
+      - name: Android API35 native Room, Compose, permission and 5000 tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          profile: pixel_6
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          disable-animations: true
+          script: ./gradlew --no-daemon :app:connectedDebugAndroidTest --stacktrace
+      - name: Record candidate source/CI (owner phone remains NOT_RUN)
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s app/build/outputs/apk/debug/app-debug.apk
+          {
+            echo "repository=${{ github.repository }}"
+            echo "branch=${{ github.ref_name }}"
+            echo "source_sha=${{ github.sha }}"
+            echo "run_id=${{ github.run_id }}"
+            echo "run_attempt=${{ github.run_attempt }}"
+            echo "owner_M01_to_M34=NOT_RUN"
+            echo "api29_api31_api33=NOT_RUN_UNLESS_SEPARATELY_EXECUTED"
+            echo "issue7_real_playback=BLOCKED_DEPENDENCY_7"
+          } > app/build/outputs/issue6-p12/PROVENANCE.txt
+          echo "## Issue #6 — P12 integrated build" >> "$GITHUB_STEP_SUMMARY"
+          echo "Source SHA: \`${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "One phone candidate: \`app-debug.apk\`; owner phone **NOT_RUN**." >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload one phone APK candidate and technical evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue6-p12-integrated-evidence-${{ github.run_number }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/issue6-p12/**
+            app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/2.json
+            app/build/test-results/testDebugUnitTest/**
+            app/build/reports/tests/testDebugUnitTest/**
+            app/build/reports/lint-results-debug.*
+            app/build/outputs/androidTest-results/**
+            app/build/reports/androidTests/**
