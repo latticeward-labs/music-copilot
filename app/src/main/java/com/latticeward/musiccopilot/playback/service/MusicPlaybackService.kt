@@ -353,7 +353,7 @@ class MusicPlaybackService : MediaSessionService() {
         )
         PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked ->
             AppError.Playback(
-                AppErrorCodes.PLAYBACK_FAILED,
+                AppErrorCodes.PERMISSION_REVOKED,
                 Recoverability.USER_ACTION_REQUIRED, RecoveryAction.OpenSettings,
             )
         PlaybackFailureRecoveryPolicy.Failure.Unknown -> AppError.Playback(
@@ -598,6 +598,27 @@ class MusicPlaybackService : MediaSessionService() {
                     player.pause()
                 }
                 is PlaybackCommand.Next -> {
+                    if (player.playerError != null ||
+                        (runtimeError != null &&
+                            player.playbackState == Player.STATE_IDLE)
+                    ) {
+                        // Approved WF-06 "Continue with next" is an explicit
+                        // user command: move only to an IO-revalidated playable
+                        // successor, with a freshly bounded recovery budget.
+                        interruptionGate.onExplicitUserPlaybackRequest()
+                        val failureNotice = runtimeError ?: safeMediaFailure(
+                            PlaybackFailureRecoveryPolicy.Failure.Corrupt
+                        )
+                        val recovered = recoverForward(
+                            failedIndex = player.currentMediaItemIndex,
+                            expectedQueueRevision = confirmed.queueRevision,
+                            expectedRouteGeneration = interruptionGate.routeGeneration,
+                            generation = recoveryGeneration,
+                            notice = failureNotice,
+                        )
+                        return if (recovered) AppResult.Success(confirmed)
+                            else AppResult.Failure(runtimeError ?: rejected().error)
+                    }
                     val index = player.currentMediaItemIndex
                         .takeIf { it in 0 until player.mediaItemCount }
                     when (val decision = PlaybackQueuePolicy.next(index, player.mediaItemCount)) {
@@ -693,6 +714,7 @@ class MusicPlaybackService : MediaSessionService() {
         // Android route callbacks cannot touch an already released engine.
         routeMonitor?.close()
         routeMonitor = null
+        ++recoveryGeneration
         if (::queueEngine.isInitialized) queueEngine.invalidate()
         if (::processor.isInitialized) processor.close()
         // Resolve in-flight session response futures even if coroutine owner is
