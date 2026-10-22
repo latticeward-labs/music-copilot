@@ -28,7 +28,8 @@ if ($LASTEXITCODE -ne 0 -or $sourceCommit -notmatch "^[0-9a-f]{40}$") {
 }
 # A dirty tracked source tree makes an APK SHA no longer attributable to Git.
 $dirty = @(& git -C $root status --porcelain --untracked-files=no)
-if ($LASTEXITCODE -ne 0 -or ($dirty | Where-Object { $_.Trim().Length -gt 0 }).Count -ne 0) {
+$dirtyCount = @($dirty | Where-Object { $_ -and $_.Trim().Length -gt 0 }).Count
+if ($LASTEXITCODE -ne 0 -or $dirtyCount -ne 0) {
     Fail "Tracked source files differ from Git HEAD; commit or restore them first."
 }
 $AndroidSdk = [IO.Path]::GetFullPath($AndroidSdk)
