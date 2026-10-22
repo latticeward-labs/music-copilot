@@ -40,6 +40,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.latticeward.musiccopilot.R
@@ -348,7 +350,9 @@ fun LibraryBrowseScreen(
                             state.selectedSong?.title.orEmpty(),
                             state.selectionStatus,
                         ),
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f).semantics {
+                            liveRegion = LiveRegionMode.Polite
+                        },
                         color = MusicColors.textPrimary,
                         style = MusicTextStyles.bodyMedium,
                     )
