@@ -146,9 +146,10 @@ class MusicPlaybackService : MediaSessionService() {
         player = runtime.first
         session = runtime.second
         processor = PlaybackCommandProcessor(owner.scope, ::applyCommand)
+        val appHost = application as PlaybackResolverHost
         pausedCheckpoint = ServicePausedCheckpoint(
-            (application as PlaybackResolverHost).createPlaybackRestorableQueueStore(),
-            owner.scope,
+            appHost.createPlaybackRestorableQueueStore(),
+            appHost.playbackCheckpointWriteScope(),
         )
         routeMonitor = ServiceAudioRouteMonitor(this) {
             if (::player.isInitialized && player.mediaItemCount > 0 &&
