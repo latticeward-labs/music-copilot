@@ -83,7 +83,8 @@ class Issue5Phase3FirstLaunchTest {
         val nav = read("app/navigation/AppNavHost.kt")
         assertEquals(setOf(Destination.Bootstrap, Destination.Onboarding,
             Destination.PermissionRecovery, Destination.Library), Destination.activeInPhase3)
-        assertEquals(5, Regex("composable\\(").findAll(nav).count())
+        assertEquals(6, Regex("composable\\(").findAll(nav).count())
+        assertTrue(nav.contains("composable(Destination.Search.route)"))
         assertTrue(nav.contains("startDestination = Destination.Bootstrap.route"))
         assertTrue(nav.contains("LaunchedEffect(target)"))
         assertTrue(nav.contains("composable(Destination.Settings.route)"))
