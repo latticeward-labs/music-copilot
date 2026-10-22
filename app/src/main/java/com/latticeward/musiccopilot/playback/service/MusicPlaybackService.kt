@@ -22,6 +22,13 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
+import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
+import com.latticeward.musiccopilot.data.mediastore.AndroidMediaStorePlaybackProbe
+import com.latticeward.musiccopilot.data.mediastore.MediaStorePlaybackResolver
+import com.latticeward.musiccopilot.playback.command.PlaybackNavigationPolicy
+import com.latticeward.musiccopilot.playback.command.PlaybackQueuePolicy
+import com.latticeward.musiccopilot.playback.media3.LocalMedia3QueueItems
+import kotlinx.coroutines.CancellationException
 import com.latticeward.musiccopilot.playback.command.PlaybackCommandProcessor
 import com.latticeward.musiccopilot.playback.command.PlaybackWireProtocol
 import com.latticeward.musiccopilot.playback.media3.ServicePlaybackRuntimeOwner
@@ -32,8 +39,8 @@ import kotlinx.coroutines.launch
  * Single-process, service-owned Media3 authority. A screen and the application
  * graph never own, recreate or release Player, MediaSession or command worker.
  *
- * Phase 7 foundation intentionally rejects ReplaceQueue: full indexed local
- * queue preparation/validation and system-control parity belong to Issue #7.
+ * Issue #7 P04 now owns validated queue replacement through the P03 resolver.
+ * P05-P10 still owe full audible/route/system-controller QA and hardening.
  */
 @OptIn(UnstableApi::class)
 class MusicPlaybackService : MediaSessionService() {
@@ -41,6 +48,7 @@ class MusicPlaybackService : MediaSessionService() {
     private lateinit var player: ExoPlayer
     private lateinit var session: MediaSession
     private lateinit var processor: PlaybackCommandProcessor
+    private lateinit var queueEngine: ServiceQueueEngine
     private lateinit var runtimeOwner: ServicePlaybackRuntimeOwner<Pair<ExoPlayer, MediaSession>>
     private val pendingResults = linkedSetOf<SettableFuture<SessionResult>>()
     private val projector = Media3SnapshotProjector()
@@ -49,12 +57,18 @@ class MusicPlaybackService : MediaSessionService() {
 
     override fun onCreate() {
         super.onCreate()
-        owner = PlaybackServiceScopeOwner(
-            object : com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider {
-                override val main = kotlinx.coroutines.Dispatchers.Main.immediate
-                override val io = kotlinx.coroutines.Dispatchers.IO
-                override val default = kotlinx.coroutines.Dispatchers.Default
-            }
+        val dispatchers = object : DispatcherProvider {
+            override val main = kotlinx.coroutines.Dispatchers.Main.immediate
+            override val io = kotlinx.coroutines.Dispatchers.IO
+            override val default = kotlinx.coroutines.Dispatchers.Default
+        }
+        owner = PlaybackServiceScopeOwner(dispatchers)
+        queueEngine = ServiceQueueEngine(
+            MediaStorePlaybackResolver(
+                AndroidMediaStorePlaybackProbe(applicationContext),
+                dispatchers,
+            ),
+            dispatchers,
         )
         // Factory can start once per service instance and closes both resources once.
         runtimeOwner = ServicePlaybackRuntimeOwner(
@@ -174,34 +188,82 @@ class MusicPlaybackService : MediaSessionService() {
         // Serial worker runs with Main.immediate. No optimistic acknowledgement.
         try {
             when (command) {
-                is PlaybackCommand.ReplaceQueue ->
-                    return rejected() // Local MediaStore queue validation: Issue #7.
+                is PlaybackCommand.ReplaceQueue -> {
+                    // P04: all (up to 5,000) MediaStore FD probes run on IO.
+                    // A failed candidate never modifies the existing Player.
+                    val proposal = when (val outcome = queueEngine.prepare(command)) {
+                        is AppResult.Success -> outcome.value
+                        is AppResult.Failure -> return outcome
+                    }
+                    val mediaItems = LocalMedia3QueueItems.from(proposal)
+                    // The service/Player remains the ONLY authoritative live queue.
+                    player.repeatMode = Player.REPEAT_MODE_OFF
+                    player.shuffleModeEnabled = false
+                    // A deliberately Paused queue must not inherit old playWhenReady.
+                    if (!proposal.playWhenReady) player.pause()
+                    player.setMediaItems(
+                        mediaItems,
+                        proposal.selectedIndex,
+                        proposal.startPositionMs,
+                    )
+                    if (proposal.playWhenReady) {
+                        player.prepare()
+                        player.play()
+                    }
+                }
                 is PlaybackCommand.Play -> {
                     if (player.mediaItemCount == 0) return rejected()
                     player.play()
                 }
                 is PlaybackCommand.Pause -> player.pause()
                 is PlaybackCommand.Next -> {
-                    if (!player.hasNextMediaItem()) return rejected()
-                    player.seekToNextMediaItem()
+                    val index = player.currentMediaItemIndex
+                        .takeIf { it in 0 until player.mediaItemCount }
+                    when (val decision = PlaybackQueuePolicy.next(index, player.mediaItemCount)) {
+                        is PlaybackQueuePolicy.NextDecision.Advance ->
+                            player.seekTo(decision.index, 0L)
+                        PlaybackQueuePolicy.NextDecision.EndOfQueue -> player.pause()
+                        PlaybackQueuePolicy.NextDecision.NoTrack -> return rejected()
+                    }
                 }
                 is PlaybackCommand.Previous -> {
-                    if (!player.hasPreviousMediaItem()) return rejected()
-                    player.seekToPreviousMediaItem()
+                    val index = player.currentMediaItemIndex
+                        .takeIf { it in 0 until player.mediaItemCount } ?: return rejected()
+                    when (PlaybackNavigationPolicy.previous(
+                        player.currentPosition, hasPreviousItem = index > 0
+                    )) {
+                        PlaybackNavigationPolicy.PreviousDecision.RestartCurrent ->
+                            player.seekTo(index, 0L)
+                        PlaybackNavigationPolicy.PreviousDecision.MoveToPrevious ->
+                            player.seekTo(index - 1, 0L)
+                    }
                 }
                 is PlaybackCommand.SeekBy -> {
                     if (player.mediaItemCount == 0) return rejected()
-                    player.seekTo((player.currentPosition + command.deltaMs).coerceAtLeast(0L))
+                    val target = PlaybackNavigationPolicy.seekBy(
+                        player.currentPosition,
+                        command.deltaMs,
+                        player.duration.takeIf { it >= 0L },
+                        player.isCommandAvailable(Player.COMMAND_SEEK_IN_CURRENT_MEDIA_ITEM),
+                    ) ?: return rejected()
+                    player.seekTo(target)
                 }
                 is PlaybackCommand.SeekTo -> {
-                    if (player.mediaItemCount == 0 || command.positionMs < 0L) return rejected()
-                    player.seekTo(command.positionMs)
+                    if (player.mediaItemCount == 0) return rejected()
+                    val target = PlaybackNavigationPolicy.seekTo(
+                        command.positionMs,
+                        player.duration.takeIf { it >= 0L },
+                        player.isCommandAvailable(Player.COMMAND_SEEK_IN_CURRENT_MEDIA_ITEM),
+                    ) ?: return rejected()
+                    player.seekTo(target)
                 }
                 is PlaybackCommand.Stop -> player.stop()
             }
             runtimeError = null
             publishSnapshot()
             return AppResult.Success(confirmed)
+        } catch (cancelled: CancellationException) {
+            throw cancelled
         } catch (_: Exception) {
             runtimeError = AppError.Playback(
                 AppErrorCodes.PLAYBACK_FAILED,
@@ -227,6 +289,7 @@ class MusicPlaybackService : MediaSessionService() {
     )
 
     override fun onDestroy() {
+        if (::queueEngine.isInitialized) queueEngine.invalidate()
         if (::processor.isInitialized) processor.close()
         // Resolve in-flight session response futures even if coroutine owner is
         // about to be cancelled; never leave accepted calls silently suspended.
