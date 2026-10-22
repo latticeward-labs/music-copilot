@@ -27,7 +27,7 @@ Android 10+ local playback via the existing **same-process, service-owned** Medi
 | P01 | [P01 governance contract](../../docs/implementation/ISSUE_7_PHASE1_EXECUTION_CONTRACT.md) | PASS_CONTRACT_ONLY after GitHub read-back |
 | P02 | [P02 policy report](../../docs/implementation/ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md); pure Kotlin queue/navigation contracts, 13 JUnit methods authored, local policy-only 14 checks | PASS_SCOPED — Media3/Gradle/JUnit NOT_RUN |
 | P03 | [P03 scoped source/read-back](../../docs/implementation/ISSUE_7_PHASE3_MEDIASTORE_RESOLVER_AUDIT.md): scoped MediaStore codec/URI resolver, read-only Android probe, 12 JUnit methods + 17 smoke checks authored | PASS_SCOPED — Android/JUnit/17-check smoke NOT_RUN |
-| P04 | TBD: queue implementation/edge cases | NOT_STARTED |
+| P04 | [Service Queue Engine & scoped audit](../../docs/implementation/ISSUE_7_PHASE4_SERVICE_QUEUE_ENGINE_AUDIT.md): real service setMediaItems, ADR-0008-compliant injection, queue index/replay, 17 authored JUnit cases; 367 exact-blob synthetic Kotlin checks PASS | PASS_SCOPED — full Android/Gradle/JUnit/device tests NOT_RUN |
 | P05 | TBD: audible ExoPlayer/selection contract | NOT_STARTED |
 | P06 | TBD: MediaSession/system/private controller parity | NOT_STARTED |
 | P07 | TBD: WF-04/WF-06/WF-07 native UI/mini-player/queue | NOT_STARTED |
