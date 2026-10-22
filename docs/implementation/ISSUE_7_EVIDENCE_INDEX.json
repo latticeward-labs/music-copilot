@@ -97,12 +97,15 @@
     {
       "id": "P02",
       "title": "Playback policy and domain contracts",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
-      "tests_executed": false,
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md",
+      "evidence": [
+        "I7-EVD-P02-001",
+        "I7-EVD-P02-002"
+      ],
+      "tests_executed": true,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "fd719f12cd3013a979e0adf506c77ce391248ce7"
     },
     {
       "id": "P03",
@@ -440,6 +443,32 @@
       ],
       "kind": "docs",
       "status": "VERIFIED_DOCUMENT_DELIVERY_ONLY"
+    },
+    {
+      "id": "I7-CHG-P02-001",
+      "phase": "P02",
+      "description": "Pure playback queue validation, filtered queue index preservation, nonwrapping next, approved 3000ms previous semantics, seek clamping/overflow, 13 authored JUnit cases, two legacy assertion adjustments, 17-check reproducible script and P02 policy specification",
+      "commits": [
+        "a5bdcf5134d1ec2f12d0748bea6fdd9f779f840c",
+        "d3c50bd0c9406f09c2725ca34bc9ae3b9b13327c",
+        "c642aef9a611721e68e37dee66a78ae5968d866c",
+        "22b270330c1de39368c03215a6cbcac3cccd6238",
+        "247d4caca15f56eb95114263c407f047ebb245d5",
+        "e04f2dc63ccd94f849ba60d76402602b0eae324f",
+        "03c1c415a8b6e0e4d234bc2a59d038e6393cf9a0",
+        "fd719f12cd3013a979e0adf506c77ce391248ce7"
+      ],
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackQueuePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackNavigationPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase2PlaybackPolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase11PlaybackPoliciesTest.kt",
+        "scripts/check_issue7_phase2_policy.sh",
+        "scripts/issue7_phase2_policy_smoke.kt",
+        "docs/implementation/ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md"
+      ],
+      "kind": "P02_PURE_POLICY_AND_TEST_AUTHORED",
+      "status": "VERIFIED_SCOPED_POLICY_NOT_MEDIA3"
     }
   ],
   "evidence_records": [
@@ -471,6 +500,35 @@
       "result": "PASS_CONTRACT_ONLY",
       "test_run": false,
       "owner_phone_qa": false
+    },
+    {
+      "id": "I7-EVD-P02-001",
+      "phase": "P02",
+      "type": "GITHUB_KOTLIN_POLICY_READBACK",
+      "source_commit": "fd719f12cd3013a979e0adf506c77ce391248ce7",
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackQueuePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackNavigationPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase2PlaybackPolicyTest.kt",
+        "docs/implementation/ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md"
+      ],
+      "result": "PASS_SCOPED",
+      "test_run": false,
+      "product_ac_pass": false
+    },
+    {
+      "id": "I7-EVD-P02-002",
+      "phase": "P02",
+      "type": "LOCAL_STANDALONE_KOTLIN_POLICY_SMOKE",
+      "toolchain": "kotlinc + Java 21",
+      "method": "Compiled P02 pure policy sources against compatible minimal opaque ID/ReplaceQueue Kotlin definitions, ran 14 check assertions",
+      "result": "PASS_STANDALONE_14_CHECKS",
+      "test_run": true,
+      "full_repository_gradle": false,
+      "android_test": false,
+      "reproducible_repo_smoke_path": "scripts/check_issue7_phase2_policy.sh",
+      "reproducible_repo_smoke_executed": false,
+      "notes": "13 JUnit methods authored but not executed. Source-controlled 17-check smoke authored but not run on full checkout. No P02 M/T or AC runtime PASS."
     }
   ],
   "release": {
