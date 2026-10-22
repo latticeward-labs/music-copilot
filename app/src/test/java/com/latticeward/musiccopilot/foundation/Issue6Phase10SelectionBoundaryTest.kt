@@ -76,8 +76,8 @@ class Issue6Phase10SelectionBoundaryTest {
             error("No voice execution allowed during selection")
     }
     private inner class FakeGateway : PlaybackGateway {
-        override val connectionState: StateFlow<PlaybackConnectionState> =
-            MutableStateFlow(PlaybackConnectionState.Ready)
+        val connection = MutableStateFlow(PlaybackConnectionState.Ready)
+        override val connectionState: StateFlow<PlaybackConnectionState> = connection
         override val snapshot: StateFlow<PlaybackSnapshot> = MutableStateFlow(snapshot())
         val commands = mutableListOf<PlaybackCommand>()
         var answer: AppResult<PlaybackSnapshot> = AppResult.Success(snapshot())
@@ -183,8 +183,7 @@ class Issue6Phase10SelectionBoundaryTest {
     @Test fun disconnectedGatewayNeverReceivesCommand() = runBlocking {
         val lib = FakeLibrary(item(ref))
         val player = FakeGateway()
-        (player.connectionState as MutableStateFlow).value =
-            PlaybackConnectionState.Disconnected
+        player.connection.value = PlaybackConnectionState.Disconnected
         val result = boundary(lib, player).select(ref, 7)
         assertEquals(AppErrorCodes.CONTROLLER_DISCONNECTED,
             (result as AppResult.Failure).error.code)
