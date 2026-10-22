@@ -32,6 +32,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -44,7 +47,6 @@ import com.latticeward.musiccopilot.app.theme.MusicColors
 import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
-import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import kotlinx.coroutines.Dispatchers
@@ -81,6 +83,7 @@ fun FullPlayerScreen(
     val title = state.title?.takeIf { canReadLocalMetadata && it.isNotBlank() }
         ?: stringResource(R.string.i7_unknown_track)
     val duration = snap.durationMs?.takeIf { it > 0L }
+    val largeText = LocalDensity.current.fontScale >= 1.5f
     var scrubFraction by remember { mutableFloatStateOf(0f) }
     var scrubbing by remember { mutableStateOf(false) }
     LaunchedEffect(snap.currentItem, snap.queueRevision) { scrubbing = false }
@@ -131,6 +134,7 @@ fun FullPlayerScreen(
                     // No network image, derived selection or UI media owner.
                     Box(
                         modifier = Modifier.size(168.dp)
+                            .clip(RoundedCornerShape(12.dp))
                             .background(MusicColors.surfaceVariant),
                         contentAlignment = Alignment.Center,
                     ) {
@@ -214,10 +218,40 @@ fun FullPlayerScreen(
                         .padding(horizontal = MusicSpacing.mdDp),
                     verticalArrangement = Arrangement.spacedBy(MusicSpacing.smDp),
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
+                    if (largeText) {
+                        // At 150–200% font scale the three controls reflow
+                        // vertically rather than clipping their accessible text.
+                        Column(verticalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
+                            modifier = Modifier.fillMaxWidth()) {
+                        OutlinedButton(
+                            onClick = model::previous,
+                            enabled = state.canControl && snap.canSkipPrevious,
+                            modifier = Modifier.fillMaxWidth().heightIn(
+                                min = MusicSize.touchTargetMinDp
+                            ),
+                        ) { Text(stringResource(R.string.i7_previous)) }
+                        Button(
+                            onClick = model::togglePlayPause,
+                            enabled = state.canControl,
+                            modifier = Modifier.fillMaxWidth().heightIn(
+                                min = MusicSize.touchTargetMinDp
+                            ),
+                        ) {
+                            Text(stringResource(
+                                if (state.isPlaying) R.string.i7_pause else R.string.i7_play
+                            ))
+                        }
+                        OutlinedButton(
+                            onClick = model::next,
+                            enabled = state.canControl && snap.canSkipNext,
+                            modifier = Modifier.fillMaxWidth().heightIn(
+                                min = MusicSize.touchTargetMinDp
+                            ),
+                        ) { Text(stringResource(R.string.i7_next)) }
+                        }
+                    } else {
+                        Row(horizontalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
+                            modifier = Modifier.fillMaxWidth()) {
                         OutlinedButton(
                             onClick = model::previous,
                             enabled = state.canControl && snap.canSkipPrevious,
@@ -243,6 +277,7 @@ fun FullPlayerScreen(
                                 min = MusicSize.touchTargetMinDp
                             ),
                         ) { Text(stringResource(R.string.i7_next)) }
+                        }
                     }
                     OutlinedButton(
                         onClick = model::seekBackTenSeconds,
