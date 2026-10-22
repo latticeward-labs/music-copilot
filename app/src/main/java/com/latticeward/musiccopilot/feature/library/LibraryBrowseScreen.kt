@@ -392,7 +392,9 @@ fun LibraryBrowseScreen(
                 )
                 NavigationBarItem(
                     selected = false, onClick = onSearch,
-                    enabled = canBrowse,
+                    enabled = permission == PermissionStatus.Granted &&
+                        (readiness == FoundationReadiness.LocalLibraryReady ||
+                         readiness == FoundationReadiness.LocalLibraryEmpty),
                     icon = { Text("⌕") },
                     label = { Text(stringResource(R.string.p08_nav_search)) },
                 )
