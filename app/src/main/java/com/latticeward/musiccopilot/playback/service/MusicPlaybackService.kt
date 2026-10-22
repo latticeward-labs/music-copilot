@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot.playback.service
 
 import android.os.Bundle
 import androidx.media3.common.Player
+import androidx.media3.common.MediaItem
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.PlaybackException
@@ -30,6 +31,7 @@ import com.latticeward.musiccopilot.playback.api.PlaybackResolverHost
 import com.latticeward.musiccopilot.playback.command.PlaybackNavigationPolicy
 import com.latticeward.musiccopilot.playback.command.PlaybackQueuePolicy
 import com.latticeward.musiccopilot.playback.media3.LocalMedia3QueueItems
+import com.latticeward.musiccopilot.playback.media3.ServiceSessionTransportPlayer
 import kotlinx.coroutines.CancellationException
 import com.latticeward.musiccopilot.playback.command.PlaybackCommandProcessor
 import com.latticeward.musiccopilot.playback.command.PlaybackWireProtocol
@@ -41,14 +43,17 @@ import kotlinx.coroutines.launch
  * Single-process, service-owned Media3 authority. A screen and the application
  * graph never own, recreate or release Player, MediaSession or command worker.
  *
- * Issue #7 P04 now owns validated queue replacement through the P03 resolver.
- * P05-P10 still owe full audible/route/system-controller QA and hardening.
+ * Issue #7 P06: MediaSession uses a ForwardingPlayer façade to make system
+ * transport controls share P02–P05 serialized queue/seek/previous rules;
+ * no controller may inject arbitrary remote/local playlist URIs.
+ * P07–P10 still owe full visual/background/route/decoder device QA.
  */
 @OptIn(UnstableApi::class)
 class MusicPlaybackService : MediaSessionService() {
     private lateinit var owner: PlaybackServiceScopeOwner
     private lateinit var player: ExoPlayer
     private lateinit var session: MediaSession
+    private lateinit var systemTransport: ServiceSessionTransportPlayer
     private lateinit var processor: PlaybackCommandProcessor
     private lateinit var queueEngine: ServiceQueueEngine
     private lateinit var runtimeOwner: ServicePlaybackRuntimeOwner<Pair<ExoPlayer, MediaSession>>
@@ -86,7 +91,13 @@ class MusicPlaybackService : MediaSessionService() {
                 )
                 confirmed = projector.capture(candidate)
                 try {
-                    val builtSession = MediaSession.Builder(this, candidate)
+                    // Only the MediaSession sees this facade; application
+                    // service commands still mutate the real ExoPlayer through
+                    // the one serialized PlaybackCommandProcessor.
+                    systemTransport = ServiceSessionTransportPlayer(candidate) { intent ->
+                        if (::processor.isInitialized) processor.submit(intent)
+                    }
+                    val builtSession = MediaSession.Builder(this, systemTransport)
                         .setCallback(PlaybackCallbacks())
                         .setSessionExtras(wrap(confirmed))
                         .build()
@@ -133,9 +144,10 @@ class MusicPlaybackService : MediaSessionService() {
             session: MediaSession,
             controller: MediaSession.ControllerInfo,
         ): MediaSession.ConnectionResult {
-            // Typed internal commands are app-private, not available to an
-            // arbitrary external controller. Android media surface controls
-            // still use the same service-owned Player through MediaSession.
+            // Typed internal commands are app-private, while approved system
+            // transport operations are forwarded to the *same* command worker.
+            // In particular, external URI/catalog/setMediaItems/queue mutation,
+            // shuffle/repeat and arbitrary queue-index seeks are NOT exposed.
             val privateCaller = isPrivateCaller(controller)
             val commandBuilder = SessionCommands.Builder()
             if (privateCaller) {
@@ -143,10 +155,30 @@ class MusicPlaybackService : MediaSessionService() {
                 commandBuilder.add(PlaybackWireProtocol.snapshotCommand())
             }
             val commands = commandBuilder.build()
-            return MediaSession.ConnectionResult.AcceptedResultBuilder(session)
+            return MediaSession.ConnectionResult.AcceptedResultBuilder(session, controller)
                 .setAvailableSessionCommands(commands)
+                .setAvailablePlayerCommands(ServiceSessionTransportPlayer.permittedCommands())
                 .build()
         }
+
+        // Explicit fail-closed defense in addition to the Player command
+        // allowlist. Legacy MediaControllerCompat playFromUri/playFromSearch
+        // must not substitute external, unverified or network media.
+        override fun onAddMediaItems(
+            mediaSession: MediaSession,
+            controller: MediaSession.ControllerInfo,
+            mediaItems: List<MediaItem>,
+        ): ListenableFuture<List<MediaItem>> =
+            Futures.immediateFailedFuture(UnsupportedOperationException("External queue disabled"))
+
+        override fun onSetMediaItems(
+            mediaSession: MediaSession,
+            controller: MediaSession.ControllerInfo,
+            mediaItems: List<MediaItem>,
+            startIndex: Int,
+            startPositionMs: Long,
+        ): ListenableFuture<MediaSession.MediaItemsWithStartPosition> =
+            Futures.immediateFailedFuture(UnsupportedOperationException("External queue disabled"))
 
         override fun onCustomCommand(
             session: MediaSession,
