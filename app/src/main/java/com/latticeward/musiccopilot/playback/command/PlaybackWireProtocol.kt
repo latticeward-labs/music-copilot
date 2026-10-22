@@ -129,7 +129,13 @@ object PlaybackWireProtocol {
             when (args.getString(KEY_ERROR_FAMILY)) {
                 "media" -> AppError.MediaItem(code, Recoverability.RECOVERABLE, RecoveryAction.Skip)
                 "interruption" -> AppError.Interruption(code, Recoverability.RECOVERABLE, RecoveryAction.ManualResume)
-                "playback" -> AppError.Playback(code, Recoverability.RECOVERABLE, RecoveryAction.Retry)
+                "playback" -> if (code == AppErrorCodes.PERMISSION_REVOKED) {
+                    AppError.Playback(
+                        code, Recoverability.USER_ACTION_REQUIRED, RecoveryAction.OpenSettings
+                    )
+                } else {
+                    AppError.Playback(code, Recoverability.RECOVERABLE, RecoveryAction.Retry)
+                }
                 else -> return null
             }
         }
