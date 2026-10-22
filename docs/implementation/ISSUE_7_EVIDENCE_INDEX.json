@@ -110,12 +110,14 @@
     {
       "id": "P03",
       "title": "Safe local-media URI resolution",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE3_MEDIASTORE_RESOLVER_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P03-001"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "4bbb0680eb3c30ab93e9ed993b11d37e6075af9a"
     },
     {
       "id": "P04",
@@ -469,6 +471,33 @@
       ],
       "kind": "P02_PURE_POLICY_AND_TEST_AUTHORED",
       "status": "VERIFIED_SCOPED_POLICY_NOT_MEDIA3"
+    },
+    {
+      "id": "I7-CHG-P03-001",
+      "phase": "P03",
+      "kind": "P03_LOCAL_MEDIA_RESOLVER_WITH_FAKE_TESTS_AUTHORED",
+      "description": "Extract existing MediaStoreRefCodec without changing #6 behavior; implement injectable fail-closed service-compatible resolver, API 29–36 Android OS permission/volume/row/read-only FD probe, epoch invalidation and CancellationSignal; write 12 fake-probe JUnit tests and 17-check reproducible Kotlin-only smoke plus scoped source audit.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreRefCodec.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStorePlaybackResolver.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/AndroidMediaStorePlaybackProbe.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase3MediaResolverTest.kt",
+        "scripts/issue7_phase3_resolver_smoke.kt",
+        "scripts/check_issue7_phase3_resolver.sh",
+        "docs/implementation/ISSUE_7_PHASE3_MEDIASTORE_RESOLVER_AUDIT.md"
+      ],
+      "commits": [
+        "dc8e3e1a29ac253b46205483e44e850b0a17c90e",
+        "3110f68d0e6b8cbc76de4436b7e58b91a482328f",
+        "f5811903414f63f664e28074ec2cf7aeb393653c",
+        "cb3fd32af762569bfd44c69999280371516b984a",
+        "899d9a830995db345a73f462b0c3c04b3760a62b",
+        "8358107491b3ffaff995999b0bcff20cc7169ee0",
+        "6c2e43964a0e821888677f644054eb81b359a383",
+        "4bbb0680eb3c30ab93e9ed993b11d37e6075af9a"
+      ],
+      "status": "VERIFIED_GITHUB_SOURCE_GATE_ONLY_ANDROID_JUNIT_NOT_RUN"
     }
   ],
   "evidence_records": [
@@ -529,6 +558,29 @@
       "reproducible_repo_smoke_path": "scripts/check_issue7_phase2_policy.sh",
       "reproducible_repo_smoke_executed": false,
       "notes": "13 JUnit methods authored but not executed. Source-controlled 17-check smoke authored but not run on full checkout. No P02 M/T or AC runtime PASS."
+    },
+    {
+      "id": "I7-EVD-P03-001",
+      "phase": "P03",
+      "type": "GITHUB_SOURCE_READBACK_STATIC",
+      "report": "docs/implementation/ISSUE_7_PHASE3_MEDIASTORE_RESOLVER_AUDIT.md",
+      "source_commit": "4bbb0680eb3c30ab93e9ed993b11d37e6075af9a",
+      "result": "PASS_SCOPED",
+      "tested_claim": "source artifacts and invariants only",
+      "checks": [
+        "Codec extracted once and scanner references retained symbol",
+        "Android API-specific permission checks and mounted concrete volume",
+        "Read-only URI query and FD with cancellation signal",
+        "Coroutines cancellation + invalidate epoch + recheck",
+        "No successful resolver cache",
+        "12 authored fake JUnit cases; NOT_EXECUTED",
+        "17 authored Kotlin smoke checks; NOT_EXECUTED"
+      ],
+      "test_run": false,
+      "full_android_gradle": false,
+      "junit_executed": false,
+      "apk_built": false,
+      "product_ac_pass": false
     }
   ],
   "release": {
