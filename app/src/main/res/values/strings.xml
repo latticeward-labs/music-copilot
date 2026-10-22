@@ -158,4 +158,13 @@
     <string name="i7_command_pending">Checking with playback service…</string>
     <string name="i7_action_failed">That action was not accepted. Your queue is unchanged.</string>
     <string name="i7_service_queue_note">Your local queue is controlled by the playback service.</string>
+    <!-- P10: concise HF-06 corrupt/revoked recovery, no paths or titles. -->
+    <string name="i7_unavailable_heading">Track unavailable</string>
+    <string name="i7_corrupt_help">This local track could not be played. Continue with the next available track, or return to your music.</string>
+    <string name="i7_permission_revoked_help">Music access is no longer available. Check Music and audio permission in Android Settings, then return to Library.</string>
+    <string name="i7_skipped_and_continuing">An unavailable local track was skipped. Continuing with a verified track.</string>
+    <string name="i7_unavailable_help">Playback stopped safely. Try a different local track from Library.</string>
+    <string name="i7_media_untouched">Your music files were not changed.</string>
+    <string name="i7_continue_with_next">Continue with next</string>
+    <string name="i7_return_to_browse">Return to Library or Search</string>
 </resources>
