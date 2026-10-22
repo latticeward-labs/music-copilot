@@ -166,7 +166,7 @@ fun FullPlayerScreen(
                     Text(playbackStatusLabel(state),
                         style = MusicTextStyles.bodyMedium,
                         color = MusicColors.primary)
-                    if (state.requestFailed || snap.lastError != null) {
+                    if (state.requestFailed && snap.lastError == null) {
                         Text(stringResource(R.string.i7_action_failed),
                             color = MusicColors.textPrimary,
                             style = MusicTextStyles.bodyLarge)
