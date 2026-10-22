@@ -121,9 +121,19 @@ fun AppNavHost(
     }
     LaunchedEffect(target) {
         if (navController.currentBackStackEntry?.destination?.route != target.route) {
-            navController.navigate(target.route) {
-                popUpTo(Destination.Bootstrap.route) { inclusive = false }
-                launchSingleTop = true
+            // Return to an EXISTING destination when present. In particular,
+            // Search -> Library must pop Search, not push a duplicate Library
+            // above it and retain a private search query in its ViewModel.
+            // Settings -> Search similarly restores only the active surface.
+            // Bootstrap/PermissionRecovery remain system-state authoritative.
+            val returnedToExisting = navController.popBackStack(
+                target.route, inclusive = false,
+            )
+            if (!returnedToExisting) {
+                navController.navigate(target.route) {
+                    popUpTo(Destination.Bootstrap.route) { inclusive = false }
+                    launchSingleTop = true
+                }
             }
         }
     }
