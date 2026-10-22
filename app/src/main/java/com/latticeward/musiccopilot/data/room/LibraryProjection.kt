@@ -9,6 +9,7 @@ import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
 import com.latticeward.musiccopilot.data.api.LibraryBrowsePage
 import com.latticeward.musiccopilot.data.api.LibraryBrowseRequest
 import com.latticeward.musiccopilot.data.api.LibraryGroupId
+import com.latticeward.musiccopilot.data.api.LibrarySearchResults
 import com.latticeward.musiccopilot.data.mapping.LibraryRowMapper
 
 /** Derived Room projection seam; MediaStore still verifies actual existence. */
@@ -27,6 +28,14 @@ interface LibraryProjection {
         request: LibraryBrowseRequest,
         acceptedRevision: Long,
     ): LibraryBrowsePage = throw UnsupportedOperationException("browse query unavailable")
+
+    /** No fabricated Search success from pre-P09 fake implementations. */
+    suspend fun searchSurface(
+        needle: String,
+        limit: Int,
+        revision: Long,
+    ): LibrarySearchResults =
+        throw UnsupportedOperationException("Search surface not implemented")
 
     /** SQLite bounded in production. Legacy JVM fake uses a safe in-memory seam. */
     suspend fun searchLocal(needle: String, limit: Int): List<LibraryRow> =
@@ -133,6 +142,38 @@ class RoomLibraryProjection(private val database: MusicCopilotDatabase) : Librar
 
     override suspend fun searchLocal(needle: String, limit: Int): List<LibraryRow> =
         dao.searchLocal(needle, limit)
+
+    override suspend fun searchSurface(
+        needle: String,
+        limit: Int,
+        revision: Long,
+    ): LibrarySearchResults = database.withTransaction {
+        val cap = limit.coerceIn(1, 100)
+        // Fair per-kind budgets ensure group results are not lost behind
+        // hundreds of tracks by the same artist. Unfilled slots stay empty;
+        // do not hydrate an unbounded song list in Kotlin.
+        val songLimit = (cap + 1) / 2
+        val artistLimit = (cap - songLimit + 1) / 2
+        val albumLimit = cap - songLimit - artistLimit
+
+        val songs = dao.searchTitleRows(needle, songLimit).map {
+            LibraryBrowseEntry.Song(LibraryRowMapper.toItem(it))
+        }
+        val artists = if (artistLimit > 0) dao.searchArtistGroups(needle, artistLimit)
+            .map { LibraryBrowseEntry.Artist(
+                LibraryGroupId(it.groupId), it.label, it.songCount,
+            ) } else emptyList()
+        val albums = if (albumLimit > 0) dao.searchAlbumGroups(needle, albumLimit)
+            .map { LibraryBrowseEntry.Album(
+                LibraryGroupId(it.groupId), it.label, it.artistLabel, it.songCount,
+            ) } else emptyList()
+        LibrarySearchResults(
+            entries = artists + songs + albums,
+            revision = revision,
+            limit = cap,
+        )
+    }
+
 
     override suspend fun replaceAll(rows: List<LibraryRow>) {
         // Historical/internal recovery helper, not called by the repository.
