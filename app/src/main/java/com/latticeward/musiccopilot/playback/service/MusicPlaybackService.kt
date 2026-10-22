@@ -125,6 +125,7 @@ class MusicPlaybackService : MediaSessionService() {
                         // A newly accepted system/media-key command always
                         // beats an in-flight cold-restore IO coroutine.
                         ++restoreGeneration
+                        ++recoveryGeneration
                         if (::processor.isInitialized) processor.submit(intent)
                     }
                     val builtSession = MediaSession.Builder(this, systemTransport)
@@ -331,6 +332,7 @@ class MusicPlaybackService : MediaSessionService() {
                 // Supersede asynchronous cold restore at command-RECEIPT,
                 // not after a slow resolver completes in the queued worker.
                 ++restoreGeneration
+                ++recoveryGeneration
                 val command = PlaybackWireProtocol.decodeCommand(args)
                 if (command == null) Futures.immediateFuture(
                     SessionResult(SessionError.ERROR_BAD_VALUE,
@@ -560,7 +562,10 @@ class MusicPlaybackService : MediaSessionService() {
     }
 
     private suspend fun applyCommand(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
-        ++restoreGeneration
+        // A newer private/system transport command may be received while this
+        // worker is suspended inside MediaStore I/O. An obsolete ReplaceQueue
+        // must never start sound after a newer Pause/Stop/selection receipt.
+        val commandEpoch = ++restoreGeneration
         pausedCheckpoint.onExplicitCommand()
         // Any new explicitly dispatched command wins over a pending decoder
         // recovery. In particular, user Pause/Stop cannot be undone by a late
@@ -581,9 +586,9 @@ class MusicPlaybackService : MediaSessionService() {
                     // A plugged-out Bluetooth/headset device while IO was
                     // verifying 5,000 items INVALIDATES the old play request.
                     // Never autostart after route loss using stale intention.
-                    if (!interruptionGate.requestIsStillCurrent(routeAtStart)) {
-                        return rejected()
-                    }
+                    if (!interruptionGate.requestIsStillCurrent(routeAtStart) ||
+                        commandEpoch != restoreGeneration
+                    ) return rejected()
                     val mediaItems = LocalMedia3QueueItems.from(proposal)
                     // A new explicit user selection may intentionally play
                     // from the current output; a paused replacement does not
@@ -626,6 +631,7 @@ class MusicPlaybackService : MediaSessionService() {
                     // Revalidate the exact URI and authoritative timeline AFTER
                     // the IO suspension; never act on a stale UI queue index.
                     if (!interruptionGate.requestIsStillCurrent(routeAtStart) ||
+                        commandEpoch != restoreGeneration ||
                         confirmed.queueRevision != observedQueueRevision ||
                         selectedMedia != player.getMediaItemAt(command.index) ||
                         selectedMedia.localConfiguration?.uri?.toString() !=
@@ -658,7 +664,8 @@ class MusicPlaybackService : MediaSessionService() {
                         val checked = queueEngine.revalidate(
                             MediaRef(selectedMedia.mediaId)
                         )
-                        if (queueAtStart != confirmed.queueRevision ||
+                        if (commandEpoch != restoreGeneration ||
+                            queueAtStart != confirmed.queueRevision ||
                             routeAtStart != interruptionGate.routeGeneration ||
                             selectedMedia != player.getMediaItemAt(index)
                         ) return rejected()
