@@ -215,13 +215,27 @@ class PlaybackControllerConnection(
             AppErrorCodes.CONTROLLER_DISCONNECTED,
             Recoverability.RECOVERABLE, RecoveryAction.Retry))
 
-    override fun close() {
-        released = true
-        ++generation
+    /**
+     * P08: called when the last Activity UI stops. Release only the bound
+     * controller, NOT the Media3 service/player. This avoids pinning an
+     * otherwise idle service alive after Recents closure.
+     *
+     * Normal foreground reentry calls ensureConnected(), which accepts a
+     * fresh authoritative snapshot before exposing Ready to the UI.
+     */
+    fun detachUiController() {
+        if (released) return
+        ++generation // Ignore callbacks from old binding/reconnect.
         connecting?.let(MediaController::releaseFuture)
         active?.release()
         active = null
         connecting = null
         relay.disconnected()
+    }
+
+    override fun close() {
+        if (released) return
+        detachUiController()
+        released = true
     }
 }
