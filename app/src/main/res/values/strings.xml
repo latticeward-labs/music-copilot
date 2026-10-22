@@ -140,6 +140,8 @@
     <string name="i7_previous">Previous</string>
     <string name="i7_next">Next</string>
     <string name="i7_seek_back">Back 10 seconds</string>
+    <string name="i7_queue_action">Queue</string>
+    <string name="i7_open_player">Open full player</string>
     <string name="i7_queue_title">Queue · %1$d tracks</string>
     <string name="i7_queue_track_number">Track %1$d</string>
     <string name="i7_current_track_marker">Current track</string>
