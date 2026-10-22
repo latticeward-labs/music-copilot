@@ -203,12 +203,15 @@
     {
       "id": "P10",
       "title": "Corrupt, missing and permission recovery",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE10_CORRUPT_PERMISSION_RECOVERY_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P10-001",
+        "I7-EVD-P10-002"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "ceaaf67043aa721700f62ef9ebbdf7488511a658"
     },
     {
       "id": "P11",
@@ -647,6 +650,25 @@
       ],
       "source_commit": "93845c7d0076c83f90120f7eefb0616747628aeb",
       "status": "PASS_SCOPED_SOURCE_ONLY_NOT_ANDROID_OR_AUDIO_VERIFIED"
+    },
+    {
+      "id": "I7-CHG-P10-001",
+      "phase": "P10",
+      "kind": "BOUNDED_DECODER_MISSING_AND_REVOKED_PERMISSION_RECOVERY",
+      "description": "Categorize numeric Media3 playback IO/decoder exceptions and safe nested SecurityException/FileNotFoundException types; pause on error, attempt up to three subsequent MediaStore-revalidated queue occurrences with guarded queue/route/command generations, never auto-skip revoked permission, explicit Next and Play revalidation, truthful MediaSession state, accessible HF-06 recovery UI; 14 JUnit policy methods authored NOT_RUN; all GitHub commits [skip ci], no Actions/tests/build/APK.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackFailureRecoveryPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase10FailureRecoveryPolicyTest.kt",
+        "docs/implementation/ISSUE_7_PHASE10_CORRUPT_PERMISSION_RECOVERY_AUDIT.md"
+      ],
+      "source_commit": "ceaaf67043aa721700f62ef9ebbdf7488511a658",
+      "status": "PASS_SCOPED_SOURCE_ONLY_ANDROID_NOT_VERIFIED"
     }
   ],
   "evidence_records": [
@@ -1047,6 +1069,49 @@
       "phone_qa_not_run": true,
       "result": "ALL_NOT_RUN",
       "test_run": false
+    },
+    {
+      "id": "I7-EVD-P10-001",
+      "phase": "P10",
+      "type": "GITHUB_SOURCE_READBACK_STATIC",
+      "report": "docs/implementation/ISSUE_7_PHASE10_CORRUPT_PERMISSION_RECOVERY_AUDIT.md",
+      "checks": [
+        "One ExoPlayer and one MediaSession; P10 handlers in service only",
+        "Media3 numeric error category separation for deleted, invalid decoder, unsupported and revoked",
+        "At most 3 forward candidate occurrences per uninterrupted error chain",
+        "Each auto/manual successor verified on IO through existing P03 service resolver",
+        "Strict command/queue/route generation checks after suspend",
+        "No wrap, no retry same failed occurrence, no mutation/deletion of personal files",
+        "Permission revoked invalidates resolver; Play requires fresh MediaStore validation",
+        "Media3 snapshot distinguishes recovered actual Playing/Buffering from terminal Error",
+        "MediaSession wire carries only allowlisted sanitized codes",
+        "WF-06 error/Continue Next/Return accessible UI with no filenames/paths"
+      ],
+      "result": "PASS_SCOPED_CODE_REVIEW_ONLY",
+      "test_run": false,
+      "android_compile": false
+    },
+    {
+      "id": "I7-EVD-P10-002",
+      "phase": "P10",
+      "type": "AUTHOR_ONLY_QA_AND_SINGLE_P13_APK",
+      "junit_methods_authored": 14,
+      "junit_methods_executed": 0,
+      "manual_cases": [
+        "M29",
+        "M30",
+        "M31"
+      ],
+      "technical_cases": [
+        "T08",
+        "T09"
+      ],
+      "android_instrumentation_executed": 0,
+      "github_actions_test_build_requests": 0,
+      "owner_device_tests_executed": 0,
+      "apk_sha256": null,
+      "result": "ALL_NOT_RUN",
+      "test_run": false
     }
   ],
   "release": {
@@ -1060,7 +1125,7 @@
     "pr_state": "NOT_OPENED",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
-    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P09_OWNER_REQUIRES_SINGLE_OFFLINE_P13_APK",
+    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P10_SINGLE_P13_APK_ONLY",
     "independent_review": "NOT_REVIEWED",
     "merge": "NOT_MERGED",
     "issue_state": "OPEN",
