@@ -17,7 +17,12 @@ class Issue7Phase11RestoreSourceContractTest {
         val app = source("app/MusicCopilotApplication.kt")
         val graph = source("app/di/ApplicationBindings.kt")
         assertTrue(app.contains("createPlaybackRestorableQueueStore()"))
+        assertTrue(app.contains("playbackCheckpointWriteScope()"))
         assertTrue(graph.contains("val restorableQueueStore: RestorableQueueStore"))
+        // Writes must survive normal service teardown, without moving Player
+        // ownership out of its existing MediaSessionService lifecycle.
+        val service = source("playback/service/MusicPlaybackService.kt")
+        assertTrue(service.contains("appHost.playbackCheckpointWriteScope()"))
     }
 
     @Test fun serviceNeverImportsConcreteProtoOrRoomImplementation() {
