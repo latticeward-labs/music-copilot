@@ -127,4 +127,44 @@ interface LibraryDao {
         LIMIT :limit
     """)
     suspend fun searchLocal(needle: String, limit: Int): List<LibraryRow>
+
+    /** WF-05: results of each type have their own bounded SQLite query.
+     * Using instr() keeps '%' and '_' literal; no remote or fuzzy search.
+     */
+    @Query("""
+        SELECT * FROM library_items
+        WHERE instr(normalizedTitle, :needle) > 0
+        ORDER BY normalizedTitle, mediaRef
+        LIMIT :limit
+    """)
+    suspend fun searchTitleRows(needle: String, limit: Int): List<LibraryRow>
+
+    @Query("""
+        SELECT artistGroupId AS groupId,
+               MIN(COALESCE(artist, 'Unknown Artist')) AS label,
+               CAST(NULL AS TEXT) AS artistLabel,
+               COUNT(*) AS songCount
+        FROM library_items
+        WHERE artistGroupId IS NOT NULL
+        GROUP BY artistGroupId
+        HAVING instr(MIN(normalizedArtist), :needle) > 0
+        ORDER BY MIN(normalizedArtist), groupId
+        LIMIT :limit
+    """)
+    suspend fun searchArtistGroups(needle: String, limit: Int): List<LibraryGroupCountRow>
+
+    @Query("""
+        SELECT albumGroupId AS groupId,
+               MIN(COALESCE(album, 'Unknown Album')) AS label,
+               CASE WHEN COUNT(DISTINCT COALESCE(artist, '<unknown>')) > 1
+                    THEN 'Various Artists' ELSE MIN(artist) END AS artistLabel,
+               COUNT(*) AS songCount
+        FROM library_items
+        WHERE albumGroupId IS NOT NULL
+        GROUP BY albumGroupId
+        HAVING instr(MIN(COALESCE(normalizedAlbum, '')), :needle) > 0
+        ORDER BY MIN(COALESCE(normalizedAlbum, '')), groupId
+        LIMIT :limit
+    """)
+    suspend fun searchAlbumGroups(needle: String, limit: Int): List<LibraryGroupCountRow>
 }
