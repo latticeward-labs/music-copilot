@@ -29,7 +29,7 @@ Android 10+ local playback via the existing **same-process, service-owned** Medi
 | P03 | [P03 scoped source/read-back](../../docs/implementation/ISSUE_7_PHASE3_MEDIASTORE_RESOLVER_AUDIT.md): scoped MediaStore codec/URI resolver, read-only Android probe, 12 JUnit methods + 17 smoke checks authored | PASS_SCOPED — Android/JUnit/17-check smoke NOT_RUN |
 | P04 | [Service Queue Engine & scoped audit](../../docs/implementation/ISSUE_7_PHASE4_SERVICE_QUEUE_ENGINE_AUDIT.md): real service setMediaItems, ADR-0008-compliant injection, queue index/replay, 17 authored JUnit cases; 367 exact-blob synthetic Kotlin checks PASS | PASS_SCOPED — full Android/Gradle/JUnit/device tests NOT_RUN |
 | P05 | [P05 real service Play/queue integration report](../../docs/implementation/ISSUE_7_PHASE5_REAL_PLAYBACK_INTEGRATION_AUDIT.md): prepare idle/ended, truthful projected Media3 state, Library/Search visible ordered queue and clicked item, 21 authored JUnit methods, 15/15 pure Kotlin checks | PASS_SCOPED — Android/Gradle/JUnit/audio audibility NOT_VERIFIED |
-| P06 | TBD: MediaSession/system/private controller parity | NOT_STARTED |
+| P06 | [P06 MediaSession controller parity report](../../docs/implementation/ISSUE_7_PHASE6_MEDIASESSION_CONTROLLER_PARITY_AUDIT.md): one Player, restricted external commands, same serialized worker for system transport, local metadata, reconnect revision gate; 25 JUnit + 2 Android methods authored, 16/16 exact-source Kotlin checks | PASS_SCOPED — real Android/Media3/notification/BT/Gradle NOT_RUN |
 | P07 | TBD: WF-04/WF-06/WF-07 native UI/mini-player/queue | NOT_STARTED |
 | P08 | TBD: background/foreground notification/lifecycle | NOT_STARTED |
 | P09 | TBD: focus/route/headset/BT safe audio | NOT_STARTED |
