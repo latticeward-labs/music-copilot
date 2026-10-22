@@ -196,7 +196,7 @@
       "title": "Compose local Search states",
       "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
-      "commit_sha": "7674f538dd46e17d64709cf94750519a1b969ca0",
+      "commit_sha": "717bc142cde7a535b38bca0759cea852c977a45a",
       "artifact_links": [
         "app/src/main/java/com/latticeward/musiccopilot/data/api/LibrarySearchContracts.kt",
         "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
@@ -217,7 +217,7 @@
         "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json"
       ],
       "reviewer": null,
-      "validation": "PASS_SCOPED_STATIC_SOURCE: 51/51 GitHub-source invariants; 14 JVM + 7 Compose + 4 Room/SQLite tests AUTHORED, NOT_RUN; 22 QA cases authored, NOT_RUN. No Gradle compile, CI, benchmarks, screenshots, APK or phone. P06 native schema 2.json still absent."
+      "validation": "PASS_SCOPED_STATIC_SOURCE: 52/52 actual GitHub code/readback invariants, including Search Back-stack disposal; 14 JVM + 7 Compose + 4 Room/SQLite synthetic methods AUTHORED NOT_RUN; 23 QA cases authored NOT_RUN. No Gradle compile, Room KAPT, CI, benchmarks, screenshots, APK or phone. P06 native Room 2.json still absent."
     },
     {
       "id": "P10",
@@ -1022,6 +1022,26 @@
       "kind": "local_room_grouped_search_compose_results_noresults_error_recovery_and_revision_safe_navigation",
       "rollback": "Revert only P09 feature branch commits after review; keep P08 Library and accepted #5 Permissions, no media file or database user-data deletion.",
       "note": "P09 source-only pass, 25 tests authored but NOT_RUN. Group Open returns to approved Library browsing; real song play remains P10 and service Issue #7. Room V2 compiler schema pending."
+    },
+    {
+      "id": "I6-CHG-P09-002",
+      "phase": "P09",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "c46b3718c35d4a616053a66d3273b7cc437652b8",
+        "3b6ab26973c3147519fa6e6a78ffac3641f29b93",
+        "59e42479f33e4306892acca6c6d5341cc3e0cfd5",
+        "717bc142cde7a535b38bca0759cea852c977a45a"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json"
+      ],
+      "kind": "return_to_existing_Library_back_stack_query_retention_hardening",
+      "rollback": "Revert P09-only follow-up commits with reviewed additional feature-branch changes; preserve P08 Library entry and all other phase evidence. No user media mutation.",
+      "note": "P09 existing PASS_SCOPED unchanged: 52 static review checks, NOT native-tested. Returning to Library now pops Search rather than stacking a duplicate route; navigation QA only P12."
     }
   ],
   "evidence_records": [
@@ -1114,6 +1134,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "No Gradle KAPT/Kotlin compile, actual JVM/Compose/Room native tests, 200% font/TalkBack, 5000-song measured latency, screenshot, device/CI, APK, phone tests, reviewer or acceptance PASS. P06 schema 2.json absent."
+    },
+    {
+      "id": "I6-EVD-P09-002",
+      "phase": "P09",
+      "source_sha": "717bc142cde7a535b38bca0759cea852c977a45a",
+      "method": "Authenticated Github readback of NavHost popBackStack against existing route, updated report, 23-case synthetic QA plan and 52 static source conditions",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "NavBackStackEntry/ViewModel disposal behavior not device-tested, 25 authored tests not executed. No Gradle/Room V2 schema/SQLite native tests/CI/APK/handset. Product acceptance 12 original checkboxes unchecked."
     }
   ],
   "evidence_id_contract": {
