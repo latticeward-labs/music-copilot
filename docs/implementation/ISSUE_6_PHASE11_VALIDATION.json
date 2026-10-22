@@ -1,0 +1,332 @@
+{
+  "schema": "music-copilot.issue6.phase11.source-validation.v1",
+  "date": "2026-10-22",
+  "branch": "feature/6-mediastore-library-browse-search",
+  "phase": "P11",
+  "status": "PASS_SCOPED_STATIC_SOURCE_NOT_RUNTIME_VERIFIED",
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdfs_extracted_and_read": 12
+  },
+  "method": "Authenticated GitHub source readback of actual Kotlin/UI/Room/Manifest/test/script files, checked against 42 source invariants; no compilation, JVM, Android, benchmark or physical test performed.",
+  "static_checks": [
+    {
+      "id": "P11-C01",
+      "name": "Scoped multi-volume identity fixture",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C02",
+      "name": "Reject malformed or negative scoped IDs",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C03",
+      "name": "Unknown artist vs literal unknown distinct",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C04",
+      "name": "Reject path traversal",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C05",
+      "name": "Deduplicate identical platform refs only",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C06",
+      "name": "Preserve same-title distinct refs",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C07",
+      "name": "Bounded LibraryPageRequest maximum",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C08",
+      "name": "Reject >100 browse rows",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C09",
+      "name": "Reject over-limit mixed Search",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C10",
+      "name": "NFKC and locale-independent keys",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C11",
+      "name": "Typed stale-index feedback",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C12",
+      "name": "Typed permission revocation feedback",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C13",
+      "name": "Exactly 12 new P11 JVM methods",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C14",
+      "name": "P10 regression increased to 17 JVM methods",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C15",
+      "name": "Reject stale queue tail after one-item ReplaceQueue",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C16",
+      "name": "Browse ViewModel clears selection status",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C17",
+      "name": "Search ViewModel clears selection status",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C18",
+      "name": "Browse LiveRegion on status/empty/error",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C19",
+      "name": "Search LiveRegion on status/empty/error",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C20",
+      "name": "Two new TalkBack Compose regressions",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C21",
+      "name": "Search Compose suite has nine methods",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C22",
+      "name": "Deterministic 5000-row synthetic fixture",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C23",
+      "name": "100 separate pages of 50 records",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C24",
+      "name": "Bounded 60 mixed Search for 5000",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C25",
+      "name": "Artist/album/folder bounded browse on 5000",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C26",
+      "name": "Only numeric actual instrumentation measurements",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C27",
+      "name": "Three native SQLite 5000 methods authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C28",
+      "name": "Scanner real OS permission parity authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C29",
+      "name": "Denied OS grant fail-closed scanner case authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C30",
+      "name": "Two Android permission methods authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C31",
+      "name": "20 static CLI guard checks authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C32",
+      "name": "Guard does not suppress missing generated Room schema",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C33",
+      "name": "Manifest lacks product INTERNET permission",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C34",
+      "name": "No app backup per manifest",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C35",
+      "name": "Lint warnings treated as errors",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C36",
+      "name": "Room schema export enabled",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C37",
+      "name": "Original 34 owner manual cases retained",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C38",
+      "name": "P11 final single APK instructions",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C39",
+      "name": "P11 handoff report authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C40",
+      "name": "Missing Room V2 2.json documented",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C41",
+      "name": "Issue7 service dependency explicitly blocked",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P11-C42",
+      "name": "No fake test runtime claims",
+      "status": "PASS_STATIC"
+    }
+  ],
+  "source_blobs": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+      "sha": "503cd82cb145d59f583213033b09d27ac8a873f2"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+      "sha": "7e30661fcb45cccf3e18449048bd02dc940591bb"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+      "sha": "33e9de2b2aab64084cc6197954b6beffb573d258"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+      "sha": "29db3e63ff5a09f75421db56d1317ef191b29911"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+      "sha": "7da975e3351fa303a24f1cf3b1a4f69c8b1b63a4"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase11HardeningContractTest.kt",
+      "sha": "6159b5e5b37584d73d272e2564749fcac3c93d90"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+      "sha": "a95e8316c5e78dc538ccb89305086840e6fed9f2"
+    },
+    {
+      "path": "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11FiveThousandRoomBenchmarkTest.kt",
+      "sha": "bbdfce77264b64656169ecbbd16e9b50a2e2729a"
+    },
+    {
+      "path": "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11MediaStorePermissionInstrumentedTest.kt",
+      "sha": "15cf9fc99b5acf7dd124decbe9529f6ca29821ca"
+    },
+    {
+      "path": "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+      "sha": "da42f6760b38cfecacb5e277128c7ab11b6d1cf3"
+    },
+    {
+      "path": "tools/qa/issue6_static_guardrails.py",
+      "sha": "6bca9b56941dae6e0a3f7c140193d5c305dd374c"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
+      "sha": "4ea1fcb3d715d5075210a518ef514dcb700a7ce6"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE11_TEST_READINESS.md",
+      "sha": "b67a4a12a254926fb4befbbcbc746ded38474c33"
+    },
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "sha": "6c88f97473df6591b23dca99b850e8eecd58d118"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "sha": "cf3b176830fd5aaf1937c9cdf4828bd9e9b00c8c"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/room/MusicCopilotDatabase.kt",
+      "sha": "903544909c2fae96e1518afb0219b486b182b2ce"
+    }
+  ],
+  "authored_in_P11": {
+    "jvm_new_methods": 12,
+    "jvm_regression_added_to_P10": 1,
+    "android_room_5000_methods": 3,
+    "android_mediastore_permission_methods": 2,
+    "compose_semantics_added_to_P09": 2,
+    "total": 20
+  },
+  "other_authored_control": {
+    "static_guardrail_checks": 20,
+    "static_guardrails_execution": "NOT_RUN",
+    "existing_owner_manual_cases_preserved": 34,
+    "technical_suites": 10
+  },
+  "execution": {
+    "kotlin_compiler": "NOT_RUN",
+    "gradle": "NOT_RUN",
+    "jvm": "NOT_RUN",
+    "native_sqlite": "NOT_RUN",
+    "native_mediastore": "NOT_RUN",
+    "compose": "NOT_RUN",
+    "live_talkback": "NOT_RUN",
+    "font_scale_200_percent": "NOT_RUN",
+    "five_thousand_record_benchmark": "NOT_RUN",
+    "instrumentation_numeric_metrics": "NOT_COLLECTED",
+    "CI": "NOT_TRIGGERED",
+    "APK": "NOT_BUILT",
+    "owner_phone": "NOT_RUN"
+  },
+  "known_blockers": [
+    "P06 real compiler-generated Room 2.json absent at app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/2.json; source fetch returned 404",
+    "Room V1->V2 preservation/migration remains unexecuted",
+    "Issue #7 MediaSessionService still rejects ReplaceQueue by design; real audio playback is dependent on #7",
+    "All T01-T10 and owner M01-M34 remain NOT_RUN"
+  ],
+  "original_issue6_acceptance_checkboxes_passed": 0,
+  "final_candidate_sha": null,
+  "apk_sha256": null,
+  "ci_run": null,
+  "qa_phone_evidence": null,
+  "next_phase": "P12 only — freeze integrated source, run ALL tests, generate genuine Room schema, build ONE final APK and collect owner device QA"
+}
