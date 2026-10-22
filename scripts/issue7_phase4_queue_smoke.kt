@@ -6,8 +6,8 @@ import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
-import com.latticeward.musiccopilot.data.mediastore.LocalPlaybackMediaResolver
-import com.latticeward.musiccopilot.data.mediastore.VerifiedLocalMedia
+import com.latticeward.musiccopilot.playback.api.PlaybackMediaResolutionPort
+import com.latticeward.musiccopilot.playback.api.VerifiedPlaybackMedia
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
@@ -32,11 +32,11 @@ fun main() = runBlocking {
     val a = MediaRef("audio:1")
     val b = MediaRef("audio:2")
     val c = MediaRef("audio:3")
-    class Fake : LocalPlaybackMediaResolver {
+    class Fake : PlaybackMediaResolutionPort {
         val calls = mutableListOf<MediaRef>()
         var missing = emptySet<MediaRef>()
         var denied = false
-        override suspend fun resolve(ref: MediaRef): AppResult<VerifiedLocalMedia> {
+        override suspend fun resolve(ref: MediaRef): AppResult<VerifiedPlaybackMedia> {
             calls += ref
             if (denied) return AppResult.Failure(
                 AppError.Permission(
@@ -53,7 +53,7 @@ fun main() = runBlocking {
                 )
             )
             return AppResult.Success(
-                VerifiedLocalMedia(
+                VerifiedPlaybackMedia(
                     ref,
                     "content://media/external_primary/audio/media/${ref.value.removePrefix("audio:")}",
                 )
