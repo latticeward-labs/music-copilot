@@ -91,6 +91,7 @@ class LibraryBrowseViewModel(
                 totalCount = 0, revision = null, nextOffset = null,
                 loading = false, loadingMore = false, failure = null,
                 selectedSong = null,
+            selectionStatus = SelectedSongUiStatus.Idle,
             )
             return
         }
@@ -105,6 +106,7 @@ class LibraryBrowseViewModel(
             totalCount = 0, revision = snapshot.revision, nextOffset = null,
             loading = false, loadingMore = false, failure = null,
             selectedSong = null,
+            selectionStatus = SelectedSongUiStatus.Idle,
         )
         // Even an approved Empty index may be queried for its zero song
         // count; no scan is started and no invented results are generated.
@@ -121,6 +123,7 @@ class LibraryBrowseViewModel(
             entries = emptyList(), totalCount = 0, nextOffset = null,
             loading = false, loadingMore = false, failure = null,
             selectedSong = null,
+            selectionStatus = SelectedSongUiStatus.Idle,
         )
         if (acceptedRevision != null) requestPage(0)
     }
@@ -141,6 +144,7 @@ class LibraryBrowseViewModel(
             entries = emptyList(), totalCount = 0, nextOffset = null,
             loading = false, loadingMore = false, failure = null,
             selectedSong = null,
+            selectionStatus = SelectedSongUiStatus.Idle,
         )
         requestPage(0)
     }
@@ -160,6 +164,7 @@ class LibraryBrowseViewModel(
             totalCount = 0, nextOffset = null,
             loading = false, loadingMore = false, failure = null,
             selectedSong = null,
+            selectionStatus = SelectedSongUiStatus.Idle,
         )
         if (acceptedRevision != null) requestPage(0)
         return true
