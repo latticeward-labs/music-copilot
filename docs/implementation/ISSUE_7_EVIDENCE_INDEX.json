@@ -243,12 +243,15 @@
     {
       "id": "P13",
       "title": "Single final APK, owner QA, PR and delivery",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
+      "status": "BLOCKED_BUILD_ENV",
+      "report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+      "evidence": [
+        "I7-EVD-P13-001",
+        "I7-EVD-P13-002"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "93afc2a6d4b87e8c01363e467c73b1879da88039"
     }
   ],
   "acceptance_criteria": [
@@ -718,6 +721,21 @@
       ],
       "source_commit": "cb20e764cd26932f132d8be95615c7ddcbecd697",
       "status": "PASS_SCOPED_SOURCE_REVIEW_ONLY_NO_ANDROID_COMPILATION"
+    },
+    {
+      "id": "I7-CHG-P13-001",
+      "phase": "P13",
+      "kind": "HONEST_FINAL_BUILD_BLOCKER_AND_NON_ACTIONS_WINDOWS_HANDOFF",
+      "description": "Verified exact uploaded source RAR SHA and latest GitHub P00–P12 branch. The current execution sandbox has Java but NO Android SDK, android.jar, Gradle executable, full private-repository checkout or outbound DNS (curl and git ls-remote fail), so no valid APK can be built here. Created a deterministic Windows PowerShell build script that uses JDK17 + Android SDK36 + Gradle Wrapper to produce exactly one local P13 debug APK, SHA256 and source commit attestation, without GitHub Actions or tests. Marked P13 BLOCKED_BUILD_ENV; NO APK, NO test runs, NO PR/merge/close; all 13 AC unverified and 36 manual + 15 technical cases NOT_RUN.",
+      "changed_paths": [
+        "scripts/build_issue7_p13_local.ps1",
+        ".gitignore",
+        "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+        "docs/implementation/ISSUE_7_QA_RESULTS.json",
+        "docs/implementation/ISSUE_7_EVIDENCE_INDEX.json"
+      ],
+      "source_commit": "93afc2a6d4b87e8c01363e467c73b1879da88039",
+      "status": "BLOCKED_NOT_DELIVERED"
     }
   ],
   "evidence_records": [
@@ -1269,6 +1287,40 @@
       "merged": false,
       "issue_closed": false,
       "status": "P13_NEXT_ENVIRONMENT_PENDING_SOURCE_ONLY"
+    },
+    {
+      "id": "I7-EVD-P13-001",
+      "phase": "P13",
+      "type": "ACTUAL_SANDBOX_BUILD_ENVIRONMENT_PRECHECK",
+      "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+      "android_sdk": false,
+      "android_jar": false,
+      "gradle_executable": false,
+      "outbound_services_gradle_dns": false,
+      "outbound_github_dns": false,
+      "full_private_repo_checkout": false,
+      "github_source_connector": true,
+      "gradle_assembly_invoked": false,
+      "github_actions_dispatched": false,
+      "apk_sha256": null,
+      "report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+      "result": "BLOCKED_NO_ANDROID_BUILD_ENV"
+    },
+    {
+      "id": "I7-EVD-P13-002",
+      "phase": "P13",
+      "type": "OFFLINE_NON_ACTIONS_BUILD_SCRIPT_PREPARED_NOT_EXECUTED",
+      "script_path": "scripts/build_issue7_p13_local.ps1",
+      "expected_platform": "Windows PowerShell + full feature branch + Android SDK36 + JDK17 + repository Gradle wrapper 8.11.1",
+      "future_artifact": "dist/issue7-p13/MusicCopilot-Issue7-P13-debug.apk",
+      "future_attestation": "dist/issue7-p13/MusicCopilot-Issue7-P13-build.json",
+      "script_executed": false,
+      "script_powershell_parsed": false,
+      "artifact_created": false,
+      "tests_executed": 0,
+      "owner_M_cases": "ALL_NOT_RUN",
+      "technical_T_cases": "ALL_NOT_RUN",
+      "result": "HANDOFF_SOURCE_COMMITTED_NO_BUILD"
     }
   ],
   "release": {
@@ -1279,16 +1331,18 @@
     "apk_url": null,
     "phone_case_status": "ALL_NOT_RUN",
     "technical_case_status": "ALL_NOT_RUN",
-    "pr_state": "NOT_OPENED",
+    "pr_state": "NOT_OPENED_BUILD_AND_OWNER_QA_BLOCKED",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
-    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P12_OWNER_REQUIRES_NON_ACTIONS_SINGLE_P13_APK",
+    "actions": "ZERO_GITHUB_ACTIONS_TESTS_BUILDS_DISPATCHED_ISSUE7_P00_TO_P13",
     "independent_review": "NOT_REVIEWED",
     "merge": "NOT_MERGED",
     "issue_state": "OPEN",
     "project_v2_status": "NOT_VERIFIED",
-    "source_implementation_status": "P00_P12_SOURCE_SCOPED_PASSED_P13_NEXT",
-    "build_environment_status": "ANDROID_SDK_AND_GRADLE_NOT_INSTALLED_HERE"
+    "source_implementation_status": "P00_TO_P12_SOURCE_SCOPED_P13_BLOCKED_NO_APK",
+    "build_environment_status": "P13_BLOCKED_ANDROID_SDK_GRADLE_AND_OUTBOUND_NETWORK_UNAVAILABLE_IN_ASSISTANT_SANDBOX",
+    "blocked_release_report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+    "local_build_handoff": "scripts/build_issue7_p13_local.ps1"
   },
   "known_debt": [
     73,
