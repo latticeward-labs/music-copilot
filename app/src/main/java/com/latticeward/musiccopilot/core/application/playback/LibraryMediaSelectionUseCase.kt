@@ -92,7 +92,10 @@ class LibraryMediaSelectionUseCase(
         // snapshot is NOT an acknowledgement for this exact selection.
         if (confirmed.currentItem != ref ||
             confirmed.currentIndex != 0 ||
-            confirmed.queue.firstOrNull() != ref ||
+            // P10 submitted a single-item ReplaceQueue; a snapshot that keeps
+            // stale extra queue entries is not proof of this exact command.
+            confirmed.queue.size != 1 ||
+            confirmed.queue.singleOrNull() != ref ||
             confirmed.playbackState == PlaybackState.Error ||
             confirmed.playbackState == PlaybackState.Idle ||
             confirmed.playbackState == PlaybackState.Ended
