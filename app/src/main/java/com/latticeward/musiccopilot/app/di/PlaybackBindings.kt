@@ -12,6 +12,7 @@ import com.latticeward.musiccopilot.playback.api.PlaybackMediaResolutionPort
 import com.latticeward.musiccopilot.playback.api.VerifiedPlaybackMedia
 import com.latticeward.musiccopilot.playback.controller.PlaybackControllerConnection
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
 
 /** The only permitted concrete integration boundary. Never owns a Player. */
 internal object PlaybackBindings {
@@ -66,6 +67,7 @@ internal object PlaybackBindings {
         )
         return object : PlaybackMediaResolutionPort {
             override suspend fun resolve(ref: MediaRef): AppResult<VerifiedPlaybackMedia> =
+                withContext(dispatchers.io) {
                 when (val result = delegate.resolve(ref)) {
                     is AppResult.Success -> {
                         // Still on the resolver's IO context. The verified
@@ -80,6 +82,7 @@ internal object PlaybackBindings {
                         )
                     }
                     is AppResult.Failure -> result
+                }
                 }
 
             override fun invalidate() = delegate.invalidate()
