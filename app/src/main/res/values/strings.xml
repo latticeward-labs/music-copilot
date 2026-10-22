@@ -123,4 +123,12 @@
     <string name="i6_search_folder_result">Folder result</string>
     <string name="i6_search_open">Open</string>
     <string name="i6_search_select_song">Select</string>
+    <!-- Issue #6 P10: service-acknowledged selection, never fake playback. -->
+    <string name="i6_selection_verifying">Checking local file and playback service…</string>
+    <string name="i6_selection_playing">Service reports Playing: %1$s</string>
+    <string name="i6_selection_accepted_pending">Service accepted %1$s; playback has not started.</string>
+    <string name="i6_selection_permission">Music access changed. Review permission and rescan.</string>
+    <string name="i6_selection_missing">The selected file is missing or cannot be read. Rescan your library.</string>
+    <string name="i6_selection_stale">The local library changed. Rescan before playing.</string>
+    <string name="i6_selection_unavailable">Playback is not available yet. Your music is unchanged.</string>
 </resources>
