@@ -13,6 +13,7 @@ import com.latticeward.musiccopilot.data.api.PreferenceUpdate
 import com.latticeward.musiccopilot.core.application.library.LibraryScanUseCase
 import com.latticeward.musiccopilot.core.application.library.LibraryScanLaunchGate
 import com.latticeward.musiccopilot.core.application.library.LibraryScanReason
+import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import kotlinx.coroutines.launch
 
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
@@ -145,6 +146,19 @@ class ApplicationBindings(
                 PackageManager.PERMISSION_GRANTED
         }
     }
+    /** P10 shared contract, not a second Player. OS permission remains source of truth. */
+    val mediaSelection = LibraryMediaSelectionUseCase(
+        library = libraryRepository,
+        gateway = playbackGateway,
+        hasOsMediaAccess = {
+            val app = mediaAppContext
+            app != null && ContextCompat.checkSelfPermission(
+                app,
+                if (Build.VERSION.SDK_INT >= 33) Manifest.permission.READ_MEDIA_AUDIO
+                else Manifest.permission.READ_EXTERNAL_STORAGE,
+            ) == PackageManager.PERMISSION_GRANTED
+        },
+    )
     private val scanLaunchGate = LibraryScanLaunchGate(repositoryScope)
 
     /**
