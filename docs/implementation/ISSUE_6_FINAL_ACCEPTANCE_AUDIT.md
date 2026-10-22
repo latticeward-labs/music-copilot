@@ -42,3 +42,12 @@ Use `docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md` M01–M34, and the
 
 **APK_DELIVERED_FOR_OWNER_TESTING != ISSUE_6_PRODUCT_ACCEPTED.**
 APK installability on the owner's Android phone is unverified; prior lint FAIL and real playback dependency remain documented. No more GitHub Actions or CI test executions are authorized by the owner's latest request. Review and close only after the owner reports acceptable manual results and separately resolves or explicitly accepts remaining technical verification debt.
+
+
+## Owner acceptance addendum — 2026-10-22
+
+**This section supersedes the prior "owner tests NOT_RUN" statement as of this date.** Preserve the historical P12 build/lint failure details above. User provided the exported owner-phone checklist `music-copilot-issue6-phone-results.txt` (SHA-256 `ea1b579a88a8d77f40f96d80f227219e60d37fdf61c61c85f895cecce9592fe8`). Exactly **28 PASS**, **0 FAIL**, **6 N/A** from the original 34 scenarios are recorded in [the source-preserving case ledger](ISSUE_6_P12_OWNER_PHONE_RESULTS.json). All cases have empty free-text notes. Phone/model and Android version are unprovided, not inferred.
+
+The six **N/A / not tested** cases — `M15`, `M16`, `M22`, `M25`, `M26`, `M28` — are deferred until **after completion of the MVP** in [Issue #74](https://github.com/latticeward-labs/music-copilot/issues/74). This is not six additional PASS. Real audio playback is still Issue #7. Existing 343 JVM PASS and the 10 Lint errors from the old build are unchanged; native migration and complete performance certification are not proven. No further GitHub Actions tests are authorized.
+
+The owner **explicitly authorized PR, merge and Issue #6 closure despite deferred verification**. This should be recorded as `MVP_ACCEPTED_WITH_DEFERRED_QA`, not `ALL_12_ENGINEERING_AC_PASS`. Detailed scope and exception: [owner acceptance/merge manifest](ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md). After GitHub-confirmed merge, close Issue #6 as owner-accepted with follow-up #74 OPEN for missing QA and #7 OPEN for playback. Do not relabel the previous CI run SUCCESS or mark deferred tests PASS.
