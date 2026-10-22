@@ -7,6 +7,7 @@ import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.playback.api.PlaybackMediaResolutionPort
 import com.latticeward.musiccopilot.playback.api.PlaybackResolverHost
 import com.latticeward.musiccopilot.data.api.RestorableQueueStore
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Real Android-process root. No secondary Activity/Service construction or service locator.
@@ -29,6 +30,9 @@ class MusicCopilotApplication : Application(), PlaybackResolverHost {
 
     override fun createPlaybackRestorableQueueStore(): RestorableQueueStore =
         bindings.restorableQueueStore
+
+    override fun playbackCheckpointWriteScope(): CoroutineScope =
+        bindings.applicationScope
 
     override fun onTerminate() {
         if (::bindings.isInitialized) bindings.close()
