@@ -30,7 +30,12 @@ class Media3SnapshotProjector {
             previousIndex = index
         }
         val state = when {
-            player.playerError != null || error != null -> PlaybackState.Error
+            // A sanitized skipped-item notice must not misrepresent a
+            // successfully recovering/playing successor as PlaybackState.Error.
+            // Terminal errors remain Error when Media3 is actually IDLE.
+            player.playerError != null ||
+                (error != null && player.playbackState == Player.STATE_IDLE) ->
+                PlaybackState.Error
             player.playbackState == Player.STATE_ENDED -> PlaybackState.Ended
             player.playbackState == Player.STATE_BUFFERING -> PlaybackState.Buffering
             player.isPlaying -> PlaybackState.Playing
