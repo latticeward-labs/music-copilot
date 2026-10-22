@@ -243,15 +243,17 @@
     {
       "id": "P13",
       "title": "Single final APK, owner QA, PR and delivery",
-      "status": "BLOCKED_BUILD_ENV",
-      "report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+      "status": "APK_BUILT_OWNER_QA_PENDING",
+      "report": "docs/implementation/ISSUE_7_PHASE13_FINAL_APK_BUILD_AND_QA_HANDOFF.md",
       "evidence": [
         "I7-EVD-P13-001",
-        "I7-EVD-P13-002"
+        "I7-EVD-P13-002",
+        "I7-EVD-P13-003",
+        "I7-EVD-P13-004"
       ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": "93afc2a6d4b87e8c01363e467c73b1879da88039"
+      "commit_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b"
     }
   ],
   "acceptance_criteria": [
@@ -736,6 +738,24 @@
       ],
       "source_commit": "93afc2a6d4b87e8c01363e467c73b1879da88039",
       "status": "BLOCKED_NOT_DELIVERED"
+    },
+    {
+      "id": "I7-CHG-P13-002",
+      "phase": "P13",
+      "kind": "OWNER_AUTHORIZED_BUILD_ONLY_GITHUB_ACTIONS_SUCCESS",
+      "description": "Owner explicitly authorized GitHub Actions exclusively to assemble ONE cumulative P00-P12 debug APK without running tests. Isolated workflow issue-7-p13-apk-build-only.yml triggered by .github/issue7-p13-apk-request.txt; first run 39854155499 exposed a Kotlin Media3 AcceptedResultBuilder constructor compile error, which was fixed on feature branch. Second build-only run 39854659624 succeeded; 36,605,879-byte debug APK artifact 12458647942 with SHA256 verified against GitHub and downloaded APK. No JUnit, Android tests, emulator or lint. All 36 manual + 15 technical cases NOT_RUN; AC01-AC13 NOT_VERIFIED; no PR/merge/issue close.",
+      "changed_paths": [
+        ".github/workflows/issue-7-p13-apk-build-only.yml",
+        ".github/issue7-p13-apk-request.txt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "docs/implementation/ISSUE_7_QA_RESULTS.json",
+        "docs/implementation/ISSUE_7_EVIDENCE_INDEX.json"
+      ],
+      "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "build_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624",
+      "apk_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
+      "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "status": "APK_BUILT_OWNER_QA_PENDING"
     }
   ],
   "evidence_records": [
@@ -1321,27 +1341,75 @@
       "owner_M_cases": "ALL_NOT_RUN",
       "technical_T_cases": "ALL_NOT_RUN",
       "result": "HANDOFF_SOURCE_COMMITTED_NO_BUILD"
+    },
+    {
+      "id": "I7-EVD-P13-003",
+      "phase": "P13",
+      "type": "REAL_GITHUB_ACTIONS_APK_ASSEMBLY_BUILD_ONLY_SUCCESS",
+      "workflow_run_id": 39854659624,
+      "job_id": 120089606655,
+      "artifact_id": 12458647942,
+      "head_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "artifact_name": "issue7-p13-one-cumulative-phone-apk",
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
+      "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "apk_bytes": 36605879,
+      "build_command": "./gradlew --no-daemon --console=plain :app:assembleDebug --stacktrace",
+      "build_result": "SUCCESS",
+      "github_actions_build_runs": 2,
+      "failed_build_run_id": 39854155499,
+      "failed_build_cause": "Kotlin Media3 AcceptedResultBuilder constructor signature mismatch; corrected before successful final APK",
+      "junit_tests_executed": 0,
+      "android_tests_executed": 0,
+      "emulator_tests_executed": 0,
+      "lint_executed": 0,
+      "test_run": false,
+      "result": "BUILD_SUCCESS_OWNER_QA_NOT_RUN"
+    },
+    {
+      "id": "I7-EVD-P13-004",
+      "phase": "P13",
+      "type": "DOWNLOADED_APK_INTEGRITY_AND_OWNER_QA_PENDING",
+      "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "apk_bytes": 36605879,
+      "artifact_zip_extracted": true,
+      "apk_zip_integrity": "NO_ERRORS",
+      "github_generated_sha256_matches_extracted_bytes": true,
+      "owner_manual_cases_pending": 36,
+      "technical_cases_pending": 15,
+      "product_criteria_pending": 13,
+      "owner_device_installation": "NOT_RUN",
+      "result": "APK_READY_TO_INSTALL_NOT_FIELD_TESTED",
+      "test_run": false
     }
   ],
   "release": {
     "owner_apk_policy": "SINGLE_INTEGRATED_P13_ONLY",
-    "owner_apk": null,
-    "source_commit": null,
-    "apk_sha256": null,
-    "apk_url": null,
-    "phone_case_status": "ALL_NOT_RUN",
+    "owner_apk": {
+      "name": "app-debug.apk",
+      "size_bytes": 36605879,
+      "sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "artifact_id": 12458647942,
+      "artifact_name": "issue7-p13-one-cumulative-phone-apk",
+      "workflow_run_id": 39854659624,
+      "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b"
+    },
+    "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+    "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+    "apk_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
+    "phone_case_status": "ALL_NOT_RUN_AWAIT_OWNER",
     "technical_case_status": "ALL_NOT_RUN",
-    "pr_state": "NOT_OPENED_BUILD_AND_OWNER_QA_BLOCKED",
+    "pr_state": "NOT_OPENED_AWAIT_OWNER_QA",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
-    "actions": "ZERO_GITHUB_ACTIONS_TESTS_BUILDS_DISPATCHED_ISSUE7_P00_TO_P13",
+    "actions": "OWNER_AUTHORIZED_BUILD_ONLY_GITHUB_ACTIONS_RUN_39854659624_SUCCESS_NO_TESTS",
     "independent_review": "NOT_REVIEWED",
     "merge": "NOT_MERGED",
     "issue_state": "OPEN",
     "project_v2_status": "NOT_VERIFIED",
-    "source_implementation_status": "P00_TO_P12_SOURCE_SCOPED_P13_BLOCKED_NO_APK",
-    "build_environment_status": "P13_BLOCKED_ANDROID_SDK_GRADLE_AND_OUTBOUND_NETWORK_UNAVAILABLE_IN_ASSISTANT_SANDBOX",
-    "blocked_release_report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+    "source_implementation_status": "P00_TO_P12_INTEGRATED_DEBUG_APK_BUILT_P13_OWNER_QA_PENDING",
+    "build_environment_status": "GITHUB_ACTIONS_BUILD_ONLY_SUCCESS_AFTER_OWNER_AUTHORIZATION",
+    "blocked_release_report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md (historical prior to owner's Actions build authorization)",
     "local_build_handoff": "scripts/build_issue7_p13_local.ps1"
   },
   "known_debt": [
