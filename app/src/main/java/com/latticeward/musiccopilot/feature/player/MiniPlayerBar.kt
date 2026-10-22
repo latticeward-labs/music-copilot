@@ -41,6 +41,7 @@ fun MiniPlayerBar(
     val displayName = state.title?.takeIf { it.isNotBlank() }
         ?: stringResource(R.string.i7_unknown_track)
     val status = playbackStatusLabel(state)
+    val openLabel = stringResource(R.string.i7_open_player)
     Surface(color = MusicColors.surfaceRaised) {
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -53,7 +54,7 @@ fun MiniPlayerBar(
                 modifier = Modifier.weight(1f)
                     .clickable(role = Role.Button, onClick = onOpenPlayer)
                     .heightIn(min = MusicSize.touchTargetMinDp)
-                    .semantics { contentDescription = "$displayName. Open full player" },
+                    .semantics { contentDescription = "$displayName. $openLabel" },
             ) {
                 Text(displayName, style = MusicTextStyles.bodyLarge,
                     color = MusicColors.textPrimary, maxLines = 2)
