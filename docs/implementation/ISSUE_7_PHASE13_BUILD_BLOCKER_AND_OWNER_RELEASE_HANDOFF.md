@@ -6,7 +6,7 @@
 
 ## Attached authority and GitHub baseline
 
-- Attached `MSM2(1)(1).rar` is present at the user-supplied sandbox path and **SHA256 verified**: `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`. This matches the 12 approved English PDFs and previous [P00 source audit](ISSUE_7_PHASE0_SOURCE_PREREQUISITE_AUDIT.md).
+- Attached `MSM2(1)(1).rar` is present at the user-supplied sandbox path and **SHA256 verified**: `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`. This matches the 12 approved English PDFs and previous [P00 source audit](ISSUE_7_PHASE0_READINESS_AUDIT.md).
 - The full P00–P12 implementation/source-review history is retained in the existing [phased plan](ISSUE_7_PHASED_EXECUTION_PLAN.md), [evidence ledger](ISSUE_7_EVIDENCE_INDEX.json), issue body and linked phase reports.
 - The last checked feature branch was **199 commits ahead of main, 0 behind**, Issue #7 OPEN and 0 feature PRs before P13 preparation edits. No merge; no evidence that Android builds or audible playback pass.
 - Existing build configuration declares Android SDK 36, Java target 17, Kotlin 2.0.21, Gradle Wrapper 8.11.1, Android Gradle Plugin 8.10.1 and Media3 1.5.1. Package for the debug APK is `com.latticeward.musiccopilot.debug` (`applicationIdSuffix=.debug`). This is a distinct application ID from a non-debug install.
