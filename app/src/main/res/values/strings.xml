@@ -131,4 +131,29 @@
     <string name="i6_selection_missing">The selected file is missing or cannot be read. Rescan your library.</string>
     <string name="i6_selection_stale">The local library changed. Rescan before playing.</string>
     <string name="i6_selection_unavailable">Playback is not available yet. Your music is unchanged.</string>
+    <!-- Issue #7 P07. All player labels are derived from the service snapshot. -->
+    <string name="i7_player_title">Now playing</string>
+    <string name="i7_local_music">Local music</string>
+    <string name="i7_unknown_track">Local track</string>
+    <string name="i7_play">Play</string>
+    <string name="i7_pause">Pause</string>
+    <string name="i7_previous">Previous</string>
+    <string name="i7_next">Next</string>
+    <string name="i7_seek_back">Back 10 seconds</string>
+    <string name="i7_queue_title">Queue · %1$d tracks</string>
+    <string name="i7_queue_track_number">Track %1$d</string>
+    <string name="i7_current_track_marker">Current track</string>
+    <string name="i7_unknown_duration">–:––</string>
+    <string name="i7_playing">Playing</string>
+    <string name="i7_paused">Paused</string>
+    <string name="i7_buffering">Loading audio…</string>
+    <string name="i7_ended">Finished</string>
+    <string name="i7_no_track">No track selected. Choose a local song in Library or Search.</string>
+    <string name="i7_connecting">Connecting to playback…</string>
+    <string name="i7_disconnected">Playback disconnected. Reopen the app to reconnect.</string>
+    <string name="i7_controller_error">Playback temporarily unavailable.</string>
+    <string name="i7_playback_error">The track could not be played. Choose another local track.</string>
+    <string name="i7_command_pending">Checking with playback service…</string>
+    <string name="i7_action_failed">That action was not accepted. Your queue is unchanged.</string>
+    <string name="i7_service_queue_note">Your local queue is controlled by the playback service.</string>
 </resources>
