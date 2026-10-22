@@ -202,6 +202,10 @@ class MusicPlaybackService : MediaSessionService() {
                 // A rejected/corrupt snapshot never blocks subsequent user
                 // session writes, and never auto-starts playback.
                 pausedCheckpoint.enable()
+                // After a *validated* restored queue was published while
+                // writes were disabled, commit the filtered Safe-Paused form
+                // (invalid/missing entries dropped) as the next checkpoint.
+                pausedCheckpoint.onSnapshot(confirmed)
             }
         }
         // Only the real service Player position is sampled, every 5 seconds
