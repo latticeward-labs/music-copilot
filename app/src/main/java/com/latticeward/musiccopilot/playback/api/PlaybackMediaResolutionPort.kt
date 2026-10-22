@@ -3,6 +3,7 @@ package com.latticeward.musiccopilot.playback.api
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.data.api.RestorableQueueStore
 
 /**
  * Narrow service input. It is only a transient, verified content URI, not
@@ -35,4 +36,7 @@ interface PlaybackResolverHost {
     fun createPlaybackMediaResolver(
         dispatchers: DispatcherProvider,
     ): PlaybackMediaResolutionPort
+
+    /** P1 non-authoritative Proto DataStore. No Player or media lookup here. */
+    fun createPlaybackRestorableQueueStore(): RestorableQueueStore
 }
