@@ -134,6 +134,38 @@ class PlaybackControllerConnection(
         return relay.publish(received, allowRevisionReset)
     }
 
+    /** Explicit, bounded service read. UI never advances position locally. */
+    override suspend fun refreshSnapshot(): AppResult<PlaybackSnapshot> {
+        val controller = active
+        if (controller == null || connectionState.value != PlaybackConnectionState.Ready) {
+            ensureConnected()
+            return disconnected()
+        }
+        return try {
+            val result = withTimeoutOrNull(2_500L) {
+                await(controller.sendCustomCommand(
+                    PlaybackWireProtocol.snapshotCommand(), Bundle.EMPTY
+                ))
+            } ?: return AppResult.Failure(AppError.Controller(
+                AppErrorCodes.CONTROLLER_TIMEOUT,
+                Recoverability.RECOVERABLE, RecoveryAction.Retry
+            ))
+            if (result.resultCode != SessionResult.RESULT_SUCCESS) {
+                PlaybackWireProtocol.decodeFailure(result.extras)
+            } else {
+                val current = PlaybackWireProtocol.decodeSnapshot(
+                    result.extras.getBundle(PlaybackWireProtocol.KEY_SNAPSHOT)
+                ) ?: return disconnected()
+                relay.publish(current, false)
+                AppResult.Success(current)
+            }
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            disconnected()
+        }
+    }
+
     override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
         val controller = active
         if (controller == null || connectionState.value != PlaybackConnectionState.Ready) {
