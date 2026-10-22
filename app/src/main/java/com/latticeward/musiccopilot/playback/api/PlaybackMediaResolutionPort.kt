@@ -7,11 +7,16 @@ import com.latticeward.musiccopilot.core.result.AppResult
 /**
  * Narrow service input. It is only a transient, verified content URI, not
  * long-lived permission, queue ownership or permission to log personal files.
+ * Display metadata is read locally and must never be logged or sent remotely.
  * Concrete MediaStore access is composed by app.di, never imported by playback.
  */
 class VerifiedPlaybackMedia internal constructor(
     val ref: MediaRef,
     val contentUri: String,
+    /** Local, bounded MediaStore display data for OS media surfaces only. */
+    val displayTitle: String? = null,
+    val displayArtist: String? = null,
+    val displayAlbum: String? = null,
 ) {
     override fun toString(): String = "VerifiedPlaybackMedia(redacted)"
 }
