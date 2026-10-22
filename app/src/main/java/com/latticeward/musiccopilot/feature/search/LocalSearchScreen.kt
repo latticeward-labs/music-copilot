@@ -46,6 +46,7 @@ import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
 import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
+import com.latticeward.musiccopilot.feature.library.selectedSongFeedback
 
 /**
  * WF-05/HF-05: Back+Search bar, editable local SearchField, result count,
@@ -239,9 +240,9 @@ fun LocalSearchScreen(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        stringResource(
-                            R.string.p08_selected_not_playing,
+                        selectedSongFeedback(
                             state.selectedSong?.title.orEmpty(),
+                            state.selectionStatus,
                         ),
                         modifier = Modifier.weight(1f),
                         color = MusicColors.textPrimary,
