@@ -222,12 +222,28 @@
     {
       "id": "P10",
       "title": "Media selection and PlaybackGateway boundary",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE10_SELECTION_HANDOFF.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "790b4c0870b57ea35f91fdbc1c94eac3530f2468",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongUiStatus.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongFeedback.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+        "docs/implementation/ISSUE_6_PHASE10_SELECTION_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE10_SELECTION_HANDOFF.md",
+        "docs/implementation/ISSUE_6_PHASE10_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P10 PASS_SCOPED_STATIC_SOURCE: 43/43 GitHub source checks, 16 synthetic JVM methods authored NOT_RUN and 24 P12 QA scenarios NOT_RUN. OS MediaStore get/requery and PlaybackGateway connected, but actual Issue #7 MusicPlaybackService rejects ReplaceQueue by design; no actual playback claim. P06 native Room schema 2.json still blocked; no Kotlin/Gradle, JVM/Android, APK, CI or handset execution."
     },
     {
       "id": "P11",
@@ -1042,6 +1058,50 @@
       "kind": "return_to_existing_Library_back_stack_query_retention_hardening",
       "rollback": "Revert P09-only follow-up commits with reviewed additional feature-branch changes; preserve P08 Library entry and all other phase evidence. No user media mutation.",
       "note": "P09 existing PASS_SCOPED unchanged: 52 static review checks, NOT native-tested. Returning to Library now pops Search rather than stacking a duplicate route; navigation QA only P12."
+    },
+    {
+      "id": "I6-CHG-P10-001",
+      "phase": "P10",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "53aaeaab707609bdbf950d95948f3f7778091e52",
+        "32b36b0fa43c68e21426474693e83caafb7ae278",
+        "3e9cff48abae6de5476514a4890ffe4acfa91abf",
+        "4b165a5239d94726a8e6a39c15f22f5827164b75",
+        "ad180cb792becc0ee851c5609227384e42c623f2",
+        "32cbc7a13a0bba2f553f990ecff03b4e9b9b5731",
+        "665908ebdfe3544fd68ad2812eb6a2fbaa071fa5",
+        "feba0cdceaabf829ee494103eb6d4c79d8879dae",
+        "375756e045ce7246906056861fded014f2b9163b",
+        "94b5611a6780a447bbc901183304b13da88d8ebb",
+        "6ac341d2c4b80a57b418c8f884a7f716e1b21379",
+        "50bc30729757b0b9f9efde704c56132eebd0c1de",
+        "528d4753d5c78ed917962b896fa64c3122e0dec1",
+        "3561866751a6fa4b0159e1cf9c6107db0a7d64c6",
+        "c7b4ceb8fd52689613f52be1670c707b41f8e0cb",
+        "8fde03b6282e9dceb5b704cad61ef5bb245bcc5f",
+        "790b4c0870b57ea35f91fdbc1c94eac3530f2468"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongUiStatus.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongFeedback.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+        "docs/implementation/ISSUE_6_PHASE10_SELECTION_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE10_SELECTION_HANDOFF.md",
+        "docs/implementation/ISSUE_6_PHASE10_VALIDATION.json"
+      ],
+      "kind": "platform_revalidated_song_selection_service_owned_playback_gateway_handoff_and_safe_failure_ui",
+      "rollback": "Revert P10-only feature commits before merge after review; keep P00–P09 and original music untouched. No MediaSession, Room or song-file destructive writes.",
+      "note": "Service Issue #7 remains OPEN and ReplaceQueue rejected; fake accepted snapshots for boundary tests only, no actual real-song playing. P06 native verification still unresolved."
     }
   ],
   "evidence_records": [
@@ -1144,6 +1204,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "NavBackStackEntry/ViewModel disposal behavior not device-tested, 25 authored tests not executed. No Gradle/Room V2 schema/SQLite native tests/CI/APK/handset. Product acceptance 12 original checkboxes unchecked."
+    },
+    {
+      "id": "I6-EVD-P10-001",
+      "phase": "P10",
+      "source_sha": "790b4c0870b57ea35f91fdbc1c94eac3530f2468",
+      "method": "Authenticated GitHub source readback across selected source requery/read descriptor, app-owned DI, Library/Search ViewModels and status, real PlaybackGateway/MediaSession service rejection, 43 structural invariants; 16 synthetic JVM tests and 24 cases authored",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE10_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "No Kotlin/Android Gradle compilation, JVM/test runtime, native MediaStore/Media3 playback, Android UI/device, QA/5k benchmark/CI/APK/independent review. Current MusicPlaybackService intentionally rejects ReplaceQueue until Issue #7. Original 12 Issue #6 acceptance ACs unchecked."
     }
   ],
   "evidence_id_contract": {
