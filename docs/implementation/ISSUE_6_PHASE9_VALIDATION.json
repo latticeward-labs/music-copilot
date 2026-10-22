@@ -8,7 +8,7 @@
     "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
     "pdfs": 12
   },
-  "method": "Authenticated GitHub feature-branch live UTF-8 file readback; 51 static implementation invariants. No compiler, SQLite, JVM or Android runtime execution.",
+  "method": "Authenticated GitHub feature-branch UTF-8 source readback: 52 structural invariants including source-pinned Search Back-stack privacy fix. No compilation, JVM, SQLite or Android runtime execution.",
   "disposition": "PASS_SCOPED_STATIC_SOURCE_NOT_NATIVE_VERIFIED",
   "static_checks": [
     {
@@ -265,6 +265,11 @@
       "id": "P09-C51",
       "name": "no unsupported Compose weight import",
       "status": "PASS_STATIC"
+    },
+    {
+      "id": "P09-C52",
+      "name": "Search Back navigates to existing Library destination, disposing popped Search ViewModel and query instead of stacking duplicate Library",
+      "status": "PASS_STATIC"
     }
   ],
   "source_blobs": [
@@ -298,7 +303,7 @@
     },
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
-      "blob_sha": "4d4249fe5f185b1dcd250d1aadf31fce78671caa"
+      "blob_sha": "e19b916a6187fcbb08e3312e33533751955a662c"
     },
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
@@ -326,11 +331,11 @@
     },
     {
       "path": "docs/implementation/ISSUE_6_PHASE9_SEARCH_QA_MATRIX.md",
-      "blob_sha": "d743e9170e97e304c0d2aa7c5e76008eccdfad53"
+      "blob_sha": "ced2cb01366f867c4ad88667f1456116e77c2d7d"
     },
     {
       "path": "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
-      "blob_sha": "5901ac24fc790918c81da7c1a388b890d943a5d4"
+      "blob_sha": "0bba6acae02d023689f847ddd159694d8806a3e9"
     }
   ],
   "authored_tests": {
@@ -338,7 +343,7 @@
     "compose": 7,
     "room": 4
   },
-  "qa_scenarios": 22,
+  "qa_scenarios": 23,
   "executed": {
     "gradle_compile": "NOT_RUN",
     "room_v2_kapt": "NOT_RUN",
@@ -362,5 +367,9 @@
     "Liked Songs P2 disabled"
   ],
   "original_issue6_product_acceptance_checkboxes_passed": 0,
-  "next": "P10 verified MediaStore song selection to PlaybackGateway; final QA and one APK P12 only"
+  "next": "P10 verified MediaStore song selection to PlaybackGateway; final QA and one APK P12 only",
+  "additional_limits": [
+    "Navigation privacy improvement statically verified; actual NavController disposal and rotation Settings round-trip are P12 only.",
+    "P06 generated Room V2 2.json / genuine SQLite migration remain incomplete."
+  ]
 }
