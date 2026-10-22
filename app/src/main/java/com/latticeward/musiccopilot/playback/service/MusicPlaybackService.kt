@@ -189,10 +189,15 @@ class MusicPlaybackService : MediaSessionService() {
             if (!isPrivateCaller(controller)) {
                 Futures.immediateFuture(SessionResult(SessionError.ERROR_NOT_SUPPORTED))
             } else when (customCommand.customAction) {
-            PlaybackWireProtocol.ACTION_SNAPSHOT ->
+            PlaybackWireProtocol.ACTION_SNAPSHOT -> {
+                // Position advances between Media3 callbacks. Refresh only
+                // when an authorized controller explicitly asks; the one
+                // service-owned Player is the time/queue/state authority.
+                publishSnapshot()
                 Futures.immediateFuture(
                     SessionResult(SessionResult.RESULT_SUCCESS, wrap(confirmed))
                 )
+            }
             PlaybackWireProtocol.ACTION_EXECUTE -> {
                 val command = PlaybackWireProtocol.decodeCommand(args)
                 if (command == null) Futures.immediateFuture(
