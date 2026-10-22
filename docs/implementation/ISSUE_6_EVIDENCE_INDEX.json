@@ -15,13 +15,15 @@
       "PASS_SCOPED",
       "PASS_VERIFIED",
       "BLOCKED",
-      "FAIL"
+      "FAIL",
+      "OWNER_ACCEPTED_WITH_DEFERRED_QA"
     ],
     "allowed_case": [
       "PASS",
       "FAIL",
       "BLOCKED",
-      "NOT_RUN"
+      "NOT_RUN",
+      "NA_DEFERRED_POST_MVP"
     ],
     "p00_or_p01_pass_does_not_complete_issue_acceptance": true,
     "unit_ci_manual_pass_only_with_actual_execution": true,
@@ -148,7 +150,7 @@
         "docs/implementation/ISSUE_6_PHASE6_VALIDATION.json"
       ],
       "reviewer": null,
-      "validation": "P06 SOURCE IMPLEMENTED / 32/32 static readback PASS; NATIVE P06 gate BLOCKED by missing genuine compiler-generated Room V2 2.json, no Gradle/KAPT/migration/5k result. All P12 actual tests NOT_RUN."
+      "validation": "P06 SOURCE IMPLEMENTED / 32/32 static readback PASS; NATIVE P06 gate BLOCKED by missing genuine compiler-generated Room V2 2.json, no Gradle/KAPT/migration/5k result. All P12 actual tests NOT_RUN. Genuine KAPT V2 schema 2.json later checked in; Android V1->V2 migration/performance remains unverified and tracked post-MVP in #74. Do not claim full P06 native PASS."
     },
     {
       "id": "P07",
@@ -273,7 +275,7 @@
     {
       "id": "P12",
       "title": "Single consolidated APK and final integrated test/closeout",
-      "status": "IN_PROGRESS",
+      "status": "OWNER_ACCEPTED_WITH_DEFERRED_QA",
       "planned_primary_report": "docs/implementation/ISSUE_6_FINAL_ACCEPTANCE_AUDIT.md",
       "commit_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
       "artifact_links": [
@@ -281,392 +283,431 @@
         "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
         ".github/workflows/issue-6-p12-integrated-final.yml",
         "app/schemas/com.latticeward.musiccopilot.data.room.MusicCopilotDatabase/2.json",
-        "https://github.com/latticeward-labs/music-copilot/actions/runs/39755773243/artifacts/12415363520"
+        "https://github.com/latticeward-labs/music-copilot/actions/runs/39755773243/artifacts/12415363520",
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md",
+        "https://github.com/latticeward-labs/music-copilot/issues/74"
       ],
       "reviewer": null,
-      "validation": "SINGLE_APK_BUILT_FOR_OWNER: existing run 39755773243 compiled/app:assembleDebug and generated Room2; intact extracted debug APK 36,312,971 bytes SHA256 1587527f5a9a99c5cc664eb84e64a3865035a079f464e9cecbe0bb60d3fcb0de. Existing run overall FAIL because lint 10 issues, but pre-existing JVM XML 343 PASS/0 FAIL. Physical M01-M34 NOT_RUN; owner will perform. NO new GitHub Actions test execution authorized; workflow reduced to manual APK-only and was NOT dispatched. Issue7 playback blocked. Issue stays OPEN; main untouched."
+      "validation": "Owner provided 34-case self-report: 28 PASS, 0 FAIL, 6 NA deferred to Issue #74; owner explicitly authorized MVP integration and closure. APK SHA matches original build from bdafa124; 343 earlier JVM PASS; 10 Lint errors, native migration/5k/200% unverified. No further GitHub Actions. This is NOT full engineering PASS."
     }
   ],
   "acceptance": [
     {
       "id": "AC-01",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M01-M04/M11: owner reports permission/index flow PASS; independently unverified."
     },
     {
       "id": "AC-02",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M05-M08: four Library categories passed on owner phone. Native schema migration still deferred #74."
     },
     {
       "id": "AC-03",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M11-M14: rescan/add/move/interruption PASS by owner; technical cancellation QA not fully run."
     },
     {
       "id": "AC-04",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M10-M14/M29 PASS per owner; fault-injection M15/M16 deferred #74."
     },
     {
       "id": "AC-05",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M17-M21 PASS per owner; injected Error M22 deferred #74."
     },
     {
       "id": "AC-06",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "OWNER_REPORTED_PASS_SCOPE_ONLY",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M23/M24 PASS per owner; broader lifecycle matrix not run."
     },
     {
       "id": "AC-07",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "DEFERRED_POST_MVP_74",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M25 real 5,000-file scan and scroll NA; no measured user-device performance PASS."
     },
     {
       "id": "AC-08",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "DEFERRED_POST_MVP_74",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M26 corrupt/incomplete metadata NA; source fallback exists, real fault execution remains deferred."
     },
     {
       "id": "AC-09",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "SOURCE_SCOPED_TECHNICAL_DEFERRED",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M33 offline PASS; full privacy/analytics instrumentation not performed; tracked #74."
     },
     {
       "id": "AC-10",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "PARTIAL_JVM_PASS_NATIVE_DEFERRED",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "Earlier 343 JVM tests PASS, but native Room migration/instrumented tests not run; #74."
     },
     {
       "id": "AC-11",
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "note": null
+      "status": "PARTIAL_OWNER_TALKBACK_FONT_DEFERRED",
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "M27/M29 owner TalkBack PASS; M28 200% font NA; native a11y matrix #74."
     },
     {
       "id": "AC-12",
       "status": "SCOPE_DEFERRED_P2",
-      "verified_evidence": [],
-      "note": "P2 Like/Liked Songs optional; no P0 completion claim"
+      "verified_evidence": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md"
+      ],
+      "note": "Liked Songs explicitly out of Issue #6 MVP; belongs P2 after MVP."
     }
   ],
   "manual_cases": [
     {
       "id": "M01",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M02",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M03",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M04",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M05",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M06",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M07",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M08",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M09",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M10",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M11",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M12",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M13",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M14",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M15",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
     },
     {
       "id": "M16",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
     },
     {
       "id": "M17",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M18",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M19",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M20",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M21",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M22",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
     },
     {
       "id": "M23",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M24",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M25",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
     },
     {
       "id": "M26",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
     },
     {
       "id": "M27",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M28",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "NA_DEFERRED_POST_MVP",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER N/A: UNTESTED / deferred until after MVP to GitHub Issue #74. Do NOT count as PASS."
     },
     {
       "id": "M29",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M30",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M31",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M32",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M33",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     },
     {
       "id": "M34",
-      "status": "NOT_RUN",
-      "executor": "OWNER_PHYSICAL_DEVICE",
-      "evidence_url": null,
+      "status": "PASS",
+      "executor": "OWNER_PHYSICAL_DEVICE_SELF_REPORT",
+      "evidence_url": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
       "observed_at": null,
-      "candidate_sha": null,
-      "notes": null
+      "candidate_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "notes": "OWNER SELF-REPORTED PASS on tested APK (no independent phone screenshot/time/device model). Source: uploaded owner text; not native/CI proof."
     }
   ],
   "technical_suites": [
@@ -1185,6 +1226,20 @@
         "https://github.com/latticeward-labs/music-copilot/actions/runs/39755773243/artifacts/12415363520"
       ],
       "warning": "Lint FAILED 10 issues in earlier attempt; instrumented and owner tests NOT_RUN. No GitHub CI run launched after owner's no-tests instruction."
+    },
+    {
+      "id": "I6-CHG-P12-OWNER-RESULTS-002",
+      "phase": "P12",
+      "status": "OWNER_ACCEPTED_WITH_DEFERRED_QA",
+      "kind": "user_supplied_28_pass_6_na_results_and_after_mvp_deferral",
+      "paths": [
+        "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+        "docs/implementation/ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md",
+        "docs/implementation/ISSUE_6_EVIDENCE_INDEX.json"
+      ],
+      "compiled_source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "apk_sha256": "1587527f5a9a99c5cc664eb84e64a3865035a079f464e9cecbe0bb60d3fcb0de",
+      "note": "Owner requests integration, PR, merge and Issue #6 closure by MVP exception, not 12/12 technical PASS. Six NA in #74; do not consume Actions."
     }
   ],
   "evidence_records": [
@@ -1317,6 +1372,16 @@
       "evidence_path": "docs/implementation/ISSUE_6_FINAL_ACCEPTANCE_AUDIT.md",
       "executor_class": "EXISTING_ACTIONS_ARTIFACT_AND_LOCAL_ARCHIVE_VERIFICATION",
       "limits": "APK built and handed to owner for self-testing; prior CI overall failed lint; full Issue6 acceptance not established; no further Actions runs authorized"
+    },
+    {
+      "id": "I6-EVD-P12-OWNER-RESULTS-002",
+      "phase": "P12",
+      "status": "OWNER_SELF_REPORTED_28_PASS_6_NA",
+      "source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+      "method": "Owner-uploaded Persian exported phone-results text; 34/34 case records, 28 PASS, 6 N/A, 0 FAIL; source text SHA256 recorded; no independent phone recording.",
+      "evidence_path": "docs/implementation/ISSUE_6_P12_OWNER_PHONE_RESULTS.json",
+      "executor_class": "OWNER_SELF_REPORT",
+      "limits": "No phone model, Android version or per-case notes provided. Six N/A deferred #74. CI lint failed 10 issues; native API/Room/5k not run; playback #7."
     }
   ],
   "evidence_id_contract": {
@@ -1329,22 +1394,29 @@
     "normalized_paths": "app/src/main/, app/src/test/, app/src/androidTest/, docs/implementation/"
   },
   "p12_candidate": {
-    "source_sha": null,
-    "apk_name": null,
-    "apk_sha256": null,
-    "actions_run_url": null,
-    "artifact_id": null,
+    "source_sha": "bdafa1241aa8cc56b9c9fca61e0fe618d3ba6f65",
+    "apk_name": "app-debug.apk",
+    "apk_sha256": "1587527f5a9a99c5cc664eb84e64a3865035a079f464e9cecbe0bb60d3fcb0de",
+    "actions_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39755773243",
+    "artifact_id": 12415363520,
     "phone_device": null,
-    "owner_case_pass": 0,
+    "owner_case_pass": 28,
+    "owner_case_fail": 0,
+    "owner_case_na_deferred": 6,
     "technical_suite_pass": 0,
-    "status": "NOT_BUILT"
+    "status": "OWNER_ACCEPTED_WITH_DEFERRED_QA",
+    "source_test_file_sha256": "ea1b579a88a8d77f40f96d80f227219e60d37fdf61c61c85f895cecce9592fe8",
+    "followup_issue": 74
   },
   "constraints": {
     "single_consolidated_apk_only_in_p12": true,
     "phase_apks_allowed": false,
     "issue7_real_playback_owned_elsewhere": true,
     "issue73_deferred_qa_not_inherited": true,
-    "review_required_before_final_merge": true
+    "review_required_before_final_merge": true,
+    "owner_explicit_exception_after_mvp": true,
+    "defer_six_manual_cases_to_issue": 74,
+    "github_actions_new_runs_forbidden": true
   },
   "provenance": {
     "phase0_report": "docs/implementation/ISSUE_6_PHASE0_READINESS_AUDIT.md",
