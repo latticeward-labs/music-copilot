@@ -229,12 +229,16 @@
     {
       "id": "P12",
       "title": "Full feature integration and QA preparation",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P12-001",
+        "I7-EVD-P12-002",
+        "I7-EVD-P12-003"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "cb20e764cd26932f132d8be95615c7ddcbecd697"
     },
     {
       "id": "P13",
@@ -694,6 +698,26 @@
       "status": "PASS_SCOPED_SOURCE_ONLY_ANDROID_NOT_VERIFIED",
       "final_fix_commit": "2c5d3c904668ddf4a48e12aee3a414bc0ae24f3a",
       "final_fix": "Service remains sole checkpoint state producer; writes use existing application Main CoroutineScope so normal service teardown does not cancel final atomic store update, no separate audio authority"
+    },
+    {
+      "id": "I7-CHG-P12-001",
+      "phase": "P12",
+      "kind": "CROSS_PHASE_INTEGRATION_SOURCE_FIXES_AND_FINAL_ONLY_QA_READINESS",
+      "description": "Six code integration corrections committed: manifest WAKE_LOCK required by Media3 local wake mode; command receipt epoch preempts stale IO queue/index/Play or decoder recovery; controller generation guards post-await stale UI snapshots and queue-appropriate bounded timeout; lazy controller bind only from Activity foreground avoids Application constructor DI race; nonfatal recovered media notice no longer suppresses background ongoing audio or 5s Proto checkpoint; conditional P10 recovery panel Queue shortcut correct. Authored 15 JVM source tests and 2 Android nonmutating service tests only. GitHub Actions/Gradle/JVM/Android/phone tests/builds executed: ZERO. One P13 cumulative APK pending authorized Android SDK environment.",
+      "changed_paths": [
+        "app/src/main/AndroidManifest.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServicePausedCheckpoint.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue7Phase12MediaSessionReadOnlyAndroidTest.kt",
+        "docs/implementation/ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md",
+        "docs/implementation/ISSUE_7_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_7_PHASED_EXECUTION_PLAN.md"
+      ],
+      "source_commit": "cb20e764cd26932f132d8be95615c7ddcbecd697",
+      "status": "PASS_SCOPED_SOURCE_REVIEW_ONLY_NO_ANDROID_COMPILATION"
     }
   ],
   "evidence_records": [
@@ -1192,6 +1216,59 @@
       ],
       "result": "ALL_NOT_RUN",
       "test_run": false
+    },
+    {
+      "id": "I7-EVD-P12-001",
+      "phase": "P12",
+      "type": "SOURCE_GITHUB_READBACK_INTEGRATION",
+      "report": "docs/implementation/ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md",
+      "changes_reviewed": [
+        "WAKE_LOCK manifest + Media3 C.WAKE_MODE_LOCAL",
+        "one ExoPlayer and one MediaSession, no external playlist injection",
+        "P02/P05 Library/Search selection through one service-owned Gateway",
+        "P06 private/OS MediaSession integration",
+        "P08 foreground/Home/Recents + lazy controller binding",
+        "P09 audio-focus/route guards + newly received command preemption",
+        "P10 actual decoder fallback + recovered playing notice not treated fatal",
+        "P11 Safe-Paused atomic Proto app-owned write scope",
+        "P07 WF-06 Queue shortcut aligns with recovery panel",
+        "offline/No INTERNET and no leaked file paths/titles"
+      ],
+      "result": "SOURCE_REVIEW_ONLY_NOT_TEST",
+      "tests_executed": 0,
+      "android_compile": "NOT_RUN"
+    },
+    {
+      "id": "I7-EVD-P12-002",
+      "phase": "P12",
+      "type": "AUTHORED_FINAL_P13_TEST_CONTRACTS",
+      "junit_source_regression_methods_authored": 15,
+      "junit_methods_executed": 0,
+      "android_read_only_instrumentation_methods_authored": 2,
+      "android_instrumentation_methods_executed": 0,
+      "owner_phone_executions": 0,
+      "github_actions_workflows_dispatched": 0,
+      "apk": null,
+      "result": "AUTHORED_ONLY_ALL_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P12-003",
+      "phase": "P12",
+      "type": "BUILD_ENVIRONMENT_AND_ACCEPTANCE_RESERVATION",
+      "report": "docs/implementation/ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md",
+      "java_available": "OpenJDK 21",
+      "android_sdk_available_in_current_container": false,
+      "gradle_available_in_current_container": false,
+      "p13_build_dependency": "APPROVED_NON_GITHUB_ACTIONS_ANDROID_SDK_GRADLE_ENVIRONMENT_REQUIRED",
+      "manual_cases_pending": "M01-M36",
+      "technical_cases_pending": "T01-T15",
+      "issue_ac_pending": "AC01-AC13",
+      "apk_sha256": null,
+      "pr_created": false,
+      "merged": false,
+      "issue_closed": false,
+      "status": "P13_NEXT_ENVIRONMENT_PENDING_SOURCE_ONLY"
     }
   ],
   "release": {
@@ -1205,11 +1282,13 @@
     "pr_state": "NOT_OPENED",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
-    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P11_OWNER_SINGLE_P13_APK_ONLY",
+    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P12_OWNER_REQUIRES_NON_ACTIONS_SINGLE_P13_APK",
     "independent_review": "NOT_REVIEWED",
     "merge": "NOT_MERGED",
     "issue_state": "OPEN",
-    "project_v2_status": "NOT_VERIFIED"
+    "project_v2_status": "NOT_VERIFIED",
+    "source_implementation_status": "P00_P12_SOURCE_SCOPED_PASSED_P13_NEXT",
+    "build_environment_status": "ANDROID_SDK_AND_GRADLE_NOT_INSTALLED_HERE"
   },
   "known_debt": [
     73,
