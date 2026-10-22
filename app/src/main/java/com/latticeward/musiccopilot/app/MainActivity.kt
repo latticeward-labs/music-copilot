@@ -335,6 +335,7 @@ class MainActivity : ComponentActivity() {
                 libraryIndex = library,
                 playbackConnection = playbackConnection,
                 playbackSnapshot = playbackSnapshot,
+                playbackGateway = bindings.playbackGateway,
                 preferencesRepository = bindings.preferencesRepository,
                 remoteSpeechDecision = bindings.remoteSpeechDecision(),
                 onRevokeCloudSpeechConsent = bindings::revokeCloudSpeechConsent,
