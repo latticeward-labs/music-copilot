@@ -23,6 +23,7 @@ internal object PlaybackBindings {
         val title: String? = null,
         val artist: String? = null,
         val album: String? = null,
+        val durationMs: Long? = null,
     )
 
     /** Returns only display strings, no raw paths, album-art URI or logs. */
@@ -32,6 +33,7 @@ internal object PlaybackBindings {
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.DURATION,
             )
             val uri = Uri.parse(contentUri)
             if (uri.scheme != "content" || uri.authority != "media") return LocalLabels()
@@ -47,6 +49,9 @@ internal object PlaybackBindings {
                     text(MediaStore.Audio.Media.TITLE),
                     text(MediaStore.Audio.Media.ARTIST),
                     text(MediaStore.Audio.Media.ALBUM),
+                    cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
+                        .takeIf { it >= 0 && !cursor.isNull(it) }
+                        ?.let { cursor.getLong(it).takeIf { value -> value >= 0L } },
                 )
             } ?: LocalLabels()
         } catch (_: SecurityException) {
@@ -78,6 +83,7 @@ internal object PlaybackBindings {
                             VerifiedPlaybackMedia(
                                 result.value.ref, result.value.contentUri,
                                 labels.title, labels.artist, labels.album,
+                                labels.durationMs,
                             )
                         )
                     }
