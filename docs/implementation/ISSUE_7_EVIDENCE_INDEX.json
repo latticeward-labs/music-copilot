@@ -85,12 +85,14 @@
     {
       "id": "P01",
       "title": "GitHub execution and evidence contract",
-      "status": "IN_PROGRESS",
+      "status": "PASS_CONTRACT_ONLY",
       "report": "docs/implementation/ISSUE_7_PHASE1_EXECUTION_CONTRACT.md",
-      "evidence": [],
+      "evidence": [
+        "I7-EVD-P01-001"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "436818f0578fa2b104a4183e3d3748ee4010dbcb"
     },
     {
       "id": "P02",
@@ -433,10 +435,11 @@
       "description": "Execution contract, future-only PR template, phase evidence index, plan and Issue handoff",
       "commits": [
         "2907f1a34986233eb9c80a1394e52b6d41434509",
-        "0141a422c834df0f5efcf4f936ad1d6a06d9b063"
+        "0141a422c834df0f5efcf4f936ad1d6a06d9b063",
+        "436818f0578fa2b104a4183e3d3748ee4010dbcb"
       ],
       "kind": "docs",
-      "status": "IN_PROGRESS"
+      "status": "VERIFIED_DOCUMENT_DELIVERY_ONLY"
     }
   ],
   "evidence_records": [
@@ -448,6 +451,26 @@
       "path": "docs/implementation/ISSUE_7_PHASE0_READINESS_AUDIT.md",
       "result": "PASS_AUDIT_ONLY",
       "test_run": false
+    },
+    {
+      "id": "I7-EVD-P01-001",
+      "phase": "P01",
+      "type": "GITHUB_ARTIFACT_READBACK",
+      "source_commit": "436818f0578fa2b104a4183e3d3748ee4010dbcb",
+      "paths": [
+        "docs/implementation/ISSUE_7_PHASE1_EXECUTION_CONTRACT.md",
+        ".github/PULL_REQUEST_TEMPLATE/issue-7-media3-playback-queue-session.md",
+        "docs/implementation/ISSUE_7_EVIDENCE_INDEX.json"
+      ],
+      "checks": [
+        "P01 contract exists and has delivery/rollback/review governance",
+        "P13-only PR template exists and all 13 ACs NOT_VERIFIED",
+        "Evidence index 14 phases/13 AC/36 M/15 T",
+        "Real M/T QA ledger all NOT_RUN"
+      ],
+      "result": "PASS_CONTRACT_ONLY",
+      "test_run": false,
+      "owner_phone_qa": false
     }
   ],
   "release": {
