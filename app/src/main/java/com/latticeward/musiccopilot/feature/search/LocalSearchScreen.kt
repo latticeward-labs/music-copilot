@@ -181,7 +181,10 @@ fun LocalSearchScreen(
                         ) {
                             Text(
                                 stringResource(R.string.i6_search_failed),
-                                modifier = Modifier.semantics { heading() },
+                                modifier = Modifier.semantics {
+                                    heading()
+                                    liveRegion = LiveRegionMode.Polite
+                                },
                                 color = MusicColors.textPrimary,
                                 style = MusicTextStyles.titleMedium,
                             )
