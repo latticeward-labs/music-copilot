@@ -1,0 +1,338 @@
+{
+  "schema": "music-copilot.issue6.phase10.source-validation.v1",
+  "date": "2026-10-22",
+  "phase": "P10",
+  "source_archive": {
+    "filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "authority": "12 English source PDFs, accepted Issue #16, ADR-0002/0003, Issue #6/7"
+  },
+  "disposition": "PASS_SCOPED_STATIC_SOURCE_NOT_NATIVE_VERIFIED",
+  "method": "Authenticated GitHub source readback: each of 43 invariants compared to actual Kotlin, MediaStore, service, UI and QA sources. No Kotlin/Android Gradle compiler, JVM or instrumentation executed.",
+  "static_checks": [
+    {
+      "id": "P10-C01",
+      "name": "Selection uses accepted LibraryRepository port",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C02",
+      "name": "Selection uses existing PlaybackGateway port",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C03",
+      "name": "OS permission before source lookup",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C04",
+      "name": "verified indexed Ready and positive count",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C05",
+      "name": "MediaStore requery before gateway execute",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C06",
+      "name": "readable content descriptor probe in source",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C07",
+      "name": "volume-aware scoped source refs",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C08",
+      "name": "exact same source ref returned",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C09",
+      "name": "OS permission recheck after requery",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C10",
+      "name": "revision recheck after requery",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C11",
+      "name": "Controller Ready required",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C12",
+      "name": "one-item ReplaceQueue with start zero and playWhenReady",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C13",
+      "name": "non-reused command ID generator",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C14",
+      "name": "cancellation from source requery propagates",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C15",
+      "name": "gateway cancellation propagates",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C16",
+      "name": "platform failure fails closed",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C17",
+      "name": "OS permission checked after acknowledgement",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C18",
+      "name": "index revision checked after acknowledgement",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C19",
+      "name": "ack ref must match selected ref",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C20",
+      "name": "ack queue and index match selection",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C21",
+      "name": "Idle Ended Error ack rejected",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C22",
+      "name": "Playing status only from service snapshot",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C23",
+      "name": "Buffering/Paused ack distinct not Playing",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C24",
+      "name": "actual Issue7 service rejects queue until implemented",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C25",
+      "name": "application graph owns one selection use case",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C26",
+      "name": "Android 10-12/13+ media permission source",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C27",
+      "name": "MainActivity injects into NavHost",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C28",
+      "name": "Library VM uses the shared boundary",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C29",
+      "name": "Search VM uses the shared boundary",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C30",
+      "name": "Library tap must belong to current list",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C31",
+      "name": "Search tap must belong to actual results",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C32",
+      "name": "Library selection cancellation on state change",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C33",
+      "name": "Search cancellation on query/state change",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C34",
+      "name": "Library UI safe status rendering",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C35",
+      "name": "Search UI safe status rendering",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C36",
+      "name": "all safe text resources present",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C37",
+      "name": "typed permission / source-missing feedback",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C38",
+      "name": "no new app-owned Player/MediaSession",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C39",
+      "name": "16 authored synthetic JUnit methods",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C40",
+      "name": "accepted fake / rejected real-service contract tests authored",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C41",
+      "name": "24 documented P12 QA scenarios not executed",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C42",
+      "name": "Issue7 technical handoff explicit",
+      "status": "PASS_STATIC"
+    },
+    {
+      "id": "P10-C43",
+      "name": "no media writes network or telemetry",
+      "status": "PASS_STATIC"
+    }
+  ],
+  "source_blobs": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+      "blob_sha": "89a65eae55bab83feadb586f04427e90f5cacce4"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongUiStatus.kt",
+      "blob_sha": "1c4452ea9c2f6f196edcb4ccd8fc7bc9c9b3f79d"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/SelectedSongFeedback.kt",
+      "blob_sha": "b3dd5eaf2e703665603e9ef843ffa4a1301e4bfc"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+      "blob_sha": "833e3c4fdb63241e1fd96297b8c5750975c16806"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+      "blob_sha": "cae4bf59bddd983782bde99072f85c26b2708eb8"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+      "blob_sha": "ab3eb829a90012f43cb62fcf4dc29321d28b9563"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+      "blob_sha": "1400b99c6e986b470b86f0ce6e29df6ff1821e64"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+      "blob_sha": "db1b7bac4175c12a43183dc16f295de44d6f21e5"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+      "blob_sha": "2aa56e89fafbafceeae375cb09485fb8068a4c2a"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+      "blob_sha": "bf74daeab8c7195d307c7108ba9dd7d8db1deb20"
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "blob_sha": "7d42095c64815a49786d8f1230935d6ef689595e"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+      "blob_sha": "97eb0ac2c854d69dc803260d08c6d7ed33c70180"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+      "blob_sha": "3e5863170c0b0fd950d4917a5602584c38cbb122"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+      "blob_sha": "2587e12c91e46cbaf90f5e49d30e2bfa5b009bcb"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+      "blob_sha": "326b038ce5b74f1fdf673c89df5734daa25e7ede"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+      "blob_sha": "581cb4e3ec4a3878805a62ce4d130126918a06b8"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE10_SELECTION_HANDOFF.md",
+      "blob_sha": "50ce6165bd0ffa0f2c4dbe88bfb04f5c46df9ca6"
+    },
+    {
+      "path": "docs/implementation/ISSUE_6_PHASE10_SELECTION_QA_MATRIX.md",
+      "blob_sha": "abf0bd8cc01a9bcc08b180d8ff71d8cfde5c60f0"
+    }
+  ],
+  "authored_tests": {
+    "jvm_methods": 16,
+    "actually_executed": 0
+  },
+  "qa_scenarios": {
+    "cases": 24,
+    "actually_executed": 0
+  },
+  "actual_service_state": {
+    "issue_7": "OPEN",
+    "replace_queue": "REJECTED_BY_DESIGN",
+    "audio_playback_from_P10": "NOT_AVAILABLE_UNTIL_ISSUE_7"
+  },
+  "execution": {
+    "gradle_compile": "NOT_RUN",
+    "kapt_room_2_json": "NOT_RUN",
+    "jvm": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "service_playback": "NOT_IMPLEMENTED_ISSUE_7",
+    "five_thousand_song_benchmark": "NOT_RUN",
+    "CI": "NOT_TRIGGERED",
+    "apk": "NOT_BUILT",
+    "phone": "NOT_RUN",
+    "technical_T01_to_T10": "NOT_RUN",
+    "manual_M01_to_M34": "NOT_RUN"
+  },
+  "inherited_blockers": [
+    "P06 generated Room V2 2.json missing and native migration tests not executed",
+    "P10 actual PlaybackCommand.ReplaceQueue intentionally rejected by MusicPlaybackService pending Issue #7",
+    "P10 real Android OS/UI lifecycle and fake-gateway tests unexecuted"
+  ],
+  "original_issue6_acceptance_checked": 0,
+  "changed_default_branch": false,
+  "merge": false,
+  "next": "P11 hardening, then P12 single consolidated APK and full runtime device/technical acceptance"
+}
