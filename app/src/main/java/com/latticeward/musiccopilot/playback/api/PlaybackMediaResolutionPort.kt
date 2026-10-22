@@ -4,6 +4,7 @@ import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.data.api.RestorableQueueStore
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Narrow service input. It is only a transient, verified content URI, not
@@ -41,4 +42,7 @@ interface PlaybackResolverHost {
 
     /** P1 non-authoritative Proto DataStore. No Player or media lookup here. */
     fun createPlaybackRestorableQueueStore(): RestorableQueueStore
+
+    /** Main application scope persists final checkpoints across service stop. */
+    fun playbackCheckpointWriteScope(): CoroutineScope
 }
