@@ -344,8 +344,10 @@ fun LibraryBrowseScreen(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        stringResource(R.string.p08_selected_not_playing,
-                            state.selectedSong?.title.orEmpty()),
+                        selectedSongFeedback(
+                            state.selectedSong?.title.orEmpty(),
+                            state.selectionStatus,
+                        ),
                         modifier = Modifier.weight(1f),
                         color = MusicColors.textPrimary,
                         style = MusicTextStyles.bodyMedium,
