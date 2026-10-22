@@ -1,7 +1,7 @@
 {
   "issue": 7,
   "scope": "Media3 playback, queue, background, MediaSession",
-  "status": "PLANNING_ONLY",
+  "status": "P13_BLOCKED_BUILD_ENV_NO_APK",
   "source_branch": "feature/7-media3-playback-queue-session",
   "source_commit": null,
   "apk_sha256": null,
@@ -280,6 +280,25 @@
     "related_debt": [
       "#73",
       "#74"
-    ]
+    ],
+    "p13_attempt": {
+      "phase": "P13",
+      "started": "2026-10-23",
+      "status": "BLOCKED_NO_ANDROID_SDK_GRADLE_NO_OUTBOUND_DNS",
+      "build_executed": false,
+      "local_p13_windows_script_committed": true,
+      "script_path": "scripts/build_issue7_p13_local.ps1",
+      "report_path": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+      "actions_dispatched": false,
+      "apk_created": false,
+      "java_available": "java 21 installed in assistant sandbox but not target Java 17",
+      "android_sdk_found": false,
+      "gradle_found": false,
+      "repository_checkout_complete": false,
+      "source_head_without_apk_attestation": "Do not bind source_commit field to a non-existent APK",
+      "owner_phone_results_received": false,
+      "technical_results_received": false,
+      "next_step": "Build exactly one APK locally on approved Windows Android SDK36 JDK17 environment, then collect M01-M36 actual owner results."
+    }
   }
 }
