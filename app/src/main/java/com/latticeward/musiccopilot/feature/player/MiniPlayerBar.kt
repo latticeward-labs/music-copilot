@@ -1,6 +1,5 @@
 package com.latticeward.musiccopilot.feature.player
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +12,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -36,13 +38,13 @@ fun MiniPlayerBar(
     onTogglePlayback: () -> Unit,
 ) {
     if (!state.hasTrack) return
-    val displayName = state.title?.takeIf(String::isNotBlank)
+    val displayName = state.title?.takeIf { it.isNotBlank() }
         ?: stringResource(R.string.i7_unknown_track)
     val status = playbackStatusLabel(state)
     Surface(color = MusicColors.surfaceRaised) {
         Row(
             modifier = Modifier.fillMaxWidth()
-                .heightIn(min = MusicSize.trackRowMinHeightDp)
+                .heightIn(min = 72.dp)
                 .padding(horizontal = MusicSpacing.smDp, vertical = MusicSpacing.xsDp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(MusicSpacing.smDp),
@@ -51,11 +53,12 @@ fun MiniPlayerBar(
                 modifier = Modifier.weight(1f)
                     .clickable(role = Role.Button, onClick = onOpenPlayer)
                     .heightIn(min = MusicSize.touchTargetMinDp)
-                    .semantics { contentDescription = displayName },
+                    .semantics { contentDescription = "$displayName. Open full player" },
             ) {
                 Text(displayName, style = MusicTextStyles.bodyLarge,
                     color = MusicColors.textPrimary, maxLines = 2)
-                Text(status, style = MusicTextStyles.bodyMedium,
+                Text(status, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                    style = MusicTextStyles.bodyMedium,
                     color = MusicColors.textSecondary, maxLines = 2)
             }
             Button(
