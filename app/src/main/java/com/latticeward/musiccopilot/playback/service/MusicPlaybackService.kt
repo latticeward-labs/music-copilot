@@ -2,6 +2,8 @@ package com.latticeward.musiccopilot.playback.service
 
 import android.os.Bundle
 import androidx.media3.common.Player
+import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C
 import androidx.media3.common.PlaybackException
 import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
@@ -73,6 +75,15 @@ class MusicPlaybackService : MediaSessionService() {
         runtimeOwner = ServicePlaybackRuntimeOwner(
             create = {
                 val candidate = ExoPlayer.Builder(this).build()
+                // P05: explicitly mark audio as music and delegate normal
+                // focus policy to ExoPlayer. P09 owns interruption/route QA.
+                candidate.setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setUsage(C.USAGE_MEDIA)
+                        .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
+                        .build(),
+                    true,
+                )
                 confirmed = projector.capture(candidate)
                 try {
                     val builtSession = MediaSession.Builder(this, candidate)
@@ -97,7 +108,8 @@ class MusicPlaybackService : MediaSessionService() {
 
         player.addListener(object : Player.Listener {
             override fun onEvents(player: Player, events: Player.Events) {
-                if (events.contains(Player.EVENT_TIMELINE_CHANGED)) projector.queueChanged()
+                // Projector itself compares queue/index; metadata or duration
+                // timeline updates never invalidate the queue token.
                 publishSnapshot()
             }
             override fun onPlayerError(error: PlaybackException) {
@@ -195,6 +207,9 @@ class MusicPlaybackService : MediaSessionService() {
                         is AppResult.Failure -> return outcome
                     }
                     val mediaItems = LocalMedia3QueueItems.from(proposal)
+                    // Clear a previous error BEFORE preparing a new selection.
+                    // An error delivered during prepare must not be erased.
+                    runtimeError = null
                     // The service/Player remains the ONLY authoritative live queue.
                     player.repeatMode = Player.REPEAT_MODE_OFF
                     player.shuffleModeEnabled = false
@@ -238,6 +253,20 @@ class MusicPlaybackService : MediaSessionService() {
                 }
                 is PlaybackCommand.Play -> {
                     if (player.mediaItemCount == 0) return rejected()
+                    // setMediaItems(... playWhenReady=false) and Stop leave
+                    // STATE_IDLE; play() alone cannot start an unprepared item.
+                    if (player.playbackState == Player.STATE_ENDED) {
+                        val index = player.currentMediaItemIndex
+                        if (index !in 0 until player.mediaItemCount) return rejected()
+                        player.seekTo(index, 0L)
+                    }
+                    if (player.playbackState == Player.STATE_IDLE ||
+                        player.playbackState == Player.STATE_ENDED ||
+                        player.playerError != null
+                    ) {
+                        runtimeError = null
+                        player.prepare()
+                    }
                     player.play()
                 }
                 is PlaybackCommand.Pause -> player.pause()
@@ -289,7 +318,18 @@ class MusicPlaybackService : MediaSessionService() {
                 }
                 is PlaybackCommand.Stop -> player.stop()
             }
-            runtimeError = null
+            // Async ExoPlayer transitions are projected as Buffering/Paused,
+            // never fabricated "Playing" from command acknowledgement.
+            // Do not erase a synchronous onPlayerError callback.
+            if (player.playerError != null) {
+                runtimeError = AppError.Playback(
+                    AppErrorCodes.PLAYBACK_FAILED,
+                    Recoverability.RECOVERABLE, RecoveryAction.Retry
+                )
+                publishSnapshot()
+                return AppResult.Failure(runtimeError!!)
+            }
+            if (command !is PlaybackCommand.ReplaceQueue) runtimeError = null
             publishSnapshot()
             return AppResult.Success(confirmed)
         } catch (cancelled: CancellationException) {
