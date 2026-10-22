@@ -18,6 +18,8 @@ class VerifiedPlaybackMedia internal constructor(
     val displayTitle: String? = null,
     val displayArtist: String? = null,
     val displayAlbum: String? = null,
+    /** Verified local duration for safe P1 restore position clamp only. */
+    val durationMs: Long? = null,
 ) {
     override fun toString(): String = "VerifiedPlaybackMedia(redacted)"
 }
