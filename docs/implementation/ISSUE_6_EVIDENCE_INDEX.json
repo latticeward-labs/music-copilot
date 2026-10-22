@@ -248,12 +248,27 @@
     {
       "id": "P11",
       "title": "Quality hardening and integrated test readiness",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE11_TEST_READINESS.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "b5c16218289052ce7c32da3abdcfbddb3cfb658e",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase11HardeningContractTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11FiveThousandRoomBenchmarkTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11MediaStorePermissionInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+        "tools/qa/issue6_static_guardrails.py",
+        "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_6_PHASE11_TEST_READINESS.md",
+        "docs/implementation/ISSUE_6_PHASE11_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "P11 PASS_SCOPED_STATIC_SOURCE: 42 source readback assertions, 20 newly authored or extended JVM/native/Compose test methods NOT_RUN; 20 P12 CLI guardrails NOT_RUN; 34 owner phone and 10 technical cases preserved NOT_RUN. Real Room V2 2.json absent; Issue7 actual PlaybackCommand.ReplaceQueue still rejected. NO BUILD/APK/CI/EMULATOR/PHONE."
     },
     {
       "id": "P12",
@@ -1102,6 +1117,48 @@
       "kind": "platform_revalidated_song_selection_service_owned_playback_gateway_handoff_and_safe_failure_ui",
       "rollback": "Revert P10-only feature commits before merge after review; keep P00–P09 and original music untouched. No MediaSession, Room or song-file destructive writes.",
       "note": "Service Issue #7 remains OPEN and ReplaceQueue rejected; fake accepted snapshots for boundary tests only, no actual real-song playing. P06 native verification still unresolved."
+    },
+    {
+      "id": "I6-CHG-P11-001",
+      "phase": "P11",
+      "status": "COMMITTED_SOURCE",
+      "kind": "quality_hardening_a11y_permission_room5000_tests_privacy_gate_phone_checklist",
+      "commits": [
+        "94c1cd64f38c59a0545102fb65a188089116b9ad",
+        "4e3e19f4ecf8fc82147f8a05395e2113016f1e22",
+        "7a840fb82f92b0deef74f7a7f5627b8a83c64c19",
+        "717633f3894488238895bae84590c62515a88f3c",
+        "31492bb5e9fbd3ed5b83ca438cf75e9b3ae4f9b1",
+        "82cdeb3f970589ff3346a3c2f39687098185b045",
+        "25649066640b0b00375f54f824c15f29ef9c7a54",
+        "00142fdefe6817f73dc810e7fbfe298d7cbb3282",
+        "71fb4be8c9e5c6d8826ae3d7a86bb27514398864",
+        "7493ce2faf32ea97ff00bc852c615e361a23c454",
+        "6da5dc1ff5453fbdbd0c0e0fb8b9bb68b6564581",
+        "d92b0ad10242c0de5419946c71db1a591bc493a9",
+        "aa7e6e7f352a36e4de263c04fcacc8a19adeb831",
+        "3f76406e4cc856d6c6849ee9e44c230a1412b6e4",
+        "6d662d780618b956ecbcec547dab19ecabf8c23e",
+        "b5c16218289052ce7c32da3abdcfbddb3cfb658e"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase11HardeningContractTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase10SelectionBoundaryTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11FiveThousandRoomBenchmarkTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase11MediaStorePermissionInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+        "tools/qa/issue6_static_guardrails.py",
+        "docs/implementation/ISSUE_6_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_6_PHASE11_TEST_READINESS.md",
+        "docs/implementation/ISSUE_6_PHASE11_VALIDATION.json"
+      ],
+      "rollback": "Review and revert P11-only feature branch changes if necessary; preserve all P00–P10 work, original MediaStore/user media, and previous evidence. Never destructive-recreate Room to hide migration debt.",
+      "note": "Source static audit only. P11 has NOT_RUN all runtime, 5000 measured benchmark, native OS permission, 34 physical and 10 technical suites. Still P06 schema/migration blocker and #7 playback service boundary."
     }
   ],
   "evidence_records": [
@@ -1214,6 +1271,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "No Kotlin/Android Gradle compilation, JVM/test runtime, native MediaStore/Media3 playback, Android UI/device, QA/5k benchmark/CI/APK/independent review. Current MusicPlaybackService intentionally rejects ReplaceQueue until Issue #7. Original 12 Issue #6 acceptance ACs unchecked."
+    },
+    {
+      "id": "I6-EVD-P11-001",
+      "phase": "P11",
+      "source_sha": "b5c16218289052ce7c32da3abdcfbddb3cfb658e",
+      "method": "Authenticated GitHub live file and source SHA readback after extracting and reading 12 user RAR PDFs, 42 static source criteria, 20 authored tests and 34 existing owner cases; no executed runtime checks",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE11_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "No Gradle/KAPT/Room native migration/Android instrumentation/CI/APK/phone. 20 executable static CLI checks not run. Room V2 2.json missing; actual #7 ReplaceQueue rejected."
     }
   ],
   "evidence_id_contract": {
