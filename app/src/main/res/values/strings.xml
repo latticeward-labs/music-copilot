@@ -103,4 +103,24 @@
     <string name="p08_nav_search">Search</string>
     <string name="p08_nav_liked">Liked</string>
     <string name="p08_nav_settings">Settings</string>
+    <!-- Issue #6 P09, approved WF-05/HF-05 local Search. -->
+    <string name="i6_search_title">Search</string>
+    <string name="i6_search_field">Search local music</string>
+    <string name="i6_search_hint">Song, artist or album</string>
+    <string name="i6_search_clear">Clear</string>
+    <string name="i6_search_idle">Search your local library.</string>
+    <string name="i6_search_searching">Searching this device…</string>
+    <string name="i6_search_unavailable">Local music is unavailable. Review access and scan before searching.</string>
+    <string name="i6_search_no_results">No local results</string>
+    <string name="i6_search_no_results_hint">Edit or clear the preserved query.</string>
+    <string name="i6_search_failed">Search failed</string>
+    <string name="i6_search_error_hint">The verified library is still available. Retry, edit or clear the query.</string>
+    <string name="i6_search_stale_hint">The local library changed. Return to Library and rescan if needed, or retry.</string>
+    <string name="i6_search_local_results">%1$d local results</string>
+    <string name="i6_search_artist_result">Artist result</string>
+    <string name="i6_search_album_result">Album result</string>
+    <string name="i6_search_track_result">Track</string>
+    <string name="i6_search_folder_result">Folder result</string>
+    <string name="i6_search_open">Open</string>
+    <string name="i6_search_select_song">Select</string>
 </resources>
