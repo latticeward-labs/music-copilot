@@ -118,3 +118,26 @@ PR + merge SHA + Issue close URL (only after verified):
 ```
 
 **No PR merge/Issue close without an evidence-based P12 final decision or an explicit, accurately labelled owner exception.**
+
+
+## P11 addendum — reproducible synthetic fixtures and strict final gate
+
+**Prepared 2026-10-22; every M01–M34 and T01–T10 stays NOT_RUN until P12.** This addendum supplements rather than replaces the previously approved owner checklist. No extra per-phase APK or additional required physical phone.
+
+**Fixture recipe (automated Room-only, not real music files):** `Issue6Phase11FiveThousandRoomBenchmarkTest.kt` generates 5,000 deterministic local records with titles `Synthetic Track 00001..05000`, artists `Fixture Artist 0..79`, albums `Fixture Album 0..124`, 50 synthetic relative folders, distinct volume-scoped MediaRefs, and fixed harmless duration. The native instrumented test reports **numeric-only elapsed milliseconds** through Android instrumentation. It checks all 100 pages of 50 rows without duplicates, bounded grouped counts, and Search up to 60 results; actual no-ANR/jank scroll, 200% font, TalkBack and MediaStore full scan **still need separate execution**. Synthetic Room rows do not prove Android OS audio file count or real source access.
+
+**Additional fault injection:** `Issue6Phase11HardeningContractTest.kt` covers scoped-volume ID collisions, invalid references, traversal, duplicate provider refs, literal Unknown vs missing artist, 100-row page limits, 60-row Search caps, normalized Unicode, permission/stale recovery. The P10 regression now rejects a fake service acknowledgement that retains a stale extra queue item. P10 #7 actual ReplaceQueue is not implemented: test the safe rejected handoff without claiming playback.
+
+**Static/privacy/architecture run (not executed now):** `python3 tools/qa/issue6_static_guardrails.py` reports 20 explicit source gates; `I6-G20` MUST fail until a genuinely KAPT-generated and committed Room `2.json` exists. Actual Android manifest currently does not declare INTERNET, disables backups and cleartext; verify final merged manifest in P12. Lint is configured with `abortOnError` and `warningsAsErrors`; Detekt and Spotless are NOT configured and should be recorded as NOT_CONFIGURED rather than claimed PASS.
+
+**P12 execution order on actual frozen SHA:**
+```bash
+python3 tools/qa/issue6_static_guardrails.py
+./gradlew --no-daemon :app:kaptDebugKotlin :app:compileDebugKotlin :app:testDebugUnitTest :app:lintDebug
+./gradlew --no-daemon :app:connectedDebugAndroidTest   # requires real emulator/device
+./gradlew --no-daemon :app:assembleDebug                # ONE final owner-installable APK after fixes
+sha256sum app/build/outputs/apk/debug/*.apk
+```
+These commands are **instructions only**; they are not completed work or build evidence. Run the separate native Android API29/31/33/35 configurations if available and mark unavailable ones NOT_RUN, not PASS. No private media file names, paths, refs, queries, tracks or logs may be uploaded to GitHub.
+
+**Evidence recording per case:** status + frozen source SHA + test class/method or private redacted owner observation + timestamp + device/API + numeric count/metric; failures get a defect ID and rerun. If final source changes after building, invalidate prior candidate and issue a new one; no superseded APK is called PASS. Final PR/merge/Issue-close only after accepted evidence-based P12 decision; P06 `2.json`/migration and #7 real service playback remain named blockers until actually resolved.
