@@ -8,8 +8,8 @@ import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
-import com.latticeward.musiccopilot.data.mediastore.LocalPlaybackMediaResolver
-import com.latticeward.musiccopilot.data.mediastore.VerifiedLocalMedia
+import com.latticeward.musiccopilot.playback.api.PlaybackMediaResolutionPort
+import com.latticeward.musiccopilot.playback.api.VerifiedPlaybackMedia
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.service.ServiceQueueEngine
 import kotlinx.coroutines.CancellationException
@@ -31,14 +31,14 @@ class Issue7Phase4ServiceQueueEngineTest {
         override val default = Dispatchers.Unconfined
     }
 
-    private class FakeResolver : LocalPlaybackMediaResolver {
+    private class FakeResolver : PlaybackMediaResolutionPort {
         val seen = mutableListOf<MediaRef>()
         val missing = mutableSetOf<MediaRef>()
         var revoked = false
         var invalidated = 0
         var hook: suspend (MediaRef) -> Unit = {}
 
-        override suspend fun resolve(ref: MediaRef): AppResult<VerifiedLocalMedia> {
+        override suspend fun resolve(ref: MediaRef): AppResult<VerifiedPlaybackMedia> {
             seen += ref
             hook(ref)
             if (revoked) return AppResult.Failure(
@@ -56,7 +56,7 @@ class Issue7Phase4ServiceQueueEngineTest {
                 )
             )
             // Synthetic canonical content reference only; never a personal song.
-            return AppResult.Success(VerifiedLocalMedia(
+            return AppResult.Success(VerifiedPlaybackMedia(
                 ref, "content://media/external_primary/audio/media/${ref.value.removePrefix("audio:")}"
             ))
         }
