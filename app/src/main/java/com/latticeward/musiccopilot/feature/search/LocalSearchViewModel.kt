@@ -92,6 +92,7 @@ class LocalSearchViewModel(
                     status = LocalSearchStatus.Unavailable,
                     acceptedRevision = null, entries = emptyList(),
                     selectedSong = null,
+                    selectionStatus = SelectedSongUiStatus.Idle,
                 )
             }
             return
@@ -104,6 +105,7 @@ class LocalSearchViewModel(
         mutable.value = mutable.value.copy(
             status = LocalSearchStatus.Idle, entries = emptyList(),
             acceptedRevision = snapshot.revision, selectedSong = null,
+                    selectionStatus = SelectedSongUiStatus.Idle,
         )
         if (LibraryTextNormalization.key(mutable.value.query).isNotEmpty()) {
             scheduleSearch(debounce = false)
@@ -122,6 +124,7 @@ class LocalSearchViewModel(
             query = bounded,
             entries = emptyList(),
             selectedSong = null,
+                    selectionStatus = SelectedSongUiStatus.Idle,
             status = when {
                 trustedRevision == null -> LocalSearchStatus.Unavailable
                 normalized.isEmpty() -> LocalSearchStatus.Idle
@@ -207,6 +210,7 @@ class LocalSearchViewModel(
         mutable.value = mutable.value.copy(
             status = LocalSearchStatus.Searching, entries = emptyList(),
             selectedSong = null,
+                    selectionStatus = SelectedSongUiStatus.Idle,
         )
         queryJob = viewModelScope.launch {
             try {
