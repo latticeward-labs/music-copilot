@@ -61,7 +61,7 @@ class Issue7Phase5ServicePlaybackContractTest {
             service.indexOf("player.setMediaItems("))
         val queue = source("playback/service/ServiceQueueEngine.kt")
         assertTrue(queue.contains("withContext(dispatchers.io)"))
-        assertTrue(service.contains("is CancellationException"))
+        assertTrue(service.contains("catch (cancelled: CancellationException)"))
     }
 
     @Test fun controllerPreservesBufferingInsteadOfOptimisticPlaying() {
