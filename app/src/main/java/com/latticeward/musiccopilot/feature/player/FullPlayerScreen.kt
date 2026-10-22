@@ -2,7 +2,10 @@ package com.latticeward.musiccopilot.feature.player
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +14,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedButton
@@ -24,8 +28,11 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -41,6 +48,10 @@ import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.withContext
 
 /**
@@ -58,6 +69,15 @@ fun FullPlayerScreen(
 ) {
     BackHandler(onBack = onBack)
     val snap = state.snapshot
+    val listState = rememberLazyListState()
+    val scrollScope = rememberCoroutineScope()
+    // A fresh service read is performed only while this screen is visible.
+    LaunchedEffect(state.isPlaying, state.ready) {
+        while (state.isPlaying && state.ready && currentCoroutineContext().isActive) {
+            delay(1_000L)
+            model.refreshProgress()
+        }
+    }
     val title = state.title?.takeIf { canReadLocalMetadata && it.isNotBlank() }
         ?: stringResource(R.string.i7_unknown_track)
     val duration = snap.durationMs?.takeIf { it > 0L }
@@ -68,20 +88,55 @@ fun FullPlayerScreen(
         else (snap.positionMs.toDouble() / duration.toDouble()).toFloat().coerceIn(0f, 1f)
 
     Surface(modifier = Modifier.fillMaxSize(), color = MusicColors.background) {
-        LazyColumn(modifier = Modifier.fillMaxSize(),
+        LazyColumn(modifier = Modifier.fillMaxSize(), state = listState,
             verticalArrangement = Arrangement.spacedBy(MusicSpacing.mdDp)) {
             item(key = "player_header") {
-                Row(modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = MusicSpacing.mdDp, vertical = MusicSpacing.smDp),
-                    horizontalArrangement = Arrangement.spacedBy(MusicSpacing.mdDp)) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(
+                        horizontal = MusicSpacing.mdDp, vertical = MusicSpacing.smDp
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(MusicSpacing.mdDp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        OutlinedButton(
+                            onClick = onBack,
+                            modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
+                        ) { Text(stringResource(R.string.action_back)) }
+                        Text(stringResource(R.string.i7_player_title),
+                            modifier = Modifier.semantics { heading() },
+                            style = MusicTextStyles.titleLarge,
+                            color = MusicColors.textPrimary)
+                    }
+                    // WF-06 Queue action navigates within this service queue,
+                    // not into a second UI-owned playlist.
                     OutlinedButton(
-                        onClick = onBack,
-                        modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
-                    ) { Text(stringResource(R.string.action_back)) }
-                    Text(stringResource(R.string.i7_player_title),
-                        modifier = Modifier.semantics { heading() },
-                        style = MusicTextStyles.titleLarge,
-                        color = MusicColors.textPrimary)
+                        onClick = { scrollScope.launch { listState.animateScrollToItem(5) } },
+                        enabled = state.hasTrack && snap.queue.isNotEmpty(),
+                        modifier = Modifier.fillMaxWidth().heightIn(
+                            min = MusicSize.touchTargetMinDp
+                        ),
+                    ) { Text(stringResource(R.string.i7_queue_action)) }
+                }
+            }
+            item(key = "player_artwork") {
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(horizontal = MusicSpacing.mdDp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    // CMP-08 explicitly permits a local artwork placeholder.
+                    // No network image, derived selection or UI media owner.
+                    Box(
+                        modifier = Modifier.size(168.dp)
+                            .background(MusicColors.surfaceVariant),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text("♫", style = MusicTextStyles.titleLarge,
+                            color = MusicColors.textSecondary)
+                    }
                 }
             }
             item(key = "player_current") {
