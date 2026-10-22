@@ -1,6 +1,7 @@
 package com.latticeward.musiccopilot.playback.service
 
 import android.os.Bundle
+import android.content.Intent
 import androidx.media3.common.Player
 import androidx.media3.common.MediaItem
 import androidx.media3.common.AudioAttributes
@@ -46,7 +47,8 @@ import kotlinx.coroutines.launch
  * Issue #7 P06: MediaSession uses a ForwardingPlayer façade to make system
  * transport controls share P02–P05 serialized queue/seek/previous rules;
  * no controller may inject arbitrary remote/local playlist URIs.
- * P07–P10 still owe full visual/background/route/decoder device QA.
+ * P08: standard Media3 notification / FGS lifecycle and active-only task
+ * removal, independent of Activity lifecycle. P09/P10 own route/focus/error QA.
  */
 @OptIn(UnstableApi::class)
 class MusicPlaybackService : MediaSessionService() {
@@ -134,6 +136,42 @@ class MusicPlaybackService : MediaSessionService() {
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession = session
+
+    /**
+     * P08: keep the SINGLE Media3 runtime across Home, Recents removal,
+     * Activity recreation and screen-off only if playback is genuinely
+     * foreground and user-requested. Do not keep a paused/failed service
+     * alive or infer foreground status from cached UI state.
+     */
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        val retain = ::player.isInitialized &&
+            PlaybackTaskLifetimePolicy.retainActivePlayback(
+                foregroundOngoing = isPlaybackOngoing(),
+                hasQueue = player.mediaItemCount > 0,
+                playWhenReady = player.playWhenReady,
+                isPlaying = player.isPlaying,
+                isBuffering = player.playbackState == Player.STATE_BUFFERING,
+                isEnded = player.playbackState == Player.STATE_ENDED,
+                hasPlayerError = player.playerError != null || runtimeError != null,
+            )
+        if (retain) return
+        // Media3's default pauses/ends foreground work and asks Android to
+        // stop when there is no legitimate active playback. This is NOT a
+        // guarantee after process death, force-stop or OEM restrictions.
+        super.onTaskRemoved(rootIntent)
+    }
+
+    /**
+     * Keep Media3's notification provider and foreground-service promotion
+     * intact. Never invent an Activity-owned notification, use a parallel
+     * NotificationCompat manager or manually start a service on bootstrap.
+     */
+    override fun onUpdateNotification(
+        session: MediaSession,
+        startInForegroundRequired: Boolean,
+    ) {
+        super.onUpdateNotification(session, startInForegroundRequired)
+    }
 
     private inner class PlaybackCallbacks : MediaSession.Callback {
         private fun isPrivateCaller(controller: MediaSession.ControllerInfo): Boolean =
