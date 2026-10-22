@@ -118,7 +118,15 @@ fun FullPlayerScreen(
                     // WF-06 Queue action navigates within this service queue,
                     // not into a second UI-owned playlist.
                     OutlinedButton(
-                        onClick = { scrollScope.launch { listState.animateScrollToItem(5) } },
+                        onClick = {
+                            scrollScope.launch {
+                                // P10 inserts a recovery notice before Seek.
+                                // Queue header index shifts by one in that case.
+                                listState.animateScrollToItem(
+                                    if (snap.lastError == null) 5 else 6
+                                )
+                            }
+                        },
                         enabled = state.hasTrack && snap.queue.isNotEmpty(),
                         modifier = Modifier.fillMaxWidth().heightIn(
                             min = MusicSize.touchTargetMinDp
