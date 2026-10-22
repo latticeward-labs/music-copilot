@@ -256,6 +256,9 @@ fun LibraryBrowseScreen(
                                         R.string.p08_stale_index
                                     else R.string.p08_browse_error
                                 ),
+                                modifier = Modifier.semantics {
+                                    liveRegion = LiveRegionMode.Polite
+                                },
                                 style = MusicTextStyles.bodyLarge,
                                 color = MusicColors.textPrimary,
                             )
@@ -279,6 +282,9 @@ fun LibraryBrowseScreen(
                                 if (state.inGroup) R.string.p08_empty_group
                                 else R.string.p08_empty_category
                             ),
+                            modifier = Modifier.semantics {
+                                liveRegion = LiveRegionMode.Polite
+                            },
                             style = MusicTextStyles.bodyLarge,
                             color = MusicColors.textSecondary,
                         )
