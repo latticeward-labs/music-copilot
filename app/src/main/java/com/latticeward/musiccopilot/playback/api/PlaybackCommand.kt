@@ -15,6 +15,14 @@ sealed interface PlaybackCommand {
         val playWhenReady: Boolean,
     ) : PlaybackCommand
 
+    /** Tap a live Queue occurrence only if the observed service revision still matches. */
+    data class SelectQueueIndex(
+        override val commandId: CommandId,
+        val index: Int,
+        val expectedQueueRevision: Long,
+        val playWhenReady: Boolean = true,
+    ) : PlaybackCommand
+
     data class Play(override val commandId: CommandId) : PlaybackCommand
     data class Pause(override val commandId: CommandId) : PlaybackCommand
     data class Next(override val commandId: CommandId) : PlaybackCommand
