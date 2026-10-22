@@ -74,9 +74,10 @@ internal class ServicePausedCheckpoint(
         previousIndex = snapshot.currentIndex
         previousPositionMs = snapshot.positionMs
         previousPaused = paused
-        if (snapshot.playbackState == PlaybackState.Error ||
-            snapshot.lastError != null
-        ) return
+        // Fatal player errors are never persisted. A nonfatal MediaItem
+        // notice while the *new* track is genuinely Playing is safe: saved
+        // Proto data still contains only queue IDs and position, no error.
+        if (snapshot.playbackState == PlaybackState.Error) return
         // A user seeking while already Paused changes the saved position.
         // Playing progress is intentionally debounced to the 5s ticker.
         if (changed || newlyPaused || pausedPositionChanged) save(snapshot)
