@@ -30,8 +30,10 @@ data class MediaSelectionAcknowledgement(
  * The app is not a queue/Player owner: the only command goes to the existing
  * service-owned PlaybackGateway and its acknowledgement is authoritative.
  *
- * The current #7 service deliberately rejects ReplaceQueue, and that is a
- * truthful recoverable Failure, NOT a simulated successful playback.
+ * Issue #7 P05 sends the currently presented song collection in the
+ * exact UI order (not one clicked ref); the P04 service independently rechecks
+ * each item's real MediaStore existence before accepting a new queue.
+ * The returned acknowledgement does not prove audible sound.
  */
 class LibraryMediaSelectionUseCase(
     private val library: LibraryRepository,
@@ -43,7 +45,17 @@ class LibraryMediaSelectionUseCase(
     suspend fun select(
         ref: MediaRef,
         expectedLibraryRevision: Long,
+        visibleSongRefs: List<MediaRef> = listOf(ref),
+        selectedIndex: Int = 0,
     ): AppResult<MediaSelectionAcknowledgement> {
+        // Do not allow a stale UI click to select an unrelated occurrence.
+        // This immutable copy also prevents UI pagination/recomposition from
+        // changing the list while the asynchronous MediaStore probe is running.
+        val proposed = visibleSongRefs.toList()
+        if (proposed.isEmpty() || proposed.size > 5_000 ||
+            selectedIndex !in proposed.indices || proposed[selectedIndex] != ref ||
+            proposed.any { it.value.isBlank() || it.value.length > 128 }
+        ) return rejectedSelection()
         if (!hasOsMediaAccess()) return accessDenied()
         if (!validRevision(expectedLibraryRevision)) return staleSelection()
 
@@ -73,8 +85,8 @@ class LibraryMediaSelectionUseCase(
         val acknowledged = try {
             gateway.execute(PlaybackCommand.ReplaceQueue(
                 commandId = nextCommandId(),
-                items = listOf(ref),
-                startIndex = 0,
+                items = proposed,
+                startIndex = selectedIndex,
                 startPositionMs = 0L,
                 playWhenReady = true,
             ))
@@ -90,12 +102,12 @@ class LibraryMediaSelectionUseCase(
 
         // Fail closed: even an AppResult.Success with a nonmatching or stale
         // snapshot is NOT an acknowledgement for this exact selection.
-        if (confirmed.currentItem != ref ||
-            confirmed.currentIndex != 0 ||
-            // P10 submitted a single-item ReplaceQueue; a snapshot that keeps
-            // stale extra queue entries is not proof of this exact command.
-            confirmed.queue.size != 1 ||
-            confirmed.queue.singleOrNull() != ref ||
+        if (!VisiblePlaybackQueuePolicy.matchesAcknowledgement(
+                requested = proposed,
+                requestedIndex = selectedIndex,
+                actual = confirmed.queue,
+                actualIndex = confirmed.currentIndex,
+            ) || confirmed.currentItem != ref ||
             confirmed.playbackState == PlaybackState.Error ||
             confirmed.playbackState == PlaybackState.Idle ||
             confirmed.playbackState == PlaybackState.Ended
