@@ -136,12 +136,16 @@
     {
       "id": "P05",
       "title": "Real service-owned audio playback",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
-      "tests_executed": false,
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE5_REAL_PLAYBACK_INTEGRATION_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P05-001",
+        "I7-EVD-P05-002",
+        "I7-EVD-P05-003"
+      ],
+      "tests_executed": true,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "479f6a690be548358fb6d6476cacba835f403e10"
     },
     {
       "id": "P06",
@@ -526,6 +530,27 @@
       ],
       "commit_summary_sha": "f5f82f1d082c6f96ea7edb6faedb5c5431f4c89e",
       "status": "PASS_SCOPED_SOURCE_AND_LOCAL_KOTLIN_SMOKE_NOT_ANDROID"
+    },
+    {
+      "id": "I7-CHG-P05-001",
+      "phase": "P05",
+      "description": "Harden service-owned real Media3 prepare/play/stop/ended route and audio attributes, preserve true callback errors and queue revision, fix Library/Search visible ordered collection selection and selected-occurrence ACK, add 21 JUnit methods and repeatable 15-check pure Kotlin script",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/VisiblePlaybackQueuePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5VisibleQueuePolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5LibrarySelectionTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5ServicePlaybackContractTest.kt",
+        "scripts/check_issue7_phase5_visible_queue.sh",
+        "scripts/issue7_phase5_visible_queue_smoke.kt",
+        "docs/implementation/ISSUE_7_PHASE5_REAL_PLAYBACK_INTEGRATION_AUDIT.md"
+      ],
+      "kind": "REAL_MEDIA3_SOURCE_AND_VISIBLE_QUEUE_HANDOFF_WITH_SCOPED_POLICY_PROOF",
+      "status": "PASS_SCOPED_CODE_ANDROID_NOT_BUILT"
     }
   ],
   "evidence_records": [
@@ -683,6 +708,59 @@
       "android_instrumentation": "NOT_RUN",
       "result": "AUTHORED_ONLY_NOT_RUN",
       "test_run": false
+    },
+    {
+      "id": "I7-EVD-P05-001",
+      "phase": "P05",
+      "type": "GITHUB_SOURCE_READBACK",
+      "report": "docs/implementation/ISSUE_7_PHASE5_REAL_PLAYBACK_INTEGRATION_AUDIT.md",
+      "source_commit": "479f6a690be548358fb6d6476cacba835f403e10",
+      "checks": [
+        "Single existing ExoPlayer and MediaSession builder",
+        "Explicit Player audio media/music attributes",
+        "Paused/Stopped STATE_IDLE Play calls prepare, Ended seeks zero on explicit Play",
+        "Service exposes actual Buffering/Playing/Paused/Ended/Error, does not infer Playing from command",
+        "Library and Search send visible ordered Song collection with selected index",
+        "Service acknowledgment preserves selected occurrence and subset after nonselected failures",
+        "11 P05 code/test/script artifacts read back"
+      ],
+      "result": "PASS_SCOPED_CODE_READBACK",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P05-002",
+      "phase": "P05",
+      "type": "LOCAL_EXACT_SOURCE_BLOB_KOTLIN",
+      "git_blob_shas": {
+        "Identifiers.kt": "49082b4c0d12afa60772d73eace24d5cac712355",
+        "VisiblePlaybackQueuePolicy.kt": "99afab65cac78cee3fa6c273209c59033b0570a8"
+      },
+      "toolchain": "local kotlinc and Java 21; git hash-object verified both source bytes",
+      "checks_passed": 15,
+      "checks_total": 15,
+      "result": "PASS_PURE_KOTLIN_POLICY_ONLY",
+      "test_run": true,
+      "android_build": false,
+      "gradle_junit": false,
+      "media3_audible": false,
+      "device": false,
+      "notes": "Local synthetic harness; committed 15-check repository script not executed against full checkout."
+    },
+    {
+      "id": "I7-EVD-P05-003",
+      "phase": "P05",
+      "type": "JUNIT_SOURCE_AUTHORSHIP",
+      "paths": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5VisibleQueuePolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5LibrarySelectionTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5ServicePlaybackContractTest.kt"
+      ],
+      "junit_authored_count": 21,
+      "junit_executed": false,
+      "gradle": "NOT_RUN",
+      "android_instrumentation": "NOT_RUN",
+      "owner_handset": "NOT_RUN",
+      "result": "AUTHORED_ONLY_NOT_RUN"
     }
   ],
   "release": {
