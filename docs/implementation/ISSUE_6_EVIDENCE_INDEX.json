@@ -194,12 +194,30 @@
     {
       "id": "P09",
       "title": "Compose local Search states",
-      "status": "NOT_STARTED",
+      "status": "PASS_SCOPED",
       "planned_primary_report": "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
-      "commit_sha": null,
-      "artifact_links": [],
+      "commit_sha": "7674f538dd46e17d64709cf94750519a1b969ca0",
+      "artifact_links": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibrarySearchContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase9LocalSearchViewModelTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchSqlInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json"
+      ],
       "reviewer": null,
-      "validation": null
+      "validation": "PASS_SCOPED_STATIC_SOURCE: 51/51 GitHub-source invariants; 14 JVM + 7 Compose + 4 Room/SQLite tests AUTHORED, NOT_RUN; 22 QA cases authored, NOT_RUN. No Gradle compile, CI, benchmarks, screenshots, APK or phone. P06 native schema 2.json still absent."
     },
     {
       "id": "P10",
@@ -953,6 +971,57 @@
       "kind": "compose_library_four_categories_viewmodel_lazy_revision_paging_nested_back_and_source_only_tests",
       "rollback": "Revert only P08 feature branch source commits by follow-up reviewed changes, preserve P00-P07 and MediaStore original files. No merge or destructive DB reset.",
       "note": "Real code/readback only; P08 runtime/semantics/200-percent/5k scrolling and 16 authored tests still NOT_RUN; P09 Search and P10 playback selection intentionally pending."
+    },
+    {
+      "id": "I6-CHG-P09-001",
+      "phase": "P09",
+      "status": "COMMITTED_SOURCE",
+      "commits": [
+        "87c5847cf2dd164d6d66e633978a2961d5a8f0d4",
+        "67d5ce4da2a7d747060fc8c1ab771bacb1e4fd3c",
+        "c6edd2bc295f079e4fa2a442aca5e3077d4ac2f5",
+        "06dbc1adf8019a1c169f1b21febce9209067016e",
+        "a098ed380134508f9e4ae8ec11e7fddd627162d4",
+        "8047487598ff33bdc9be43fb70e72a4f1ee58435",
+        "5d95a404670533495eabc167729e8ba0beaa1937",
+        "5bfc0f35639f0e6fc3d0b3262d95fcb8be70c787",
+        "ae53319972287fa3b899fa505cf396b13a0226f2",
+        "52d62093658402f37b8195be0f78af62951f240d",
+        "62f57b5b83ec32257997d66d6e7f35d3ebd7cf93",
+        "5081804ae9eaf7398bff03a448b6e43eda1cfa9b",
+        "346126f07d8bf1524529f8a3b3cf1248d7bc7c13",
+        "22750a459c6c8fe8563462d0233951f67ad391bf",
+        "0497719d2eed7ce0c5f86c0361c743dd475695bb",
+        "0c3c13983d9cb09fa5aca2c4614e402c93f04f93",
+        "47c6394710671b59df4a286d30b4f529ed3cecb6",
+        "fb418ec40257d97d3714b076b4254991b4b436e3",
+        "e3f88a879dabb4f324f14131b3df84d07866aab1",
+        "ab3f7bf6574af90badda06ee41c38ee27dfb986f",
+        "20a46000b160ad94216c4aeac176d3cbb3a4293b",
+        "7674f538dd46e17d64709cf94750519a1b969ca0"
+      ],
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibrarySearchContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue6Phase9LocalSearchViewModelTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchComposeInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase9SearchSqlInstrumentedTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue6Phase8LibraryComposeInstrumentedTest.kt",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_UI_IMPLEMENTATION.md",
+        "docs/implementation/ISSUE_6_PHASE9_SEARCH_QA_MATRIX.md",
+        "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json"
+      ],
+      "kind": "local_room_grouped_search_compose_results_noresults_error_recovery_and_revision_safe_navigation",
+      "rollback": "Revert only P09 feature branch commits after review; keep P08 Library and accepted #5 Permissions, no media file or database user-data deletion.",
+      "note": "P09 source-only pass, 25 tests authored but NOT_RUN. Group Open returns to approved Library browsing; real song play remains P10 and service Issue #7. Room V2 compiler schema pending."
     }
   ],
   "evidence_records": [
@@ -1035,6 +1104,16 @@
       "status": "PASS_SCOPED",
       "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
       "limits": "No Kotlin/Android compilation, UI screenshots, JVM/native execution, 200% font scaling, 5000-song benchmark, APK or phone. Original 12 product AC checkboxes remain unchecked. P06 Room V2 generated schema is missing."
+    },
+    {
+      "id": "I6-EVD-P09-001",
+      "phase": "P09",
+      "source_sha": "7674f538dd46e17d64709cf94750519a1b969ca0",
+      "method": "Authenticated GitHub P09 branch source readback: 51 static Kotlin/SQL/Compose/resource/navigation checks, 14 JVM + 7 Compose + 4 native SQL tests written, 22 synthetic QA cases authored",
+      "evidence_path": "docs/implementation/ISSUE_6_PHASE9_VALIDATION.json",
+      "status": "PASS_SCOPED",
+      "executor_class": "CONNECTOR_STATIC_SOURCE_AUDIT",
+      "limits": "No Gradle KAPT/Kotlin compile, actual JVM/Compose/Room native tests, 200% font/TalkBack, 5000-song measured latency, screenshot, device/CI, APK, phone tests, reviewer or acceptance PASS. P06 schema 2.json absent."
     }
   ],
   "evidence_id_contract": {
