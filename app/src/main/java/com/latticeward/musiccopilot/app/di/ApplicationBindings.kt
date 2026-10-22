@@ -212,9 +212,18 @@ class ApplicationBindings(
     }
 
     fun onForeground() {
+        // Activity resume reconnects to the one service-owned Session.
+        // This binding does not cause playback or MediaStore scanning.
         controller.ensureConnected()
-        // P05/P08 must authorize explicit OS media permission before scan.
-        // Bootstrap/return-to-foreground MUST NOT initiate a MediaStore scan.
+    }
+
+    /**
+     * P08 lifecycle boundary: UI cannot pin the service by remaining bound
+     * after Home, rotation or task dismissal. MediaSessionService itself
+     * decides whether real active audio requires ongoing foreground playback.
+     */
+    fun onUiStopped() {
+        controller.detachUiController()
     }
 
     override fun close() {
