@@ -68,8 +68,11 @@ class PlayerViewModel(
             gateway.snapshot.collect { confirmed ->
                 mutable.value = mutable.value.copy(
                     snapshot = confirmed,
-                    requestFailed = if (confirmed.lastError != null)
-                        true else mutable.value.requestFailed,
+                    // A recovered successor may carry a brief MediaItem
+                    // notice while actually Playing. That is NOT a failed
+                    // user command and must not display a generic error.
+                    requestFailed = confirmed.lastError != null &&
+                        confirmed.playbackState == PlaybackState.Error,
                 )
             }
         }
