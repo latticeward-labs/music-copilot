@@ -3,6 +3,7 @@ package com.latticeward.musiccopilot.foundation
 import androidx.compose.ui.test.assertExists
 import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -121,7 +122,8 @@ class Issue6Phase8LibraryComposeInstrumentedTest {
         rule.onNodeWithText("Folders").assertExists()
         rule.onNodeWithText("Home").assertExists()
         rule.onNodeWithText("Settings").assertExists()
-        rule.onNodeWithText("Search").assertIsNotEnabled()
+        // P09 now activates this previously disabled local Search tab.
+        rule.onNodeWithText("Search").assertIsEnabled()
         rule.onNodeWithText("Liked").assertIsNotEnabled()
     }
 
