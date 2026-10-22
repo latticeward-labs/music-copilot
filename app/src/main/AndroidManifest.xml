@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <!-- Android 13+ MediaSession playback notifications are media-exempt.
+         Do NOT add POST_NOTIFICATIONS / unsolicited permission dialogs. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- Discovery visibility only; never grants consent or enables cloud transcription. -->
     <queries>
@@ -38,6 +40,7 @@
             android:name=".playback.service.MusicPlaybackService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
+            android:stopWithTask="false"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="androidx.media3.session.MediaSessionService" />
