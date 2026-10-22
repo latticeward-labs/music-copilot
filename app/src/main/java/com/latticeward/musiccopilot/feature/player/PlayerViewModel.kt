@@ -148,6 +148,19 @@ class PlayerViewModel(
         }
     }
 
+    /**
+     * Called only while Full Player is visible/Playing. Reads real ExoPlayer
+     * currentPosition through authorized MediaSession snapshot command.
+     * Neither UI nor ViewModel runs an independent playback clock.
+     */
+    suspend fun refreshProgress() {
+        if (mutable.value.ready && mutable.value.isPlaying) {
+            try { gateway.refreshSnapshot() }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { /* Keep last confirmed state, never fake time. */ }
+        }
+    }
+
     fun clearRequestError() {
         mutable.value = mutable.value.copy(requestFailed = false)
     }
