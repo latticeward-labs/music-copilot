@@ -216,12 +216,15 @@
     {
       "id": "P11",
       "title": "P1 Safe-Paused persistence",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE11_SAFE_PAUSED_RESTORE_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P11-001",
+        "I7-EVD-P11-002"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "345e5db7923b7fe1d4e12cb882b017ace1d24136"
     },
     {
       "id": "P12",
@@ -669,6 +672,26 @@
       ],
       "source_commit": "ceaaf67043aa721700f62ef9ebbdf7488511a658",
       "status": "PASS_SCOPED_SOURCE_ONLY_ANDROID_NOT_VERIFIED"
+    },
+    {
+      "id": "I7-CHG-P11-001",
+      "phase": "P11",
+      "kind": "P1_PROTO_DATASTORE_VERSIONED_SAFE_PAUSED_COLD_RESTORE",
+      "description": "Wire pre-existing app-owned Proto RestorableQueueStore to one MediaSessionService; serialize versioned limited metadata-free snapshots with atomic updateData and main-service 5s active checkpoint, immediate pause/queue/seek saves; cold restore reads before any write, prefers existing live session, superseded by commands/route; MediaStore revalidates and drops missing, clamps position to verified duration, restores strictly Paused with no Play; explicit Stop clears checkpoint; duplicate MediaRefs treated as positional occurrences. 29 new JUnit methods authored NOT_RUN, 22 static source-readback checks only; no Actions/Gradle/JVM/Android/phone/APK.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServicePausedCheckpoint.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/restore/SafePausedRestorePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/datastore/RestoreProtoCodec.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackMediaResolutionPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/PlaybackBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase11SafePausedPolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase11RestoreSourceContractTest.kt",
+        "docs/implementation/ISSUE_7_PHASE11_SAFE_PAUSED_RESTORE_AUDIT.md"
+      ],
+      "source_commit": "345e5db7923b7fe1d4e12cb882b017ace1d24136",
+      "status": "PASS_SCOPED_SOURCE_ONLY_ANDROID_NOT_VERIFIED"
     }
   ],
   "evidence_records": [
@@ -1112,6 +1135,61 @@
       "apk_sha256": null,
       "result": "ALL_NOT_RUN",
       "test_run": false
+    },
+    {
+      "id": "I7-EVD-P11-001",
+      "phase": "P11",
+      "type": "GITHUB_READBACK_SOURCE_ONLY",
+      "report": "docs/implementation/ISSUE_7_PHASE11_SAFE_PAUSED_RESTORE_AUDIT.md",
+      "checks_passed": 22,
+      "checks_total": 22,
+      "checks": [
+        "One Media3 ExoPlayer and MediaSession",
+        "5 second real Player checkpoint while active",
+        "Atomic existing Proto DataStore abstraction and mutex/generation writer",
+        "read before write to preserve cold saved queue",
+        "authoritative live session and incoming command/route generation precedences",
+        "P03 revalidated all refs; missing items dropped; P04 full preflight used",
+        "real local MediaStore duration clamps playback position",
+        "Strictly playWhenReady false, prepare and pause; no cold play",
+        "Duplicate stable IDs preserve queue occurrence index",
+        "Immediate queue/paused/paused seek checkpoint and Stop clearing",
+        "29 JUnit tests source-authored, NOT_RUN"
+      ],
+      "result": "PASS_SCOPED_STATIC_CODE_REVIEW_ONLY",
+      "test_run": false,
+      "android_compile": false,
+      "real_device": false
+    },
+    {
+      "id": "I7-EVD-P11-002",
+      "phase": "P11",
+      "type": "ONE_P13_APK_OWNER_QA_RESERVATION",
+      "junit_methods_authored": 29,
+      "junit_methods_executed": 0,
+      "manual_cases": [
+        "M32",
+        "M33",
+        "M34",
+        "M35"
+      ],
+      "technical_cases": [
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "github_actions_tests_builds_dispatched": 0,
+      "gradle_runs": 0,
+      "android_instrumentation_runs": 0,
+      "phone_tests_run": 0,
+      "apk_sha256": null,
+      "known_p12_risks": [
+        "Service-scoped final DataStore write may be canceled by rapid service teardown",
+        "MediaStore full queue revalidation potentially > controller 10-second request timeout",
+        "Actual force-stop/rotation/live-session behavior OEM-specific"
+      ],
+      "result": "ALL_NOT_RUN",
+      "test_run": false
     }
   ],
   "release": {
@@ -1125,7 +1203,7 @@
     "pr_state": "NOT_OPENED",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
-    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P10_SINGLE_P13_APK_ONLY",
+    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P11_OWNER_SINGLE_P13_APK_ONLY",
     "independent_review": "NOT_REVIEWED",
     "merge": "NOT_MERGED",
     "issue_state": "OPEN",
