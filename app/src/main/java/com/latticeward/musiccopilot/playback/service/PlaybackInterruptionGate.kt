@@ -18,6 +18,9 @@ internal class PlaybackInterruptionGate {
     var requiresExplicitResume: Boolean = false
         private set
 
+    var explicitlyPaused: Boolean = false
+        private set
+
     fun onHeadsetOrBluetoothLost() {
         routeGeneration++
         requiresExplicitResume = true
@@ -27,15 +30,18 @@ internal class PlaybackInterruptionGate {
         // An explicit player/media-key/notification Play or selected song is
         // the ONLY way to clear a route-loss pause. Reconnecting alone is not.
         requiresExplicitResume = false
+        explicitlyPaused = false
     }
 
     fun onManualPauseOrStop() {
-        // Manual pause cancels desired playback. ExoPlayer's focus handling
-        // observes playWhenReady=false, so a later focus GAIN cannot undo it.
+        // Even if a delayed focus callback incorrectly claims playWhenReady,
+        // explicit user Pause/Stop wins until the next explicit Play.
+        explicitlyPaused = true
         // Do not clear an existing route-loss latch.
     }
 
-    fun shouldSuppressAutomaticPlay(): Boolean = requiresExplicitResume
+    fun shouldSuppressAutomaticPlay(): Boolean =
+        requiresExplicitResume || explicitlyPaused
 
     fun requestIsStillCurrent(expectedRouteGeneration: Long): Boolean =
         routeGeneration == expectedRouteGeneration
