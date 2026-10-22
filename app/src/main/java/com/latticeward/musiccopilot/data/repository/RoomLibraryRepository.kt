@@ -15,6 +15,7 @@ import com.latticeward.musiccopilot.data.api.LibraryIndexStatus
 import com.latticeward.musiccopilot.data.api.LibraryItem
 import com.latticeward.musiccopilot.data.api.LibraryQuery
 import com.latticeward.musiccopilot.data.api.LibraryReconcileResult
+import com.latticeward.musiccopilot.data.api.LibrarySearchResults
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.data.mapping.LibraryRowMapper
 import com.latticeward.musiccopilot.data.mediastore.LocalAudioSource
@@ -238,6 +239,41 @@ class RoomLibraryRepository(
             catch (security: SecurityException) { permissionUnavailable() }
             catch (failure: Exception) { libraryReadUnavailable() }
         }
+
+    /**
+     * WF-05 complete local grouped Search. Same MediaStore permission, accepted
+     * index revision and cancellation protections as P06 browse. No remote or
+     * fuzzy fallback. Queries/metadata are not logged or persisted.
+     */
+    override suspend fun searchResults(
+        query: LibraryQuery,
+        expectedRevision: Long?,
+    ): AppResult<LibrarySearchResults> = withContext(dispatchers.io) {
+        if (!source.hasAccess()) return@withContext permissionUnavailable()
+        val before = index.value
+        if (before.status != LibraryIndexStatus.Ready &&
+            before.status != LibraryIndexStatus.Empty
+        ) return@withContext libraryReadUnavailable()
+        if (expectedRevision != null && before.revision != expectedRevision)
+            return@withContext staleBrowsePage()
+
+        val needle = LibraryRowMapper.normalize(query.text)
+        val limit = query.limit.coerceIn(1, 100)
+        if (needle.isBlank()) return@withContext AppResult.Success(
+            LibrarySearchResults(emptyList(), before.revision, limit)
+        )
+        try {
+            val found = projection.searchSurface(needle, limit, before.revision)
+            currentCoroutineContext().ensureActive()
+            if (!source.hasAccess()) return@withContext permissionUnavailable()
+            val after = index.value
+            if (after.revision != before.revision || after.status != before.status)
+                return@withContext staleBrowsePage()
+            AppResult.Success(found)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (security: SecurityException) { permissionUnavailable() }
+        catch (failure: Exception) { libraryReadUnavailable() }
+    }
 
     override suspend fun browse(request: LibraryBrowseRequest): AppResult<LibraryBrowsePage> =
         withContext(dispatchers.io) {
