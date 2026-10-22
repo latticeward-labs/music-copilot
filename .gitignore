@@ -32,3 +32,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# P13 owner debug APK and local build attestations; never commit device artifacts.
+dist/
