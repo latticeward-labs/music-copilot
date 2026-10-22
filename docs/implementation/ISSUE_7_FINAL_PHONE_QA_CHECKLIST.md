@@ -1,8 +1,8 @@
 # Issue #7 — FINAL single-APK owner phone QA (P13 only)
 
-**State:** PLAN ONLY — all M01–M36 and T01–T15 are initially **NOT_RUN**. This document is **not** a record of successful testing.
+**State:** **ONE P13 cumulative APK BUILD SUCCESSFUL, AWAITING OWNER TESTS**. All M01–M36 and T01–T15 remain **NOT_RUN**; this is NOT a record of passed phone tests.
 **App:** ONE integrated, installable debug APK generated **after P00–P12**; NEVER a different per-phase APK. Capture exact `source_commit`, `apk_sha256`, `apk_url`, `build_run_url` (if any), `android_version`, `device_model`, `test_date`.
-**Source:** https://github.com/latticeward-labs/music-copilot/issues/7 — `ISSUE_7_PHASED_EXECUTION_PLAN.md` — approved English MSM2 and ADR-0002/0007. No #7 APK was produced by planning.
+**Actual APK:** GitHub [P13 build-only run 39854659624](https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624), [artifact 12458647942](https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942); APK SHA256 `e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3`; source commit `a66b06cdcdfb88d7a3df506158a373b543021d6b` (36,605,879 bytes). **The owner explicitly authorized GitHub Actions only to assemble this APK; no automated tests were executed.** The [build evidence report](ISSUE_7_PHASE13_FINAL_APK_BUILD_AND_QA_HANDOFF.md) records success, failure of prior compile attempt and no-test state.
 
 ## How the owner tests
 
@@ -109,3 +109,9 @@ Specifically check: **M15–M19** (Home/Recents/reconnect), **M20–M25** (OS no
 The final-only, no-Actions Windows build handoff is [`scripts/build_issue7_p13_local.ps1`](../../scripts/build_issue7_p13_local.ps1). In a clean checkout of `feature/7-media3-playback-queue-session` with Android SDK 36 and JDK 17, it performs **one local Gradle clean + assembleDebug**, then saves **one** `dist/issue7-p13/MusicCopilot-Issue7-P13-debug.apk` plus JSON containing the real SHA-256 and exact Git commit. **The script has not yet run**; do not install any previous Issue #5/#6 test APK as if it included the P00–P12 Issue #7 code. Source code review is not proof of APK assembly/signature or audible music.
 
 Once (and only if) that APK is genuinely produced, keep its JSON with the phone results. On the owner's Honor x7d Android 15, record each M-case from the one APK; any accessory-specific case not available is BLOCKED/NOT_RUN, not PASS. Technical T01–T15 require real evidence beyond phone taps, without using Actions.
+
+## P13 build verified — supersedes historical SDK blocker
+
+**Final cumulative installable debug APK exists.** Owner-authorized **build-only** GitHub Actions run [39854659624](https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624) built `app-debug.apk` from full P00–P12 branch code, commit `a66b06cdcdfb88d7a3df506158a373b543021d6b`. Size `36,605,879 bytes`; SHA256 `e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3`, verified against the downloaded GitHub artifact. [Download APK Artifact (ZIP)](https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942) and extract `app-debug.apk` on the owner's phone. This artifact is kept by GitHub through 2026-11-05 21:09 UTC (recorded expiration). An additional copy of the binary was directly delivered in ChatGPT.
+
+Only assembly succeeded — **all 36 M cases and 15 T cases are still NOT_RUN**. Android device installation and audible playback are not yet confirmed. The old P13 sandbox-build environment blocker above is historical and **no longer describes the APK's availability** after the owner's new limited authorization. Never pass technical tests because the APK compiled; the original 13 acceptance criteria remain NOT_VERIFIED pending owner evidence.
