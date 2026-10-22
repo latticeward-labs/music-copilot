@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
+import com.latticeward.musiccopilot.core.application.playback.SelectedPlaybackState
+import com.latticeward.musiccopilot.feature.library.SelectedSongUiStatus
+import com.latticeward.musiccopilot.feature.library.SelectedSongFailurePolicy
 import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
 import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
 import com.latticeward.musiccopilot.data.api.LibraryIndexStatus
@@ -33,6 +37,7 @@ data class LocalSearchUiState(
     val entries: List<LibraryBrowseEntry> = emptyList(),
     val acceptedRevision: Long? = null,
     val selectedSong: LibraryItem? = null,
+    val selectionStatus: SelectedSongUiStatus = SelectedSongUiStatus.Idle,
 ) {
     val count: Int get() = entries.size
     val canRetry: Boolean
@@ -45,7 +50,10 @@ data class LocalSearchUiState(
  * guards, typed errors and OS/MediaStore permission-and-revision gating.
  * Search NEVER scans, plays, queues, invokes voice, or uses network.
  */
-class LocalSearchViewModel(private val repository: LibraryRepository) : ViewModel() {
+class LocalSearchViewModel(
+    private val repository: LibraryRepository,
+    private val selection: LibraryMediaSelectionUseCase? = null,
+) : ViewModel() {
     companion object {
         const val QUERY_MAX_CHARS = 120
         const val MAX_RESULTS = 60
@@ -56,6 +64,13 @@ class LocalSearchViewModel(private val repository: LibraryRepository) : ViewMode
     val ui: StateFlow<LocalSearchUiState> = mutable
     private var generation = 0L
     private var queryJob: Job? = null
+    private var selectJob: Job? = null
+    private var selectionTicket = 0L
+    private fun cancelSelection() {
+        ++selectionTicket
+        selectJob?.cancel()
+        selectJob = null
+    }
     private var trustedRevision: Long? = null
 
     /** Called from real OS grant + repository index observed by Compose. */
@@ -71,6 +86,7 @@ class LocalSearchViewModel(private val repository: LibraryRepository) : ViewMode
                 mutable.value.status != LocalSearchStatus.Unavailable) {
                 generation++
                 queryJob?.cancel()
+                cancelSelection()
                 trustedRevision = null
                 mutable.value = mutable.value.copy(
                     status = LocalSearchStatus.Unavailable,
@@ -83,6 +99,7 @@ class LocalSearchViewModel(private val repository: LibraryRepository) : ViewMode
         if (trustedRevision == snapshot.revision) return
         generation++
         queryJob?.cancel()
+        cancelSelection()
         trustedRevision = snapshot.revision
         mutable.value = mutable.value.copy(
             status = LocalSearchStatus.Idle, entries = emptyList(),
@@ -99,6 +116,7 @@ class LocalSearchViewModel(private val repository: LibraryRepository) : ViewMode
         if (bounded == mutable.value.query) return
         generation++
         queryJob?.cancel()
+        cancelSelection()
         val normalized = LibraryTextNormalization.key(bounded)
         mutable.value = mutable.value.copy(
             query = bounded,
@@ -123,21 +141,57 @@ class LocalSearchViewModel(private val repository: LibraryRepository) : ViewMode
     }
 
     /**
-     * P10 will re-query the MediaStore source and hand off to service-owned
-     * PlaybackGateway. P09 selection is explicitly NOT a Play command.
+     * Verifies the selected Search result through exactly the same P10
+     * MediaStore/PlaybackGateway boundary as the Library screen. Never
+     * imply Playing from a cached Search result or a pending command.
      */
     fun previewSong(item: LibraryItem) {
-        if (trustedRevision != null &&
-            mutable.value.status == LocalSearchStatus.Results &&
-            mutable.value.entries.any {
+        val revision = trustedRevision ?: return
+        if (mutable.value.status != LocalSearchStatus.Results ||
+            mutable.value.entries.none {
                 it is LibraryBrowseEntry.Song && it.media.ref == item.ref
-            }) {
-            mutable.value = mutable.value.copy(selectedSong = item)
+            }) return
+        if (mutable.value.selectedSong?.ref == item.ref &&
+            mutable.value.selectionStatus == SelectedSongUiStatus.Validating) return
+        cancelSelection()
+        val ticket = selectionTicket
+        val delegate = selection
+        mutable.value = mutable.value.copy(
+            selectedSong = item,
+            selectionStatus = if (delegate == null) SelectedSongUiStatus.Idle
+                else SelectedSongUiStatus.Validating,
+        )
+        if (delegate == null) return
+        selectJob = viewModelScope.launch {
+            try {
+                val answer = delegate.select(item.ref, revision)
+                if (selectionTicket != ticket || trustedRevision != revision ||
+                    mutable.value.selectedSong?.ref != item.ref) return@launch
+                mutable.value = mutable.value.copy(
+                    selectionStatus = when (answer) {
+                        is AppResult.Success ->
+                            if (answer.value.state == SelectedPlaybackState.Playing)
+                                SelectedSongUiStatus.ServicePlaying
+                            else SelectedSongUiStatus.ServiceAcceptedPending
+                        is AppResult.Failure ->
+                            SelectedSongFailurePolicy.from(answer.error)
+                    },
+                )
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                if (selectionTicket == ticket) mutable.value = mutable.value.copy(
+                    selectionStatus = SelectedSongUiStatus.PlaybackUnavailable)
+            }
         }
     }
 
     fun closePreview() {
-        mutable.value = mutable.value.copy(selectedSong = null)
+        cancelSelection()
+        mutable.value = mutable.value.copy(
+            selectedSong = null,
+            selectionStatus = SelectedSongUiStatus.Idle,
+        )
     }
 
     private fun scheduleSearch(debounce: Boolean) {
@@ -203,6 +257,7 @@ class LocalSearchViewModel(private val repository: LibraryRepository) : ViewMode
     override fun onCleared() {
         generation++
         queryJob?.cancel()
+        cancelSelection()
         super.onCleared()
     }
 }
