@@ -47,8 +47,9 @@ import kotlinx.coroutines.launch
  * Issue #7 P06: MediaSession uses a ForwardingPlayer façade to make system
  * transport controls share P02–P05 serialized queue/seek/previous rules;
  * no controller may inject arbitrary remote/local playlist URIs.
- * P08: standard Media3 notification / FGS lifecycle and active-only task
- * removal, independent of Activity lifecycle. P09/P10 own route/focus/error QA.
+ * P08: standard Media3 foreground lifecycle, independent of Activity.
+ * P09: Media3-owned focus/noisy behavior + conservative service-only
+ * headset/Bluetooth route-loss latch. P10 owns decoder recovery QA.
  */
 @OptIn(UnstableApi::class)
 class MusicPlaybackService : MediaSessionService() {
@@ -62,6 +63,10 @@ class MusicPlaybackService : MediaSessionService() {
     private val pendingResults = linkedSetOf<SettableFuture<SessionResult>>()
     private val projector = Media3SnapshotProjector()
     private var runtimeError: AppError? = null
+    // Both safety paths live in the ONE MediaSessionService. Route callbacks
+    // and player callbacks run on Main; no second focus manager is created.
+    private val interruptionGate = PlaybackInterruptionGate()
+    private var routeMonitor: ServiceAudioRouteMonitor? = null
     private lateinit var confirmed: PlaybackSnapshot
 
     override fun onCreate() {
@@ -81,7 +86,14 @@ class MusicPlaybackService : MediaSessionService() {
         // Factory can start once per service instance and closes both resources once.
         runtimeOwner = ServicePlaybackRuntimeOwner(
             create = {
-                val candidate = ExoPlayer.Builder(this).build()
+                val candidate = ExoPlayer.Builder(this)
+                    // Media3 pauses before the OS sends wired/Bluetooth
+                    // playback to a newly selected built-in speaker.
+                    .setHandleAudioBecomingNoisy(true)
+                    // Media playback with screen off needs LOCAL wake mode;
+                    // Media3 acquires/releases its lock only while playing.
+                    .setWakeMode(C.WAKE_MODE_LOCAL)
+                    .build()
                 // P05: explicitly mark audio as music and delegate normal
                 // focus policy to ExoPlayer. P09 owns interruption/route QA.
                 candidate.setAudioAttributes(
@@ -118,11 +130,39 @@ class MusicPlaybackService : MediaSessionService() {
         player = runtime.first
         session = runtime.second
         processor = PlaybackCommandProcessor(owner.scope, ::applyCommand)
+        routeMonitor = ServiceAudioRouteMonitor(this) {
+            if (::player.isInitialized && player.mediaItemCount > 0 &&
+                (player.playbackState != Player.STATE_IDLE || player.playWhenReady)
+            ) {
+                // High-priority route loss must bypass potentially long
+                // MediaStore queue preparation; pausing via Player directly
+                // is the sole service's emergency safe-pause, not a competing
+                // controller, independent queue or ordinary command.
+                interruptionGate.onHeadsetOrBluetoothLost()
+                player.pause()
+                publishSnapshot()
+            }
+        }.also { it.start() }
 
         player.addListener(object : Player.Listener {
+            override fun onPlayWhenReadyChanged(
+                playWhenReady: Boolean, reason: Int
+            ) {
+                if (!playWhenReady && PlaybackInterruptionGate.isNoisyChangeReason(reason)) {
+                    // Media3 already paused the real player. Arm the same
+                    // latch as the device callback even if OEM emits only
+                    // AUDIO_BECOMING_NOISY and no AudioDeviceCallback removal.
+                    interruptionGate.onHeadsetOrBluetoothLost()
+                }
+            }
             override fun onEvents(player: Player, events: Player.Events) {
-                // Projector itself compares queue/index; metadata or duration
-                // timeline updates never invalidate the queue token.
+                // A Bluetooth/wired route-loss latch beats any delayed focus
+                // GAIN callback. Automatic resume is disallowed after loss;
+                // only a NEW explicit Play may clear this latch.
+                if (interruptionGate.shouldSuppressAutomaticPlay() &&
+                    player.playWhenReady
+                ) player.pause()
+                // Projector compares real queue/index; no optimistic UI state.
                 publishSnapshot()
             }
             override fun onPlayerError(error: PlaybackException) {
@@ -275,13 +315,24 @@ class MusicPlaybackService : MediaSessionService() {
         try {
             when (command) {
                 is PlaybackCommand.ReplaceQueue -> {
+                    val routeAtStart = interruptionGate.routeGeneration
                     // P04: all (up to 5,000) MediaStore FD probes run on IO.
                     // A failed candidate never modifies the existing Player.
                     val proposal = when (val outcome = queueEngine.prepare(command)) {
                         is AppResult.Success -> outcome.value
                         is AppResult.Failure -> return outcome
                     }
+                    // A plugged-out Bluetooth/headset device while IO was
+                    // verifying 5,000 items INVALIDATES the old play request.
+                    // Never autostart after route loss using stale intention.
+                    if (!interruptionGate.requestIsStillCurrent(routeAtStart)) {
+                        return rejected()
+                    }
                     val mediaItems = LocalMedia3QueueItems.from(proposal)
+                    // A new explicit user selection may intentionally play
+                    // from the current output; a paused replacement does not
+                    // clear the route-loss latch.
+                    if (proposal.playWhenReady) interruptionGate.onExplicitUserPlaybackRequest()
                     // Clear a previous error BEFORE preparing a new selection.
                     // An error delivered during prepare must not be erased.
                     runtimeError = null
@@ -301,6 +352,7 @@ class MusicPlaybackService : MediaSessionService() {
                     }
                 }
                 is PlaybackCommand.SelectQueueIndex -> {
+                    val routeAtStart = interruptionGate.routeGeneration
                     val observedQueueRevision = confirmed.queueRevision
                     if (command.expectedQueueRevision != observedQueueRevision ||
                         command.index !in 0 until player.mediaItemCount
@@ -314,12 +366,17 @@ class MusicPlaybackService : MediaSessionService() {
                     }
                     // Revalidate the exact URI and authoritative timeline AFTER
                     // the IO suspension; never act on a stale UI queue index.
-                    if (confirmed.queueRevision != observedQueueRevision ||
+                    if (!interruptionGate.requestIsStillCurrent(routeAtStart) ||
+                        confirmed.queueRevision != observedQueueRevision ||
                         selectedMedia != player.getMediaItemAt(command.index) ||
                         selectedMedia.localConfiguration?.uri?.toString() !=
                             validated.contentUri
                     ) return rejected()
-                    if (!command.playWhenReady) player.pause()
+                    if (!command.playWhenReady) {
+                        player.pause()
+                    } else {
+                        interruptionGate.onExplicitUserPlaybackRequest()
+                    }
                     player.seekTo(command.index, 0L)
                     if (command.playWhenReady) {
                         if (player.playbackState == Player.STATE_IDLE) player.prepare()
@@ -328,6 +385,7 @@ class MusicPlaybackService : MediaSessionService() {
                 }
                 is PlaybackCommand.Play -> {
                     if (player.mediaItemCount == 0) return rejected()
+                    interruptionGate.onExplicitUserPlaybackRequest()
                     // setMediaItems(... playWhenReady=false) and Stop leave
                     // STATE_IDLE; play() alone cannot start an unprepared item.
                     if (player.playbackState == Player.STATE_ENDED) {
@@ -344,7 +402,10 @@ class MusicPlaybackService : MediaSessionService() {
                     }
                     player.play()
                 }
-                is PlaybackCommand.Pause -> player.pause()
+                is PlaybackCommand.Pause -> {
+                    interruptionGate.onManualPauseOrStop()
+                    player.pause()
+                }
                 is PlaybackCommand.Next -> {
                     val index = player.currentMediaItemIndex
                         .takeIf { it in 0 until player.mediaItemCount }
@@ -391,7 +452,10 @@ class MusicPlaybackService : MediaSessionService() {
                     ) ?: return rejected()
                     player.seekTo(target)
                 }
-                is PlaybackCommand.Stop -> player.stop()
+                is PlaybackCommand.Stop -> {
+                    interruptionGate.onManualPauseOrStop()
+                    player.stop()
+                }
             }
             // Async ExoPlayer transitions are projected as Buffering/Paused,
             // never fabricated "Playing" from command acknowledgement.
@@ -434,6 +498,10 @@ class MusicPlaybackService : MediaSessionService() {
     )
 
     override fun onDestroy() {
+        // Unregister BEFORE disposing the sole service player, so late
+        // Android route callbacks cannot touch an already released engine.
+        routeMonitor?.close()
+        routeMonitor = null
         if (::queueEngine.isInitialized) queueEngine.invalidate()
         if (::processor.isInitialized) processor.close()
         // Resolve in-flight session response futures even if coroutine owner is
