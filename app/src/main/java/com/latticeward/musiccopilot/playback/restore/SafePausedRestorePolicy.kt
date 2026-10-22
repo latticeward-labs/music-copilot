@@ -43,8 +43,9 @@ object SafePausedRestorePolicy {
             snapshot.positionMs < 0L ||
             snapshot.capturedAtEpochMs < 0L ||
             snapshot.items.size > MAX_ITEMS ||
-            snapshot.items.distinct().size != snapshot.items.size ||
-            snapshot.items.any { it.value.isBlank() } ||
+            snapshot.items.any {
+                it.value.isBlank() || it.value.length > 128
+            } ||
             (snapshot.items.isEmpty() &&
                 (snapshot.currentIndex != 0 || snapshot.positionMs != 0L)) ||
             (snapshot.items.isNotEmpty() && snapshot.currentIndex !in snapshot.items.indices)
@@ -54,8 +55,11 @@ object SafePausedRestorePolicy {
         val surviving = snapshot.items.filter { it in verifiedMediaRefs }
         if (surviving.isEmpty()) return AppResult.Success(null)
         val previousCurrent = snapshot.items[snapshot.currentIndex]
-        val currentSurvives = previousCurrent in surviving
-        val index = if (currentSurvives) surviving.indexOf(previousCurrent) else 0
+        val currentSurvives = previousCurrent in verifiedMediaRefs
+        // Never collapse duplicate occurrences into the first identical ID.
+        // Count only surviving occurrences *before* the selected index.
+        val index = if (currentSurvives) snapshot.items.take(snapshot.currentIndex)
+            .count { it in verifiedMediaRefs } else 0
         // Never carry a position from a missing item to a different item.
         val position = if (currentSurvives) snapshot.positionMs else 0L
         val safePosition = if (verifiedDurationMs != null && verifiedDurationMs >= 0L)
