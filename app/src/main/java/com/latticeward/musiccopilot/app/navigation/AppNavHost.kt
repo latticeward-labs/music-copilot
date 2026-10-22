@@ -44,6 +44,9 @@ import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
+import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
+import com.latticeward.musiccopilot.feature.search.LocalSearchScreen
+import com.latticeward.musiccopilot.feature.search.LocalSearchViewModel
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.feature.library.LibraryBrowseScreen
@@ -87,9 +90,18 @@ fun AppNavHost(
     val navController = rememberNavController()
     var manualFallback by rememberSaveable { mutableStateOf(false) }
     var settingsOpen by rememberSaveable { mutableStateOf(false) }
+    var searchOpen by rememberSaveable { mutableStateOf(false) }
+    var pendingSearchGroup by remember { mutableStateOf<LibraryBrowseEntry?>(null) }
     var replayingEducation by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(permission) {
-        if (permission == PermissionStatus.Granted) manualFallback = false
+        if (permission == PermissionStatus.Granted) {
+            manualFallback = false
+        } else {
+            // OS denial/revocation owns recovery; never expose old Search
+            // rows when no longer authorized to browse local audio.
+            searchOpen = false
+            pendingSearchGroup = null
+        }
     }
     val actualRoute = if (route == BootstrapRoute.PermissionRecovery && manualFallback) {
         BootstrapRoute.HomeLibrary
@@ -103,6 +115,8 @@ fun AppNavHost(
         mediaRequestUi.outcome != MediaPermissionOutcome.None ->
             Destination.PermissionRecovery
         actualRoute == BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
+        searchOpen && actualRoute == BootstrapRoute.HomeLibrary ->
+            Destination.Search
         else -> Destination.Library
     }
     LaunchedEffect(target) {
@@ -198,7 +212,39 @@ fun AppNavHost(
                 onRetryLibraryScan = onRetryLibraryScan,
                 onRescanLibrary = onRescanLibrary,
                 onSettings = { settingsOpen = true },
+                onSearch = { searchOpen = true },
+                initialGroup = pendingSearchGroup,
+                onGroupConsumed = { pendingSearchGroup = null },
                 onExit = onExit,
+            )
+        }
+        composable(Destination.Search.route) {
+            val searchModel: LocalSearchViewModel = viewModel(
+                factory = remember(libraryRepository) {
+                    object : ViewModelProvider.Factory {
+                        @Suppress("UNCHECKED_CAST")
+                        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                            check(modelClass == LocalSearchViewModel::class.java)
+                            return LocalSearchViewModel(libraryRepository) as T
+                        }
+                    }
+                },
+            )
+            LocalSearchScreen(
+                model = searchModel,
+                index = libraryIndex,
+                permission = permission,
+                onBack = { searchOpen = false },
+                onOpenGroup = { group ->
+                    pendingSearchGroup = group
+                    searchOpen = false
+                },
+                onSettings = { settingsOpen = true },
+                onReviewAccess = {
+                    searchOpen = false
+                    manualFallback = false
+                    onRefreshPermission()
+                },
             )
         }
         composable(Destination.Settings.route) {
