@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
+import com.latticeward.musiccopilot.core.application.playback.SelectedPlaybackState
 import com.latticeward.musiccopilot.data.api.LibraryBrowseCategory
 import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
 import com.latticeward.musiccopilot.data.api.LibraryBrowseRequest
@@ -34,6 +36,7 @@ data class LibraryBrowseUiState(
     val loadingMore: Boolean = false,
     val failure: LibraryPageFailure? = null,
     val selectedSong: LibraryItem? = null,
+    val selectionStatus: SelectedSongUiStatus = SelectedSongUiStatus.Idle,
 ) {
     val inGroup: Boolean get() = groupId != null
     val canLoadMore: Boolean
@@ -48,13 +51,24 @@ data class LibraryBrowseUiState(
  * Browse requests are revision-pinned and generation-guarded: results from a
  * cancelled page or different category/group/revision never contaminate UI.
  */
-class LibraryBrowseViewModel(private val library: LibraryRepository) : ViewModel() {
+class LibraryBrowseViewModel(
+    private val library: LibraryRepository,
+    private val selection: LibraryMediaSelectionUseCase? = null,
+) : ViewModel() {
     private val mutable = MutableStateFlow(LibraryBrowseUiState())
     val ui: StateFlow<LibraryBrowseUiState> = mutable
 
     private var acceptedRevision: Long? = null
     private var epoch = 0L
     private var pageJob: Job? = null
+    private var selectJob: Job? = null
+    private var selectTicket = 0L
+
+    private fun cancelSelection() {
+        ++selectTicket
+        selectJob?.cancel()
+        selectJob = null
+    }
 
     /** Called by lifecycle-aware Compose when the *verified* index changes. */
     fun onVerifiedIndex(snapshot: LibraryIndexSnapshot, permissionGranted: Boolean) {
@@ -69,6 +83,7 @@ class LibraryBrowseViewModel(private val library: LibraryRepository) : ViewModel
             epoch++
             pageJob?.cancel()
             pageJob = null
+            cancelSelection()
             // Revocation, Scanning and errors must not show a previously
             // accepted page as current or playable.
             mutable.value = mutable.value.copy(
@@ -81,8 +96,10 @@ class LibraryBrowseViewModel(private val library: LibraryRepository) : ViewModel
         }
         if (acceptedRevision == snapshot.revision) return
         acceptedRevision = snapshot.revision
+        cancelSelection()
         epoch++
         pageJob?.cancel()
+        cancelSelection()
         mutable.value = mutable.value.copy(
             groupId = null, groupTitle = null, entries = emptyList(),
             totalCount = 0, revision = snapshot.revision, nextOffset = null,
@@ -98,6 +115,7 @@ class LibraryBrowseViewModel(private val library: LibraryRepository) : ViewModel
         if (mutable.value.category == category && !mutable.value.inGroup) return
         epoch++
         pageJob?.cancel()
+        cancelSelection()
         mutable.value = mutable.value.copy(
             category = category, groupId = null, groupTitle = null,
             entries = emptyList(), totalCount = 0, nextOffset = null,
@@ -117,6 +135,7 @@ class LibraryBrowseViewModel(private val library: LibraryRepository) : ViewModel
         if (acceptedRevision == null) return
         epoch++
         pageJob?.cancel()
+        cancelSelection()
         mutable.value = mutable.value.copy(
             groupId = group.first, groupTitle = group.second,
             entries = emptyList(), totalCount = 0, nextOffset = null,
@@ -128,7 +147,9 @@ class LibraryBrowseViewModel(private val library: LibraryRepository) : ViewModel
 
     fun backToGroups(): Boolean {
         if (mutable.value.selectedSong != null) {
-            mutable.value = mutable.value.copy(selectedSong = null)
+            cancelSelection()
+            mutable.value = mutable.value.copy(selectedSong = null,
+                selectionStatus = SelectedSongUiStatus.Idle)
             return true
         }
         if (!mutable.value.inGroup) return false
@@ -144,17 +165,55 @@ class LibraryBrowseViewModel(private val library: LibraryRepository) : ViewModel
         return true
     }
 
-    /** A local preview only. P10 will own verified selection-to-playback. */
+    /**
+     * P10: a tap is validated by MediaStore first and acknowledged only by
+     * service-owned PlaybackGateway. Older isolated P08 JVM fakes may omit
+     * the selection boundary and therefore show only a local preview.
+     */
     fun previewSong(song: LibraryItem) {
-        if (acceptedRevision != null &&
-            mutable.value.entries.any {
+        val revision = acceptedRevision ?: return
+        if (mutable.value.entries.none {
                 it is LibraryBrowseEntry.Song && it.media.ref == song.ref
+            }) return
+        if (mutable.value.selectedSong?.ref == song.ref &&
+            mutable.value.selectionStatus == SelectedSongUiStatus.Validating) return
+        cancelSelection()
+        val ticket = selectTicket
+        val delegate = selection
+        mutable.value = mutable.value.copy(
+            selectedSong = song,
+            selectionStatus = if (delegate == null) SelectedSongUiStatus.Idle
+                else SelectedSongUiStatus.Validating,
+        )
+        if (delegate == null) return
+        selectJob = viewModelScope.launch {
+            try {
+                val answer = delegate.select(song.ref, revision)
+                if (selectTicket != ticket || acceptedRevision != revision ||
+                    mutable.value.selectedSong?.ref != song.ref) return@launch
+                mutable.value = mutable.value.copy(
+                    selectionStatus = when (answer) {
+                        is AppResult.Success ->
+                            if (answer.value.state == SelectedPlaybackState.Playing)
+                                SelectedSongUiStatus.ServicePlaying
+                            else SelectedSongUiStatus.ServiceAcceptedPending
+                        is AppResult.Failure ->
+                            SelectedSongFailurePolicy.from(answer.error)
+                    },
+                )
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                if (selectTicket == ticket) mutable.value = mutable.value.copy(
+                    selectionStatus = SelectedSongUiStatus.PlaybackUnavailable)
             }
-        ) mutable.value = mutable.value.copy(selectedSong = song)
+        }
     }
 
     fun closePreview() {
-        mutable.value = mutable.value.copy(selectedSong = null)
+        cancelSelection()
+        mutable.value = mutable.value.copy(
+            selectedSong = null, selectionStatus = SelectedSongUiStatus.Idle)
     }
 
     fun loadMore() {
@@ -232,6 +291,7 @@ class LibraryBrowseViewModel(private val library: LibraryRepository) : ViewModel
     override fun onCleared() {
         epoch++
         pageJob?.cancel()
+        cancelSelection()
         super.onCleared()
     }
 }
