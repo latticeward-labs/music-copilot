@@ -24,8 +24,7 @@ import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
-import com.latticeward.musiccopilot.data.mediastore.AndroidMediaStorePlaybackProbe
-import com.latticeward.musiccopilot.data.mediastore.MediaStorePlaybackResolver
+import com.latticeward.musiccopilot.playback.api.PlaybackResolverHost
 import com.latticeward.musiccopilot.playback.command.PlaybackNavigationPolicy
 import com.latticeward.musiccopilot.playback.command.PlaybackQueuePolicy
 import com.latticeward.musiccopilot.playback.media3.LocalMedia3QueueItems
@@ -64,11 +63,10 @@ class MusicPlaybackService : MediaSessionService() {
             override val default = kotlinx.coroutines.Dispatchers.Default
         }
         owner = PlaybackServiceScopeOwner(dispatchers)
+        // Process Application is created before a media service even when no
+        // Activity exists. app.di owns concrete MediaStore adapter composition.
         queueEngine = ServiceQueueEngine(
-            MediaStorePlaybackResolver(
-                AndroidMediaStorePlaybackProbe(applicationContext),
-                dispatchers,
-            ),
+            (application as PlaybackResolverHost).createPlaybackMediaResolver(dispatchers),
             dispatchers,
         )
         // Factory can start once per service instance and closes both resources once.
