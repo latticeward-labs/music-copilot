@@ -21,13 +21,15 @@
 | P09-S13 | Revoke Android music access while searching | Hide all personal result rows, route permission recovery, no automatic scan | NOT_RUN |
 | P09-S14 | Open Search from verified Empty Library | Typable query, verified No Results from Empty, never permission denial | NOT_RUN |
 | P09-S15 | Rotate phone while search active and text present | ViewModel preserves query/route for active Search, no duplicate MediaStore scan | NOT_RUN |
-| P09-S16 | Back from Search | Return to Library, local playback unchanged; query not stored permanently | NOT_RUN |
+| P09-S16 | Back from Search | Pop Search destination back to the existing Library route; dispose private query ViewModel instead of stacking another Library, without mutating playback | NOT_RUN |
 | P09-S17 | 200% Android font scaling at 360dp width | SearchField, Clear, Retry and Back remain usable, rows reflow and scroll | NOT_RUN |
 | P09-S18 | TalkBack full traversal | Search heading → query → clear → result count/results or error → bottom navigation; 48dp targets | NOT_RUN |
 | P09-S19 | Search literal `%`, `_`, Unicode and mixed case | SQLite `instr` literal substring; NFKC/Locale.ROOT normalization; no wildcard injection | NOT_RUN |
 | P09-S20 | 5,000 synthetic rows, text search and group matches | Measure local query latency/jank/memory, SQL `EXPLAIN QUERY PLAN`, at most 60 displayed results; no global Kotlin all-row materialization | NOT_RUN |
 | P09-S21 | Return from Search to Library group then Back | Group opens only after revision-authorized handoff; Back returns to group list, never implicit playback | NOT_RUN |
 | P09-S22 | Personal metadata or query entered on real phone | No query/results titles in diagnostic/telemetry/evidence uploads; screenshots use synthetic fixtures only | NOT_RUN |
+
+| P09-S23 | Search → Settings → Back → Search → Back → Library | Returning from Settings reuses active Search and its query; exiting to Library pops Search and disposes query, without duplicate Library or stale Search destinations | NOT_RUN |
 
 ## Authored test sources (not executed)
 
