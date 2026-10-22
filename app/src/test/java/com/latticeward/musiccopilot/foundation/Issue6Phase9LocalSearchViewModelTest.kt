@@ -220,6 +220,9 @@ class Issue6Phase9LocalSearchViewModelTest {
         assertEquals(1, f.calls.size)
         vm.onVerifiedIndex(ready.copy(revision = 8), true)
         f.delayGate = null
+        // The newer repository response is deliberately stale (revision 7),
+        // proving the ViewModel will not present it under accepted revision 8.
+        f.reply = success(revision = 7)
         hold.complete(Unit)
         advanceUntilIdle()
         assertTrue(vm.ui.value.entries.isEmpty())
