@@ -319,8 +319,21 @@ class MusicPlaybackService : MediaSessionService() {
      * permission recovery must be explicit, never auto-skip indefinitely.
      */
     private fun classifyPlaybackFailure(
-        errorCode: Int,
-    ): PlaybackFailureRecoveryPolicy.Failure = when (errorCode) {
+        error: PlaybackException,
+    ): PlaybackFailureRecoveryPolicy.Failure {
+        // OEM ContentResolver adapters sometimes collapse security and
+        // missing-volume faults into IO_UNSPECIFIED. Inspect ONLY exception
+        // types, never propagate exception text or private file paths.
+        var root: Throwable? = error.cause
+        repeat(4) {
+            when (root) {
+                is SecurityException -> return PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked
+                is java.io.FileNotFoundException ->
+                    return PlaybackFailureRecoveryPolicy.Failure.Missing
+            }
+            root = root?.cause
+        }
+        return when (error.errorCode) {
         PlaybackException.ERROR_CODE_IO_FILE_NOT_FOUND ->
             PlaybackFailureRecoveryPolicy.Failure.Missing
         PlaybackException.ERROR_CODE_IO_NO_PERMISSION ->
@@ -334,6 +347,7 @@ class MusicPlaybackService : MediaSessionService() {
         PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES ->
             PlaybackFailureRecoveryPolicy.Failure.Unsupported
         else -> PlaybackFailureRecoveryPolicy.Failure.Unknown
+        }
     }
 
     private fun safeMediaFailure(
@@ -363,7 +377,7 @@ class MusicPlaybackService : MediaSessionService() {
     }
 
     private fun handlePlaybackFailure(error: PlaybackException) {
-        val kind = classifyPlaybackFailure(error.errorCode)
+        val kind = classifyPlaybackFailure(error)
         val failure = safeMediaFailure(kind)
         val failingIndex = player.currentMediaItemIndex
         val requestedPlayback = player.playWhenReady &&
@@ -598,6 +612,11 @@ class MusicPlaybackService : MediaSessionService() {
                     player.pause()
                 }
                 is PlaybackCommand.Next -> {
+                    if (runtimeError?.code == AppErrorCodes.PERMISSION_REVOKED) {
+                        // Access was revoked: no next-item read until Android
+                        // grants permission again. UI offers Settings/Library.
+                        return AppResult.Failure(runtimeError!!)
+                    }
                     if (player.playerError != null ||
                         (runtimeError != null &&
                             player.playbackState == Player.STATE_IDLE)
@@ -673,9 +692,12 @@ class MusicPlaybackService : MediaSessionService() {
             // never fabricated "Playing" from command acknowledgement.
             // Do not erase a synchronous onPlayerError callback.
             if (player.playerError != null) {
-                runtimeError = AppError.Playback(
+                // Retain the sanitized P10 typed MediaItem/permission error
+                // set by onPlayerError; generic PlaybackFailed must not
+                // silently replace it during synchronous Media3 callbacks.
+                if (runtimeError == null) runtimeError = AppError.Playback(
                     AppErrorCodes.PLAYBACK_FAILED,
-                    Recoverability.RECOVERABLE, RecoveryAction.Retry
+                    Recoverability.RECOVERABLE, RecoveryAction.Retry,
                 )
                 publishSnapshot()
                 return AppResult.Failure(runtimeError!!)
