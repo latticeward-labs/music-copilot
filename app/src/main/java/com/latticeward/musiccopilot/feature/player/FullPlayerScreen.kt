@@ -48,6 +48,8 @@ import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.core.result.AppErrorCodes
+import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -173,6 +175,67 @@ fun FullPlayerScreen(
                         Text(stringResource(R.string.i7_no_track),
                             style = MusicTextStyles.bodyLarge,
                             color = MusicColors.textSecondary)
+                    }
+                }
+            }
+            if (snap.lastError != null) {
+                item(key = "player_recovery") {
+                    val error = snap.lastError
+                    val missingAccess = error?.code == AppErrorCodes.PERMISSION_REVOKED
+                    val skippedMedia = error is AppError.MediaItem
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(horizontal = MusicSpacing.mdDp),
+                        verticalArrangement = Arrangement.spacedBy(MusicSpacing.smDp),
+                    ) {
+                        Text(
+                            stringResource(R.string.i7_unavailable_heading),
+                            modifier = Modifier.semantics { heading() },
+                            color = MusicColors.error,
+                            style = MusicTextStyles.titleMedium,
+                        )
+                        Text(
+                            stringResource(
+                                when {
+                                    missingAccess -> R.string.i7_permission_revoked_help
+                                    skippedMedia && snap.playbackState !=
+                                        com.latticeward.musiccopilot.playback.api.PlaybackState.Error ->
+                                        R.string.i7_skipped_and_continuing
+                                    skippedMedia -> R.string.i7_corrupt_help
+                                    else -> R.string.i7_unavailable_help
+                                }
+                            ),
+                            color = MusicColors.textPrimary,
+                            style = MusicTextStyles.bodyLarge,
+                        )
+                        Text(
+                            stringResource(R.string.i7_media_untouched),
+                            color = MusicColors.textSecondary,
+                            style = MusicTextStyles.bodyMedium,
+                        )
+                        // A real error (not transient skip notice) may allow
+                        // one explicitly requested, MediaStore-validated next.
+                        if (!missingAccess && state.ready &&
+                            snap.canSkipNext &&
+                            snap.playbackState ==
+                                com.latticeward.musiccopilot.playback.api.PlaybackState.Error
+                        ) {
+                            Button(
+                                onClick = model::next,
+                                enabled = state.canControl,
+                                modifier = Modifier.fillMaxWidth()
+                                    .heightIn(min = MusicSize.touchTargetMinDp),
+                            ) {
+                                Text(stringResource(R.string.i7_continue_with_next))
+                            }
+                        }
+                        OutlinedButton(
+                            onClick = onBack,
+                            modifier = Modifier.fillMaxWidth()
+                                .heightIn(min = MusicSize.touchTargetMinDp),
+                        ) {
+                            Text(stringResource(R.string.i7_return_to_browse))
+                        }
                     }
                 }
             }
