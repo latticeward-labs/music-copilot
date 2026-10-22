@@ -177,12 +177,15 @@
     {
       "id": "P08",
       "title": "Background, lifecycle and system surfaces",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE8_BACKGROUND_NOTIFICATION_LIFECYCLE_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P08-001",
+        "I7-EVD-P08-002"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "a752d92b7f67b596e0b55a85e84ae839273f8026"
     },
     {
       "id": "P09",
@@ -608,6 +611,24 @@
       ],
       "source_report_commit": "1839ba14d700281eebdb38005bfda173b770a2fe",
       "status": "PASS_SCOPED_SOURCE_ONLY_ALL_QA_NOT_RUN"
+    },
+    {
+      "id": "I7-CHG-P08-001",
+      "phase": "P08",
+      "kind": "ACTIVITY_INDEPENDENT_MEDIA3_FOREGROUND_AND_RECENTS_LIFECYCLE",
+      "description": "Media3 native FGS and notification preserved, explicit task removal policy retains real foreground-playing/buffering service only, controller-only Activity onStop unbind and foreground reattach, stopWithTask=false, 12 JUnit tests authored but NOT_RUN; no new Player, NotificationManager or POST_NOTIFICATIONS; all [skip ci], no tests/Actions/build/APK.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackTaskLifetimePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/AndroidManifest.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase8TaskRemovalPolicyTest.kt",
+        "docs/implementation/ISSUE_7_PHASE8_BACKGROUND_NOTIFICATION_LIFECYCLE_AUDIT.md"
+      ],
+      "source_commit": "a752d92b7f67b596e0b55a85e84ae839273f8026",
+      "status": "PASS_SCOPED_SOURCE_ONLY_NOT_ANDROID_VERIFIED"
     }
   ],
   "evidence_records": [
@@ -907,6 +928,62 @@
       "apk_sha256": null,
       "result": "ALL_NOT_RUN_P13_ONLY",
       "test_run": false
+    },
+    {
+      "id": "I7-EVD-P08-001",
+      "phase": "P08",
+      "type": "SOURCE_READBACK_ONLY",
+      "report": "docs/implementation/ISSUE_7_PHASE8_BACKGROUND_NOTIFICATION_LIFECYCLE_AUDIT.md",
+      "source_sha": "a752d92b7f67b596e0b55a85e84ae839273f8026",
+      "checks_passed": 17,
+      "checks_total": 17,
+      "checks": [
+        "Single ExoPlayer and MediaSession",
+        "Service Media3 onTaskRemoved uses isPlaybackOngoing",
+        "Active-only foreground policy; otherwise super.onTaskRemoved",
+        "super.onUpdateNotification retains Media3 FGS and OS media notification",
+        "UI onStop triggers only controller.detachUiController",
+        "Controller generation invalidation and reconnect",
+        "AndroidManifest stopWithTask=false and existing mediaPlayback permissions",
+        "No POST_NOTIFICATIONS permission and no new Player",
+        "12 JUnit task lifetime cases authored"
+      ],
+      "result": "PASS_SCOPED_STATIC_NOT_COMPILED",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P08-002",
+      "phase": "P08",
+      "type": "FINAL_SINGLE_P13_APK_QA_RESERVATION",
+      "junit_authored": 12,
+      "junit_executed": 0,
+      "android_tests_executed": 0,
+      "manual_cases_executed": 0,
+      "github_actions_tests_run_by_assistant": 0,
+      "github_actions_workflows_dispatched": 0,
+      "full_android_build": "NOT_RUN",
+      "final_apk": "NOT_CREATED",
+      "target_owner_phone_cases": [
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M35"
+      ],
+      "target_technical_cases": [
+        "T04",
+        "T05",
+        "T06"
+      ],
+      "result": "ALL_NOT_RUN",
+      "test_run": false
     }
   ],
   "release": {
@@ -920,7 +997,7 @@
     "pr_state": "NOT_OPENED",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
-    "actions": "NO_P01_RUN_REQUESTED",
+    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P08_OWNER_REQUIRES_OFFLINE_P13",
     "independent_review": "NOT_REVIEWED",
     "merge": "NOT_MERGED",
     "issue_state": "OPEN",
