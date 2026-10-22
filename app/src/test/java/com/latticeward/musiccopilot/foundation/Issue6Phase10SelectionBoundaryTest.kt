@@ -236,6 +236,18 @@ class Issue6Phase10SelectionBoundaryTest {
             (result as AppResult.Failure).error.code)
     }
 
+    @Test fun partialReplaceQueueAcknowledgementWithOldTailIsRejected() = runBlocking {
+        val lib = FakeLibrary(item(ref))
+        val player = FakeGateway()
+        player.answer = AppResult.Success(
+            sampleSnapshot().copy(queue = listOf(ref, other))
+        )
+        val response = boundary(lib, player).select(ref, 7)
+        assertEquals(AppErrorCodes.PLAYBACK_REJECTED,
+            (response as AppResult.Failure).error.code)
+        assertEquals(1, player.commands.size)
+    }
+
     @Test fun fakeAckWithNoCurrentItemOrIdleCannotClaimPlaying() = runBlocking {
         val lib = FakeLibrary(item(ref))
         val player = FakeGateway()
