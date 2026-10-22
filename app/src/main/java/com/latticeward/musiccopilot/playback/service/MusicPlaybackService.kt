@@ -27,6 +27,9 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
+import com.latticeward.musiccopilot.playback.api.PlaybackState
+import com.latticeward.musiccopilot.playback.restore.SafePausedRestorePolicy
+import com.latticeward.musiccopilot.core.model.CommandId
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.playback.api.PlaybackResolverHost
 import com.latticeward.musiccopilot.playback.command.PlaybackNavigationPolicy
@@ -39,6 +42,9 @@ import com.latticeward.musiccopilot.playback.command.PlaybackWireProtocol
 import com.latticeward.musiccopilot.playback.media3.ServicePlaybackRuntimeOwner
 import com.latticeward.musiccopilot.playback.media3.Media3SnapshotProjector
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
 
 /**
  * Single-process, service-owned Media3 authority. A screen and the application
@@ -63,6 +69,8 @@ class MusicPlaybackService : MediaSessionService() {
     private val pendingResults = linkedSetOf<SettableFuture<SessionResult>>()
     private val projector = Media3SnapshotProjector()
     private var runtimeError: AppError? = null
+    private lateinit var pausedCheckpoint: ServicePausedCheckpoint
+    private var restoreGeneration = 0L
     // P10: consecutive decoder failures have one bounded recovery budget.
     // New explicit commands invalidate every outstanding asynchronous probe.
     private val recoveryPolicy = PlaybackFailureRecoveryPolicy()
@@ -114,6 +122,9 @@ class MusicPlaybackService : MediaSessionService() {
                     // service commands still mutate the real ExoPlayer through
                     // the one serialized PlaybackCommandProcessor.
                     systemTransport = ServiceSessionTransportPlayer(candidate) { intent ->
+                        // A newly accepted system/media-key command always
+                        // beats an in-flight cold-restore IO coroutine.
+                        ++restoreGeneration
                         if (::processor.isInitialized) processor.submit(intent)
                     }
                     val builtSession = MediaSession.Builder(this, systemTransport)
@@ -135,6 +146,10 @@ class MusicPlaybackService : MediaSessionService() {
         player = runtime.first
         session = runtime.second
         processor = PlaybackCommandProcessor(owner.scope, ::applyCommand)
+        pausedCheckpoint = ServicePausedCheckpoint(
+            (application as PlaybackResolverHost).createPlaybackRestorableQueueStore(),
+            owner.scope,
+        )
         routeMonitor = ServiceAudioRouteMonitor(this) {
             if (::player.isInitialized && player.mediaItemCount > 0 &&
                 (player.playbackState != Player.STATE_IDLE || player.playWhenReady)
@@ -176,6 +191,34 @@ class MusicPlaybackService : MediaSessionService() {
                 handlePlaybackFailure(error)
             }
         })
+        // A cold service starts with an empty Player. READ before enabling
+        // writes; never let that empty initial snapshot erase saved music.
+        val startingGeneration = restoreGeneration
+        val startingRouteEpoch = interruptionGate.routeGeneration
+        owner.scope.launch {
+            try {
+                restoreColdPaused(startingGeneration, startingRouteEpoch)
+            } finally {
+                // A rejected/corrupt snapshot never blocks subsequent user
+                // session writes, and never auto-starts playback.
+                pausedCheckpoint.enable()
+            }
+        }
+        // Only the real service Player position is sampled, every 5 seconds
+        // while actually Playing. No UI tick can persist invented progress.
+        owner.scope.launch {
+            while (currentCoroutineContext().isActive) {
+                delay(5_000L)
+                if (player.isPlaying && runtimeError == null) {
+                    pausedCheckpoint.onPlayingCheckpoint(
+                        confirmed.copy(
+                            positionMs = player.currentPosition.coerceAtLeast(0L),
+                            playbackState = PlaybackState.Playing,
+                        )
+                    )
+                }
+            }
+        }
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession = session
@@ -280,6 +323,9 @@ class MusicPlaybackService : MediaSessionService() {
                 )
             }
             PlaybackWireProtocol.ACTION_EXECUTE -> {
+                // Supersede asynchronous cold restore at command-RECEIPT,
+                // not after a slow resolver completes in the queued worker.
+                ++restoreGeneration
                 val command = PlaybackWireProtocol.decodeCommand(args)
                 if (command == null) Futures.immediateFuture(
                     SessionResult(SessionError.ERROR_BAD_VALUE,
@@ -509,6 +555,8 @@ class MusicPlaybackService : MediaSessionService() {
     }
 
     private suspend fun applyCommand(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
+        ++restoreGeneration
+        pausedCheckpoint.onExplicitCommand()
         // Any new explicitly dispatched command wins over a pending decoder
         // recovery. In particular, user Pause/Stop cannot be undone by a late
         // MediaStore resolver returning from IO after the click.
@@ -729,6 +777,10 @@ class MusicPlaybackService : MediaSessionService() {
                 }
                 is PlaybackCommand.Stop -> {
                     interruptionGate.onManualPauseOrStop()
+                    // Explicit Stop is stronger than safe-paused restore.
+                    // It clears the old checkpoint, even though ExoPlayer
+                    // retains an in-memory stopped queue for later Play.
+                    pausedCheckpoint.onStop()
                     player.stop()
                 }
             }
@@ -761,9 +813,109 @@ class MusicPlaybackService : MediaSessionService() {
         }
     }
 
+    /**
+     * P1 cold-only restore. The persisted Proto snapshot is never an
+     * authoritative live queue. Every reference is freshly re-queried by
+     * the SAME P03 resolver; invalid/missing items are dropped. A newly
+     * connected live MediaSession or explicit command always wins.
+     *
+     * No Play(), autoplay flag, wakeup, notification foreground promotion,
+     * or re-insertion of unchecked source URLs can occur in this path.
+     */
+    private suspend fun restoreColdPaused(
+        expectedGeneration: Long,
+        expectedRouteEpoch: Long,
+    ) {
+        fun stillCold(): Boolean =
+            expectedGeneration == restoreGeneration &&
+                expectedRouteEpoch == interruptionGate.routeGeneration &&
+                ::player.isInitialized && player.mediaItemCount == 0 &&
+                !player.playWhenReady
+
+        if (!stillCold()) return
+        val saved = when (val read = pausedCheckpoint.read()) {
+            is AppResult.Success -> read.value
+            is AppResult.Failure -> return // Invalid/future schema: fail closed.
+        } ?: return
+        if (!stillCold()) return
+        // Preflight prevents any malformed/future schema from touching Media3
+        // or triggering even a MediaStore query for an invalid snapshot.
+        if (saved.schemaVersion != SafePausedRestorePolicy.SCHEMA_VERSION ||
+            saved.items.isEmpty() || saved.items.size > 5_000 ||
+            saved.currentIndex !in saved.items.indices ||
+            saved.items.any { it.value.isBlank() || it.value.length > 128 } ||
+            saved.positionMs < 0L || saved.queueRevision < 0L ||
+            saved.capturedAtEpochMs <= 0L
+        ) return
+
+        val verified = LinkedHashSet<MediaRef>()
+        val durations = mutableMapOf<MediaRef, Long?>()
+        for (ref in saved.items) {
+            if (!stillCold()) return
+            val result = try {
+                queueEngine.revalidate(ref)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) { return }
+            if (!stillCold()) return
+            when (result) {
+                is AppResult.Success -> {
+                    verified += ref
+                    durations[ref] = result.value.durationMs
+                }
+                is AppResult.Failure -> when (result.error) {
+                    is AppError.MediaItem -> Unit // Missing: drop that occurrence.
+                    else -> return // Revoked/unknown storage: never restore.
+                }
+            }
+        }
+        if (!stillCold() || verified.isEmpty()) return
+        val selectedRef = saved.items[saved.currentIndex]
+            .takeIf { it in verified } ?: saved.items.firstOrNull { it in verified }
+            ?: return
+        val plan = when (val outcome = SafePausedRestorePolicy.prepare(
+            snapshot = saved,
+            liveSessionPresent = false,
+            verifiedMediaRefs = verified,
+            verifiedDurationMs = durations[selectedRef],
+        )) {
+            is AppResult.Success -> outcome.value
+            is AppResult.Failure -> return
+        } ?: return
+        if (!stillCold() || plan.items.isEmpty()) return
+        // Existing P04 queue engine rechecks the selected item LAST and the
+        // rest on IO, producing transient, verified content://media URIs.
+        val queued = when (val proposal = queueEngine.prepare(
+            PlaybackCommand.ReplaceQueue(
+                CommandId("p11-paused-restore"), plan.items,
+                plan.currentIndex, plan.positionMs, playWhenReady = false,
+            )
+        )) {
+            is AppResult.Success -> proposal.value
+            is AppResult.Failure -> return
+        }
+        if (!stillCold()) return
+        val checkedPosition = queued.entries[queued.selectedIndex]
+            .durationMs?.takeIf { it >= 0L }
+            ?.let { plan.positionMs.coerceAtMost(it) } ?: 0L
+        // Do not allow any interrupted route/focus latch or delayed UI
+        // command to be bypassed by snapshot restoration.
+        player.playWhenReady = false
+        player.setMediaItems(
+            LocalMedia3QueueItems.from(queued),
+            queued.selectedIndex,
+            checkedPosition,
+        )
+        player.prepare() // Stays PAUSED, no automatic audible output.
+        player.pause()
+        runtimeError = null
+        publishSnapshot()
+    }
+
     private fun publishSnapshot() {
         confirmed = projector.capture(player, runtimeError)
         session.setSessionExtras(wrap(confirmed))
+        if (::pausedCheckpoint.isInitialized) pausedCheckpoint.onSnapshot(confirmed)
     }
 
     private fun wrap(snapshot: PlaybackSnapshot) = Bundle().apply {
