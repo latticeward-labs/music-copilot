@@ -6,6 +6,7 @@ import com.latticeward.musiccopilot.app.di.PlaybackBindings
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.playback.api.PlaybackMediaResolutionPort
 import com.latticeward.musiccopilot.playback.api.PlaybackResolverHost
+import com.latticeward.musiccopilot.data.api.RestorableQueueStore
 
 /**
  * Real Android-process root. No secondary Activity/Service construction or service locator.
@@ -25,6 +26,9 @@ class MusicCopilotApplication : Application(), PlaybackResolverHost {
         dispatchers: DispatcherProvider,
     ): PlaybackMediaResolutionPort =
         PlaybackBindings.playbackMediaResolver(applicationContext, dispatchers)
+
+    override fun createPlaybackRestorableQueueStore(): RestorableQueueStore =
+        bindings.restorableQueueStore
 
     override fun onTerminate() {
         if (::bindings.isInitialized) bindings.close()
