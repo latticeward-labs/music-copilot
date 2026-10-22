@@ -1,5 +1,8 @@
 # Issue #6 — P12 FINAL Single-APK Owner Phone QA Checklist
 
+> **Owner result received 2026-10-22:** 28/34 PASS, 0 FAIL, six `N/A` deferred until after MVP (M15/M16/M22/M25/M26/M28). This document below remains the *original procedure and blank template* for audit purposes; it must not be mistaken for current results. See [actual imported case results](ISSUE_6_P12_OWNER_PHONE_RESULTS.json), [owner acceptance](ISSUE_6_P12_OWNER_ACCEPTANCE_AND_MERGE.md) and [post-MVP Issue #74](https://github.com/latticeward-labs/music-copilot/issues/74). The candidate APK hash matches owner's exported file. The phone/Android fields were blank; no new CI runs are authorized.
+
+
 **Execution state:** `NOT_RUN` — this file is a future test protocol, NOT a report of testing or an existing APK.  
 **Applies to:** **one APK built after all implementation phases P00–P11 are integrated**. Reuse the *same* installed APK across all manual scenarios. **Do not request/receive/install a new APK for each phase**.  
 **Issue:** [#6](https://github.com/latticeward-labs/music-copilot/issues/6) · [Execution plan](ISSUE_6_PHASED_EXECUTION_PLAN.md)  
