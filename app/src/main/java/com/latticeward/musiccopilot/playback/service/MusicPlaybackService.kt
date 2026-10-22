@@ -63,6 +63,11 @@ class MusicPlaybackService : MediaSessionService() {
     private val pendingResults = linkedSetOf<SettableFuture<SessionResult>>()
     private val projector = Media3SnapshotProjector()
     private var runtimeError: AppError? = null
+    // P10: consecutive decoder failures have one bounded recovery budget.
+    // New explicit commands invalidate every outstanding asynchronous probe.
+    private val recoveryPolicy = PlaybackFailureRecoveryPolicy()
+    private var recoveryGeneration = 0L
+    private var recoveryAttempts = 0
     // Both safety paths live in the ONE MediaSessionService. Route callbacks
     // and player callbacks run on Main; no second focus manager is created.
     private val interruptionGate = PlaybackInterruptionGate()
@@ -166,11 +171,9 @@ class MusicPlaybackService : MediaSessionService() {
                 publishSnapshot()
             }
             override fun onPlayerError(error: PlaybackException) {
-                runtimeError = AppError.Playback(
-                    AppErrorCodes.PLAYBACK_FAILED,
-                    Recoverability.RECOVERABLE, RecoveryAction.Retry
-                )
-                publishSnapshot()
+                // The Media3 listener runs on Main before the Player moves to
+                // IDLE. Never log exception.message, URI, MediaRef or path.
+                handlePlaybackFailure(error)
             }
         })
     }
@@ -310,7 +313,191 @@ class MusicPlaybackService : MediaSessionService() {
         }
     }
 
+    /**
+     * Translate only stable Media3 numeric error categories into sanitized
+     * AppError. A lost library grant may not be handled as a corrupt item:
+     * permission recovery must be explicit, never auto-skip indefinitely.
+     */
+    private fun classifyPlaybackFailure(
+        errorCode: Int,
+    ): PlaybackFailureRecoveryPolicy.Failure = when (errorCode) {
+        PlaybackException.ERROR_CODE_IO_FILE_NOT_FOUND ->
+            PlaybackFailureRecoveryPolicy.Failure.Missing
+        PlaybackException.ERROR_CODE_IO_NO_PERMISSION ->
+            PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked
+        PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED,
+        PlaybackException.ERROR_CODE_DECODING_FAILED,
+        PlaybackException.ERROR_CODE_IO_READ_POSITION_OUT_OF_RANGE ->
+            PlaybackFailureRecoveryPolicy.Failure.Corrupt
+        PlaybackException.ERROR_CODE_PARSING_CONTAINER_UNSUPPORTED,
+        PlaybackException.ERROR_CODE_DECODING_FORMAT_UNSUPPORTED,
+        PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES ->
+            PlaybackFailureRecoveryPolicy.Failure.Unsupported
+        else -> PlaybackFailureRecoveryPolicy.Failure.Unknown
+    }
+
+    private fun safeMediaFailure(
+        kind: PlaybackFailureRecoveryPolicy.Failure,
+    ): AppError = when (kind) {
+        PlaybackFailureRecoveryPolicy.Failure.Missing -> AppError.MediaItem(
+            AppErrorCodes.MEDIA_ITEM_MISSING,
+            Recoverability.RECOVERABLE, RecoveryAction.Skip,
+        )
+        PlaybackFailureRecoveryPolicy.Failure.Corrupt -> AppError.MediaItem(
+            AppErrorCodes.MEDIA_ITEM_CORRUPT,
+            Recoverability.RECOVERABLE, RecoveryAction.Skip,
+        )
+        PlaybackFailureRecoveryPolicy.Failure.Unsupported -> AppError.MediaItem(
+            AppErrorCodes.MEDIA_ITEM_UNPLAYABLE,
+            Recoverability.RECOVERABLE, RecoveryAction.Skip,
+        )
+        PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked ->
+            AppError.Playback(
+                AppErrorCodes.PLAYBACK_FAILED,
+                Recoverability.USER_ACTION_REQUIRED, RecoveryAction.OpenSettings,
+            )
+        PlaybackFailureRecoveryPolicy.Failure.Unknown -> AppError.Playback(
+            AppErrorCodes.PLAYBACK_FAILED,
+            Recoverability.RECOVERABLE, RecoveryAction.ManualFallback,
+        )
+    }
+
+    private fun handlePlaybackFailure(error: PlaybackException) {
+        val kind = classifyPlaybackFailure(error.errorCode)
+        val failure = safeMediaFailure(kind)
+        val failingIndex = player.currentMediaItemIndex
+        val requestedPlayback = player.playWhenReady &&
+            !interruptionGate.shouldSuppressAutomaticPlay()
+        val queueRevision = confirmed.queueRevision
+        val routeEpoch = interruptionGate.routeGeneration
+        val generation = ++recoveryGeneration
+
+        // A failed decoder must no longer request audio focus or output.
+        player.pause()
+        runtimeError = failure
+        publishSnapshot()
+        if (recoveryPolicy.disposition(kind) ==
+                PlaybackFailureRecoveryPolicy.Disposition.SkipForward &&
+            requestedPlayback && recoveryPolicy.permitsAttempt(recoveryAttempts)
+        ) {
+            owner.scope.launch {
+                // IO-based MediaStore revalidation MUST happen outside Main,
+                // while actual Player mutation remains on service Main.
+                recoverForward(
+                    failedIndex = failingIndex,
+                    expectedQueueRevision = queueRevision,
+                    expectedRouteGeneration = routeEpoch,
+                    generation = generation,
+                    notice = failure,
+                )
+            }
+        } else if (kind == PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked) {
+            // A revoked storage permission invalidates cached resolver data.
+            queueEngine.invalidate()
+        }
+    }
+
+    /**
+     * Forward-only bounded decoder recovery. Never retry the corrupt file.
+     * Non-selected missing files are skipped, permission loss is terminal,
+     * no valid successor produces a real Paused/Error service state.
+     *
+     * The active Media3 queue is NOT mutated during IO; only a currently
+     * valid same-queue generation may jump to one revalidated occurrence.
+     */
+    private suspend fun recoverForward(
+        failedIndex: Int,
+        expectedQueueRevision: Long,
+        expectedRouteGeneration: Long,
+        generation: Long,
+        notice: AppError,
+    ): Boolean {
+        fun stillCurrent(): Boolean =
+            generation == recoveryGeneration &&
+                expectedQueueRevision == confirmed.queueRevision &&
+                expectedRouteGeneration == interruptionGate.routeGeneration &&
+                !interruptionGate.shouldSuppressAutomaticPlay()
+
+        if (!stillCurrent()) return false
+        var index = failedIndex
+        while (stillCurrent() && recoveryPolicy.permitsAttempt(recoveryAttempts)) {
+            val candidate = recoveryPolicy.nextIndex(
+                index, player.mediaItemCount, recoveryAttempts,
+            ) ?: break
+            val media = player.getMediaItemAt(candidate)
+            recoveryAttempts++
+            val outcome = try {
+                queueEngine.revalidate(MediaRef(media.mediaId))
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                AppResult.Failure(
+                    AppError.Playback(
+                        AppErrorCodes.PLAYBACK_FAILED,
+                        Recoverability.RECOVERABLE, RecoveryAction.ManualFallback,
+                    )
+                )
+            }
+            if (!stillCurrent()) return false
+            when (outcome) {
+                is AppResult.Success -> {
+                    // Selection must still identify exactly the URI which
+                    // MediaStore JUST verified. Duplicate IDs are occurrences.
+                    if (media != player.getMediaItemAt(candidate) ||
+                        media.localConfiguration?.uri?.toString() !=
+                            outcome.value.contentUri
+                    ) return false
+                    try {
+                        // Error left Media3 IDLE. Restart only an explicitly
+                        // requested session and only after revalidation.
+                        runtimeError = notice
+                        player.seekTo(candidate, 0L)
+                        player.prepare()
+                        player.play()
+                        publishSnapshot()
+                        return true
+                    } catch (_: Exception) {
+                        index = candidate
+                    }
+                }
+                is AppResult.Failure -> when (outcome.error) {
+                    is AppError.Permission -> {
+                        queueEngine.invalidate()
+                        runtimeError = safeMediaFailure(
+                            PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked,
+                        )
+                        player.pause()
+                        publishSnapshot()
+                        return false
+                    }
+                    is AppError.MediaItem -> index = candidate
+                    else -> {
+                        runtimeError = safeMediaFailure(
+                            PlaybackFailureRecoveryPolicy.Failure.Unknown,
+                        )
+                        player.pause()
+                        publishSnapshot()
+                        return false
+                    }
+                }
+            }
+        }
+        if (stillCurrent()) {
+            // End of queue or bounded attempt cap: remain service-owned,
+            // paused and recoverable, with sanitized error for the UI.
+            player.pause()
+            runtimeError = notice
+            publishSnapshot()
+        }
+        return false
+    }
+
     private suspend fun applyCommand(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
+        // Any new explicitly dispatched command wins over a pending decoder
+        // recovery. In particular, user Pause/Stop cannot be undone by a late
+        // MediaStore resolver returning from IO after the click.
+        recoveryGeneration++
+        recoveryAttempts = 0
         // Serial worker runs with Main.immediate. No optimistic acknowledgement.
         try {
             when (command) {
