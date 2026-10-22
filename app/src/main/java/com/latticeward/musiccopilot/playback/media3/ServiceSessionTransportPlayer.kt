@@ -16,6 +16,7 @@ import com.latticeward.musiccopilot.playback.command.SystemTransportPolicy
  * The service retains the underlying Player for internal queue commits and
  * Media3 events. No second Player or separate audio engine is created.
  */
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class ServiceSessionTransportPlayer(
     delegate: Player,
     private val submit: (PlaybackCommand) -> Unit,
