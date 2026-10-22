@@ -37,6 +37,7 @@ import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
+import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
@@ -64,6 +65,7 @@ fun AppNavHost(
     readiness: FoundationReadiness,
     permission: PermissionStatus,
     libraryRepository: LibraryRepository,
+    mediaSelection: LibraryMediaSelectionUseCase,
     libraryIndex: LibraryIndexSnapshot,
     playbackConnection: PlaybackConnectionState,
     playbackSnapshot: PlaybackSnapshot,
@@ -198,12 +200,12 @@ fun AppNavHost(
         }
         composable(Destination.Library.route) {
             val browseModel: LibraryBrowseViewModel = viewModel(
-                factory = remember(libraryRepository) {
+                factory = remember(libraryRepository, mediaSelection) {
                     object : ViewModelProvider.Factory {
                         @Suppress("UNCHECKED_CAST")
                         override fun <T : ViewModel> create(modelClass: Class<T>): T {
                             check(modelClass == LibraryBrowseViewModel::class.java)
-                            return LibraryBrowseViewModel(libraryRepository) as T
+                            return LibraryBrowseViewModel(libraryRepository, mediaSelection) as T
                         }
                     }
                 },
@@ -235,7 +237,7 @@ fun AppNavHost(
                         @Suppress("UNCHECKED_CAST")
                         override fun <T : ViewModel> create(modelClass: Class<T>): T {
                             check(modelClass == LocalSearchViewModel::class.java)
-                            return LocalSearchViewModel(libraryRepository) as T
+                            return LocalSearchViewModel(libraryRepository, mediaSelection) as T
                         }
                     }
                 },
