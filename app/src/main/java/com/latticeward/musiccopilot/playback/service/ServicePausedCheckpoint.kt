@@ -33,6 +33,7 @@ internal class ServicePausedCheckpoint(
     private var suppressedByStop = false
     private var previousQueue: List<com.latticeward.musiccopilot.core.model.MediaRef>? = null
     private var previousIndex: Int? = null
+    private var previousPositionMs: Long? = null
     private var previousPaused: Boolean? = null
 
     suspend fun read() = store.read()
@@ -60,6 +61,7 @@ internal class ServicePausedCheckpoint(
             if (previousQueue?.isNotEmpty() == true) scheduleClear()
             previousQueue = emptyList()
             previousIndex = null
+            previousPositionMs = null
             previousPaused = null
             return
         }
@@ -67,11 +69,17 @@ internal class ServicePausedCheckpoint(
             previousIndex != snapshot.currentIndex
         val paused = snapshot.playbackState == PlaybackState.Paused
         val newlyPaused = paused && previousPaused != true
+        val pausedPositionChanged = paused && previousPositionMs != snapshot.positionMs
         previousQueue = snapshot.queue.toList()
         previousIndex = snapshot.currentIndex
+        previousPositionMs = snapshot.positionMs
         previousPaused = paused
-        if (snapshot.playbackState == PlaybackState.Error) return
-        if (changed || newlyPaused) save(snapshot)
+        if (snapshot.playbackState == PlaybackState.Error ||
+            snapshot.lastError != null
+        ) return
+        // A user seeking while already Paused changes the saved position.
+        // Playing progress is intentionally debounced to the 5s ticker.
+        if (changed || newlyPaused || pausedPositionChanged) save(snapshot)
     }
 
     /** Called by service-owned 5s ticker while ExoPlayer is really playing. */
