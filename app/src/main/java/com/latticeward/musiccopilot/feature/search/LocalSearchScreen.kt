@@ -36,6 +36,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.text.input.ImeAction
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.latticeward.musiccopilot.R
@@ -160,7 +162,10 @@ fun LocalSearchScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
                             Text(stringResource(R.string.i6_search_no_results),
-                                modifier = Modifier.semantics { heading() },
+                                modifier = Modifier.semantics {
+                                    heading()
+                                    liveRegion = LiveRegionMode.Polite
+                                },
                                 color = MusicColors.textPrimary, style = MusicTextStyles.titleMedium)
                             Text(stringResource(R.string.i6_search_no_results_hint),
                                 color = MusicColors.textSecondary, style = MusicTextStyles.bodyLarge)
@@ -244,7 +249,9 @@ fun LocalSearchScreen(
                             state.selectedSong?.title.orEmpty(),
                             state.selectionStatus,
                         ),
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f).semantics {
+                            liveRegion = LiveRegionMode.Polite
+                        },
                         color = MusicColors.textPrimary,
                         style = MusicTextStyles.bodyMedium,
                     )
