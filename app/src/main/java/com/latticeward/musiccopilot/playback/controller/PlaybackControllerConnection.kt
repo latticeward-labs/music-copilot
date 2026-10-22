@@ -53,7 +53,12 @@ class PlaybackControllerConnection(
     override val connectionState: StateFlow<PlaybackConnectionState> = relay.connectionState
     override val snapshot: StateFlow<PlaybackSnapshot> = relay.snapshot
 
-    init { if (appContext != null) ensureConnected() }
+    // Do NOT bind/start MediaSessionService from ApplicationBindings'
+    // constructor. MusicCopilotApplication.bindings is not yet assigned,
+    // which could race service restore's store/scope provider access.
+    // Activity.onResume explicitly invokes ensureConnected(); Android
+    // lock-screen/system clients can still bind the service themselves.
+
 
     /** Called from app foreground when a prior controller/service went away. */
     fun ensureConnected() {
