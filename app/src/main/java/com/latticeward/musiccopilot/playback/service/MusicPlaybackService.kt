@@ -343,6 +343,8 @@ class MusicPlaybackService : MediaSessionService() {
         PlaybackException.ERROR_CODE_IO_READ_POSITION_OUT_OF_RANGE ->
             PlaybackFailureRecoveryPolicy.Failure.Corrupt
         PlaybackException.ERROR_CODE_PARSING_CONTAINER_UNSUPPORTED,
+        PlaybackException.ERROR_CODE_DECODER_INIT_FAILED,
+        PlaybackException.ERROR_CODE_DECODER_QUERY_FAILED,
         PlaybackException.ERROR_CODE_DECODING_FORMAT_UNSUPPORTED,
         PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES ->
             PlaybackFailureRecoveryPolicy.Failure.Unsupported
@@ -609,10 +611,20 @@ class MusicPlaybackService : MediaSessionService() {
                         ) return rejected()
                         when (checked) {
                             is AppResult.Failure -> {
-                                queueEngine.invalidate()
-                                runtimeError = safeMediaFailure(
-                                    PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked
-                                )
+                                runtimeError = when (checked.error) {
+                                    is AppError.Permission -> {
+                                        queueEngine.invalidate()
+                                        safeMediaFailure(
+                                            PlaybackFailureRecoveryPolicy.Failure.PermissionRevoked
+                                        )
+                                    }
+                                    is AppError.MediaItem -> safeMediaFailure(
+                                        PlaybackFailureRecoveryPolicy.Failure.Missing,
+                                    )
+                                    else -> safeMediaFailure(
+                                        PlaybackFailureRecoveryPolicy.Failure.Unknown,
+                                    )
+                                }
                                 publishSnapshot()
                                 return AppResult.Failure(runtimeError!!)
                             }
