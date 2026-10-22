@@ -150,12 +150,16 @@
     {
       "id": "P06",
       "title": "MediaSession and controller parity",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
-      "tests_executed": false,
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE6_MEDIASESSION_CONTROLLER_PARITY_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P06-001",
+        "I7-EVD-P06-002",
+        "I7-EVD-P06-003"
+      ],
+      "tests_executed": true,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "63fc361cff5fdf6e862561297ced1796ba50fcd8"
     },
     {
       "id": "P07",
@@ -551,6 +555,31 @@
       ],
       "kind": "REAL_MEDIA3_SOURCE_AND_VISIBLE_QUEUE_HANDOFF_WITH_SCOPED_POLICY_PROOF",
       "status": "PASS_SCOPED_CODE_ANDROID_NOT_BUILT"
+    },
+    {
+      "id": "I7-CHG-P06-001",
+      "phase": "P06",
+      "kind": "SYSTEM_MEDIASESSION_CONTROLLER_PARITY_AND_QUEUE_SECURITY",
+      "description": "Construct session with ForwardingPlayer transport façade over same service ExoPlayer; allow only Play/Pause/Next/Previous/Seek/Stop to shared command worker, block external playlist URI/setMediaItems & repeat/shuffle/queue index; controller snapshot reconnect refresh/revision guard; local bounded MediaStore metadata to MediaItem on IO; 25 JUnit + 2 Android instrumentation test methods authored, exact-blob 16 pure Kotlin checks PASS.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/SystemTransportPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/ControllerSnapshotRelay.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackMediaResolutionPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/PlaybackBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/LocalMedia3QueueItems.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase6SystemTransportPolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase6MediaSessionSourceContractTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase6ControllerSnapshotParityTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue7Phase6MediaSessionAndroidTest.kt",
+        "scripts/issue7_phase6_system_transport_smoke.kt",
+        "scripts/check_issue7_phase6_transport.sh",
+        "docs/implementation/ISSUE_7_PHASE6_MEDIASESSION_CONTROLLER_PARITY_AUDIT.md"
+      ],
+      "status": "SCOPED_SOURCE_AND_LOCAL_PURE_KOTLIN_PASS_ANDROID_NOT_RUN",
+      "source_commit": "63fc361cff5fdf6e862561297ced1796ba50fcd8"
     }
   ],
   "evidence_records": [
@@ -761,6 +790,58 @@
       "android_instrumentation": "NOT_RUN",
       "owner_handset": "NOT_RUN",
       "result": "AUTHORED_ONLY_NOT_RUN"
+    },
+    {
+      "id": "I7-EVD-P06-001",
+      "phase": "P06",
+      "type": "GITHUB_STATIC_SOURCE_READBACK",
+      "report": "docs/implementation/ISSUE_7_PHASE6_MEDIASESSION_CONTROLLER_PARITY_AUDIT.md",
+      "checks": [
+        "Single ExoPlayer.Builder and MediaSession.Builder; session uses ForwardingPlayer without second engine",
+        "Private custom commands restricted to same UID AND package",
+        "Controller explicit Player.Commands allowlist, no queue/repeat/shuffle mutation",
+        "Both onAddMediaItems and onSetMediaItems fail closed",
+        "System transport Play/Pause/Next/Previous/Seek/Stop submits through existing PlaybackCommandProcessor",
+        "MediaStore title/artist/album read only on IO and sent locally to MediaMetadata",
+        "Controller revision monotonicity and 3-second refresh after initial snapshot"
+      ],
+      "result": "PASS_SCOPED_STATIC_ONLY",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P06-002",
+      "phase": "P06",
+      "type": "OFFLINE_EXACT_BLOB_KOTLIN_SMOKE",
+      "toolchain": "kotlinc 1.9.0 / JDK 21",
+      "source_blob_sha": {
+        "Identifiers.kt": "49082b4c0d12afa60772d73eace24d5cac712355",
+        "PlaybackCommand.kt": "5caccb226f6825b1b3f57bd04b8377da51f753bd",
+        "SystemTransportPolicy.kt": "6d789704e3756d95313d8f7054d9a619e7a87b21"
+      },
+      "checks_total": 16,
+      "checks_passed": 16,
+      "output": "P06: 16/16 exact-blob Kotlin checks PASS",
+      "result": "PASS_PURE_KOTLIN_POLICY_ONLY",
+      "test_run": true,
+      "full_gradle": false,
+      "android_service": false,
+      "media_session_android": false,
+      "device": false,
+      "note": "No repository checkout script run; local synthesized smoke harness compiled exact GitHub source blob bytes."
+    },
+    {
+      "id": "I7-EVD-P06-003",
+      "phase": "P06",
+      "type": "AUTHORED_UNIT_AND_ANDROID_TESTS_NOT_EXECUTED",
+      "junit_test_methods_authored": 25,
+      "android_instrumented_methods_authored": 2,
+      "full_gradle_junit": "NOT_RUN",
+      "android_instrumentation": "NOT_RUN",
+      "external_controller_other_uid": "NOT_RUN",
+      "notification_lock_bluetooth": "NOT_RUN",
+      "user_apk": "NOT_CREATED",
+      "result": "AUTHORED_ONLY_NOT_RUN",
+      "test_run": false
     }
   ],
   "release": {
