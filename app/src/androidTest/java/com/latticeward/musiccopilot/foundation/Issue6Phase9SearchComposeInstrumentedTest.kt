@@ -2,6 +2,10 @@ package com.latticeward.musiccopilot.foundation
 
 import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.assertExists
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNode
@@ -177,4 +181,25 @@ class Issue6Phase9SearchComposeInstrumentedTest {
         rule.onNodeWithText("Review music access").assertExists()
         rule.onNodeWithText("Aurora Lights").assertDoesNotExist()
     }
+    @Test fun searchNoResultsIsAnnouncedByTalkBackLiveRegion() {
+        mount(result())
+        search("nonexistent")
+        awaitVisible("No local results")
+        rule.onNodeWithText("No local results").assert(
+            SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)
+        )
+    }
+
+    @Test fun recoverableSearchErrorIsAnnouncedByTalkBackLiveRegion() {
+        mount(AppResult.Failure(AppError.Library(
+            AppErrorCodes.LIBRARY_BROWSE_UNAVAILABLE,
+            Recoverability.RECOVERABLE, RecoveryAction.Retry,
+        )))
+        search("aurora")
+        awaitVisible("Search failed")
+        rule.onNodeWithText("Search failed").assert(
+            SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)
+        )
+    }
+
 }
