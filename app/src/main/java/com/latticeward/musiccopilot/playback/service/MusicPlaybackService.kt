@@ -215,7 +215,12 @@ class MusicPlaybackService : MediaSessionService() {
         owner.scope.launch {
             while (currentCoroutineContext().isActive) {
                 delay(5_000L)
-                if (player.isPlaying && runtimeError == null) {
+                // A nonfatal skipped-MediaItem notice may remain visible
+                // while the successor is genuinely Playing. Checkpoint real
+                // progress instead of treating that notice as fatal.
+                if (player.isPlaying &&
+                    (runtimeError == null || runtimeError is AppError.MediaItem)
+                ) {
                     pausedCheckpoint.onPlayingCheckpoint(
                         confirmed.copy(
                             positionMs = player.currentPosition.coerceAtLeast(0L),
@@ -244,7 +249,11 @@ class MusicPlaybackService : MediaSessionService() {
                 isPlaying = player.isPlaying,
                 isBuffering = player.playbackState == Player.STATE_BUFFERING,
                 isEnded = player.playbackState == Player.STATE_ENDED,
-                hasPlayerError = player.playerError != null || runtimeError != null,
+                // A nonfatal MediaItem notice about a *previous* track
+                // must not kill the actively playing recovered successor.
+                hasPlayerError = player.playerError != null ||
+                    (runtimeError != null &&
+                        player.playbackState == Player.STATE_IDLE),
             )
         if (retain) return
         // Media3's default pauses/ends foreground work and asks Android to
