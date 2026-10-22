@@ -6,3 +6,5 @@ Scope: full P00–P11 compiled Android app, Room V2 KAPT, JVM, lint, API35 instr
 Owner physical M01–M34: NOT_RUN until the actual candidate is provided and installed.
 Issue #7 real Media3 service playback: BLOCKED_DEPENDENCY_7 until implementation.
 This sentinel is the sole push trigger for the final integrated build, not per-phase builds.
+
+Attempt 2: re-run after real run 39753937306 found and fixed Kotlin JVM compile assertion (P05 test). Prior attempt FAIL; no APK candidate accepted. Source contains P05 assert correct field.
