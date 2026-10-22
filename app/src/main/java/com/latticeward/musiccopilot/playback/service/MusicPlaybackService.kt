@@ -340,7 +340,10 @@ class MusicPlaybackService : MediaSessionService() {
                     player.repeatMode = Player.REPEAT_MODE_OFF
                     player.shuffleModeEnabled = false
                     // A deliberately Paused queue must not inherit old playWhenReady.
-                    if (!proposal.playWhenReady) player.pause()
+                    if (!proposal.playWhenReady) {
+                        interruptionGate.onManualPauseOrStop()
+                        player.pause()
+                    }
                     player.setMediaItems(
                         mediaItems,
                         proposal.selectedIndex,
@@ -373,6 +376,7 @@ class MusicPlaybackService : MediaSessionService() {
                             validated.contentUri
                     ) return rejected()
                     if (!command.playWhenReady) {
+                        interruptionGate.onManualPauseOrStop()
                         player.pause()
                     } else {
                         interruptionGate.onExplicitUserPlaybackRequest()
