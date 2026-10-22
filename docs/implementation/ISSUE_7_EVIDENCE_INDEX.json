@@ -122,12 +122,16 @@
     {
       "id": "P04",
       "title": "Deterministic queue engine",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
-      "tests_executed": false,
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE4_SERVICE_QUEUE_ENGINE_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P04-001",
+        "I7-EVD-P04-002",
+        "I7-EVD-P04-003"
+      ],
+      "tests_executed": true,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "f5f82f1d082c6f96ea7edb6faedb5c5431f4c89e"
     },
     {
       "id": "P05",
@@ -498,6 +502,30 @@
         "4bbb0680eb3c30ab93e9ed993b11d37e6075af9a"
       ],
       "status": "VERIFIED_GITHUB_SOURCE_GATE_ONLY_ANDROID_JUNIT_NOT_RUN"
+    },
+    {
+      "id": "I7-CHG-P04-001",
+      "phase": "P04",
+      "kind": "SERVICE_BOUND_QUEUE_ENGINE_REAL_MEDIA3_QUEUE_MUTATION_AND_SCOPED_KOTLIN_CHECKS",
+      "description": "Implement queue-preflight to P03 resolver via narrow playback.api port and app.di composition root; atomic preparatory failure before single service Player setMediaItems; revision-guarded SelectQueueIndex, nonwrapping navigation, 256 completed replay window while preserving 32 waiting slots; 17 authored JUnit methods; fix ADR-0008 forbidden playback->data import without changing checker; exact blob pure Kotlin 367 smoke checks PASS.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackMediaResolutionPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceQueueEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/LocalMedia3QueueItems.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/PlaybackBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4ServiceQueueEngineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4CommandReplayTest.kt",
+        "scripts/check_issue7_phase4_queue.sh",
+        "scripts/issue7_phase4_queue_smoke.kt",
+        "docs/implementation/ISSUE_7_PHASE4_SERVICE_QUEUE_ENGINE_AUDIT.md"
+      ],
+      "commit_summary_sha": "f5f82f1d082c6f96ea7edb6faedb5c5431f4c89e",
+      "status": "PASS_SCOPED_SOURCE_AND_LOCAL_KOTLIN_SMOKE_NOT_ANDROID"
     }
   ],
   "evidence_records": [
@@ -581,6 +609,80 @@
       "junit_executed": false,
       "apk_built": false,
       "product_ac_pass": false
+    },
+    {
+      "id": "I7-EVD-P04-001",
+      "phase": "P04",
+      "type": "GITHUB_SOURCE_READBACK_ADR0008_IMPORT_AUDIT",
+      "source_sha": "f5f82f1d082c6f96ea7edb6faedb5c5431f4c89e",
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackMediaResolutionPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceQueueEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/LocalMedia3QueueItems.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/PlaybackBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4ServiceQueueEngineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4CommandReplayTest.kt",
+        "scripts/check_issue7_phase4_queue.sh",
+        "scripts/issue7_phase4_queue_smoke.kt",
+        "docs/implementation/ISSUE_7_PHASE4_SERVICE_QUEUE_ENGINE_AUDIT.md"
+      ],
+      "checks": [
+        "Zero data.mediastore and app.di imports in playback source",
+        "Single ExoPlayer.Builder + single MediaSession.Builder service",
+        "P04 prepare on injected IO before Player.setMediaItems",
+        "PlaybackResolverHost on Application via app.di",
+        "Revision-guarded queue selection and player-owned queue",
+        "Only local content MediaItem construction",
+        "17 JUnit methods authored, NOT_RUN"
+      ],
+      "result": "PASS_SCOPED_SOURCE_READBACK",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P04-002",
+      "phase": "P04",
+      "type": "OFFLINE_EXACT_BLOB_KOTLIN_SMOKE",
+      "toolchain": "kotlinc 1.9.0 / JDK 21 / local kotlinx-coroutines core, synthetic compatible dependencies",
+      "verified_git_blob_shas": {
+        "ServiceQueueEngine.kt": "c25787bcb545c036209f20a2a166ea682cad57fc",
+        "PlaybackCommandProcessor.kt": "e8808c22ee92d9a44fcf891277f132b8300f56ef",
+        "PlaybackCommand.kt": "5caccb226f6825b1b3f57bd04b8377da51f753bd",
+        "PlaybackQueuePolicy.kt": "4a28bff6af5b5254e07781a15ee4d6924525ac85"
+      },
+      "checks_passed": 367,
+      "checks_total": 367,
+      "queue_checks": 24,
+      "processor_checks": 343,
+      "result": "PASS_LOCAL_PURE_KOTLIN_ONLY",
+      "test_run": true,
+      "full_android_gradle": false,
+      "android_media3": false,
+      "full_junit": false,
+      "device_test": false,
+      "owner_case_test": false,
+      "details": "Exact source blob SHA matched GitHub; tested with synthetic compatible leaf/port snapshots, NOT full Android APK or full checkout."
+    },
+    {
+      "id": "I7-EVD-P04-003",
+      "phase": "P04",
+      "type": "AUTHORED_TESTS_NOT_RUN",
+      "paths": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4ServiceQueueEngineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4CommandReplayTest.kt",
+        "scripts/check_issue7_phase4_queue.sh",
+        "scripts/issue7_phase4_queue_smoke.kt"
+      ],
+      "junit_test_methods": 17,
+      "junit_execution": "NOT_RUN",
+      "full_checkout_script_execution": "NOT_RUN",
+      "android_instrumentation": "NOT_RUN",
+      "result": "AUTHORED_ONLY_NOT_RUN",
+      "test_run": false
     }
   ],
   "release": {
