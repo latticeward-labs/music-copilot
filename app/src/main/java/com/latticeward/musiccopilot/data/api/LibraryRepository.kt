@@ -65,6 +65,23 @@ interface LibraryRepository {
                 recoveryAction = RecoveryAction.Retry,
             ),
         )
+    /**
+     * P09 mixed local Search: bounded tracks, artists and albums. Old test
+     * adapters remain source compatible, but an unimplemented provider must
+     * fail visibly rather than invent a No Results screen.
+     */
+    suspend fun searchResults(
+        query: LibraryQuery,
+        expectedRevision: Long? = null,
+    ): AppResult<LibrarySearchResults> =
+        AppResult.Failure(
+            AppError.Library(
+                code = AppErrorCodes.LIBRARY_BROWSE_UNAVAILABLE,
+                recoverability = Recoverability.RECOVERABLE,
+                recoveryAction = RecoveryAction.Retry,
+            ),
+        )
+
     suspend fun get(ref: MediaRef): AppResult<LibraryItem>
     suspend fun resolveVoiceCandidates(
         normalizedTarget: String,
