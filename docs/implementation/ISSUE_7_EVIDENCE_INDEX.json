@@ -164,12 +164,15 @@
     {
       "id": "P07",
       "title": "Full Player, Queue, MiniPlayer Compose handoff",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE7_PLAYER_QUEUE_MINIPLAYER_COMPOSE_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P07-001",
+        "I7-EVD-P07-002"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "1839ba14d700281eebdb38005bfda173b770a2fe"
     },
     {
       "id": "P08",
@@ -582,6 +585,29 @@
       "source_commit": "63fc361cff5fdf6e862561297ced1796ba50fcd8",
       "final_fix_commit": "3ff432ba3674f7a38ad923f9ec6d48a1c5fccca9",
       "final_fix": "Explicit androidx.annotation.OptIn(UnstableApi) for Media3 1.5.1 ForwardingPlayer API"
+    },
+    {
+      "id": "I7-CHG-P07-001",
+      "phase": "P07",
+      "kind": "SERVICE_OBSERVED_COMPOSE_PLAYER_QUEUE_MINIPLAYER_SOURCE_DELIVERY",
+      "description": "Implement real WF-06 FullPlayer with Play/Pause/Next/Previous/seek and live service-reported progress, lazy service queue item selection guarded by queue revision; CMP09 MiniPlayer for Library/Search, verified selection-only navigation, metadata presentation on IO and adaptive 150/200% font controls; one shared playback Gateway/VM, removed placeholder. All commits [skip ci]. No tests, Android build, Actions, PR or APK performed, as expressly requested by owner.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PackageBoundary.kt",
+        "docs/implementation/ISSUE_7_PHASE7_PLAYER_QUEUE_MINIPLAYER_COMPOSE_AUDIT.md"
+      ],
+      "source_report_commit": "1839ba14d700281eebdb38005bfda173b770a2fe",
+      "status": "PASS_SCOPED_SOURCE_ONLY_ALL_QA_NOT_RUN"
     }
   ],
   "evidence_records": [
@@ -843,6 +869,43 @@
       "notification_lock_bluetooth": "NOT_RUN",
       "user_apk": "NOT_CREATED",
       "result": "AUTHORED_ONLY_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P07-001",
+      "phase": "P07",
+      "type": "GITHUB_SOURCE_READBACK_STATIC",
+      "report": "docs/implementation/ISSUE_7_PHASE7_PLAYER_QUEUE_MINIPLAYER_COMPOSE_AUDIT.md",
+      "checks": [
+        "New actual PlayerViewModel and FullPlayerScreen with one Service PlaybackGateway",
+        "Current item and queue taken exclusively from authoritative service snapshot",
+        "Play/Pause/Next/Previous/Seek/Queue select typed commands, no second player",
+        "Library/Search MiniPlayer and ACK-only navigation, Back preserves service playback",
+        "On-screen only 1000ms authoritative snapshot refresh, no local clock",
+        "NoTrack/Buffering/Paused/Playing/Ended/Error/Connecting status and disabled actions",
+        "48dp controls, 72dp MiniPlayer and font 150/200% reflow code",
+        "Changes on feature branch only and no workflow YAML changes"
+      ],
+      "result": "PASS_SCOPED_CODE_READBACK_NOT_BUILT",
+      "test_run": false,
+      "full_android_gradle": false,
+      "ui_runtime": false,
+      "device": false,
+      "github_actions": false
+    },
+    {
+      "id": "I7-EVD-P07-002",
+      "phase": "P07",
+      "type": "OWNER_DEFERRED_P13_FINAL_APK_QA_CONTRACT",
+      "manual_scope": "M01-M14,M17,M19,M20-M25",
+      "technical_scope": "T09 and final technical matrix remain NOT_RUN unless genuine evidence",
+      "tests_run": 0,
+      "junit_test_runs": 0,
+      "android_test_runs": 0,
+      "github_actions_workflows_dispatched": 0,
+      "phone_test_runs": 0,
+      "apk_sha256": null,
+      "result": "ALL_NOT_RUN_P13_ONLY",
       "test_run": false
     }
   ],
