@@ -116,7 +116,8 @@ class Issue6Phase9SearchComposeInstrumentedTest {
 
     @Test fun searchIdleShowsBackFieldClearHomeAndSearchNavigation() {
         mount(result())
-        rule.onNodeWithText("Search").assertExists()
+        // Search appears in both the heading and selected bottom tab.
+        // Assert the unambiguous Back/field instead of a multi-match node.
         rule.onNodeWithText("Back").assertExists()
         rule.onNodeWithText("Search local music").assertExists()
         rule.onNodeWithText("Clear").assertExists()
