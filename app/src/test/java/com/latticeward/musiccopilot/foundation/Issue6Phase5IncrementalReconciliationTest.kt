@@ -326,7 +326,7 @@ class Issue6Phase5IncrementalReconciliationTest {
         val room = FakeStore()
         val repo = repository(media, room)
         val success = successfulReconcile(repo)
-        assertEquals(2, success.value.insertedOrUpdated)
+        assertEquals(2, success.insertedOrUpdated)
         assertEquals(2, room.rows.size)
         assertNotEquals(room.rows[0].mediaRef, room.rows[1].mediaRef)
     }
