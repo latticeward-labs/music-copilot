@@ -137,6 +137,7 @@ class PlaybackControllerConnection(
     /** Explicit, bounded service read. UI never advances position locally. */
     override suspend fun refreshSnapshot(): AppResult<PlaybackSnapshot> {
         val controller = active
+        val capturedGeneration = generation
         if (controller == null || connectionState.value != PlaybackConnectionState.Ready) {
             ensureConnected()
             return disconnected()
@@ -150,6 +151,10 @@ class PlaybackControllerConnection(
                 AppErrorCodes.CONTROLLER_TIMEOUT,
                 Recoverability.RECOVERABLE, RecoveryAction.Retry
             ))
+            if (released || generation != capturedGeneration ||
+                active !== controller ||
+                connectionState.value != PlaybackConnectionState.Ready
+            ) return disconnected()
             if (result.resultCode != SessionResult.RESULT_SUCCESS) {
                 PlaybackWireProtocol.decodeFailure(result.extras)
             } else {
@@ -168,13 +173,24 @@ class PlaybackControllerConnection(
 
     override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
         val controller = active
+        val capturedGeneration = generation
         if (controller == null || connectionState.value != PlaybackConnectionState.Ready) {
             ensureConnected()
             return disconnected()
         }
         return try {
-            // Transport timeout is an adapter limit, not a product Voice timeout target.
-            val result = withTimeoutOrNull(10_000L) {
+            // An ordered MediaStore re-query and FD check for the currently
+            // loaded queue (up to 5,000) may legitimately exceed 10 seconds
+            // on slow SD media. Keep one bounded wait for a complete service
+            // acknowledgement rather than returning a false "failed" result
+            // while the already-accepted queue later starts playing.
+            // Small transport controls retain their shorter 10s budget.
+            val acknowledgementTimeoutMs = when (command) {
+                is PlaybackCommand.ReplaceQueue -> 90_000L
+                is PlaybackCommand.SelectQueueIndex -> 20_000L
+                else -> 10_000L
+            }
+            val result = withTimeoutOrNull(acknowledgementTimeoutMs) {
                 await(controller.sendCustomCommand(
                     PlaybackWireProtocol.executeCommand(),
                     PlaybackWireProtocol.encodeCommand(command)
@@ -182,6 +198,12 @@ class PlaybackControllerConnection(
             } ?: return AppResult.Failure(AppError.Controller(
                 AppErrorCodes.CONTROLLER_TIMEOUT,
                 Recoverability.RECOVERABLE, RecoveryAction.Retry))
+            // A detached Activity's old suspended await must not publish
+            // stale data or report success after a new UI generation exists.
+            if (released || generation != capturedGeneration ||
+                active !== controller ||
+                connectionState.value != PlaybackConnectionState.Ready
+            ) return disconnected()
             if (result.resultCode != SessionResult.RESULT_SUCCESS) {
                 PlaybackWireProtocol.decodeFailure(result.extras)
             } else {
