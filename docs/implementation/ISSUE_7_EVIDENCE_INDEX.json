@@ -190,12 +190,15 @@
     {
       "id": "P09",
       "title": "Audio focus, calls and safe route changes",
-      "status": "NOT_STARTED",
-      "report": null,
-      "evidence": [],
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE9_AUDIO_FOCUS_ROUTE_SAFETY_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P09-001",
+        "I7-EVD-P09-002"
+      ],
       "tests_executed": false,
       "product_ac_pass_count": 0,
-      "commit_sha": null
+      "commit_sha": "93845c7d0076c83f90120f7eefb0616747628aeb"
     },
     {
       "id": "P10",
@@ -629,6 +632,21 @@
       ],
       "source_commit": "a752d92b7f67b596e0b55a85e84ae839273f8026",
       "status": "PASS_SCOPED_SOURCE_ONLY_NOT_ANDROID_VERIFIED"
+    },
+    {
+      "id": "I7-CHG-P09-001",
+      "phase": "P09",
+      "kind": "SERVICE_OWNED_MEDIA3_FOCUS_NOISY_AND_ROUTE_LOSS_GUARD",
+      "description": "Media3 ExoPlayer.setHandleAudioBecomingNoisy(true), wake local, preexisting managed audio focus; Android AudioDeviceCallback sink loss fallback on service main; route epoch fences IO-suspended queue/index selection; manual Pause/Stop and reconnect require explicit new Play; 15 JUnit methods authored NOT_RUN; no Actions/test/build/APK. All changes [skip ci].",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "docs/implementation/ISSUE_7_PHASE9_AUDIO_FOCUS_ROUTE_SAFETY_AUDIT.md"
+      ],
+      "source_commit": "93845c7d0076c83f90120f7eefb0616747628aeb",
+      "status": "PASS_SCOPED_SOURCE_ONLY_NOT_ANDROID_OR_AUDIO_VERIFIED"
     }
   ],
   "evidence_records": [
@@ -984,6 +1002,51 @@
       ],
       "result": "ALL_NOT_RUN",
       "test_run": false
+    },
+    {
+      "id": "I7-EVD-P09-001",
+      "phase": "P09",
+      "type": "GITHUB_SOURCE_READBACK_ONLY",
+      "report": "docs/implementation/ISSUE_7_PHASE9_AUDIO_FOCUS_ROUTE_SAFETY_AUDIT.md",
+      "checks_passed": 17,
+      "checks_total": 17,
+      "checks": [
+        "One ExoPlayer and MediaSession remains service-owned",
+        "Media3 managed Audio Focus enabled with media usage",
+        "Media3 becoming-noisy listener enabled",
+        "Media3 local WakeMode enabled",
+        "Service private AudioDeviceCallback registered/closed on Main",
+        "Direct safe pause on route-loss callback",
+        "routeGeneration stale IO preflight rejection",
+        "manual Pause/Stop and explicit resume latch",
+        "Bluetooth/Wired types only, no endpoint IDs logged",
+        "15 JUnit tests committed but unexecuted"
+      ],
+      "result": "PASS_SCOPED_SOURCE_STATIC_ONLY",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P09-002",
+      "phase": "P09",
+      "type": "FINAL_P13_OWNER_PHONE_TEST_RESERVATION",
+      "manual_cases": [
+        "M26",
+        "M27",
+        "M28"
+      ],
+      "technical_cases": [
+        "T05",
+        "T06"
+      ],
+      "junit_authored": 15,
+      "junit_run": 0,
+      "gradle_runs": 0,
+      "android_instrumentation_runs": 0,
+      "github_actions_tests_dispatched": 0,
+      "apk": null,
+      "phone_qa_not_run": true,
+      "result": "ALL_NOT_RUN",
+      "test_run": false
     }
   ],
   "release": {
@@ -997,7 +1060,7 @@
     "pr_state": "NOT_OPENED",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
-    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P08_OWNER_REQUIRES_OFFLINE_P13",
+    "actions": "NO_GITHUB_ACTIONS_TESTS_OR_BUILDS_DISPATCHED_P00_P09_OWNER_REQUIRES_SINGLE_OFFLINE_P13_APK",
     "independent_review": "NOT_REVIEWED",
     "merge": "NOT_MERGED",
     "issue_state": "OPEN",
