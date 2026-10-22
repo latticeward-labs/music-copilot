@@ -171,8 +171,9 @@ class LibraryBrowseViewModel(
     }
 
     /**
-     * P10: a tap is validated by MediaStore first and acknowledged only by
-     * service-owned PlaybackGateway. Older isolated P08 JVM fakes may omit
+     * P05: a tap sends the loaded visible ordered song collection through
+     * the MediaStore revalidation and service-owned PlaybackGateway. Older
+     * isolated P08 JVM fakes may omit
      * the selection boundary and therefore show only a local preview.
      */
     fun previewSong(song: LibraryItem) {
