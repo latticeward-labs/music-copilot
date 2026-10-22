@@ -331,6 +331,7 @@ class MainActivity : ComponentActivity() {
                 readiness = RootNavigationStateHolder().readiness(verifiedLibraryStatus, playbackConnection),
                 permission = permission,
                 libraryRepository = bindings.libraryRepository,
+                mediaSelection = bindings.mediaSelection,
                 libraryIndex = library,
                 playbackConnection = playbackConnection,
                 playbackSnapshot = playbackSnapshot,
