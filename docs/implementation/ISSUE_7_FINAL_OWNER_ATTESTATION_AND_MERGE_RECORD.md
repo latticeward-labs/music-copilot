@@ -48,3 +48,10 @@ The later branch commits contain QA documentation/metadata; **do not imply the d
 - Preserve source/QA traceability links in [evidence index](ISSUE_7_EVIDENCE_INDEX.json), [execution plan](ISSUE_7_PHASED_EXECUTION_PLAN.md), [original final checklist](ISSUE_7_FINAL_PHONE_QA_CHECKLIST.md).
 - All commits involved in PR closeout end `[skip ci]`; merge title/message must likewise contain `[skip ci]` so GitHub does not run restricted automatic tests.
 - After real merge, update Issue #7's final comment and close as **completed per owner authorization** while retaining this explicit technical-evidence caveat.
+
+## Actual GitHub disposition — independently verified actions
+
+- PR [#76](https://github.com/latticeward-labs/music-copilot/pull/76) merged via GitHub REST at 2026-10-23 09:20:21 UTC; merge commit `c4ee45ddb543b69c97db1f93b783c97fe190e18f` has `[skip ci]` in its title and message.
+- [Issue #7](https://github.com/latticeward-labs/music-copilot/issues/7) was explicitly closed with state reason `completed` after the merge.
+- Acceptance is `OWNER_REPORTED` with 36 M PASS, 15 T PASS, 13 AC owner-attested; machine/JVM/instrumentation/Lint logs and independent reviewer evidence were not received, and **must not be characterized as independently passed**.
+- Owner's original debug APK is still the artifact with SHA256 `e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3` built from source `a66b06cdcdfb88d7a3df506158a373b543021d6b`, not the later documentation merge commit.
