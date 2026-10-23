@@ -26,6 +26,7 @@ import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
+import com.latticeward.musiccopilot.playback.api.PlaybackPlayOrigin
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
 import com.latticeward.musiccopilot.playback.restore.SafePausedRestorePolicy
@@ -129,6 +130,13 @@ class MusicPlaybackService : MediaSessionService() {
                         ++recoveryGeneration
                         if (::processor.isInitialized) processor.submit(intent)
                     }
+                    // Media3 media-key Player methods cannot prove whether
+                    // an AVRCP Play was pressed or generated on BT reconnect.
+                    // Install the gate *before* exposing the MediaSession.
+                    systemTransport.configureSystemPlaySafety(
+                        mayPlay = { !interruptionGate.shouldSuppressAutomaticPlay() },
+                        routeGeneration = { interruptionGate.routeGeneration },
+                    )
                     val builtSession = MediaSession.Builder(this, systemTransport)
                         .setCallback(PlaybackCallbacks())
                         .setSessionExtras(wrap(confirmed))
@@ -170,9 +178,15 @@ class MusicPlaybackService : MediaSessionService() {
         )
         // Both service AudioDeviceCallback and Media3 noisy feed exactly
         // the same high-priority path, independent of Player queue/state.
-        routeMonitor = ServiceAudioRouteMonitor(this) {
-            handlePersonalOutputDisconnected()
-        }.also { it.start() }
+        routeMonitor = ServiceAudioRouteMonitor(
+            context = this,
+            onPersonalOutputDisconnected = { handlePersonalOutputDisconnected() },
+            onBluetoothSinkAvailable = {
+                // Bluetooth reconnect is an observation, NOT a Play request,
+                // user intent, proof of the active output, or latch release.
+                interruptionGate.onBluetoothSinkAvailable()
+            },
+        ).also { it.start() }
 
         player.addListener(object : Player.Listener {
             override fun onPlayWhenReadyChanged(
@@ -715,6 +729,16 @@ class MusicPlaybackService : MediaSessionService() {
                     }
                 }
                 is PlaybackCommand.Play -> {
+                    if (command.origin == PlaybackPlayOrigin.AMBIGUOUS_SYSTEM_TRANSPORT) {
+                        // Second check when dequeued: an external Play received
+                        // before removal must not clear the route latch if a
+                        // disconnect/reconnect happened while it was queued.
+                        val stampedRoute = command.routeGenerationAtReceipt
+                            ?: return rejected()
+                        if (!interruptionGate.requestIsStillCurrent(stampedRoute) ||
+                            interruptionGate.shouldSuppressAutomaticPlay()
+                        ) return rejected()
+                    }
                     if (player.mediaItemCount == 0) return rejected()
                     if (runtimeError?.code == AppErrorCodes.PERMISSION_REVOKED) {
                         // A revoked Android music grant must be verified
