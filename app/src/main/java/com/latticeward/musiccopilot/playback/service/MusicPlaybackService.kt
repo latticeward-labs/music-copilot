@@ -623,8 +623,10 @@ class MusicPlaybackService : MediaSessionService() {
                     // A new explicit user selection may intentionally play
                     // from the current output; a paused replacement does not
                     // clear the route-loss latch.
-                    if (proposal.playWhenReady) interruptionGate.onExplicitUserPlaybackRequest()
+                    if (proposal.playWhenReady) {
+                        interruptionGate.onExplicitUserPlaybackRequest()
                         focusObserver.onVerifiedUserPlayAccepted()
+                    }
                     // Clear a previous error BEFORE preparing a new selection.
                     // An error delivered during prepare must not be erased.
                     runtimeError = null
