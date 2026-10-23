@@ -39,7 +39,7 @@
     "playback_service": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
     "focus_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
     "route_adapter": "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
-    "pure_interruption_policy_seam": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt",
+    "pure_interruption_policy_seam": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
     "commands": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
     "media_session": "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
     "snapshot": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt",
@@ -188,7 +188,7 @@
       "existing_source_files": [
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt"
       ],
       "sources": [
         "Runtime §8",
@@ -480,7 +480,7 @@
         "P12"
       ],
       "existing_source_files": [
-        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
       ],
       "sources": [
@@ -651,6 +651,26 @@
     "docs/implementation/ISSUE_8_QA_RESULTS.json",
     "docs/user-flows/UF-11_INTERRUPTION_AUDIO_ROUTE.md",
     "docs/architecture/RUNTIME_POLICIES.md",
-    "docs/adr/0002-service-owned-media3-playback.md"
-  ]
+    "docs/adr/0002-service-owned-media3-playback.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+    "docs/implementation/ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md"
+  ],
+  "phase_artifacts": {
+    "P02": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt"
+      ],
+      "removed": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt"
+      ],
+      "specification": "docs/implementation/ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md",
+      "focus_resume_four_guards": "SOURCE_AUTHORED",
+      "event_sequence_and_injected_clock": "SOURCE_AUTHORED",
+      "media3_service_adapter": "P03_NOT_STARTED",
+      "tests_executed": 0,
+      "builds": 0,
+      "runtime_acceptance": "UNVERIFIED"
+    }
+  }
 }
