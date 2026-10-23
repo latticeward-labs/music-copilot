@@ -45,7 +45,8 @@
     "snapshot": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt",
     "voice_cancellation_port": "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
     "android_manifest": "app/src/main/AndroidManifest.xml",
-    "qa_register": "docs/implementation/ISSUE_8_QA_RESULTS.json"
+    "qa_register": "docs/implementation/ISSUE_8_QA_RESULTS.json",
+    "media3_focus_observation": "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
   },
   "phase_dependencies": {
     "P00": [],
@@ -149,7 +150,8 @@
       "existing_source_files": [
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
       ],
       "sources": [
         "FR-03",
@@ -188,7 +190,8 @@
       "existing_source_files": [
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
       ],
       "sources": [
         "Runtime §8",
@@ -314,7 +317,8 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
       ],
       "sources": [
         "ADR-0002",
@@ -389,7 +393,8 @@
       "existing_source_files": [
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
       ],
       "sources": [
         "UF-11",
@@ -653,7 +658,9 @@
     "docs/architecture/RUNTIME_POLICIES.md",
     "docs/adr/0002-service-owned-media3-playback.md",
     "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
-    "docs/implementation/ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md"
+    "docs/implementation/ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+    "docs/implementation/ISSUE_8_PHASE3_MEDIA3_FOCUS_SERVICE_INTEGRATION.md"
   ],
   "phase_artifacts": {
     "P02": {
@@ -671,6 +678,26 @@
       "tests_executed": 0,
       "builds": 0,
       "runtime_acceptance": "UNVERIFIED"
+    },
+    "P03": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE3_MEDIA3_FOCUS_SERVICE_INTEGRATION.md",
+      "focus_owner": "EXISTING_EXOPLAYER_ONLY",
+      "media3_signals": [
+        "PLAYBACK_SUPPRESSION_REASON_TRANSIENT_AUDIO_FOCUS_LOSS",
+        "PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS",
+        "onIsPlayingChanged"
+      ],
+      "player_snapshot_owner": "EXISTING_MUSIC_PLAYBACK_SERVICE",
+      "focus_duck_call_recovery": "P04_PENDING",
+      "route_epoch_pending_idle": "P05_P07_PENDING",
+      "technical_tests_executed": 0,
+      "apk_built": false,
+      "acceptance_criteria": "ALL_UNVERIFIED"
     }
   }
 }
