@@ -40,6 +40,15 @@ internal class PlaybackInterruptionGate {
         // Do not clear an existing route-loss latch.
     }
 
+    /**
+     * P04: Media3 can remove transient suppression without a user command.
+     * If the four-guard reducer refuses that recovery, preserve Safe Paused.
+     * Distinct from manual Pause: never falsify manual intent/history.
+     */
+    fun onDisallowedFocusAutoResume() {
+        explicitlyPaused = true // An explicit user Play is needed to clear.
+    }
+
     fun shouldSuppressAutomaticPlay(): Boolean =
         requiresExplicitResume || explicitlyPaused
 
