@@ -39,8 +39,10 @@ internal class Media3FocusObservationAdapter(
 ) {
     private var nextSequence = 0L
     private val sequence = sequenceSource ?: InterruptionSequenceSource {
-        check(nextSequence != Long.MAX_VALUE) { "Focus event sequence exhausted" }
-        ++nextSequence
+        // Saturate on overflow; the P02 reducer rejects repeated sequence
+        // numbers without side effects. Never crash the playback service.
+        if (nextSequence != Long.MAX_VALUE) ++nextSequence
+        nextSequence
     }
     private var state = InterruptionState(
         playback = if (player.isPlaying) {
