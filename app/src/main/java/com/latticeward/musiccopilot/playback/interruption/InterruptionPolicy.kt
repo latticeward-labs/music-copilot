@@ -66,6 +66,13 @@ internal sealed interface InterruptionEvent {
     /** The source must identify the same focus episode; stale gains are ignored. */
     data class FocusRestored(val focusEpisode: Long) : InterruptionEvent
 
+    /**
+     * Focus suppression has ended, but the observed focus episode did not
+     * satisfy the four resume guards. Latch explicit-play-only WITHOUT
+     * pretending the user manually paused or generating an OS focus event.
+     */
+    data object FocusAutoResumeRejected : InterruptionEvent
+
     /** Includes becoming-noisy and relevant output removal, after normalization. */
     data object RouteDisconnected : InterruptionEvent
 
@@ -278,6 +285,22 @@ internal object InterruptionReducer {
                         out(restored)
                     }
                 }
+            }
+
+            InterruptionEvent.FocusAutoResumeRejected -> {
+                // Media3 may resume automatically on suppression removal.
+                // If no eligible resume effect was issued, the service vetoes
+                // that playback before it becomes audible where callbacks permit.
+                // This policy latch outlives the suppression event until a
+                // verified fresh user Play, but does NOT count as manual Pause.
+                out(
+                    accepted.copy(
+                        playback = InterruptionPlayback.PAUSED,
+                        pendingResume = null,
+                        requiresExplicitPlay = true,
+                    ),
+                    InterruptionEffect.PAUSE_SERVICE_PLAYER,
+                )
             }
 
             InterruptionEvent.RouteDisconnected -> {
