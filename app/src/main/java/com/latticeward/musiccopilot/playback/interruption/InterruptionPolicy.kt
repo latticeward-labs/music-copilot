@@ -300,6 +300,10 @@ internal object InterruptionReducer {
                         requiresExplicitPlay = true,
                     ),
                     InterruptionEffect.PAUSE_SERVICE_PLAYER,
+                    // A fresh Voice session might have begun while Media3
+                    // suppression was active. Rejecting an unsafe auto-resume
+                    // must invalidate that generation too.
+                    InterruptionEffect.CANCEL_VOICE_FOR_FOCUS,
                 )
             }
 
