@@ -3,7 +3,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/8-audio-focus-route-recovery",
   "planning_date": "2026-10-23",
-  "phase": "P03_MEDIA3_FOCUS_OBSERVER_SOURCE_COMPLETE_P04_NEXT",
+  "phase": "P04_CALL_FOCUS_DUCK_POLICY_SOURCE_COMPLETE_P05_NEXT",
   "implementation_started": true,
   "source_archive": {
     "name": "MSM2(1)(1).rar",
@@ -103,9 +103,28 @@
       "evidence_type": "SOURCE_ONLY_NO_DEVICE_OR_HOST_TEST"
     },
     "P04": {
-      "status": "NOT_STARTED",
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE4_CALL_FOCUS_DUCK_RECOVERY_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "policy": "FOUR_GUARD_TRANSIENT_RESUME_AND_EXPLICIT_PLAY_ONLY_FALLBACK",
+      "permanent_focus_loss": "SAFE_PAUSED",
+      "ducking": "OS_MEDIA3_OWNED_NO_DUPLICATE_VOLUME_CHANGE",
+      "telephony_specific_observation": "NOT_AVAILABLE_AND_NOT_CLAIMED",
+      "route_generation_and_fast_events": "P05_P07_PENDING",
+      "voice_cancellation_effect_handoff": "P09_PENDING",
+      "compilation_verified": false,
+      "actual_phone_call_verified": false,
       "builds": 0,
-      "tests_executed": 0
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
     },
     "P05": {
       "status": "NOT_STARTED",
@@ -523,7 +542,7 @@
     "vehicle_head_units_three": "NOT_RUN"
   },
   "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
-  "note": "P03 Media3FocusObservationAdapter integrated into sole MusicPlaybackService and mapped to P02 reducer. Source authored only, no compilation or actual focus/call behavior validated. P04 call/focus duck/resume policy next. M01–M45/T01–T15 NOT_RUN, AC01–AC12 UNVERIFIED. No Gradle/build/test/Actions/APK in P03.",
+  "note": "P04 source-only: same Media3 Player focus and OS-managed duck, four-guard transient auto-resume approval/rejection latch and permanent focus-loss Safe Paused, source documentation committed. No claim of telephone call-specific callback or physical absence of overlap; no build/Gradle/tests/Actions/APK. P05 next. 45 M, 15 T remain NOT_RUN; all 12 AC UNVERIFIED.",
   "phase0_readiness": {
     "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
     "dor01": {
@@ -623,5 +642,16 @@
     "accepted_android_field_evidence": "NONE",
     "no_additional_permissions": true,
     "no_second_focus_owner": true
+  },
+  "phase4_readiness": {
+    "next_phase": "P05",
+    "allowed_automatic_resume": "PREVIOUSLY_AUDIBLE_MATCHED_MEDIA3_FOCUS_EPISODE_SAME_ROUTE_NO_LATER_MANUAL_PAUSE",
+    "rejected_automatic_resume": "EXPLICIT_PLAY_ONLY_SAFE_PAUSED",
+    "ducking": "MEDIA3_ANDROID_SYSTEM_HANDLES_NO_MANUAL_ATTENUATION",
+    "call_specific_status": "FOCUS_COMPATIBLE_NOT_TELEPHONY_OBSERVED",
+    "route_epoch_gap": "P05_P07_ISSUE7_IDLE_PLAYER_PENDING_IO",
+    "headunit_provenance": "P06_P07_PENDING",
+    "hardware_testing": "P13_OWNER_ONLY",
+    "original_acs": "12_UNVERIFIED"
   }
 }
