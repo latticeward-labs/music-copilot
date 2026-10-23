@@ -200,12 +200,31 @@ internal class Media3FocusObservationAdapter(
     }
 
     /**
+     * P05 urgent route-loss report from a REAL Media3 becoming-noisy signal
+     * or service AudioDeviceCallback, collapsed into one gate-owned episode.
+     * Clears all focus resume eligibility even if no Player media exists.
+     * The physical Player pause and pending-IO invalidation belong to service.
+     */
+    fun onPersonalOutputDisconnected() {
+        if (closed) return
+        verifiedPlayPending = false
+        observedTransientEpisode = null
+        capturedPreLossPlaying = false
+        accept(InterruptionEvent.RouteDisconnected)
+    }
+
+    /**
      * Called only after an existing validated explicit user Play/selection has
      * been committed by the service. Never invent focus gain at command time;
      * Media3 itself must obtain focus before isPlaying can become true.
      */
     fun onVerifiedUserPlayAccepted() {
         if (closed) return
+        // The old personal output is no longer valid. A new *validated
+        // deliberate* user Play can target the current Android-selected
+        // output, including built-in speaker; reconnect alone never calls
+        // this method. P06 further restricts ambiguous AVRCP auto-Play.
+        if (!state.routeValid) accept(InterruptionEvent.RouteValidated)
         verifiedPlayPending = true
         if (state.focus == FocusCondition.AVAILABLE) {
             accept(
