@@ -53,7 +53,10 @@
     "command_receipt_and_safety": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
     "snapshot_projection": "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
     "controller_snapshot": "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
-    "player_ui_projection": "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+    "player_ui_projection": "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+    "voice_interruption_port": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+    "voice_cancellation_owner": "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+    "voice_provider_teardown": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
   },
   "phase_dependencies": {
     "P00": [],
@@ -160,7 +163,10 @@
         "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
       ],
       "sources": [
         "FR-03",
@@ -204,7 +210,10 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
       ],
       "sources": [
         "Runtime §8",
@@ -249,7 +258,11 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
       ],
       "sources": [
         "FR-03",
@@ -441,7 +454,10 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
       ],
       "sources": [
         "UF-11",
@@ -480,7 +496,10 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt"
       ],
       "sources": [
         "ADR-0004",
@@ -629,7 +648,10 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
       ],
       "sources": [
         "FR-03",
@@ -740,7 +762,11 @@
     "docs/implementation/ISSUE_8_PHASE8_UNIFIED_SESSION_NOTIFICATION_UI_AUDIT.md",
     "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
     "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
-    "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+    "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+    "docs/implementation/ISSUE_8_PHASE9_VOICE_FOCUS_ROUTE_CANCELLATION_AUDIT.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
   ],
   "phase_artifacts": {
     "P02": {
@@ -896,6 +922,32 @@
       "tests_executed": 0,
       "apk_built": false,
       "acceptance": "ALL_12_UNVERIFIED"
+    },
+    "P09": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-23",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE9_VOICE_FOCUS_ROUTE_CANCELLATION_AUDIT.md",
+      "focus_event": "P02_ACCEPTED_CANCEL_VOICE_FOR_FOCUS_TO_APP_SCOPED_EXISTING_COORDINATOR",
+      "route_event": "P02_ACCEPTED_CANCEL_VOICE_FOR_ROUTE_TO_APP_SCOPED_EXISTING_COORDINATOR",
+      "voice_providers": "EXISTING_ON_DEVICE_STT_AND_OFFLINE_TTS_INDEPENDENT_TEARDOWN",
+      "late_callbacks": "SESSION_AND_CHILD_JOB_GENERATION_INVALIDATED_BEFORE_TEARDOWN",
+      "duplicate_event": "P02_EFFECT_ONLY_IDEMPOTENT",
+      "duck": "NO_NEW_APP_SIDE_DUCK_OR_AUTO_PLAY",
+      "phone_call_identity": "NOT_DETECTED_MEDIA3_FOCUS_ONLY",
+      "voice_start_while_focus_lost": "FUTURE_ADMISSION_BOUNDARY_NOT_CLAIMED",
+      "confirm_feature": "ISSUE10_11_STUB_NOT_CLAIMED",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "original_acceptance_criteria": "AC01_AC12_UNVERIFIED"
     }
   }
 }
