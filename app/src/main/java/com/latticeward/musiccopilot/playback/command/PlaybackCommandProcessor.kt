@@ -14,6 +14,16 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
 /**
+ * Receipt-time guard, captured on the same service Main thread that receives
+ * system/media session commands and urgent route/focus callbacks. The worker
+ * rechecks the immutable stamp *before* any queued handler executes.
+ */
+data class PlaybackReceiptStamp(
+    val routeGeneration: Long,
+    val safetyGeneration: Long,
+)
+
+/**
  * Exactly one consumer, 32 *waiting* slots. An in-flight command is additional
  * to the bounded pending queue. Accepted submissions always receive an outcome,
  * including on service destruction.
@@ -25,6 +35,7 @@ class PlaybackCommandProcessor(
     private data class Pending(
         val command: PlaybackCommand,
         val reply: CompletableDeferred<AppResult<PlaybackSnapshot>>,
+        val receipt: PlaybackReceiptStamp,
     )
 
     // Bounded in-memory idempotency: retries share the same authoritative
@@ -36,13 +47,38 @@ class PlaybackCommandProcessor(
     private val queue = Channel<Pending>(32)
     private var inFlight: Pending? = null
     private var closed = false
+    private var captureReceipt: (PlaybackCommand) -> PlaybackReceiptStamp = {
+        PlaybackReceiptStamp(routeGeneration = 0L, safetyGeneration = 0L)
+    }
+    private var isReceiptCurrent: (PlaybackCommand, PlaybackReceiptStamp) -> Boolean =
+        { _, _ -> true }
+
+    /**
+     * Called exactly once by the MediaSessionService before it can accept
+     * commands, while Main owns all callbacks. Kept optional so existing
+     * #7 pure command-worker users retain their source-level contract.
+     */
+    fun configureReceiptSafety(
+        capture: (PlaybackCommand) -> PlaybackReceiptStamp,
+        current: (PlaybackCommand, PlaybackReceiptStamp) -> Boolean,
+    ) {
+        check(!closed)
+        captureReceipt = capture
+        isReceiptCurrent = current
+    }
 
     private val worker = ownerScope.launch {
         try {
             for (pending in queue) {
                 inFlight = pending
                 try {
-                    pending.reply.complete(handler(pending.command))
+                    // A newer safety event can arrive while an earlier command
+                    // waits behind suspended MediaStore IO. Never stamp an
+                    // old command again at DISPATCH and let it clear the latch.
+                    val outcome = if (
+                        isReceiptCurrent(pending.command, pending.receipt)
+                    ) handler(pending.command) else rejected()
+                    pending.reply.complete(outcome)
                 } catch (cancelled: CancellationException) {
                     pending.reply.complete(rejected())
                     throw cancelled
@@ -77,7 +113,11 @@ class PlaybackCommandProcessor(
             reply.complete(rejected())
             return reply
         }
-        val pending = Pending(command, reply)
+        // The receipt hook is synchronous and sees the original Main-looper
+        // order, even when another command is suspended on IO. It may perform
+        // urgent safe Pause for Pause/Stop before queue capacity is checked.
+        val stamp = captureReceipt(command)
+        val pending = Pending(command, reply, stamp)
         if (!queue.trySend(pending).isSuccess) {
             reply.complete(AppResult.Failure(AppError.Playback(
                 AppErrorCodes.PLAYBACK_BUSY,
