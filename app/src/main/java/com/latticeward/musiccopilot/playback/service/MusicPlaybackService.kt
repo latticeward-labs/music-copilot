@@ -79,6 +79,7 @@ class MusicPlaybackService : MediaSessionService() {
     // Both safety paths live in the ONE MediaSessionService. Route callbacks
     // and player callbacks run on Main; no second focus manager is created.
     private val interruptionGate = PlaybackInterruptionGate()
+    private lateinit var focusObserver: Media3FocusObservationAdapter
     private var routeMonitor: ServiceAudioRouteMonitor? = null
     private lateinit var confirmed: PlaybackSnapshot
 
@@ -147,6 +148,15 @@ class MusicPlaybackService : MediaSessionService() {
         player = runtime.first
         session = runtime.second
         processor = PlaybackCommandProcessor(owner.scope, ::applyCommand)
+        // #8 P03: one service/Player-looper observer, NOT a second focus owner.
+        // Media3 still owns Audio Focus and OS duck/suppression behavior.
+        focusObserver = Media3FocusObservationAdapter(
+            player = player,
+            shouldBlockUnrequestedPlayback = {
+                interruptionGate.shouldSuppressAutomaticPlay()
+            },
+            pauseUnsafePlayback = { player.pause() },
+        )
         val appHost = application as PlaybackResolverHost
         pausedCheckpoint = ServicePausedCheckpoint(
             appHost.createPlaybackRestorableQueueStore(),
@@ -170,12 +180,23 @@ class MusicPlaybackService : MediaSessionService() {
             override fun onPlayWhenReadyChanged(
                 playWhenReady: Boolean, reason: Int
             ) {
+                focusObserver.onPlayWhenReadyChanged(playWhenReady, reason)
                 if (!playWhenReady && PlaybackInterruptionGate.isNoisyChangeReason(reason)) {
                     // Media3 already paused the real player. Arm the same
                     // latch as the device callback even if OEM emits only
                     // AUDIO_BECOMING_NOISY and no AudioDeviceCallback removal.
                     interruptionGate.onHeadsetOrBluetoothLost()
                 }
+            }
+            override fun onPlaybackSuppressionReasonChanged(
+                playbackSuppressionReason: Int
+            ) {
+                // Public Media3 suppression reason signals a transient focus
+                // interruption, not a proven incoming telephone call.
+                focusObserver.onSuppressionChanged(playbackSuppressionReason)
+            }
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                focusObserver.onIsPlayingChanged(isPlaying)
             }
             override fun onEvents(player: Player, events: Player.Events) {
                 // A Bluetooth/wired route-loss latch beats any delayed focus
@@ -603,6 +624,7 @@ class MusicPlaybackService : MediaSessionService() {
                     // from the current output; a paused replacement does not
                     // clear the route-loss latch.
                     if (proposal.playWhenReady) interruptionGate.onExplicitUserPlaybackRequest()
+                        focusObserver.onVerifiedUserPlayAccepted()
                     // Clear a previous error BEFORE preparing a new selection.
                     // An error delivered during prepare must not be erased.
                     runtimeError = null
@@ -612,6 +634,7 @@ class MusicPlaybackService : MediaSessionService() {
                     // A deliberately Paused queue must not inherit old playWhenReady.
                     if (!proposal.playWhenReady) {
                         interruptionGate.onManualPauseOrStop()
+                        focusObserver.onManualPauseOrStop(stop = false)
                         player.pause()
                     }
                     player.setMediaItems(
@@ -648,9 +671,11 @@ class MusicPlaybackService : MediaSessionService() {
                     ) return rejected()
                     if (!command.playWhenReady) {
                         interruptionGate.onManualPauseOrStop()
+                        focusObserver.onManualPauseOrStop(stop = false)
                         player.pause()
                     } else {
                         interruptionGate.onExplicitUserPlaybackRequest()
+                        focusObserver.onVerifiedUserPlayAccepted()
                     }
                     player.seekTo(command.index, 0L)
                     if (command.playWhenReady) {
@@ -704,6 +729,7 @@ class MusicPlaybackService : MediaSessionService() {
                         }
                     }
                     interruptionGate.onExplicitUserPlaybackRequest()
+                    focusObserver.onVerifiedUserPlayAccepted()
                     // setMediaItems(... playWhenReady=false) and Stop leave
                     // STATE_IDLE; play() alone cannot start an unprepared item.
                     if (player.playbackState == Player.STATE_ENDED) {
@@ -722,6 +748,7 @@ class MusicPlaybackService : MediaSessionService() {
                 }
                 is PlaybackCommand.Pause -> {
                     interruptionGate.onManualPauseOrStop()
+                    focusObserver.onManualPauseOrStop(stop = false)
                     player.pause()
                 }
                 is PlaybackCommand.Next -> {
@@ -738,6 +765,7 @@ class MusicPlaybackService : MediaSessionService() {
                         // user command: move only to an IO-revalidated playable
                         // successor, with a freshly bounded recovery budget.
                         interruptionGate.onExplicitUserPlaybackRequest()
+                        focusObserver.onVerifiedUserPlayAccepted()
                         val failureNotice = runtimeError ?: safeMediaFailure(
                             PlaybackFailureRecoveryPolicy.Failure.Corrupt
                         )
@@ -798,6 +826,7 @@ class MusicPlaybackService : MediaSessionService() {
                 }
                 is PlaybackCommand.Stop -> {
                     interruptionGate.onManualPauseOrStop()
+                    focusObserver.onManualPauseOrStop(stop = true)
                     // Explicit Stop is stronger than safe-paused restore.
                     // It clears the old checkpoint, even though ExoPlayer
                     // retains an in-memory stopped queue for later Play.
@@ -953,6 +982,7 @@ class MusicPlaybackService : MediaSessionService() {
         // Android route callbacks cannot touch an already released engine.
         routeMonitor?.close()
         routeMonitor = null
+        if (::focusObserver.isInitialized) focusObserver.close()
         ++recoveryGeneration
         if (::queueEngine.isInitialized) queueEngine.invalidate()
         if (::processor.isInitialized) processor.close()
