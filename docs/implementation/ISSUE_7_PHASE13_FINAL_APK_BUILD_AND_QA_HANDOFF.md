@@ -1,7 +1,7 @@
 # Issue #7 P13 — Real cumulative APK build delivered · Owner phone QA pending
 
 **Date:** 2026-10-23  
-**Status:** **APK_BUILT_OWNER_QA_PENDING** — Build SUCCESS; actual on-device functionality **NOT VERIFIED**.  
+**Status:** **FINAL APK BUILT; all 51 cases PASS per aggregate owner self-report dated 2026-10-23, NOT independently verified with per-case/JVM/Android logs.** See [owner QA attestation](ISSUE_7_FINAL_OWNER_ATTESTATION_AND_MERGE_RECORD.md).
 **User's revised authorization:** GitHub Actions is permitted **only to build the single cumulative APK**; explicitly **do not run tests**. This replaced the previous no-Actions restriction solely for APK assembly.
 
 ## Delivered APK (one final candidate)
