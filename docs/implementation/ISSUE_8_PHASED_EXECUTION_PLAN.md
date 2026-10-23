@@ -1,8 +1,8 @@
 # Issue #8 — Executable Phased Plan: Audio Focus / Calls / Headset / Bluetooth Recovery
 
-**Date:** 2026-10-23 · **Status:** PLANNING COMPLETE; P00–P13 PRODUCT EXECUTION NOT STARTED · **Priority:** P0 · **Target:** `main` · **Branch:** `feature/8-audio-focus-route-recovery`
+**Date:** 2026-10-23 · **Status:** P00 SOURCE/READINESS AUDIT COMPLETE (NO TEST/BUILD); P01 NEXT; P02–P13 NOT STARTED · **Priority:** P0 · **Target:** `main` · **Branch:** `feature/8-audio-focus-route-recovery`
 
-## Strict owner delivery contract
+**P00 evidence:** [Phase 0 source/readiness audit](ISSUE_8_PHASE0_SOURCE_AND_READINESS_AUDIT.md) — PASS_SOURCE_AUDIT_ONLY; 3 DoR dispositions and 8 implementation risks recorded. The [QA ledger](ISSUE_8_QA_RESULTS.json) keeps all 12 AC UNVERIFIED, M01–M45/T01–T15 NOT_RUN. This supersedes earlier planning-only 'P00 next' metadata without claiming runtime verification.\n\n## Strict owner delivery contract
 
 1. **P00–P12: no APK, no build (including Gradle compile), no JVM/unit/integration/instrumentation/emulator/manual test execution, no CI or GitHub Actions run.** Work is source audit, design, implementation, test-source authoring, documentation and GitHub commits only.
 2. **P13 only:** one **cumulative** `app-debug.apk` compiled from all P00–P12 changes plus the accepted Issue #7 baseline. Use a manually triggered **BUILD-ONLY** `:app:assembleDebug` workflow (or a local build if available), never a test task. Do not enable trigger-on-push/PR Actions for the plan. Build corrections, if required, are not separate per-phase APK deliveries; publish only one final successful candidate with exact SHA-256/source commit.
