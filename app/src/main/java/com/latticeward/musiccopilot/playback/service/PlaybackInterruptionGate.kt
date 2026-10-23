@@ -27,6 +27,18 @@ internal class PlaybackInterruptionGate {
     private var routeEpochExhausted = false
 
     /**
+     * Coarse event only, NEVER an active-route claim: the system reports
+     * available Bluetooth sinks, not which one currently carries music.
+     * Reconnect can NEVER clear requiresExplicitResume by itself.
+     */
+    var bluetoothReconnectedWhilePaused: Boolean = false
+        private set
+
+    fun onBluetoothSinkAvailable() {
+        if (requiresExplicitResume) bluetoothReconnectedWhilePaused = true
+    }
+
+    /**
      * Arm even when the Player is empty/idle: a suspended MediaStore queue
      * request may otherwise start playing on the built-in speaker later.
      * Returns true only for the first signal of this unsafe episode.
@@ -34,6 +46,7 @@ internal class PlaybackInterruptionGate {
     fun onHeadsetOrBluetoothLost(): Boolean {
         if (requiresExplicitResume) return false
         requiresExplicitResume = true
+        bluetoothReconnectedWhilePaused = false
         if (routeGeneration == Long.MAX_VALUE) {
             // Never wrap/reuse a stale epoch. At exhaustion, stay paused.
             routeEpochExhausted = true
@@ -47,6 +60,7 @@ internal class PlaybackInterruptionGate {
         // An explicit player/media-key/notification Play or selected song is
         // the ONLY way to clear a route-loss pause. Reconnecting alone is not.
         if (!routeEpochExhausted) requiresExplicitResume = false
+        bluetoothReconnectedWhilePaused = false
         explicitlyPaused = false
     }
 
