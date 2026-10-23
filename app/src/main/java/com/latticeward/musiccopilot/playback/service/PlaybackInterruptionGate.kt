@@ -33,9 +33,17 @@ internal class PlaybackInterruptionGate {
      */
     var bluetoothReconnectedWhilePaused: Boolean = false
         private set
+    private var bluetoothConnectionPlayQuarantine: Boolean = false
 
-    fun onBluetoothSinkAvailable() {
+    /**
+     * Android reports newly available devices, including initial enumeration.
+     * If playback is currently paused, a controller Play immediately after
+     * availability cannot be proven to be a user keypress, so quarantine it.
+     * Do NOT pause uninterrupted playback on other routes.
+     */
+    fun onBluetoothSinkAvailable(alreadyPlayingOrRequested: Boolean) {
         if (requiresExplicitResume) bluetoothReconnectedWhilePaused = true
+        if (!alreadyPlayingOrRequested) bluetoothConnectionPlayQuarantine = true
     }
 
     /**
@@ -47,6 +55,7 @@ internal class PlaybackInterruptionGate {
         if (requiresExplicitResume) return false
         requiresExplicitResume = true
         bluetoothReconnectedWhilePaused = false
+        bluetoothConnectionPlayQuarantine = true
         if (routeGeneration == Long.MAX_VALUE) {
             // Never wrap/reuse a stale epoch. At exhaustion, stay paused.
             routeEpochExhausted = true
@@ -61,6 +70,7 @@ internal class PlaybackInterruptionGate {
         // the ONLY way to clear a route-loss pause. Reconnecting alone is not.
         if (!routeEpochExhausted) requiresExplicitResume = false
         bluetoothReconnectedWhilePaused = false
+        bluetoothConnectionPlayQuarantine = false
         explicitlyPaused = false
     }
 
@@ -81,7 +91,8 @@ internal class PlaybackInterruptionGate {
     }
 
     fun shouldSuppressAutomaticPlay(): Boolean =
-        requiresExplicitResume || explicitlyPaused || routeEpochExhausted
+        requiresExplicitResume || explicitlyPaused || routeEpochExhausted ||
+            bluetoothConnectionPlayQuarantine
 
     fun requestIsStillCurrent(expectedRouteGeneration: Long): Boolean =
         !routeEpochExhausted && routeGeneration == expectedRouteGeneration
