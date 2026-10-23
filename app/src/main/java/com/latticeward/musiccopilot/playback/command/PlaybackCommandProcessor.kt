@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 data class PlaybackReceiptStamp(
     val routeGeneration: Long,
     val safetyGeneration: Long,
+    val commandGeneration: Long,
 )
 
 /**
@@ -48,7 +49,11 @@ class PlaybackCommandProcessor(
     private var inFlight: Pending? = null
     private var closed = false
     private var captureReceipt: (PlaybackCommand) -> PlaybackReceiptStamp = {
-        PlaybackReceiptStamp(routeGeneration = 0L, safetyGeneration = 0L)
+        PlaybackReceiptStamp(
+            routeGeneration = 0L,
+            safetyGeneration = 0L,
+            commandGeneration = 0L,
+        )
     }
     private var isReceiptCurrent: (PlaybackCommand, PlaybackReceiptStamp) -> Boolean =
         { _, _ -> true }
@@ -116,7 +121,14 @@ class PlaybackCommandProcessor(
         // The receipt hook is synchronous and sees the original Main-looper
         // order, even when another command is suspended on IO. It may perform
         // urgent safe Pause for Pause/Stop before queue capacity is checked.
-        val stamp = captureReceipt(command)
+        val stamp = try {
+            captureReceipt(command)
+        } catch (_: Exception) {
+            // A failed admission callback must not enter the worker without
+            // a coherent receipt stamp or leave the client without a result.
+            reply.complete(rejected())
+            return reply
+        }
         val pending = Pending(command, reply, stamp)
         if (!queue.trySend(pending).isSuccess) {
             reply.complete(AppResult.Failure(AppError.Playback(
