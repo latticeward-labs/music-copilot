@@ -3,7 +3,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/8-audio-focus-route-recovery",
   "planning_date": "2026-10-23",
-  "phase": "P07_RECEIPT_TIME_EVENT_ORDER_AND_RACE_SOURCE_COMPLETE_P08_NEXT",
+  "phase": "P08_UNIFIED_MEDIA3_SESSION_UI_SOURCE_COMPLETE_P09_NEXT",
   "implementation_started": true,
   "source_archive": {
     "name": "MSM2(1)(1).rar",
@@ -200,9 +200,28 @@
       "qa_evidence": "NONE_SOURCE_INSPECTION_ONLY"
     },
     "P08": {
-      "status": "NOT_STARTED",
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE8_UNIFIED_SESSION_NOTIFICATION_UI_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "service_snapshot": "ACTUAL_MEDIA3_PLAYER_STATE_WITH_ROUTE_FOCUS_SAFE_PAUSE",
+      "media3_notification": "UNMODIFIED_ONE_SESSION_AND_NOTIFICATION_AUTHORITY",
+      "revision_policy": "CHANGE_ONLY_MONOTONIC_SERVICE",
+      "late_controller_response": "RETURNS_LATEST_RELAY_SNAPSHOT_NOT_STALE",
+      "full_mini": "SAME_UI_STATE_READY_GATED",
+      "driving_ui": "PLACEHOLDER_NOT_IMPLEMENTED_NOT_CLAIMED",
+      "source_compilation": "NOT_RUN",
+      "physical_ui_parity": "NOT_RUN",
       "builds": 0,
-      "tests_executed": 0
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
     },
     "P09": {
       "status": "NOT_STARTED",
@@ -600,7 +619,7 @@
     "vehicle_head_units_three": "NOT_RUN"
   },
   "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
-  "note": "P07 source-only: one processor now captures route/safety/command generation at receipt, rejects stale queued Play/selection before dispatch, Main immediately pauses on user Pause/Stop receipt and high priority focus/route/BT events invalidate old work; existing IO post-await checks retained. No compilation, gradle, APK, test or Actions. 45 M, 15 T NOT_RUN; 12 AC UNVERIFIED. P08 next.",
+  "note": "P08 source-only: Media3SnapshotProjector now treats route/manual/focus suppression as Safe Paused even during buffering; changed-only revisions, one service session-extras bundle; controller returns latest accepted snapshot despite stale callbacks; PlayerUiState Ready-gates Playing and reads latest gateway pair. No Driving implementation exists. P09 next. No compile/build/Gradle/tests/Actions/APK. 45 M/15 T NOT_RUN, all 12 AC UNVERIFIED.",
   "phase0_readiness": {
     "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
     "dor01": {
@@ -743,5 +762,15 @@
     "oem_API_validation": "P11_AND_P13_PENDING",
     "test_source": "P12_NOT_RUN",
     "physical_proof": "P13_USER_NOT_RUN"
+  },
+  "phase8_readiness": {
+    "next_phase": "P09",
+    "voice_cancellation": "P09_PENDING",
+    "runtime_ui_parity": "P13_OWNER_NOT_RUN",
+    "driving_screen": "NOT_PRESENT_SEPARATE_IMPLEMENTATION_REQUIRED",
+    "api_oem": "P11_PENDING",
+    "privacy_errors": "P10_PENDING",
+    "technical_tests": "P12_SOURCE_ONLY_P13_NO_AUTOMATIC_TEST_EXECUTION",
+    "release_criteria": "12_UNVERIFIED"
   }
 }
