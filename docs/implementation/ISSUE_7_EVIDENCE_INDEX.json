@@ -243,16 +243,17 @@
     {
       "id": "P13",
       "title": "Single final APK, owner QA, PR and delivery",
-      "status": "APK_BUILT_OWNER_QA_PENDING",
+      "status": "PASS_OWNER_REPORTED_PENDING_MERGE",
       "report": "docs/implementation/ISSUE_7_PHASE13_FINAL_APK_BUILD_AND_QA_HANDOFF.md",
       "evidence": [
         "I7-EVD-P13-001",
         "I7-EVD-P13-002",
         "I7-EVD-P13-003",
-        "I7-EVD-P13-004"
+        "I7-EVD-P13-004",
+        "I7-EVD-P13-005"
       ],
-      "tests_executed": false,
-      "product_ac_pass_count": 0,
+      "tests_executed": "OWNER_REPORTED_36_MANUAL_AND_15_TECHNICAL_NO_LOGS",
+      "product_ac_pass_count": 13,
       "commit_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b"
     }
   ],
@@ -269,9 +270,12 @@
         "M03-M14",
         "T01-T03"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC02",
@@ -284,9 +288,12 @@
         "M15-M19",
         "T04"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC03",
@@ -298,9 +305,12 @@
         "M15-M18",
         "T04"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC04",
@@ -314,9 +324,12 @@
         "M20-M27",
         "T05-T06"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC05",
@@ -331,9 +344,12 @@
         "M28",
         "T05"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC06",
@@ -349,9 +365,12 @@
         "M12",
         "T07"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC07",
@@ -363,9 +382,12 @@
         "M29-M31",
         "T08"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC08",
@@ -380,9 +402,12 @@
         "M29-M31",
         "T09"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC09",
@@ -395,9 +420,12 @@
       "case_refs": [
         "T01-T03"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC10",
@@ -409,9 +437,12 @@
       "case_refs": [
         "T04-T06"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC11",
@@ -423,9 +454,12 @@
         "M32-M35",
         "T10-T11"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC12",
@@ -438,9 +472,12 @@
         "M35",
         "T10-T12"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     },
     {
       "id": "AC13",
@@ -453,9 +490,12 @@
         "M36",
         "T13"
       ],
-      "status": "NOT_VERIFIED",
-      "verified_evidence": [],
-      "verified_on_sha": null
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
     }
   ],
   "change_records": [
@@ -1381,6 +1421,27 @@
       "owner_device_installation": "NOT_RUN",
       "result": "APK_READY_TO_INSTALL_NOT_FIELD_TESTED",
       "test_run": false
+    },
+    {
+      "id": "I7-EVD-P13-005",
+      "phase": "P13",
+      "type": "OWNER_SELF_REPORTED_FULL_QA_ATTESTATION",
+      "recorded_date": "2026-10-23",
+      "owner_verbatim_fa": "من همه تست هارو انجام دادم و پاس شدند اینارو در گیت هاب ثبت کن و این issue رو کامل پاس و merge کن",
+      "manual_case_ids": "M01–M36",
+      "manual_cases_owner_reported_pass": 36,
+      "technical_case_ids": "T01–T15",
+      "technical_cases_owner_reported_pass": 15,
+      "total_reported_pass": 51,
+      "apk_sha256_of_delivered_file": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "apk_source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "owner_phone_apk_hash_independently_attested": false,
+      "per_case_logs_attached": false,
+      "technical_machine_logs_attached": false,
+      "independent_reviewer_approval": false,
+      "github_actions_test_runs": 0,
+      "provenance": "SINGLE_USER_ATTESTATION_ALL_TESTS_PASSED",
+      "result": "PASS_OWNER_REPORTED_NOT_INDEPENDENTLY_VERIFIED"
     }
   ],
   "release": {
@@ -1397,20 +1458,26 @@
     "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
     "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
     "apk_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
-    "phone_case_status": "ALL_NOT_RUN_AWAIT_OWNER",
-    "technical_case_status": "ALL_NOT_RUN",
-    "pr_state": "NOT_OPENED_AWAIT_OWNER_QA",
+    "phone_case_status": "36_OF_36_PASS_OWNER_REPORTED",
+    "technical_case_status": "15_OF_15_PASS_OWNER_REPORTED_NO_JUNIT_OR_ANDROID_LOGS",
+    "pr_state": "OWNER_APPROVED_TO_OPEN_AND_MERGE_PR_WITH_CI_SKIP",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
     "actions": "OWNER_AUTHORIZED_BUILD_ONLY_GITHUB_ACTIONS_RUN_39854659624_SUCCESS_NO_TESTS",
-    "independent_review": "NOT_REVIEWED",
+    "independent_review": "NOT_COMPLETED_OWNER_EXPLICIT_MERGE_AUTHORIZATION",
     "merge": "NOT_MERGED",
     "issue_state": "OPEN",
     "project_v2_status": "NOT_VERIFIED",
-    "source_implementation_status": "P00_TO_P12_INTEGRATED_DEBUG_APK_BUILT_P13_OWNER_QA_PENDING",
+    "source_implementation_status": "P00_TO_P12_INTEGRATED_APK_COMPILED_AND_OWNER_ATTESTED",
     "build_environment_status": "GITHUB_ACTIONS_BUILD_ONLY_SUCCESS_AFTER_OWNER_AUTHORIZATION",
     "blocked_release_report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md (historical prior to owner's Actions build authorization)",
-    "local_build_handoff": "scripts/build_issue7_p13_local.ps1"
+    "local_build_handoff": "scripts/build_issue7_p13_local.ps1",
+    "owner_approval": {
+      "date": "2026-10-23",
+      "explicit_merge_and_close": true,
+      "source": "conversation owner states all tests PASS",
+      "independent_proof_missing": true
+    }
   },
   "known_debt": [
     73,
