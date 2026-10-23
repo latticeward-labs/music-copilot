@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot.playback.service
 
 import android.os.SystemClock
 import androidx.media3.common.Player
+import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionReason
 import com.latticeward.musiccopilot.playback.interruption.FocusCondition
 import com.latticeward.musiccopilot.playback.interruption.InterruptionClock
 import com.latticeward.musiccopilot.playback.interruption.InterruptionEffect
@@ -33,6 +34,7 @@ internal class Media3FocusObservationAdapter(
     private val shouldBlockUnrequestedPlayback: () -> Boolean,
     private val pauseUnsafePlayback: () -> Unit,
     private val onDeniedFocusAutoResume: () -> Unit,
+    private val onVoiceCancellationRequested: (PlaybackVoiceInterruptionReason) -> Unit,
     private val clock: InterruptionClock = InterruptionClock {
         SystemClock.elapsedRealtime()
     },
@@ -76,6 +78,29 @@ internal class Media3FocusObservationAdapter(
             ),
         )
         state = transition.state
+        // P09: Consume the P02 reducer's *accepted effect* at Main-looper
+        // receipt time, not after a suspended command/recognition coroutine.
+        // A duplicate focus/route signal has no effect, so does not cancel
+        // a newer unrelated Voice generation for the same episode.
+        for (effect in transition.effects) {
+            val reason = when (effect) {
+                InterruptionEffect.CANCEL_VOICE_FOR_FOCUS ->
+                    PlaybackVoiceInterruptionReason.FOCUS_INVALIDATED
+                InterruptionEffect.CANCEL_VOICE_FOR_ROUTE ->
+                    PlaybackVoiceInterruptionReason.ROUTE_INVALIDATED
+                else -> null
+            }
+            if (reason != null) {
+                // Platform provider teardown is best effort, but no speech
+                // provider exception may crash the service-owned playback
+                // listener or turn a safety pause into uncontrolled playback.
+                try {
+                    onVoiceCancellationRequested(reason)
+                } catch (_: RuntimeException) {
+                    // P10 owns privacy-safe diagnostic/error surfacing.
+                }
+            }
+        }
         return transition
     }
 
