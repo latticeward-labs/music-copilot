@@ -1,10 +1,12 @@
 # Issue #8 — Executable Phased Plan: Audio Focus / Calls / Headset / Bluetooth Recovery
 
-**Date:** 2026-10-23 · **Status:** P00 AND P01 SOURCE/DOCUMENTATION GATES COMPLETE; P02 NEXT; P03–P13 NOT STARTED; ALL RUNTIME AC UNVERIFIED · **Priority:** P0 · **Target:** `main` · **Branch:** `feature/8-audio-focus-route-recovery`
+**Date:** 2026-10-23 · **Status:** P00–P02 SOURCE/CONTRACT GATES COMPLETE; P03 NEXT; P04–P13 NOT STARTED; ALL RUNTIME AC UNVERIFIED · **Priority:** P0 · **Target:** `main` · **Branch:** `feature/8-audio-focus-route-recovery`
 
 **P00 evidence:** [Phase 0 source/readiness audit](ISSUE_8_PHASE0_SOURCE_AND_READINESS_AUDIT.md) — PASS_SOURCE_AUDIT_ONLY; 3 DoR dispositions and 8 implementation risks recorded. The [QA ledger](ISSUE_8_QA_RESULTS.json) keeps all 12 AC UNVERIFIED, M01–M45/T01–T15 NOT_RUN. This supersedes earlier planning-only 'P00 next' metadata without claiming runtime verification.
 
 **P01 evidence:** [GitHub execution/ownership/rollback contract](ISSUE_8_PHASE1_GITHUB_EXECUTION_CONTRACT.md) and [AC ↔ phase ↔ code ↔ M/T traceability index](ISSUE_8_PHASE1_TRACEABILITY_INDEX.json) are committed. [QA ledger](ISSUE_8_QA_RESULTS.json) records P01 = PASS_EXECUTION_CONTRACT_ONLY. Source archive 12 PDFs re-extracted with matching individual SHA-256. The feature branch began P01 8 commits ahead/0 behind main. No builds, tests, Actions, APK, PR, merge or Issue closure; M01–M45/T01–T15 NOT_RUN; 12 AC UNVERIFIED.
+
+**P02 evidence:** [Pure interruption reducer & event/state matrix](ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md), [Kotlin source](../../app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt) and [updated traceability](ISSUE_8_PHASE1_TRACEABILITY_INDEX.json). P02 = PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED. Four-guard Focus resume, typed transitions/effects and injectable sequence/clock seam authored; **not yet attached to Media3 service** (P03 next). No Gradle/build/QA/APK/Actions, M01–M45/T01–T15 NOT_RUN, AC01–AC12 UNVERIFIED.
 
 ## Strict owner delivery contract
 
