@@ -15,18 +15,18 @@ import com.latticeward.musiccopilot.playback.interruption.InterruptionTransition
 import com.latticeward.musiccopilot.playback.interruption.PlayRequestOrigin
 
 /**
- * Issue #8 P03: actual Media3 Player -> pure P02 reducer observation bridge.
+ * Issue #8 P03/P04: Media3 focus observation plus guarded post-focus recovery.
  *
  * The existing service's single ExoPlayer still owns Audio Focus using
  * setAudioAttributes(..., true). This observer must never request focus,
  * implement telephony detection, duck Player volume or create a Player.
  *
  * Called solely from that Player's application looper (service Main).
- * The full focus/call recovery effect policy is P04; this adapter applies
- * only a safety PAUSE for unrequested audible playback. A transient focus
- * suppression is already performed by Media3: do NOT call Player.pause()
- * solely for its modelled transient PAUSE, since that could defeat Media3's
- * built-in return-from-suppression. No extra auto-play on focus gain.
+ * P04 checks P02's four-guard transient resume policy before honoring
+ * Media3 automatic unsuppression. Only a denied recovery is safety-paused
+ * through the existing service gate; a permitted recovery is left to Media3.
+ * Do NOT pause just for the initial transient suppression, as it would
+ * defeat Media3's built-in focus return. No extra Play or app-side ducking.
  */
 internal class Media3FocusObservationAdapter(
     private val player: Player,
@@ -173,7 +173,8 @@ internal class Media3FocusObservationAdapter(
     /**
      * Explicit Media3 AUDIO_FOCUS_LOSS pause is observable, but does not
      * distinguish a call or classify every transient/permanent focus loss.
-     * Conservative terminal classification; P04 owns final call recovery.
+     * Conservatively treat it as terminal; actual phone-call identity remains
+     * unavailable from Media3's public callback. No telephony receiver.
      */
     fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
         if (closed) return
@@ -226,7 +227,7 @@ internal class Media3FocusObservationAdapter(
 
     /**
      * Media3's real isPlaying is the only observable playback truth.
-     * A newly audible user-initiated retry after a focus loss is the only
+     * A newly audible user-initiated retry after terminal focus loss is the only
      * evidence used to clear the policy's terminal focus condition. This is
      * not labelled an OS gain callback and does not cause another Play.
      */
