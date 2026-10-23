@@ -32,6 +32,7 @@ internal class Media3FocusObservationAdapter(
     private val player: Player,
     private val shouldBlockUnrequestedPlayback: () -> Boolean,
     private val pauseUnsafePlayback: () -> Unit,
+    private val onDeniedFocusAutoResume: () -> Unit,
     private val clock: InterruptionClock = InterruptionClock {
         SystemClock.elapsedRealtime()
     },
@@ -52,6 +53,10 @@ internal class Media3FocusObservationAdapter(
         },
     )
     private var lastAudiblePlaying = player.isPlaying
+    // Player.Listener callbacks can arrive in either order. This remembers a
+    // proven pre-loss audible observation only when actual Media3 suppression
+    // already identifies TRANSIENT_AUDIO_FOCUS_LOSS.
+    private var capturedPreLossPlaying = false
     private var lastSuppression = player.playbackSuppressionReason
     private var observedTransientEpisode: Long? = null
     private var verifiedPlayPending = false
@@ -86,28 +91,38 @@ internal class Media3FocusObservationAdapter(
         lastSuppression = reason
         val transient = Player.PLAYBACK_SUPPRESSION_REASON_TRANSIENT_AUDIO_FOCUS_LOSS
         if (reason == transient) {
+            val actuallyPlayedBeforeLoss =
+                player.playWhenReady && (lastAudiblePlaying || capturedPreLossPlaying)
+            capturedPreLossPlaying = false
             if (state.focus != FocusCondition.TRANSIENT_LOST &&
                 state.focus != FocusCondition.PERMANENT_LOST
             ) {
                 accept(
                     InterruptionEvent.FocusLostTransient(
-                        wasPlayingBeforeLoss = lastAudiblePlaying && player.playWhenReady,
+                        wasPlayingBeforeLoss = actuallyPlayedBeforeLoss,
                     )
                 )
                 observedTransientEpisode =
                     state.focusEpisode.takeIf { state.focus == FocusCondition.TRANSIENT_LOST }
             }
         } else if (before == transient) {
+            // Suppression ending is a real Media3 observation, not proof that
+            // the reason was a telephone call.
+            capturedPreLossPlaying = false
             val episode = observedTransientEpisode
+                ?: state.focusEpisode.takeIf {
+                    state.focus == FocusCondition.TRANSIENT_LOST
+                }
             observedTransientEpisode = null
             if (reason == Player.PLAYBACK_SUPPRESSION_REASON_NONE && episode != null) {
-                // Only a known matching transition can attempt guarded resume.
-                // Media3 un-suppresses itself; no additional player.play().
-                accept(InterruptionEvent.FocusRestored(episode))
-                // A deliberate user Play can be accepted while Media3 is
-                // temporarily suppressed. Do not leave its manual-pause latch
-                // armed when real focus suppression finally disappears.
-                if (verifiedPlayPending && state.focus == FocusCondition.AVAILABLE) {
+                val restored = accept(InterruptionEvent.FocusRestored(episode))
+                val eligibleAutomaticReturn =
+                    restored.effects.contains(InterruptionEffect.RESUME_SERVICE_PLAYER)
+                val freshExplicitUserPlay =
+                    verifiedPlayPending && !shouldBlockUnrequestedPlayback()
+                if (freshExplicitUserPlay && state.focus == FocusCondition.AVAILABLE) {
+                    // A user deliberately asked to play while focus was lost.
+                    // Do not confuse this with an automatic focus regain.
                     accept(
                         InterruptionEvent.PlayRequested(
                             origin = PlayRequestOrigin.VERIFIED_USER,
@@ -115,11 +130,40 @@ internal class Media3FocusObservationAdapter(
                         )
                     )
                 }
+                if (!eligibleAutomaticReturn && !freshExplicitUserPlay) {
+                    // Media3 can start audible output on unsuppression by
+                    // itself. Explicitly disallow it if the four guards failed,
+                    // including pre-loss already Paused or intervening Pause.
+                    latchAndPauseDeniedAutoResume()
+                }
+                // Eligible recovery is performed only by Media3 itself:
+                // NEVER call player.play() or double-apply duck/volume here.
+            } else if (reason == Player.PLAYBACK_SUPPRESSION_REASON_NONE &&
+                state.focus == FocusCondition.AVAILABLE
+            ) {
+                // Already terminally invalidated; no new resume permission.
+                if (!verifiedPlayPending) latchAndPauseDeniedAutoResume()
             } else {
-                // An unsuitable/unknown output is NOT evidence of focus regain.
+                // Unknown/non-playable suppression transition is NOT a
+                // verified focus gain.
                 accept(InterruptionEvent.FocusLostPermanent)
+                if (player.playWhenReady) latchAndPauseDeniedAutoResume()
             }
         }
+    }
+
+    /**
+     * An explicit-play latch is needed even if Media3 has not yet emitted an
+     * audible isPlaying=true callback. Reentrant callbacks are safe: state
+     * and gate are latched first, and the same Player is paused afterwards.
+     */
+    private fun latchAndPauseDeniedAutoResume() {
+        if (state.focus != FocusCondition.PERMANENT_LOST) {
+            accept(InterruptionEvent.FocusAutoResumeRejected)
+        }
+        onDeniedFocusAutoResume()
+        verifiedPlayPending = false
+        if (player.playWhenReady) pauseUnsafePlayback()
     }
 
     /**
@@ -128,9 +172,23 @@ internal class Media3FocusObservationAdapter(
      * Conservative terminal classification; P04 owns final call recovery.
      */
     fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
-        if (closed || playWhenReady) return
-        if (reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS) {
+        if (closed) return
+        if (playWhenReady) {
+            // Genuine explicit Play must pass through existing service
+            // validation. Neither focus gain nor a stale external controller
+            // event by itself authorizes restarting after permanent loss.
+            if (shouldBlockUnrequestedPlayback() ||
+                (state.focus == FocusCondition.PERMANENT_LOST && !verifiedPlayPending)
+            ) {
+                latchAndPauseDeniedAutoResume()
+            }
+            return
+        }
+        if (reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS ||
+            reason == Player.PLAY_WHEN_READY_CHANGE_REASON_SUPPRESSED_TOO_LONG
+        ) {
             observedTransientEpisode = null
+            capturedPreLossPlaying = false
             verifiedPlayPending = false
             accept(InterruptionEvent.FocusLostPermanent)
         }
@@ -160,6 +218,7 @@ internal class Media3FocusObservationAdapter(
         if (closed) return
         verifiedPlayPending = false
         observedTransientEpisode = null
+        capturedPreLossPlaying = false
         accept(if (stop) InterruptionEvent.UserStop else InterruptionEvent.UserPause)
     }
 
@@ -171,6 +230,22 @@ internal class Media3FocusObservationAdapter(
      */
     fun onIsPlayingChanged(isPlaying: Boolean) {
         if (closed) return
+        // The Player can report isPlaying=false before the separate
+        // onPlaybackSuppressionReasonChanged callback. Capture prior actual
+        // playing only if Media3's CURRENT suppression reason is transient.
+        val observedSuppression = player.playbackSuppressionReason
+        val transient = Player.PLAYBACK_SUPPRESSION_REASON_TRANSIENT_AUDIO_FOCUS_LOSS
+        if (!isPlaying && lastAudiblePlaying && player.playWhenReady &&
+            observedSuppression == transient && lastSuppression != transient
+        ) {
+            capturedPreLossPlaying = true
+        }
+        if (observedSuppression != lastSuppression) {
+            onSuppressionChanged(observedSuppression)
+        }
+        // A synchronous safety pause may have changed Player state inside
+        // the nested callback; never process the stale audible sample.
+        if (isPlaying && !player.isPlaying) return
         if (isPlaying && verifiedPlayPending &&
             state.focus == FocusCondition.PERMANENT_LOST
         ) {
@@ -183,15 +258,15 @@ internal class Media3FocusObservationAdapter(
             )
         }
         val transition = accept(InterruptionEvent.PlaybackObserved(isPlaying))
-        lastAudiblePlaying = isPlaying
+        lastAudiblePlaying = player.isPlaying
         if (isPlaying) verifiedPlayPending = false
         if (isPlaying &&
             (shouldBlockUnrequestedPlayback() ||
                 transition.effects.contains(InterruptionEffect.PAUSE_SERVICE_PLAYER))
         ) {
-            // P02's suggested PAUSE on focus suppression must not be invoked
-            // here; this path only runs for actually audible unsafe playback.
-            pauseUnsafePlayback()
+            // P04 preempts an actual unsafe audible continuation, even if
+            // Android reports Player callbacks in an unexpected order.
+            latchAndPauseDeniedAutoResume()
         }
     }
 
@@ -199,5 +274,6 @@ internal class Media3FocusObservationAdapter(
         closed = true
         verifiedPlayPending = false
         observedTransientEpisode = null
+        capturedPreLossPlaying = false
     }
 }
