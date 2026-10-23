@@ -263,14 +263,15 @@ internal object InterruptionReducer {
                         candidate.manualRevision == accepted.manualRevision &&
                         !accepted.requiresExplicitPlay &&
                         accepted.playback == InterruptionPlayback.PAUSED
-                    out(
-                        accepted.copy(
-                            focus = FocusCondition.AVAILABLE,
-                            pendingResume = null,
-                        ),
-                        *if (mayResume) arrayOf(InterruptionEffect.RESUME_SERVICE_PLAYER)
-                            else emptyArray(),
+                    val restored = accepted.copy(
+                        focus = FocusCondition.AVAILABLE,
+                        pendingResume = null,
                     )
+                    if (mayResume) {
+                        out(restored, InterruptionEffect.RESUME_SERVICE_PLAYER)
+                    } else {
+                        out(restored)
+                    }
                 }
             }
 
