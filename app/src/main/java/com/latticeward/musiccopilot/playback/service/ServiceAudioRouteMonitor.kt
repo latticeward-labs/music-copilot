@@ -21,10 +21,26 @@ import android.os.Looper
 internal class ServiceAudioRouteMonitor(
     context: Context,
     private val onPersonalOutputDisconnected: () -> Unit,
+    private val onBluetoothSinkAvailable: () -> Unit = {},
 ) : AutoCloseable {
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private var registered = false
     private val callback = object : AudioDeviceCallback() {
+        override fun onAudioDevicesAdded(addedDevices: Array<out AudioDeviceInfo>) {
+            if (!registered) return
+            if (addedDevices.any {
+                    it.isSink && PlaybackInterruptionGate.isBluetoothOutput(it.type)
+                }
+            ) {
+                // May include the initial API-provided list of available
+                // outputs. Presence is NOT proof of selection/active routing,
+                // intentional Play, focus regain or successful pairing.
+                // Never trigger Player.play(), restore playback or clear a
+                // route-loss latch just because an A2DP/BLE sink appeared.
+                onBluetoothSinkAvailable()
+            }
+        }
+
         override fun onAudioDevicesRemoved(removedDevices: Array<out AudioDeviceInfo>) {
             // OEMs can deliver already-queued callbacks after unregister.
             // No released Player may receive a late route signal.
