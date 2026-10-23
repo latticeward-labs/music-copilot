@@ -33,7 +33,7 @@
     "P00": {
       "status": "PASS_SOURCE_AUDIT_ONLY",
       "completed_on": "2026-10-23",
-      "audit_document": "docs/implementation/ISSUE_8_QA_RESULTS.json",
+      "audit_document": "docs/implementation/ISSUE_8_PHASE0_SOURCE_AND_READINESS_AUDIT.md",
       "source_baseline_sha": "62c6115ac11af4cb2790b306f885f580b82a146b",
       "completion_commit": "08decf9e58d4eed8a9bebe97563bb5f6c4daa3ba",
       "builds": 0,
