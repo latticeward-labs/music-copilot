@@ -124,6 +124,11 @@ internal fun interface InterruptionClock {
     fun elapsedRealtimeMs(): Long
 }
 
+/** Deterministic serial event numbering, injectable for future tests. */
+internal fun interface InterruptionSequenceSource {
+    fun nextSequence(): Long
+}
+
 internal fun interface InterruptionEventReceiver {
     fun dispatch(envelope: InterruptionEnvelope): InterruptionTransition
 }
