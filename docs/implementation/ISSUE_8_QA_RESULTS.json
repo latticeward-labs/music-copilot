@@ -1,0 +1,475 @@
+{
+  "issue": 8,
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/8-audio-focus-route-recovery",
+  "planning_date": "2026-10-23",
+  "phase": "PLANNING_ONLY_P00_NEXT",
+  "implementation_started": false,
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12
+  },
+  "source_baseline_sha": "62c6115ac11af4cb2790b306f885f580b82a146b",
+  "depends_on": {
+    "issue7": "CLOSED_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+    "issue16": "APPROVED",
+    "issues5and6": "DEFERRED_QA_IN_73_AND_74"
+  },
+  "contract": {
+    "P00_to_P12": "SOURCE_AND_DOCUMENTATION_ONLY_NO_BUILD_NO_TEST_NO_ACTIONS",
+    "P13": "ONE_CUMULATIVE_BUILD_ONLY_APK_THEN_OWNER_PHONE_TESTS",
+    "technical_tests": "NO_EXECUTION_UNLESS_OWNER_SEPARATELY_AUTHORIZES",
+    "media": "LOCAL_ONLY",
+    "qa_status_policy": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "NOT_RUN",
+      "N/A"
+    ]
+  },
+  "phases": {
+    "P00": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P01": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P02": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P03": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P04": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P05": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P06": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P07": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P08": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P09": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P10": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P11": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P12": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    },
+    "P13": {
+      "status": "NOT_STARTED",
+      "builds": 0,
+      "tests_executed": 0
+    }
+  },
+  "apk": {
+    "built": false,
+    "source_commit": null,
+    "sha256": null,
+    "build_run_url": null,
+    "artifact_url": null,
+    "install_verified": false
+  },
+  "owner_phone_cases": {
+    "M01": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M02": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M03": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M04": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M05": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M06": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M07": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M08": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M09": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M10": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M11": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M12": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M13": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M14": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M15": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M16": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M17": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M18": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M19": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M20": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M21": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M22": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M23": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M24": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M25": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M26": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M27": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M28": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M29": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M30": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M31": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M32": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M33": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M34": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M35": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M36": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M37": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M38": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M39": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M40": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M41": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M42": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M43": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M44": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "M45": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    }
+  },
+  "technical_cases": {
+    "T01": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T02": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T03": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T04": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T05": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T06": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T07": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T08": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T09": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T10": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T11": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T12": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T13": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T14": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T15": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    }
+  },
+  "acceptance_criteria": {
+    "AC01": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC02": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC03": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC04": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC05": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC06": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC07": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC08": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC09": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC10": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC11": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC12": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    }
+  },
+  "field_coverage": {
+    "owner_phone": "NOT_RUN",
+    "pixel": "NOT_RUN",
+    "samsung": "NOT_RUN",
+    "xiaomi": "NOT_RUN",
+    "vehicle_head_units_three": "NOT_RUN"
+  },
+  "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
+  "note": "This is a planning seed, not a test report. Do not prefill PASS or misattribute Issue 7's APK."
+}
