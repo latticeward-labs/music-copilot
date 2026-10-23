@@ -3,7 +3,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/8-audio-focus-route-recovery",
   "planning_date": "2026-10-23",
-  "phase": "P00_SOURCE_AUDIT_COMPLETE_P01_NEXT",
+  "phase": "P01_EXECUTION_CONTRACT_COMPLETE_P02_NEXT",
   "implementation_started": false,
   "source_archive": {
     "name": "MSM2(1)(1).rar",
@@ -42,9 +42,26 @@
       "qa_evidence": "NONE_SOURCE_AUDIT_ONLY"
     },
     "P01": {
-      "status": "NOT_STARTED",
+      "status": "PASS_EXECUTION_CONTRACT_ONLY",
+      "completed_on": "2026-10-23",
+      "owner_approval_scope": "P01_DOCUMENTARY_EXECUTION_GOVERNANCE_NOT_RUNTIME",
+      "contract_document": "docs/implementation/ISSUE_8_PHASE1_GITHUB_EXECUTION_CONTRACT.md",
+      "traceability_document": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "source_archive_reverified_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+      "source_pdf_entries_rehashed": 12,
+      "initial_main_sha": "62c6115ac11af4cb2790b306f885f580b82a146b",
+      "feature_branch": "feature/8-audio-focus-route-recovery",
+      "merge_target": "main",
+      "branch_base_compare_at_entry": {
+        "ahead": 8,
+        "behind": 0
+      },
+      "contract_commit_sha": "78b0a1cd9acdd91902b45cd707af4fb222e5d6c0",
+      "traceability_commit_sha": "6ed024760c8708b9ae1141518023a919ca87d94c",
       "builds": 0,
-      "tests_executed": 0
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_DOCUMENTATION_ONLY"
     },
     "P02": {
       "status": "NOT_STARTED",
@@ -477,7 +494,7 @@
     "vehicle_head_units_three": "NOT_RUN"
   },
   "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
-  "note": "P00 source/readiness audit completed on feature branch; no build/test/Actions/phone QA. P01 next. All 45 M and 15 T NOT_RUN and all 12 AC UNVERIFIED. Dependency #7 merged/owner-attested, not independently verified. Never transfer issue #7 APK evidence to issue #8.",
+  "note": "P01 execution/ownership contract and AC traceability committed to feature branch, documentary gate only. P02 next. All M01-M45, T01-T15 NOT_RUN and AC01-AC12 UNVERIFIED; no P01 APK/build/Gradle/test/Actions/PR/merge.",
   "phase0_readiness": {
     "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
     "dor01": {
@@ -541,5 +558,20 @@
         "topic": "OEM_CALL_FIELD_PROOF_MISSING"
       }
     ]
+  },
+  "p01_execution_control": {
+    "scope": "P01_DOCUMENTS_ONLY",
+    "implementation_started": false,
+    "delivery_contract": "P00-P12_NO_BUILD_NO_TEST_NO_ACTIONS_P13_SINGLE_CUMULATIVE_APK",
+    "code_owners": "LOGICAL_PACKAGE_OWNERS_NOT_GITHUB_ASSIGNEES",
+    "dependency_policy": "REUSE_ISSUE7_AND_ISSUE16_NO_SECOND_PLAYER_OR_FOCUS_REQUEST",
+    "sha_provenance": "ISSUE7_APK_DOES_NOT_PROVE_ISSUE8",
+    "rollback": "REVERT_CULPRIT_PHASE_COMMITS_NO_FORCE_PUSH_PRESERVE_MAIN_AND_ISSUE7",
+    "phase_dependencies_doc": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+    "source_test_gate": "FOCUS_ROUTE_INJECTABLE_SEAM_REQUIRED_P02",
+    "ac_changes": 0,
+    "manual_qa_changes": 0,
+    "technical_qa_changes": 0,
+    "workflow_runs_triggered_by_assistant": 0
   }
 }
