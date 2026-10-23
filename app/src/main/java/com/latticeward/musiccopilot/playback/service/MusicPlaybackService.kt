@@ -27,6 +27,7 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackPlayOrigin
+import com.latticeward.musiccopilot.playback.interruption.FocusCondition
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
 import com.latticeward.musiccopilot.playback.restore.SafePausedRestorePolicy
@@ -134,7 +135,11 @@ class MusicPlaybackService : MediaSessionService() {
                     // an AVRCP Play was pressed or generated on BT reconnect.
                     // Install the gate *before* exposing the MediaSession.
                     systemTransport.configureSystemPlaySafety(
-                        mayPlay = { !interruptionGate.shouldSuppressAutomaticPlay() },
+                        mayPlay = {
+                            !interruptionGate.shouldSuppressAutomaticPlay() &&
+                                (!::focusObserver.isInitialized ||
+                                    focusObserver.policyState.focus == FocusCondition.AVAILABLE)
+                        },
                         routeGeneration = { interruptionGate.routeGeneration },
                     )
                     val builtSession = MediaSession.Builder(this, systemTransport)
@@ -184,7 +189,9 @@ class MusicPlaybackService : MediaSessionService() {
             onBluetoothSinkAvailable = {
                 // Bluetooth reconnect is an observation, NOT a Play request,
                 // user intent, proof of the active output, or latch release.
-                interruptionGate.onBluetoothSinkAvailable()
+                interruptionGate.onBluetoothSinkAvailable(
+                    alreadyPlayingOrRequested = player.isPlaying || player.playWhenReady,
+                )
             },
         ).also { it.start() }
 
@@ -736,7 +743,8 @@ class MusicPlaybackService : MediaSessionService() {
                         val stampedRoute = command.routeGenerationAtReceipt
                             ?: return rejected()
                         if (!interruptionGate.requestIsStillCurrent(stampedRoute) ||
-                            interruptionGate.shouldSuppressAutomaticPlay()
+                            interruptionGate.shouldSuppressAutomaticPlay() ||
+                            focusObserver.policyState.focus != FocusCondition.AVAILABLE
                         ) return rejected()
                     }
                     if (player.mediaItemCount == 0) return rejected()
