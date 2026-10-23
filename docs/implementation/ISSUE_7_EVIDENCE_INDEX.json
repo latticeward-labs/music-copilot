@@ -243,14 +243,15 @@
     {
       "id": "P13",
       "title": "Single final APK, owner QA, PR and delivery",
-      "status": "PASS_OWNER_REPORTED_PENDING_MERGE",
+      "status": "COMPLETE_OWNER_ATTESTED_PR_MERGED_ISSUE_CLOSED",
       "report": "docs/implementation/ISSUE_7_PHASE13_FINAL_APK_BUILD_AND_QA_HANDOFF.md",
       "evidence": [
         "I7-EVD-P13-001",
         "I7-EVD-P13-002",
         "I7-EVD-P13-003",
         "I7-EVD-P13-004",
-        "I7-EVD-P13-005"
+        "I7-EVD-P13-005",
+        "I7-EVD-P13-006"
       ],
       "tests_executed": "OWNER_REPORTED_36_MANUAL_AND_15_TECHNICAL_NO_LOGS",
       "product_ac_pass_count": 13,
@@ -1442,6 +1443,29 @@
       "github_actions_test_runs": 0,
       "provenance": "SINGLE_USER_ATTESTATION_ALL_TESTS_PASSED",
       "result": "PASS_OWNER_REPORTED_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "I7-EVD-P13-006",
+      "phase": "P13",
+      "type": "REAL_PR_MERGE_AND_ISSUE_CLOSURE",
+      "pr_number": 76,
+      "pr_url": "https://github.com/latticeward-labs/music-copilot/pull/76",
+      "merge_commit": "c4ee45ddb543b69c97db1f93b783c97fe190e18f",
+      "merge_method": "merge",
+      "merged_at_utc": "2026-10-23T09:20:21Z",
+      "issue_number": 7,
+      "issue_url": "https://github.com/latticeward-labs/music-copilot/issues/7",
+      "issue_state": "closed",
+      "issue_state_reason": "completed",
+      "owner_reported_manual_pass": 36,
+      "owner_reported_technical_pass": 15,
+      "owner_attestation_evidence": "I7-EVD-P13-005",
+      "technical_machine_logs_available": false,
+      "independent_reviewer_approval": false,
+      "new_github_actions_tests_run": 0,
+      "merge_message_skip_ci": true,
+      "result": "MERGED_AND_CLOSED_ON_OWNER_AUTHORIZATION_WITH_DISCLOSED_QA_LIMITS",
+      "test_run": false
     }
   ],
   "release": {
@@ -1458,15 +1482,15 @@
     "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
     "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
     "apk_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
-    "phone_case_status": "36_OF_36_PASS_OWNER_REPORTED",
-    "technical_case_status": "15_OF_15_PASS_OWNER_REPORTED_NO_JUNIT_OR_ANDROID_LOGS",
-    "pr_state": "OWNER_APPROVED_TO_OPEN_AND_MERGE_PR_WITH_CI_SKIP",
+    "phone_case_status": "36_OF_36_OWNER_REPORTED_PASS",
+    "technical_case_status": "15_OF_15_OWNER_REPORTED_PASS_NO_MACHINE_LOGS",
+    "pr_state": "MERGED",
     "proposed_base": "main",
     "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
     "actions": "OWNER_AUTHORIZED_BUILD_ONLY_GITHUB_ACTIONS_RUN_39854659624_SUCCESS_NO_TESTS",
-    "independent_review": "NOT_COMPLETED_OWNER_EXPLICIT_MERGE_AUTHORIZATION",
-    "merge": "NOT_MERGED",
-    "issue_state": "OPEN",
+    "independent_review": "OWNER_MERGE_EXCEPTION_INDEPENDENT_REVIEW_NOT_PERFORMED",
+    "merge": "MERGED",
+    "issue_state": "CLOSED_COMPLETED",
     "project_v2_status": "NOT_VERIFIED",
     "source_implementation_status": "P00_TO_P12_INTEGRATED_APK_COMPILED_AND_OWNER_ATTESTED",
     "build_environment_status": "GITHUB_ACTIONS_BUILD_ONLY_SUCCESS_AFTER_OWNER_AUTHORIZATION",
@@ -1477,7 +1501,12 @@
       "explicit_merge_and_close": true,
       "source": "conversation owner states all tests PASS",
       "independent_proof_missing": true
-    }
+    },
+    "pr_number": 76,
+    "pr_url": "https://github.com/latticeward-labs/music-copilot/pull/76",
+    "merged_at_utc": "2026-10-23T09:20:21Z",
+    "merge_commit_sha": "c4ee45ddb543b69c97db1f93b783c97fe190e18f",
+    "issue_closed_per_explicit_owner_approval": true
   },
   "known_debt": [
     73,
