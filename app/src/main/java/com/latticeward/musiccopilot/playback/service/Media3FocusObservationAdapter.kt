@@ -104,6 +104,17 @@ internal class Media3FocusObservationAdapter(
                 // Only a known matching transition can attempt guarded resume.
                 // Media3 un-suppresses itself; no additional player.play().
                 accept(InterruptionEvent.FocusRestored(episode))
+                // A deliberate user Play can be accepted while Media3 is
+                // temporarily suppressed. Do not leave its manual-pause latch
+                // armed when real focus suppression finally disappears.
+                if (verifiedPlayPending && state.focus == FocusCondition.AVAILABLE) {
+                    accept(
+                        InterruptionEvent.PlayRequested(
+                            origin = PlayRequestOrigin.VERIFIED_USER,
+                            expectedRouteGeneration = state.routeGeneration,
+                        )
+                    )
+                }
             } else {
                 // An unsuitable/unknown output is NOT evidence of focus regain.
                 accept(InterruptionEvent.FocusLostPermanent)
