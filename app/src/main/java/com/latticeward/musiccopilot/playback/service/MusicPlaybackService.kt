@@ -156,6 +156,12 @@ class MusicPlaybackService : MediaSessionService() {
                 interruptionGate.shouldSuppressAutomaticPlay()
             },
             pauseUnsafePlayback = { player.pause() },
+            onDeniedFocusAutoResume = {
+                // Media3 must stay the sole focus owner. This latch blocks a
+                // denied automatic unsuppression at the existing service gate
+                // before a later callback can inadvertently restart playback.
+                interruptionGate.onDisallowedFocusAutoResume()
+            },
         )
         val appHost = application as PlaybackResolverHost
         pausedCheckpoint = ServicePausedCheckpoint(
