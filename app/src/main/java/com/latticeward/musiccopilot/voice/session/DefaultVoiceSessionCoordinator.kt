@@ -191,11 +191,18 @@ class DefaultVoiceSessionCoordinator(
         attempt = 0
         childJob?.cancel()
         childJob = null
-        if (id != null) {
-            stt.cancel(id)
-            tts.stop(id)
-        }
+        // Revoke every Listening/Processing/Confirming/Executed presentation
+        // immediately. A cancelled generation must never republish a late
+        // recognition/confirmation/feedback result as current.
         mutableState.value = VoiceSessionState.Idle
+        if (id != null) {
+            // Provider teardown is independent: one Android STT provider
+            // failure must not prevent stopping potentially audible TTS.
+            // No transcripts, audio buffers, routes or voice identifiers
+            // are logged as part of interruption cancellation.
+            runCatching { stt.cancel(id) }
+            runCatching { tts.stop(id) }
+        }
     }
 
     private fun failure(code: String): AppResult.Failure = AppResult.Failure(
