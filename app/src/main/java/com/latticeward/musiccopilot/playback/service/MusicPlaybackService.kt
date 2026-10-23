@@ -1135,10 +1135,22 @@ class MusicPlaybackService : MediaSessionService() {
         publishSnapshot()
     }
 
+    /**
+     * P08 single atomic service snapshot source. Player, foreground
+     * notification and lock-screen controls all remain Media3-owned.
+     * UI gets the complete snapshot from exactly one session-extras bundle.
+     * Do not publish the unsafe pre-pause Playing state during interruption.
+     */
     private fun publishSnapshot() {
-        confirmed = projector.capture(player, runtimeError)
-        session.setSessionExtras(wrap(confirmed))
-        if (::pausedCheckpoint.isInitialized) pausedCheckpoint.onSnapshot(confirmed)
+        val next = projector.capture(
+            player = player,
+            error = runtimeError,
+            safePauseRequired = interruptionGate.shouldSuppressAutomaticPlay(),
+        )
+        if (::confirmed.isInitialized && next == confirmed) return
+        confirmed = next
+        session.setSessionExtras(wrap(next))
+        if (::pausedCheckpoint.isInitialized) pausedCheckpoint.onSnapshot(next)
     }
 
     private fun wrap(snapshot: PlaybackSnapshot) = Bundle().apply {
