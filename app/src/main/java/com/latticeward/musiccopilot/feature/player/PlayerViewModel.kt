@@ -39,7 +39,10 @@ data class PlayerUiState(
     val hasTrack: Boolean get() = snapshot.currentItem != null
     val ready: Boolean get() = connection == PlaybackConnectionState.Ready
     val canControl: Boolean get() = ready && hasTrack && !pending
-    val isPlaying: Boolean get() = snapshot.playbackState == PlaybackState.Playing
+    // An old cached Playing snapshot while a MediaController is disconnected
+    // is NOT evidence of currently audible playback. Mini/Full and future
+    // Driving share this same connection-gated presentation projection.
+    val isPlaying: Boolean get() = ready && snapshot.playbackState == PlaybackState.Playing
 }
 
 class PlayerViewModel(
@@ -101,18 +104,25 @@ class PlayerViewModel(
     private fun submit(make: (CommandId) -> PlaybackCommand) {
         if (!mutable.value.canControl) return
         val command = make(CommandId("player-ui-${UUID.randomUUID()}"))
+        val acceptedRevision = mutable.value.snapshot.revision
         mutable.value = mutable.value.copy(pending = true, requestFailed = false)
         viewModelScope.launch {
             try {
                 val result = gateway.execute(command)
-                // No optimistic service snapshot; collector is sole authority.
-                if (result is AppResult.Failure) {
+                // An old failed request is not allowed to show a new error
+                // over a newer authoritative focus/route snapshot.
+                if (result is AppResult.Failure &&
+                    mutable.value.ready &&
+                    mutable.value.snapshot.revision == acceptedRevision
+                ) {
                     mutable.value = mutable.value.copy(requestFailed = true)
                 }
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
-                mutable.value = mutable.value.copy(requestFailed = true)
+                if (mutable.value.ready &&
+                    mutable.value.snapshot.revision == acceptedRevision
+                ) mutable.value = mutable.value.copy(requestFailed = true)
             } finally {
                 mutable.value = mutable.value.copy(pending = false)
             }
