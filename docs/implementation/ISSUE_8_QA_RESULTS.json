@@ -3,7 +3,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/8-audio-focus-route-recovery",
   "planning_date": "2026-10-23",
-  "phase": "P05_WIRED_USB_NOISY_ROUTE_SAFETY_SOURCE_COMPLETE_P06_NEXT",
+  "phase": "P06_BLUETOOTH_RECONNECT_AVRCP_FENCE_SOURCE_COMPLETE_P07_NEXT",
   "implementation_started": true,
   "source_archive": {
     "name": "MSM2(1)(1).rar",
@@ -150,9 +150,31 @@
       "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
     },
     "P06": {
-      "status": "NOT_STARTED",
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE6_BLUETOOTH_RECONNECT_AVRCP_SAFETY_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "system_play_provenance": "SOURCE_STAMPED_AS_AMBIGUOUS_EXTERNAL",
+      "external_play_receipt_early_veto": true,
+      "external_play_worker_epoch_and_focus_recheck": true,
+      "bluetooth_available_no_autoplay": true,
+      "bluetooth_paused_quarantine": "SOURCE_AUTHORED",
+      "physical_remote_play_while_quarantine": "REJECTED_BY_CONSERVATIVE_POLICY",
+      "android_media_key_intent_proof": "NOT_AVAILABLE",
+      "active_route_identity": "NOT_INFERRED",
+      "source_compilation": "NOT_RUN",
+      "actual_hardware_bluetooth_test": "NOT_RUN",
       "builds": 0,
-      "tests_executed": 0
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
     },
     "P07": {
       "status": "NOT_STARTED",
@@ -560,7 +582,7 @@
     "vehicle_head_units_three": "NOT_RUN"
   },
   "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
-  "note": "P05 wired/USB/noisy source changes committed: route loss now invalidates suspended queue/restore/recovery on idle or empty Player, coalesces Media3 noisy/AudioDeviceCallback events, and sends P02 RouteDisconnected. This is source review only. M01-M45 and T01-T15 remain NOT_RUN; AC01-AC12 UNVERIFIED. No P05 compilation/build/APK/Actions/tests. P06 next.",
+  "note": "P06 source-only: coarse BT A2DP/BLE/headset availability, reconnection-no-autoplay latch and quarantine on BT sink added while paused; MediaSession ambiguous external Play stamped with receipt-time route generation and rechecked before worker playback. Real media-key human intent cannot be proven; quarantine blocks genuine remote Play too until private UI/Voice command. No compile/build/Gradle/test/Actions/APK. P07 next. AC all UNVERIFIED, M/T NOT_RUN.",
   "phase0_readiness": {
     "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
     "dor01": {
@@ -681,5 +703,15 @@
     "physical_no_leak_verified": false,
     "voice_cancellation": "P09_PENDING",
     "oem_tests": "P13_NOT_RUN"
+  },
+  "phase6_readiness": {
+    "next_phase": "P07",
+    "queued_ambiguous_external_play": "P06_RECEIPT_EPOCH_WORKER_CHECK_WIRED",
+    "all_app_command_receipt_races": "P07_PENDING",
+    "headset_reconnect_paired_active_route": "CATEGORY_AVAILABLE_NOT_ACTIVE_OUTPUT_PROOF",
+    "real_Bluetooth_Device_evidence": "P13_OWNER_TESTS_NOT_RUN",
+    "untrusted_AVRCP_play_vs_real_media_button": "INDISTINGUISHABLE_CONSERVATIVE_REJECTION",
+    "voice_cancel": "P09_PENDING",
+    "remaining_qa": "45_M_NOT_RUN_15_T_NOT_RUN_12_AC_UNVERIFIED"
   }
 }
