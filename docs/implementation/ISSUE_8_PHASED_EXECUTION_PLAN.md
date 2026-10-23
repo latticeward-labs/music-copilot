@@ -1,0 +1,78 @@
+# Issue #8 — Executable Phased Plan: Audio Focus / Calls / Headset / Bluetooth Recovery
+
+**Date:** 2026-10-23 · **Status:** PLANNING COMPLETE; P00–P13 PRODUCT EXECUTION NOT STARTED · **Priority:** P0 · **Target:** `main` · **Branch:** `feature/8-audio-focus-route-recovery`
+
+## Strict owner delivery contract
+
+1. **P00–P12: no APK, no build (including Gradle compile), no JVM/unit/integration/instrumentation/emulator/manual test execution, no CI or GitHub Actions run.** Work is source audit, design, implementation, test-source authoring, documentation and GitHub commits only.
+2. **P13 only:** one **cumulative** `app-debug.apk` compiled from all P00–P12 changes plus the accepted Issue #7 baseline. Use a manually triggered **BUILD-ONLY** `:app:assembleDebug` workflow (or a local build if available), never a test task. Do not enable trigger-on-push/PR Actions for the plan. Build corrections, if required, are not separate per-phase APK deliveries; publish only one final successful candidate with exact SHA-256/source commit.
+3. **Owner alone performs final phone tests** from the exact P13 APK; report each M-case as PASS/FAIL/BLOCKED/NOT_RUN/N/A. Assistant records reported status and provenance without inferring unperformed PASS. No fake Android/JVM/phone evidence.
+4. Technical tests required by the original Issue #8 AC may have **test source authored** in P12 but **MUST NOT execute** without an explicit separate owner instruction. T-case evidence remains NOT_RUN and original strict ACs stay unchecked until genuinely supported; missing engineering gates are clearly tracked before full release certification.
+5. No merge, Issue close, owner QA PASS, or production readiness claimed by this *planning* commit. No second player, queue, focus owner, backend, streaming, extra sensitive permissions or raw route identifiers.
+
+## Source-of-truth and verified 2026-10-23 baseline
+
+- User-attached English RAR `MSM2(1)(1).rar`, SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`; 12 PDF artifacts. Key: PRD FR-03; MVP Week-4 audio-focus/route safety; System Architecture playback interruption matrix; ADR-0002; User Flow Foundation SYS-07/08/09, D-018/019, UF-11.
+- Accepted repository architecture: [Issue #16](../../issues/16) and [Runtime Policies](../architecture/RUNTIME_POLICIES.md) §8. Transient auto-resume requires ALL: previously Playing, focus returned, unchanged valid route generation, and no later manual Pause. Permanent focus loss: Safe Paused. Wired/Bluetooth disconnect: immediate pause, cancel active Voice, bump route epoch, reconnect does not auto-resume.
+- Dependency [Issue #7](../../issues/7) merged/closed 2026-10-23 via [PR #76](../../pull/76), **owner-reported acceptance**, with independent technical verification limitations documented there. #5/#6 related deferred verification [#73](../../issues/73)/[#74](../../issues/74) is **not** inherited as #8 PASS.
+- Existing code on `main`: `MusicPlaybackService.kt` uses ONE service-owned ExoPlayer/MediaSession, `setAudioAttributes(USAGE_MEDIA/MUSIC, true)` (Media3 owns actual Audio Focus), `setHandleAudioBecomingNoisy(true)`, `ServiceAudioRouteMonitor` via `AudioDeviceCallback`, and `PlaybackInterruptionGate` with route epoch/explicit pause latch. Existing policies are a *partial baseline*, not proof of #8 call/transient race/route correctness. `PlaybackSnapshot` exposes typed service-owned error projection.
+- Android rule: do not install a second manual `AudioManager.requestAudioFocus` owner alongside Media3. If implementation reveals need for explicit focus event visibility, design a compatible, approved observation seam rather than a competing focus request. Android API 35+ target focus eligibility requires top app or foreground service; preserve `mediaPlayback` foreground service.
+- No telephony identifiers, `READ_PHONE_STATE`, call logs, Bluetooth MAC/device names, content URI/song title, or raw Voice transcript in diagnostics. Normal playback interruptions come via Audio Focus/Player and route signals; distinguish actual OS behavior from inferred calls.
+
+## Phase breakdown (P00–P12 = zero building/testing)
+
+| Phase | Executable implementation task | Concrete deliverable / source acceptance |
+|---|---|---|
+| **P00 — Source & readiness audit** | Reconcile all 12 PDF sources, Issue #8 12 AC and 3 DoR, #7 merged runtime and #16, enumerate legacy/noisy/route behavior and approved UF-11. | Source SHA registry, AC→phase matrix, code-gap/readiness report, explicit evidence limitations. **No tests/build.** |
+| **P01 — GitHub execution & ownership contract** | Confirm feature branch base and merge target; record package ownership, cross-Issue dependencies, no-test/one-APK rule, evidence schema and rollback. | Execution contract and traceability index; all QA statuses NOT_RUN. No workflow dispatch. |
+| **P02 — Deterministic interruption state machine** | Design pure state/reducer: Playing/Paused, transient/permanent focus loss, duck, route epoch, manual Pause/Stop, explicit Play, Voice invalidation, focus gain; define event priority/idempotence, guarded resume four predicates and terminal Safe Paused. | Event/state table, pure Kotlin policy and injectable event/time/generation seams. Focus ownership remains Media3. |
+| **P03 — Media3 focus observation & service integration** | Reconcile `setAudioAttributes(..., true)`, Player `playWhenReady` change reasons, suppression, error state and foreground constraints with P02; serialize events on service/player looper, no competing focus manager or direct Activity audio control. | Service adapter and event-to-snapshot integration, documented unknown focus callbacks; no fake call detection. |
+| **P04 — Calls, temporary/permanent focus, ducking** | Implement call-compatible transient pause/resume; permanent loss and denied focus remain paused; correctly distinguish OS-managed ducking vs transient pause; prevent manual Pause/Stop from being overturned by later focus gain; stop/voice interaction as approved. | Four-guard resume integration with real service state, explicit user-override priority, no overlapping audio. |
+| **P05 — Wired/USB/headset removal and noisy audio** | Strengthen Media3 becoming-noisy + service AudioDeviceCallback coordination; classify output sink categories and active/relevant route when knowable; fail closed on uncertain high-risk removal; no pop to phone speaker; de-duplicate duplicate noisy/remove signals. | Safe-pause + route-epoch fencing in service; old route cannot be revived by stale queue/recovery requests. |
+| **P06 — Bluetooth routes and reconnection contract** | Handle A2DP/BLE/compatible headset/head-unit disconnect/reconnect; preserve selected queue and position; forbid reconnect-only auto-play, including unwanted OEM head-unit Play-on-connect as far as event provenance is detectable; allow deliberate verified user Play via supported media keys. | Documented reconnect/manual resume/media-key behavior and conservative fallback for indistinguishable OS-generated Play. |
+| **P07 — Fast event ordering & race containment** | Handle focus gain/loss bursts, simultaneous call/noisy/disconnect, rapid Bluetooth toggles, lifecycle teardown, stale asynchronous resolver/recovery/Voice callbacks; keep route generations monotonic and gate same-epoch resume. | Serialized reducer application, cancellation/generation tokens, idempotent physical safety pause, no duplicate player/queue mutation. |
+| **P08 — Unified service/system/UI synchronization** | Keep MediaSession, Bluetooth media keys, notification, lock screen, Full Player, MiniPlayer and Driving observing one authoritative Player; publish single atomic snapshot for interruptions; no optimistic auto-resume/second session. | Consistent Playing/Paused/error projections with revision tracking and controller-reconnect behavior. |
+| **P09 — Voice (#10) & Driving handoff** | Define/implement cancellation of active listening/confirmation on call/focus/route invalidation, release temporary voice ducking without accidental restart; retain replaceable Voice provider and microphone consent; do not implement #10 full Voice feature here. | Voice interruption boundary contract + only existing hooks where available; dependency on future #10 explicitly marked. |
+| **P10 — Safe diagnostics & recoverable errors** | Map focus denied/loss, unsafe route, noisy, interrupted playback and stale callback to stable non-sensitive codes; provide actionable ManualResume/Retry where appropriate; omit song/route/device IDs and personal data. | Typed error projection & privacy-safe coarse event taxonomy; no extra network telemetry. |
+| **P11 — Android/OEM & accessibility hardening** | Review API 29/31/33/35/36 behavior, Android 15+ focus/FGS constraints, foreground/background limits, AudioDeviceInfo API guards, service lifecycle, notification/Media3 media-key rules, permission-minimal manifest and recovery UI copy. | Compatibility decision table, source-level guards and accessible short status messages; owner phone + future Pixel/Samsung/Xiaomi/3 vehicle matrix listed, not claimed executed. |
+| **P12 — Cumulative source integration & QA materials** | Integrate code from P02–P11 with merged #7 without overwriting #7 queue/P1 restore. Author deterministic JVM/service test *source*, optional safe fake fixtures, final phone/technical checklist, traceability and QA ledger. Static source review only; **do not run Gradle, tests, emulator, app, Actions or build**. | One coherent branch HEAD; final checklist M01–M45 and deferred T01–T15, all marked NOT_RUN; P13 handoff/rollback. |
+| **P13 — ONE final integrated APK + owner phone QA handoff** | **Only here**, obtain one cumulative installable debug APK with manually triggered `:app:assembleDebug` BUILD-ONLY (or equivalent local) with all P00–P12 source. Capture source commit, exact SHA-256, size, workflow run/artifact and supported Android package metadata. Publish one artifact and the M-case checklist to owner. Owner executes phone cases and returns actual statuses; register without fabrication. | Exactly **one released Issue #8 candidate APK**, complete M01–M45 checklist and results ledger, source/hash traceability. No automated tests are launched. Future review/merge/close only after actual authorization/acceptance. |
+
+## Technical integration rules
+
+- **One owner:** `MusicPlaybackService` → service-owned Media3 ExoPlayer/MediaSession. `PlaybackCommandProcessor` remains serialized command authority; focus/route emergency pause may act immediately in the *same* service/player thread for safety and then publish state. `PlaybackControllerConnection` only observes/commands.
+- **No dual focus management:** keep Media3 automatic audio focus; do not add a separate app-side focus requester. A pure injected focus reducer can model events, but simulation is not evidence that Android emitted them.
+- **Ordering:** route loss and explicit Pause/Stop outrank delayed focus GAIN; after disconnect, reconnection is insufficient. Uncertain route classification must favor safety, and optional user setting cannot override no-leak default without a reviewed policy.
+- **Focus:** pause for real call/transient exclusive interruption, permanent loss safe paused; duck only where appropriate to OS policy, no doubled attenuation or audibly overlapping telephone call; resume only on all four guards.
+- **User intent:** reconnecting wired/Bluetooth, process cold restore, Voice cancellation, mere focus gain or stale OS controller events never by themselves authorize resume. A *new deliberate* Play may, after route and focus revalidation; if head unit automatically issues Play at connect and intent cannot be distinguished, keep paused pending explicit confirmation.
+- **No fake phone test:** Honor x7d Android 15 can be first-owner test; Pixel/stock, Samsung, Xiaomi and three distinct vehicle/head-unit combos are separately tracked as NOT_RUN/BLOCKED until physically verified.
+- **Source-authored tests vs executed tests:** preserving Issue #8's original demand for unit/integration proof does **not** override owner's instruction to defer their execution. If owner later waives an AC for MVP, record an explicit evidence-limited exception; never silently tick 12/12 strict PASS.
+- **Safety:** unplug/reconnect/call/vehicle scenarios only while stationary. Incomplete hardware coverage is not FAIL or PASS automatically.
+
+## Traceability and completion gates
+
+| Acceptance criterion (original Issue #8) | Main phases | Phone evidence | Technical evidence |
+|---|---|---|---|
+| AC01 incoming call/pause-duck/recovery | P02–P04 | M06–M10 | T01–T04 |
+| AC02 focus gain/loss/transient/duck policy | P02–P04 | M11–M17 | T01–T04 |
+| AC03 headset/Bluetooth immediate disconnect pause | P05–P06 | M18–M23, M27–M30 | T05–T06 |
+| AC04 no unintended speaker leakage | P05–P07 | M19–M23, M27–M30 | T05–T07 |
+| AC05 routes reflect service/MediaSession/UI | P07–P08 | M33–M39 | T07–T09 |
+| AC06 reconnect no surprise auto-resume | P06–P07 | M21–M23, M29–M32 | T05–T07 |
+| AC07 rapid events race-free | P07 | M40–M43 | T06–T08 |
+| AC08 Voice focus/call compatibility with #10 | P09 | M44–M45 (if feature available) | T10 |
+| AC09 non-sensitive diagnostic codes | P10 | M39 | T11 |
+| AC10 unit/integration tests | P12 (author only) | — | T01–T15 (NOT_RUN until separately authorized) |
+| AC11 Pixel/Samsung/Xiaomi field matrix | P11–P13 | device-dependent row per OEM; deferred beyond owner's phone | T12–T13 |
+| AC12 no crashes/unintended output | P07–P13 | all applicable M | T05–T15 |
+
+## Final acceptance and provenance
+
+P13 build success establishes **build success**, not phone/system safety or tests. Record `SOURCE_SHA`, `APK_SHA256`, `ACTIONS_RUN_URL` or local build proof, Android/device/build, timestamp and each M/T status separately. `BLOCKED`, `NOT_RUN`, `N/A` are never PASS. Owner-reported PASS has `provenance=OWNER_SELF_REPORT`; executed technical tests require their own actual logs to be `TECHNICALLY_VERIFIED`. Existing issue remains **OPEN**. Source-only phases can be accepted as completed implementation steps without mislabeling Issue #8 release-ready.
+
+## References
+
+- [Issue #8](https://github.com/latticeward-labs/music-copilot/issues/8)
+- [Issue #16 architecture](https://github.com/latticeward-labs/music-copilot/issues/16) / [Runtime Policy](../architecture/RUNTIME_POLICIES.md)
+- [Issue #7 delivery](https://github.com/latticeward-labs/music-copilot/pull/76) / [Service](../../app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt) / [Gate](../../app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt) / [Route monitor](../../app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt)
+- Android: https://developer.android.com/media/optimize/audio-focus and https://developer.android.com/reference/androidx/media3/exoplayer/ExoPlayer
