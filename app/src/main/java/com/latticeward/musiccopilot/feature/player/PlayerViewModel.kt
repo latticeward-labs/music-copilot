@@ -58,7 +58,11 @@ class PlayerViewModel(
     init {
         viewModelScope.launch {
             gateway.connectionState.collect { status ->
+                // The relay publishes the complete Snapshot BEFORE Ready,
+                // but collectors run on independent coroutine schedules.
+                // Always read its latest value together with the new status.
                 mutable.value = mutable.value.copy(
+                    snapshot = gateway.snapshot.value,
                     connection = status,
                     // Do not retain a misleading transient command failure
                     // during a new controller connection.
@@ -68,8 +72,12 @@ class PlayerViewModel(
             }
         }
         viewModelScope.launch {
-            gateway.snapshot.collect { confirmed ->
+            gateway.snapshot.collect {
+                // A queued flow emission may be older than a focus/route
+                // update delivered while this collector was suspended.
+                val confirmed = gateway.snapshot.value
                 mutable.value = mutable.value.copy(
+                    connection = gateway.connectionState.value,
                     snapshot = confirmed,
                     // A recovered successor may carry a brief MediaItem
                     // notice while actually Playing. That is NOT a failed
