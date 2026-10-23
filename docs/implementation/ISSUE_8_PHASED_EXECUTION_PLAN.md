@@ -1,6 +1,6 @@
 # Issue #8 — Executable Phased Plan: Audio Focus / Calls / Headset / Bluetooth Recovery
 
-**Date:** 2026-10-23 · **Status:** P00–P02 SOURCE/CONTRACT GATES COMPLETE; P03 NEXT; P04–P13 NOT STARTED; ALL RUNTIME AC UNVERIFIED · **Priority:** P0 · **Target:** `main` · **Branch:** `feature/8-audio-focus-route-recovery`
+**Date:** 2026-10-23 · **Status:** P00–P03 SOURCE/CONTRACT GATES COMPLETE; P04 NEXT; P05–P13 NOT STARTED; ALL RUNTIME AC UNVERIFIED · **Priority:** P0 · **Target:** `main` · **Branch:** `feature/8-audio-focus-route-recovery`
 
 **P00 evidence:** [Phase 0 source/readiness audit](ISSUE_8_PHASE0_SOURCE_AND_READINESS_AUDIT.md) — PASS_SOURCE_AUDIT_ONLY; 3 DoR dispositions and 8 implementation risks recorded. The [QA ledger](ISSUE_8_QA_RESULTS.json) keeps all 12 AC UNVERIFIED, M01–M45/T01–T15 NOT_RUN. This supersedes earlier planning-only 'P00 next' metadata without claiming runtime verification.
 
@@ -8,7 +8,7 @@
 
 **P02 evidence:** [Pure interruption reducer & event/state matrix](ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md), [Kotlin source](../../app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt) and [updated traceability](ISSUE_8_PHASE1_TRACEABILITY_INDEX.json). P02 = PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED. Four-guard Focus resume, typed transitions/effects and injectable sequence/clock seam authored; **not yet attached to Media3 service** (P03 next). No Gradle/build/QA/APK/Actions, M01–M45/T01–T15 NOT_RUN, AC01–AC12 UNVERIFIED.
 
-## Strict owner delivery contract
+**P03 evidence:** [Media3 focus observation and service integration audit](ISSUE_8_PHASE3_MEDIA3_FOCUS_SERVICE_INTEGRATION.md), [new Player.Listener adapter](../../app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt), [service integration](../../app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt), [traceability](ISSUE_8_PHASE1_TRACEABILITY_INDEX.json). P03 = PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED; 0 Gradle/build/test/Actions, 0 APK. Pure reducer now receives real public Media3 suppression/playWhenReady/isPlaying observations inside the existing service. A public focus reason does not prove a telephone call; enforcing denied Media3 auto-resume and duck/call reconciliation remains P04. P05/P07 route epoch and P06 external media-key provenance remain pending. All 12 AC UNVERIFIED; M01–M45 and T01–T15 NOT_RUN.\n\n## Strict owner delivery contract
 
 1. **P00–P12: no APK, no build (including Gradle compile), no JVM/unit/integration/instrumentation/emulator/manual test execution, no CI or GitHub Actions run.** Work is source audit, design, implementation, test-source authoring, documentation and GitHub commits only.
 2. **P13 only:** one **cumulative** `app-debug.apk` compiled from all P00–P12 changes plus the accepted Issue #7 baseline. Use a manually triggered **BUILD-ONLY** `:app:assembleDebug` workflow (or a local build if available), never a test task. Do not enable trigger-on-push/PR Actions for the plan. Build corrections, if required, are not separate per-phase APK deliveries; publish only one final successful candidate with exact SHA-256/source commit.
