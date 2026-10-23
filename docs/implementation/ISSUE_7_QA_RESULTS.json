@@ -1,7 +1,7 @@
 {
   "issue": 7,
   "scope": "Media3 playback, queue, background, MediaSession",
-  "status": "OWNER_REPORTED_51_OF_51_PASS_INDEPENDENT_TECHNICAL_PROOF_MISSING",
+  "status": "OWNER_REPORTED_51_PASS_PR76_MERGED_ISSUE7_CLOSED_TECHNICAL_LOGS_MISSING",
   "source_branch": "feature/7-media3-playback-queue-session",
   "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
   "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
@@ -385,7 +385,7 @@
     ],
     "p13_attempt": {
       "phase": "P13",
-      "status": "OWNER_REPORTED_ALL_PASS",
+      "status": "OWNER_ATTESTED_COMPLETED_PR_MERGED_ISSUE_CLOSED",
       "date": "2026-10-23",
       "build_workflow": "Issue 7 P13 - ONE cumulative Android APK (BUILD ONLY)",
       "source_branch": "feature/7-media3-playback-queue-session",
@@ -413,7 +413,13 @@
       "archive_integrity_verified": true,
       "apk_installation_on_phone": "OWNER_REPORT_IMPLIES_INSTALLED_NOT_INDEPENDENTLY_VERIFIED",
       "owner_phone_qa_m01_m36": "36_PASS_OWNER_SELF_REPORTED",
-      "technical_qa_t01_t15": "15_PASS_OWNER_SELF_REPORTED_NO_MACHINE_LOGS"
+      "technical_qa_t01_t15": "15_PASS_OWNER_SELF_REPORTED_NO_MACHINE_LOGS",
+      "merge_pr_number": 76,
+      "merge_commit": "c4ee45ddb543b69c97db1f93b783c97fe190e18f",
+      "issue_closed_completed": true,
+      "technical_machine_evidence_provided": false,
+      "independent_review_completed": false,
+      "owner_merge_authorization_explicit": true
     },
     "owner_attestation": {
       "id": "OWNER_ATTESTATION_2026-10-23",
