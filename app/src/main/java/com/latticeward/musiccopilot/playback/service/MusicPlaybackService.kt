@@ -168,18 +168,10 @@ class MusicPlaybackService : MediaSessionService() {
             appHost.createPlaybackRestorableQueueStore(),
             appHost.playbackCheckpointWriteScope(),
         )
+        // Both service AudioDeviceCallback and Media3 noisy feed exactly
+        // the same high-priority path, independent of Player queue/state.
         routeMonitor = ServiceAudioRouteMonitor(this) {
-            if (::player.isInitialized && player.mediaItemCount > 0 &&
-                (player.playbackState != Player.STATE_IDLE || player.playWhenReady)
-            ) {
-                // High-priority route loss must bypass potentially long
-                // MediaStore queue preparation; pausing via Player directly
-                // is the sole service's emergency safe-pause, not a competing
-                // controller, independent queue or ordinary command.
-                interruptionGate.onHeadsetOrBluetoothLost()
-                player.pause()
-                publishSnapshot()
-            }
+            handlePersonalOutputDisconnected()
         }.also { it.start() }
 
         player.addListener(object : Player.Listener {
@@ -188,10 +180,10 @@ class MusicPlaybackService : MediaSessionService() {
             ) {
                 focusObserver.onPlayWhenReadyChanged(playWhenReady, reason)
                 if (!playWhenReady && PlaybackInterruptionGate.isNoisyChangeReason(reason)) {
-                    // Media3 already paused the real player. Arm the same
-                    // latch as the device callback even if OEM emits only
-                    // AUDIO_BECOMING_NOISY and no AudioDeviceCallback removal.
-                    interruptionGate.onHeadsetOrBluetoothLost()
+                    // Media3 has paused its own Player; still bump the route
+                    // epoch even if it was IDLE or empty while IO was pending.
+                    // A subsequent AudioDeviceCallback is de-duplicated.
+                    handlePersonalOutputDisconnected()
                 }
             }
             override fun onPlaybackSuppressionReasonChanged(
@@ -256,6 +248,37 @@ class MusicPlaybackService : MediaSessionService() {
                     )
                 }
             }
+        }
+    }
+
+    /**
+     * P05: URGENT lost-private-output safety transition (wired, USB, BT and
+     * Media3 AUDIO_BECOMING_NOISY). Called only by service-owned Main-looper
+     * callbacks, not the suspended serialized MediaStore command worker.
+     *
+     * Empty/IDLE Player is NOT a reason to skip this event: a queued
+     * ReplaceQueue/select/recovery can be preparing on IO and must not
+     * produce sound on the newly selected built-in speaker later.
+     */
+    private fun handlePersonalOutputDisconnected() {
+        val newEpisode = interruptionGate.onHeadsetOrBluetoothLost()
+        if (newEpisode) {
+            // Invalidate any in-flight cold restore, queue preparation and
+            // decoder recovery before their post-IO route checks complete.
+            ++restoreGeneration
+            ++recoveryGeneration
+            recoveryAttempts = 0
+            if (::focusObserver.isInitialized) {
+                focusObserver.onPersonalOutputDisconnected()
+            }
+        }
+        // Media3 noisy normally already paused. A device callback may not
+        // have paused, so enforce Safe Paused through the SAME Player.
+        if (::player.isInitialized) {
+            if (player.playWhenReady || player.isPlaying) player.pause()
+            // Capture exactly the real service Player/queue; never invent
+            // another Player or a Playing snapshot.
+            if (::session.isInitialized) publishSnapshot()
         }
     }
 
