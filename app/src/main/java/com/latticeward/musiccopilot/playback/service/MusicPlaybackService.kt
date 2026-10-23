@@ -27,6 +27,7 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackPlayOrigin
+import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionHost
 import com.latticeward.musiccopilot.playback.interruption.FocusCondition
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
@@ -186,6 +187,12 @@ class MusicPlaybackService : MediaSessionService() {
                 // before a later callback can inadvertently restart playback.
                 interruptionGate.onDisallowedFocusAutoResume()
                 invalidatePendingSafetyReceipts()
+            },
+            onVoiceCancellationRequested = { reason ->
+                // P09 one real app-scoped Voice owner through the typed root
+                // port. Never start STT/TTS here or wait for queue/IO.
+                (application as PlaybackVoiceInterruptionHost)
+                    .cancelActiveVoiceForPlaybackInterruption(reason)
             },
         )
         val appHost = application as PlaybackResolverHost
