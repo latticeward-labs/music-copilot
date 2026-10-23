@@ -1,0 +1,656 @@
+{
+  "schema_version": 1,
+  "issue": 8,
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/8-audio-focus-route-recovery",
+  "base_branch": "main",
+  "frozen_entry_main_sha": "62c6115ac11af4cb2790b306f885f580b82a146b",
+  "file_type": "P01_SOURCE_TRACEABILITY_NOT_TEST_REPORT",
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12,
+    "hash_status": "ALL_12_ARCHIVE_ENTRIES_HASH_VERIFIED"
+  },
+  "evidence_contract": {
+    "manual_count": 45,
+    "technical_count": 15,
+    "manual_state": "NOT_RUN",
+    "technical_state": "NOT_RUN",
+    "acceptance_state": "UNVERIFIED",
+    "phase_P01": "SOURCE_ONLY",
+    "one_final_build": "P13_ONLY",
+    "technical_execution": "DEFERRED_UNTIL_SEPARATE_OWNER_AUTHORIZATION"
+  },
+  "dor": {
+    "DoR01": {
+      "status": "MERGED_OWNER_ATTESTED_INDEPENDENT_STABILITY_UNVERIFIED",
+      "depends_on_issue": 7
+    },
+    "DoR02": {
+      "status": "APPROVED_ARCHITECTURE",
+      "depends_on_issue": 16
+    },
+    "DoR03": {
+      "status": "PARTIAL_P02_INJECTABLE_EVENT_SEAMS_REQUIRED"
+    }
+  },
+  "owner_map": {
+    "playback_service": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+    "focus_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+    "route_adapter": "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+    "pure_interruption_policy_seam": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt",
+    "commands": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+    "media_session": "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+    "snapshot": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt",
+    "voice_cancellation_port": "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+    "android_manifest": "app/src/main/AndroidManifest.xml",
+    "qa_register": "docs/implementation/ISSUE_8_QA_RESULTS.json"
+  },
+  "phase_dependencies": {
+    "P00": [],
+    "P01": [
+      "P00"
+    ],
+    "P02": [
+      "P01"
+    ],
+    "P03": [
+      "P02"
+    ],
+    "P04": [
+      "P03"
+    ],
+    "P05": [
+      "P03"
+    ],
+    "P06": [
+      "P05"
+    ],
+    "P07": [
+      "P04",
+      "P05",
+      "P06"
+    ],
+    "P08": [
+      "P07"
+    ],
+    "P09": [
+      "P07",
+      "P08"
+    ],
+    "P10": [
+      "P08"
+    ],
+    "P11": [
+      "P08",
+      "P10"
+    ],
+    "P12": [
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P09",
+      "P10",
+      "P11"
+    ],
+    "P13": [
+      "P12"
+    ]
+  },
+  "risk_owners": {
+    "R08-01": [
+      "P02",
+      "P03",
+      "P04"
+    ],
+    "R08-02": [
+      "P05",
+      "P07"
+    ],
+    "R08-03": [
+      "P06",
+      "P07"
+    ],
+    "R08-04": [
+      "P05",
+      "P07",
+      "P13"
+    ],
+    "R08-05": [
+      "P09"
+    ],
+    "R08-06": [
+      "P05",
+      "P06"
+    ],
+    "R08-07": [
+      "P08",
+      "P10"
+    ],
+    "R08-08": [
+      "P11",
+      "P12",
+      "P13"
+    ]
+  },
+  "acceptance_criteria": {
+    "AC01": {
+      "title": "CALL_PAUSE_DUCK_RECOVERY",
+      "phases": [
+        "P02",
+        "P03",
+        "P04"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt"
+      ],
+      "sources": [
+        "FR-03",
+        "UF-11",
+        "ADR-0002"
+      ],
+      "risks": [
+        "R08-01",
+        "R08-05"
+      ],
+      "manual_case_ids": [
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10"
+      ],
+      "technical_case_ids": [
+        "T01",
+        "T02",
+        "T03",
+        "T04"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC02": {
+      "title": "FOCUS_TRANSIENT_PERMANENT_DUCK_POLICY",
+      "phases": [
+        "P02",
+        "P03",
+        "P04"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt"
+      ],
+      "sources": [
+        "Runtime §8",
+        "TS-04",
+        "ADR-0002"
+      ],
+      "risks": [
+        "R08-01"
+      ],
+      "manual_case_ids": [
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17"
+      ],
+      "technical_case_ids": [
+        "T01",
+        "T02",
+        "T03",
+        "T04"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC03": {
+      "title": "IMMEDIATE_WIRED_BLUETOOTH_PAUSE",
+      "phases": [
+        "P05",
+        "P06"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
+      ],
+      "sources": [
+        "FR-03",
+        "UF-11",
+        "ADR-0002"
+      ],
+      "risks": [
+        "R08-02",
+        "R08-04"
+      ],
+      "manual_case_ids": [
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M27",
+        "M28",
+        "M29",
+        "M30"
+      ],
+      "technical_case_ids": [
+        "T05",
+        "T06"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC04": {
+      "title": "NO_UNREQUESTED_PHONE_SPEAKER_LEAK",
+      "phases": [
+        "P05",
+        "P06",
+        "P07"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt"
+      ],
+      "sources": [
+        "FR-03",
+        "SYS-07/08/09",
+        "UF-11"
+      ],
+      "risks": [
+        "R08-02",
+        "R08-03",
+        "R08-04"
+      ],
+      "manual_case_ids": [
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M27",
+        "M28",
+        "M29",
+        "M30"
+      ],
+      "technical_case_ids": [
+        "T05",
+        "T06",
+        "T07"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC05": {
+      "title": "SERVICE_MEDIASESSION_UI_SYNC",
+      "phases": [
+        "P07",
+        "P08"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt"
+      ],
+      "sources": [
+        "ADR-0002",
+        "Runtime §8",
+        "Issue #16"
+      ],
+      "risks": [
+        "R08-07"
+      ],
+      "manual_case_ids": [
+        "M33",
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M39"
+      ],
+      "technical_case_ids": [
+        "T07",
+        "T08",
+        "T09"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC06": {
+      "title": "RECONNECT_NO_SURPRISE_RESUME",
+      "phases": [
+        "P06",
+        "P07"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/SystemTransportPolicy.kt"
+      ],
+      "sources": [
+        "UF-11",
+        "Runtime §8",
+        "ADR-0007"
+      ],
+      "risks": [
+        "R08-03"
+      ],
+      "manual_case_ids": [
+        "M21",
+        "M22",
+        "M23",
+        "M29",
+        "M30",
+        "M31",
+        "M32"
+      ],
+      "technical_case_ids": [
+        "T05",
+        "T06",
+        "T07"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC07": {
+      "title": "RACE_ORDERING_NO_DUPLICATE_PLAYBACK",
+      "phases": [
+        "P07"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
+      ],
+      "sources": [
+        "UF-11",
+        "TS-04"
+      ],
+      "risks": [
+        "R08-02",
+        "R08-03",
+        "R08-04"
+      ],
+      "manual_case_ids": [
+        "M40",
+        "M41",
+        "M42",
+        "M43"
+      ],
+      "technical_case_ids": [
+        "T06",
+        "T07",
+        "T08"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC08": {
+      "title": "VOICE_FOCUS_CALL_INTEROP",
+      "phases": [
+        "P09"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "sources": [
+        "ADR-0004",
+        "Issue #10",
+        "UF-11"
+      ],
+      "risks": [
+        "R08-05"
+      ],
+      "manual_case_ids": [
+        "M44",
+        "M45"
+      ],
+      "technical_case_ids": [
+        "T10"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC09": {
+      "title": "PRIVACY_SAFE_FOCUS_ROUTE_CODES",
+      "phases": [
+        "P10"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "docs/architecture/RUNTIME_POLICIES.md"
+      ],
+      "sources": [
+        "ADR-0003",
+        "Runtime §12-14"
+      ],
+      "risks": [
+        "R08-07"
+      ],
+      "manual_case_ids": [
+        "M39"
+      ],
+      "technical_case_ids": [
+        "T11"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC10": {
+      "title": "DETERMINISTIC_UNIT_INTEGRATION_TEST_COVERAGE",
+      "phases": [
+        "P12"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
+      ],
+      "sources": [
+        "Issue #16 testing architecture",
+        "UF-11"
+      ],
+      "risks": [
+        "R08-01",
+        "R08-08"
+      ],
+      "manual_case_ids": [],
+      "technical_case_ids": [
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC11": {
+      "title": "OEM_DEVICE_FIELD_MATRIX",
+      "phases": [
+        "P11",
+        "P12",
+        "P13"
+      ],
+      "existing_source_files": [
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+      ],
+      "sources": [
+        "MVP Week 4",
+        "UF-11"
+      ],
+      "risks": [
+        "R08-08"
+      ],
+      "manual_case_ids": [],
+      "technical_case_ids": [
+        "T12",
+        "T13"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    },
+    "AC12": {
+      "title": "NO_CRASH_OR_UNINTENDED_OUTPUT",
+      "phases": [
+        "P07",
+        "P08",
+        "P09",
+        "P10",
+        "P11",
+        "P12",
+        "P13"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/AndroidManifest.xml"
+      ],
+      "sources": [
+        "FR-03",
+        "UF-11",
+        "ADR-0002"
+      ],
+      "risks": [
+        "R08-02",
+        "R08-04",
+        "R08-08"
+      ],
+      "manual_case_ids": [
+        "M01",
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M27",
+        "M28",
+        "M29",
+        "M30",
+        "M31",
+        "M32",
+        "M33",
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M39",
+        "M40",
+        "M41",
+        "M42",
+        "M43",
+        "M44",
+        "M45"
+      ],
+      "technical_case_ids": [
+        "T05",
+        "T06",
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": null,
+      "technical_provenance": null,
+      "actual_test_or_build_evidence": null
+    }
+  },
+  "qa_mutation_rules": [
+    "Do not update M01-M45 or T01-T15 to PASS without actual owner/technical evidence",
+    "No product AC may be ticked based on P01 documents alone",
+    "Do not assign a compiled source SHA or APK SHA before P13",
+    "Do not use issue #7 owner acceptance as issue #8 technical evidence",
+    "Never enable or invoke Actions or execute tests P00-P12"
+  ],
+  "references": [
+    "docs/implementation/ISSUE_8_PHASE0_SOURCE_AND_READINESS_AUDIT.md",
+    "docs/implementation/ISSUE_8_PHASE1_GITHUB_EXECUTION_CONTRACT.md",
+    "docs/implementation/ISSUE_8_PHASED_EXECUTION_PLAN.md",
+    "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+    "docs/implementation/ISSUE_8_QA_RESULTS.json",
+    "docs/user-flows/UF-11_INTERRUPTION_AUDIO_ROUTE.md",
+    "docs/architecture/RUNTIME_POLICIES.md",
+    "docs/adr/0002-service-owned-media3-playback.md"
+  ]
+}
