@@ -107,6 +107,16 @@ internal class PlaybackInterruptionGate {
             else -> false
         }
 
+        /** Public Bluetooth output category only; no device/address/route ID. */
+        fun isBluetoothOutput(type: Int): Boolean = when (type) {
+            AudioDeviceInfo.TYPE_BLUETOOTH_A2DP,
+            AudioDeviceInfo.TYPE_BLUETOOTH_SCO,
+            AudioDeviceInfo.TYPE_HEARING_AID,
+            AudioDeviceInfo.TYPE_BLE_HEADSET,
+            AudioDeviceInfo.TYPE_BLE_SPEAKER -> true
+            else -> false
+        }
+
         fun isNoisyChangeReason(reason: Int): Boolean =
             reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_BECOMING_NOISY
     }
