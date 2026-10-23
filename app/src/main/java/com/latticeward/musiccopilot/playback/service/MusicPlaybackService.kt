@@ -383,6 +383,7 @@ class MusicPlaybackService : MediaSessionService() {
         return PlaybackReceiptStamp(
             routeGeneration = interruptionGate.routeGeneration,
             safetyGeneration = safetyGeneration,
+            commandGeneration = restoreGeneration,
         )
     }
 
@@ -397,8 +398,17 @@ class MusicPlaybackService : MediaSessionService() {
         // Pause and Stop are safe and MUST drain in the established order
         // even when newer route/focus interruptions have occurred.
         if (command is PlaybackCommand.Pause || command is PlaybackCommand.Stop) return true
-        return receipt.safetyGeneration == safetyGeneration &&
-            interruptionGate.requestIsStillCurrent(receipt.routeGeneration)
+        if (receipt.safetyGeneration != safetyGeneration ||
+            !interruptionGate.requestIsStillCurrent(receipt.routeGeneration)
+        ) return false
+        // A queued selection/Play can no longer override a newer intent
+        // that arrived while an older MediaStore resolver was suspended.
+        val replacesAudibleIntent =
+            command is PlaybackCommand.ReplaceQueue ||
+                command is PlaybackCommand.SelectQueueIndex ||
+                command is PlaybackCommand.Play
+        return !replacesAudibleIntent ||
+            receipt.commandGeneration == restoreGeneration
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession = session
@@ -742,7 +752,9 @@ class MusicPlaybackService : MediaSessionService() {
         // A newer private/system transport command may be received while this
         // worker is suspended inside MediaStore I/O. An obsolete ReplaceQueue
         // must never start sound after a newer Pause/Stop/selection receipt.
-        val commandEpoch = ++restoreGeneration
+        // P07: do NOT re-stamp queued work at DISPATCH. Its immutable
+        // receipt token was captured on service Main at submit().
+        val commandEpoch = restoreGeneration
         pausedCheckpoint.onExplicitCommand()
         // Any new explicitly dispatched command wins over a pending decoder
         // recovery. In particular, user Pause/Stop cannot be undone by a late
