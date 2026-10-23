@@ -15,8 +15,22 @@ class Media3SnapshotProjector {
     private var queueRevision = 0L
     private var previousQueue: List<MediaRef> = emptyList()
     private var previousIndex: Int? = null
+    private var lastPublished: PlaybackSnapshot? = null
 
-    fun capture(player: Player, error: AppError? = null): PlaybackSnapshot {
+    /**
+     * Capture one immutable observation of the ONE Media3 Player. An OS focus
+     * suppression or urgent service route/manual latch is Safe Paused, NOT
+     * Buffering/Playing, even when Media3 has a pending playWhenReady flag.
+     * MediaSession still owns the actual playback/notification transport.
+     *
+     * Repeated identical observations keep their revision: controller/UI
+     * receive a new revision only for a real state/queue/progress/error change.
+     */
+    fun capture(
+        player: Player,
+        error: AppError? = null,
+        safePauseRequired: Boolean = false,
+    ): PlaybackSnapshot {
         val queue = (0 until player.mediaItemCount).map { pos ->
             MediaRef(player.getMediaItemAt(pos).mediaId)
         }
@@ -30,20 +44,26 @@ class Media3SnapshotProjector {
             previousIndex = index
         }
         val state = when {
-            // A sanitized skipped-item notice must not misrepresent a
-            // successfully recovering/playing successor as PlaybackState.Error.
-            // Terminal errors remain Error when Media3 is actually IDLE.
+            // Do not overwrite a terminal error with a plausible Playing UI.
             player.playerError != null ||
                 (error != null && player.playbackState == Player.STATE_IDLE) ->
                 PlaybackState.Error
             player.playbackState == Player.STATE_ENDED -> PlaybackState.Ended
-            player.playbackState == Player.STATE_BUFFERING -> PlaybackState.Buffering
+            player.playbackState == Player.STATE_IDLE && queue.isEmpty() ->
+                PlaybackState.Idle
+            // Even an unfinished decoder buffer is *not* an active audible
+            // session if the user paused, OS suppressed focus or route failed.
+            safePauseRequired ||
+                !player.playWhenReady ||
+                player.playbackSuppressionReason !=
+                    Player.PLAYBACK_SUPPRESSION_REASON_NONE ->
+                PlaybackState.Paused
             player.isPlaying -> PlaybackState.Playing
-            player.playbackState == Player.STATE_IDLE && queue.isEmpty() -> PlaybackState.Idle
+            player.playbackState == Player.STATE_BUFFERING -> PlaybackState.Buffering
             else -> PlaybackState.Paused
         }
-        return PlaybackSnapshot(
-            revision = ++revision,
+        val sample = PlaybackSnapshot(
+            revision = revision,
             queueRevision = queueRevision,
             playbackState = state,
             queue = queue,
@@ -59,6 +79,12 @@ class Media3SnapshotProjector {
             canSkipNext = index != null && index < queue.lastIndex,
             lastError = error,
         )
+        val prior = lastPublished
+        if (prior != null && prior == sample) return prior
+        if (revision != Long.MAX_VALUE) revision++
+        val published = sample.copy(revision = revision)
+        lastPublished = published
+        return published
     }
 
     /** Legacy explicit refresh hook. No queue mutation is inferred here. */
