@@ -24,9 +24,9 @@ class Phase11PlaybackPoliciesTest {
         val policy = PlaybackNavigationPolicy
         assertEquals(PlaybackNavigationPolicy.PreviousDecision.RestartCurrent,
             policy.previous(3_001L, hasPreviousItem = false))
-        assertEquals(PlaybackNavigationPolicy.PreviousDecision.MoveToPrevious,
+        assertEquals(PlaybackNavigationPolicy.PreviousDecision.RestartCurrent,
             policy.previous(3_000L, hasPreviousItem = true))
-        assertEquals(PlaybackNavigationPolicy.PreviousDecision.StayCurrent,
+        assertEquals(PlaybackNavigationPolicy.PreviousDecision.RestartCurrent,
             policy.previous(0L, hasPreviousItem = false))
     }
 

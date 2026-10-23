@@ -48,7 +48,9 @@ data class LocalSearchUiState(
 /**
  * WF-05 local Search owner. Debounced input (280 ms), cancellation/generation
  * guards, typed errors and OS/MediaStore permission-and-revision gating.
- * Search NEVER scans, plays, queues, invokes voice, or uses network.
+ * Searching NEVER scans or plays automatically. A deliberate song tap now
+ * submits a locally validated ordered queue through the service gateway;
+ * no Voice, network or separate Player is involved.
  */
 class LocalSearchViewModel(
     private val repository: LibraryRepository,
@@ -158,6 +160,14 @@ class LocalSearchViewModel(
             mutable.value.selectionStatus == SelectedSongUiStatus.Validating) return
         cancelSelection()
         val ticket = selectionTicket
+        // P05: snapshot the ordered Song occurrences presently shown on this
+        // Library/group/Search surface. Pagination cannot change this pending
+        // request; service must revalidate all members before queue replacement.
+        val visibleRefs = mutable.value.entries.mapNotNull { entry ->
+            (entry as? LibraryBrowseEntry.Song)?.media?.ref
+        }
+        val selectedIndex = visibleRefs.indexOf(item.ref)
+        if (selectedIndex < 0) return
         val delegate = selection
         mutable.value = mutable.value.copy(
             selectedSong = item,
@@ -167,7 +177,7 @@ class LocalSearchViewModel(
         if (delegate == null) return
         selectJob = viewModelScope.launch {
             try {
-                val answer = delegate.select(item.ref, revision)
+                val answer = delegate.select(item.ref, revision, visibleRefs, selectedIndex)
                 if (selectionTicket != ticket || trustedRevision != revision ||
                     mutable.value.selectedSong?.ref != item.ref) return@launch
                 mutable.value = mutable.value.copy(

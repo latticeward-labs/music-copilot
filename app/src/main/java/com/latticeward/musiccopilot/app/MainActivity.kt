@@ -245,6 +245,14 @@ class MainActivity : ComponentActivity() {
         permissionUi.onActivityPaused()
     }
 
+    override fun onStop() {
+        super.onStop()
+        // P08: detach the Activity-facing MediaController only. An ongoing
+        // playback service is independent of Activity/Compose/Home/rotation/
+        // screen-off. Do not call stopService(), player.pause() or stopSelf().
+        (application as MusicCopilotApplication).bindings.onUiStopped()
+    }
+
     override fun onResume() {
         super.onResume()
         val previouslyGranted = mediaAccess.value == PermissionStatus.Granted
@@ -335,6 +343,7 @@ class MainActivity : ComponentActivity() {
                 libraryIndex = library,
                 playbackConnection = playbackConnection,
                 playbackSnapshot = playbackSnapshot,
+                playbackGateway = bindings.playbackGateway,
                 preferencesRepository = bindings.preferencesRepository,
                 remoteSpeechDecision = bindings.remoteSpeechDecision(),
                 onRevokeCloudSpeechConsent = bindings::revokeCloudSpeechConsent,

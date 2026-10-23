@@ -1,0 +1,66 @@
+name: "Issue 7 P13 - ONE cumulative Android APK (BUILD ONLY)"
+# Owner approved GitHub Actions *only* for one APK build. This workflow must
+# never run JUnit, JVM checks, Android instrumentation, Lint or an emulator.
+# A manually committed request marker on the exact Issue 7 feature branch
+# is the only push trigger. Ordinary code/doc changes do not launch jobs.
+on:
+  push:
+    branches:
+      - feature/7-media3-playback-queue-session
+    paths:
+      - ".github/issue7-p13-apk-request.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue7-p13-build-only-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  assemble-one-cumulative-apk:
+    name: "Assemble combined debug APK only (NO TESTS)"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout full P00-P12 feature branch source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Set up Android SDK tools
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - name: Set up Gradle wrapper
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install Android compile SDK 36
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Build one cumulative app-debug.apk ONLY - NO UNIT TESTS, LINT OR EMULATOR
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon --console=plain :app:assembleDebug --stacktrace
+          apk="app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$apk"
+          sha256sum "$apk" | tee "app/build/outputs/apk/debug/app-debug.apk.sha256"
+          printf '%s\n' "$GITHUB_SHA" > "app/build/outputs/apk/debug/source-commit.txt"
+          printf '%s\n' "NO_TESTS_EXECUTED" > "app/build/outputs/apk/debug/test-status.txt"
+      - name: Upload ONE APK for owner phone QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue7-p13-one-cumulative-phone-apk
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/apk/debug/app-debug.apk.sha256
+            app/build/outputs/apk/debug/source-commit.txt
+            app/build/outputs/apk/debug/test-status.txt

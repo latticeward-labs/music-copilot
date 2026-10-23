@@ -1,0 +1,436 @@
+{
+  "issue": 7,
+  "scope": "Media3 playback, queue, background, MediaSession",
+  "status": "OWNER_REPORTED_51_OF_51_PASS_INDEPENDENT_TECHNICAL_PROOF_MISSING",
+  "source_branch": "feature/7-media3-playback-queue-session",
+  "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+  "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+  "apk_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
+  "device_model": null,
+  "android_version": null,
+  "execution_date": null,
+  "manual_cases": {
+    "M01": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M02": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M03": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M04": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M05": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M06": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M07": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M08": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M09": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M10": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M11": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M12": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M13": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M14": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M15": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M16": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M17": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M18": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M19": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M20": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M21": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M22": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M23": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M24": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M25": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M26": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M27": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M28": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M29": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M30": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M31": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M32": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M33": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M34": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M35": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    },
+    "M36": {
+      "status": "PASS",
+      "note": "PASS reported by the owner for all final phone cases; individual per-case notes not supplied.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23",
+      "provenance": "OWNER_SELF_REPORT",
+      "independently_verified": false
+    }
+  },
+  "technical_cases": {
+    "T01": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T02": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T03": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T04": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T05": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T06": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T07": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T08": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T09": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T10": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T11": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T12": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T13": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T14": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    },
+    "T15": {
+      "status": "PASS",
+      "note": "PASS explicitly reported by owner as part of 'all tests'. Technical JVM/instrumentation/lint logs or case-by-case machine evidence were NOT provided; do not interpret this as a CI/JUnit run or independent technical verification.",
+      "evidence": "OWNER_ATTESTATION_2026-10-23_NO_TECHNICAL_LOGS",
+      "provenance": "OWNER_SELF_REPORT_ONLY",
+      "independently_verified": false
+    }
+  },
+  "metadata": {
+    "statuses": [
+      "NOT_RUN",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "N/A"
+    ],
+    "proof_rule": "Only executed, source-bound test outcomes may be updated; never infer phone PASS from build or vice versa",
+    "related_debt": [
+      "#73",
+      "#74"
+    ],
+    "p13_attempt": {
+      "phase": "P13",
+      "status": "OWNER_REPORTED_ALL_PASS",
+      "date": "2026-10-23",
+      "build_workflow": "Issue 7 P13 - ONE cumulative Android APK (BUILD ONLY)",
+      "source_branch": "feature/7-media3-playback-queue-session",
+      "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "apk_bytes": 36605879,
+      "workflow_run_id": 39854659624,
+      "workflow_job_id": 120089606655,
+      "artifact_id": 12458647942,
+      "artifact_name": "issue7-p13-one-cumulative-phone-apk",
+      "artifact_expires_at": "2026-11-05T21:09:20Z",
+      "build_command": "./gradlew --no-daemon --console=plain :app:assembleDebug --stacktrace",
+      "build_result": "SUCCESS",
+      "earlier_failed_run_id": 39854155499,
+      "earlier_failed_run_result": "Kotlin compile: MediaSession.ConnectionResult.AcceptedResultBuilder(session, controller); corrected to (session)",
+      "build_only_authorized_by_owner": true,
+      "github_actions_tests_executed": 0,
+      "junit_executed": 0,
+      "android_instrumentation_executed": 0,
+      "emulator_executed": 0,
+      "lint_executed": 0,
+      "manual_phone_results_received": true,
+      "technical_results_received": true,
+      "apk_sha_matched_local": true,
+      "archive_integrity_verified": true,
+      "apk_installation_on_phone": "OWNER_REPORT_IMPLIES_INSTALLED_NOT_INDEPENDENTLY_VERIFIED",
+      "owner_phone_qa_m01_m36": "36_PASS_OWNER_SELF_REPORTED",
+      "technical_qa_t01_t15": "15_PASS_OWNER_SELF_REPORTED_NO_MACHINE_LOGS"
+    },
+    "owner_attestation": {
+      "id": "OWNER_ATTESTATION_2026-10-23",
+      "recorded_at_date": "2026-10-23",
+      "verbatim_fa": "2026-10-23 owner message: 'من همه تست هارو انجام دادم و پاس شدند اینارو در گیت هاب ثبت کن و این issue رو کامل پاس و merge کن'",
+      "scope": "Owner explicitly states ALL tests done and PASS and explicitly requests merge and close",
+      "manual_case_total": 36,
+      "manual_case_reported_pass": 36,
+      "technical_case_total": 15,
+      "technical_case_reported_pass": 15,
+      "per_case_logs_provided": false,
+      "junit_or_android_test_log_provided": false,
+      "lint_log_provided": false,
+      "sha256_of_owner_tested_phone_apk": "not separately submitted; associated with last delivered artifact",
+      "referenced_delivered_apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "owner_report_is_not_independent_validation": true,
+      "actions_test_policy": "GitHub Actions build only; 0 automated test workflows authorized."
+    }
+  }
+}

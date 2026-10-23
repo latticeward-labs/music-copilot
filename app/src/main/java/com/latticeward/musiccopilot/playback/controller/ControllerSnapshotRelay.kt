@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.StateFlow
 /**
  * Pure, testable publication gate. A new controller must atomically replace
  * the COMPLETE session snapshot before declaring Ready. UI recreation does not
- * create or mutate service authority. A stale previous-session revision may only
- * be replaced by a confirmed fresh connection.
+ * create or mutate service authority. An older **or duplicate** service revision cannot overwrite the latest
+ * accepted publication. A confirmed fresh connection may reset the epoch.
  */
 class ControllerSnapshotRelay {
     private val mutableConnection = MutableStateFlow(PlaybackConnectionState.Disconnected)
@@ -31,7 +31,7 @@ class ControllerSnapshotRelay {
 
     fun publish(wholeSnapshot: PlaybackSnapshot, isInitialAfterConnect: Boolean): Boolean {
         if (!isInitialAfterConnect &&
-            wholeSnapshot.revision < mutableSnapshot.value.revision) return false
+            wholeSnapshot.revision <= mutableSnapshot.value.revision) return false
         mutableSnapshot.value = wholeSnapshot
         mutableConnection.value = PlaybackConnectionState.Ready
         return true

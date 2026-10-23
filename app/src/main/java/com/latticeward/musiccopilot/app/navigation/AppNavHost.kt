@@ -31,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.latticeward.musiccopilot.R
 import com.latticeward.musiccopilot.app.theme.MusicColors
 import com.latticeward.musiccopilot.app.theme.MusicSize
@@ -50,6 +51,9 @@ import com.latticeward.musiccopilot.feature.search.LocalSearchScreen
 import com.latticeward.musiccopilot.feature.search.LocalSearchViewModel
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
+import com.latticeward.musiccopilot.playback.api.PlaybackGateway
+import com.latticeward.musiccopilot.feature.player.PlayerViewModel
+import com.latticeward.musiccopilot.feature.player.FullPlayerScreen
 import com.latticeward.musiccopilot.feature.library.LibraryBrowseScreen
 import com.latticeward.musiccopilot.feature.library.LibraryBrowseViewModel
 import com.latticeward.musiccopilot.feature.onboarding.FirstUseScreen
@@ -69,6 +73,7 @@ fun AppNavHost(
     libraryIndex: LibraryIndexSnapshot,
     playbackConnection: PlaybackConnectionState,
     playbackSnapshot: PlaybackSnapshot,
+    playbackGateway: PlaybackGateway,
     preferencesRepository: PreferencesRepository,
     remoteSpeechDecision: CloudSpeechGateDecision,
     onRevokeCloudSpeechConsent: () -> Unit,
@@ -90,9 +95,25 @@ fun AppNavHost(
     onExit: () -> Unit,
 ) {
     val navController = rememberNavController()
+    // A single navigation-scoped ViewModel observes the existing Gateway.
+    // It never creates an ExoPlayer/MediaSession or replaces a queue.
+    val playerModel: PlayerViewModel = viewModel(
+        key = "issue7-service-player",
+        factory = remember(playbackGateway, libraryRepository) {
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    check(modelClass == PlayerViewModel::class.java)
+                    return PlayerViewModel(playbackGateway, libraryRepository) as T
+                }
+            }
+        },
+    )
+    val playerUi by playerModel.ui.collectAsStateWithLifecycle()
     var manualFallback by rememberSaveable { mutableStateOf(false) }
     var settingsOpen by rememberSaveable { mutableStateOf(false) }
     var searchOpen by rememberSaveable { mutableStateOf(false) }
+    var playerOpen by rememberSaveable { mutableStateOf(false) }
     var pendingSearchGroup by remember { mutableStateOf<LibraryBrowseEntry?>(null) }
     var replayingEducation by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(permission) {
@@ -102,6 +123,7 @@ fun AppNavHost(
             // OS denial/revocation owns recovery; never expose old Search
             // rows when no longer authorized to browse local audio.
             searchOpen = false
+            playerOpen = false
             pendingSearchGroup = null
         }
     }
@@ -117,6 +139,7 @@ fun AppNavHost(
         mediaRequestUi.outcome != MediaPermissionOutcome.None ->
             Destination.PermissionRecovery
         actualRoute == BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
+        playerOpen && actualRoute == BootstrapRoute.HomeLibrary -> Destination.FullPlayer
         searchOpen && actualRoute == BootstrapRoute.HomeLibrary ->
             Destination.Search
         else -> Destination.Library
@@ -225,6 +248,9 @@ fun AppNavHost(
                 onRescanLibrary = onRescanLibrary,
                 onSettings = { settingsOpen = true },
                 onSearch = { searchOpen = true },
+                playerUi = playerUi,
+                onOpenPlayer = { playerOpen = true },
+                onTogglePlayback = playerModel::togglePlayPause,
                 initialGroup = pendingSearchGroup,
                 onGroupConsumed = { pendingSearchGroup = null },
                 onExit = onExit,
@@ -252,11 +278,23 @@ fun AppNavHost(
                     searchOpen = false
                 },
                 onSettings = { settingsOpen = true },
+                playerUi = playerUi,
+                onOpenPlayer = { playerOpen = true },
+                onTogglePlayback = playerModel::togglePlayPause,
                 onReviewAccess = {
                     searchOpen = false
                     manualFallback = false
                     onRefreshPermission()
                 },
+            )
+        }
+        composable(Destination.FullPlayer.route) {
+            FullPlayerScreen(
+                model = playerModel,
+                state = playerUi,
+                library = libraryRepository,
+                canReadLocalMetadata = permission == PermissionStatus.Granted,
+                onBack = { playerOpen = false },
             )
         }
         composable(Destination.Settings.route) {

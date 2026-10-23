@@ -39,6 +39,12 @@ object PlaybackWireProtocol {
                 putLong("start", command.startPositionMs)
                 putBoolean("play", command.playWhenReady)
             }
+            is PlaybackCommand.SelectQueueIndex -> {
+                putString("type", "select_index")
+                putInt("index", command.index)
+                putLong("qrev", command.expectedQueueRevision)
+                putBoolean("play", command.playWhenReady)
+            }
             is PlaybackCommand.Play -> putString("type", "play")
             is PlaybackCommand.Pause -> putString("type", "pause")
             is PlaybackCommand.Next -> putString("type", "next")
@@ -54,6 +60,14 @@ object PlaybackWireProtocol {
         val id = args.getString("id")?.takeIf { it.isNotBlank() && it.length <= 128 }
             ?.let(::CommandId) ?: return null
         return when (args.getString("type")) {
+            "select_index" -> {
+                val index = args.getInt("index", -1)
+                val revision = args.getLong("qrev", -1L)
+                if (index < 0 || index >= 5_000 || revision < 0L) return null
+                PlaybackCommand.SelectQueueIndex(
+                    id, index, revision, args.getBoolean("play", true)
+                )
+            }
             "play" -> PlaybackCommand.Play(id)
             "pause" -> PlaybackCommand.Pause(id)
             "stop" -> PlaybackCommand.Stop(id)
@@ -115,7 +129,13 @@ object PlaybackWireProtocol {
             when (args.getString(KEY_ERROR_FAMILY)) {
                 "media" -> AppError.MediaItem(code, Recoverability.RECOVERABLE, RecoveryAction.Skip)
                 "interruption" -> AppError.Interruption(code, Recoverability.RECOVERABLE, RecoveryAction.ManualResume)
-                "playback" -> AppError.Playback(code, Recoverability.RECOVERABLE, RecoveryAction.Retry)
+                "playback" -> if (code == AppErrorCodes.PERMISSION_REVOKED) {
+                    AppError.Playback(
+                        code, Recoverability.USER_ACTION_REQUIRED, RecoveryAction.OpenSettings
+                    )
+                } else {
+                    AppError.Playback(code, Recoverability.RECOVERABLE, RecoveryAction.Retry)
+                }
                 else -> return null
             }
         }
@@ -134,6 +154,7 @@ object PlaybackWireProtocol {
     fun errorExtras(error: AppError): Bundle = Bundle().apply {
         putString(KEY_ERROR, error.code)
         putString(KEY_ERROR_FAMILY, when (error) {
+            is AppError.Permission -> "permission"
             is AppError.MediaItem -> "media"
             is AppError.Controller -> "controller"
             is AppError.Interruption -> "interruption"
@@ -145,6 +166,9 @@ object PlaybackWireProtocol {
         val code = args.getString(KEY_ERROR).orEmpty().takeIf { it in ALLOWED_ERROR_CODES }
             ?: AppErrorCodes.PLAYBACK_REJECTED
         val error = when (args.getString(KEY_ERROR_FAMILY)) {
+            "permission" -> AppError.Permission(
+                code, Recoverability.USER_ACTION_REQUIRED, RecoveryAction.OpenSettings
+            )
             "controller" -> AppError.Controller(code, Recoverability.RECOVERABLE, RecoveryAction.Retry)
             "media" -> AppError.MediaItem(code, Recoverability.RECOVERABLE, RecoveryAction.Skip)
             "interruption" -> AppError.Interruption(code, Recoverability.RECOVERABLE, RecoveryAction.ManualResume)
@@ -155,7 +179,8 @@ object PlaybackWireProtocol {
 
     private val ALLOWED_ERROR_CODES = setOf(
         AppErrorCodes.PLAYBACK_BUSY, AppErrorCodes.PLAYBACK_REJECTED,
-        AppErrorCodes.PLAYBACK_FAILED, AppErrorCodes.CONTROLLER_DISCONNECTED,
+        AppErrorCodes.PLAYBACK_FAILED, AppErrorCodes.PERMISSION_REVOKED,
+        AppErrorCodes.CONTROLLER_DISCONNECTED,
         AppErrorCodes.CONTROLLER_CONNECT_FAILED, AppErrorCodes.CONTROLLER_TIMEOUT,
         AppErrorCodes.MEDIA_ITEM_MISSING, AppErrorCodes.MEDIA_ITEM_CORRUPT,
         AppErrorCodes.MEDIA_ITEM_UNPLAYABLE, AppErrorCodes.ROUTE_INVALIDATED,

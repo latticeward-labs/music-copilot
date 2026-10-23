@@ -1,0 +1,6 @@
+Issue #7 P13
+Owner authorization: GitHub Actions may build exactly one consolidated debug APK from all P00–P12 source phases.
+Do not run any JVM, JUnit, Android, emulator, lint or automatic tests.
+Request 1: build-only workflow; upload one APK and SHA256 for physical phone QA.
+
+Build-only retry 2: fix Media3 1.5.1 AcceptedResultBuilder(session) compile error from failed run 39854155499. Still NO tests, lint, emulator.

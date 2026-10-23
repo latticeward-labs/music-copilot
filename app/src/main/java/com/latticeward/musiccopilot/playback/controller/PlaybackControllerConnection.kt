@@ -23,6 +23,7 @@ import com.latticeward.musiccopilot.playback.service.MusicPlaybackService
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -32,6 +33,8 @@ import kotlin.coroutines.resume
 /**
  * Application-owned Media3 controller. Never creates Player/MediaSession.
  * Ready is published only *after* one complete authoritative service snapshot.
+ * A short snapshot refresh closes an onConnect race without overwriting later
+ * monotonic service revisions. No second service/Player is created.
  */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class PlaybackControllerConnection(
@@ -50,7 +53,12 @@ class PlaybackControllerConnection(
     override val connectionState: StateFlow<PlaybackConnectionState> = relay.connectionState
     override val snapshot: StateFlow<PlaybackSnapshot> = relay.snapshot
 
-    init { if (appContext != null) ensureConnected() }
+    // Do NOT bind/start MediaSessionService from ApplicationBindings'
+    // constructor. MusicCopilotApplication.bindings is not yet assigned,
+    // which could race service restore's store/scope provider access.
+    // Activity.onResume explicitly invokes ensureConnected(); Android
+    // lock-screen/system clients can still bind the service themselves.
+
 
     /** Called from app foreground when a prior controller/service went away. */
     fun ensureConnected() {
@@ -90,6 +98,26 @@ class PlaybackControllerConnection(
                         relay.failed()
                         active = null
                         MediaController.releaseFuture(future)
+                    } else {
+                        // The first accepted complete snapshot establishes
+                        // Ready. Race-safe follow-up rereads actual service
+                        // state in case playback changed during connecting.
+                        ownerScope.launch {
+                            val response = try {
+                                withTimeoutOrNull(3_000L) {
+                                    await(controller.sendCustomCommand(
+                                        PlaybackWireProtocol.snapshotCommand(),
+                                        Bundle.EMPTY,
+                                    ))
+                                }
+                            } catch (cancelled: CancellationException) {
+                                throw cancelled
+                            } catch (_: Exception) { null }
+                            if (!released && generation == token &&
+                                active === controller &&
+                                response?.resultCode == SessionResult.RESULT_SUCCESS
+                            ) accept(response.extras, false)
+                        }
                     }
                 } catch (_: Exception) {
                     connecting = null
@@ -111,15 +139,63 @@ class PlaybackControllerConnection(
         return relay.publish(received, allowRevisionReset)
     }
 
-    override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
+    /** Explicit, bounded service read. UI never advances position locally. */
+    override suspend fun refreshSnapshot(): AppResult<PlaybackSnapshot> {
         val controller = active
+        val capturedGeneration = generation
         if (controller == null || connectionState.value != PlaybackConnectionState.Ready) {
             ensureConnected()
             return disconnected()
         }
         return try {
-            // Transport timeout is an adapter limit, not a product Voice timeout target.
-            val result = withTimeoutOrNull(10_000L) {
+            val result = withTimeoutOrNull(2_500L) {
+                await(controller.sendCustomCommand(
+                    PlaybackWireProtocol.snapshotCommand(), Bundle.EMPTY
+                ))
+            } ?: return AppResult.Failure(AppError.Controller(
+                AppErrorCodes.CONTROLLER_TIMEOUT,
+                Recoverability.RECOVERABLE, RecoveryAction.Retry
+            ))
+            if (released || generation != capturedGeneration ||
+                active !== controller ||
+                connectionState.value != PlaybackConnectionState.Ready
+            ) return disconnected()
+            if (result.resultCode != SessionResult.RESULT_SUCCESS) {
+                PlaybackWireProtocol.decodeFailure(result.extras)
+            } else {
+                val current = PlaybackWireProtocol.decodeSnapshot(
+                    result.extras.getBundle(PlaybackWireProtocol.KEY_SNAPSHOT)
+                ) ?: return disconnected()
+                relay.publish(current, false)
+                AppResult.Success(current)
+            }
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            disconnected()
+        }
+    }
+
+    override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
+        val controller = active
+        val capturedGeneration = generation
+        if (controller == null || connectionState.value != PlaybackConnectionState.Ready) {
+            ensureConnected()
+            return disconnected()
+        }
+        return try {
+            // An ordered MediaStore re-query and FD check for the currently
+            // loaded queue (up to 5,000) may legitimately exceed 10 seconds
+            // on slow SD media. Keep one bounded wait for a complete service
+            // acknowledgement rather than returning a false "failed" result
+            // while the already-accepted queue later starts playing.
+            // Small transport controls retain their shorter 10s budget.
+            val acknowledgementTimeoutMs = when (command) {
+                is PlaybackCommand.ReplaceQueue -> 90_000L
+                is PlaybackCommand.SelectQueueIndex -> 20_000L
+                else -> 10_000L
+            }
+            val result = withTimeoutOrNull(acknowledgementTimeoutMs) {
                 await(controller.sendCustomCommand(
                     PlaybackWireProtocol.executeCommand(),
                     PlaybackWireProtocol.encodeCommand(command)
@@ -127,6 +203,12 @@ class PlaybackControllerConnection(
             } ?: return AppResult.Failure(AppError.Controller(
                 AppErrorCodes.CONTROLLER_TIMEOUT,
                 Recoverability.RECOVERABLE, RecoveryAction.Retry))
+            // A detached Activity's old suspended await must not publish
+            // stale data or report success after a new UI generation exists.
+            if (released || generation != capturedGeneration ||
+                active !== controller ||
+                connectionState.value != PlaybackConnectionState.Ready
+            ) return disconnected()
             if (result.resultCode != SessionResult.RESULT_SUCCESS) {
                 PlaybackWireProtocol.decodeFailure(result.extras)
             } else {
@@ -160,13 +242,27 @@ class PlaybackControllerConnection(
             AppErrorCodes.CONTROLLER_DISCONNECTED,
             Recoverability.RECOVERABLE, RecoveryAction.Retry))
 
-    override fun close() {
-        released = true
-        ++generation
+    /**
+     * P08: called when the last Activity UI stops. Release only the bound
+     * controller, NOT the Media3 service/player. This avoids pinning an
+     * otherwise idle service alive after Recents closure.
+     *
+     * Normal foreground reentry calls ensureConnected(), which accepts a
+     * fresh authoritative snapshot before exposing Ready to the UI.
+     */
+    fun detachUiController() {
+        if (released) return
+        ++generation // Ignore callbacks from old binding/reconnect.
         connecting?.let(MediaController::releaseFuture)
         active?.release()
         active = null
         connecting = null
         relay.disconnected()
+    }
+
+    override fun close() {
+        if (released) return
+        detachUiController()
+        released = true
     }
 }

@@ -27,6 +27,12 @@ class PlaybackCommandProcessor(
         val reply: CompletableDeferred<AppResult<PlaybackSnapshot>>,
     )
 
+    // Bounded in-memory idempotency: retries share the same authoritative
+    // completion, while a reused ID with a different payload is rejected.
+    // No IDs/queue payloads are persisted or sent to telemetry.
+    private val recent = LinkedHashMap<String, Pending>()
+    private val replayCapacity = 256
+
     private val queue = Channel<Pending>(32)
     private var inFlight: Pending? = null
     private var closed = false
@@ -62,15 +68,31 @@ class PlaybackCommandProcessor(
 
     fun submit(command: PlaybackCommand): CompletableDeferred<AppResult<PlaybackSnapshot>> {
         val reply = CompletableDeferred<AppResult<PlaybackSnapshot>>()
-        if (closed) {
+        if (closed || command.commandId.value.isBlank()) {
             reply.complete(rejected())
             return reply
         }
-        if (!queue.trySend(Pending(command, reply)).isSuccess) {
+        recent[command.commandId.value]?.let { prior ->
+            if (prior.command == command) return prior.reply
+            reply.complete(rejected())
+            return reply
+        }
+        val pending = Pending(command, reply)
+        if (!queue.trySend(pending).isSuccess) {
             reply.complete(AppResult.Failure(AppError.Playback(
                 AppErrorCodes.PLAYBACK_BUSY,
                 Recoverability.RECOVERABLE, RecoveryAction.Retry
             )))
+            return reply
+        }
+        recent[command.commandId.value] = pending
+        // Always retain unfinished submissions. With one worker and 32 waiting
+        // slots at most 33 are unfinished; evict oldest COMPLETED entries only.
+        if (recent.size > replayCapacity) {
+            val iterator = recent.entries.iterator()
+            while (recent.size > replayCapacity && iterator.hasNext()) {
+                if (iterator.next().value.reply.isCompleted) iterator.remove()
+            }
         }
         return reply
     }
@@ -84,6 +106,7 @@ class PlaybackCommandProcessor(
             val p = queue.tryReceive().getOrNull() ?: break
             p.reply.complete(rejected())
         }
+        recent.clear()
     }
 
     private fun rejected(): AppResult.Failure =

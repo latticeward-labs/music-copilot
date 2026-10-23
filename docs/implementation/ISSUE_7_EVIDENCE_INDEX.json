@@ -1,0 +1,1511 @@
+{
+  "issue": 7,
+  "schema": "issue7-phase-evidence-v1",
+  "date": "2026-10-22",
+  "report_type": "PHASE_GOVERNANCE_AND_TRACEABILITY_NOT_RUNTIME_QA",
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/7-media3-playback-queue-session",
+  "audited_main_sha": "5679ee5b5f68b09b7715f3c31c339a2201b3c960",
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12
+  },
+  "phase_execution_contract": "docs/implementation/ISSUE_7_PHASE1_EXECUTION_CONTRACT.md",
+  "planned_final_pr_template": ".github/PULL_REQUEST_TEMPLATE/issue-7-media3-playback-queue-session.md",
+  "test_ledger": "docs/implementation/ISSUE_7_QA_RESULTS.json",
+  "manual_test_ids": [
+    "M01",
+    "M02",
+    "M03",
+    "M04",
+    "M05",
+    "M06",
+    "M07",
+    "M08",
+    "M09",
+    "M10",
+    "M11",
+    "M12",
+    "M13",
+    "M14",
+    "M15",
+    "M16",
+    "M17",
+    "M18",
+    "M19",
+    "M20",
+    "M21",
+    "M22",
+    "M23",
+    "M24",
+    "M25",
+    "M26",
+    "M27",
+    "M28",
+    "M29",
+    "M30",
+    "M31",
+    "M32",
+    "M33",
+    "M34",
+    "M35",
+    "M36"
+  ],
+  "technical_test_ids": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "T11",
+    "T12",
+    "T13",
+    "T14",
+    "T15"
+  ],
+  "phase_gates": [
+    {
+      "id": "P00",
+      "title": "Source/readiness audit",
+      "status": "PASS_AUDIT_ONLY",
+      "report": "docs/implementation/ISSUE_7_PHASE0_READINESS_AUDIT.md",
+      "evidence": [
+        "P00-static-source-audit"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "5b8375e9763fdd913726f8e9408420aca3fa8996"
+    },
+    {
+      "id": "P01",
+      "title": "GitHub execution and evidence contract",
+      "status": "PASS_CONTRACT_ONLY",
+      "report": "docs/implementation/ISSUE_7_PHASE1_EXECUTION_CONTRACT.md",
+      "evidence": [
+        "I7-EVD-P01-001"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "436818f0578fa2b104a4183e3d3748ee4010dbcb"
+    },
+    {
+      "id": "P02",
+      "title": "Playback policy and domain contracts",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md",
+      "evidence": [
+        "I7-EVD-P02-001",
+        "I7-EVD-P02-002"
+      ],
+      "tests_executed": true,
+      "product_ac_pass_count": 0,
+      "commit_sha": "fd719f12cd3013a979e0adf506c77ce391248ce7"
+    },
+    {
+      "id": "P03",
+      "title": "Safe local-media URI resolution",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE3_MEDIASTORE_RESOLVER_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P03-001"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "4bbb0680eb3c30ab93e9ed993b11d37e6075af9a"
+    },
+    {
+      "id": "P04",
+      "title": "Deterministic queue engine",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE4_SERVICE_QUEUE_ENGINE_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P04-001",
+        "I7-EVD-P04-002",
+        "I7-EVD-P04-003"
+      ],
+      "tests_executed": true,
+      "product_ac_pass_count": 0,
+      "commit_sha": "f5f82f1d082c6f96ea7edb6faedb5c5431f4c89e"
+    },
+    {
+      "id": "P05",
+      "title": "Real service-owned audio playback",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE5_REAL_PLAYBACK_INTEGRATION_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P05-001",
+        "I7-EVD-P05-002",
+        "I7-EVD-P05-003"
+      ],
+      "tests_executed": true,
+      "product_ac_pass_count": 0,
+      "commit_sha": "479f6a690be548358fb6d6476cacba835f403e10"
+    },
+    {
+      "id": "P06",
+      "title": "MediaSession and controller parity",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE6_MEDIASESSION_CONTROLLER_PARITY_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P06-001",
+        "I7-EVD-P06-002",
+        "I7-EVD-P06-003"
+      ],
+      "tests_executed": true,
+      "product_ac_pass_count": 0,
+      "commit_sha": "3ff432ba3674f7a38ad923f9ec6d48a1c5fccca9"
+    },
+    {
+      "id": "P07",
+      "title": "Full Player, Queue, MiniPlayer Compose handoff",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE7_PLAYER_QUEUE_MINIPLAYER_COMPOSE_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P07-001",
+        "I7-EVD-P07-002"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "1839ba14d700281eebdb38005bfda173b770a2fe"
+    },
+    {
+      "id": "P08",
+      "title": "Background, lifecycle and system surfaces",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE8_BACKGROUND_NOTIFICATION_LIFECYCLE_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P08-001",
+        "I7-EVD-P08-002"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "a752d92b7f67b596e0b55a85e84ae839273f8026"
+    },
+    {
+      "id": "P09",
+      "title": "Audio focus, calls and safe route changes",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE9_AUDIO_FOCUS_ROUTE_SAFETY_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P09-001",
+        "I7-EVD-P09-002"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "93845c7d0076c83f90120f7eefb0616747628aeb"
+    },
+    {
+      "id": "P10",
+      "title": "Corrupt, missing and permission recovery",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE10_CORRUPT_PERMISSION_RECOVERY_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P10-001",
+        "I7-EVD-P10-002"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "ceaaf67043aa721700f62ef9ebbdf7488511a658"
+    },
+    {
+      "id": "P11",
+      "title": "P1 Safe-Paused persistence",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE11_SAFE_PAUSED_RESTORE_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P11-001",
+        "I7-EVD-P11-002"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "2c5d3c904668ddf4a48e12aee3a414bc0ae24f3a"
+    },
+    {
+      "id": "P12",
+      "title": "Full feature integration and QA preparation",
+      "status": "PASS_SCOPED",
+      "report": "docs/implementation/ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md",
+      "evidence": [
+        "I7-EVD-P12-001",
+        "I7-EVD-P12-002",
+        "I7-EVD-P12-003"
+      ],
+      "tests_executed": false,
+      "product_ac_pass_count": 0,
+      "commit_sha": "cb20e764cd26932f132d8be95615c7ddcbecd697"
+    },
+    {
+      "id": "P13",
+      "title": "Single final APK, owner QA, PR and delivery",
+      "status": "PASS_OWNER_REPORTED_PENDING_MERGE",
+      "report": "docs/implementation/ISSUE_7_PHASE13_FINAL_APK_BUILD_AND_QA_HANDOFF.md",
+      "evidence": [
+        "I7-EVD-P13-001",
+        "I7-EVD-P13-002",
+        "I7-EVD-P13-003",
+        "I7-EVD-P13-004",
+        "I7-EVD-P13-005"
+      ],
+      "tests_executed": "OWNER_REPORTED_36_MANUAL_AND_15_TECHNICAL_NO_LOGS",
+      "product_ac_pass_count": 13,
+      "commit_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "requirement": "Real play/pause/next/previous/seek/queue",
+      "phases": [
+        "P02",
+        "P04",
+        "P05"
+      ],
+      "case_refs": [
+        "M03-M14",
+        "T01-T03"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC02",
+      "requirement": "Single service-owned playback lifecycle",
+      "phases": [
+        "P05",
+        "P08"
+      ],
+      "case_refs": [
+        "M15-M19",
+        "T04"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC03",
+      "requirement": "Background/screen-off continuity",
+      "phases": [
+        "P08"
+      ],
+      "case_refs": [
+        "M15-M18",
+        "T04"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC04",
+      "requirement": "Notification/lock-screen/Bluetooth parity",
+      "phases": [
+        "P06",
+        "P08",
+        "P09"
+      ],
+      "case_refs": [
+        "M20-M27",
+        "T05-T06"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC05",
+      "requirement": "Authoritative UI recreation/reconnect",
+      "phases": [
+        "P06",
+        "P07",
+        "P08"
+      ],
+      "case_refs": [
+        "M17-M19",
+        "M28",
+        "T05"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC06",
+      "requirement": "Library validated selection and queue replacement",
+      "phases": [
+        "P03",
+        "P04",
+        "P05",
+        "P07"
+      ],
+      "case_refs": [
+        "M02-M06",
+        "M12",
+        "T07"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC07",
+      "requirement": "Controlled corrupt skip and viable continuation",
+      "phases": [
+        "P10"
+      ],
+      "case_refs": [
+        "M29-M31",
+        "T08"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC08",
+      "requirement": "Approved Playing/Paused/NoTrack/Corrupt UX",
+      "phases": [
+        "P07",
+        "P10"
+      ],
+      "case_refs": [
+        "M01",
+        "M04",
+        "M29-M31",
+        "T09"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC09",
+      "requirement": "Queue/seek/previous/end deterministic unit tests",
+      "phases": [
+        "P02",
+        "P04",
+        "P12"
+      ],
+      "case_refs": [
+        "T01-T03"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC10",
+      "requirement": "MediaSession service/controller integration tests",
+      "phases": [
+        "P06",
+        "P12"
+      ],
+      "case_refs": [
+        "T04-T06"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC11",
+      "requirement": "P1 queue/position restore",
+      "phases": [
+        "P11"
+      ],
+      "case_refs": [
+        "M32-M35",
+        "T10-T11"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC12",
+      "requirement": "Honest process-death boundary",
+      "phases": [
+        "P08",
+        "P11"
+      ],
+      "case_refs": [
+        "M35",
+        "T10-T12"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    },
+    {
+      "id": "AC13",
+      "requirement": "Local-only no streaming/catalog",
+      "phases": [
+        "P03",
+        "P12"
+      ],
+      "case_refs": [
+        "M36",
+        "T13"
+      ],
+      "status": "PASS_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "verified_evidence": [
+        "I7-EVD-P13-005"
+      ],
+      "verified_on_sha": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "attestation_scope": "Owner claims all 51 final cases passed; 0 case-by-case logs/screenshots provided, no independent JVM/Android evidence."
+    }
+  ],
+  "change_records": [
+    {
+      "id": "I7-CHG-P00-001",
+      "phase": "P00",
+      "description": "Readiness audit, phase plan status and Issue update",
+      "commits": [
+        "5b8375e9763fdd913726f8e9408420aca3fa8996",
+        "5228e4ff66360e3d9fc024c85f6de2be270fdce0"
+      ],
+      "kind": "docs",
+      "status": "VERIFIED_SOURCE_AUDIT_NOT_RUNTIME"
+    },
+    {
+      "id": "I7-CHG-P01-001",
+      "phase": "P01",
+      "description": "Execution contract, future-only PR template, phase evidence index, plan and Issue handoff",
+      "commits": [
+        "2907f1a34986233eb9c80a1394e52b6d41434509",
+        "0141a422c834df0f5efcf4f936ad1d6a06d9b063",
+        "436818f0578fa2b104a4183e3d3748ee4010dbcb"
+      ],
+      "kind": "docs",
+      "status": "VERIFIED_DOCUMENT_DELIVERY_ONLY"
+    },
+    {
+      "id": "I7-CHG-P02-001",
+      "phase": "P02",
+      "description": "Pure playback queue validation, filtered queue index preservation, nonwrapping next, approved 3000ms previous semantics, seek clamping/overflow, 13 authored JUnit cases, two legacy assertion adjustments, 17-check reproducible script and P02 policy specification",
+      "commits": [
+        "a5bdcf5134d1ec2f12d0748bea6fdd9f779f840c",
+        "d3c50bd0c9406f09c2725ca34bc9ae3b9b13327c",
+        "c642aef9a611721e68e37dee66a78ae5968d866c",
+        "22b270330c1de39368c03215a6cbcac3cccd6238",
+        "247d4caca15f56eb95114263c407f047ebb245d5",
+        "e04f2dc63ccd94f849ba60d76402602b0eae324f",
+        "03c1c415a8b6e0e4d234bc2a59d038e6393cf9a0",
+        "fd719f12cd3013a979e0adf506c77ce391248ce7"
+      ],
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackQueuePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackNavigationPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase2PlaybackPolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase11PlaybackPoliciesTest.kt",
+        "scripts/check_issue7_phase2_policy.sh",
+        "scripts/issue7_phase2_policy_smoke.kt",
+        "docs/implementation/ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md"
+      ],
+      "kind": "P02_PURE_POLICY_AND_TEST_AUTHORED",
+      "status": "VERIFIED_SCOPED_POLICY_NOT_MEDIA3"
+    },
+    {
+      "id": "I7-CHG-P03-001",
+      "phase": "P03",
+      "kind": "P03_LOCAL_MEDIA_RESOLVER_WITH_FAKE_TESTS_AUTHORED",
+      "description": "Extract existing MediaStoreRefCodec without changing #6 behavior; implement injectable fail-closed service-compatible resolver, API 29–36 Android OS permission/volume/row/read-only FD probe, epoch invalidation and CancellationSignal; write 12 fake-probe JUnit tests and 17-check reproducible Kotlin-only smoke plus scoped source audit.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreRefCodec.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStoreScanner.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/MediaStorePlaybackResolver.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/mediastore/AndroidMediaStorePlaybackProbe.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase3MediaResolverTest.kt",
+        "scripts/issue7_phase3_resolver_smoke.kt",
+        "scripts/check_issue7_phase3_resolver.sh",
+        "docs/implementation/ISSUE_7_PHASE3_MEDIASTORE_RESOLVER_AUDIT.md"
+      ],
+      "commits": [
+        "dc8e3e1a29ac253b46205483e44e850b0a17c90e",
+        "3110f68d0e6b8cbc76de4436b7e58b91a482328f",
+        "f5811903414f63f664e28074ec2cf7aeb393653c",
+        "cb3fd32af762569bfd44c69999280371516b984a",
+        "899d9a830995db345a73f462b0c3c04b3760a62b",
+        "8358107491b3ffaff995999b0bcff20cc7169ee0",
+        "6c2e43964a0e821888677f644054eb81b359a383",
+        "4bbb0680eb3c30ab93e9ed993b11d37e6075af9a"
+      ],
+      "status": "VERIFIED_GITHUB_SOURCE_GATE_ONLY_ANDROID_JUNIT_NOT_RUN"
+    },
+    {
+      "id": "I7-CHG-P04-001",
+      "phase": "P04",
+      "kind": "SERVICE_BOUND_QUEUE_ENGINE_REAL_MEDIA3_QUEUE_MUTATION_AND_SCOPED_KOTLIN_CHECKS",
+      "description": "Implement queue-preflight to P03 resolver via narrow playback.api port and app.di composition root; atomic preparatory failure before single service Player setMediaItems; revision-guarded SelectQueueIndex, nonwrapping navigation, 256 completed replay window while preserving 32 waiting slots; 17 authored JUnit methods; fix ADR-0008 forbidden playback->data import without changing checker; exact blob pure Kotlin 367 smoke checks PASS.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackMediaResolutionPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceQueueEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/LocalMedia3QueueItems.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/PlaybackBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4ServiceQueueEngineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4CommandReplayTest.kt",
+        "scripts/check_issue7_phase4_queue.sh",
+        "scripts/issue7_phase4_queue_smoke.kt",
+        "docs/implementation/ISSUE_7_PHASE4_SERVICE_QUEUE_ENGINE_AUDIT.md"
+      ],
+      "commit_summary_sha": "f5f82f1d082c6f96ea7edb6faedb5c5431f4c89e",
+      "status": "PASS_SCOPED_SOURCE_AND_LOCAL_KOTLIN_SMOKE_NOT_ANDROID"
+    },
+    {
+      "id": "I7-CHG-P05-001",
+      "phase": "P05",
+      "description": "Harden service-owned real Media3 prepare/play/stop/ended route and audio attributes, preserve true callback errors and queue revision, fix Library/Search visible ordered collection selection and selected-occurrence ACK, add 21 JUnit methods and repeatable 15-check pure Kotlin script",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/LibraryMediaSelectionUseCase.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/playback/VisiblePlaybackQueuePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchViewModel.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5VisibleQueuePolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5LibrarySelectionTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5ServicePlaybackContractTest.kt",
+        "scripts/check_issue7_phase5_visible_queue.sh",
+        "scripts/issue7_phase5_visible_queue_smoke.kt",
+        "docs/implementation/ISSUE_7_PHASE5_REAL_PLAYBACK_INTEGRATION_AUDIT.md"
+      ],
+      "kind": "REAL_MEDIA3_SOURCE_AND_VISIBLE_QUEUE_HANDOFF_WITH_SCOPED_POLICY_PROOF",
+      "status": "PASS_SCOPED_CODE_ANDROID_NOT_BUILT"
+    },
+    {
+      "id": "I7-CHG-P06-001",
+      "phase": "P06",
+      "kind": "SYSTEM_MEDIASESSION_CONTROLLER_PARITY_AND_QUEUE_SECURITY",
+      "description": "Construct session with ForwardingPlayer transport façade over same service ExoPlayer; allow only Play/Pause/Next/Previous/Seek/Stop to shared command worker, block external playlist URI/setMediaItems & repeat/shuffle/queue index; controller snapshot reconnect refresh/revision guard; local bounded MediaStore metadata to MediaItem on IO; 25 JUnit + 2 Android instrumentation test methods authored, exact-blob 16 pure Kotlin checks PASS.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/SystemTransportPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/ControllerSnapshotRelay.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackMediaResolutionPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/PlaybackBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/LocalMedia3QueueItems.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase6SystemTransportPolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase6MediaSessionSourceContractTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase6ControllerSnapshotParityTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue7Phase6MediaSessionAndroidTest.kt",
+        "scripts/issue7_phase6_system_transport_smoke.kt",
+        "scripts/check_issue7_phase6_transport.sh",
+        "docs/implementation/ISSUE_7_PHASE6_MEDIASESSION_CONTROLLER_PARITY_AUDIT.md"
+      ],
+      "status": "SCOPED_SOURCE_AND_LOCAL_PURE_KOTLIN_PASS_ANDROID_NOT_RUN",
+      "source_commit": "63fc361cff5fdf6e862561297ced1796ba50fcd8",
+      "final_fix_commit": "3ff432ba3674f7a38ad923f9ec6d48a1c5fccca9",
+      "final_fix": "Explicit androidx.annotation.OptIn(UnstableApi) for Media3 1.5.1 ForwardingPlayer API"
+    },
+    {
+      "id": "I7-CHG-P07-001",
+      "phase": "P07",
+      "kind": "SERVICE_OBSERVED_COMPOSE_PLAYER_QUEUE_MINIPLAYER_SOURCE_DELIVERY",
+      "description": "Implement real WF-06 FullPlayer with Play/Pause/Next/Previous/seek and live service-reported progress, lazy service queue item selection guarded by queue revision; CMP09 MiniPlayer for Library/Search, verified selection-only navigation, metadata presentation on IO and adaptive 150/200% font controls; one shared playback Gateway/VM, removed placeholder. All commits [skip ci]. No tests, Android build, Actions, PR or APK performed, as expressly requested by owner.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/search/LocalSearchScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PackageBoundary.kt",
+        "docs/implementation/ISSUE_7_PHASE7_PLAYER_QUEUE_MINIPLAYER_COMPOSE_AUDIT.md"
+      ],
+      "source_report_commit": "1839ba14d700281eebdb38005bfda173b770a2fe",
+      "status": "PASS_SCOPED_SOURCE_ONLY_ALL_QA_NOT_RUN"
+    },
+    {
+      "id": "I7-CHG-P08-001",
+      "phase": "P08",
+      "kind": "ACTIVITY_INDEPENDENT_MEDIA3_FOREGROUND_AND_RECENTS_LIFECYCLE",
+      "description": "Media3 native FGS and notification preserved, explicit task removal policy retains real foreground-playing/buffering service only, controller-only Activity onStop unbind and foreground reattach, stopWithTask=false, 12 JUnit tests authored but NOT_RUN; no new Player, NotificationManager or POST_NOTIFICATIONS; all [skip ci], no tests/Actions/build/APK.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackTaskLifetimePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/AndroidManifest.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase8TaskRemovalPolicyTest.kt",
+        "docs/implementation/ISSUE_7_PHASE8_BACKGROUND_NOTIFICATION_LIFECYCLE_AUDIT.md"
+      ],
+      "source_commit": "a752d92b7f67b596e0b55a85e84ae839273f8026",
+      "status": "PASS_SCOPED_SOURCE_ONLY_NOT_ANDROID_VERIFIED"
+    },
+    {
+      "id": "I7-CHG-P09-001",
+      "phase": "P09",
+      "kind": "SERVICE_OWNED_MEDIA3_FOCUS_NOISY_AND_ROUTE_LOSS_GUARD",
+      "description": "Media3 ExoPlayer.setHandleAudioBecomingNoisy(true), wake local, preexisting managed audio focus; Android AudioDeviceCallback sink loss fallback on service main; route epoch fences IO-suspended queue/index selection; manual Pause/Stop and reconnect require explicit new Play; 15 JUnit methods authored NOT_RUN; no Actions/test/build/APK. All changes [skip ci].",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "docs/implementation/ISSUE_7_PHASE9_AUDIO_FOCUS_ROUTE_SAFETY_AUDIT.md"
+      ],
+      "source_commit": "93845c7d0076c83f90120f7eefb0616747628aeb",
+      "status": "PASS_SCOPED_SOURCE_ONLY_NOT_ANDROID_OR_AUDIO_VERIFIED"
+    },
+    {
+      "id": "I7-CHG-P10-001",
+      "phase": "P10",
+      "kind": "BOUNDED_DECODER_MISSING_AND_REVOKED_PERMISSION_RECOVERY",
+      "description": "Categorize numeric Media3 playback IO/decoder exceptions and safe nested SecurityException/FileNotFoundException types; pause on error, attempt up to three subsequent MediaStore-revalidated queue occurrences with guarded queue/route/command generations, never auto-skip revoked permission, explicit Next and Play revalidation, truthful MediaSession state, accessible HF-06 recovery UI; 14 JUnit policy methods authored NOT_RUN; all GitHub commits [skip ci], no Actions/tests/build/APK.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackFailureRecoveryPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase10FailureRecoveryPolicyTest.kt",
+        "docs/implementation/ISSUE_7_PHASE10_CORRUPT_PERMISSION_RECOVERY_AUDIT.md"
+      ],
+      "source_commit": "ceaaf67043aa721700f62ef9ebbdf7488511a658",
+      "status": "PASS_SCOPED_SOURCE_ONLY_ANDROID_NOT_VERIFIED"
+    },
+    {
+      "id": "I7-CHG-P11-001",
+      "phase": "P11",
+      "kind": "P1_PROTO_DATASTORE_VERSIONED_SAFE_PAUSED_COLD_RESTORE",
+      "description": "Wire pre-existing app-owned Proto RestorableQueueStore to one MediaSessionService; serialize versioned limited metadata-free snapshots with atomic updateData and main-service 5s active checkpoint, immediate pause/queue/seek saves; cold restore reads before any write, prefers existing live session, superseded by commands/route; MediaStore revalidates and drops missing, clamps position to verified duration, restores strictly Paused with no Play; explicit Stop clears checkpoint; duplicate MediaRefs treated as positional occurrences. 29 new JUnit methods authored NOT_RUN, 22 static source-readback checks only; no Actions/Gradle/JVM/Android/phone/APK.",
+      "changed_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServicePausedCheckpoint.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/restore/SafePausedRestorePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/datastore/RestoreProtoCodec.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackMediaResolutionPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/PlaybackBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase11SafePausedPolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase11RestoreSourceContractTest.kt",
+        "docs/implementation/ISSUE_7_PHASE11_SAFE_PAUSED_RESTORE_AUDIT.md"
+      ],
+      "source_commit": "345e5db7923b7fe1d4e12cb882b017ace1d24136",
+      "status": "PASS_SCOPED_SOURCE_ONLY_ANDROID_NOT_VERIFIED",
+      "final_fix_commit": "2c5d3c904668ddf4a48e12aee3a414bc0ae24f3a",
+      "final_fix": "Service remains sole checkpoint state producer; writes use existing application Main CoroutineScope so normal service teardown does not cancel final atomic store update, no separate audio authority"
+    },
+    {
+      "id": "I7-CHG-P12-001",
+      "phase": "P12",
+      "kind": "CROSS_PHASE_INTEGRATION_SOURCE_FIXES_AND_FINAL_ONLY_QA_READINESS",
+      "description": "Six code integration corrections committed: manifest WAKE_LOCK required by Media3 local wake mode; command receipt epoch preempts stale IO queue/index/Play or decoder recovery; controller generation guards post-await stale UI snapshots and queue-appropriate bounded timeout; lazy controller bind only from Activity foreground avoids Application constructor DI race; nonfatal recovered media notice no longer suppresses background ongoing audio or 5s Proto checkpoint; conditional P10 recovery panel Queue shortcut correct. Authored 15 JVM source tests and 2 Android nonmutating service tests only. GitHub Actions/Gradle/JVM/Android/phone tests/builds executed: ZERO. One P13 cumulative APK pending authorized Android SDK environment.",
+      "changed_paths": [
+        "app/src/main/AndroidManifest.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServicePausedCheckpoint.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/foundation/Issue7Phase12MediaSessionReadOnlyAndroidTest.kt",
+        "docs/implementation/ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md",
+        "docs/implementation/ISSUE_7_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_7_PHASED_EXECUTION_PLAN.md"
+      ],
+      "source_commit": "cb20e764cd26932f132d8be95615c7ddcbecd697",
+      "status": "PASS_SCOPED_SOURCE_REVIEW_ONLY_NO_ANDROID_COMPILATION"
+    },
+    {
+      "id": "I7-CHG-P13-001",
+      "phase": "P13",
+      "kind": "HONEST_FINAL_BUILD_BLOCKER_AND_NON_ACTIONS_WINDOWS_HANDOFF",
+      "description": "Verified exact uploaded source RAR SHA and latest GitHub P00–P12 branch. The current execution sandbox has Java but NO Android SDK, android.jar, Gradle executable, full private-repository checkout or outbound DNS (curl and git ls-remote fail), so no valid APK can be built here. Created a deterministic Windows PowerShell build script that uses JDK17 + Android SDK36 + Gradle Wrapper to produce exactly one local P13 debug APK, SHA256 and source commit attestation, without GitHub Actions or tests. Marked P13 BLOCKED_BUILD_ENV; NO APK, NO test runs, NO PR/merge/close; all 13 AC unverified and 36 manual + 15 technical cases NOT_RUN.",
+      "changed_paths": [
+        "scripts/build_issue7_p13_local.ps1",
+        ".gitignore",
+        "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+        "docs/implementation/ISSUE_7_QA_RESULTS.json",
+        "docs/implementation/ISSUE_7_EVIDENCE_INDEX.json"
+      ],
+      "source_commit": "93afc2a6d4b87e8c01363e467c73b1879da88039",
+      "status": "BLOCKED_NOT_DELIVERED"
+    },
+    {
+      "id": "I7-CHG-P13-002",
+      "phase": "P13",
+      "kind": "OWNER_AUTHORIZED_BUILD_ONLY_GITHUB_ACTIONS_SUCCESS",
+      "description": "Owner explicitly authorized GitHub Actions exclusively to assemble ONE cumulative P00-P12 debug APK without running tests. Isolated workflow issue-7-p13-apk-build-only.yml triggered by .github/issue7-p13-apk-request.txt; first run 39854155499 exposed a Kotlin Media3 AcceptedResultBuilder constructor compile error, which was fixed on feature branch. Second build-only run 39854659624 succeeded; 36,605,879-byte debug APK artifact 12458647942 with SHA256 verified against GitHub and downloaded APK. No JUnit, Android tests, emulator or lint. All 36 manual + 15 technical cases NOT_RUN; AC01-AC13 NOT_VERIFIED; no PR/merge/issue close.",
+      "changed_paths": [
+        ".github/workflows/issue-7-p13-apk-build-only.yml",
+        ".github/issue7-p13-apk-request.txt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "docs/implementation/ISSUE_7_QA_RESULTS.json",
+        "docs/implementation/ISSUE_7_EVIDENCE_INDEX.json"
+      ],
+      "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "build_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624",
+      "apk_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
+      "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "status": "APK_BUILT_OWNER_QA_PENDING"
+    }
+  ],
+  "evidence_records": [
+    {
+      "id": "I7-EVD-P00-001",
+      "phase": "P00",
+      "type": "SOURCE_AUDIT",
+      "source_commit": "5228e4ff66360e3d9fc024c85f6de2be270fdce0",
+      "path": "docs/implementation/ISSUE_7_PHASE0_READINESS_AUDIT.md",
+      "result": "PASS_AUDIT_ONLY",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P01-001",
+      "phase": "P01",
+      "type": "GITHUB_ARTIFACT_READBACK",
+      "source_commit": "436818f0578fa2b104a4183e3d3748ee4010dbcb",
+      "paths": [
+        "docs/implementation/ISSUE_7_PHASE1_EXECUTION_CONTRACT.md",
+        ".github/PULL_REQUEST_TEMPLATE/issue-7-media3-playback-queue-session.md",
+        "docs/implementation/ISSUE_7_EVIDENCE_INDEX.json"
+      ],
+      "checks": [
+        "P01 contract exists and has delivery/rollback/review governance",
+        "P13-only PR template exists and all 13 ACs NOT_VERIFIED",
+        "Evidence index 14 phases/13 AC/36 M/15 T",
+        "Real M/T QA ledger all NOT_RUN"
+      ],
+      "result": "PASS_CONTRACT_ONLY",
+      "test_run": false,
+      "owner_phone_qa": false
+    },
+    {
+      "id": "I7-EVD-P02-001",
+      "phase": "P02",
+      "type": "GITHUB_KOTLIN_POLICY_READBACK",
+      "source_commit": "fd719f12cd3013a979e0adf506c77ce391248ce7",
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackQueuePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackNavigationPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase2PlaybackPolicyTest.kt",
+        "docs/implementation/ISSUE_7_PHASE2_PLAYBACK_QUEUE_POLICY.md"
+      ],
+      "result": "PASS_SCOPED",
+      "test_run": false,
+      "product_ac_pass": false
+    },
+    {
+      "id": "I7-EVD-P02-002",
+      "phase": "P02",
+      "type": "LOCAL_STANDALONE_KOTLIN_POLICY_SMOKE",
+      "toolchain": "kotlinc + Java 21",
+      "method": "Compiled P02 pure policy sources against compatible minimal opaque ID/ReplaceQueue Kotlin definitions, ran 14 check assertions",
+      "result": "PASS_STANDALONE_14_CHECKS",
+      "test_run": true,
+      "full_repository_gradle": false,
+      "android_test": false,
+      "reproducible_repo_smoke_path": "scripts/check_issue7_phase2_policy.sh",
+      "reproducible_repo_smoke_executed": false,
+      "notes": "13 JUnit methods authored but not executed. Source-controlled 17-check smoke authored but not run on full checkout. No P02 M/T or AC runtime PASS."
+    },
+    {
+      "id": "I7-EVD-P03-001",
+      "phase": "P03",
+      "type": "GITHUB_SOURCE_READBACK_STATIC",
+      "report": "docs/implementation/ISSUE_7_PHASE3_MEDIASTORE_RESOLVER_AUDIT.md",
+      "source_commit": "4bbb0680eb3c30ab93e9ed993b11d37e6075af9a",
+      "result": "PASS_SCOPED",
+      "tested_claim": "source artifacts and invariants only",
+      "checks": [
+        "Codec extracted once and scanner references retained symbol",
+        "Android API-specific permission checks and mounted concrete volume",
+        "Read-only URI query and FD with cancellation signal",
+        "Coroutines cancellation + invalidate epoch + recheck",
+        "No successful resolver cache",
+        "12 authored fake JUnit cases; NOT_EXECUTED",
+        "17 authored Kotlin smoke checks; NOT_EXECUTED"
+      ],
+      "test_run": false,
+      "full_android_gradle": false,
+      "junit_executed": false,
+      "apk_built": false,
+      "product_ac_pass": false
+    },
+    {
+      "id": "I7-EVD-P04-001",
+      "phase": "P04",
+      "type": "GITHUB_SOURCE_READBACK_ADR0008_IMPORT_AUDIT",
+      "source_sha": "f5f82f1d082c6f96ea7edb6faedb5c5431f4c89e",
+      "paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackMediaResolutionPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceQueueEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/LocalMedia3QueueItems.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/PlaybackBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4ServiceQueueEngineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4CommandReplayTest.kt",
+        "scripts/check_issue7_phase4_queue.sh",
+        "scripts/issue7_phase4_queue_smoke.kt",
+        "docs/implementation/ISSUE_7_PHASE4_SERVICE_QUEUE_ENGINE_AUDIT.md"
+      ],
+      "checks": [
+        "Zero data.mediastore and app.di imports in playback source",
+        "Single ExoPlayer.Builder + single MediaSession.Builder service",
+        "P04 prepare on injected IO before Player.setMediaItems",
+        "PlaybackResolverHost on Application via app.di",
+        "Revision-guarded queue selection and player-owned queue",
+        "Only local content MediaItem construction",
+        "17 JUnit methods authored, NOT_RUN"
+      ],
+      "result": "PASS_SCOPED_SOURCE_READBACK",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P04-002",
+      "phase": "P04",
+      "type": "OFFLINE_EXACT_BLOB_KOTLIN_SMOKE",
+      "toolchain": "kotlinc 1.9.0 / JDK 21 / local kotlinx-coroutines core, synthetic compatible dependencies",
+      "verified_git_blob_shas": {
+        "ServiceQueueEngine.kt": "c25787bcb545c036209f20a2a166ea682cad57fc",
+        "PlaybackCommandProcessor.kt": "e8808c22ee92d9a44fcf891277f132b8300f56ef",
+        "PlaybackCommand.kt": "5caccb226f6825b1b3f57bd04b8377da51f753bd",
+        "PlaybackQueuePolicy.kt": "4a28bff6af5b5254e07781a15ee4d6924525ac85"
+      },
+      "checks_passed": 367,
+      "checks_total": 367,
+      "queue_checks": 24,
+      "processor_checks": 343,
+      "result": "PASS_LOCAL_PURE_KOTLIN_ONLY",
+      "test_run": true,
+      "full_android_gradle": false,
+      "android_media3": false,
+      "full_junit": false,
+      "device_test": false,
+      "owner_case_test": false,
+      "details": "Exact source blob SHA matched GitHub; tested with synthetic compatible leaf/port snapshots, NOT full Android APK or full checkout."
+    },
+    {
+      "id": "I7-EVD-P04-003",
+      "phase": "P04",
+      "type": "AUTHORED_TESTS_NOT_RUN",
+      "paths": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4ServiceQueueEngineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase4CommandReplayTest.kt",
+        "scripts/check_issue7_phase4_queue.sh",
+        "scripts/issue7_phase4_queue_smoke.kt"
+      ],
+      "junit_test_methods": 17,
+      "junit_execution": "NOT_RUN",
+      "full_checkout_script_execution": "NOT_RUN",
+      "android_instrumentation": "NOT_RUN",
+      "result": "AUTHORED_ONLY_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P05-001",
+      "phase": "P05",
+      "type": "GITHUB_SOURCE_READBACK",
+      "report": "docs/implementation/ISSUE_7_PHASE5_REAL_PLAYBACK_INTEGRATION_AUDIT.md",
+      "source_commit": "479f6a690be548358fb6d6476cacba835f403e10",
+      "checks": [
+        "Single existing ExoPlayer and MediaSession builder",
+        "Explicit Player audio media/music attributes",
+        "Paused/Stopped STATE_IDLE Play calls prepare, Ended seeks zero on explicit Play",
+        "Service exposes actual Buffering/Playing/Paused/Ended/Error, does not infer Playing from command",
+        "Library and Search send visible ordered Song collection with selected index",
+        "Service acknowledgment preserves selected occurrence and subset after nonselected failures",
+        "11 P05 code/test/script artifacts read back"
+      ],
+      "result": "PASS_SCOPED_CODE_READBACK",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P05-002",
+      "phase": "P05",
+      "type": "LOCAL_EXACT_SOURCE_BLOB_KOTLIN",
+      "git_blob_shas": {
+        "Identifiers.kt": "49082b4c0d12afa60772d73eace24d5cac712355",
+        "VisiblePlaybackQueuePolicy.kt": "99afab65cac78cee3fa6c273209c59033b0570a8"
+      },
+      "toolchain": "local kotlinc and Java 21; git hash-object verified both source bytes",
+      "checks_passed": 15,
+      "checks_total": 15,
+      "result": "PASS_PURE_KOTLIN_POLICY_ONLY",
+      "test_run": true,
+      "android_build": false,
+      "gradle_junit": false,
+      "media3_audible": false,
+      "device": false,
+      "notes": "Local synthetic harness; committed 15-check repository script not executed against full checkout."
+    },
+    {
+      "id": "I7-EVD-P05-003",
+      "phase": "P05",
+      "type": "JUNIT_SOURCE_AUTHORSHIP",
+      "paths": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5VisibleQueuePolicyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5LibrarySelectionTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase5ServicePlaybackContractTest.kt"
+      ],
+      "junit_authored_count": 21,
+      "junit_executed": false,
+      "gradle": "NOT_RUN",
+      "android_instrumentation": "NOT_RUN",
+      "owner_handset": "NOT_RUN",
+      "result": "AUTHORED_ONLY_NOT_RUN"
+    },
+    {
+      "id": "I7-EVD-P06-001",
+      "phase": "P06",
+      "type": "GITHUB_STATIC_SOURCE_READBACK",
+      "report": "docs/implementation/ISSUE_7_PHASE6_MEDIASESSION_CONTROLLER_PARITY_AUDIT.md",
+      "checks": [
+        "Single ExoPlayer.Builder and MediaSession.Builder; session uses ForwardingPlayer without second engine",
+        "Private custom commands restricted to same UID AND package",
+        "Controller explicit Player.Commands allowlist, no queue/repeat/shuffle mutation",
+        "Both onAddMediaItems and onSetMediaItems fail closed",
+        "System transport Play/Pause/Next/Previous/Seek/Stop submits through existing PlaybackCommandProcessor",
+        "MediaStore title/artist/album read only on IO and sent locally to MediaMetadata",
+        "Controller revision monotonicity and 3-second refresh after initial snapshot"
+      ],
+      "result": "PASS_SCOPED_STATIC_ONLY",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P06-002",
+      "phase": "P06",
+      "type": "OFFLINE_EXACT_BLOB_KOTLIN_SMOKE",
+      "toolchain": "kotlinc 1.9.0 / JDK 21",
+      "source_blob_sha": {
+        "Identifiers.kt": "49082b4c0d12afa60772d73eace24d5cac712355",
+        "PlaybackCommand.kt": "5caccb226f6825b1b3f57bd04b8377da51f753bd",
+        "SystemTransportPolicy.kt": "6d789704e3756d95313d8f7054d9a619e7a87b21"
+      },
+      "checks_total": 16,
+      "checks_passed": 16,
+      "output": "P06: 16/16 exact-blob Kotlin checks PASS",
+      "result": "PASS_PURE_KOTLIN_POLICY_ONLY",
+      "test_run": true,
+      "full_gradle": false,
+      "android_service": false,
+      "media_session_android": false,
+      "device": false,
+      "note": "No repository checkout script run; local synthesized smoke harness compiled exact GitHub source blob bytes."
+    },
+    {
+      "id": "I7-EVD-P06-003",
+      "phase": "P06",
+      "type": "AUTHORED_UNIT_AND_ANDROID_TESTS_NOT_EXECUTED",
+      "junit_test_methods_authored": 25,
+      "android_instrumented_methods_authored": 2,
+      "full_gradle_junit": "NOT_RUN",
+      "android_instrumentation": "NOT_RUN",
+      "external_controller_other_uid": "NOT_RUN",
+      "notification_lock_bluetooth": "NOT_RUN",
+      "user_apk": "NOT_CREATED",
+      "result": "AUTHORED_ONLY_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P07-001",
+      "phase": "P07",
+      "type": "GITHUB_SOURCE_READBACK_STATIC",
+      "report": "docs/implementation/ISSUE_7_PHASE7_PLAYER_QUEUE_MINIPLAYER_COMPOSE_AUDIT.md",
+      "checks": [
+        "New actual PlayerViewModel and FullPlayerScreen with one Service PlaybackGateway",
+        "Current item and queue taken exclusively from authoritative service snapshot",
+        "Play/Pause/Next/Previous/Seek/Queue select typed commands, no second player",
+        "Library/Search MiniPlayer and ACK-only navigation, Back preserves service playback",
+        "On-screen only 1000ms authoritative snapshot refresh, no local clock",
+        "NoTrack/Buffering/Paused/Playing/Ended/Error/Connecting status and disabled actions",
+        "48dp controls, 72dp MiniPlayer and font 150/200% reflow code",
+        "Changes on feature branch only and no workflow YAML changes"
+      ],
+      "result": "PASS_SCOPED_CODE_READBACK_NOT_BUILT",
+      "test_run": false,
+      "full_android_gradle": false,
+      "ui_runtime": false,
+      "device": false,
+      "github_actions": false
+    },
+    {
+      "id": "I7-EVD-P07-002",
+      "phase": "P07",
+      "type": "OWNER_DEFERRED_P13_FINAL_APK_QA_CONTRACT",
+      "manual_scope": "M01-M14,M17,M19,M20-M25",
+      "technical_scope": "T09 and final technical matrix remain NOT_RUN unless genuine evidence",
+      "tests_run": 0,
+      "junit_test_runs": 0,
+      "android_test_runs": 0,
+      "github_actions_workflows_dispatched": 0,
+      "phone_test_runs": 0,
+      "apk_sha256": null,
+      "result": "ALL_NOT_RUN_P13_ONLY",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P08-001",
+      "phase": "P08",
+      "type": "SOURCE_READBACK_ONLY",
+      "report": "docs/implementation/ISSUE_7_PHASE8_BACKGROUND_NOTIFICATION_LIFECYCLE_AUDIT.md",
+      "source_sha": "a752d92b7f67b596e0b55a85e84ae839273f8026",
+      "checks_passed": 17,
+      "checks_total": 17,
+      "checks": [
+        "Single ExoPlayer and MediaSession",
+        "Service Media3 onTaskRemoved uses isPlaybackOngoing",
+        "Active-only foreground policy; otherwise super.onTaskRemoved",
+        "super.onUpdateNotification retains Media3 FGS and OS media notification",
+        "UI onStop triggers only controller.detachUiController",
+        "Controller generation invalidation and reconnect",
+        "AndroidManifest stopWithTask=false and existing mediaPlayback permissions",
+        "No POST_NOTIFICATIONS permission and no new Player",
+        "12 JUnit task lifetime cases authored"
+      ],
+      "result": "PASS_SCOPED_STATIC_NOT_COMPILED",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P08-002",
+      "phase": "P08",
+      "type": "FINAL_SINGLE_P13_APK_QA_RESERVATION",
+      "junit_authored": 12,
+      "junit_executed": 0,
+      "android_tests_executed": 0,
+      "manual_cases_executed": 0,
+      "github_actions_tests_run_by_assistant": 0,
+      "github_actions_workflows_dispatched": 0,
+      "full_android_build": "NOT_RUN",
+      "final_apk": "NOT_CREATED",
+      "target_owner_phone_cases": [
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M35"
+      ],
+      "target_technical_cases": [
+        "T04",
+        "T05",
+        "T06"
+      ],
+      "result": "ALL_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P09-001",
+      "phase": "P09",
+      "type": "GITHUB_SOURCE_READBACK_ONLY",
+      "report": "docs/implementation/ISSUE_7_PHASE9_AUDIO_FOCUS_ROUTE_SAFETY_AUDIT.md",
+      "checks_passed": 17,
+      "checks_total": 17,
+      "checks": [
+        "One ExoPlayer and MediaSession remains service-owned",
+        "Media3 managed Audio Focus enabled with media usage",
+        "Media3 becoming-noisy listener enabled",
+        "Media3 local WakeMode enabled",
+        "Service private AudioDeviceCallback registered/closed on Main",
+        "Direct safe pause on route-loss callback",
+        "routeGeneration stale IO preflight rejection",
+        "manual Pause/Stop and explicit resume latch",
+        "Bluetooth/Wired types only, no endpoint IDs logged",
+        "15 JUnit tests committed but unexecuted"
+      ],
+      "result": "PASS_SCOPED_SOURCE_STATIC_ONLY",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P09-002",
+      "phase": "P09",
+      "type": "FINAL_P13_OWNER_PHONE_TEST_RESERVATION",
+      "manual_cases": [
+        "M26",
+        "M27",
+        "M28"
+      ],
+      "technical_cases": [
+        "T05",
+        "T06"
+      ],
+      "junit_authored": 15,
+      "junit_run": 0,
+      "gradle_runs": 0,
+      "android_instrumentation_runs": 0,
+      "github_actions_tests_dispatched": 0,
+      "apk": null,
+      "phone_qa_not_run": true,
+      "result": "ALL_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P10-001",
+      "phase": "P10",
+      "type": "GITHUB_SOURCE_READBACK_STATIC",
+      "report": "docs/implementation/ISSUE_7_PHASE10_CORRUPT_PERMISSION_RECOVERY_AUDIT.md",
+      "checks": [
+        "One ExoPlayer and one MediaSession; P10 handlers in service only",
+        "Media3 numeric error category separation for deleted, invalid decoder, unsupported and revoked",
+        "At most 3 forward candidate occurrences per uninterrupted error chain",
+        "Each auto/manual successor verified on IO through existing P03 service resolver",
+        "Strict command/queue/route generation checks after suspend",
+        "No wrap, no retry same failed occurrence, no mutation/deletion of personal files",
+        "Permission revoked invalidates resolver; Play requires fresh MediaStore validation",
+        "Media3 snapshot distinguishes recovered actual Playing/Buffering from terminal Error",
+        "MediaSession wire carries only allowlisted sanitized codes",
+        "WF-06 error/Continue Next/Return accessible UI with no filenames/paths"
+      ],
+      "result": "PASS_SCOPED_CODE_REVIEW_ONLY",
+      "test_run": false,
+      "android_compile": false
+    },
+    {
+      "id": "I7-EVD-P10-002",
+      "phase": "P10",
+      "type": "AUTHOR_ONLY_QA_AND_SINGLE_P13_APK",
+      "junit_methods_authored": 14,
+      "junit_methods_executed": 0,
+      "manual_cases": [
+        "M29",
+        "M30",
+        "M31"
+      ],
+      "technical_cases": [
+        "T08",
+        "T09"
+      ],
+      "android_instrumentation_executed": 0,
+      "github_actions_test_build_requests": 0,
+      "owner_device_tests_executed": 0,
+      "apk_sha256": null,
+      "result": "ALL_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P11-001",
+      "phase": "P11",
+      "type": "GITHUB_READBACK_SOURCE_ONLY",
+      "report": "docs/implementation/ISSUE_7_PHASE11_SAFE_PAUSED_RESTORE_AUDIT.md",
+      "checks_passed": 22,
+      "checks_total": 22,
+      "checks": [
+        "One Media3 ExoPlayer and MediaSession",
+        "5 second real Player checkpoint while active",
+        "Atomic existing Proto DataStore abstraction and mutex/generation writer",
+        "read before write to preserve cold saved queue",
+        "authoritative live session and incoming command/route generation precedences",
+        "P03 revalidated all refs; missing items dropped; P04 full preflight used",
+        "real local MediaStore duration clamps playback position",
+        "Strictly playWhenReady false, prepare and pause; no cold play",
+        "Duplicate stable IDs preserve queue occurrence index",
+        "Immediate queue/paused/paused seek checkpoint and Stop clearing",
+        "29 JUnit tests source-authored, NOT_RUN"
+      ],
+      "result": "PASS_SCOPED_STATIC_CODE_REVIEW_ONLY",
+      "test_run": false,
+      "android_compile": false,
+      "real_device": false
+    },
+    {
+      "id": "I7-EVD-P11-002",
+      "phase": "P11",
+      "type": "ONE_P13_APK_OWNER_QA_RESERVATION",
+      "junit_methods_authored": 29,
+      "junit_methods_executed": 0,
+      "manual_cases": [
+        "M32",
+        "M33",
+        "M34",
+        "M35"
+      ],
+      "technical_cases": [
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "github_actions_tests_builds_dispatched": 0,
+      "gradle_runs": 0,
+      "android_instrumentation_runs": 0,
+      "phone_tests_run": 0,
+      "apk_sha256": null,
+      "known_p12_risks": [
+        "In-flight application-scoped write may still be interrupted by abrupt app-process termination/force-stop",
+        "MediaStore full queue revalidation potentially > controller 10-second request timeout",
+        "Actual force-stop/rotation/live-session behavior OEM-specific"
+      ],
+      "result": "ALL_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P12-001",
+      "phase": "P12",
+      "type": "SOURCE_GITHUB_READBACK_INTEGRATION",
+      "report": "docs/implementation/ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md",
+      "changes_reviewed": [
+        "WAKE_LOCK manifest + Media3 C.WAKE_MODE_LOCAL",
+        "one ExoPlayer and one MediaSession, no external playlist injection",
+        "P02/P05 Library/Search selection through one service-owned Gateway",
+        "P06 private/OS MediaSession integration",
+        "P08 foreground/Home/Recents + lazy controller binding",
+        "P09 audio-focus/route guards + newly received command preemption",
+        "P10 actual decoder fallback + recovered playing notice not treated fatal",
+        "P11 Safe-Paused atomic Proto app-owned write scope",
+        "P07 WF-06 Queue shortcut aligns with recovery panel",
+        "offline/No INTERNET and no leaked file paths/titles"
+      ],
+      "result": "SOURCE_REVIEW_ONLY_NOT_TEST",
+      "tests_executed": 0,
+      "android_compile": "NOT_RUN"
+    },
+    {
+      "id": "I7-EVD-P12-002",
+      "phase": "P12",
+      "type": "AUTHORED_FINAL_P13_TEST_CONTRACTS",
+      "junit_source_regression_methods_authored": 15,
+      "junit_methods_executed": 0,
+      "android_read_only_instrumentation_methods_authored": 2,
+      "android_instrumentation_methods_executed": 0,
+      "owner_phone_executions": 0,
+      "github_actions_workflows_dispatched": 0,
+      "apk": null,
+      "result": "AUTHORED_ONLY_ALL_NOT_RUN",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P12-003",
+      "phase": "P12",
+      "type": "BUILD_ENVIRONMENT_AND_ACCEPTANCE_RESERVATION",
+      "report": "docs/implementation/ISSUE_7_PHASE12_CROSS_PHASE_INTEGRATION_READINESS_AUDIT.md",
+      "java_available": "OpenJDK 21",
+      "android_sdk_available_in_current_container": false,
+      "gradle_available_in_current_container": false,
+      "p13_build_dependency": "APPROVED_NON_GITHUB_ACTIONS_ANDROID_SDK_GRADLE_ENVIRONMENT_REQUIRED",
+      "manual_cases_pending": "M01-M36",
+      "technical_cases_pending": "T01-T15",
+      "issue_ac_pending": "AC01-AC13",
+      "apk_sha256": null,
+      "pr_created": false,
+      "merged": false,
+      "issue_closed": false,
+      "status": "P13_NEXT_ENVIRONMENT_PENDING_SOURCE_ONLY"
+    },
+    {
+      "id": "I7-EVD-P13-001",
+      "phase": "P13",
+      "type": "ACTUAL_SANDBOX_BUILD_ENVIRONMENT_PRECHECK",
+      "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+      "android_sdk": false,
+      "android_jar": false,
+      "gradle_executable": false,
+      "outbound_services_gradle_dns": false,
+      "outbound_github_dns": false,
+      "full_private_repo_checkout": false,
+      "github_source_connector": true,
+      "gradle_assembly_invoked": false,
+      "github_actions_dispatched": false,
+      "apk_sha256": null,
+      "report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md",
+      "result": "BLOCKED_NO_ANDROID_BUILD_ENV"
+    },
+    {
+      "id": "I7-EVD-P13-002",
+      "phase": "P13",
+      "type": "OFFLINE_NON_ACTIONS_BUILD_SCRIPT_PREPARED_NOT_EXECUTED",
+      "script_path": "scripts/build_issue7_p13_local.ps1",
+      "expected_platform": "Windows PowerShell + full feature branch + Android SDK36 + JDK17 + repository Gradle wrapper 8.11.1",
+      "future_artifact": "dist/issue7-p13/MusicCopilot-Issue7-P13-debug.apk",
+      "future_attestation": "dist/issue7-p13/MusicCopilot-Issue7-P13-build.json",
+      "script_executed": false,
+      "script_powershell_parsed": false,
+      "artifact_created": false,
+      "tests_executed": 0,
+      "owner_M_cases": "ALL_NOT_RUN",
+      "technical_T_cases": "ALL_NOT_RUN",
+      "result": "HANDOFF_SOURCE_COMMITTED_NO_BUILD"
+    },
+    {
+      "id": "I7-EVD-P13-003",
+      "phase": "P13",
+      "type": "REAL_GITHUB_ACTIONS_APK_ASSEMBLY_BUILD_ONLY_SUCCESS",
+      "workflow_run_id": 39854659624,
+      "job_id": 120089606655,
+      "artifact_id": 12458647942,
+      "head_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "artifact_name": "issue7-p13-one-cumulative-phone-apk",
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
+      "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "apk_bytes": 36605879,
+      "build_command": "./gradlew --no-daemon --console=plain :app:assembleDebug --stacktrace",
+      "build_result": "SUCCESS",
+      "github_actions_build_runs": 2,
+      "failed_build_run_id": 39854155499,
+      "failed_build_cause": "Kotlin Media3 AcceptedResultBuilder constructor signature mismatch; corrected before successful final APK",
+      "junit_tests_executed": 0,
+      "android_tests_executed": 0,
+      "emulator_tests_executed": 0,
+      "lint_executed": 0,
+      "test_run": false,
+      "result": "BUILD_SUCCESS_OWNER_QA_NOT_RUN"
+    },
+    {
+      "id": "I7-EVD-P13-004",
+      "phase": "P13",
+      "type": "DOWNLOADED_APK_INTEGRITY_AND_OWNER_QA_PENDING",
+      "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "apk_bytes": 36605879,
+      "artifact_zip_extracted": true,
+      "apk_zip_integrity": "NO_ERRORS",
+      "github_generated_sha256_matches_extracted_bytes": true,
+      "owner_manual_cases_pending": 36,
+      "technical_cases_pending": 15,
+      "product_criteria_pending": 13,
+      "owner_device_installation": "NOT_RUN",
+      "result": "APK_READY_TO_INSTALL_NOT_FIELD_TESTED",
+      "test_run": false
+    },
+    {
+      "id": "I7-EVD-P13-005",
+      "phase": "P13",
+      "type": "OWNER_SELF_REPORTED_FULL_QA_ATTESTATION",
+      "recorded_date": "2026-10-23",
+      "owner_verbatim_fa": "من همه تست هارو انجام دادم و پاس شدند اینارو در گیت هاب ثبت کن و این issue رو کامل پاس و merge کن",
+      "manual_case_ids": "M01–M36",
+      "manual_cases_owner_reported_pass": 36,
+      "technical_case_ids": "T01–T15",
+      "technical_cases_owner_reported_pass": 15,
+      "total_reported_pass": 51,
+      "apk_sha256_of_delivered_file": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "apk_source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+      "owner_phone_apk_hash_independently_attested": false,
+      "per_case_logs_attached": false,
+      "technical_machine_logs_attached": false,
+      "independent_reviewer_approval": false,
+      "github_actions_test_runs": 0,
+      "provenance": "SINGLE_USER_ATTESTATION_ALL_TESTS_PASSED",
+      "result": "PASS_OWNER_REPORTED_NOT_INDEPENDENTLY_VERIFIED"
+    }
+  ],
+  "release": {
+    "owner_apk_policy": "SINGLE_INTEGRATED_P13_ONLY",
+    "owner_apk": {
+      "name": "app-debug.apk",
+      "size_bytes": 36605879,
+      "sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+      "artifact_id": 12458647942,
+      "artifact_name": "issue7-p13-one-cumulative-phone-apk",
+      "workflow_run_id": 39854659624,
+      "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b"
+    },
+    "source_commit": "a66b06cdcdfb88d7a3df506158a373b543021d6b",
+    "apk_sha256": "e3aadcb37dac2c291aed8501acb19de2204324d2ceb7d3374758cae5b325aca3",
+    "apk_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/39854659624/artifacts/12458647942",
+    "phone_case_status": "36_OF_36_PASS_OWNER_REPORTED",
+    "technical_case_status": "15_OF_15_PASS_OWNER_REPORTED_NO_JUNIT_OR_ANDROID_LOGS",
+    "pr_state": "OWNER_APPROVED_TO_OPEN_AND_MERGE_PR_WITH_CI_SKIP",
+    "proposed_base": "main",
+    "contributing_develop_exception": "PROPOSED_NOT_APPROVED",
+    "actions": "OWNER_AUTHORIZED_BUILD_ONLY_GITHUB_ACTIONS_RUN_39854659624_SUCCESS_NO_TESTS",
+    "independent_review": "NOT_COMPLETED_OWNER_EXPLICIT_MERGE_AUTHORIZATION",
+    "merge": "NOT_MERGED",
+    "issue_state": "OPEN",
+    "project_v2_status": "NOT_VERIFIED",
+    "source_implementation_status": "P00_TO_P12_INTEGRATED_APK_COMPILED_AND_OWNER_ATTESTED",
+    "build_environment_status": "GITHUB_ACTIONS_BUILD_ONLY_SUCCESS_AFTER_OWNER_AUTHORIZATION",
+    "blocked_release_report": "docs/implementation/ISSUE_7_PHASE13_BUILD_BLOCKER_AND_OWNER_RELEASE_HANDOFF.md (historical prior to owner's Actions build authorization)",
+    "local_build_handoff": "scripts/build_issue7_p13_local.ps1",
+    "owner_approval": {
+      "date": "2026-10-23",
+      "explicit_merge_and_close": true,
+      "source": "conversation owner states all tests PASS",
+      "independent_proof_missing": true
+    }
+  },
+  "known_debt": [
+    73,
+    74
+  ],
+  "status_policy": {
+    "phase": [
+      "NOT_STARTED",
+      "IN_PROGRESS",
+      "PASS_AUDIT_ONLY",
+      "PASS_CONTRACT_ONLY",
+      "PASS_SCOPED",
+      "BLOCKED",
+      "FAIL"
+    ],
+    "acceptance": [
+      "NOT_VERIFIED",
+      "PASS_VERIFIED",
+      "FAIL",
+      "DEFERRED_APPROVED"
+    ],
+    "tests": [
+      "NOT_RUN",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "N/A"
+    ],
+    "rule": "Never convert authored code, existing scaffold, test plan or another issue's acceptance into executed PASS; preserve exact evidence and final APK hash."
+  }
+}

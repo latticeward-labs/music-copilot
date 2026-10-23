@@ -36,10 +36,12 @@ object RestoreSnapshotPolicy {
         if (snapshot.items.isEmpty())
             return if (snapshot.currentIndex == 0 && snapshot.positionMs == 0L)
                 SnapshotValidity.Valid else SnapshotValidity.Corrupt
+        // Queue occurrences are positional: duplicate stable MediaStore IDs
+        // are valid, but blank/oversized refs must fail closed.
         if (snapshot.currentIndex !in snapshot.items.indices ||
-            snapshot.items.any { it.value.isBlank() } ||
-            snapshot.items.distinct().size != snapshot.items.size)
-            return SnapshotValidity.Corrupt
+            snapshot.items.any {
+                it.value.isBlank() || it.value.length > 128
+            }) return SnapshotValidity.Corrupt
         return SnapshotValidity.Valid
     }
 }

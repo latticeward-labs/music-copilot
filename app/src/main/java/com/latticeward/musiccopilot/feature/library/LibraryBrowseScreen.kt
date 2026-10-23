@@ -59,6 +59,8 @@ import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
 import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
+import com.latticeward.musiccopilot.feature.player.PlayerUiState
+import com.latticeward.musiccopilot.feature.player.MiniPlayerBar
 
 /**
  * WF-04/HF-04 approved hierarchy: Library bar → categories → local rows →
@@ -74,6 +76,9 @@ fun LibraryBrowseScreen(
     permission: PermissionStatus,
     playbackConnection: PlaybackConnectionState,
     playback: PlaybackSnapshot,
+    playerUi: PlayerUiState,
+    onOpenPlayer: () -> Unit,
+    onTogglePlayback: () -> Unit,
     onRefreshPermission: () -> Unit,
     onRetryLibraryScan: () -> Unit,
     onRescanLibrary: () -> Unit,
@@ -84,6 +89,17 @@ fun LibraryBrowseScreen(
     onExit: () -> Unit,
 ) {
     val state by model.ui.collectAsStateWithLifecycle()
+    // Open the approved WF-06 route ONLY after a truthful service ACK.
+    // Clear the local preview to prevent a stale success from re-opening it
+    // when returning from Full Player; service playback is never stopped.
+    LaunchedEffect(state.selectionStatus, state.selectedSong?.ref) {
+        if (state.selectionStatus == SelectedSongUiStatus.ServicePlaying ||
+            state.selectionStatus == SelectedSongUiStatus.ServiceAcceptedPending
+        ) {
+            model.closePreview()
+            onOpenPlayer()
+        }
+    }
     LaunchedEffect(index.revision, index.status, permission, initialGroup) {
         model.onVerifiedIndex(index, permission == PermissionStatus.Granted)
         // P09 group Open is navigational, never implicit audio playback.
@@ -369,30 +385,14 @@ fun LibraryBrowseScreen(
                 }
             }
 
-            // Mini-player renders only a real service-selected item; repository
-            // rows and local selection never create a synthetic Playing state.
-            if (playbackConnection == PlaybackConnectionState.Ready &&
-                playback.currentItem != null
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                        .background(MusicColors.surfaceRaised)
-                        .heightIn(min = MusicSize.trackRowMinHeightDp)
-                        .padding(horizontal = MusicSpacing.mdDp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        stringResource(R.string.p08_current_track),
-                        modifier = Modifier.weight(1f),
-                        style = MusicTextStyles.bodyMedium,
-                        color = MusicColors.textPrimary,
-                    )
-                    Text(
-                        playback.playbackState.name,
-                        style = MusicTextStyles.labelLarge,
-                        color = MusicColors.primary,
-                    )
-                }
+            // Service-confirmed CMP-09 MiniPlayer, including real current title
+            // and a routed Play/Pause action; no local preview state is used.
+            if (permission == PermissionStatus.Granted) {
+                MiniPlayerBar(
+                    state = playerUi,
+                    onOpenPlayer = onOpenPlayer,
+                    onTogglePlayback = onTogglePlayback,
+                )
             }
 
             NavigationBar(containerColor = MusicColors.surface) {
