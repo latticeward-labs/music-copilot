@@ -188,9 +188,7 @@ internal class Media3FocusObservationAdapter(
             }
             return
         }
-        if (reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS ||
-            reason == Player.PLAY_WHEN_READY_CHANGE_REASON_SUPPRESSED_TOO_LONG
-        ) {
+        if (reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS) {
             observedTransientEpisode = null
             capturedPreLossPlaying = false
             verifiedPlayPending = false
