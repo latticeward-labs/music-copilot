@@ -46,7 +46,10 @@
     "voice_cancellation_port": "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
     "android_manifest": "app/src/main/AndroidManifest.xml",
     "qa_register": "docs/implementation/ISSUE_8_QA_RESULTS.json",
-    "media3_focus_observation": "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
+    "media3_focus_observation": "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+    "bluetooth_reconnect_gate": "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+    "system_transport_ingress": "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+    "play_origin": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt"
   },
   "phase_dependencies": {
     "P00": [],
@@ -232,7 +235,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt"
       ],
       "sources": [
         "FR-03",
@@ -276,7 +281,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt"
       ],
       "sources": [
         "FR-03",
@@ -324,7 +331,8 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt"
       ],
       "sources": [
         "ADR-0002",
@@ -365,7 +373,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/SystemTransportPolicy.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt"
       ],
       "sources": [
         "UF-11",
@@ -405,7 +415,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt"
       ],
       "sources": [
         "UF-11",
@@ -543,7 +555,11 @@
       "existing_source_files": [
         "app/src/main/AndroidManifest.xml",
         "app/build.gradle.kts",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
       ],
       "sources": [
         "MVP Week 4",
@@ -580,7 +596,9 @@
         "app/src/main/AndroidManifest.xml",
         "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt"
       ],
       "sources": [
         "FR-03",
@@ -681,7 +699,11 @@
     "docs/implementation/ISSUE_8_PHASE4_CALL_FOCUS_DUCK_RECOVERY_AUDIT.md",
     "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
     "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
-    "docs/implementation/ISSUE_8_PHASE5_HEADSET_USB_NOISY_ROUTE_SAFETY_AUDIT.md"
+    "docs/implementation/ISSUE_8_PHASE5_HEADSET_USB_NOISY_ROUTE_SAFETY_AUDIT.md",
+    "docs/implementation/ISSUE_8_PHASE6_BLUETOOTH_RECONNECT_AVRCP_SAFETY_AUDIT.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
   ],
   "phase_artifacts": {
     "P02": {
@@ -764,6 +786,30 @@
       "builds": 0,
       "apk_built": false,
       "acceptance": "ALL_12_AC_UNVERIFIED"
+    },
+    "P06": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-23",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE6_BLUETOOTH_RECONNECT_AVRCP_SAFETY_AUDIT.md",
+      "typed_play_provenance": "TRUSTED_PRIVATE_VS_AMBIGUOUS_SYSTEM_TRANSPORT",
+      "route_stamp": "SYSTEM_PLAY_RECEIPT_ROUTE_EPOCH",
+      "ingress": "FAIL_CLOSED_DURING_LOST_ROUTE_BLUETOOTH_ADDED_WHILE_PAUSED_OR_FOCUS_INTERRUPTION",
+      "worker": "RECHECK_STAMP_AND_ROUTE_FOCUS_GATE_BEFORE_PLAY",
+      "bluetooth_device_added": "OBSERVED_CATEGORY_ONLY_NO_ACTIVE_ROUTE_ASSERTION",
+      "bluetooth_reconnect_auto_resume": "FORBIDDEN",
+      "media_key_while_quarantined": "AMBIGUOUS_PLAY_REJECTED_EVEN_IF_PHYSICAL_PRESS",
+      "preserved_nonplay_commands": true,
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "acceptance": "AC01_AC12_UNVERIFIED"
     }
   }
 }
