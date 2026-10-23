@@ -76,6 +76,7 @@ The P02 reducer emits `RESUME_SERVICE_PLAYER` on a valid matched focus episode, 
 - The observer must not call `publishSnapshot()` with an invented Playing state; `MusicPlaybackService.onEvents` continues to call existing `Media3SnapshotProjector.capture(player, runtimeError)` and `session.setSessionExtras`. Full Player, Mini Player, Driving and notifications remain downstream of one service.
 - `onUpdateNotification()` and `onTaskRemoved()` are untouched; Media3's own mediaPlayback foreground lifecycle remains in place. Android 15+/API 35 foreground/focus entitlement needs P11 source audit + P13 field evidence.
 - `onIsPlayingChanged` may trigger synchronous same-player safety Pause in response to **actually audible** unsafe state; there is no additional owner, thread, queue or OS focus request. Observer teardown precedes disposal of Player/Session.
+- If a validated user Play arrives **while** Media3 still reports transient suppression, the adapter remembers the verified request and applies the PlayRequested policy transition only after that same episode becomes unsuppressed. It does not bypass the real Media3 focus owner or clear the safety latch solely because the device reconnected; P04/P06 still own full policy enforcement.
 
 ## 5. P03 source review and limitations (no execution)
 
