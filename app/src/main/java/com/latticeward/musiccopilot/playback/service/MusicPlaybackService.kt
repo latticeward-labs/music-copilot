@@ -919,8 +919,9 @@ class MusicPlaybackService : MediaSessionService() {
                     player.play()
                 }
                 is PlaybackCommand.Pause -> {
-                    interruptionGate.onManualPauseOrStop()
-                    focusObserver.onManualPauseOrStop(stop = false)
+                    // P07 safety Pause and policy revision were applied once
+                    // at RECEIPT. The worker only confirms ordered Player
+                    // state here; do not increment manualRevision twice.
                     player.pause()
                 }
                 is PlaybackCommand.Next -> {
@@ -997,8 +998,8 @@ class MusicPlaybackService : MediaSessionService() {
                     player.seekTo(target)
                 }
                 is PlaybackCommand.Stop -> {
-                    interruptionGate.onManualPauseOrStop()
-                    focusObserver.onManualPauseOrStop(stop = true)
+                    // P07 already latched explicit Stop/manualRevision at
+                    // receipt. Keep queue/checkpoint destruction serialized.
                     // Explicit Stop is stronger than safe-paused restore.
                     // It clears the old checkpoint, even though ExoPlayer
                     // retains an in-memory stopped queue for later Play.
