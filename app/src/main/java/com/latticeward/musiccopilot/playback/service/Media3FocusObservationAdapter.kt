@@ -116,8 +116,12 @@ internal class Media3FocusObservationAdapter(
             observedTransientEpisode = null
             if (reason == Player.PLAYBACK_SUPPRESSION_REASON_NONE && episode != null) {
                 val restored = accept(InterruptionEvent.FocusRestored(episode))
+                // P02 owns focus eligibility; the pre-existing Issue #7
+                // route/manual gate is an independent stronger veto until
+                // P05-P07 unify route epochs and command receipt provenance.
                 val eligibleAutomaticReturn =
-                    restored.effects.contains(InterruptionEffect.RESUME_SERVICE_PLAYER)
+                    restored.effects.contains(InterruptionEffect.RESUME_SERVICE_PLAYER) &&
+                        !shouldBlockUnrequestedPlayback()
                 val freshExplicitUserPlay =
                     verifiedPlayPending && !shouldBlockUnrequestedPlayback()
                 if (freshExplicitUserPlay && state.focus == FocusCondition.AVAILABLE) {
