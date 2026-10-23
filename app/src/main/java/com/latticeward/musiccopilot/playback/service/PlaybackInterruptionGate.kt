@@ -21,15 +21,32 @@ internal class PlaybackInterruptionGate {
     var explicitlyPaused: Boolean = false
         private set
 
-    fun onHeadsetOrBluetoothLost() {
-        routeGeneration++
+    // One physical route-loss episode may arrive as both the Media3 noisy
+    // event and Android AudioDeviceCallback. Do not bump the epoch twice.
+    // A fresh verified Play closes this episode; the next removal is new.
+    private var routeEpochExhausted = false
+
+    /**
+     * Arm even when the Player is empty/idle: a suspended MediaStore queue
+     * request may otherwise start playing on the built-in speaker later.
+     * Returns true only for the first signal of this unsafe episode.
+     */
+    fun onHeadsetOrBluetoothLost(): Boolean {
+        if (requiresExplicitResume) return false
         requiresExplicitResume = true
+        if (routeGeneration == Long.MAX_VALUE) {
+            // Never wrap/reuse a stale epoch. At exhaustion, stay paused.
+            routeEpochExhausted = true
+        } else {
+            routeGeneration++
+        }
+        return true
     }
 
     fun onExplicitUserPlaybackRequest() {
         // An explicit player/media-key/notification Play or selected song is
         // the ONLY way to clear a route-loss pause. Reconnecting alone is not.
-        requiresExplicitResume = false
+        if (!routeEpochExhausted) requiresExplicitResume = false
         explicitlyPaused = false
     }
 
@@ -50,10 +67,10 @@ internal class PlaybackInterruptionGate {
     }
 
     fun shouldSuppressAutomaticPlay(): Boolean =
-        requiresExplicitResume || explicitlyPaused
+        requiresExplicitResume || explicitlyPaused || routeEpochExhausted
 
     fun requestIsStillCurrent(expectedRouteGeneration: Long): Boolean =
-        routeGeneration == expectedRouteGeneration
+        !routeEpochExhausted && routeGeneration == expectedRouteGeneration
 
     companion object {
         /**
