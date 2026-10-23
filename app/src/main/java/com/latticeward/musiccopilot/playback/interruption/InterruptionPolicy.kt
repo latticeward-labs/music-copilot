@@ -346,7 +346,9 @@ internal object InterruptionReducer {
                         accepted.copy(
                             requiresExplicitPlay = false,
                             pendingResume = null,
-                            playback = InterruptionPlayback.PAUSED,
+                            // Preserve observed playback; only the actual
+                            // service Player can confirm a transition.
+                            playback = accepted.playback,
                         ),
                         InterruptionEffect.ALLOW_VERIFIED_USER_PLAY,
                     )
