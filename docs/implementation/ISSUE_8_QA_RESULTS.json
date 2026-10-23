@@ -3,7 +3,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/8-audio-focus-route-recovery",
   "planning_date": "2026-10-23",
-  "phase": "P06_BLUETOOTH_RECONNECT_AVRCP_FENCE_SOURCE_COMPLETE_P07_NEXT",
+  "phase": "P07_RECEIPT_TIME_EVENT_ORDER_AND_RACE_SOURCE_COMPLETE_P08_NEXT",
   "implementation_started": true,
   "source_archive": {
     "name": "MSM2(1)(1).rar",
@@ -177,9 +177,27 @@
       "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
     },
     "P07": {
-      "status": "NOT_STARTED",
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE7_EVENT_ORDERING_AND_RACE_CONTAINMENT_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "receipt_token": "ROUTE_SAFETY_COMMAND_GENERATION_AT_SUBMIT",
+      "stale_queued_requests": "REJECT_BEFORE_HANDLER",
+      "pending_io": "POST_IO_GENERATION_CHECKS_PRESERVED",
+      "pause_stop": "IMMEDIATE_SINGLE_PLAYER_PAUSE_AT_RECEIPT_ORDERED_WORKER_CLEANUP",
+      "focus_loss_transient_denied_BT_quarantine": "SUPERSEDE_OLDER_RECEIPTS",
+      "manual_policy_revision": "ONCE_AT_RECEIPT_NOT_DOUBLE_AT_DISPATCH",
+      "worker_count": "EXISTING_ONE",
+      "source_compilation": "NOT_RUN",
+      "runtime_race_tests": "NOT_RUN",
       "builds": 0,
-      "tests_executed": 0
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_INSPECTION_ONLY"
     },
     "P08": {
       "status": "NOT_STARTED",
@@ -582,7 +600,7 @@
     "vehicle_head_units_three": "NOT_RUN"
   },
   "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
-  "note": "P06 source-only: coarse BT A2DP/BLE/headset availability, reconnection-no-autoplay latch and quarantine on BT sink added while paused; MediaSession ambiguous external Play stamped with receipt-time route generation and rechecked before worker playback. Real media-key human intent cannot be proven; quarantine blocks genuine remote Play too until private UI/Voice command. No compile/build/Gradle/test/Actions/APK. P07 next. AC all UNVERIFIED, M/T NOT_RUN.",
+  "note": "P07 source-only: one processor now captures route/safety/command generation at receipt, rejects stale queued Play/selection before dispatch, Main immediately pauses on user Pause/Stop receipt and high priority focus/route/BT events invalidate old work; existing IO post-await checks retained. No compilation, gradle, APK, test or Actions. 45 M, 15 T NOT_RUN; 12 AC UNVERIFIED. P08 next.",
   "phase0_readiness": {
     "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
     "dor01": {
@@ -713,5 +731,17 @@
     "untrusted_AVRCP_play_vs_real_media_button": "INDISTINGUISHABLE_CONSERVATIVE_REJECTION",
     "voice_cancel": "P09_PENDING",
     "remaining_qa": "45_M_NOT_RUN_15_T_NOT_RUN_12_AC_UNVERIFIED"
+  },
+  "phase7_readiness": {
+    "next_phase": "P08",
+    "stale_recipient_selection": "RECEIPT_GENERATION_RECHECK_SOURCE",
+    "fast_headset_focus_BT_events": "MAIN_SERVICE_SAFETY_GENERATION_SOURCE",
+    "queued_Pause_or_Stop": "EARLY_SILENCE_ORDERED_COMMIT",
+    "snapshot_parity": "P08_PENDING",
+    "voice_effect_wiring": "P09_PENDING",
+    "privacy_codes": "P10_PENDING",
+    "oem_API_validation": "P11_AND_P13_PENDING",
+    "test_source": "P12_NOT_RUN",
+    "physical_proof": "P13_USER_NOT_RUN"
   }
 }
