@@ -4,6 +4,7 @@ import androidx.media3.common.ForwardingPlayer
 import androidx.media3.common.Player
 import com.latticeward.musiccopilot.core.model.CommandId
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
+import com.latticeward.musiccopilot.playback.api.PlaybackPlayOrigin
 import com.latticeward.musiccopilot.playback.command.SystemTransportPolicy
 
 /**
@@ -23,10 +24,39 @@ class ServiceSessionTransportPlayer(
 ) : ForwardingPlayer(delegate) {
     private var nextId: Long = 0L
 
+    // Exactly one Main-thread service owner installs these before the session
+    // is created. Fail closed if Play arrives before configuration.
+    private var canAcceptExternalPlay: (() -> Boolean)? = null
+    private var currentRouteGeneration: (() -> Long)? = null
+
+    fun configureSystemPlaySafety(
+        mayPlay: () -> Boolean,
+        routeGeneration: () -> Long,
+    ) {
+        canAcceptExternalPlay = mayPlay
+        currentRouteGeneration = routeGeneration
+    }
+
     private fun id(): CommandId = CommandId("system-transport-${++nextId}")
 
     private fun forward(action: SystemTransportPolicy.Action, positionMs: Long = 0L) {
-        SystemTransportPolicy.translate(action, id(), positionMs)?.let(submit)
+        val translated = SystemTransportPolicy.translate(action, id(), positionMs) ?: return
+        if (translated is PlaybackCommand.Play) {
+            // Android/AVRCP supplies no trustworthy user-intent bit. A Play
+            // arriving during an interrupted route is indistinguishable from
+            // auto-Play-on-reconnect; fail closed rather than clear its latch.
+            val epoch = currentRouteGeneration?.invoke() ?: return
+            if (canAcceptExternalPlay?.invoke() != true) return
+            submit(
+                translated.copy(
+                    origin = PlaybackPlayOrigin.AMBIGUOUS_SYSTEM_TRANSPORT,
+                    routeGenerationAtReceipt = epoch,
+                )
+            )
+        } else {
+            // Pause/Stop/seek are never withheld by the auto-Play fence.
+            submit(translated)
+        }
     }
 
     override fun play() = forward(SystemTransportPolicy.Action.Play)
