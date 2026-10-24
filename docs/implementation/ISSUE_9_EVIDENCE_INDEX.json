@@ -85,9 +85,26 @@
       "visual_screen": "TEMPORARY_P03_NAVIGATION_SHELL_P04_P05_PENDING"
     },
     "P04": {
-      "status": "PLANNED_NOT_EXECUTED",
-      "evidence_files": [],
-      "source_commit": null
+      "status": "PASS_SCOPED_WF07_PLAYING_COMPOSE_SOURCE_ONLY_UNTESTED",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/res/values/strings.xml",
+        "docs/implementation/ISSUE_9_PHASE4_WF07_PLAYING_COMPOSE_AUDIT.md",
+        "docs/high-fidelity/WF-07/HF-07_DRIVING_MODE_PLAYING.md",
+        "docs/handoff/SCREEN_SPECS.md"
+      ],
+      "source_commit": "34356576119b7386dec9c390ed62f1ce1b204eb2",
+      "executed_junit_methods": 0,
+      "android_build": "NOT_RUN",
+      "ui_owner_phone_verification": "NOT_RUN",
+      "visual_implemented": {
+        "playing": true,
+        "paused_and_no_track_full_recovery": "P05_PENDING",
+        "real_album_art": "PLACEHOLDER_ONLY",
+        "four_transports": "VISIBLE_DISABLED_UNTIL_P06",
+        "mic": "VISIBLE_DISABLED_UNTIL_P07"
+      }
     },
     "P05": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1046,11 +1063,12 @@
     "phone_pass": 0,
     "technical_pass": 0,
     "apk_status": "NOT_BUILT",
-    "phases_scoped_contract_complete": 4,
+    "phases_scoped_contract_complete": 5,
     "p02_authored_tests": 21,
     "p02_executed_tests": 0,
     "p03_authored_tests": 12,
-    "p03_executed_tests": 0
+    "p03_executed_tests": 0,
+    "p04_source_composable_count": 1
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1064,6 +1082,7 @@
     "One device/headset never proves multi-OEM/multi-vehicle release QA.",
     "P01 GitHub read-back verified contract, P13-only template and evidence index: 14 phases, 14 AC, 46/46 manual IDs traced, five technical groups; no tests executed.",
     "P02 pure Driving snapshot-to-view/command source authored; 21 JUnit @Test methods authored but NOT_RUN; PRD FR-04 and 14 runtime acceptance checks remain NOT_VERIFIED.",
-    "P03 source-only: 1 NavHost Driving route, manual entry from Library/FullPlayer, recorded root origin, Back/Exit and process-fresh inactive ViewModel; 12 JUnit methods written, not run. P04/05 approved HF screen not yet implemented."
+    "P03 source-only: 1 NavHost Driving route, manual entry from Library/FullPlayer, recorded root origin, Back/Exit and process-fresh inactive ViewModel; 12 JUnit methods written, not run. P04/05 approved HF screen not yet implemented.",
+    "P04 actual HF-07 Playing Compose source authored, rooted in only Driving NavHost route; controls visibly disabled pending P06/P07, so this is NOT full app capability PASS. No UI test/Gradle/phone execution, 14 AC NOT_VERIFIED."
   ]
 }
