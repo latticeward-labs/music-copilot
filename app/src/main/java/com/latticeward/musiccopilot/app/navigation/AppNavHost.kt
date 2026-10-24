@@ -275,6 +275,7 @@ fun AppNavHost(
                     drivingNavigation.enterFrom(
                         Destination.Library,
                         allowedByAppRoute = actualRoute == BootstrapRoute.HomeLibrary &&
+                            permission == PermissionStatus.Granted &&
                             mediaRequestUi.outcome == MediaPermissionOutcome.None &&
                             !settingsOpen && !searchOpen && !replayingEducation &&
                             !playerOpen,
@@ -328,6 +329,7 @@ fun AppNavHost(
                     drivingNavigation.enterFrom(
                         Destination.FullPlayer,
                         allowedByAppRoute = actualRoute == BootstrapRoute.HomeLibrary &&
+                            permission == PermissionStatus.Granted &&
                             mediaRequestUi.outcome == MediaPermissionOutcome.None &&
                             playerOpen && !settingsOpen && !replayingEducation,
                     )
