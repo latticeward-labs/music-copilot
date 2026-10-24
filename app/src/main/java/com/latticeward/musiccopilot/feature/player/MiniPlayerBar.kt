@@ -90,10 +90,10 @@ fun playbackStatusLabel(state: PlayerUiState): String =
                 state.snapshot.lastError is AppError.Interruption ->
                 when (state.snapshot.lastError.code) {
                     AppErrorCodes.ROUTE_INVALIDATED ->
-                        stringResource(R.string.i8_output_changed)
+                        stringResource(R.string.i8_paused_route_short)
                     AppErrorCodes.FOCUS_NOT_RECOVERED ->
-                        stringResource(R.string.i8_focus_not_recovered)
-                    else -> stringResource(R.string.i8_audio_temporarily_paused)
+                        stringResource(R.string.i8_paused_focus_unavailable_short)
+                    else -> stringResource(R.string.i8_paused_focus_short)
                 }
             else -> when (state.snapshot.playbackState) {
                 PlaybackState.Playing -> stringResource(R.string.i7_playing)
