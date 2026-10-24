@@ -228,11 +228,16 @@ fun DrivingModeScreen(
                     ).clearAndSetSemantics { /* decorative neutral placeholder */ },
                     contentAlignment = Alignment.Center,
                 ) {
-                    Text(
-                        stringResource(R.string.i9_driving_artwork_placeholder),
-                        color = MusicColors.textMuted,
-                        style = MusicTextStyles.labelLarge,
-                    )
+                    // At 200% omit decorative word ARTWORK rather than wrap
+                    // and clip a scaled 28sp word inside a small 72dp square.
+                    if (LocalDensity.current.fontScale < 2f) {
+                        Text(
+                            stringResource(R.string.i9_driving_artwork_placeholder),
+                            color = MusicColors.textMuted,
+                            style = MusicTextStyles.labelLarge,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
                 }
                 // CMP-07: service-verified MediaRef only. The producer cancels
                 // prior lookups; mismatched references never render.
