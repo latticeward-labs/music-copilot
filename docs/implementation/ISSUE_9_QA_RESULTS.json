@@ -1,13 +1,13 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P00_SOURCE_AUDIT_COMPLETE_P01_NEXT",
+  "status": "P01_GITHUB_CONTRACT_COMPLETE_P02_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
   "phase_status": {
     "P00": "PASS_STATIC_SOURCE_AND_READINESS_AUDIT_NO_TESTS",
-    "P01": "PLANNED_NOT_EXECUTED",
+    "P01": "PASS_CONTRACT_ONLY_NO_BUILD_NO_TESTS",
     "P02": "PLANNED_NOT_EXECUTED",
     "P03": "PLANNED_NOT_EXECUTED",
     "P04": "PLANNED_NOT_EXECUTED",
@@ -106,6 +106,9 @@
     "M46 GS-05 requires an actual parked vehicle/head unit for full vehicle claim.",
     "Owner requires only final P13 build-only task; no test execution and no per-phase APK.",
     "P00 static audit recorded in ISSUE_9_PHASE0_READINESS_AUDIT.md on 2026-10-24; 12 PDFs verified, dependencies and code gaps reconciled. This is not runtime or Android build acceptance.",
-    "P00 did not run Gradle/JVM/UI/Lint/Actions, did not assemble an APK and did not perform phone QA. AC01–AC14 NOT_VERIFIED, M01–M46 and all technical cases NOT_RUN."
+    "P00 did not run Gradle/JVM/UI/Lint/Actions, did not assemble an APK and did not perform phone QA. AC01–AC14 NOT_VERIFIED, M01–M46 and all technical cases NOT_RUN.",
+    "P01 GitHub governance/evidence handoff PASS_CONTRACT_ONLY: branch reused; explicit one-P13-APK protocol; source/AC/M/T traceability and P13-only PR template committed and read back.",
+    "Repository CONTRIBUTING proposes develop but authenticated P01 compare shows develop is 1065 commits behind main; proposed main PR base requires explicit P13 owner/reviewer policy exception; ruleset/protection and Project V2 status were not verifiable by this connection.",
+    "No P01 production changes, no PR, no merge, no Issue close; AC01–AC14 NOT_VERIFIED, M01–M46 and five technical groups NOT_RUN, APK NOT_BUILT."
   ]
 }
