@@ -38,9 +38,10 @@ import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 fun BluetoothEntrySuggestionBanner(
     onEnter: () -> Unit,
     onNotNow: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth().widthIn(max = 480.dp),
+        modifier = modifier.fillMaxWidth().widthIn(max = 480.dp),
         color = MusicColors.surfaceVariant,
         tonalElevation = 4.dp,
         shadowElevation = 4.dp,
