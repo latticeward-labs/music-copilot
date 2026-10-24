@@ -1,10 +1,18 @@
 # Issue #8 — Final Owner Handset Checklist (ONE P13 APK)
 
-**Status:** P12 INTEGRATION PREPARED / ALL CASES NOT_RUN · **Updated:** 2026-10-24 · **Source:** [P00–P13 plan](ISSUE_8_PHASED_EXECUTION_PLAN.md) + Issue #8 AC01–AC12 + UF-11 / SYS-07..09.
+**Status:** P13 ONE CUMULATIVE APK BUILT / ALL PHONE CASES NOT_RUN · **Updated:** 2026-10-24 · **Source:** [P00–P13 plan](ISSUE_8_PHASED_EXECUTION_PLAN.md) + Issue #8 AC01–AC12 + UF-11 / SYS-07..09.
+
+## Actual P13 APK for this checklist
+
+- **One combined APK is now built (SUCCESS):** [GitHub Actions run #40079909648](https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648), [download GitHub artifact](https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648/artifacts/12554742975) (expires 2026-11-07). `app-debug.apk` is inside the ZIP.
+- **Exact code version:** `2951647da5a995f7e28fa2b9dfc89c596697715e`; `app-debug.apk` 36,691,339 bytes, **SHA-256 `20259add73fcbe06db50dd65f4e440b4cdce823f28f12d50d6f7f86cbd80f19b`**, verified against actual downloaded APK and GitHub build checksum.
+- **APK debug identity:** `com.latticeward.musiccopilot.debug`. A different debug signing key from a previous APK may require uninstall of that existing debug build, which will remove local app state; do not delete personal MP3s.
+- **Install/phone QA:** Start at **M01**, submit genuine result for each check **PASS / FAIL / BLOCKED / NOT_RUN / N/A**; no automatic tests were run by GitHub. Stop immediately if unexpected sound leaks through phone speaker after headset/BT loss.
+- **Full verified provenance:** [P13 build and owner handoff report](ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md). No merger/Issue close until actual owner evidence; M01–M45 remain NOT_RUN and AC01–AC12 UNVERIFIED.
 
 ## Important owner rules
 
-- **DO NOT run this checklist before final P13.** All phases P00–P12 are coding/doc-only: no build or test. Only one integrated P13 debug APK from ALL implemented phases is an eligible candidate.
+- **P13 is now successfully built:** run this checklist ONLY on the actual single APK identified above, not on prior Issue #6/#7 APKs. P00–P12 were coding/doc-only (no intermediate build/test).
 - Play one or two **disposable local** valid audio files in a known order. Enable media permission if asked. Avoid sharing track titles, paths, Bluetooth names/MAC, call numbers/contacts, voice recordings or sensitive logs.
 - For each ID, send **PASS / FAIL / BLOCKED / NOT_RUN / N/A** and a brief explanation for FAIL/BLOCKED/N/A. Mark actual observation, never infer a PASS. Hardware scenarios not possible on the user's one phone are BLOCKED/NOT_RUN, not PASS.
 - Bluetooth/headset tests require equipment only **if available**. Phone-call tests require a real call or a second cooperating person, but no second Android test phone is mandatory; unsupported hardware remains deferred. Run car/head-unit checks **parked only**, never while driving.
@@ -81,7 +89,7 @@ All new P12 tests are **repository source files**, not test results. They are de
 
 **P13 one integrated APK build-only:** The owner-facing build must use `feature/8-audio-focus-route-recovery` at its exact committed HEAD, compile `:app:assembleDebug` once as a unified candidate (exclude Gradle unit/lint/instrumentation tasks), upload the complete debug APK and record source SHA, APK SHA-256, Android variant, CI/job URL and download instructions. A failed compile requires a source fix and rerun *within P13*, not an invented artifact or P12 PASS. User installs this single final APK and runs M01–M45 on their own handset, submitting observed statuses to be recorded on GitHub.
 
-## Technical T01–T15 — source-authored later, NOT executed without authorization
+## Technical T01–T15 — source-authored, NOT executed without authorization
 
 | ID | Required eventual technical proof | Current state |
 |---|---|---|
