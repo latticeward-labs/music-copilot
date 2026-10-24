@@ -357,6 +357,13 @@ class MainActivity : ComponentActivity() {
         permissionUi.onActivityPaused()
     }
 
+    override fun onStart() {
+        super.onStart()
+        // P10: register selected-audio profile observation only during the
+        // foreground Activity lifecycle; no receiver when the app is stopped.
+        (application as MusicCopilotApplication).bindings.onUiStarted()
+    }
+
     override fun onStop() {
         super.onStop()
         // Do not keep the microphone recording after the app leaves the
