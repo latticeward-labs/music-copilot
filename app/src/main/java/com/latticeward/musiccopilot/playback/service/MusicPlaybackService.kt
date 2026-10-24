@@ -29,6 +29,8 @@ import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackPlayOrigin
 import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionHost
 import com.latticeward.musiccopilot.playback.interruption.FocusCondition
+import com.latticeward.musiccopilot.playback.interruption.InterruptionNotice
+import com.latticeward.musiccopilot.playback.interruption.InterruptionNoticePolicy
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
 import com.latticeward.musiccopilot.playback.restore.SafePausedRestorePolicy
@@ -194,6 +196,7 @@ class MusicPlaybackService : MediaSessionService() {
                 (application as PlaybackVoiceInterruptionHost)
                     .cancelActiveVoiceForPlaybackInterruption(reason)
             },
+            onInterruptionNotice = ::onSanitizedInterruptionNotice,
         )
         val appHost = application as PlaybackResolverHost
         pausedCheckpoint = ServicePausedCheckpoint(
@@ -342,6 +345,34 @@ class MusicPlaybackService : MediaSessionService() {
             // another Player or a Playing snapshot.
             if (::session.isInitialized) publishSnapshot()
         }
+    }
+
+    /**
+     * P10: the *same* authoritative PlaybackSnapshot.lastError carries only
+     * reviewed, non-identifying Interruption codes. Never create a second
+     * diagnostics bus, log exception text, MediaRef, local file path, device
+     * name/MAC, transcript, phone number or telephony source.
+     *
+     * Keep a more important terminal Permission/MediaItem/Playback failure;
+     * a focus or route notice must never erase that evidence.
+     */
+    private fun onSanitizedInterruptionNotice(notice: InterruptionNotice) {
+        if (serviceClosing) return
+        val current = runtimeError
+        if (current != null && current !is AppError.Interruption) return
+        val next = InterruptionNoticePolicy.error(notice)
+        // A route removed after focus loss has the strongest immediate
+        // actionable diagnosis: user must revalidate the output and Play.
+        if (current is AppError.Interruption &&
+            current.code == AppErrorCodes.ROUTE_INVALIDATED &&
+            next?.code != AppErrorCodes.ROUTE_INVALIDATED &&
+            notice != InterruptionNotice.CLEARED
+        ) return
+        if (current == next) return
+        runtimeError = next
+        // During earliest service startup the MediaSession may not exist yet.
+        // Once started, the existing listener publishes the full Player truth.
+        if (::player.isInitialized && ::session.isInitialized) publishSnapshot()
     }
 
     /**
