@@ -824,9 +824,11 @@ class MusicPlaybackService : MediaSessionService() {
                         interruptionGate.onExplicitUserPlaybackRequest()
                         focusObserver.onVerifiedUserPlayAccepted()
                     }
-                    // Clear a previous error BEFORE preparing a new selection.
-                    // An error delivered during prepare must not be erased.
-                    runtimeError = null
+                    // A new queue clears old file/permission errors, but
+                    // merely selecting a new queue is NOT proof that focus or
+                    // a disconnected output is safe again. Preserve P10's
+                    // interruption notice until a verified playback recovery.
+                    if (runtimeError !is AppError.Interruption) runtimeError = null
                     // The service/Player remains the ONLY authoritative live queue.
                     player.repeatMode = Player.REPEAT_MODE_OFF
                     player.shuffleModeEnabled = false
@@ -1059,7 +1061,23 @@ class MusicPlaybackService : MediaSessionService() {
                 publishSnapshot()
                 return AppResult.Failure(runtimeError!!)
             }
-            if (command !is PlaybackCommand.ReplaceQueue) runtimeError = null
+            // A Pause/Stop/seek/Next or even a queue selection that remains
+            // Paused must not silently dismiss a P10 interruption warning.
+            // It is cleared only by a verified audible-intent command while
+            // focus and route gates actually permit that attempt; P02's
+            // PlaybackObserved confirmation may also clear it later.
+            val verifiedRecoveryAttempt = command is PlaybackCommand.Play ||
+                (command is PlaybackCommand.SelectQueueIndex && command.playWhenReady) ||
+                (command is PlaybackCommand.ReplaceQueue && command.playWhenReady)
+            if (runtimeError is AppError.Interruption) {
+                if (verifiedRecoveryAttempt &&
+                    !interruptionGate.shouldSuppressAutomaticPlay() &&
+                    focusObserver.policyState.focus == FocusCondition.AVAILABLE &&
+                    player.playWhenReady
+                ) runtimeError = null
+            } else if (command !is PlaybackCommand.ReplaceQueue) {
+                runtimeError = null
+            }
             publishSnapshot()
             return AppResult.Success(confirmed)
         } catch (cancelled: CancellationException) {
