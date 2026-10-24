@@ -42,7 +42,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -161,6 +161,7 @@ fun DrivingModeScreen(
         ) {
             // Fixed, always-accessible Exit. Never scroll it out of reach at
             // 200% font scaling, narrow devices or long error explanations.
+            val exitA11y = stringResource(R.string.i9_a11y_exit)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -177,7 +178,7 @@ fun DrivingModeScreen(
                     modifier = drivingFocusOutline()
                         .heightIn(min = MusicSize.drivingExitMinDp)
                         .semantics {
-                            contentDescription = "Exit Driving Mode immediately"
+                            contentDescription = exitA11y
                         },
                 ) {
                     Text(stringResource(R.string.i9_driving_exit_short))
@@ -220,12 +221,13 @@ fun DrivingModeScreen(
                     LocalDensity.current.fontScale >= 1.5f -> 96.dp
                     else -> 160.dp
                 }
+                val artworkDescription = stringResource(R.string.i9_a11y_artwork)
                 Box(
                     modifier = Modifier.size(artworkSize).background(
                         MusicColors.surfaceVariant,
                         RoundedCornerShape(MusicRadius.mdDp),
-                    ).semantics(mergeDescendants = true) {
-                        contentDescription = "Album artwork unavailable"
+                    ).clearAndSetSemantics {
+                        contentDescription = artworkDescription
                     },
                     contentAlignment = Alignment.Center,
                 ) {
@@ -363,6 +365,7 @@ fun DrivingModeScreen(
             // A missing permission opens an explicit rationale; the Android
             // result NEVER starts recognition without another user tap.
             if (!voiceActive && !voicePermissionPrompt) {
+                val micA11y = stringResource(R.string.i9_a11y_mic)
                 OutlinedButton(
                     onClick = { onMic?.invoke() },
                     enabled = state.micEnabled && onMic != null,
@@ -371,7 +374,7 @@ fun DrivingModeScreen(
                         .then(drivingFocusOutline())
                         .heightIn(min = MusicSize.drivingMicMinDp)
                         .semantics {
-                            contentDescription = "Voice command; press to talk"
+                            contentDescription = micA11y
                         },
                 ) {
                     Text(
@@ -437,14 +440,14 @@ private fun DrivingTransportButton(
         DrivingActionLabel.SeekBack10Seconds -> stringResource(R.string.i9_driving_seek_back_short)
     }
     val spokenLabel = when (control.label) {
-        DrivingActionLabel.Previous -> "Previous track"
-        DrivingActionLabel.Play -> "Play playback"
-        DrivingActionLabel.Pause -> "Pause playback"
-        DrivingActionLabel.Next -> "Next track"
-        DrivingActionLabel.SeekBack10Seconds -> "Seek backward ten seconds"
+        DrivingActionLabel.Previous -> stringResource(R.string.i9_a11y_previous)
+        DrivingActionLabel.Play -> stringResource(R.string.i9_a11y_play)
+        DrivingActionLabel.Pause -> stringResource(R.string.i9_a11y_pause)
+        DrivingActionLabel.Next -> stringResource(R.string.i9_a11y_next)
+        DrivingActionLabel.SeekBack10Seconds -> stringResource(R.string.i9_a11y_seek_back)
     }
     val disabledText = when {
-        onTransport == null -> "Playback connection is not ready"
+        onTransport == null -> stringResource(R.string.i9_a11y_controller_not_ready)
         else -> drivingDisabledReason(control.disabledReason)
     }
     val enabledNow = control.enabled && onTransport != null
@@ -537,6 +540,9 @@ private fun DrivingVoiceSessionOverlay(
         color = MusicColors.textPrimary,
         textAlign = TextAlign.Center,
     )
+    val continueA11y = stringResource(R.string.i9_a11y_continue_permission)
+    val retryA11y = stringResource(R.string.i9_a11y_retry_voice)
+    val cancelA11y = stringResource(R.string.i9_a11y_cancel_voice)
     if (rationale) {
         Text(
             stringResource(R.string.i9_voice_permission_explanation),
@@ -548,7 +554,7 @@ private fun DrivingVoiceSessionOverlay(
             onClick = onPermissionContinue,
             modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
                 .heightIn(min = MusicSize.drivingExitMinDp)
-                .semantics { contentDescription = "Continue to Android microphone permission" },
+                .semantics { contentDescription = continueA11y },
         ) { Text(stringResource(R.string.i9_voice_continue)) }
     }
     if (state is VoiceSessionState.Failed && state.canRetry) {
@@ -556,7 +562,7 @@ private fun DrivingVoiceSessionOverlay(
             onClick = onVoiceRetry,
             modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
                 .heightIn(min = MusicSize.drivingExitMinDp)
-                .semantics { contentDescription = "Retry voice command once" },
+                .semantics { contentDescription = retryA11y },
         ) { Text(stringResource(R.string.i9_voice_retry)) }
     }
     // Cancel remains available while Android is awaiting a permission result;
@@ -565,7 +571,7 @@ private fun DrivingVoiceSessionOverlay(
         onClick = if (rationale || awaiting) onPermissionCancel else onVoiceCancel,
         modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
             .heightIn(min = MusicSize.drivingExitMinDp)
-            .semantics { contentDescription = "Cancel voice command and return to Driving" },
+            .semantics { contentDescription = cancelA11y },
     ) { Text(stringResource(R.string.i9_voice_cancel)) }
 }
 
@@ -585,12 +591,15 @@ private fun drivingFocusOutline(): Modifier {
         )
 }
 
-/** Only sanitized reasons, not raw route, path, file name or exception. */
+/** Only sanitized resource-backed reasons, never raw OS/private data. */
+@Composable
 private fun drivingDisabledReason(reason: DrivingDisabledReason?): String = when (reason) {
-    DrivingDisabledReason.NoCurrentTrack -> "No current playable track"
-    DrivingDisabledReason.ControllerNotReady -> "Playback controller not connected"
-    DrivingDisabledReason.PlaybackUnavailable -> "Playback temporarily unavailable"
-    DrivingDisabledReason.CommandPending -> "Waiting for playback service"
-    DrivingDisabledReason.Unsupported -> "Action unavailable for this track"
-    null -> "Action unavailable"
+    DrivingDisabledReason.NoCurrentTrack -> stringResource(R.string.i9_a11y_missing_track)
+    DrivingDisabledReason.ControllerNotReady ->
+        stringResource(R.string.i9_a11y_controller_not_ready)
+    DrivingDisabledReason.PlaybackUnavailable ->
+        stringResource(R.string.i9_a11y_playback_unavailable)
+    DrivingDisabledReason.CommandPending -> stringResource(R.string.i9_a11y_command_pending)
+    DrivingDisabledReason.Unsupported -> stringResource(R.string.i9_a11y_unsupported_action)
+    null -> stringResource(R.string.i9_a11y_action_unavailable)
 }
