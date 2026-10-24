@@ -413,7 +413,7 @@ fun AppNavHost(
             permission == PermissionStatus.Granted &&
             voiceSessionState == VoiceSessionState.Idle &&
             !drivingNavigation.state.active &&
-            event != null &&
+            event != null && event == offeredReconnect &&
             selectedBluetoothConnection?.isUnclaimedOfferCurrent(event) == true
         if (freshSafe && event != null &&
             selectedBluetoothConnection?.claimOffer(event) == true
