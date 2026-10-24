@@ -24,6 +24,10 @@
     <string name="i9_driving_exit_short">Exit</string>
     <string name="i9_driving_artwork_placeholder">ARTWORK</string>
     <string name="i9_driving_no_current_track">No current track</string>
+    <!-- Issue #9 P05 CC-06/CC-07: distinct Paused and No Track plus truthful recovery. -->
+    <string name="i9_driving_exit_to_browse">Exit to browse local music</string>
+    <string name="i9_driving_no_track_item_unavailable">The last local item is unavailable. Exit to choose a playable track. No music was deleted.</string>
+    <string name="i9_driving_paused_resume_note">Playback is paused. Use Play when your audio output is safe.</string>
     <string name="i9_driving_unknown_artist">Unknown local artist</string>
     <string name="i9_driving_transports_not_ready">Playback buttons will become available after Driving controls are connected. Exit is available now.</string>
     <string name="i9_driving_seek_back_short">-10s</string>
