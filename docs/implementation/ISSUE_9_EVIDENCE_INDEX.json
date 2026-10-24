@@ -264,7 +264,7 @@
         "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/AndroidSelectedAudioProfileMonitor.kt",
         "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt"
       ],
-      "source_commit": null,
+      "source_commit": "c6a25d6bb83a5ac4602c6c1f6010904281ff5876",
       "authored_junit_methods": 16,
       "authored_compose_methods": 3,
       "executed_junit_methods": 0,
@@ -272,7 +272,8 @@
       "source_reviewer": "INTEGRATED_STATIC_SOURCE_AUDIT_ONLY",
       "issue8_playback_files_changed_by_issue9": false,
       "build_manifest_status": "NOT_BUILT_P13_ONLY",
-      "p13_owner_checklist": "M01_M46_NOT_RUN"
+      "p13_owner_checklist": "M01_M46_NOT_RUN",
+      "source_commit_note": "Last P12 production/test-source commit before P12 documentation; P13 must capture current complete branch HEAD separately in build manifest."
     },
     "P13": {
       "status": "PLANNED_NOT_EXECUTED",
