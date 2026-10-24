@@ -62,7 +62,8 @@
     "android_oem_compatibility_audit": "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
     "integrated_test_sources": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
     "p12_source_integration_audit": "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
-    "final_owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md"
+    "final_owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+    "p13_apk_provenance_report": "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md"
   },
   "phase_dependencies": {
     "P00": [],
@@ -914,7 +915,10 @@
     "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
     "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
     "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
-    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt",
+    "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
+    ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
+    ".github/issue8-p13-apk-request.txt"
   ],
   "phase_artifacts": {
     "P02": {
@@ -1190,6 +1194,30 @@
       "technical_cases": "15_NOT_RUN",
       "original_12_acceptance": "UNVERIFIED",
       "phone_device_field_evidence": "NONE"
+    },
+    "P13": {
+      "status": "BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+      "date": "2026-10-24",
+      "documentation": "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
+      "workflow": ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
+      "trigger_marker": ".github/issue8-p13-apk-request.txt",
+      "run_id": 40079909648,
+      "run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648",
+      "source_commit": "2951647da5a995f7e28fa2b9dfc89c596697715e",
+      "apk_name": "app-debug.apk",
+      "apk_size_bytes": 36691339,
+      "apk_sha256": "20259add73fcbe06db50dd65f4e440b4cdce823f28f12d50d6f7f86cbd80f19b",
+      "artifact_id": 12554742975,
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648/artifacts/12554742975",
+      "artifact_verified": "YES_ACTUAL_DOWNLOADED_ZIP_EXTRACTED_APK_HASH_MATCHED",
+      "owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+      "user_M_cases": "45_NOT_RUN",
+      "technical_T_cases": "15_NOT_RUN",
+      "original_AC": "12_UNVERIFIED",
+      "no_test_invocation": true,
+      "apk_built": true,
+      "no_pr_merge": true,
+      "issue_open": true
     }
   }
 }
