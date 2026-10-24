@@ -113,7 +113,7 @@ fun DrivingModeScreen(
                     style = MusicTextStyles.titleMedium,
                     color = MusicColors.textPrimary,
                 )
-                OutlinedButton(
+                Button(
                     onClick = onExit,
                     modifier = Modifier.heightIn(min = MusicSize.drivingExitMinDp),
                 ) {
@@ -137,11 +137,12 @@ fun DrivingModeScreen(
 
             // CMP-07: title and artist are display-only local metadata
             // resolved *exclusively* for the current validated service item.
+            val confirmedTitle = metadata?.title?.takeIf { it.isNotBlank() }
             Text(
                 text = when {
                     state.view == DrivingViewState.NoTrack ->
                         stringResource(R.string.i9_driving_no_current_track)
-                    metadata?.title?.isNotBlank() == true -> metadata.title
+                    confirmedTitle != null -> confirmedTitle
                     else -> stringResource(R.string.i7_unknown_track)
                 },
                 modifier = Modifier.fillMaxWidth().semantics { heading() },
@@ -282,7 +283,6 @@ private fun DrivingTransportButton(
         onClick = { onTransport?.invoke(control.action) },
         enabled = control.enabled && onTransport != null,
         modifier = modifier.heightIn(min = MusicSize.drivingControlMinDp),
-        // No fake Play/Pause service success, hidden action or local state.
     ) {
         Text(
             text = label,
