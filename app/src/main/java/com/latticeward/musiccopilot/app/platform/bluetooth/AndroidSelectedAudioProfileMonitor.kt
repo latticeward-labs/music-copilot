@@ -16,6 +16,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
 import androidx.core.content.ContextCompat
 import com.latticeward.musiccopilot.core.application.bluetooth.BluetoothObservationCause
 import com.latticeward.musiccopilot.core.application.bluetooth.BluetoothSelectionToken
@@ -54,6 +55,7 @@ class AndroidSelectedAudioProfileMonitor(
     private var headset: BluetoothProfile? = null
     private var query: Job? = null
     private var profileConnectPulse = false
+    private var profilePulseDeadlineMs = 0L
     private var waitingForA2dp = false
     private var waitingForHeadset = false
     private var listener: BluetoothProfile.ServiceListener? = null
@@ -75,10 +77,14 @@ class AndroidSelectedAudioProfileMonitor(
                     val connectionState = intent.getIntExtra(
                         BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED
                     )
-                    if (connectionState == BluetoothProfile.STATE_CONNECTED)
+                    if (connectionState == BluetoothProfile.STATE_CONNECTED) {
                         profileConnectPulse = true
-                    if (connectionState == BluetoothProfile.STATE_DISCONNECTED)
+                        profilePulseDeadlineMs = SystemClock.elapsedRealtime() + 2_000L
+                    }
+                    if (connectionState == BluetoothProfile.STATE_DISCONNECTED) {
                         profileConnectPulse = false
+                        profilePulseDeadlineMs = 0L
+                    }
                     schedule(BluetoothObservationCause.ProfileConnectionEvent)
                 }
                 BluetoothAdapter.ACTION_STATE_CHANGED -> {
@@ -217,6 +223,7 @@ class AndroidSelectedAudioProfileMonitor(
         active = false
         selectedToken = null
         profileConnectPulse = false
+        profilePulseDeadlineMs = 0L
         if (receiverRegistered) {
             try { app.unregisterReceiver(receiver) } catch (_: RuntimeException) { }
             receiverRegistered = false
@@ -242,6 +249,8 @@ class AndroidSelectedAudioProfileMonitor(
     @SuppressLint("MissingPermission")
     private fun schedule(cause: BluetoothObservationCause) {
         if (!active) return
+        if (SystemClock.elapsedRealtime() > profilePulseDeadlineMs)
+            profileConnectPulse = false
         val generation = epoch
         val currentSequence = ++sequence
         query?.cancel()
@@ -324,7 +333,9 @@ class AndroidSelectedAudioProfileMonitor(
         cause: BluetoothObservationCause,
     ) {
         if (!active || generation != epoch || observedSequence != sequence) return
-        val finalCause = if (profileConnectPulse &&
+        val pulseValid = profileConnectPulse &&
+            SystemClock.elapsedRealtime() <= profilePulseDeadlineMs
+        val finalCause = if (pulseValid &&
             cause != BluetoothObservationCause.Initial &&
             result in setOf(
                 SelectedAudioConnectionStatus.ConnectedA2dp,
@@ -335,8 +346,10 @@ class AndroidSelectedAudioProfileMonitor(
         // service callback. Preserve that pulse only while profiles are
         // loading, then consume it after one authoritative observation.
         // No indefinite replays on repeated ACL/recheck events.
-        if (result != SelectedAudioConnectionStatus.WaitingForProfiles)
+        if (result != SelectedAudioConnectionStatus.WaitingForProfiles || !pulseValid) {
             profileConnectPulse = false
+            profilePulseDeadlineMs = 0L
+        }
         onResult(result, finalCause)
     }
 }
