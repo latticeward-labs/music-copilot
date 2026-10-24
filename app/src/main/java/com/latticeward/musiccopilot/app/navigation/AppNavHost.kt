@@ -25,6 +25,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
@@ -55,6 +56,10 @@ import com.latticeward.musiccopilot.core.application.permission.VoicePracticeSta
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
+import com.latticeward.musiccopilot.data.api.PreferencesLoadState
+import com.latticeward.musiccopilot.app.platform.bluetooth.AndroidPairedAudioDeviceSource
+import com.latticeward.musiccopilot.feature.settings.bluetooth.BluetoothSelectionViewModel
+import com.latticeward.musiccopilot.feature.settings.bluetooth.BluetoothPreferenceSettingsSection
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
 import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
@@ -88,6 +93,9 @@ fun AppNavHost(
     preferencesRepository: PreferencesRepository,
     remoteSpeechDecision: CloudSpeechGateDecision,
     onRevokeCloudSpeechConsent: () -> Unit,
+    bluetoothConnectGranted: Boolean = false,
+    onRequestBluetoothConnectPermission: () -> Unit = {},
+    onOpenBluetoothPermissionSettings: () -> Unit = {},
     onRetry: () -> Unit,
     onRefreshPermission: () -> Unit,
     onRetryLibraryScan: () -> Unit,
@@ -131,6 +139,30 @@ fun AppNavHost(
         },
     )
     val playerUi by playerModel.ui.collectAsStateWithLifecycle()
+    // P09: the existing one Settings route owns only preference UI.
+    // Platform enumerator never scans, connects or observes BT events (P10).
+    val appContext = LocalContext.current.applicationContext
+    val pairedAudioSource = remember(appContext) {
+        AndroidPairedAudioDeviceSource(appContext)
+    }
+    val bluetoothModel: BluetoothSelectionViewModel = viewModel(
+        key = "issue9-settings-bluetooth-selection",
+        factory = remember(preferencesRepository, pairedAudioSource) {
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    check(modelClass == BluetoothSelectionViewModel::class.java)
+                    return BluetoothSelectionViewModel(
+                        preferencesRepository, pairedAudioSource
+                    ) as T
+                }
+            }
+        },
+    )
+    val storedBluetoothPreferences by
+        preferencesRepository.preferences.collectAsStateWithLifecycle()
+    val bluetoothStorageState by
+        preferencesRepository.loadState.collectAsStateWithLifecycle()
     // Activity-scoped, configuration-retained, but never SavedState-restored.
     // No automatic Driving entry on cold launch/process restart/BT reconnect.
     val drivingNavigation: DrivingNavigationViewModel = viewModel(
@@ -484,15 +516,31 @@ fun AppNavHost(
             )
         }
         composable(Destination.Settings.route) {
-            BackHandler { settingsOpen = false }
+            BackHandler {
+                bluetoothModel.dismiss()
+                settingsOpen = false
+            }
             FirstLaunchBoundary(
                 title = stringResource(R.string.first_use_settings),
                 message = stringResource(R.string.first_use_replay_help),
                 primary = stringResource(R.string.first_use_replay_action),
                 onPrimary = { replayingEducation = true },
                 secondary = stringResource(R.string.action_back),
-                onSecondary = { settingsOpen = false },
+                onSecondary = {
+                    bluetoothModel.dismiss()
+                    settingsOpen = false
+                },
                 extraContent = {
+                    // WF-10 Settings Bluetooth suggestion P1. All actual
+                    // selection stays outside Driving; no automatic entry.
+                    BluetoothPreferenceSettingsSection(
+                        model = bluetoothModel,
+                        persistedToken = storedBluetoothPreferences.selectedBluetoothHint,
+                        persistenceReady = bluetoothStorageState == PreferencesLoadState.Ready,
+                        connectPermissionGranted = bluetoothConnectGranted,
+                        onRequestConnectPermission = onRequestBluetoothConnectPermission,
+                        onOpenAndroidPermissionSettings = onOpenBluetoothPermissionSettings,
+                    )
                     Text(
                         stringResource(R.string.p10_notification_exempt_status),
                         modifier = Modifier.padding(top = MusicSpacing.lgDp),
