@@ -42,10 +42,12 @@ import com.latticeward.musiccopilot.core.application.driving.DrivingAction
 import com.latticeward.musiccopilot.core.application.driving.DrivingActionLabel
 import com.latticeward.musiccopilot.core.application.driving.DrivingControlState
 import com.latticeward.musiccopilot.core.application.driving.DrivingPresentationState
-import com.latticeward.musiccopilot.core.application.driving.DrivingStatusNotice
+import com.latticeward.musiccopilot.core.application.driving.DrivingRecoveryMessage
+import com.latticeward.musiccopilot.core.application.driving.DrivingRecoveryPolicy
 import com.latticeward.musiccopilot.core.application.driving.DrivingViewState
 import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.data.api.LibraryItem
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import kotlinx.coroutines.CancellationException
@@ -71,6 +73,8 @@ fun DrivingModeScreen(
     library: LibraryRepository,
     canReadLocalMetadata: Boolean,
     onExit: () -> Unit,
+    lastError: AppError? = null,
+    requestFailed: Boolean = false,
     onTransport: ((DrivingAction) -> Unit)? = null,
     onMic: (() -> Unit)? = null,
 ) {
@@ -100,6 +104,7 @@ fun DrivingModeScreen(
     // A cancelled old lookup or a permission revocation cannot reattach stale
     // title/artist to a newer service-selected occurrence.
     val metadata = resolved?.takeIf { it.ref == safeRef }?.item
+    val recovery = DrivingRecoveryPolicy.project(state, lastError, requestFailed)
 
     Surface(modifier = Modifier.fillMaxSize(), color = MusicColors.background) {
         Column(
@@ -130,36 +135,46 @@ fun DrivingModeScreen(
                 }
             }
 
-            // CMP-08: local artwork placeholder. No unapproved network/bitmap
-            // resolver, hard-coded screenshot, fake album art or file access.
-            Box(
-                modifier = Modifier.size(160.dp)
-                    .background(MusicColors.surfaceVariant, RoundedCornerShape(MusicRadius.mdDp)),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    stringResource(R.string.i9_driving_artwork_placeholder),
-                    color = MusicColors.textMuted,
-                    style = MusicTextStyles.labelLarge,
-                )
-            }
-
-            // CMP-07: title and artist are display-only local metadata
-            // resolved *exclusively* for the current validated service item.
-            val confirmedTitle = metadata?.title?.takeIf { it.isNotBlank() }
+            // State comes before the verified metadata in accessibility order.
+            // No Track is a distinct CC-07 variant, not a fake empty song.
             Text(
-                text = when {
-                    state.view == DrivingViewState.NoTrack ->
-                        stringResource(R.string.i9_driving_no_current_track)
-                    confirmedTitle != null -> confirmedTitle
-                    else -> stringResource(R.string.i7_unknown_track)
-                },
+                text = when (state.view) {
+                    DrivingViewState.Playing -> stringResource(R.string.i9_driving_state_playing)
+                    DrivingViewState.Paused -> stringResource(R.string.i9_driving_state_paused)
+                    DrivingViewState.NoTrack -> stringResource(R.string.i9_driving_state_no_track)
+                }.uppercase(),
                 modifier = Modifier.fillMaxWidth().semantics { heading() },
-                color = MusicColors.textPrimary,
-                style = MusicTextStyles.drivingTitle,
+                color = MusicColors.primary,
+                style = MusicTextStyles.drivingState,
                 textAlign = TextAlign.Center,
             )
-            if (state.view != DrivingViewState.NoTrack) {
+
+            if (recovery.showArtworkAndMetadata) {
+                // CC-05/CC-06: subordinate CMP-08 neutral artwork only.
+                // Never fabricate a bitmap or cache a revoked private file.
+                Box(
+                    modifier = Modifier.size(160.dp).background(
+                        MusicColors.surfaceVariant,
+                        RoundedCornerShape(MusicRadius.mdDp),
+                    ),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        stringResource(R.string.i9_driving_artwork_placeholder),
+                        color = MusicColors.textMuted,
+                        style = MusicTextStyles.labelLarge,
+                    )
+                }
+                // CMP-07: service-verified MediaRef only. The producer cancels
+                // prior lookups; mismatched references never render.
+                Text(
+                    text = metadata?.title?.takeIf { it.isNotBlank() }
+                        ?: stringResource(R.string.i7_unknown_track),
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MusicColors.textPrimary,
+                    style = MusicTextStyles.drivingTitle,
+                    textAlign = TextAlign.Center,
+                )
                 Text(
                     text = metadata?.artist?.takeIf { it.isNotBlank() }
                         ?: stringResource(R.string.i9_driving_unknown_artist),
@@ -168,75 +183,84 @@ fun DrivingModeScreen(
                     style = MusicTextStyles.drivingMeta,
                     textAlign = TextAlign.Center,
                 )
-            }
-            Text(
-                text = when (state.view) {
-                    DrivingViewState.Playing -> stringResource(R.string.i9_driving_state_playing)
-                    DrivingViewState.Paused -> stringResource(R.string.i9_driving_state_paused)
-                    DrivingViewState.NoTrack -> stringResource(R.string.i9_driving_state_no_track)
-                }.uppercase(),
-                modifier = Modifier.fillMaxWidth(),
-                color = MusicColors.primary,
-                style = MusicTextStyles.drivingState,
-                textAlign = TextAlign.Center,
-            )
-
-            // P04 keeps error/connecting messages honest; P05 adds recovery
-            // decisions. No status is inferred from a stale cached Playing.
-            val status = drivingNoticeMessage(state.notice)
-            if (status != null) {
+            } else {
+                // CC-07: NO TRACK has no artwork or claimed current artist.
                 Text(
-                    text = status,
+                    stringResource(R.string.i9_driving_no_current_track),
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MusicColors.textPrimary,
+                    style = MusicTextStyles.drivingTitle,
+                    textAlign = TextAlign.Center,
+                )
+                Text(
+                    stringResource(R.string.i9_driving_exit_to_browse),
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MusicColors.textSecondary,
+                    style = MusicTextStyles.drivingMeta,
+                    textAlign = TextAlign.Center,
+                )
+                // No trustworthy last-item reference exists in P05. No
+                // speculative Play Last action or implicit queue mutation.
+            }
+
+            // Single, precedence-ordered reason from the actual service,
+            // controller and ACK flag; never print arbitrary exception text.
+            val explanation = drivingRecoveryMessage(recovery.message)
+            if (explanation != null) {
+                Text(
+                    text = explanation,
                     modifier = Modifier.fillMaxWidth(),
                     color = MusicColors.textSecondary,
                     style = MusicTextStyles.bodyMedium,
                     textAlign = TextAlign.Center,
                 )
             }
-            if (onTransport == null) {
-                Text(
-                    stringResource(R.string.i9_driving_transports_not_ready),
-                    modifier = Modifier.fillMaxWidth(),
-                    style = MusicTextStyles.bodyMedium,
-                    color = MusicColors.textMuted,
-                    textAlign = TextAlign.Center,
-                )
-            }
 
-            // CMP-05: four *fixed* controls in contract order.
-            // At large font scales / narrow available width reflow to 2x2,
-            // rather than shrink targets, clip text or introduce a long list.
-            BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-                val split = LocalDensity.current.fontScale >= 1.5f ||
-                    maxWidth < 340.dp
-                if (split) {
-                    Column(verticalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp)) {
-                        state.controls.chunked(2).forEach { pair ->
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
-                            ) {
-                                pair.forEach { control ->
-                                    DrivingTransportButton(
-                                        control = control,
-                                        modifier = Modifier.weight(1f),
-                                        onTransport = onTransport,
-                                    )
+            if (recovery.showTransportControls) {
+                if (onTransport == null) {
+                    Text(
+                        stringResource(R.string.i9_driving_transports_not_ready),
+                        modifier = Modifier.fillMaxWidth(),
+                        style = MusicTextStyles.bodyMedium,
+                        color = MusicColors.textMuted,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                // CC-05/CC-06: fixed four approved transports, P06 supplies
+                // their real service-ACK callback. They are disabled before P06.
+                // On small widths / large font, reflow to 2x2, not tiny targets.
+                BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+                    val split = LocalDensity.current.fontScale >= 1.5f ||
+                        maxWidth < 340.dp
+                    if (split) {
+                        Column(verticalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp)) {
+                            state.controls.chunked(2).forEach { pair ->
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
+                                ) {
+                                    pair.forEach { control ->
+                                        DrivingTransportButton(
+                                            control = control,
+                                            modifier = Modifier.weight(1f),
+                                            onTransport = onTransport,
+                                        )
+                                    }
                                 }
                             }
                         }
-                    }
-                } else {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
-                    ) {
-                        state.controls.forEach { control ->
-                            DrivingTransportButton(
-                                control = control,
-                                modifier = Modifier.weight(1f),
-                                onTransport = onTransport,
-                            )
+                    } else {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
+                        ) {
+                            state.controls.forEach { control ->
+                                DrivingTransportButton(
+                                    control = control,
+                                    modifier = Modifier.weight(1f),
+                                    onTransport = onTransport,
+                                )
+                            }
                         }
                     }
                 }
@@ -302,13 +326,32 @@ private fun DrivingTransportButton(
 }
 
 @Composable
-private fun drivingNoticeMessage(notice: DrivingStatusNotice): String? = when (notice) {
-    DrivingStatusNotice.None -> null
-    DrivingStatusNotice.Connecting -> stringResource(R.string.i7_connecting)
-    DrivingStatusNotice.Disconnected -> stringResource(R.string.i7_disconnected)
-    DrivingStatusNotice.ControllerError -> stringResource(R.string.i7_controller_error)
-    DrivingStatusNotice.Buffering -> stringResource(R.string.i7_buffering)
-    DrivingStatusNotice.PlaybackError -> stringResource(R.string.i7_playback_error)
-    DrivingStatusNotice.CommandPending -> stringResource(R.string.i7_command_pending)
-    DrivingStatusNotice.Interruption -> stringResource(R.string.i8_audio_temporarily_paused)
+private fun drivingRecoveryMessage(message: DrivingRecoveryMessage?): String? = when (message) {
+    null, DrivingRecoveryMessage.NoTrackBrowse -> null
+    DrivingRecoveryMessage.NoTrackItemUnavailable ->
+        stringResource(R.string.i9_driving_no_track_item_unavailable)
+    DrivingRecoveryMessage.PausedManualResume ->
+        stringResource(R.string.i9_driving_paused_resume_note)
+    DrivingRecoveryMessage.PlaybackConnecting ->
+        stringResource(R.string.i7_connecting)
+    DrivingRecoveryMessage.PlaybackDisconnected ->
+        stringResource(R.string.i7_disconnected)
+    DrivingRecoveryMessage.PlaybackControllerUnavailable ->
+        stringResource(R.string.i7_controller_error)
+    DrivingRecoveryMessage.PlaybackBuffering ->
+        stringResource(R.string.i7_buffering)
+    DrivingRecoveryMessage.PlaybackFailed ->
+        stringResource(R.string.i7_playback_error)
+    DrivingRecoveryMessage.LocalItemUnavailable ->
+        stringResource(R.string.i7_unavailable_help)
+    DrivingRecoveryMessage.RouteOutputChanged ->
+        stringResource(R.string.i8_output_changed)
+    DrivingRecoveryMessage.AudioFocusUnavailable ->
+        stringResource(R.string.i8_focus_not_recovered)
+    DrivingRecoveryMessage.InterruptionSafePaused ->
+        stringResource(R.string.i8_audio_temporarily_paused)
+    DrivingRecoveryMessage.CommandPending ->
+        stringResource(R.string.i7_command_pending)
+    DrivingRecoveryMessage.CommandRejected ->
+        stringResource(R.string.i7_action_failed)
 }
