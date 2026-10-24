@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "issue": 9,
+  "phase": "P13",
+  "status": "NOT_BUILT_P12_SKELETON_ONLY",
+  "repository": "latticeward-labs/music-copilot",
+  "source_branch": "feature/9-driving-mode-bluetooth-suggestion",
+  "source_commit_sha": null,
+  "source_git_tree_sha": null,
+  "archive_source_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "package_id_debug": "com.latticeward.musiccopilot.debug",
+  "android_min_sdk": 29,
+  "android_target_sdk": 36,
+  "build_instructions": {
+    "one_cumulative_debug_apk_from_p00_through_p12": true,
+    "gradle_task_only": ":app:assembleDebug",
+    "forbidden_tasks": [
+      "test",
+      "connectedAndroidTest",
+      "lint",
+      "check",
+      "assembleAndroidTest",
+      "kaptDebugUnitTestKotlin"
+    ],
+    "build_must_run_only_in_p13": true,
+    "runner_status": "NOT_RUN",
+    "runner_kind": null,
+    "workflow_run_id": null,
+    "artifact_name": "issue9-cumulative-debug-apk",
+    "output_in_apk": "app/build/outputs/apk/debug/app-debug.apk"
+  },
+  "build_result": {
+    "build_started_at": null,
+    "build_finished_at": null,
+    "build_status": "NOT_BUILT",
+    "source_head_verified_before_build": null,
+    "source_head_verified_after_build": null,
+    "apk_sha256": null,
+    "apk_size_bytes": null,
+    "apk_filename": null,
+    "apk_download_url": null,
+    "artifact_zip_url": null,
+    "artifact_sha256": null,
+    "apk_signature_cert_sha256": null,
+    "build_logs_url": null
+  },
+  "tests": {
+    "jvm": "NOT_RUN",
+    "compose_instrumentation": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "github_actions_tests": "NOT_RUN",
+    "manual_phone_count": 46,
+    "manual_phone_status": "NOT_RUN"
+  },
+  "delivery": {
+    "final_phone_checklist": "docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md",
+    "evidence_index": "docs/implementation/ISSUE_9_EVIDENCE_INDEX.json",
+    "qa_ledger": "docs/implementation/ISSUE_9_QA_RESULTS.json",
+    "owner_accepted": false,
+    "pr_created": false,
+    "merged": false,
+    "issue_closed": false,
+    "notes": "Never claim APK built, verified, signed, downloadable, tested or accepted until actual P13 build and owner field results. No second per-phase APK."
+  }
+}
