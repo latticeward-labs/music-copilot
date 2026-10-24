@@ -191,13 +191,17 @@ fun FullPlayerScreen(
                     val error = snap.lastError
                     val missingAccess = error?.code == AppErrorCodes.PERMISSION_REVOKED
                     val skippedMedia = error is AppError.MediaItem
+                    val audioInterrupted = error is AppError.Interruption
                     Column(
                         modifier = Modifier.fillMaxWidth()
                             .padding(horizontal = MusicSpacing.mdDp),
                         verticalArrangement = Arrangement.spacedBy(MusicSpacing.smDp),
                     ) {
                         Text(
-                            stringResource(R.string.i7_unavailable_heading),
+                            stringResource(
+                                if (audioInterrupted) R.string.i8_interruption_heading
+                                else R.string.i7_unavailable_heading
+                            ),
                             modifier = Modifier.semantics { heading() },
                             color = MusicColors.error,
                             style = MusicTextStyles.titleMedium,
@@ -206,6 +210,13 @@ fun FullPlayerScreen(
                             stringResource(
                                 when {
                                     missingAccess -> R.string.i7_permission_revoked_help
+                                    audioInterrupted -> when (error?.code) {
+                                        AppErrorCodes.ROUTE_INVALIDATED ->
+                                            R.string.i8_output_changed
+                                        AppErrorCodes.FOCUS_NOT_RECOVERED ->
+                                            R.string.i8_focus_not_recovered
+                                        else -> R.string.i8_audio_temporarily_paused
+                                    }
                                     skippedMedia && snap.playbackState !=
                                         com.latticeward.musiccopilot.playback.api.PlaybackState.Error ->
                                         R.string.i7_skipped_and_continuing
@@ -221,6 +232,21 @@ fun FullPlayerScreen(
                             color = MusicColors.textSecondary,
                             style = MusicTextStyles.bodyMedium,
                         )
+                        // P10: only an explicit, validated app action may
+                        // clear a route/focus latch. This button never claims
+                        // a Bluetooth reconnect or telephone call is safe.
+                        if (audioInterrupted && state.canControl &&
+                            snap.playbackState !=
+                                com.latticeward.musiccopilot.playback.api.PlaybackState.Playing
+                        ) {
+                            Button(
+                                onClick = model::togglePlayPause,
+                                modifier = Modifier.fillMaxWidth()
+                                    .heightIn(min = MusicSize.touchTargetMinDp),
+                            ) {
+                                Text(stringResource(R.string.i8_resume_when_ready))
+                            }
+                        }
                         // A real error (not transient skip notice) may allow
                         // one explicitly requested, MediaStore-validated next.
                         if (!missingAccess && state.ready &&
