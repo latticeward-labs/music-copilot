@@ -58,7 +58,8 @@
     "voice_cancellation_owner": "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
     "voice_provider_teardown": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
     "interruption_notice_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
-    "interruption_error_transport": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt"
+    "interruption_error_transport": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+    "android_oem_compatibility_audit": "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md"
   },
   "phase_dependencies": {
     "P00": [],
@@ -174,7 +175,10 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
       ],
       "sources": [
         "FR-03",
@@ -280,7 +284,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts"
       ],
       "sources": [
         "FR-03",
@@ -334,7 +340,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts"
       ],
       "sources": [
         "FR-03",
@@ -390,7 +398,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts"
       ],
       "sources": [
         "ADR-0002",
@@ -437,7 +447,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts"
       ],
       "sources": [
         "UF-11",
@@ -490,7 +505,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts"
       ],
       "sources": [
         "UF-11",
@@ -571,7 +588,11 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
       ],
       "sources": [
         "ADR-0003",
@@ -645,7 +666,10 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml"
       ],
       "sources": [
         "MVP Week 4",
@@ -695,7 +719,8 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/build.gradle.kts"
       ],
       "sources": [
         "FR-03",
@@ -816,7 +841,10 @@
     "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
     "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
     "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-    "app/src/main/res/values/strings.xml"
+    "app/src/main/res/values/strings.xml",
+    "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
+    "app/src/main/AndroidManifest.xml",
+    "app/build.gradle.kts"
   ],
   "phase_artifacts": {
     "P02": {
@@ -1030,6 +1058,37 @@
       "tests_executed": 0,
       "apk_built": false,
       "AC": "ALL_12_UNVERIFIED"
+    },
+    "P11": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-24",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml"
+      ],
+      "reviewed_unchanged": [
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
+      "minSdk": 29,
+      "targetSdk": 36,
+      "compileSdk": 36,
+      "BLE_API31_GUARD": "CODE_ADDED_NOT_COMPILED",
+      "MEDIA3_FOREGROUND_NOTIFICATION": "EXISTING_SERVICE_SOURCE_REVIEW_ONLY",
+      "ANDROID_15_AUDIO_FOCUS": "TOP_APP_OR_ALREADY_FGS_REQUIRED_PLATFORM_POLICY",
+      "OEM_DEVICE_MATRIX": "HONOR_PIXEL_SAMSUNG_XIAOMI_AND_THREE_PARKED_VEHICLES_PLANNED_NOT_RUN",
+      "ANDROID_AUTO": "EXCLUDED_APPROVED_MVP_ADR0006",
+      "TALKBACK": "SHORT_MINIPLAYER_STATUS_FULL_PLAYER_POLITE_LIVE_REGION_SOURCE",
+      "runtime_field_evidence": "NONE",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "AC01_AC12": "UNVERIFIED"
     }
   }
 }
