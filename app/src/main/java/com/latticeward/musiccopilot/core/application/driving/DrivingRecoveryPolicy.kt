@@ -46,11 +46,8 @@ object DrivingRecoveryPolicy {
         val message = when {
             // The approved CC-07 No Track frame owns the terminal state and
             // never shows a non-validated remembered Play Last button.
-            noTrack && lastError is AppError.MediaItem ->
-                DrivingRecoveryMessage.NoTrackItemUnavailable
-            noTrack -> DrivingRecoveryMessage.NoTrackBrowse
-
-            // Connection and pending errors take precedence over cached errors.
+            // Controller connectivity is source-authoritative, including
+            // when no current item can yet be verified.
             state.notice == DrivingStatusNotice.Connecting ->
                 DrivingRecoveryMessage.PlaybackConnecting
             state.notice == DrivingStatusNotice.Disconnected ->
@@ -60,6 +57,17 @@ object DrivingRecoveryPolicy {
             state.notice == DrivingStatusNotice.CommandPending ->
                 DrivingRecoveryMessage.CommandPending
 
+            noTrack && lastError is AppError.MediaItem ->
+                DrivingRecoveryMessage.NoTrackItemUnavailable
+            noTrack -> DrivingRecoveryMessage.NoTrackBrowse
+
+            // When the service is truly Playing, an earlier item failure
+            // or old interruption must not be presented as a current pause.
+            state.view == DrivingViewState.Playing && !requestFailed &&
+                (state.notice == DrivingStatusNotice.None ||
+                    state.notice == DrivingStatusNotice.Interruption) -> null
+
+            // Remaining service notices and typed errors follow priority.
             // Route/focus loss remains safe-paused; only the real playback
             // service may revalidate a later explicit Play (P06).
             lastError is AppError.Interruption &&
