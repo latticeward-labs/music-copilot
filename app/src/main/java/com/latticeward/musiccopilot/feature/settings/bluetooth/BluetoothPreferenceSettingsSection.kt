@@ -80,6 +80,22 @@ fun BluetoothPreferenceSettingsSection(
             }
         } else {
             Text(
+                stringResource(R.string.i9_bt_selection_title),
+                modifier = Modifier.semantics { heading() },
+                color = MusicColors.textPrimary,
+                style = MusicTextStyles.titleMedium,
+            )
+            Text(
+                stringResource(R.string.i9_bt_selection_subtitle),
+                color = MusicColors.textSecondary,
+                style = MusicTextStyles.bodyMedium,
+            )
+            Text(
+                stringResource(R.string.i9_bt_connection_note),
+                color = MusicColors.textPrimary,
+                style = MusicTextStyles.bodyMedium,
+            )
+            Text(
                 stringResource(R.string.i9_bt_privacy_note),
                 color = MusicColors.textSecondary,
                 style = MusicTextStyles.bodyMedium,
