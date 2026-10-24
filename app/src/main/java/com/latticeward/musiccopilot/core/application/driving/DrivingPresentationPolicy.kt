@@ -61,7 +61,12 @@ object DrivingPresentationPolicy {
      * Approved WF-07 order is fixed: Previous -> Play/Pause -> Next -> Seek back,
      * followed by the separate Mic and immediate Exit on the screen.
      */
-    // WF-07 uses the existing service's approved -10s SeekBy transport contract.\n    // P02 intentionally does NOT import playback.command implementation: ADR-0008\n    // application code may depend only on the playback/api public port.\n    const val SEEK_BACK_MS = 10_000L\n\n    val transportOrder: List<DrivingAction> = listOf(
+    // WF-07 uses the existing service's approved -10s SeekBy transport contract.
+    // P02 intentionally does NOT import playback.command implementation: ADR-0008
+    // application code may depend only on the playback/api public port.
+    const val SEEK_BACK_MS = 10_000L
+
+    val transportOrder: List<DrivingAction> = listOf(
         DrivingAction.Previous,
         DrivingAction.PlayPause,
         DrivingAction.Next,
