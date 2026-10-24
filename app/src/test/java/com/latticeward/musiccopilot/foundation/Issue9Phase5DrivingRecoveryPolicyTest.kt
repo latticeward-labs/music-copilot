@@ -181,4 +181,27 @@ class Issue9Phase5DrivingRecoveryPolicyTest {
         )
         assertEquals(DrivingRecoveryMessage.PlaybackDisconnected, result.message)
     }
+
+    @Test fun noTrackWhileDisconnectedShowsConnectionProblemNotFalseEmptySuccess() {
+        val result = project(
+            DrivingViewState.NoTrack, DrivingStatusNotice.Disconnected,
+        )
+        assertEquals(DrivingRecoveryMessage.PlaybackDisconnected, result.message)
+        assertFalse(result.showTransportControls)
+        assertFalse(result.verifiedLastItemAvailable)
+    }
+
+    @Test fun acknowledgedPlayingSuppressesStaleMediaItemFailure() {
+        val result = project(DrivingViewState.Playing, error = missingItem())
+        assertNull(result.message)
+        assertTrue(result.showTransportControls)
+    }
+
+    @Test fun playingAfterRouteRecoverySuppressesOldSafePausedMessage() {
+        val result = project(
+            DrivingViewState.Playing, DrivingStatusNotice.Interruption,
+            interruption(AppErrorCodes.ROUTE_INVALIDATED),
+        )
+        assertNull(result.message)
+    }
 }
