@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P09_OPTIONAL_BLUETOOTH_SETTINGS_SOURCE_COMPLETE_P10_NEXT",
+  "status": "P10_SELECTED_BLUETOOTH_DEVICE_PROFILE_GATE_SOURCE_COMPLETE_P11_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -16,7 +16,7 @@
     "P07": "PASS_SCOPED_MIC_VOICE_HANDOFF_SOURCE_19_JUNIT_AUTHORED_NOT_RUN",
     "P08": "PASS_SCOPED_ACCESSIBILITY_SOURCE_11_COMPOSE_TESTS_AUTHORED_NOT_RUN",
     "P09": "PASS_SCOPED_BLUETOOTH_SETTINGS_SOURCE_18_JUNIT_AUTHORED_NOT_RUN",
-    "P10": "PLANNED_NOT_EXECUTED",
+    "P10": "PASS_SCOPED_SELECTED_AUDIO_PROFILE_GATE_SOURCE_24_JUNIT_AUTHORED_NOT_RUN",
     "P11": "PLANNED_NOT_EXECUTED",
     "P12": "PLANNED_NOT_EXECUTED",
     "P13": "PLANNED_NOT_EXECUTED"
@@ -133,6 +133,9 @@
     "P08: no Gradle, Java/Kotlin compile, JUnit, Compose tests, lint, Actions, emulator, APK, owner phone or car tests performed. All 14 product AC NOT_VERIFIED, M01–M46 NOT_RUN, five technical groups NOT_RUN, APK NOT_BUILT; Issue open/PR absent.",
     "P09: same WF-10 Settings route now includes optional Bluetooth section. User explicitly opens paired eligible AUDIO_VIDEO output device list, stages one, Saves/Removes through existing local PreferencesRepository.SetBluetoothHint DataStore ACK. Saved identity uses salted SHA-256 opaque v1 token; no raw MAC/name persisted and invalid legacy hints are not trusted.",
     "P09: Android 10/11 legacy BLUETOOTH and Android 12+ explicit BLUETOOTH_CONNECT runtime permission with fresh OS read, rationale and manual app-Settings recovery; no scan/location/auto pair/connect, auto-Driving, autoplay or mic. OS results/onResume never auto-enumerate. Save rechecks pairing and permission; failures retain prior preference. Remove works with BT off/revoked.",
-    "P09: 18 pure JUnit methods authored 0 executed; cumulative prior source tests (96 JVM +11 Compose) +18 = 125 authored, 0 executed. 14 original AC NOT_VERIFIED; M01–M46 NOT_RUN, five technical groups NOT_RUN; APK NOT_BUILT; no GitHub Actions, Gradle, PR, merge or close."
+    "P09: 18 pure JUnit methods authored 0 executed; cumulative prior source tests (96 JVM +11 Compose) +18 = 125 authored, 0 executed. 14 original AC NOT_VERIFIED; M01–M46 NOT_RUN, five technical groups NOT_RUN; APK NOT_BUILT; no GitHub Actions, Gradle, PR, merge or close.",
+    "P10: app-scoped, foreground-only selected-device Bluetooth profile monitor, registered receivers/proxies for A2DP and Headset; actual bonded output class, fresh OS BLUETOOTH_CONNECT and profile.getConnectedDevices verified before connected status. ACL and third-party profile events for nonselected device never authorize an edge. No extra manifest permission, scanning, pairing, audio route changes, auto Driving/playback/mic or notifications.",
+    "P10: pure one-shot selected audio reconnect gate: first connection at foreground initial is baseline only; a previous confirmed Disconnected -> selected confirmed A2DP/HFP ProfileConnectionEvent gives one incrementing event ID; duplicate events ignored. Selection removal, OS revocation, unpair, radio off, process/activity stop invalidate; pending old jobs, callback epochs and 2s profile edge window prevent stale suggestions.",
+    "P10: 24 new pure JUnit methods authored, 0 executed; cumulative 96 old pure + 18 P09 pure + 24 P10 pure + 11 P08 Compose = 149 authored, 0 executed. 14 acceptance criteria NOT_VERIFIED; 46 manual phone tests and five technical groups NOT_RUN; APK NOT_BUILT. No Gradle/Kotlin compile/JVM/UI/CI/Actions or OEM tests, no PR/merge/issue closure."
   ]
 }
