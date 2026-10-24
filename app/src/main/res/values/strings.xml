@@ -20,7 +20,15 @@
     <string name="i9_driving_state_playing">Playing</string>
     <string name="i9_driving_state_paused">Paused</string>
     <string name="i9_driving_state_no_track">No track</string>
-    <string name="i9_driving_nav_pending">Playback status: %1$s. Driving controls are being prepared. Exit returns to your previous screen. Playback is unchanged.</string>
+    <!-- Issue #9 P04: WF-07/HF-07 Playing, real service-observed title/artist, safe empty artwork. -->
+    <string name="i9_driving_exit_short">Exit</string>
+    <string name="i9_driving_artwork_placeholder">ARTWORK</string>
+    <string name="i9_driving_no_current_track">No current track</string>
+    <string name="i9_driving_unknown_artist">Unknown local artist</string>
+    <string name="i9_driving_transports_not_ready">Playback buttons will become available after Driving controls are connected. Exit is available now.</string>
+    <string name="i9_driving_seek_back_short">-10s</string>
+    <string name="i9_driving_mic_voice">Mic · Voice</string>
+    <string name="i9_driving_one_layer_note">One layer · no typing · no lists</string>
     <string name="action_skip">Skip</string>
     <string name="action_continue">Continue</string>
     <string name="first_use_save_error">Could not save this step. Retry, or use Back to exit without claiming completion.</string>
