@@ -1,0 +1,87 @@
+# Issue #9 — Executable phased plan: Driving Mode and optional Bluetooth entry suggestion
+
+> **Planning status: READY FOR SEQUENTIAL IMPLEMENTATION — NOT IMPLEMENTED / NOT TESTED / NO APK.**
+> Issue: https://github.com/latticeward-labs/music-copilot/issues/9
+> Execution branch: `feature/9-driving-mode-bluetooth-suggestion` (created from `main` after Issue #8 merge, 2026-10-24).
+> Source archive: user-uploaded English **MSM2(1)(1).rar**, actual SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`, 12 PDF files inspected.
+> Source authority: `docs/PRD.md` FR-04 P0, FR-07 P1; `docs/MVP.md`; `docs/SOFTWARE_ARCHITECTURE.md`; accepted ADR-0001, 0002, 0003, 0007, 0008; `docs/architecture/RUNTIME_POLICIES.md`; UF-07 / UF-11 / UF-12, GS-04 / GS-05; WF-07, WF-10; Issue #17 HF-07 and HF-10 Compose handoff.
+> Scope: Android 10+ native Kotlin/Compose, local MediaStore content, **single service-owned Media3** runtime. No Android Auto, car-motion detection, backend, account, streaming, always-on microphone or forced auto-entry.
+
+## Owner-mandated execution rule (overrides habitual per-phase QA)
+
+1. Implement **P00–P12 sequentially on the same feature branch**. These are implementation, review, code-organization, documentation and **test-source authoring only** phases. **Do NOT run tests, Gradle builds, emulator, Lint, Android instrumentation, GitHub Actions test workflows, or create/deliver intermediate APKs in any of P00–P12.** A code review or written audit does not count as an executed test.
+2. **P13 is the only build/hand-off phase.** Assemble **exactly one final cumulative installable APK candidate** from the combined HEAD containing ALL P00–P12 changes (not separate APKs for separate phases). GitHub Actions may be used solely for `:app:assembleDebug` if a local build is unavailable, with no JUnit, AndroidTests, emulator or lint; if compilation fails, fix the source and retry build-only as needed, but hand over one identified successful candidate.
+3. Deliver that one APK/verified artifact link, source commit, actual APK SHA-256, build provenance, and the complete owner handset checklist. **Do not self-report that tests passed.**
+4. Owner physically tests on their own phone and returns actual M-case results. Record exact PASS/FAIL/BLOCKED/N/A/NOT_RUN, reproducible failures and device/accessory details in GitHub, without turning a missing car/head unit, unavailable live Voice, other OEM, or an unrun automated test into PASS.
+5. Only after owner review/explicit acceptance and appropriate evidence reconciliation prepare/finalize the PR, merge and close Issue #9. Deferred technical/vehicle review must remain visibly deferred if owner elects MVP-closeout by exception; no fabricated complete certification.
+6. No change to Issue #7/#8 service-owned playback, route-safety latch or resolved Android notification/AirPods Play fixes unless required by Issue #9 and supported by narrowly scoped review. **No code changes are executed by this planning document.**
+7. Any authored tests remain source files only until separately authorized to execute. Documentation/plan commits use `[skip ci]` and must not trigger test workflows.
+
+## Verified readiness / current code gaps
+
+- **Completed dependencies (GitHub issue state):** #7 service-owned playback **closed/completed**, #8 Audio Focus/route recovery **closed/completed** (merged PR #77), #16 architecture **closed/completed**, #17 designs **closed/completed**. Issue #9 remains **open**. Historical issue-body 'Backlog (blocked)' is stale and must be resolved based on those actual dependency states.
+- Existing `Destination.Driving` is **declared but not presented** by current `AppNavHost.kt`; `feature/driving/PackageBoundary.kt` is a stub.
+- Existing `PlayerViewModel`/`PlaybackGateway` expose authoritative service snapshots and command dispatch. Reuse, don't fork Media3, a queue or Playback truth.
+- Existing `AppPreferences.selectedBluetoothHint`, `PreferenceUpdate.SetBluetoothHint` and DataStore `bluetooth_hint` support a local preference **but do not constitute a completed device chooser or Bluetooth suggestion engine**.
+- The Settings screen currently shows first-use replay/privacy information; full WF-10 Bluetooth selection is not yet active.
+- Live Voice/Listening UI is not yet available in the Issue #8 owner APK (M44/M45 BLOCKED). A visible Driving Mic is mandatory; real STT/mapping execution remains coordinated with Issue #10, without fake listening/success or accidental mic activation.
+- Current first-source read is a planning audit; NOT a full Gradle/Android/phone validation.
+
+## Approved interaction model
+
+**P0 Driving:** one screen with title, artist, artwork, **Previous / Play-Pause / Next / Seek back** four fixed large controls, a separate Mic action and immediate Exit. Service-owned Playing, Paused, No Track; only supported actions enabled. TalkBack order per WF-07: status -> title/artist -> Previous -> Play/Pause -> Next -> Seek back -> Mic -> Exit. Minimum app touch target 48dp; #17 HF-07 recommends driving transport >=64dp, Mic >=72dp, Exit >=56dp. High contrast, scalable 200% text, no nested UI, keyboard, browsing lists, permission dialogs, prolonged/distracting animation or invented safety claim. Use safe insets and accessible reflow, not inaccessible clipped controls.
+
+**Exit/Back:** same immediate navigation back to most recent non-driving surface; deterministic fallback Home/Library. Exit never pauses/stops legitimate playback or starts another Player. Voice is an origin-owned overlay/state, not a Driving navigation destination. UI recreation must read a complete service snapshot; no local optimistic 'Playing' or auto-entry on app restart.
+
+**P1 Bluetooth:** feature is OFF until deliberate selection/opt-in outside Driving. User selects eligible *already paired* audio device in Settings; selection stored only locally and removable. **Selected and connected device** can produce a dismissible suggestion, with explicit 'Enter Driving Mode' / 'Not now'; neither connect nor dismiss may auto-launch activity, Driving, Voice or playback. In foreground use non-blocking app UI; while backgrounded do not launch an Activity, invoke disruptive full-screen intents, or manufacture an always-visible alert. An optional user-authorized notification can be considered only if permission/policy allows; lack of notification permission must never break P0. Repeated/duplicate/stale connect signals are deduplicated; disconnection/selection change revokes stale suggestions. No scan/location permission unless explicitly justified; Bluetooth 12+ runtime `BLUETOOTH_CONNECT` is gated outside Driving, legacy permissions scoped <= API 30. Never persist BT identifiers in analytics or log raw device identity.
+
+**P1 cut rule:** if P1 creates risk/schedule conflict, remove the entire chooser/suggestion path cleanly without sacrificing P0 Driving, manual entry, playback stability or immediate Exit.
+
+## Phase-by-phase implementation contract
+
+| Phase | Scope / executable work (NO tests/builds run) | Expected committed deliverable / gate |
+|---|---|---|
+| **P00 — Source and dependency audit** | Freeze source hash; reconcile #7/#8/#16/#17, approved UF-07/11/12, WF/HF states, existing `AppNavHost`, playback, voice and preferences code; identify any contradictory old text. | `ISSUE_9_PHASE0_READINESS_AUDIT.md`; exact gaps and dependency gate; no test/build claim. |
+| **P01 — Branch, contracts and traceability** | Pin feature scope, source baseline, AC01–AC14 ownership, P0/P1 cutline, file-change boundaries, no-per-phase-build policy, evidence vocabulary. | GitHub feature branch, phase plan, AC trace register and initial NOT_RUN QA ledger. |
+| **P02 — Driving state and action policy** | Define pure projector from complete `PlaybackSnapshot`/connection into Playing/Paused/No Track, supported Previous/Play-Pause/Next/Seek-back, disabled/pending/error labels and safe recovery; author test cases without executing. | Driving presentation-state/policy contracts and source-authored policy cases; no competing Player/queue. |
+| **P03 — Single Navigation entry/Exit/Back** | Activate typed `Destination.Driving` in current single `AppNavHost`; add deliberate entry on approved Home/Library and Full Player affordances; preserve origin; guard permission/recovery precedence, Back=Exit, fallback Library and saved UI recreation. | Real P0 manual entry/exit navigation wired, avoiding duplicated stack and unintended auto-entry. |
+| **P04 — WF-07 Playing Compose surface** | Implement actual HF-07 Playing screen using design tokens/approved components: title/artist/artwork, four large stable controls, Mic, visible Exit, road-attention notice. | Playing visual surface with service-observed state, no long lists/search/editing/motion distraction. |
+| **P05 — Paused / No Track / error recovery** | Implement all three state variants; No Track truthful placeholder, optional last-track only if reference is valid and revalidated; proper unavailable controls; non-mutating failure/pending feedback. | HF-07 Paused and No Track, command error/route-safe fallbacks, no fabricated 'Playing'. |
+| **P06 — Serialized playback command wiring** | Route all four large touch actions through existing `PlayerViewModel` or `PlaybackGateway` commands to the one service; guard duplicate taps/out-of-order receipts, seek window, edge of queue, safe paused route lock and metadata privilege. | Working source integration by contract; no second MediaSession/Queue/service and no route-safety regression. |
+| **P07 — Microphone / Voice handoff seam** | Provide a large Mic button and origin-owned voice-overlay contract; connect only to already available approved coordinator/permission gate; no separate Voice destination, automatic listening or unsupported fake capture. Mark unavailable #10 runtime dependencies visibly. | Honest Mic UI/handoff and explicit follow-up to Issue #10 for real STT/intent/E2E; no false Voice PASS. |
+| **P08 — Accessibility, scaling, focus and visual safety** | Implement semantic labels/ordered focus, ≥48dp touch targets (HF-07 recommended larger), 200% font scale reflow, error text non-color-only, high contrast, responsive portrait layout, immediate Exit, concise safety copy. Write accessibility test source/checklist only. | WF-07/HF-07 compliance and static/audit source; *no accessibility test executed*. |
+| **P09 — WF-10 Bluetooth selection and opt-in in Settings (P1)** | Outside Driving, expose paired eligible audio devices and explicit select/save/remove; local DataStore preference with failure rollback, selection privacy, Android 10/11 legacy and 12+ `BLUETOOTH_CONNECT` runtime permission/revocation handling. No unnecessary scan/location or auto pairing. | HF-10 Settings preference; explicit off/removal and permission recovery; P0 unaffected by missing BT permission. |
+| **P10 — Selected-device event gate (P1)** | Connect a lifecycle-aware Android BT event adapter to *device-selection* matching; distinguish low-level ACL from usable audio-profile connection where supported, dedupe reconnect events, revoke stale suggestions, serialize updates and avoid route-policy modification. | Suggested-entry eligibility state only for the user's selected connected audio device. |
+| **P11 — Suggestion UX + explicit acceptance (P1)** | Foreground nonblocking opt-in suggestion with Enter/Not now; selected, permission, lifecycle and stale-event gating. No forced background Activity, no autoplay, no Mic activation; optional background notifications only on an explicit legitimate opt-in/policy path. | Explicit accept -> current P0 Driving entry, decline -> unchanged screen/playback, spam suppression. |
+| **P12 — Cross-feature hardening + final handoff preparation** | Source-review navigation, #8 focus/call/headset/BT safe Paused, privacy and DataStore persistence, UI recreation, P1 clean removal, GS-04/05 traceability; author JVM/UI test source and **final manual phone checklist without running any tests**. | Consolidated source implementation, AC-by-phase matrix, `ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md`, QA ledger statuses **NOT_RUN** and build manifest skeleton. No APK yet. |
+| **P13 — The only cumulative APK + owner phone QA handoff** | From P00–P12 combined feature HEAD, run ONLY the Android debug APK build task (locally or one limited Actions build-only workflow), not tests; publish one final installable APK ZIP/link + actual APK bytes/SHA/source SHA + complete M-case instructions. User then tests physically and reports results; record precisely and assess closeout. | **ONE cumulative APK** + checksum + checklist, actual owner QA results after receipt. PR/Merge/Issue close only after explicit user acceptance, with evidence gaps recorded. |
+
+## Acceptance-criteria mapping (the 14 existing Issue #9 checkboxes)
+
+| AC | Existing criterion summary | Phases | Owner-phone evidence |
+|---|---|---|---|
+| AC01 | Title, artist, artwork, 4 large controls, Mic, Exit | P04–P08 | M04, M09, M16 |
+| AC02 | Playing / Paused / No Track | P02, P04, P05 | M04–M08 |
+| AC03 | Commands only through service, no UI Player/Queue | P02, P06 | M09–M16 + source review |
+| AC04 | Fixed 48dp+, high contrast, TalkBack | P08 | M27–M30 |
+| AC05 | Screen reader order, text scaling | P08 | M28–M30 |
+| AC06 | No typing/deep menus/long lists/motion | P04–P08 | M31 |
+| AC07 | Manual entry from approved sources | P03 | M01–M03 |
+| AC08 | Selected BT suggests, never forces | P09–P11 | M33–M40 |
+| AC09 | P1 entirely removable before P0 | P01, P09–P12 | P12 source audit + M42 |
+| AC10 | Recreate UI from real service state | P02, P03, P06, P12 | M18–M21 |
+| AC11 | Immediate Exit to manual surface | P03, P08 | M02, M03, M17 |
+| AC12 | Parked-car golden scenario | P12, P13 | M45–M46 **only when actual parked car/head unit used** |
+| AC13 | Road responsibility copy, no 'safe driving' claim | P04, P08 | M32 |
+| AC14 | UI/accessibility test coverage | P08, P12 | Written source authored only; execution **NOT_RUN unless later authorized** |
+
+**Safety/evidence rule:** a human phone observation can support specific functional acceptance, but cannot by itself prove instrumentation/JVM or three OEM/head-unit matrices. Issue #9 includes a test-coverage criterion: writing tests without running them is **not execution PASS**. If the owner authorizes delivery closeout with such debts, label it owner-accepted scope exception and track deferred work.
+
+## Final P13 release/checklist handoff
+
+- APK: `app-debug.apk` (or clearly renamed `MusicCopilot-Issue9-P13-debug.apk`) built once as the delivered cumulative candidate, installable on Android 10+; include the exact completed source commit and SHA-256 *computed from actual APK*, not invented.
+- Build is **build-only**. No unit tests, instrumented tests, emulator test, Lint or Gradle `check`; disable accidental test jobs in any dedicated workflow.
+- Owner uses the [final handset checklist](ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md) M01–M46 on the phone, in a **stationary environment**. Never test while actively driving. If no car exists, BT/headphone simulations must not be represented as verified vehicle GS.
+- Results record: device Android/OEM + accessory type + APK SHA + per-case observed outcome/reproduction + **authoritative owner attribution**. Never silently convert NOT_RUN/N/A/BLOCKED to PASS.
+- Stop/revise on regressions to #7/#8 Play from Android card, external headset resume, route safety, spontaneous speaker audio, or forced Driving entry.
+- PR closeout is downstream and owner-controlled; this plan/branch is **not** a merged feature or a released APK.
