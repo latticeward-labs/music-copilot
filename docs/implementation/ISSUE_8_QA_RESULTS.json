@@ -3,7 +3,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/8-audio-focus-route-recovery",
   "planning_date": "2026-10-23",
-  "phase": "P13_OWNER_ATTESTED_PHONE_QA_ACCEPTED_FOR_MVP_RELEASE_WITH_EXPLICIT_DEFERRED_VERIFICATION",
+  "phase": "ISSUE8_CLOSED_COMPLETED_PR77_SQUASH_MERGED_TO_MAIN_OWNER_MVP_ACCEPTED_WITH_EXCEPTIONS",
   "implementation_started": true,
   "source_archive": {
     "name": "MSM2(1)(1).rar",
@@ -342,7 +342,7 @@
       "android_auto": "EXCLUDED_APPROVED_MVP_ADR0006"
     },
     "P13": {
-      "status": "OWNER_ACCEPTED_PHONE_QA_FOR_MVP_RELEASE_TECHNICAL_AND_VOICE_DEFERRED",
+      "status": "MERGED_TO_MAIN_ISSUE8_CLOSED_MVP_ACCEPTED_DEFERRED_TECHNICAL_AND_VOICE",
       "completed_on": "2026-10-24",
       "workflow": ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
       "owner_request_marker": ".github/issue8-p13-apk-request.txt",
@@ -372,8 +372,8 @@
       "device_install_verified": false,
       "owner_results": "43_PASS_OWNER_REPORTED_2_BLOCKED_VOICE",
       "AC_verified": 0,
-      "merge": "NOT_DONE",
-      "issue_closed": false,
+      "merge": "MERGED_PR_77_SQUASH",
+      "issue_closed": true,
       "notes": "Owner confirmed 2026-10-24 all accessible Issue #8 cases PASS after fix (no per-case logs). M01–M43 PASS by owner blanket attestation; M44/M45 BLOCKED missing Voice UI; T01–T15 NOT_RUN, AC01–AC12 UNVERIFIED. Explicit acceptance to merge and close Issue #8 with unresolved evidence deferred.",
       "original_build_source_commit": "2951647da5a995f7e28fa2b9dfc89c596697715e",
       "original_build_run_id": 40079909648,
@@ -388,7 +388,12 @@
         "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
         "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
         "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
-      }
+      },
+      "merge_commit_sha": "061d98191ef96e6316f8da8a0c6b9946c1345ac2",
+      "merge_time_utc": "2026-10-24T11:06:22Z",
+      "issue_closed_time_utc": "2026-10-24T11:06:23Z",
+      "pr_url": "https://github.com/latticeward-labs/music-copilot/pull/77",
+      "issue_url": "https://github.com/latticeward-labs/music-copilot/issues/8"
     }
   },
   "apk": {
@@ -1118,7 +1123,7 @@
     "vehicle_head_units_three": "NOT_RUN"
   },
   "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
-  "note": "2026-10-24 user reports all Issue #8 checks passed after three targeted fixes; R01-R03 PASS by owner attestation and M01-M43 PASS by global owner self-report only. M44/M45 BLOCKED (live Voice UI absent); T01–T15 NOT_RUN, multi-OEM & vehicles NOT_RUN, AC01–AC12 UNVERIFIED (formal technical evidence absent). Owner explicitly authorizes merge and closure of implementation Issue as MVP-accepted WITH THESE EXCEPTIONS, not a declaration of technical QA 100%. Build-only run 40086837929 success source fea9301fa29986439070fe50428bf8e90a2942df APK SHA 318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c.",
+  "note": "2026-10-24 user reports all Issue #8 checks passed after three targeted fixes; R01-R03 PASS by owner attestation and M01-M43 PASS by global owner self-report only. M44/M45 BLOCKED (live Voice UI absent); T01–T15 NOT_RUN, multi-OEM & vehicles NOT_RUN, AC01–AC12 UNVERIFIED (formal technical evidence absent). Owner explicitly authorizes merge and closure of implementation Issue as MVP-accepted WITH THESE EXCEPTIONS, not a declaration of technical QA 100%. Build-only run 40086837929 success source fea9301fa29986439070fe50428bf8e90a2942df APK SHA 318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c. OWNER FINAL DELIVERY: PR #77 squash merge succeeded SHA 061d98191ef96e6316f8da8a0c6b9946c1345ac2, Issue #8 automatically closed completed 2026-10-24T11:06:23Z, all independently checked from GitHub. NOTE: closure is owner acceptance for MVP implementation, NOT full 45/45 M, 15/15 T or 12/12 AC execution.",
   "phase0_readiness": {
     "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
     "dor01": {
@@ -1340,15 +1345,16 @@
     "next_action": "P13_BUILD_SINGLE_CUMULATIVE_APK_HUMAN_PHONE_TEST_HANDOFF"
   },
   "phase13_readiness": {
-    "status": "OWNER_MVP_MERGE_AND_CLOSURE_AUTHORIZED_WITH_DISCLOSED_DEFERRED_QA",
+    "status": "MERGED_CLOSED_MVP_WITH_VERIFICATION_DEFERRED",
     "source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
-    "owner_report": "43_M_PASS_BY_OWNER_GLOBAL_ATTESTATION_2_M_BLOCKED_VOICE_THREE_FIXES_PASS_BY_OWNER_ATTESTATION",
+    "owner_report": "M01_M43_PASS_OWNER_REPORTED_M44_M45_BLOCKED",
     "technical_case_results": "T01_T15_NOT_RUN",
     "original_acceptance": "AC01_AC12_UNVERIFIED",
-    "github_issue": "OPEN",
-    "next_action": "CREATE_PR_MERGE_CLOSE_ISSUE_AS_OWNER_ACCEPTED_WITH_EVIDENCE_EXCEPTIONS",
+    "github_issue": "CLOSED_COMPLETED",
+    "next_action": "FUTURE_VOICE_AND_TECHNICAL_QA_IF_SEPARATELY_AUTHORIZED",
     "ci_tests": "ZERO",
-    "artifact_retention": "14_DAYS_GITHUB_ARTIFACT"
+    "artifact_retention": "14_DAYS_GITHUB_ARTIFACT",
+    "merge_commit": "061d98191ef96e6316f8da8a0c6b9946c1345ac2"
   },
   "previous_apk": {
     "built": true,
@@ -1457,6 +1463,16 @@
       "three_parked_vehicles": "NOT_RUN"
     },
     "decision": "MERGE_AND_CLOSE_IMPLEMENTATION_ISSUE_WITH_DECLARED_EXCEPTIONS_NOT_FULL_QA_SIGNOFF",
-    "independent_review": "NOT_RUN"
+    "independent_review": "NOT_RUN",
+    "implementation_delivery": "MERGED_AND_ISSUE_CLOSED",
+    "pr_number": 77,
+    "pr_url": "https://github.com/latticeward-labs/music-copilot/pull/77",
+    "pr_merged": true,
+    "pr_merged_at": "2026-10-24T11:06:22Z",
+    "merge_commit_sha": "061d98191ef96e6316f8da8a0c6b9946c1345ac2",
+    "issue_state": "CLOSED_COMPLETED",
+    "issue_closed_at": "2026-10-24T11:06:23Z",
+    "main_contains_implementation": true,
+    "independent_qa_status": "NOT_RUN_OR_FORMALLY_UNVERIFIED"
   }
 }
