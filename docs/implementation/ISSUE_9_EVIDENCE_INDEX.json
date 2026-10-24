@@ -1054,14 +1054,16 @@
       "observation": null
     },
     "M35": {
-      "status": "NOT_RUN",
+      "status": "FAIL",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner selected and saved an audio device then disconnected/reconnected repeatedly while app open; optional Driving Mode? suggestion never appeared.",
+      "evidence_source": "USER_REPORT_ONLY_NO_RUNTIME_SCREENSHOT",
+      "retest": "PENDING_FIXED_BUILD"
     },
     "M36": {
       "status": "NOT_RUN",
@@ -1244,7 +1246,9 @@
     "p13_build_success": true,
     "p13_build_run_id": 40113515014,
     "p13_build_source_sha": "67f690483842694926f277f72000a7faf6d0db23",
-    "p13_all_46_owner_tests_done": false
+    "p13_all_46_owner_tests_done": false,
+    "phone_fail": 1,
+    "phone_not_run": 45
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1270,6 +1274,7 @@
     "P11 final source readback after UI integration consolidation: no duplicate root coordinator argument/import; single NavHost, one foreground event collector, actual rendered route checked, Back/Not-now dismiss, lifecycle STOP invalidation and fresh permission before explicit Enter. Zero tests/build run.",
     "P12 complete source-only hardening: 16 pure JVM + 3 Compose cases authored NOT_RUN; cumulative 196 authored, zero executed. Static source-only review of Issue8 service-owned playback/focus/route and P11 opt-in; corrections to Settings transient chooser, localized a11y, real button tag/size tests; P13 build manifest skeleton NOT_BUILT and exact 46 NOT_RUN phone checklist.",
     "All original 14 Issue9 AC remain NOT_VERIFIED and all 5 technical groups NOT_RUN. P13 only single combined debug APK with actual bytes/SHA; no current APK artifact, PR or merge.",
-    "P13 exact cumulative APK built once on GitHub Actions with successful :app:assembleDebug at source commit 67f69048; artifact #12567766876, 37,105,222-byte APK and independently verified SHA256 71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e. No test tasks executed. All 14 AC NOT_VERIFIED, 46 M/5 technical groups NOT_RUN and no PR/merge/close."
+    "P13 exact cumulative APK built once on GitHub Actions with successful :app:assembleDebug at source commit 67f69048; artifact #12567766876, 37,105,222-byte APK and independently verified SHA256 71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e. No test tasks executed. All 14 AC NOT_VERIFIED, 46 M/5 technical groups NOT_RUN and no PR/merge/close.",
+    "2026-10-25 owner M35 FAIL reported: optional Bluetooth invitation absent despite repeated reconnect of manually saved paired audio device. Do NOT treat provided illustrative example image as runtime evidence. No other M cases moved from NOT_RUN, all 14 AC remain NOT_VERIFIED."
   ]
 }
