@@ -72,6 +72,7 @@ fun FullPlayerScreen(
     library: LibraryRepository,
     canReadLocalMetadata: Boolean,
     onBack: () -> Unit,
+    onEnterDriving: () -> Unit,
 ) {
     BackHandler(onBack = onBack)
     val snap = state.snapshot
@@ -117,6 +118,14 @@ fun FullPlayerScreen(
                             style = MusicTextStyles.titleLarge,
                             color = MusicColors.textPrimary)
                     }
+                    // P03: one explicit tap; preserve this Full Player as the
+                    // recorded return origin. No change to service playback.
+                    OutlinedButton(
+                        onClick = onEnterDriving,
+                        modifier = Modifier.fillMaxWidth().heightIn(
+                            min = MusicSize.touchTargetMinDp,
+                        ),
+                    ) { Text(stringResource(R.string.i9_enter_driving)) }
                     // WF-06 Queue action navigates within this service queue,
                     // not into a second UI-owned playlist.
                     OutlinedButton(
