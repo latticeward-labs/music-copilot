@@ -53,6 +53,7 @@ class AndroidSelectedAudioProfileMonitor(
     private var profileConnectPulse = false
     private var waitingForA2dp = false
     private var waitingForHeadset = false
+    private var listener: BluetoothProfile.ServiceListener? = null
 
     private fun granted(): Boolean =
         Build.VERSION.SDK_INT < 31 ||
@@ -86,39 +87,43 @@ class AndroidSelectedAudioProfileMonitor(
         }
     }
 
-    private val serviceListener = object : BluetoothProfile.ServiceListener {
-        override fun onServiceConnected(profile: Int, proxy: BluetoothProfile?) {
-            if (!active) return
-            when (profile) {
-                BluetoothProfile.A2DP -> {
-                    a2dp = proxy
-                    waitingForA2dp = false
+    // Per-session listener captures an epoch. A late proxy callback from a
+    // previous selection, old Activity or stopped monitor can never become
+    // current connected evidence.
+    private fun listenerFor(generation: Long): BluetoothProfile.ServiceListener =
+        object : BluetoothProfile.ServiceListener {
+            override fun onServiceConnected(profile: Int, proxy: BluetoothProfile?) {
+                if (!active || epoch != generation) return
+                when (profile) {
+                    BluetoothProfile.A2DP -> {
+                        a2dp = proxy
+                        waitingForA2dp = false
+                    }
+                    BluetoothProfile.HEADSET -> {
+                        headset = proxy
+                        waitingForHeadset = false
+                    }
                 }
-                BluetoothProfile.HEADSET -> {
-                    headset = proxy
-                    waitingForHeadset = false
-                }
+                // A proxy handshake is not a new connection edge.
+                schedule(BluetoothObservationCause.ProfileService)
             }
-            // Profile proxy arriving is not a new Bluetooth connection.
-            schedule(BluetoothObservationCause.ProfileService)
-        }
 
-        override fun onServiceDisconnected(profile: Int) {
-            if (!active) return
-            when (profile) {
-                BluetoothProfile.A2DP -> {
-                    a2dp = null
-                    waitingForA2dp = true
+            override fun onServiceDisconnected(profile: Int) {
+                if (!active || epoch != generation) return
+                when (profile) {
+                    BluetoothProfile.A2DP -> {
+                        a2dp = null
+                        waitingForA2dp = true
+                    }
+                    BluetoothProfile.HEADSET -> {
+                        headset = null
+                        waitingForHeadset = true
+                    }
                 }
-                BluetoothProfile.HEADSET -> {
-                    headset = null
-                    waitingForHeadset = true
-                }
+                profileConnectPulse = false
+                schedule(BluetoothObservationCause.ProfileService)
             }
-            profileConnectPulse = false
-            schedule(BluetoothObservationCause.ProfileService)
         }
-    }
 
     @SuppressLint("MissingPermission")
     fun start(token: String) {
@@ -162,8 +167,12 @@ class AndroidSelectedAudioProfileMonitor(
                     BluetoothObservationCause.Initial)
                 return
             }
-            waitingForA2dp = adapter.getProfileProxy(app, serviceListener, BluetoothProfile.A2DP)
-            waitingForHeadset = adapter.getProfileProxy(app, serviceListener, BluetoothProfile.HEADSET)
+            val currentListener = listenerFor(epoch)
+            listener = currentListener
+            waitingForA2dp = adapter.getProfileProxy(
+                app, currentListener, BluetoothProfile.A2DP)
+            waitingForHeadset = adapter.getProfileProxy(
+                app, currentListener, BluetoothProfile.HEADSET)
             schedule(BluetoothObservationCause.Initial)
         } catch (_: SecurityException) {
             onResult(SelectedAudioConnectionStatus.PermissionRequired,
@@ -176,7 +185,17 @@ class AndroidSelectedAudioProfileMonitor(
 
     /** Fresh foreground / permission / Settings return observation. */
     fun refresh() {
-        if (active) schedule(BluetoothObservationCause.ExternalRecheck)
+        if (!active) return
+        // A permission grant/radio-on transition must bind real OS profile
+        // proxies, not merely re-query a previously unauthorized null proxy.
+        if (granted() && (radio == null ||
+                (a2dp == null && headset == null &&
+                    !waitingForA2dp && !waitingForHeadset)
+            )
+        ) {
+            val stored = selectedToken
+            if (stored != null) start(stored)
+        } else schedule(BluetoothObservationCause.ExternalRecheck)
     }
 
     /** Called on selection removal/change, lifecycle stop or app shutdown. */
@@ -207,6 +226,7 @@ class AndroidSelectedAudioProfileMonitor(
         waitingForA2dp = false
         waitingForHeadset = false
         radio = null
+        listener = null
     }
 
     @SuppressLint("MissingPermission")
