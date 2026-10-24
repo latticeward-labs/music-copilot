@@ -247,9 +247,32 @@
       "integration_readback": "SINGLE_APP_NAVHOST_TWO_APPROVED_SURFACES_LIFECYCLE_STARTED_ONLY_FRESH_PERMISSION"
     },
     "P12": {
-      "status": "PLANNED_NOT_EXECUTED",
-      "evidence_files": [],
-      "source_commit": null
+      "status": "PASS_SCOPED_P12_CROSS_FEATURE_SOURCE_AUDIT_19_TESTS_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "docs/implementation/ISSUE_9_PHASE12_CROSS_FEATURE_HARDENING_AUDIT.md",
+        "docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_9_P13_APK_BUILD_MANIFEST.json",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/settings/bluetooth/BluetoothPreferenceSettingsSection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/BluetoothEntrySuggestionBanner.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase12CrossFeatureSafetyContractsTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/Issue9Phase12BluetoothEntryIntegrationUiTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/Issue9Phase11BluetoothInvitationUiTest.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/SelectedBluetoothConnectionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/AndroidSelectedAudioProfileMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt"
+      ],
+      "source_commit": null,
+      "authored_junit_methods": 16,
+      "authored_compose_methods": 3,
+      "executed_junit_methods": 0,
+      "executed_compose_methods": 0,
+      "source_reviewer": "INTEGRATED_STATIC_SOURCE_AUDIT_ONLY",
+      "issue8_playback_files_changed_by_issue9": false,
+      "build_manifest_status": "NOT_BUILT_P13_ONLY",
+      "p13_owner_checklist": "M01_M46_NOT_RUN"
     },
     "P13": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1168,7 +1191,7 @@
     "phone_pass": 0,
     "technical_pass": 0,
     "apk_status": "NOT_BUILT",
-    "phases_scoped_contract_complete": 12,
+    "phases_scoped_contract_complete": 13,
     "p02_authored_tests": 21,
     "p02_executed_tests": 0,
     "p03_authored_tests": 12,
@@ -1187,14 +1210,17 @@
     "p08_executed_compose_tests": 0,
     "p02_p03_p05_p06_p07_junit_authored": 96,
     "p02_p03_p05_p06_p07_junit_executed": 0,
-    "cumulative_issue9_source_tests_authored": 177,
+    "cumulative_issue9_source_tests_authored": 196,
     "p09_authored_tests": 18,
     "p09_executed_tests": 0,
     "p10_authored_tests": 24,
     "p10_executed_tests": 0,
     "p11_authored_junit_tests": 24,
     "p11_authored_compose_tests": 4,
-    "p11_executed_tests": 0
+    "p11_executed_tests": 0,
+    "p12_authored_junit_tests": 16,
+    "p12_authored_compose_tests": 3,
+    "p12_executed_tests": 0
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1217,6 +1243,8 @@
     "P09 optional CE-20 paired Bluetooth audio preference, local hashed token, Android 12+ CONNECT gate and ACK-only rollback authored; 18 JUnit source methods NOT_RUN. P10/P11 actual selected profile and optional proposal still pending. All original 14 AC NOT_VERIFIED; 46 M/5 technical NOT_RUN, no APK.",
     "P10 live GitHub selected-device Bluetooth A2DP/HFP profile event adapter/foreground app owner and pure reconnect reducer authored, with 24 pure JUnit tests NOT_RUN. No P11 prompt or automatic Driving, no runtime connectivity verification. P13 owns the sole APK and owner phone QA. Product 14 AC NOT_VERIFIED, 46 M/5 technical NOT_RUN.",
     "P11 optional Library/FullPlayer foreground one-shot Bluetooth Enter/Not now suggestion and guarded P03 navigation authored in code; no background notification, autoplay, microphone, BT route change or new player. 28 JUnit/Compose methods AUTHORED NOT_RUN. 14 product AC NOT_VERIFIED, M01–M46 & five technical groups NOT_RUN, APK NOT_BUILT.",
-    "P11 final source readback after UI integration consolidation: no duplicate root coordinator argument/import; single NavHost, one foreground event collector, actual rendered route checked, Back/Not-now dismiss, lifecycle STOP invalidation and fresh permission before explicit Enter. Zero tests/build run."
+    "P11 final source readback after UI integration consolidation: no duplicate root coordinator argument/import; single NavHost, one foreground event collector, actual rendered route checked, Back/Not-now dismiss, lifecycle STOP invalidation and fresh permission before explicit Enter. Zero tests/build run.",
+    "P12 complete source-only hardening: 16 pure JVM + 3 Compose cases authored NOT_RUN; cumulative 196 authored, zero executed. Static source-only review of Issue8 service-owned playback/focus/route and P11 opt-in; corrections to Settings transient chooser, localized a11y, real button tag/size tests; P13 build manifest skeleton NOT_BUILT and exact 46 NOT_RUN phone checklist.",
+    "All original 14 Issue9 AC remain NOT_VERIFIED and all 5 technical groups NOT_RUN. P13 only single combined debug APK with actual bytes/SHA; no current APK artifact, PR or merge."
   ]
 }
