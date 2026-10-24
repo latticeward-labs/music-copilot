@@ -237,13 +237,14 @@
         "app/src/androidTest/java/com/latticeward/musiccopilot/Issue9Phase11BluetoothInvitationUiTest.kt",
         "docs/implementation/ISSUE_9_PHASE11_FOREGROUND_BLUETOOTH_SUGGESTION_AUDIT.md"
       ],
-      "source_commit": "e4fa3d82d4e535e4e5f707be88d4b1e85d3252ae",
+      "source_commit": "b3a41598f100d7a999f6bd626c6a178a70d5b1bb",
       "authored_junit_methods": 24,
       "authored_compose_methods": 4,
       "executed_tests": 0,
       "real_android_bluetooth_qa": "NOT_RUN",
       "one_cumulative_apk": "NOT_BUILT",
-      "unverified_full_afr": "P12_STATIC_AUDIT_AND_P13_OWNER_PHONE"
+      "unverified_full_afr": "P12_STATIC_AUDIT_AND_P13_OWNER_PHONE",
+      "integration_readback": "SINGLE_APP_NAVHOST_TWO_APPROVED_SURFACES_LIFECYCLE_STARTED_ONLY_FRESH_PERMISSION"
     },
     "P12": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1215,6 +1216,7 @@
     "P08 actual Compose accessibility code and 11 authored, NOT RUN instrumentation tests. Runtime TalkBack 100/150/200%, focus, contrast and physical 64/72/56dp remain UNVERIFIED. P09 optional BT next; no APK or PR.",
     "P09 optional CE-20 paired Bluetooth audio preference, local hashed token, Android 12+ CONNECT gate and ACK-only rollback authored; 18 JUnit source methods NOT_RUN. P10/P11 actual selected profile and optional proposal still pending. All original 14 AC NOT_VERIFIED; 46 M/5 technical NOT_RUN, no APK.",
     "P10 live GitHub selected-device Bluetooth A2DP/HFP profile event adapter/foreground app owner and pure reconnect reducer authored, with 24 pure JUnit tests NOT_RUN. No P11 prompt or automatic Driving, no runtime connectivity verification. P13 owns the sole APK and owner phone QA. Product 14 AC NOT_VERIFIED, 46 M/5 technical NOT_RUN.",
-    "P11 optional Library/FullPlayer foreground one-shot Bluetooth Enter/Not now suggestion and guarded P03 navigation authored in code; no background notification, autoplay, microphone, BT route change or new player. 28 JUnit/Compose methods AUTHORED NOT_RUN. 14 product AC NOT_VERIFIED, M01–M46 & five technical groups NOT_RUN, APK NOT_BUILT."
+    "P11 optional Library/FullPlayer foreground one-shot Bluetooth Enter/Not now suggestion and guarded P03 navigation authored in code; no background notification, autoplay, microphone, BT route change or new player. 28 JUnit/Compose methods AUTHORED NOT_RUN. 14 product AC NOT_VERIFIED, M01–M46 & five technical groups NOT_RUN, APK NOT_BUILT.",
+    "P11 final source readback after UI integration consolidation: no duplicate root coordinator argument/import; single NavHost, one foreground event collector, actual rendered route checked, Back/Not-now dismiss, lifecycle STOP invalidation and fresh permission before explicit Enter. Zero tests/build run."
   ]
 }
