@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot
 
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalDensity
@@ -9,6 +10,7 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertDoesNotExist
+import androidx.compose.ui.test.assertExists
 import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -241,6 +243,39 @@ class Issue9Phase8DrivingAccessibilityUiTest {
         compose.onNodeWithContentDescription("Exit Driving Mode immediately")
             .assertHeightIsAtLeast(56.dp).assertIsDisplayed().performClick()
         compose.runOnIdle { assertEquals(1, exits) }
+    }
+
+    @Test fun voiceOverlayOpensWithFocusAndRestoresMicFocusOnCancel() {
+        var currentVoice by mutableStateOf<VoiceSessionState>(VoiceSessionState.Idle)
+        compose.setContent {
+            MusicCopilotTheme {
+                DrivingModeScreen(
+                    state = snapshot(),
+                    currentItem = null,
+                    library = library,
+                    canReadLocalMetadata = false,
+                    onExit = {},
+                    onTransport = {},
+                    onMic = {
+                        currentVoice = VoiceSessionState.Listening(
+                            VoiceSessionId(200), VoiceOrigin.Driving, 1)
+                    },
+                    voiceState = currentVoice,
+                    voiceAvailability = DrivingVoiceAvailability.Ready,
+                    onVoiceCancel = { currentVoice = VoiceSessionState.Idle },
+                )
+            }
+        }
+        compose.onNodeWithContentDescription("Voice command; press to talk")
+            .performClick()
+        compose.waitForIdle()
+        compose.onNodeWithText("Listening · speak one short English command")
+            .assertIsFocused()
+        compose.onNodeWithContentDescription("Cancel voice command and return to Driving")
+            .performClick()
+        compose.waitForIdle()
+        compose.onNodeWithContentDescription("Voice command; press to talk")
+            .assertIsFocused()
     }
 
     /** Source fixture, deliberately no disk/MediaStore and no private metadata. */
