@@ -236,6 +236,9 @@
     <string name="i9_a11y_action_unavailable">Action unavailable</string>
     <!-- Issue #9 P09 CE-20 optional Bluetooth preference; explicit local opt-in. -->
     <string name="i9_bt_section_title">Bluetooth suggestion</string>
+    <string name="i9_bt_selection_title">Selected Bluetooth device</string>
+    <string name="i9_bt_selection_subtitle">Vehicle audio · locally stored</string>
+    <string name="i9_bt_connection_note">Connection does not open Driving Mode.</string>
     <string name="i9_bt_section_subtitle">P1 preference · optional</string>
     <string name="i9_bt_open">Open</string>
     <string name="i9_bt_privacy_note">Choose only an already-paired audio device. Its identity is stored privately on this phone, not uploaded. No device is scanned, paired or connected by this setting.</string>
