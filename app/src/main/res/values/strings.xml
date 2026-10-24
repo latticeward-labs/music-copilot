@@ -174,4 +174,9 @@
     <string name="i8_output_changed">Your audio output changed. Check the selected speaker or headset before resuming.</string>
     <string name="i8_interruption_heading">Playback paused safely</string>
     <string name="i8_resume_when_ready">Resume when safe</string>
+    <!-- P11 compact status for Mini Player/TalkBack on narrow car/phone screens.
+         The longer explanation remains in Full Player; no phone/route identity. -->
+    <string name="i8_paused_focus_short">Paused — audio interrupted</string>
+    <string name="i8_paused_focus_unavailable_short">Paused — audio unavailable</string>
+    <string name="i8_paused_route_short">Paused — output changed</string>
 </resources>
