@@ -486,6 +486,7 @@ class MainActivity : ComponentActivity() {
                 remoteSpeechDecision = bindings.remoteSpeechDecision(),
                 onRevokeCloudSpeechConsent = bindings::revokeCloudSpeechConsent,
                 bluetoothConnectGranted = btGranted,
+                selectedBluetoothConnection = bindings.selectedBluetoothConnection,
                 onRequestBluetoothConnectPermission = ::onRequestBluetoothConnectPermission,
                 onOpenBluetoothPermissionSettings = ::onOpenBluetoothPermissionSettings,
                 onRetry = bindings::retryFirstLaunch,
