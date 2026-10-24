@@ -1,0 +1,1041 @@
+{
+  "schema_version": 1,
+  "issue": 9,
+  "repository": "latticeward-labs/music-copilot",
+  "recorded_on": "2026-10-24",
+  "source_lock": {
+    "archive_name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12,
+    "repository_main_sha_at_p01_start": "674d0cf19a897dad44b59729fb0afa2c635d802d"
+  },
+  "branches": {
+    "head": "feature/9-driving-mode-bluetooth-suggestion",
+    "base_proposed": "main",
+    "base_policy_decision": "P13_OWNER_REVIEW_REQUIRED_EXCEPTION_TO_CONTRIBUTING_DEVELOP",
+    "develop_behind_main_commits_at_p01": 1065,
+    "branch_protection": "NOT_VERIFIED_403",
+    "project_ready_field": "NOT_VERIFIED"
+  },
+  "policy": {
+    "apk_only_at": "P13",
+    "apk_count_to_deliver": 1,
+    "test_execution_pre_p13": "PROHIBITED_BY_OWNER",
+    "p13_workflow_mode": "BUILD_ONLY",
+    "owner_manual_case_count": 46,
+    "technical_group_count": 5,
+    "voice_issue_10_real_runtime": "NOT_CLAIMED",
+    "P1_is_cuttable": true,
+    "android_auto": "OUT_OF_SCOPE",
+    "privacy": "NO_PERSONAL_TRACK_OR_BLUETOOTH_IDENTIFIERS_IN_TELEMETRY"
+  },
+  "linked_documents": {
+    "p00": "docs/implementation/ISSUE_9_PHASE0_READINESS_AUDIT.md",
+    "p01": "docs/implementation/ISSUE_9_PHASE1_EXECUTION_CONTRACT.md",
+    "plan": "docs/implementation/ISSUE_9_PHASED_EXECUTION_PLAN.md",
+    "owner_checklist": "docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md",
+    "qa_ledger": "docs/implementation/ISSUE_9_QA_RESULTS.json",
+    "future_pr_template": ".github/PULL_REQUEST_TEMPLATE/issue-9-driving-mode-bluetooth-suggestion.md"
+  },
+  "phase_evidence": {
+    "P00": {
+      "status": "PASS_STATIC_SOURCE_AND_READINESS_AUDIT_NO_TESTS",
+      "evidence_files": [
+        "docs/implementation/ISSUE_9_PHASE0_READINESS_AUDIT.md"
+      ],
+      "source_commit": null
+    },
+    "P01": {
+      "status": "P01_AUTHORED_PENDING_GITHUB_READBACK",
+      "evidence_files": [
+        "docs/implementation/ISSUE_9_PHASE1_EXECUTION_CONTRACT.md",
+        ".github/PULL_REQUEST_TEMPLATE/issue-9-driving-mode-bluetooth-suggestion.md",
+        "docs/implementation/ISSUE_9_EVIDENCE_INDEX.json"
+      ],
+      "source_commit": null
+    },
+    "P02": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P03": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P04": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P05": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P06": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P07": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P08": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P09": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P10": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P11": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P12": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    },
+    "P13": {
+      "status": "PLANNED_NOT_EXECUTED",
+      "evidence_files": [],
+      "source_commit": null
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "summary": "Present title, artist, artwork, four large transports, Mic and Exit",
+      "phase_owners": [
+        "P04",
+        "P05",
+        "P07"
+      ],
+      "requirement_trace": [
+        "PRD:FR-04",
+        "MVP:US-04",
+        "UF-07",
+        "WF-07",
+        "HF-07",
+        "ADR-0002"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving",
+        "playback/api"
+      ],
+      "owner_phone_cases": [
+        "M04",
+        "M16",
+        "M27"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC02",
+      "summary": "Accurate Playing, Paused and No Track designs from service",
+      "phase_owners": [
+        "P02",
+        "P04",
+        "P05"
+      ],
+      "requirement_trace": [
+        "PRD:FR-04",
+        "MVP:Driving",
+        "UF-07",
+        "WF-07",
+        "HF-07",
+        "ADR-0002",
+        "ADR-0007"
+      ],
+      "source_owner_surfaces": [
+        "core/application/driving",
+        "feature/driving",
+        "playback/api"
+      ],
+      "owner_phone_cases": [
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC03",
+      "summary": "Controls dispatch via one service-owned Player and Queue",
+      "phase_owners": [
+        "P02",
+        "P06"
+      ],
+      "requirement_trace": [
+        "ADR-0002",
+        "ADR-0007",
+        "ADR-0008",
+        "UF-07",
+        "UF-11",
+        "SOFTWARE_ARCHITECTURE"
+      ],
+      "source_owner_surfaces": [
+        "playback/api",
+        "feature/player",
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M22",
+        "M23",
+        "M24"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC04",
+      "summary": "Fixed large >=48dp, high contrast, TalkBack-labelled",
+      "phase_owners": [
+        "P04",
+        "P08"
+      ],
+      "requirement_trace": [
+        "PRD:UX-48DP",
+        "UF-07",
+        "WF-07",
+        "HF-07",
+        "HANDOFF:COMPONENT_SPECS"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving",
+        "app/theme"
+      ],
+      "owner_phone_cases": [
+        "M27",
+        "M28",
+        "M30"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC05",
+      "summary": "TalkBack reading order and 100–200% readable text reflow",
+      "phase_owners": [
+        "P08"
+      ],
+      "requirement_trace": [
+        "PRD:UX",
+        "WF-07",
+        "HF-07",
+        "HANDOFF:SCREEN_SPECS"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving",
+        "app/theme"
+      ],
+      "owner_phone_cases": [
+        "M28",
+        "M29"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC06",
+      "summary": "No typing, nested menus, long lists or distracting motion",
+      "phase_owners": [
+        "P04",
+        "P08"
+      ],
+      "requirement_trace": [
+        "PRD:FR-04",
+        "MVP:Driving",
+        "WF-07",
+        "HF-07"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M31"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC07",
+      "summary": "Manual activation at approved entry points",
+      "phase_owners": [
+        "P03"
+      ],
+      "requirement_trace": [
+        "PRD:FR-07",
+        "MVP:Driving",
+        "UF-07",
+        "WF-06",
+        "WF-07",
+        "HANDOFF:SCREEN_SPECS"
+      ],
+      "source_owner_surfaces": [
+        "app/navigation",
+        "feature/library",
+        "feature/player"
+      ],
+      "owner_phone_cases": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC08",
+      "summary": "Connected selected BT may suggest, never force enter",
+      "phase_owners": [
+        "P09",
+        "P10",
+        "P11"
+      ],
+      "requirement_trace": [
+        "PRD:FR-07",
+        "MVP:P1_BT_HINT",
+        "UF-12",
+        "WF-10",
+        "ADR-0003"
+      ],
+      "source_owner_surfaces": [
+        "core/application/driving",
+        "feature/settings",
+        "data/datastore"
+      ],
+      "owner_phone_cases": [
+        "M33",
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M39",
+        "M40",
+        "M44"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC09",
+      "summary": "P1 hint cleanly removable without any P0 Driving loss",
+      "phase_owners": [
+        "P01",
+        "P09",
+        "P10",
+        "P11",
+        "P12"
+      ],
+      "requirement_trace": [
+        "MVP:P1_CUT_RULE",
+        "PRD:FR-07",
+        "ADR-0008"
+      ],
+      "source_owner_surfaces": [
+        "core/application/driving",
+        "feature/driving",
+        "feature/settings"
+      ],
+      "owner_phone_cases": [
+        "M41",
+        "M42",
+        "M43"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC10",
+      "summary": "UI recreation returns to real service snapshot",
+      "phase_owners": [
+        "P02",
+        "P03",
+        "P06",
+        "P12"
+      ],
+      "requirement_trace": [
+        "ADR-0002",
+        "ADR-0007",
+        "UF-11",
+        "WF-07",
+        "SOFTWARE_ARCHITECTURE"
+      ],
+      "source_owner_surfaces": [
+        "app/navigation",
+        "playback/api",
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M25",
+        "M26"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC11",
+      "summary": "Immediate exit to recorded manual-control origin",
+      "phase_owners": [
+        "P03",
+        "P08"
+      ],
+      "requirement_trace": [
+        "UF-07",
+        "WF-07",
+        "HF-07",
+        "HANDOFF:SCREEN_SPECS"
+      ],
+      "source_owner_surfaces": [
+        "app/navigation",
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M02",
+        "M03",
+        "M17"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC12",
+      "summary": "Stationary vehicle golden-scenario readiness",
+      "phase_owners": [
+        "P12",
+        "P13"
+      ],
+      "requirement_trace": [
+        "GS-04",
+        "GS-05",
+        "UF-07",
+        "UF-11",
+        "ISSUE-10_VOICE_DEPENDENCY"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving",
+        "voice/api",
+        "playback/service"
+      ],
+      "owner_phone_cases": [
+        "M45",
+        "M46"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC13",
+      "summary": "Road-attention notice with no guaranteed-safety claim",
+      "phase_owners": [
+        "P04",
+        "P08"
+      ],
+      "requirement_trace": [
+        "PRD:Driving",
+        "MVP:Driving",
+        "WF-07",
+        "HF-07"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M32"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC14",
+      "summary": "UI/a11y test coverage for Playing Paused No Track Exit",
+      "phase_owners": [
+        "P08",
+        "P12"
+      ],
+      "requirement_trace": [
+        "WF-07",
+        "HF-07",
+        "HANDOFF:STATE_ACTION_MATRIX"
+      ],
+      "source_owner_surfaces": [
+        "app/src/test",
+        "app/src/androidTest"
+      ],
+      "owner_phone_cases": [
+        "M05",
+        "M06",
+        "M17",
+        "M28",
+        "M29"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    }
+  ],
+  "owner_phone_cases": {
+    "M01": {
+      "status": "NOT_RUN",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC07"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M02": {
+      "status": "NOT_RUN",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC07",
+        "AC11"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M03": {
+      "status": "NOT_RUN",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC07",
+        "AC11"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M04": {
+      "status": "NOT_RUN",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC01",
+        "AC02"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M05": {
+      "status": "NOT_RUN",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC02",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M06": {
+      "status": "NOT_RUN",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC02",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M07": {
+      "status": "NOT_RUN",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC02"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M08": {
+      "status": "NOT_RUN",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC02"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M09": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M10": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M11": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M12": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M13": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M14": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M15": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M16": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC01"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M17": {
+      "status": "NOT_RUN",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC11",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M18": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M19": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M20": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M21": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M22": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M23": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M24": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M25": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M26": {
+      "status": "NOT_RUN",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M27": {
+      "status": "NOT_RUN",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC01",
+        "AC04"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M28": {
+      "status": "NOT_RUN",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC04",
+        "AC05",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M29": {
+      "status": "NOT_RUN",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC05",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M30": {
+      "status": "NOT_RUN",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC04"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M31": {
+      "status": "NOT_RUN",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC06"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M32": {
+      "status": "NOT_RUN",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC13"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M33": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M34": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M35": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M36": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M37": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M38": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M39": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M40": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M41": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC09"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M42": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC09"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M43": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC09"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M44": {
+      "status": "NOT_RUN",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M45": {
+      "status": "NOT_RUN",
+      "category": "stationary_golden_scenarios",
+      "traced_acceptance": [
+        "AC12"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    },
+    "M46": {
+      "status": "NOT_RUN",
+      "category": "stationary_golden_scenarios",
+      "traced_acceptance": [
+        "AC12"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": null
+    }
+  },
+  "technical_groups": {
+    "JVM": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    },
+    "Android_instrumentation": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    },
+    "Accessibility_automated": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    },
+    "Lint": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    },
+    "Other_OEM_and_multiple_vehicle_validation": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    }
+  },
+  "summary": {
+    "phases": 14,
+    "acceptance_criteria": 14,
+    "phone_cases": 46,
+    "phone_cases_traced_to_ac": 46,
+    "technical_groups": 5,
+    "product_acs_verified": 0,
+    "phone_pass": 0,
+    "technical_pass": 0,
+    "apk_status": "NOT_BUILT"
+  },
+  "human_validation": {
+    "review_approval": "NOT_VERIFIED",
+    "owner_app_acceptance": "NOT_RECEIVED",
+    "single_apk_checksum": null
+  },
+  "provenance_notes": [
+    "P00 PASS is a static-source readiness audit only; does not satisfy any AC.",
+    "P01 records contract and source trace only; implementation and Android/JVM/UI tests have not been run.",
+    "AC12 M45 requires actual #10 voice and stationary vehicle; M46 requires a parked vehicle/head unit.",
+    "One device/headset never proves multi-OEM/multi-vehicle release QA."
+  ]
+}
