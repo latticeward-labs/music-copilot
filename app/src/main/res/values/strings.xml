@@ -13,6 +13,26 @@
     <string name="action_not_now">Not now</string>
     <string name="action_review_access">Review music access</string>
     <string name="action_back">Back</string>
+    <!-- Issue #9 P03 navigation-only Driving shell; P04/P05 add full approved UI. -->
+    <string name="i9_enter_driving">Driving</string>
+    <string name="i9_exit_driving">Exit Driving Mode</string>
+    <string name="i9_driving_heading">DRIVING MODE</string>
+    <string name="i9_driving_state_playing">Playing</string>
+    <string name="i9_driving_state_paused">Paused</string>
+    <string name="i9_driving_state_no_track">No track</string>
+    <!-- Issue #9 P04: WF-07/HF-07 Playing, real service-observed title/artist, safe empty artwork. -->
+    <string name="i9_driving_exit_short">Exit</string>
+    <string name="i9_driving_artwork_placeholder">ARTWORK</string>
+    <string name="i9_driving_no_current_track">No current track</string>
+    <!-- Issue #9 P05 CC-06/CC-07: distinct Paused and No Track plus truthful recovery. -->
+    <string name="i9_driving_exit_to_browse">Exit to browse local music</string>
+    <string name="i9_driving_no_track_item_unavailable">The last local item is unavailable. Exit to choose a playable track. No music was deleted.</string>
+    <string name="i9_driving_paused_resume_note">Playback is paused. Use Play when your audio output is safe.</string>
+    <string name="i9_driving_unknown_artist">Unknown local artist</string>
+    <string name="i9_driving_transports_not_ready">Playback buttons will become available after Driving controls are connected. Exit is available now.</string>
+    <string name="i9_driving_seek_back_short">-10s</string>
+    <string name="i9_driving_mic_voice">Mic · Voice</string>
+    <string name="i9_driving_one_layer_note">One layer · no typing · no lists</string>
     <string name="action_skip">Skip</string>
     <string name="action_continue">Continue</string>
     <string name="first_use_save_error">Could not save this step. Retry, or use Back to exit without claiming completion.</string>
@@ -179,4 +199,75 @@
     <string name="i8_paused_focus_short">Paused — audio interrupted</string>
     <string name="i8_paused_focus_unavailable_short">Paused — audio unavailable</string>
     <string name="i8_paused_route_short">Paused — output changed</string>
+    <!-- Issue #9 P07: on-device English PTT and honest fallback only. -->
+    <string name="i9_voice_permission_heading">Microphone permission</string>
+    <string name="i9_voice_permission_explanation">To use voice commands, Music Copilot needs microphone access. Recognition uses an available on-device service; no cloud speech provider is enabled. You can continue using manual controls.</string>
+    <string name="i9_voice_permission_rationale_brief">Tap Mic to review microphone access for on-device voice commands.</string>
+    <string name="i9_voice_permission_wait">Waiting for Android microphone permission…</string>
+    <string name="i9_voice_granted_tap_again">Microphone permission granted. Tap Mic again to start a voice command.</string>
+    <string name="i9_voice_permission_denied">Microphone access is unavailable. Continue with manual music controls.</string>
+    <string name="i9_voice_local_provider_unavailable">On-device voice recognition is unavailable on this phone. Manual playback still works.</string>
+    <string name="i9_voice_start_unavailable">Could not start voice recognition. Use manual playback or try Mic again.</string>
+    <string name="i9_voice_listening">Listening · speak one short English command</string>
+    <string name="i9_voice_processing">Processing your voice command…</string>
+    <string name="i9_voice_confirmation_unavailable">Voice confirmation is not supported yet. Cancel and select music manually.</string>
+    <string name="i9_voice_executed">Command completed by the playback service</string>
+    <string name="i9_voice_failed">Voice command was not completed. Nothing was changed automatically.</string>
+    <string name="i9_voice_continue">Continue</string>
+    <string name="i9_voice_retry">Retry voice command</string>
+    <string name="i9_voice_cancel">Cancel voice</string>
+    <!-- Issue #9 P08: complete screen-reader actions, focus and disabled status. -->
+    <string name="i9_a11y_exit">Exit Driving Mode immediately</string>
+    <string name="i9_a11y_artwork">Album artwork unavailable</string>
+    <string name="i9_a11y_previous">Previous track</string>
+    <string name="i9_a11y_play">Play playback</string>
+    <string name="i9_a11y_pause">Pause playback</string>
+    <string name="i9_a11y_next">Next track</string>
+    <string name="i9_a11y_seek_back">Seek backward ten seconds</string>
+    <string name="i9_a11y_mic">Voice command; press to talk</string>
+    <string name="i9_a11y_continue_permission">Continue to Android microphone permission</string>
+    <string name="i9_a11y_retry_voice">Retry voice command</string>
+    <string name="i9_a11y_cancel_voice">Cancel voice command and return to Driving</string>
+    <string name="i9_a11y_controller_not_ready">Playback controller not connected</string>
+    <string name="i9_a11y_missing_track">No current playable track</string>
+    <string name="i9_a11y_playback_unavailable">Playback temporarily unavailable</string>
+    <string name="i9_a11y_command_pending">Waiting for playback service</string>
+    <string name="i9_a11y_unsupported_action">Action unavailable for this track</string>
+    <string name="i9_a11y_action_unavailable">Action unavailable</string>
+    <!-- Issue #9 P09 CE-20 optional Bluetooth preference; explicit local opt-in. -->
+    <string name="i9_bt_section_title">Bluetooth suggestion</string>
+    <string name="i9_bt_selection_title">Selected Bluetooth device</string>
+    <string name="i9_bt_selection_subtitle">Vehicle audio · locally stored</string>
+    <string name="i9_bt_connection_note">Connection does not open Driving Mode.</string>
+    <string name="i9_bt_section_subtitle">P1 preference · optional</string>
+    <string name="i9_bt_open">Open</string>
+    <string name="i9_bt_privacy_note">Choose only an already-paired audio device. Its identity is stored privately on this phone, not uploaded. No device is scanned, paired or connected by this setting.</string>
+    <string name="i9_bt_never_automatic">A Bluetooth connection never starts music, opens Driving Mode or turns on the microphone. Any suggestion requires a separate explicit choice.</string>
+    <string name="i9_bt_saved_preference">One Bluetooth audio preference is saved locally.</string>
+    <string name="i9_bt_saved_cannot_verify">A device is saved locally but could not be verified among the currently paired audio devices. It will not trigger any suggestion until validated.</string>
+    <string name="i9_bt_permission_needed">Nearby devices permission is needed on Android 12 or later to list paired Bluetooth audio devices. Denying it does not affect normal music playback.</string>
+    <string name="i9_bt_request_permission">Allow paired Bluetooth devices</string>
+    <string name="i9_bt_app_settings">Open Android app settings</string>
+    <string name="i9_bt_refresh">Refresh paired audio devices</string>
+    <string name="i9_bt_save">Save</string>
+    <string name="i9_bt_remove">Remove</string>
+    <string name="i9_bt_cancel">Cancel</string>
+    <string name="i9_bt_saved">✓ Updated: selected device saved locally.</string>
+    <string name="i9_bt_removed">Saved device selection removed.</string>
+    <string name="i9_bt_storage_failed">Could not save this preference. The previous selection is unchanged. Try again.</string>
+    <string name="i9_bt_device_changed">That audio device is no longer paired or available. Refresh and choose another.</string>
+    <string name="i9_bt_disabled">Bluetooth is turned off. Enable it in Android settings to view paired devices.</string>
+    <string name="i9_bt_unsupported">Bluetooth is unavailable on this device. Driving Mode still works manually.</string>
+    <string name="i9_bt_read_failed">Could not read paired audio devices. Try Refresh; no preference was changed.</string>
+    <string name="i9_bt_no_paired_audio">No previously paired audio devices found. Pair an audio device through Android settings first.</string>
+    <string name="i9_bt_working">Checking Bluetooth devices or saving the preference…</string>
+    <!-- Issue #9 P11: foreground, nonblocking and entirely optional P1 offer. -->
+    <string name="i9_bt_offer_title">Driving Mode?</string>
+    <string name="i9_bt_offer_description">Your selected Bluetooth audio device connected. You can open Driving Mode manually. Music will not start automatically.</string>
+    <string name="i9_bt_offer_enter">Enter</string>
+    <string name="i9_bt_offer_not_now">Not now</string>
+    <string name="i9_bt_a11y_save">Save selected Bluetooth audio device</string>
+    <string name="i9_bt_a11y_remove">Remove saved Bluetooth device preference</string>
+    <string name="i9_bt_a11y_staged"> · selected, not saved</string>
+    <string name="i9_bt_a11y_committed"> · saved preference</string>
 </resources>

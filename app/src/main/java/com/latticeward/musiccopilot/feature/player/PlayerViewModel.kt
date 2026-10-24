@@ -3,6 +3,8 @@ package com.latticeward.musiccopilot.feature.player
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.latticeward.musiccopilot.core.model.CommandId
+import com.latticeward.musiccopilot.core.application.driving.DrivingAction
+import com.latticeward.musiccopilot.core.application.driving.DrivingCommandAdmissionPolicy
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
@@ -54,6 +56,11 @@ class PlayerViewModel(
         snapshot = gateway.snapshot.value,
     ))
     val ui: StateFlow<PlayerUiState> = mutable
+
+    // Shared Full/Mini/Driving serialization epoch. This screen VM does NOT
+    // own the PlaybackGateway transport queue; the service already does.
+    // Epoch only rejects a late UI completion from an obsolete submit.
+    private var requestEpoch: Long = 0L
 
     init {
         viewModelScope.launch {
@@ -109,31 +116,68 @@ class PlayerViewModel(
         }
     }
 
-    private fun submit(make: (CommandId) -> PlaybackCommand) {
-        if (!mutable.value.canControl) return
-        val command = make(CommandId("player-ui-${UUID.randomUUID()}"))
-        val acceptedRevision = mutable.value.snapshot.revision
+    private fun submit(make: (CommandId) -> PlaybackCommand?) {
+        // This common entry point is used by the existing Full/Mini Player
+        // and by the P06 Driving callback. A pending command cannot overlap.
+        val atTap = mutable.value
+        if (!atTap.canControl) return
+        val command = make(CommandId("player-ui-${UUID.randomUUID()}")) ?: return
+        val acceptedRevision = atTap.snapshot.revision
+        val acceptedQueueRevision = atTap.snapshot.queueRevision
+        val acceptedItem = atTap.snapshot.currentItem
+        val epoch = ++requestEpoch
         mutable.value = mutable.value.copy(pending = true, requestFailed = false)
         viewModelScope.launch {
             try {
+                // Service-owned ACK/focus/route validation is the sole source
+                // of truth; never flip a local 'Playing' flag on success.
                 val result = gateway.execute(command)
-                // An old failed request is not allowed to show a new error
-                // over a newer authoritative focus/route snapshot.
-                if (result is AppResult.Failure &&
-                    mutable.value.ready &&
-                    mutable.value.snapshot.revision == acceptedRevision
-                ) {
-                    mutable.value = mutable.value.copy(requestFailed = true)
-                }
+                // An out-of-order failure/timeout must not override a newer
+                // service status, queue, selection or a newer request.
+                val current = mutable.value
+                if (result is AppResult.Failure && epoch == requestEpoch &&
+                    current.ready && current.snapshot.revision == acceptedRevision &&
+                    current.snapshot.queueRevision == acceptedQueueRevision &&
+                    current.snapshot.currentItem == acceptedItem
+                ) mutable.value = current.copy(requestFailed = true)
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
-                if (mutable.value.ready &&
-                    mutable.value.snapshot.revision == acceptedRevision
-                ) mutable.value = mutable.value.copy(requestFailed = true)
+                val current = mutable.value
+                if (epoch == requestEpoch && current.ready &&
+                    current.snapshot.revision == acceptedRevision &&
+                    current.snapshot.queueRevision == acceptedQueueRevision &&
+                    current.snapshot.currentItem == acceptedItem
+                ) mutable.value = current.copy(requestFailed = true)
             } finally {
-                mutable.value = mutable.value.copy(pending = false)
+                if (epoch == requestEpoch) {
+                    mutable.value = mutable.value.copy(pending = false)
+                }
             }
+        }
+    }
+
+    /**
+     * Issue #9 P06: ONLY for a deliberate in-Driving touch. The caller
+     * checks current Driving route/permission, then this method re-reads
+     * gateway connection/snapshot at the instant it reserves a command.
+     * The P02 four-action policy rejects NoTrack/Buffering/Error/capability
+     * violations; the P06 admission layer also rejects stale displayed
+     * snapshots. Play uses PlaybackCommand.Play's existing trusted-private
+     * user-origin semantics. The service retains all route/focus authority.
+     */
+    fun drivingTransport(action: DrivingAction) {
+        submit { id ->
+            val shown = mutable.value
+            DrivingCommandAdmissionPolicy.commandFor(
+                displayedConnection = shown.connection,
+                displayedSnapshot = shown.snapshot,
+                latestConnection = gateway.connectionState.value,
+                latestSnapshot = gateway.snapshot.value,
+                pending = shown.pending,
+                action = action,
+                id = id,
+            )
         }
     }
 

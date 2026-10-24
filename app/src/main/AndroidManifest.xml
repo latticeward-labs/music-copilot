@@ -11,6 +11,11 @@
     <!-- Android 13+ MediaSession playback notifications are media-exempt.
          Do NOT add POST_NOTIFICATIONS / unsolicited permission dialogs. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Issue #9 P09: read previously paired audio devices only.
+         No BLUETOOTH_SCAN, ADMIN, fine location, discoverability or auto pair. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
     <!-- Discovery visibility only; never grants consent or enables cloud transcription. -->
     <queries>
         <intent>

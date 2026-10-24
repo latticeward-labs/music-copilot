@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import android.os.Build
 import android.Manifest
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
+import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechConsentPolicy
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
@@ -68,6 +69,13 @@ class ApplicationBindings(
     val libraryRepository: LibraryRepository = dataComponents.library
     val preferencesRepository: PreferencesRepository = dataComponents.preferences
     val restorableQueueStore: RestorableQueueStore = dataComponents.restorableQueue
+
+    // P10: app-scoped, but Android Bluetooth callbacks exist ONLY while the
+    // Activity is foreground and a user-selected saved audio token is valid.
+    // This component NEVER opens a screen or issues a playback command.
+    val selectedBluetoothConnection = SelectedBluetoothConnectionCoordinator(
+        context, applicationScope, preferencesRepository
+    )
 
     enum class StorageStartState { Preparing, Ready, Failed }
     private val storageMutable = MutableStateFlow(StorageStartState.Preparing)
@@ -211,10 +219,15 @@ class ApplicationBindings(
         libraryRepository.invalidateMediaAccess()
     }
 
+    fun onUiStarted() {
+        selectedBluetoothConnection.onUiStarted()
+    }
+
     fun onForeground() {
         // Activity resume reconnects to the one service-owned Session.
-        // This binding does not cause playback or MediaStore scanning.
+        // BT profile re-observation never drives UI navigation or audio.
         controller.ensureConnected()
+        selectedBluetoothConnection.onForegroundPermissionObserved()
     }
 
     /**
@@ -223,10 +236,12 @@ class ApplicationBindings(
      * decides whether real active audio requires ongoing foreground playback.
      */
     fun onUiStopped() {
+        selectedBluetoothConnection.onUiStopped()
         controller.detachUiController()
     }
 
     override fun close() {
+        selectedBluetoothConnection.close()
         voiceOwner.close()
         (speechToTextEngine as? AutoCloseable)?.close()
         (textToSpeechEngine as? AutoCloseable)?.close()

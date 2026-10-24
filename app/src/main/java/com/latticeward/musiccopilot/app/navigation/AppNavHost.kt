@@ -1,11 +1,21 @@
 package com.latticeward.musiccopilot.app.navigation
 
 import androidx.activity.compose.BackHandler
+import android.os.SystemClock
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.DisposableEffect
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.flow.collect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -25,11 +35,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.latticeward.musiccopilot.R
@@ -38,12 +50,30 @@ import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
+import com.latticeward.musiccopilot.core.application.driving.DrivingPresentationPolicy
+import com.latticeward.musiccopilot.core.application.driving.DrivingViewState
+import com.latticeward.musiccopilot.core.application.driving.DrivingMicCapability
+import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceAvailability
+import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceHandoffPolicy
+import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
+import com.latticeward.musiccopilot.voice.api.VoiceOrigin
+import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
+import com.latticeward.musiccopilot.voice.api.VoiceSessionState
+import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.feature.driving.DrivingModeScreen
 import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
+import com.latticeward.musiccopilot.data.api.PreferencesLoadState
+import com.latticeward.musiccopilot.app.platform.bluetooth.AndroidPairedAudioDeviceSource
+import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
+import com.latticeward.musiccopilot.core.application.bluetooth.SelectedAudioConnectionState
+import com.latticeward.musiccopilot.feature.driving.BluetoothEntrySuggestionBanner
+import com.latticeward.musiccopilot.feature.settings.bluetooth.BluetoothSelectionViewModel
+import com.latticeward.musiccopilot.feature.settings.bluetooth.BluetoothPreferenceSettingsSection
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.data.api.LibraryIndexSnapshot
 import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
@@ -77,6 +107,11 @@ fun AppNavHost(
     preferencesRepository: PreferencesRepository,
     remoteSpeechDecision: CloudSpeechGateDecision,
     onRevokeCloudSpeechConsent: () -> Unit,
+    bluetoothConnectGranted: Boolean = false,
+    selectedBluetoothConnection: SelectedBluetoothConnectionCoordinator? = null,
+    onRequestBluetoothConnectPermission: () -> Unit = {},
+    onOpenBluetoothPermissionSettings: () -> Unit = {},
+    freshBluetoothConnectPermission: () -> Boolean = { false },
     onRetry: () -> Unit,
     onRefreshPermission: () -> Unit,
     onRetryLibraryScan: () -> Unit,
@@ -93,8 +128,20 @@ fun AppNavHost(
     onPracticeManualOnly: () -> Unit,
     onFirstUseComplete: () -> Unit,
     onExit: () -> Unit,
+    voiceSessionCoordinator: VoiceSessionCoordinator? = null,
+    voiceSessionState: VoiceSessionState = VoiceSessionState.Idle,
+    microphoneGranted: Boolean = false,
+    localVoiceProviderSupported: Boolean = false,
+    localVoiceProviderAvailable: Boolean = false,
+    freshCanStartDrivingVoice: () -> Boolean = { false },
+    drivingMicPermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
+    onDrivingMicPermissionTap: () -> Unit = {},
+    onDrivingMicPermissionContinue: () -> Unit = {},
+    onDrivingMicPermissionDismiss: () -> Unit = {},
 ) {
     val navController = rememberNavController()
+    val visibleBackStackEntry by navController.currentBackStackEntryAsState()
+    val lifecycleOwner = LocalLifecycleOwner.current
     // A single navigation-scoped ViewModel observes the existing Gateway.
     // It never creates an ExoPlayer/MediaSession or replaces a queue.
     val playerModel: PlayerViewModel = viewModel(
@@ -110,6 +157,44 @@ fun AppNavHost(
         },
     )
     val playerUi by playerModel.ui.collectAsStateWithLifecycle()
+    // P09: the existing one Settings route owns only preference UI.
+    // Platform enumerator never scans, connects or observes BT events (P10).
+    val appContext = LocalContext.current.applicationContext
+    val pairedAudioSource = remember(appContext) {
+        AndroidPairedAudioDeviceSource(appContext)
+    }
+    val bluetoothModel: BluetoothSelectionViewModel = viewModel(
+        key = "issue9-settings-bluetooth-selection",
+        factory = remember(preferencesRepository, pairedAudioSource) {
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    check(modelClass == BluetoothSelectionViewModel::class.java)
+                    return BluetoothSelectionViewModel(
+                        preferencesRepository, pairedAudioSource
+                    ) as T
+                }
+            }
+        },
+    )
+    val storedBluetoothPreferences by
+        preferencesRepository.preferences.collectAsStateWithLifecycle()
+    val bluetoothStorageState by
+        preferencesRepository.loadState.collectAsStateWithLifecycle()
+    // P11: an invitation, not a destination or a player command. No saved
+    // state/persistent prompt survives process death or background replay.
+    val bluetoothSuggestionModel: BluetoothEntrySuggestionViewModel = viewModel(
+        key = "issue9-bluetooth-foreground-invitation",
+    )
+    val selectedAudioEvidence = selectedBluetoothConnection?.state
+        ?.collectAsStateWithLifecycle()?.value ?: SelectedAudioConnectionState()
+    val bluetoothForeground = selectedBluetoothConnection?.uiForeground
+        ?.collectAsStateWithLifecycle()?.value == true
+    // Activity-scoped, configuration-retained, but never SavedState-restored.
+    // No automatic Driving entry on cold launch/process restart/BT reconnect.
+    val drivingNavigation: DrivingNavigationViewModel = viewModel(
+        key = "issue9-root-driving-navigation",
+    )
     var manualFallback by rememberSaveable { mutableStateOf(false) }
     var settingsOpen by rememberSaveable { mutableStateOf(false) }
     var searchOpen by rememberSaveable { mutableStateOf(false) }
@@ -130,19 +215,132 @@ fun AppNavHost(
     val actualRoute = if (route == BootstrapRoute.PermissionRecovery && manualFallback) {
         BootstrapRoute.HomeLibrary
     } else route
+    // System/permission and first-use routes always override a Driving session.
+    // The Voice overlay is deliberately not a NavHost destination.
+    LaunchedEffect(
+        actualRoute, mediaRequestUi.outcome, replayingEducation, settingsOpen, permission,
+        voiceSessionState,
+    ) {
+        if (actualRoute != BootstrapRoute.HomeLibrary ||
+            mediaRequestUi.outcome != MediaPermissionOutcome.None ||
+            replayingEducation || settingsOpen ||
+            permission != PermissionStatus.Granted
+        ) {
+            if (voiceSessionCoordinator != null &&
+                DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionState)
+            ) voiceSessionCoordinator.cancel(VoiceCancelReason.OriginInvalidated)
+            if (drivingMicPermissionStage != VoicePracticeStage.Idle)
+                onDrivingMicPermissionDismiss()
+            drivingNavigation.clearForSystemBoundary()
+        }
+    }
     val target = when {
         actualRoute == BootstrapRoute.Preparing || actualRoute == BootstrapRoute.RetryStartup ->
             Destination.Bootstrap
         actualRoute == BootstrapRoute.Onboarding -> Destination.Onboarding
         replayingEducation -> Destination.Onboarding
-        settingsOpen -> Destination.Settings
         mediaRequestUi.outcome != MediaPermissionOutcome.None ->
             Destination.PermissionRecovery
         actualRoute == BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
+        settingsOpen -> Destination.Settings
+        drivingNavigation.state.active && actualRoute == BootstrapRoute.HomeLibrary ->
+            Destination.Driving
         playerOpen && actualRoute == BootstrapRoute.HomeLibrary -> Destination.FullPlayer
         searchOpen && actualRoute == BootstrapRoute.HomeLibrary ->
             Destination.Search
         else -> Destination.Library
+    }
+    // Only the existing Library and Full Player can host a small, nonmodal
+    // invitation. No Search/Settings/permission/onboarding/Driving overlay.
+    val invitationSurfaceAllowed =
+        (target == Destination.Library || target == Destination.FullPlayer) &&
+        visibleBackStackEntry?.destination?.route == target.route &&
+        actualRoute == BootstrapRoute.HomeLibrary &&
+        permission == PermissionStatus.Granted &&
+        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+        !settingsOpen && !searchOpen && !replayingEducation &&
+        !drivingNavigation.state.active &&
+        bluetoothConnectGranted && bluetoothForeground &&
+        bluetoothStorageState == PreferencesLoadState.Ready &&
+        storedBluetoothPreferences.selectedBluetoothHint != null &&
+        voiceSessionState == VoiceSessionState.Idle &&
+        drivingMicPermissionStage == VoicePracticeStage.Idle
+    // Keep a single foreground collector across nav/permission recompositions.
+    // When a reconnect occurs, evaluate the LATEST surface and OS evidence,
+    // not stale values captured at LaunchedEffect creation time.
+    val latestInvitationSurface by rememberUpdatedState(invitationSurfaceAllowed)
+    val latestBluetoothEvidence by rememberUpdatedState(selectedAudioEvidence)
+    val latestBluetoothEpoch by rememberUpdatedState(
+        selectedBluetoothConnection?.currentSelectionEpoch ?: -1L
+    )
+    LaunchedEffect(selectedBluetoothConnection, bluetoothSuggestionModel, lifecycleOwner) {
+        // Only collect one-shot event invitations while Activity STARTED.
+        // Replayed/queued background events cannot open a foreground offer.
+        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            selectedBluetoothConnection?.verifiedReconnects?.collect { event ->
+                // A verified reconnect is emitted in the same main-thread
+                // turn as the coordinator's StateFlow update. Compose state
+                // collection can lag one frame, so latestBluetoothEvidence
+                // would still be Disconnected here and permanently consume
+                // this one-shot event without ever displaying an invitation.
+                // Read the coordinator's authoritative synchronous snapshot.
+                bluetoothSuggestionModel.onReconnect(
+                    event = event,
+                    latest = selectedBluetoothConnection.state.value,
+                    selectionEpoch = selectedBluetoothConnection.currentSelectionEpoch,
+                    isAllowedSurface = latestInvitationSurface &&
+                        selectedBluetoothConnection.isUnclaimedOfferCurrent(event),
+                    nowElapsedMs = SystemClock.elapsedRealtime(),
+                )
+            }
+        }
+    }
+    DisposableEffect(lifecycleOwner, bluetoothSuggestionModel) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP)
+                bluetoothSuggestionModel.invalidate()
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
+    LaunchedEffect(invitationSurfaceAllowed, selectedAudioEvidence,
+        selectedBluetoothConnection?.currentSelectionEpoch
+    ) {
+        bluetoothSuggestionModel.reconcile(
+            latest = selectedAudioEvidence,
+            selectionEpoch = selectedBluetoothConnection?.currentSelectionEpoch ?: -1L,
+            isAllowedSurface = invitationSurfaceAllowed,
+        )
+        if (!bluetoothForeground) bluetoothSuggestionModel.invalidate()
+    }
+    val offeredReconnect = bluetoothSuggestionModel.state.pending?.takeIf { event ->
+        invitationSurfaceAllowed &&
+            selectedBluetoothConnection?.isUnclaimedOfferCurrent(event) == true
+    }
+    val declineBluetoothOffer: () -> Unit = {
+        bluetoothSuggestionModel.notNow(SystemClock.elapsedRealtime())
+    }
+    val acceptBluetoothOffer: (Destination) -> Unit = { origin ->
+        val event = bluetoothSuggestionModel.state.pending
+        val userIsOnApprovedOrigin = origin == target &&
+            (origin == Destination.Library || origin == Destination.FullPlayer)
+        val freshSafe = userIsOnApprovedOrigin &&
+            invitationSurfaceAllowed && freshBluetoothConnectPermission() &&
+            mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+            permission == PermissionStatus.Granted &&
+            voiceSessionState == VoiceSessionState.Idle &&
+            !drivingNavigation.state.active &&
+            event != null && event == offeredReconnect &&
+            selectedBluetoothConnection?.isUnclaimedOfferCurrent(event) == true
+        if (freshSafe && event != null &&
+            selectedBluetoothConnection?.claimOffer(event) == true
+        ) {
+            // Identical P03 in-app user-origin entry; never play, toggle
+            // pause, change route, request mic, start another Activity or
+            // jump into Driving from a background Bluetooth broadcast.
+            drivingNavigation.enterFrom(origin, allowedByAppRoute = true)
+            bluetoothSuggestionModel.accepted()
+        } else bluetoothSuggestionModel.invalidate()
     }
     LaunchedEffect(target) {
         if (navController.currentBackStackEntry?.destination?.route != target.route) {
@@ -233,6 +431,14 @@ fun AppNavHost(
                     }
                 },
             )
+            Column(modifier = Modifier.fillMaxSize()) {
+                if (offeredReconnect != null) {
+                    BluetoothEntrySuggestionBanner(
+                        onEnter = { acceptBluetoothOffer(Destination.Library) },
+                        onNotNow = declineBluetoothOffer,
+                    )
+                }
+                Box(modifier = Modifier.weight(1f)) {
             LibraryBrowseScreen(
                 model = browseModel,
                 index = libraryIndex,
@@ -251,10 +457,25 @@ fun AppNavHost(
                 playerUi = playerUi,
                 onOpenPlayer = { playerOpen = true },
                 onTogglePlayback = playerModel::togglePlayPause,
+                onEnterDriving = {
+                    drivingNavigation.enterFrom(
+                        Destination.Library,
+                        allowedByAppRoute = actualRoute == BootstrapRoute.HomeLibrary &&
+                            permission == PermissionStatus.Granted &&
+                            mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                            !settingsOpen && !searchOpen && !replayingEducation &&
+                            !playerOpen,
+                    )
+                },
                 initialGroup = pendingSearchGroup,
                 onGroupConsumed = { pendingSearchGroup = null },
                 onExit = onExit,
             )
+                } // body remains playable/searchable beneath small offer
+                BackHandler(enabled = offeredReconnect != null) {
+                    declineBluetoothOffer()
+                }
+            }
         }
         composable(Destination.Search.route) {
             val searchModel: LocalSearchViewModel = viewModel(
@@ -289,24 +510,182 @@ fun AppNavHost(
             )
         }
         composable(Destination.FullPlayer.route) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                if (offeredReconnect != null) {
+                    BluetoothEntrySuggestionBanner(
+                        onEnter = { acceptBluetoothOffer(Destination.FullPlayer) },
+                        onNotNow = declineBluetoothOffer,
+                    )
+                }
+                Box(modifier = Modifier.weight(1f)) {
             FullPlayerScreen(
                 model = playerModel,
                 state = playerUi,
                 library = libraryRepository,
                 canReadLocalMetadata = permission == PermissionStatus.Granted,
                 onBack = { playerOpen = false },
+                onEnterDriving = {
+                    drivingNavigation.enterFrom(
+                        Destination.FullPlayer,
+                        allowedByAppRoute = actualRoute == BootstrapRoute.HomeLibrary &&
+                            permission == PermissionStatus.Granted &&
+                            mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                            playerOpen && !settingsOpen && !replayingEducation,
+                    )
+                },
+            )
+                } // existing full player/Media3 controls remain unchanged
+                BackHandler(enabled = offeredReconnect != null) {
+                    declineBluetoothOffer()
+                }
+            }
+        }
+        composable(Destination.Driving.route) {
+            // P07: exact application-scoped Voice owner; never a Voice NavHost
+            // destination. Availability is strictly current OS grant +
+            // explicitly local STT capability + active Driving origin.
+            val availability = DrivingVoiceHandoffPolicy.availability(
+                drivingActive = drivingNavigation.state.active &&
+                    actualRoute == BootstrapRoute.HomeLibrary &&
+                    permission == PermissionStatus.Granted,
+                localProviderSupported = localVoiceProviderSupported,
+                microphoneGranted = microphoneGranted,
+                localProviderAvailable = localVoiceProviderAvailable,
+                session = voiceSessionState,
+            )
+            var voiceStartRejected by remember { mutableStateOf(false) }
+            val projected = DrivingPresentationPolicy.project(
+                connection = playerUi.connection,
+                snapshot = playerUi.snapshot,
+                pending = playerUi.pending,
+                micCapability = if (DrivingVoiceHandoffPolicy.canTapMic(availability) &&
+                    voiceSessionCoordinator != null)
+                    DrivingMicCapability.Available else DrivingMicCapability.Unavailable,
+            )
+            // Both Exit and Android Back have the same navigation-only result.
+            // Exit never stops/pauses playback or executes a transport command.
+            val exitDriving: () -> Unit = {
+                if (voiceSessionCoordinator != null &&
+                    DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionCoordinator.state.value)
+                ) voiceSessionCoordinator.cancel(VoiceCancelReason.DrivingExit)
+                onDrivingMicPermissionDismiss()
+                voiceStartRejected = false
+                val origin = drivingNavigation.exit()
+                // Explicitly restore the recorded, non-Driving origin, rather
+                // than trusting independently changing Player UI flags.
+                if (actualRoute == BootstrapRoute.HomeLibrary &&
+                    mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                    permission == PermissionStatus.Granted
+                ) {
+                    // CC-07 specifically requires Exit-to-Library when
+                    // no current playable track remains, even if entry
+                    // originally came from Full Player. Other states still
+                    // restore their precise P03 recorded origin.
+                    playerOpen = projected.view != DrivingViewState.NoTrack &&
+                        origin == Destination.FullPlayer
+                }
+            }
+            BackHandler(onBack = exitDriving)
+            // P07 extends the existing WF-07 screen with a *same-route*
+            // cancellable Voice overlay, never a second Voice destination.
+            // Voice transport only runs through the application coordinator.
+            DrivingModeScreen(
+                state = projected,
+                currentItem = playerUi.snapshot.currentItem,
+                library = libraryRepository,
+                canReadLocalMetadata = permission == PermissionStatus.Granted,
+                onExit = exitDriving,
+                lastError = playerUi.snapshot.lastError,
+                requestFailed = playerUi.requestFailed,
+                voiceState = if (DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionState))
+                    voiceSessionState else VoiceSessionState.Idle,
+                voiceAvailability = availability,
+                voicePermissionStage = drivingMicPermissionStage,
+                voiceStartRejected = voiceStartRejected,
+                onVoicePermissionContinue = onDrivingMicPermissionContinue,
+                onVoicePermissionCancel = onDrivingMicPermissionDismiss,
+                onVoiceCancel = {
+                    if (voiceSessionCoordinator != null &&
+                        DrivingVoiceHandoffPolicy.shouldCancelOnExit(
+                            voiceSessionCoordinator.state.value
+                        )
+                    ) voiceSessionCoordinator.cancel(VoiceCancelReason.UserBack)
+                    voiceStartRejected = false
+                },
+                onVoiceRetry = {
+                    if (drivingNavigation.state.active &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        voiceSessionState is VoiceSessionState.Failed &&
+                        voiceSessionState.origin == VoiceOrigin.Driving &&
+                        voiceSessionState.canRetry &&
+                        freshCanStartDrivingVoice()
+                    ) {
+                        voiceStartRejected = voiceSessionCoordinator?.retry() !is AppResult.Success
+                    } else voiceStartRejected = true
+                },
+                onMic = {
+                    if (drivingNavigation.state.active &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                        !settingsOpen && !replayingEducation
+                    ) {
+                        when (availability) {
+                            DrivingVoiceAvailability.NeedsPermission -> onDrivingMicPermissionTap()
+                            DrivingVoiceAvailability.Ready -> {
+                                // Fresh OS+provider recheck at the actual tap;
+                                // ActivityResult/Resume never auto-start voice.
+                                if (freshCanStartDrivingVoice() &&
+                                    voiceSessionCoordinator != null &&
+                                    voiceSessionCoordinator.state.value == VoiceSessionState.Idle
+                                ) {
+                                    voiceStartRejected =
+                                        voiceSessionCoordinator.start(VoiceOrigin.Driving) !is AppResult.Success
+                                } else voiceStartRejected = true
+                            }
+                            else -> Unit
+                        }
+                    }
+                },
+                onTransport = { action ->
+                    // Event-time source gate. A queued/stale tap after Exit,
+                    // permission revocation or system recovery is discarded.
+                    if (drivingNavigation.state.active &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                        !settingsOpen && !replayingEducation
+                    ) playerModel.drivingTransport(action)
+                },
             )
         }
         composable(Destination.Settings.route) {
-            BackHandler { settingsOpen = false }
+            BackHandler {
+                bluetoothModel.dismiss()
+                settingsOpen = false
+            }
             FirstLaunchBoundary(
                 title = stringResource(R.string.first_use_settings),
                 message = stringResource(R.string.first_use_replay_help),
                 primary = stringResource(R.string.first_use_replay_action),
                 onPrimary = { replayingEducation = true },
                 secondary = stringResource(R.string.action_back),
-                onSecondary = { settingsOpen = false },
+                onSecondary = {
+                    bluetoothModel.dismiss()
+                    settingsOpen = false
+                },
                 extraContent = {
+                    // WF-10 Settings Bluetooth suggestion P1. All actual
+                    // selection stays outside Driving; no automatic entry.
+                    BluetoothPreferenceSettingsSection(
+                        model = bluetoothModel,
+                        persistedToken = storedBluetoothPreferences.selectedBluetoothHint,
+                        persistenceReady = bluetoothStorageState == PreferencesLoadState.Ready,
+                        connectPermissionGranted = bluetoothConnectGranted,
+                        onRequestConnectPermission = onRequestBluetoothConnectPermission,
+                        onOpenAndroidPermissionSettings = onOpenBluetoothPermissionSettings,
+                    )
                     Text(
                         stringResource(R.string.p10_notification_exempt_status),
                         modifier = Modifier.padding(top = MusicSpacing.lgDp),

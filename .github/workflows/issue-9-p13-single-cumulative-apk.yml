@@ -1,0 +1,104 @@
+name: "Issue 9 P13 - ONE cumulative APK, BUILD ONLY"
+# Owner explicitly approved one cumulative P00-P12 debug APK in P13.
+# This workflow is NOT a CI QA gate. It must never execute tests, lint,
+# connected/emulator jobs, media playback tests or device inspection.
+# Ordinary code/docs/phase commits cannot trigger it.
+on:
+  push:
+    branches:
+      - feature/9-driving-mode-bluetooth-suggestion
+    paths:
+      - ".github/issue9-p13-apk-request.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue9-p13-one-apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  assemble-one-integrated-apk:
+    name: "Build P00-P12 combined app-debug.apk only, NO TESTS"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout the exact triggered Issue 9 commit
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Java 17 for Android Gradle
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Android SDK tools
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - name: Verified Gradle wrapper
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Android compile SDK 36
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Assemble ONE cumulative debug APK (no JVM, Lint, device or UI tests)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/build/outputs/issue9-p13
+          {
+            echo "issue=9"
+            echo "phase=P13"
+            echo "repository=${{ github.repository }}"
+            echo "branch=${{ github.ref_name }}"
+            echo "source_sha=${{ github.sha }}"
+            echo "run_id=${{ github.run_id }}"
+            echo "run_attempt=${{ github.run_attempt }}"
+            echo "build_task=:app:assembleDebug"
+            echo "source_scope=P00-P12_combined"
+            echo "jvm_tests=NOT_RUN"
+            echo "compose_android_tests=NOT_RUN"
+            echo "lint=NOT_RUN"
+            echo "phone_M01_M46=NOT_RUN"
+            echo "technical_groups=NOT_RUN"
+            echo "product_AC01_AC14=NOT_VERIFIED"
+          } > app/build/outputs/issue9-p13/BUILD_PROVENANCE.txt
+          ./gradlew --no-daemon --console=plain :app:assembleDebug --stacktrace \
+            2>&1 | tee app/build/outputs/issue9-p13/assemble-output.log
+          apk="app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$apk"
+          cp "$apk" app/build/outputs/issue9-p13/app-debug.apk
+          sha256sum "$apk" | tee app/build/outputs/issue9-p13/app-debug.apk.sha256
+          stat -c '%s' "$apk" > app/build/outputs/issue9-p13/apk-size-bytes.txt
+          printf '%s\n' "${{ github.sha }}" > app/build/outputs/issue9-p13/source-commit.txt
+          {
+            echo "## Issue 9 P13: one P00-P12 cumulative debug APK"
+            echo "Exact source commit: \`${{ github.sha }}\`"
+            echo "Only Gradle \`:app:assembleDebug\`; tests, lint, emulator, phone all **NOT_RUN**."
+            echo "Owner checklist: \`docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md\` (46 cases)."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload ONE installable APK, checksum, size and source provenance
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue9-p13-one-cumulative-phone-apk
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            app/build/outputs/issue9-p13/app-debug.apk
+            app/build/outputs/issue9-p13/app-debug.apk.sha256
+            app/build/outputs/issue9-p13/apk-size-bytes.txt
+            app/build/outputs/issue9-p13/source-commit.txt
+            app/build/outputs/issue9-p13/BUILD_PROVENANCE.txt
+      - name: Upload diagnosis when APK assembly fails (no tests)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue9-p13-build-failure-logs
+          retention-days: 7
+          if-no-files-found: ignore
+          path: |
+            app/build/outputs/issue9-p13/BUILD_PROVENANCE.txt
+            app/build/outputs/issue9-p13/assemble-output.log

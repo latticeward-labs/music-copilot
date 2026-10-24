@@ -87,6 +87,7 @@ fun LibraryBrowseScreen(
     initialGroup: LibraryBrowseEntry? = null,
     onGroupConsumed: () -> Unit = {},
     onExit: () -> Unit,
+    onEnterDriving: () -> Unit = {},
 ) {
     val state by model.ui.collectAsStateWithLifecycle()
     // Open the approved WF-06 route ONLY after a truthful service ACK.
@@ -156,6 +157,15 @@ fun LibraryBrowseScreen(
                     color = MusicColors.textPrimary,
                     modifier = Modifier.weight(1f).semantics { heading() },
                 )
+                // P03: explicit Home/Library-only entry; never triggered by
+                // Bluetooth, indexing or playback state changes.
+                TextButton(
+                    onClick = onEnterDriving,
+                    enabled = permission == PermissionStatus.Granted,
+                    modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
+                ) {
+                    Text(stringResource(R.string.i9_enter_driving))
+                }
                 TextButton(
                     onClick = onSettings,
                     modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),

@@ -1,0 +1,1398 @@
+{
+  "schema_version": 1,
+  "issue": 9,
+  "repository": "latticeward-labs/music-copilot",
+  "recorded_on": "2026-10-24",
+  "source_lock": {
+    "archive_name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12,
+    "repository_main_sha_at_p01_start": "674d0cf19a897dad44b59729fb0afa2c635d802d"
+  },
+  "branches": {
+    "head": "feature/9-driving-mode-bluetooth-suggestion",
+    "base_proposed": "main",
+    "base_policy_decision": "P13_OWNER_REVIEW_REQUIRED_EXCEPTION_TO_CONTRIBUTING_DEVELOP",
+    "develop_behind_main_commits_at_p01": 1065,
+    "branch_protection": "NOT_VERIFIED_403",
+    "project_ready_field": "NOT_VERIFIED"
+  },
+  "policy": {
+    "apk_only_at": "P13",
+    "apk_count_to_deliver": 1,
+    "test_execution_pre_p13": "PROHIBITED_BY_OWNER",
+    "p13_workflow_mode": "BUILD_ONLY",
+    "owner_manual_case_count": 46,
+    "technical_group_count": 5,
+    "voice_issue_10_real_runtime": "NOT_CLAIMED",
+    "P1_is_cuttable": true,
+    "android_auto": "OUT_OF_SCOPE",
+    "privacy": "NO_PERSONAL_TRACK_OR_BLUETOOTH_IDENTIFIERS_IN_TELEMETRY"
+  },
+  "linked_documents": {
+    "p00": "docs/implementation/ISSUE_9_PHASE0_READINESS_AUDIT.md",
+    "p01": "docs/implementation/ISSUE_9_PHASE1_EXECUTION_CONTRACT.md",
+    "plan": "docs/implementation/ISSUE_9_PHASED_EXECUTION_PLAN.md",
+    "owner_checklist": "docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md",
+    "qa_ledger": "docs/implementation/ISSUE_9_QA_RESULTS.json",
+    "future_pr_template": ".github/PULL_REQUEST_TEMPLATE/issue-9-driving-mode-bluetooth-suggestion.md"
+  },
+  "phase_evidence": {
+    "P00": {
+      "status": "PASS_STATIC_SOURCE_AND_READINESS_AUDIT_NO_TESTS",
+      "evidence_files": [
+        "docs/implementation/ISSUE_9_PHASE0_READINESS_AUDIT.md"
+      ],
+      "source_commit": null
+    },
+    "P01": {
+      "status": "PASS_CONTRACT_ONLY_STATIC_GITHUB_READBACK",
+      "evidence_files": [
+        "docs/implementation/ISSUE_9_PHASE1_EXECUTION_CONTRACT.md",
+        ".github/PULL_REQUEST_TEMPLATE/issue-9-driving-mode-bluetooth-suggestion.md",
+        "docs/implementation/ISSUE_9_EVIDENCE_INDEX.json"
+      ],
+      "source_commit": "636918047346173ff604f603934cf27be6dbd402"
+    },
+    "P02": {
+      "status": "PASS_SCOPED_CODE_AND_AUTHORED_JUNIT_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/driving/DrivingPresentationPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase2DrivingPolicyTest.kt",
+        "docs/implementation/ISSUE_9_PHASE2_DRIVING_STATE_AND_COMMAND_POLICY.md"
+      ],
+      "source_commit": "b05331f1bb65083dd02ba4713475464709a600af",
+      "authored_junit_methods": 21,
+      "executed_junit_methods": 0,
+      "android_build": "NOT_RUN",
+      "runtime_feature_integration": "P03-P06_PENDING"
+    },
+    "P03": {
+      "status": "PASS_SCOPED_NAVIGATION_SOURCE_12_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/DrivingNavigationViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase3DrivingNavigationPolicyTest.kt",
+        "docs/implementation/ISSUE_9_PHASE3_DRIVING_NAVIGATION_AUDIT.md"
+      ],
+      "source_commit": "5e224532cca6c2af309980f4a8538cb229d90c24",
+      "authored_junit_methods": 12,
+      "executed_junit_methods": 0,
+      "android_build": "NOT_RUN",
+      "visual_screen": "TEMPORARY_P03_NAVIGATION_SHELL_P04_P05_PENDING"
+    },
+    "P04": {
+      "status": "PASS_SCOPED_WF07_PLAYING_COMPOSE_SOURCE_ONLY_UNTESTED",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/res/values/strings.xml",
+        "docs/implementation/ISSUE_9_PHASE4_WF07_PLAYING_COMPOSE_AUDIT.md",
+        "docs/high-fidelity/WF-07/HF-07_DRIVING_MODE_PLAYING.md",
+        "docs/handoff/SCREEN_SPECS.md"
+      ],
+      "source_commit": "34356576119b7386dec9c390ed62f1ce1b204eb2",
+      "executed_junit_methods": 0,
+      "android_build": "NOT_RUN",
+      "ui_owner_phone_verification": "NOT_RUN",
+      "visual_implemented": {
+        "playing": true,
+        "paused_and_no_track_full_recovery": "P05_PENDING",
+        "real_album_art": "PLACEHOLDER_ONLY",
+        "four_transports": "VISIBLE_DISABLED_UNTIL_P06",
+        "mic": "VISIBLE_DISABLED_UNTIL_P07"
+      }
+    },
+    "P05": {
+      "status": "PASS_SCOPED_RECOVERY_SOURCE_21_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/driving/DrivingRecoveryPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase5DrivingRecoveryPolicyTest.kt",
+        "docs/implementation/ISSUE_9_PHASE5_PAUSED_NO_TRACK_RECOVERY_AUDIT.md",
+        "docs/high-fidelity/WF-07/states/HF_STATE_CC-06.md",
+        "docs/high-fidelity/WF-07/states/HF_STATE_CC-07.md"
+      ],
+      "source_commit": "42fc8e71d873ea199056e98df9f427e4eb96b43b",
+      "authored_junit_methods": 21,
+      "executed_junit_methods": 0,
+      "apk": "NOT_BUILT",
+      "real_transport_ack": "P06_PENDING",
+      "last_playable_item": "UNAVAILABLE_NOT_FABRICATED"
+    },
+    "P06": {
+      "status": "PASS_SCOPED_COMMAND_SOURCE_AND_23_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/driving/DrivingCommandAdmissionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase6DrivingCommandAdmissionTest.kt",
+        "docs/implementation/ISSUE_9_PHASE6_SERVICE_ACK_TRANSPORT_AUDIT.md"
+      ],
+      "source_commit": "b96f8c2dea920a185744a6d6f27a8df703bf6974",
+      "authored_junit_methods": 23,
+      "executed_junit_methods": 0,
+      "real_service_execution_in_this_phase": "NOT_RUN",
+      "ui_wired_to_service_ack": "SOURCE_ONLY_PENDING_RUNTIME_VALIDATION",
+      "preserved_issue8_play_routes": "SOURCE_UNMODIFIED_REGRESSION_NOT_RUN"
+    },
+    "P07": {
+      "status": "PASS_SCOPED_VOICE_HANDOFF_SOURCE_19_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/driving/DrivingVoiceHandoffPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase7DrivingVoiceHandoffPolicyTest.kt",
+        "docs/implementation/ISSUE_9_PHASE7_VOICE_MIC_HANDOFF_AUDIT.md"
+      ],
+      "source_commit": "aa32bc7b064bb90a04725c2b999915836e681302",
+      "authored_junit_methods": 19,
+      "executed_junit_methods": 0,
+      "apk": "NOT_BUILT",
+      "voice_provider": "EXISTING_ON_DEVICE_PROVIDER_ONLY",
+      "issue_10_full_stt_and_ducking": "NOT_VERIFIED_DEPENDENCY",
+      "issue_11_artist_mapping": "NOT_IMPLEMENTED_DEPENDENCY",
+      "driving_mic_qa": "NOT_RUN"
+    },
+    "P08": {
+      "status": "PASS_SCOPED_A11Y_SOURCE_11_COMPOSE_TESTS_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/Issue9Phase8DrivingAccessibilityUiTest.kt",
+        "docs/implementation/ISSUE_9_PHASE8_ACCESSIBILITY_SCALING_FOCUS_AUDIT.md",
+        "docs/high-fidelity/phase-7/app-visible/CC-05.md",
+        "docs/high-fidelity/phase-7/app-visible/CC-06.md",
+        "docs/high-fidelity/phase-7/app-visible/CC-07.md"
+      ],
+      "source_commit": "d6c3e36553db222e51cca530b1af63893c2ee74e",
+      "authored_compose_android_tests": 11,
+      "executed_compose_android_tests": 0,
+      "owner_talkback": "NOT_RUN",
+      "owner_font_scale_200_pct": "NOT_RUN",
+      "owner_contrast_focus": "NOT_RUN",
+      "app_build": "NOT_BUILT"
+    },
+    "P09": {
+      "status": "PASS_SCOPED_BLUETOOTH_SETTINGS_SOURCE_18_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/bluetooth/BluetoothSelectionContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/AndroidPairedAudioDeviceSource.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/settings/bluetooth/BluetoothSelectionViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/settings/bluetooth/BluetoothPreferenceSettingsSection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/AndroidManifest.xml",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase9BluetoothSelectionTest.kt",
+        "docs/implementation/ISSUE_9_PHASE9_BLUETOOTH_SETTINGS_OPTIN_AUDIT.md",
+        "docs/high-fidelity/WF-10/states/HF_STATE_CE-20.md"
+      ],
+      "source_commit": "eaa14645b0ab6bf4767e94d9cd43a178e5a36a19",
+      "authored_junit_methods": 18,
+      "executed_junit_methods": 0,
+      "android_bluetooth_permission": "SOURCE_ONLY_RUNTIME_NOT_VERIFIED",
+      "saved_identifier": "LOCAL_SALTED_HASH_ONLY",
+      "bluetooth_connection_gating": "P10_PENDING",
+      "bluetooth_optin_suggestion": "P11_PENDING"
+    },
+    "P10": {
+      "status": "PASS_SCOPED_AUDIO_PROFILE_EVENT_GATE_SOURCE_24_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/bluetooth/SelectedBluetoothConnectionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/AndroidSelectedAudioProfileMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/SelectedBluetoothConnectionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase10SelectedBluetoothEventGateTest.kt",
+        "docs/implementation/ISSUE_9_PHASE10_SELECTED_DEVICE_PROFILE_EVENT_AUDIT.md"
+      ],
+      "source_commit": "9788a2be75173a15171c3d758a6696d537b765ac",
+      "authored_junit_methods": 24,
+      "executed_junit_methods": 0,
+      "profile_evidence": "A2DP_OR_HEADSET_MATCHED_FRESH_PAIRED_AND_PROFILE_CONNECTION_SOURCE_ONLY",
+      "permission_recovery": "SOURCE_ONLY_NOT_DEVICE_VERIFIED",
+      "profile_disconnect_dedupe": "PURE_POLICY_SOURCE_ONLY",
+      "suggestion_ui": "NOT_IMPLEMENTED_P11_PENDING",
+      "apk": "NOT_BUILT"
+    },
+    "P11": {
+      "status": "PASS_SCOPED_BLUETOOTH_FOREGROUND_INVITATION_28_TESTS_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/bluetooth/BluetoothEntrySuggestionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/SelectedBluetoothConnectionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/BluetoothEntrySuggestionViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/BluetoothEntrySuggestionBanner.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase11BluetoothEntrySuggestionPolicyTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/Issue9Phase11BluetoothInvitationUiTest.kt",
+        "docs/implementation/ISSUE_9_PHASE11_FOREGROUND_BLUETOOTH_SUGGESTION_AUDIT.md"
+      ],
+      "source_commit": "b3a41598f100d7a999f6bd626c6a178a70d5b1bb",
+      "authored_junit_methods": 24,
+      "authored_compose_methods": 4,
+      "executed_tests": 0,
+      "real_android_bluetooth_qa": "NOT_RUN",
+      "one_cumulative_apk": "NOT_BUILT",
+      "unverified_full_afr": "P12_STATIC_AUDIT_AND_P13_OWNER_PHONE",
+      "integration_readback": "SINGLE_APP_NAVHOST_TWO_APPROVED_SURFACES_LIFECYCLE_STARTED_ONLY_FRESH_PERMISSION"
+    },
+    "P12": {
+      "status": "PASS_SCOPED_P12_CROSS_FEATURE_SOURCE_AUDIT_19_TESTS_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "docs/implementation/ISSUE_9_PHASE12_CROSS_FEATURE_HARDENING_AUDIT.md",
+        "docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_9_P13_APK_BUILD_MANIFEST.json",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/settings/bluetooth/BluetoothPreferenceSettingsSection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/BluetoothEntrySuggestionBanner.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase12CrossFeatureSafetyContractsTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/Issue9Phase12BluetoothEntryIntegrationUiTest.kt",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/Issue9Phase11BluetoothInvitationUiTest.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/SelectedBluetoothConnectionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/AndroidSelectedAudioProfileMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt"
+      ],
+      "source_commit": "c6a25d6bb83a5ac4602c6c1f6010904281ff5876",
+      "authored_junit_methods": 16,
+      "authored_compose_methods": 3,
+      "executed_junit_methods": 0,
+      "executed_compose_methods": 0,
+      "source_reviewer": "INTEGRATED_STATIC_SOURCE_AUDIT_ONLY",
+      "issue8_playback_files_changed_by_issue9": false,
+      "build_manifest_status": "NOT_BUILT_P13_ONLY",
+      "p13_owner_checklist": "M01_M46_NOT_RUN",
+      "source_commit_note": "Last P12 production/test-source commit before P12 documentation; P13 must capture current complete branch HEAD separately in build manifest."
+    },
+    "P13": {
+      "status": "APK_BUILD_SUCCESS_OWNER_46_PHONE_CASES_NOT_RUN_14_AC_NOT_VERIFIED",
+      "evidence_files": [
+        ".github/workflows/issue-9-p13-single-cumulative-apk.yml",
+        ".github/issue9-p13-apk-request.txt",
+        "docs/implementation/ISSUE_9_P13_APK_BUILD_MANIFEST.json",
+        "docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md",
+        "docs/implementation/ISSUE_9_QA_RESULTS.json",
+        "docs/implementation/ISSUE_9_PHASE13_APK_BUILD_AND_OWNER_QA_HANDOFF.md"
+      ],
+      "source_commit": "67f690483842694926f277f72000a7faf6d0db23",
+      "source_tree_sha": "3ec710875652eead4b0547f0c56fd91e42b0e2b4",
+      "build_run_id": 40113515014,
+      "build_conclusion": "success",
+      "build_task": ":app:assembleDebug",
+      "apk_artifact_id": 12567766876,
+      "apk_sha256": "71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e",
+      "apk_size_bytes": 37105222,
+      "artifact_zip_sha256": "4ce365476dcaf9b936a77b273e8191b5d7a3958d06a40f45996a922c045271ae",
+      "owner_phone_cases_status": "M01_M46_ALL_NOT_RUN",
+      "technical_groups": "ALL_5_NOT_RUN",
+      "ac_status": "ALL_14_NOT_VERIFIED",
+      "executed_tests": 0,
+      "replacement_m35_build": {
+        "status": "BUILD_SUCCESS_OWNER_M35_RETEST_NOT_RUN",
+        "source_sha": "63618d3aefaa5629f514843f38df49f1972f1bbd",
+        "run_id": 40140441123,
+        "artifact_id": 12578232577,
+        "apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be",
+        "apk_bytes": 37105222,
+        "zip_sha256": "dbb83e30ae5dccf4cf005f2e6b5e4638abe72662761ae92eeae6db2509045294",
+        "report": "docs/implementation/ISSUE_9_M35_REPLACEMENT_APK_BUILD.json"
+      },
+      "owner_retest_status": "M35_PASS_OWNER_REPORTED_2026_10_25",
+      "owner_qa_closeout": {
+        "owner_reported_pass_count": 45,
+        "owner_excluded_case": "M45",
+        "deferred_issue": 10,
+        "automated_groups": "5_NOT_RUN",
+        "source_authored_tests_executed": 0,
+        "owner_approved_merge_close": true
+      }
+    }
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "summary": "Present title, artist, artwork, four large transports, Mic and Exit",
+      "phase_owners": [
+        "P04",
+        "P05",
+        "P07"
+      ],
+      "requirement_trace": [
+        "PRD:FR-04",
+        "MVP:US-04",
+        "UF-07",
+        "WF-07",
+        "HF-07",
+        "ADR-0002"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving",
+        "playback/api"
+      ],
+      "owner_phone_cases": [
+        "M04",
+        "M16",
+        "M27"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC02",
+      "summary": "Accurate Playing, Paused and No Track designs from service",
+      "phase_owners": [
+        "P02",
+        "P04",
+        "P05"
+      ],
+      "requirement_trace": [
+        "PRD:FR-04",
+        "MVP:Driving",
+        "UF-07",
+        "WF-07",
+        "HF-07",
+        "ADR-0002",
+        "ADR-0007"
+      ],
+      "source_owner_surfaces": [
+        "core/application/driving",
+        "feature/driving",
+        "playback/api"
+      ],
+      "owner_phone_cases": [
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC03",
+      "summary": "Controls dispatch via one service-owned Player and Queue",
+      "phase_owners": [
+        "P02",
+        "P06"
+      ],
+      "requirement_trace": [
+        "ADR-0002",
+        "ADR-0007",
+        "ADR-0008",
+        "UF-07",
+        "UF-11",
+        "SOFTWARE_ARCHITECTURE"
+      ],
+      "source_owner_surfaces": [
+        "playback/api",
+        "feature/player",
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M22",
+        "M23",
+        "M24"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC04",
+      "summary": "Fixed large >=48dp, high contrast, TalkBack-labelled",
+      "phase_owners": [
+        "P04",
+        "P08"
+      ],
+      "requirement_trace": [
+        "PRD:UX-48DP",
+        "UF-07",
+        "WF-07",
+        "HF-07",
+        "HANDOFF:COMPONENT_SPECS"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving",
+        "app/theme"
+      ],
+      "owner_phone_cases": [
+        "M27",
+        "M28",
+        "M30"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC05",
+      "summary": "TalkBack reading order and 100–200% readable text reflow",
+      "phase_owners": [
+        "P08"
+      ],
+      "requirement_trace": [
+        "PRD:UX",
+        "WF-07",
+        "HF-07",
+        "HANDOFF:SCREEN_SPECS"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving",
+        "app/theme"
+      ],
+      "owner_phone_cases": [
+        "M28",
+        "M29"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC06",
+      "summary": "No typing, nested menus, long lists or distracting motion",
+      "phase_owners": [
+        "P04",
+        "P08"
+      ],
+      "requirement_trace": [
+        "PRD:FR-04",
+        "MVP:Driving",
+        "WF-07",
+        "HF-07"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M31"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC07",
+      "summary": "Manual activation at approved entry points",
+      "phase_owners": [
+        "P03"
+      ],
+      "requirement_trace": [
+        "PRD:FR-07",
+        "MVP:Driving",
+        "UF-07",
+        "WF-06",
+        "WF-07",
+        "HANDOFF:SCREEN_SPECS"
+      ],
+      "source_owner_surfaces": [
+        "app/navigation",
+        "feature/library",
+        "feature/player"
+      ],
+      "owner_phone_cases": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC08",
+      "summary": "Connected selected BT may suggest, never force enter",
+      "phase_owners": [
+        "P09",
+        "P10",
+        "P11"
+      ],
+      "requirement_trace": [
+        "PRD:FR-07",
+        "MVP:P1_BT_HINT",
+        "UF-12",
+        "WF-10",
+        "ADR-0003"
+      ],
+      "source_owner_surfaces": [
+        "core/application/driving",
+        "feature/settings",
+        "data/datastore"
+      ],
+      "owner_phone_cases": [
+        "M33",
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M39",
+        "M40",
+        "M44"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC09",
+      "summary": "P1 hint cleanly removable without any P0 Driving loss",
+      "phase_owners": [
+        "P01",
+        "P09",
+        "P10",
+        "P11",
+        "P12"
+      ],
+      "requirement_trace": [
+        "MVP:P1_CUT_RULE",
+        "PRD:FR-07",
+        "ADR-0008"
+      ],
+      "source_owner_surfaces": [
+        "core/application/driving",
+        "feature/driving",
+        "feature/settings"
+      ],
+      "owner_phone_cases": [
+        "M41",
+        "M42",
+        "M43"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC10",
+      "summary": "UI recreation returns to real service snapshot",
+      "phase_owners": [
+        "P02",
+        "P03",
+        "P06",
+        "P12"
+      ],
+      "requirement_trace": [
+        "ADR-0002",
+        "ADR-0007",
+        "UF-11",
+        "WF-07",
+        "SOFTWARE_ARCHITECTURE"
+      ],
+      "source_owner_surfaces": [
+        "app/navigation",
+        "playback/api",
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M25",
+        "M26"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC11",
+      "summary": "Immediate exit to recorded manual-control origin",
+      "phase_owners": [
+        "P03",
+        "P08"
+      ],
+      "requirement_trace": [
+        "UF-07",
+        "WF-07",
+        "HF-07",
+        "HANDOFF:SCREEN_SPECS"
+      ],
+      "source_owner_surfaces": [
+        "app/navigation",
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M02",
+        "M03",
+        "M17"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC12",
+      "summary": "Stationary vehicle golden-scenario readiness",
+      "phase_owners": [
+        "P12",
+        "P13"
+      ],
+      "requirement_trace": [
+        "GS-04",
+        "GS-05",
+        "UF-07",
+        "UF-11",
+        "ISSUE-10_VOICE_DEPENDENCY"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving",
+        "voice/api",
+        "playback/service"
+      ],
+      "owner_phone_cases": [
+        "M45",
+        "M46"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC13",
+      "summary": "Road-attention notice with no guaranteed-safety claim",
+      "phase_owners": [
+        "P04",
+        "P08"
+      ],
+      "requirement_trace": [
+        "PRD:Driving",
+        "MVP:Driving",
+        "WF-07",
+        "HF-07"
+      ],
+      "source_owner_surfaces": [
+        "feature/driving"
+      ],
+      "owner_phone_cases": [
+        "M32"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    },
+    {
+      "id": "AC14",
+      "summary": "UI/a11y test coverage for Playing Paused No Track Exit",
+      "phase_owners": [
+        "P08",
+        "P12"
+      ],
+      "requirement_trace": [
+        "WF-07",
+        "HF-07",
+        "HANDOFF:STATE_ACTION_MATRIX"
+      ],
+      "source_owner_surfaces": [
+        "app/src/test",
+        "app/src/androidTest"
+      ],
+      "owner_phone_cases": [
+        "M05",
+        "M06",
+        "M17",
+        "M28",
+        "M29"
+      ],
+      "product_status": "NOT_VERIFIED",
+      "engineering_evidence": [],
+      "owner_device_evidence": []
+    }
+  ],
+  "owner_phone_cases": {
+    "M01": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC07"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M02": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC07",
+        "AC11"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M03": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC07",
+        "AC11"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M04": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC01",
+        "AC02"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M05": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC02",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M06": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC02",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M07": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC02"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M08": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_navigation_and_states",
+      "traced_acceptance": [
+        "AC02"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M09": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M10": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M11": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M12": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M13": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M14": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M15": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M16": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC01"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M17": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "manual_playback_controls",
+      "traced_acceptance": [
+        "AC11",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M18": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M19": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M20": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M21": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M22": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M23": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M24": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC03"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M25": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M26": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "lifecycle_and_issue8_regressions",
+      "traced_acceptance": [
+        "AC10"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M27": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC01",
+        "AC04"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M28": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC04",
+        "AC05",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M29": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC05",
+        "AC14"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M30": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC04"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M31": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC06"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M32": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "driving_accessibility",
+      "traced_acceptance": [
+        "AC13"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M33": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M34": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M35": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Earlier failed on original P13 build. Owner reports all cases other than M45 now pass after replacement APK delivery; M35 repair accepted by owner; no individual log or screenshot was attached.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "retest": "PASS_OWNER_REPORTED_AFTER_REPLACEMENT",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M36": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M37": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M38": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M39": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M40": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M41": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC09"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M42": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC09"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M43": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC09"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M44": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "P1_bluetooth_suggestion",
+      "traced_acceptance": [
+        "AC08"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M45": {
+      "status": "BLOCKED_DEFERRED_ISSUE10",
+      "category": "stationary_golden_scenarios",
+      "traced_acceptance": [
+        "AC12"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner explicitly excluded this GS-04 English Next song Voice/STT scenario and directs completion to existing Voice Issue #10; NOT tested or PASS.",
+      "deferred_issue_number": 10,
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    },
+    "M46": {
+      "status": "PASS_OWNER_REPORTED",
+      "category": "stationary_golden_scenarios",
+      "traced_acceptance": [
+        "AC12"
+      ],
+      "device": null,
+      "apk_sha256": null,
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
+    }
+  },
+  "technical_groups": {
+    "JVM": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    },
+    "Android_instrumentation": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    },
+    "Accessibility_automated": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    },
+    "Lint": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    },
+    "Other_OEM_and_multiple_vehicle_validation": {
+      "status": "NOT_RUN",
+      "execution_proof": null,
+      "notes": "No technical tests authorized in P00–P13; authorship alone does not mean PASS."
+    }
+  },
+  "summary": {
+    "phases": 14,
+    "acceptance_criteria": 14,
+    "phone_cases": 46,
+    "phone_cases_traced_to_ac": 46,
+    "technical_groups": 5,
+    "product_acs_verified": 13,
+    "phone_pass": 45,
+    "technical_pass": 0,
+    "apk_status": "REPLACEMENT_APK_BUILT_OWNER_45_CASES_PASS_M45_DEFERRED",
+    "phases_scoped_contract_complete": 14,
+    "p02_authored_tests": 21,
+    "p02_executed_tests": 0,
+    "p03_authored_tests": 12,
+    "p03_executed_tests": 0,
+    "p04_source_composable_count": 1,
+    "p05_authored_tests": 21,
+    "p05_executed_tests": 0,
+    "cumulative_p02_p03_p05_junit_authored": 54,
+    "p06_authored_tests": 23,
+    "p06_executed_tests": 0,
+    "cumulative_p02_p03_p05_p06_junit_authored": 77,
+    "p07_authored_tests": 19,
+    "p07_executed_tests": 0,
+    "cumulative_p02_p03_p05_p06_p07_junit_authored": 96,
+    "p08_authored_compose_tests": 11,
+    "p08_executed_compose_tests": 0,
+    "p02_p03_p05_p06_p07_junit_authored": 96,
+    "p02_p03_p05_p06_p07_junit_executed": 0,
+    "cumulative_issue9_source_tests_authored": 198,
+    "p09_authored_tests": 18,
+    "p09_executed_tests": 0,
+    "p10_authored_tests": 26,
+    "p10_executed_tests": 0,
+    "p11_authored_junit_tests": 24,
+    "p11_authored_compose_tests": 4,
+    "p11_executed_tests": 0,
+    "p12_authored_junit_tests": 16,
+    "p12_authored_compose_tests": 3,
+    "p12_executed_tests": 0,
+    "p13_build_success": true,
+    "p13_build_run_id": 40113515014,
+    "p13_build_source_sha": "67f690483842694926f277f72000a7faf6d0db23",
+    "p13_all_46_owner_tests_done": false,
+    "phone_fail": 0,
+    "phone_not_run": 0,
+    "phone_blocked": 1,
+    "product_acs_deferred": 1,
+    "technical_groups_not_run": 5,
+    "owner_scope_accepted": true,
+    "owner_authorized_merge_close": true
+  },
+  "human_validation": {
+    "review_approval": "OWNER_EXPLICIT_MERGE_CLOSE_2026_10_25_NO_INDEPENDENT_CODE_REVIEW",
+    "owner_app_acceptance": "OWNER_REPORTED_45_MANUAL_PASS_M45_DEFERRED_ISSUE10",
+    "single_apk_checksum": "71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e"
+  },
+  "provenance_notes": [
+    "P00 PASS is a static-source readiness audit only; does not satisfy any AC.",
+    "P01 records contract and source trace only; implementation and Android/JVM/UI tests have not been run.",
+    "AC12 M45 requires actual #10 voice and stationary vehicle; M46 requires a parked vehicle/head unit.",
+    "One device/headset never proves multi-OEM/multi-vehicle release QA.",
+    "P01 GitHub read-back verified contract, P13-only template and evidence index: 14 phases, 14 AC, 46/46 manual IDs traced, five technical groups; no tests executed.",
+    "P02 pure Driving snapshot-to-view/command source authored; 21 JUnit @Test methods authored but NOT_RUN; PRD FR-04 and 14 runtime acceptance checks remain NOT_VERIFIED.",
+    "P03 source-only: 1 NavHost Driving route, manual entry from Library/FullPlayer, recorded root origin, Back/Exit and process-fresh inactive ViewModel; 12 JUnit methods written, not run. P04/05 approved HF screen not yet implemented.",
+    "P04 actual HF-07 Playing Compose source authored, rooted in only Driving NavHost route; controls visibly disabled pending P06/P07, so this is NOT full app capability PASS. No UI test/Gradle/phone execution, 14 AC NOT_VERIFIED.",
+    "P05: CC-06 and CC-07 source + typed service recovery/ACK/error precedence, 21 JUnit methods authored not run. P06 real controls/ACK pending, no Play Last source contract exists; 14 original AC NOT_VERIFIED.",
+    "P06 full Driving four-button callback to existing root PlayerViewModel and PlaybackGateway public port authored. Stale tap/readback admission and epoch guard source only. 23 JUnit methods authored, 0 run; all product AC NOT_VERIFIED; no APK.",
+    "P07 actual Driving Mic/Voice permission and origin handoff authored using existing app-scoped coordinator/provider. 19 pure JUnit methods authored, NOT_RUN; provider availability and complete STT/voice E2E / ducking remain external Issue #10/#11 validation. All AC NOT_VERIFIED, no APK.",
+    "P08 actual Compose accessibility code and 11 authored, NOT RUN instrumentation tests. Runtime TalkBack 100/150/200%, focus, contrast and physical 64/72/56dp remain UNVERIFIED. P09 optional BT next; no APK or PR.",
+    "P09 optional CE-20 paired Bluetooth audio preference, local hashed token, Android 12+ CONNECT gate and ACK-only rollback authored; 18 JUnit source methods NOT_RUN. P10/P11 actual selected profile and optional proposal still pending. All original 14 AC NOT_VERIFIED; 46 M/5 technical NOT_RUN, no APK.",
+    "P10 live GitHub selected-device Bluetooth A2DP/HFP profile event adapter/foreground app owner and pure reconnect reducer authored, with 24 pure JUnit tests NOT_RUN. No P11 prompt or automatic Driving, no runtime connectivity verification. P13 owns the sole APK and owner phone QA. Product 14 AC NOT_VERIFIED, 46 M/5 technical NOT_RUN.",
+    "P11 optional Library/FullPlayer foreground one-shot Bluetooth Enter/Not now suggestion and guarded P03 navigation authored in code; no background notification, autoplay, microphone, BT route change or new player. 28 JUnit/Compose methods AUTHORED NOT_RUN. 14 product AC NOT_VERIFIED, M01–M46 & five technical groups NOT_RUN, APK NOT_BUILT.",
+    "P11 final source readback after UI integration consolidation: no duplicate root coordinator argument/import; single NavHost, one foreground event collector, actual rendered route checked, Back/Not-now dismiss, lifecycle STOP invalidation and fresh permission before explicit Enter. Zero tests/build run.",
+    "P12 complete source-only hardening: 16 pure JVM + 3 Compose cases authored NOT_RUN; cumulative 196 authored, zero executed. Static source-only review of Issue8 service-owned playback/focus/route and P11 opt-in; corrections to Settings transient chooser, localized a11y, real button tag/size tests; P13 build manifest skeleton NOT_BUILT and exact 46 NOT_RUN phone checklist.",
+    "All original 14 Issue9 AC remain NOT_VERIFIED and all 5 technical groups NOT_RUN. P13 only single combined debug APK with actual bytes/SHA; no current APK artifact, PR or merge.",
+    "P13 exact cumulative APK built once on GitHub Actions with successful :app:assembleDebug at source commit 67f69048; artifact #12567766876, 37,105,222-byte APK and independently verified SHA256 71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e. No test tasks executed. All 14 AC NOT_VERIFIED, 46 M/5 technical groups NOT_RUN and no PR/merge/close.",
+    "2026-10-25 owner M35 FAIL reported: optional Bluetooth invitation absent despite repeated reconnect of manually saved paired audio device. Do NOT treat provided illustrative example image as runtime evidence. No other M cases moved from NOT_RUN, all 14 AC remain NOT_VERIFIED.",
+    "Owner M35 FAIL repair compiled successfully in replacement GitHub build-only run 40140441123: source 63618d3a, SHA256 3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be. 2 additional pure JUnit methods written NOT_RUN, 198 total authored NOT_RUN. Original 14 AC remain NOT_VERIFIED; M35 FAIL, 45 others NOT_RUN, 5 technical groups NOT_RUN. Preserve original P13 APK evidence.",
+    "2026-10-25 owner batch field report: M01–M44 and M46 45 PASS; M45 BLOCKED/deferred to Issue #10. M35 old-build FAIL retained in QA history, owner reports repaired build PASS. No per-case instrumentation screenshots or installed APK checksum confirmation. AC12 deferred partial Voice Golden Scenario; 13/14 AC product/source scope accepted. Five technical groups not run, 198 source authored tests not executed. Owner authorized PR/merge/close with explicit exception."
+  ]
+}
