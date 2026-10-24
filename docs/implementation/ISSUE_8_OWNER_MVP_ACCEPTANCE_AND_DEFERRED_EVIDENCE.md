@@ -40,3 +40,14 @@ This is the owner's own **global self-report**, *not* separately timestamped or 
 5. Future Voice and independently authorized technical/OEM QA belong to separate follow-ups; any genuine failure can reopen a new bug or the issue as appropriate.
 
 **Machine-readable evidence:** [Issue #8 QA ledger](ISSUE_8_QA_RESULTS.json) and [AC traceability](ISSUE_8_PHASE1_TRACEABILITY_INDEX.json).
+
+
+---
+
+## Verified final GitHub outcomes — 2026-10-24
+
+- **PR #77:** [Issue #8: owner-accepted Media3 Audio Focus and route recovery](https://github.com/latticeward-labs/music-copilot/pull/77), **MERGED** on 2026-10-24 11:06:22 UTC using GitHub squash merge.
+- **Actual merge commit on `main`:** `061d98191ef96e6316f8da8a0c6b9946c1345ac2`; independently confirmed by GitHub branch HEAD immediately after merge.
+- **Issue #8:** [Closed — completed](https://github.com/latticeward-labs/music-copilot/issues/8) on 2026-10-24 11:06:23 UTC (PR `Closes #8`), verified from GitHub Issue API.
+- **Owner handoff:** final owner-attested phone PASS and all deferred QA limitations remain preserved in [QA_RESULTS.json](ISSUE_8_QA_RESULTS.json). **This is implementation signoff with explicit exceptions**, not independent QA execution or 45/45 hardware PASS.
+- **No additional app compilation or automated tests** were requested or run as part of the owner acceptance metadata write; merge and final metadata commits contain `[skip ci]`.
