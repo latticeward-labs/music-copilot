@@ -72,7 +72,7 @@ fun FullPlayerScreen(
     library: LibraryRepository,
     canReadLocalMetadata: Boolean,
     onBack: () -> Unit,
-    onEnterDriving: () -> Unit,
+    onEnterDriving: () -> Unit = {},
 ) {
     BackHandler(onBack = onBack)
     val snap = state.snapshot
