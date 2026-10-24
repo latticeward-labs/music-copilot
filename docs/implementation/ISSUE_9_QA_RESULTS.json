@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P13_ONE_CUMULATIVE_APK_BUILT_GITHUB_ACTIONS_SUCCESS_OWNER_46_PHONE_CASES_NOT_RUN",
+  "status": "P13_OWNER_PHONE_QA_IN_PROGRESS_M35_FAIL_FIX_REQUIRED_45_NOT_RUN",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -72,7 +72,7 @@
     "M32": "NOT_RUN",
     "M33": "NOT_RUN",
     "M34": "NOT_RUN",
-    "M35": "NOT_RUN",
+    "M35": "FAIL",
     "M36": "NOT_RUN",
     "M37": "NOT_RUN",
     "M38": "NOT_RUN",
@@ -104,7 +104,19 @@
     "apk_delivery": "GITHUB_ACTIONS_ZIP_AND_THIS_CHAT_STANDALONE_APK",
     "builder": "GITHUB_ACTIONS_ONE_TRIGGER_ONE_BUILD_NO_TEST_TASKS"
   },
-  "owner_phone_evidence": [],
+  "owner_phone_evidence": [
+    {
+      "case_id": "M35",
+      "result": "FAIL",
+      "source": "DIRECT_OWNER_REPORT_IN_CHAT",
+      "reported_on": "2026-10-25",
+      "observation": "User previously paired and explicitly saved a single remaining Bluetooth audio device, disconnected and reconnected it repeatedly, but no optional 'Driving Mode?' Enter/Not now suggestion appeared.",
+      "note": "The image shared shows prior illustrative UI, NOT a captured real app offer. Physical phone model, on-device exact APK SHA, OS permission state and timing not independently measured.",
+      "apk_build_source_commit_expected": "67f690483842694926f277f72000a7faf6d0db23",
+      "retest_status": "PENDING_FIXED_BUILD",
+      "device_verified": false
+    }
+  ],
   "notes": [
     "Planning documentation and case definitions are not proof of executed testing.",
     "M45 GS-04 requires working Issue #10 Voice runtime; remains BLOCKED when unavailable after P13.",
@@ -150,6 +162,7 @@
     "P12: docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md now contains 46 owner phone M-cases all NOT_RUN, revised M08/M35/M37/M40 and stationary vehicle/Voice dependency scopes. docs/implementation/ISSUE_9_P13_APK_BUILD_MANIFEST.json skeleton NOT_BUILT, no fictitious link/SHA/size; P13 only one full-branch :app:assembleDebug build, no tests/lint/Actions tests.",
     "P12 release gate NOT_VERIFIED: original 14 AC unchanged NOT_VERIFIED, 46 M NOT_RUN and five technical groups NOT_RUN. Kotlin/Gradle compile, OEM A2DP/HFP permission callback order, real route/focus, TalkBack and AirPods/Android media-card parity not verified; no PR, merge or issue closure.",
     "P13 GitHub Actions run 40113515014 completed SUCCESS at 2026-10-24T16:54:38Z. Trigger commit 67f690483842694926f277f72000a7faf6d0db23 builds *all* P00-P12 combined Issue #9 code through :app:assembleDebug alone. Build log states BUILD SUCCESSFUL in 1m 48s. Artifact #12567766876 ZIP downloaded, extracted APK 37,105,222 bytes; APK SHA256 71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e matches embedded sha256 file, ZIP SHA256 4ce365476dcaf9b936a77b273e8191b5d7a3958d06a40f45996a922c045271ae. APK ZIP CRC, AndroidManifest/resources/Dex presence confirmed. APK accessible from current chat and GitHub Actions ZIP; no simulated link.",
-    "P13 STRICT OUTCOME: APK BUILD SUCCESS is NOT product/QA PASS. All 14 original acceptance criteria remain NOT_VERIFIED, owner M01-M46 remain NOT_RUN, all 5 technical groups NOT_RUN. 196 authored test methods ZERO executed. No Kotlin source changes after build; subsequent GitHub doc commits are not included in exact SHA 67f69048 source. No PR, merge, or issue closure pending phone owner results."
+    "P13 STRICT OUTCOME: APK BUILD SUCCESS is NOT product/QA PASS. All 14 original acceptance criteria remain NOT_VERIFIED, owner M01-M46 remain NOT_RUN, all 5 technical groups NOT_RUN. 196 authored test methods ZERO executed. No Kotlin source changes after build; subsequent GitHub doc commits are not included in exact SHA 67f69048 source. No PR, merge, or issue closure pending phone owner results.",
+    "P13 owner M35 FAIL 2026-10-25: paired and saved an eligible Bluetooth audio device, repeatedly disconnect/reconnect in-app, but Driving Mode? opt-in banner did not show. Screenshot user shared is illustrative mock from assistant, NOT app runtime screenshot. No other M case inferred PASS. Failure requires code/race investigation and true replacement APK retest; original P13 APK remains a completed build only."
   ]
 }
