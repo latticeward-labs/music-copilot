@@ -126,9 +126,20 @@
       "last_playable_item": "UNAVAILABLE_NOT_FABRICATED"
     },
     "P06": {
-      "status": "PLANNED_NOT_EXECUTED",
-      "evidence_files": [],
-      "source_commit": null
+      "status": "PASS_SCOPED_COMMAND_SOURCE_AND_23_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/driving/DrivingCommandAdmissionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase6DrivingCommandAdmissionTest.kt",
+        "docs/implementation/ISSUE_9_PHASE6_SERVICE_ACK_TRANSPORT_AUDIT.md"
+      ],
+      "source_commit": "b96f8c2dea920a185744a6d6f27a8df703bf6974",
+      "authored_junit_methods": 23,
+      "executed_junit_methods": 0,
+      "real_service_execution_in_this_phase": "NOT_RUN",
+      "ui_wired_to_service_ack": "SOURCE_ONLY_PENDING_RUNTIME_VALIDATION",
+      "preserved_issue8_play_routes": "SOURCE_UNMODIFIED_REGRESSION_NOT_RUN"
     },
     "P07": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1077,7 +1088,7 @@
     "phone_pass": 0,
     "technical_pass": 0,
     "apk_status": "NOT_BUILT",
-    "phases_scoped_contract_complete": 6,
+    "phases_scoped_contract_complete": 7,
     "p02_authored_tests": 21,
     "p02_executed_tests": 0,
     "p03_authored_tests": 12,
@@ -1085,7 +1096,10 @@
     "p04_source_composable_count": 1,
     "p05_authored_tests": 21,
     "p05_executed_tests": 0,
-    "cumulative_p02_p03_p05_junit_authored": 54
+    "cumulative_p02_p03_p05_junit_authored": 54,
+    "p06_authored_tests": 23,
+    "p06_executed_tests": 0,
+    "cumulative_p02_p03_p05_p06_junit_authored": 77
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1101,6 +1115,7 @@
     "P02 pure Driving snapshot-to-view/command source authored; 21 JUnit @Test methods authored but NOT_RUN; PRD FR-04 and 14 runtime acceptance checks remain NOT_VERIFIED.",
     "P03 source-only: 1 NavHost Driving route, manual entry from Library/FullPlayer, recorded root origin, Back/Exit and process-fresh inactive ViewModel; 12 JUnit methods written, not run. P04/05 approved HF screen not yet implemented.",
     "P04 actual HF-07 Playing Compose source authored, rooted in only Driving NavHost route; controls visibly disabled pending P06/P07, so this is NOT full app capability PASS. No UI test/Gradle/phone execution, 14 AC NOT_VERIFIED.",
-    "P05: CC-06 and CC-07 source + typed service recovery/ACK/error precedence, 21 JUnit methods authored not run. P06 real controls/ACK pending, no Play Last source contract exists; 14 original AC NOT_VERIFIED."
+    "P05: CC-06 and CC-07 source + typed service recovery/ACK/error precedence, 21 JUnit methods authored not run. P06 real controls/ACK pending, no Play Last source contract exists; 14 original AC NOT_VERIFIED.",
+    "P06 full Driving four-button callback to existing root PlayerViewModel and PlaybackGateway public port authored. Stale tap/readback admission and epoch guard source only. 23 JUnit methods authored, 0 run; all product AC NOT_VERIFIED; no APK."
   ]
 }
