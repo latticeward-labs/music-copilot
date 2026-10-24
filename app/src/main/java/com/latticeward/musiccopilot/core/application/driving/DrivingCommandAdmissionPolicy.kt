@@ -30,6 +30,8 @@ object DrivingCommandAdmissionPolicy {
         // meaning of Play/Pause and Previous/Next. Fail closed, not optimistic.
         if (displayedSnapshot.revision != latestSnapshot.revision ||
             displayedSnapshot.queueRevision != latestSnapshot.queueRevision ||
+            displayedSnapshot.queue != latestSnapshot.queue ||
+            displayedSnapshot.lastError != latestSnapshot.lastError ||
             displayedSnapshot.currentIndex != latestSnapshot.currentIndex ||
             displayedSnapshot.currentItem != latestSnapshot.currentItem ||
             displayedSnapshot.playbackState != latestSnapshot.playbackState ||
