@@ -129,3 +129,12 @@ Notes / FAIL / BLOCKED / N/A reasons:
 ```
 
 **Interpretation:** This file is a future checklist, not a phone test run. No result is PASS as of planning. All phases before P13 prohibit testing and APK builds. The owner decides later when to authorize and supply actual results; assistant records them in GitHub with device, artifact hash and source provenance.
+
+
+---
+
+## 2026-10-24 final owner handset attestation (supersedes earlier NOT_RUN planning text)
+
+The **owner reports all accessible Issue #8 tests PASS after the FIXED second APK**, and explicitly authorizes merge and closure. [Read owner acceptance and deferred evidence](ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md). **Actual second APK:** [run 40086837929](https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929) · `fea9301fa29986439070fe50428bf8e90a2942df` · SHA-256 `318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c`.
+
+**M01–M43: PASS (OWNER SELF-REPORT on 2026-10-24; no independently attached per-case logs). M44/M45: BLOCKED (live Voice screen not implemented in this APK).** Targeted owner-reported media control regressions R01/R02/R03: **PASS (OWNER SELF-REPORT)**. **T01–T15 still NOT_RUN, AC01–AC12 still UNVERIFIED, other OEM/vehicle validation deferred.** These exceptions were explicitly documented prior to the requested merge/close. Earlier original checklist headings/boilerplate reflect planning history and do NOT supersede this dated result.
