@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot.playback.service
 
 import android.os.Bundle
 import android.content.Intent
+import android.app.PendingIntent
 import androidx.media3.common.Player
 import androidx.media3.common.MediaItem
 import androidx.media3.common.AudioAttributes
@@ -19,6 +20,7 @@ import androidx.media3.session.SessionResult
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.SettableFuture
+import com.latticeward.musiccopilot.app.MainActivity
 import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
@@ -152,8 +154,22 @@ class MusicPlaybackService : MediaSessionService() {
                         },
                         routeGeneration = { interruptionGate.routeGeneration },
                     )
+                    // Media3 owns the Android media notification. Supply a
+                    // real Activity PendingIntent so tapping the media card
+                    // returns to the existing app task (never a service).
+                    val openPlayerIntent = Intent(this, MainActivity::class.java).apply {
+                        action = Intent.ACTION_MAIN
+                        addCategory(Intent.CATEGORY_LAUNCHER)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    }
+                    val openPlayer = PendingIntent.getActivity(
+                        this, 0, openPlayerIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+                    )
                     val builtSession = MediaSession.Builder(this, systemTransport)
                         .setCallback(PlaybackCallbacks())
+                        .setSessionActivity(openPlayer)
                         .setSessionExtras(wrap(confirmed))
                         .build()
                     candidate to builtSession
@@ -892,7 +908,7 @@ class MusicPlaybackService : MediaSessionService() {
                         val stampedRoute = command.routeGenerationAtReceipt
                             ?: return rejected()
                         if (!interruptionGate.requestIsStillCurrent(stampedRoute) ||
-                            interruptionGate.shouldSuppressAutomaticPlay() ||
+                            !interruptionGate.mayAdmitExternalPlayAttempt() ||
                             focusObserver.policyState.focus != FocusCondition.AVAILABLE
                         ) return rejected()
                     }
