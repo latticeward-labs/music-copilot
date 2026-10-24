@@ -70,3 +70,10 @@
 - [ ] Optional deferred technical / OEM / three parked vehicles evidence, independent review and merge decision.
 
 **P13 SUCCESS = APK build and handoff only; product acceptance pending.**
+
+
+---
+
+## Superseding 2026-10-24 update — fixed APK and owner final MVP acceptance
+
+All preceding “owner phone QA pending / issue open / no merge” statements reflect the **first** P13 build handoff at that point in history. After three reported media-control regressions, a **second owner-authorized build-only APK** succeeded: [run 40086837929](https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929), source `fea9301fa29986439070fe50428bf8e90a2942df`, SHA-256 `318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c`. Owner now reports all accessible phone cases and the three fixes PASS and asks to merge/close. **M01–M43 PASS owner-attested only; M44/M45 Voice BLOCKED; T01–T15 NOT_RUN and AC01–AC12 UNVERIFIED.** [Read owner acceptance and deferred evidence](ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md). Closing the implementation issue is not an assertion of full independent QA.
