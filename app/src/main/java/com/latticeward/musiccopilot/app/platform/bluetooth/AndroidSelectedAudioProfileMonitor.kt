@@ -331,9 +331,12 @@ class AndroidSelectedAudioProfileMonitor(
                 SelectedAudioConnectionStatus.ConnectedHeadset,
             )
         ) BluetoothObservationCause.ProfileConnectionEvent else cause
-        // A connected-state broadcast cannot be replayed indefinitely. Other
-        // incoming ACL/proxy events after this are verification only.
-        profileConnectPulse = false
+        // A profile broadcast may precede Android's asynchronous proxy
+        // service callback. Preserve that pulse only while profiles are
+        // loading, then consume it after one authoritative observation.
+        // No indefinite replays on repeated ACL/recheck events.
+        if (result != SelectedAudioConnectionStatus.WaitingForProfiles)
+            profileConnectPulse = false
         onResult(result, finalCause)
     }
 }
