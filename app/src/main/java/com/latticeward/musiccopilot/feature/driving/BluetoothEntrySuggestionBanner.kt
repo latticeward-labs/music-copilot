@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -70,12 +71,14 @@ fun BluetoothEntrySuggestionBanner(
                     Button(
                         onClick = onEnter,
                         modifier = Modifier.fillMaxWidth()
-                            .heightIn(min = MusicSize.touchTargetMinDp),
+                            .heightIn(min = MusicSize.touchTargetMinDp)
+                            .testTag("issue9_bt_enter"),
                     ) { Text(stringResource(R.string.i9_bt_offer_enter)) }
                     OutlinedButton(
                         onClick = onNotNow,
                         modifier = Modifier.fillMaxWidth()
-                            .heightIn(min = MusicSize.touchTargetMinDp),
+                            .heightIn(min = MusicSize.touchTargetMinDp)
+                            .testTag("issue9_bt_not_now"),
                     ) { Text(stringResource(R.string.i9_bt_offer_not_now)) }
                 }
             } else {
@@ -86,12 +89,14 @@ fun BluetoothEntrySuggestionBanner(
                     OutlinedButton(
                         onClick = onNotNow,
                         modifier = Modifier.weight(1f)
-                            .heightIn(min = MusicSize.touchTargetMinDp),
+                            .heightIn(min = MusicSize.touchTargetMinDp)
+                            .testTag("issue9_bt_not_now"),
                     ) { Text(stringResource(R.string.i9_bt_offer_not_now)) }
                     Button(
                         onClick = onEnter,
                         modifier = Modifier.weight(1f)
-                            .heightIn(min = MusicSize.touchTargetMinDp),
+                            .heightIn(min = MusicSize.touchTargetMinDp)
+                            .testTag("issue9_bt_enter"),
                     ) { Text(stringResource(R.string.i9_bt_offer_enter)) }
                 }
             }
