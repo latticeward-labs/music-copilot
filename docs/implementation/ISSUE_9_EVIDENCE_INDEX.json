@@ -68,9 +68,21 @@
       "runtime_feature_integration": "P03-P06_PENDING"
     },
     "P03": {
-      "status": "PLANNED_NOT_EXECUTED",
-      "evidence_files": [],
-      "source_commit": null
+      "status": "PASS_SCOPED_NAVIGATION_SOURCE_12_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/DrivingNavigationViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/library/LibraryBrowseScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase3DrivingNavigationPolicyTest.kt",
+        "docs/implementation/ISSUE_9_PHASE3_DRIVING_NAVIGATION_AUDIT.md"
+      ],
+      "source_commit": "5e224532cca6c2af309980f4a8538cb229d90c24",
+      "authored_junit_methods": 12,
+      "executed_junit_methods": 0,
+      "android_build": "NOT_RUN",
+      "visual_screen": "TEMPORARY_P03_NAVIGATION_SHELL_P04_P05_PENDING"
     },
     "P04": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1034,9 +1046,11 @@
     "phone_pass": 0,
     "technical_pass": 0,
     "apk_status": "NOT_BUILT",
-    "phases_scoped_contract_complete": 3,
+    "phases_scoped_contract_complete": 4,
     "p02_authored_tests": 21,
-    "p02_executed_tests": 0
+    "p02_executed_tests": 0,
+    "p03_authored_tests": 12,
+    "p03_executed_tests": 0
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1049,6 +1063,7 @@
     "AC12 M45 requires actual #10 voice and stationary vehicle; M46 requires a parked vehicle/head unit.",
     "One device/headset never proves multi-OEM/multi-vehicle release QA.",
     "P01 GitHub read-back verified contract, P13-only template and evidence index: 14 phases, 14 AC, 46/46 manual IDs traced, five technical groups; no tests executed.",
-    "P02 pure Driving snapshot-to-view/command source authored; 21 JUnit @Test methods authored but NOT_RUN; PRD FR-04 and 14 runtime acceptance checks remain NOT_VERIFIED."
+    "P02 pure Driving snapshot-to-view/command source authored; 21 JUnit @Test methods authored but NOT_RUN; PRD FR-04 and 14 runtime acceptance checks remain NOT_VERIFIED.",
+    "P03 source-only: 1 NavHost Driving route, manual entry from Library/FullPlayer, recorded root origin, Back/Exit and process-fresh inactive ViewModel; 12 JUnit methods written, not run. P04/05 approved HF screen not yet implemented."
   ]
 }
