@@ -181,9 +181,27 @@
       "app_build": "NOT_BUILT"
     },
     "P09": {
-      "status": "PLANNED_NOT_EXECUTED",
-      "evidence_files": [],
-      "source_commit": null
+      "status": "PASS_SCOPED_BLUETOOTH_SETTINGS_SOURCE_18_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/bluetooth/BluetoothSelectionContracts.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/AndroidPairedAudioDeviceSource.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/settings/bluetooth/BluetoothSelectionViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/settings/bluetooth/BluetoothPreferenceSettingsSection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/AndroidManifest.xml",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase9BluetoothSelectionTest.kt",
+        "docs/implementation/ISSUE_9_PHASE9_BLUETOOTH_SETTINGS_OPTIN_AUDIT.md",
+        "docs/high-fidelity/WF-10/states/HF_STATE_CE-20.md"
+      ],
+      "source_commit": "eaa14645b0ab6bf4767e94d9cd43a178e5a36a19",
+      "authored_junit_methods": 18,
+      "executed_junit_methods": 0,
+      "android_bluetooth_permission": "SOURCE_ONLY_RUNTIME_NOT_VERIFIED",
+      "saved_identifier": "LOCAL_SALTED_HASH_ONLY",
+      "bluetooth_connection_gating": "P10_PENDING",
+      "bluetooth_optin_suggestion": "P11_PENDING"
     },
     "P10": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1117,7 +1135,7 @@
     "phone_pass": 0,
     "technical_pass": 0,
     "apk_status": "NOT_BUILT",
-    "phases_scoped_contract_complete": 9,
+    "phases_scoped_contract_complete": 10,
     "p02_authored_tests": 21,
     "p02_executed_tests": 0,
     "p03_authored_tests": 12,
@@ -1136,7 +1154,9 @@
     "p08_executed_compose_tests": 0,
     "p02_p03_p05_p06_p07_junit_authored": 96,
     "p02_p03_p05_p06_p07_junit_executed": 0,
-    "cumulative_issue9_source_tests_authored": 107
+    "cumulative_issue9_source_tests_authored": 125,
+    "p09_authored_tests": 18,
+    "p09_executed_tests": 0
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1155,6 +1175,7 @@
     "P05: CC-06 and CC-07 source + typed service recovery/ACK/error precedence, 21 JUnit methods authored not run. P06 real controls/ACK pending, no Play Last source contract exists; 14 original AC NOT_VERIFIED.",
     "P06 full Driving four-button callback to existing root PlayerViewModel and PlaybackGateway public port authored. Stale tap/readback admission and epoch guard source only. 23 JUnit methods authored, 0 run; all product AC NOT_VERIFIED; no APK.",
     "P07 actual Driving Mic/Voice permission and origin handoff authored using existing app-scoped coordinator/provider. 19 pure JUnit methods authored, NOT_RUN; provider availability and complete STT/voice E2E / ducking remain external Issue #10/#11 validation. All AC NOT_VERIFIED, no APK.",
-    "P08 actual Compose accessibility code and 11 authored, NOT RUN instrumentation tests. Runtime TalkBack 100/150/200%, focus, contrast and physical 64/72/56dp remain UNVERIFIED. P09 optional BT next; no APK or PR."
+    "P08 actual Compose accessibility code and 11 authored, NOT RUN instrumentation tests. Runtime TalkBack 100/150/200%, focus, contrast and physical 64/72/56dp remain UNVERIFIED. P09 optional BT next; no APK or PR.",
+    "P09 optional CE-20 paired Bluetooth audio preference, local hashed token, Android 12+ CONNECT gate and ACK-only rollback authored; 18 JUnit source methods NOT_RUN. P10/P11 actual selected profile and optional proposal still pending. All original 14 AC NOT_VERIFIED; 46 M/5 technical NOT_RUN, no APK."
   ]
 }
