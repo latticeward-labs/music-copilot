@@ -95,6 +95,21 @@ internal class PlaybackInterruptionGate {
         requiresExplicitResume || explicitlyPaused || routeEpochExhausted ||
             bluetoothConnectionPlayQuarantine
 
+    /**
+     * A NEW Play delivered by Android's media controls is a request, not
+     * automatic focus recovery. Manual Pause must remain authoritative against
+     * delayed focus GAIN, but must not permanently disable notification or
+     * headset Play on a still-valid route.
+     *
+     * Bluetooth reconnect and lost-route quarantine remain stronger vetoes:
+     * Android/AVRCP provides no reliable physical-button provenance, so this
+     * does not unlock a disconnected route or a fresh BT connection. Only an
+     * in-app verified Play can explicitly clear those safety latches.
+     */
+    fun mayAdmitExternalPlayAttempt(): Boolean =
+        !requiresExplicitResume && !routeEpochExhausted &&
+            !bluetoothConnectionPlayQuarantine
+
     fun requestIsStillCurrent(expectedRouteGeneration: Long): Boolean =
         !routeEpochExhausted && routeGeneration == expectedRouteGeneration
 
