@@ -199,4 +199,21 @@
     <string name="i8_paused_focus_short">Paused — audio interrupted</string>
     <string name="i8_paused_focus_unavailable_short">Paused — audio unavailable</string>
     <string name="i8_paused_route_short">Paused — output changed</string>
+    <!-- Issue #9 P07: on-device English PTT and honest fallback only. -->
+    <string name="i9_voice_permission_heading">Microphone permission</string>
+    <string name="i9_voice_permission_explanation">To use voice commands, Music Copilot needs microphone access. Recognition uses an available on-device service; no cloud speech provider is enabled. You can continue using manual controls.</string>
+    <string name="i9_voice_permission_rationale_brief">Tap Mic to review microphone access for on-device voice commands.</string>
+    <string name="i9_voice_permission_wait">Waiting for Android microphone permission…</string>
+    <string name="i9_voice_granted_tap_again">Microphone permission granted. Tap Mic again to start a voice command.</string>
+    <string name="i9_voice_permission_denied">Microphone access is unavailable. Continue with manual music controls.</string>
+    <string name="i9_voice_local_provider_unavailable">On-device voice recognition is unavailable on this phone. Manual playback still works.</string>
+    <string name="i9_voice_start_unavailable">Could not start voice recognition. Use manual playback or try Mic again.</string>
+    <string name="i9_voice_listening">Listening · speak one short English command</string>
+    <string name="i9_voice_processing">Processing your voice command…</string>
+    <string name="i9_voice_confirmation_unavailable">Voice confirmation is not supported yet. Cancel and select music manually.</string>
+    <string name="i9_voice_executed">Command completed by the playback service</string>
+    <string name="i9_voice_failed">Voice command was not completed. Nothing was changed automatically.</string>
+    <string name="i9_voice_continue">Continue</string>
+    <string name="i9_voice_retry">Retry voice command</string>
+    <string name="i9_voice_cancel">Cancel voice</string>
 </resources>
