@@ -40,6 +40,14 @@ import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
 import com.latticeward.musiccopilot.core.application.driving.DrivingPresentationPolicy
 import com.latticeward.musiccopilot.core.application.driving.DrivingViewState
+import com.latticeward.musiccopilot.core.application.driving.DrivingMicCapability
+import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceAvailability
+import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceHandoffPolicy
+import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
+import com.latticeward.musiccopilot.voice.api.VoiceOrigin
+import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
+import com.latticeward.musiccopilot.voice.api.VoiceSessionState
+import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.feature.driving.DrivingModeScreen
 import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
@@ -96,6 +104,16 @@ fun AppNavHost(
     onPracticeManualOnly: () -> Unit,
     onFirstUseComplete: () -> Unit,
     onExit: () -> Unit,
+    voiceSessionCoordinator: VoiceSessionCoordinator? = null,
+    voiceSessionState: VoiceSessionState = VoiceSessionState.Idle,
+    microphoneGranted: Boolean = false,
+    localVoiceProviderSupported: Boolean = false,
+    localVoiceProviderAvailable: Boolean = false,
+    freshCanStartDrivingVoice: () -> Boolean = { false },
+    drivingMicPermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
+    onDrivingMicPermissionTap: () -> Unit = {},
+    onDrivingMicPermissionContinue: () -> Unit = {},
+    onDrivingMicPermissionDismiss: () -> Unit = {},
 ) {
     val navController = rememberNavController()
     // A single navigation-scoped ViewModel observes the existing Gateway.
@@ -338,14 +356,35 @@ fun AppNavHost(
             )
         }
         composable(Destination.Driving.route) {
+            // P07: exact application-scoped Voice owner; never a Voice NavHost
+            // destination. Availability is strictly current OS grant +
+            // explicitly local STT capability + active Driving origin.
+            val availability = DrivingVoiceHandoffPolicy.availability(
+                drivingActive = drivingNavigation.state.active &&
+                    actualRoute == BootstrapRoute.HomeLibrary &&
+                    permission == PermissionStatus.Granted,
+                localProviderSupported = localVoiceProviderSupported,
+                microphoneGranted = microphoneGranted,
+                localProviderAvailable = localVoiceProviderAvailable,
+                session = voiceSessionState,
+            )
+            var voiceStartRejected by remember { mutableStateOf(false) }
             val projected = DrivingPresentationPolicy.project(
                 connection = playerUi.connection,
                 snapshot = playerUi.snapshot,
                 pending = playerUi.pending,
+                micCapability = if (DrivingVoiceHandoffPolicy.canTapMic(availability) &&
+                    voiceSessionCoordinator != null)
+                    DrivingMicCapability.Available else DrivingMicCapability.Unavailable,
             )
             // Both Exit and Android Back have the same navigation-only result.
             // Exit never stops/pauses playback or executes a transport command.
             val exitDriving: () -> Unit = {
+                if (voiceSessionCoordinator != null &&
+                    DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionCoordinator.state.value)
+                ) voiceSessionCoordinator.cancel(VoiceCancelReason.DrivingExit)
+                onDrivingMicPermissionDismiss()
+                voiceStartRejected = false
                 val origin = drivingNavigation.exit()
                 // Explicitly restore the recorded, non-Driving origin, rather
                 // than trusting independently changing Player UI flags.
@@ -362,10 +401,9 @@ fun AppNavHost(
                 }
             }
             BackHandler(onBack = exitDriving)
-            // P06: deliberate Driving taps use the *same* existing
-            // PlayerViewModel/PlaybackGateway service-ACK pipeline as Full.
-            // No second Media3 session, local queue or optimistic UI state.
-            // P07 still owns Mic/Voice and is not activated here.
+            // P07 extends the existing WF-07 screen with a *same-route*
+            // cancellable Voice overlay, never a second Voice destination.
+            // Voice transport only runs through the application coordinator.
             DrivingModeScreen(
                 state = projected,
                 currentItem = playerUi.snapshot.currentItem,
@@ -374,6 +412,48 @@ fun AppNavHost(
                 onExit = exitDriving,
                 lastError = playerUi.snapshot.lastError,
                 requestFailed = playerUi.requestFailed,
+                voiceState = if (DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionState))
+                    voiceSessionState else VoiceSessionState.Idle,
+                voiceAvailability = availability,
+                voicePermissionStage = drivingMicPermissionStage,
+                voiceStartRejected = voiceStartRejected,
+                onVoicePermissionContinue = onDrivingMicPermissionContinue,
+                onVoicePermissionCancel = onDrivingMicPermissionDismiss,
+                onVoiceCancel = {
+                    voiceSessionCoordinator?.cancel(VoiceCancelReason.UserBack)
+                    voiceStartRejected = false
+                },
+                onVoiceRetry = {
+                    if (voiceSessionState is VoiceSessionState.Failed &&
+                        voiceSessionState.origin == VoiceOrigin.Driving &&
+                        voiceSessionState.canRetry && freshCanStartDrivingVoice()
+                    ) {
+                        voiceStartRejected = voiceSessionCoordinator?.retry() !is AppResult.Success
+                    } else voiceStartRejected = true
+                },
+                onMic = {
+                    if (drivingNavigation.state.active &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                        !settingsOpen && !replayingEducation
+                    ) {
+                        when (availability) {
+                            DrivingVoiceAvailability.NeedsPermission -> onDrivingMicPermissionTap()
+                            DrivingVoiceAvailability.Ready -> {
+                                // Fresh OS+provider recheck at the actual tap;
+                                // ActivityResult/Resume never auto-start voice.
+                                if (freshCanStartDrivingVoice() &&
+                                    voiceSessionCoordinator != null
+                                ) {
+                                    voiceStartRejected =
+                                        voiceSessionCoordinator.start(VoiceOrigin.Driving) !is AppResult.Success
+                                } else voiceStartRejected = true
+                            }
+                            else -> Unit
+                        }
+                    }
+                },
                 onTransport = { action ->
                     // Event-time source gate. A queued/stale tap after Exit,
                     // permission revocation or system recovery is discarded.
