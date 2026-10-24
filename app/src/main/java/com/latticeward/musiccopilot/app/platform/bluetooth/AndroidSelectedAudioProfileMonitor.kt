@@ -279,9 +279,15 @@ class AndroidSelectedAudioProfileMonitor(
         query?.cancel()
         query = scope.launch {
             try {
-                // Small coalescing window for profile-state broadcasts; no
-                // fixed repeating background polling or inferred connection.
-                if (profileConnectPulse) delay(180L)
+                // Android sends profile broadcasts during transitions,
+                // before the A2DP/HFP proxy may reflect its new state.
+                // Debounce BOTH disconnection and connection notifications;
+                // otherwise a disconnect snapshot may still look connected,
+                // never arming the later selected-device reconnect edge.
+                // No permanent polling, scanning or route manipulation.
+                if (cause == BluetoothObservationCause.ProfileConnectionEvent ||
+                    profileConnectPulse
+                ) delay(280L)
                 if (!active || epoch != generation || sequence != currentSequence)
                     return@launch
                 if (!granted()) {
