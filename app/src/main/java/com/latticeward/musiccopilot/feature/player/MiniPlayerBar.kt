@@ -26,6 +26,9 @@ import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
+import com.latticeward.musiccopilot.core.result.AppError
+import com.latticeward.musiccopilot.core.result.AppErrorCodes
+import com.latticeward.musiccopilot.playback.api.PlaybackState
 
 /**
  * CMP-09. Uses the very same PlayerViewModel projection as Full Player.
@@ -82,7 +85,17 @@ fun playbackStatusLabel(state: PlayerUiState): String =
         PlaybackConnectionState.Connecting -> stringResource(R.string.i7_connecting)
         PlaybackConnectionState.Disconnected -> stringResource(R.string.i7_disconnected)
         PlaybackConnectionState.RecoverableError -> stringResource(R.string.i7_controller_error)
-        PlaybackConnectionState.Ready -> when (state.snapshot.playbackState) {
+        PlaybackConnectionState.Ready -> when {
+            state.snapshot.playbackState == PlaybackState.Paused &&
+                state.snapshot.lastError is AppError.Interruption ->
+                when (state.snapshot.lastError.code) {
+                    AppErrorCodes.ROUTE_INVALIDATED ->
+                        stringResource(R.string.i8_output_changed)
+                    AppErrorCodes.FOCUS_NOT_RECOVERED ->
+                        stringResource(R.string.i8_focus_not_recovered)
+                    else -> stringResource(R.string.i8_audio_temporarily_paused)
+                }
+            else -> when (state.snapshot.playbackState) {
             com.latticeward.musiccopilot.playback.api.PlaybackState.Playing ->
                 stringResource(R.string.i7_playing)
             com.latticeward.musiccopilot.playback.api.PlaybackState.Buffering ->
@@ -95,5 +108,5 @@ fun playbackStatusLabel(state: PlayerUiState): String =
                 stringResource(R.string.i7_playback_error)
             com.latticeward.musiccopilot.playback.api.PlaybackState.Idle ->
                 stringResource(R.string.i7_no_track)
-        }
+                }
     }
