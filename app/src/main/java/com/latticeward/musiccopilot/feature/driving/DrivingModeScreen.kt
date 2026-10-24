@@ -1,5 +1,6 @@
 package com.latticeward.musiccopilot.feature.driving
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -45,6 +46,9 @@ import com.latticeward.musiccopilot.core.application.driving.DrivingPresentation
 import com.latticeward.musiccopilot.core.application.driving.DrivingRecoveryMessage
 import com.latticeward.musiccopilot.core.application.driving.DrivingRecoveryPolicy
 import com.latticeward.musiccopilot.core.application.driving.DrivingViewState
+import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceAvailability
+import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
+import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.AppError
@@ -77,6 +81,14 @@ fun DrivingModeScreen(
     requestFailed: Boolean = false,
     onTransport: ((DrivingAction) -> Unit)? = null,
     onMic: (() -> Unit)? = null,
+    voiceState: VoiceSessionState = VoiceSessionState.Idle,
+    voiceAvailability: DrivingVoiceAvailability = DrivingVoiceAvailability.ProviderUnavailable,
+    voicePermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
+    voiceStartRejected: Boolean = false,
+    onVoicePermissionContinue: () -> Unit = {},
+    onVoicePermissionCancel: () -> Unit = {},
+    onVoiceCancel: () -> Unit = {},
+    onVoiceRetry: () -> Unit = {},
 ) {
     // Key on the verified *service* currentItem, not last clicked row or
     // a previously loaded title. Every change hides old metadata immediately.
@@ -105,6 +117,14 @@ fun DrivingModeScreen(
     // title/artist to a newer service-selected occurrence.
     val metadata = resolved?.takeIf { it.ref == safeRef }?.item
     val recovery = DrivingRecoveryPolicy.project(state, lastError, requestFailed)
+    val voiceActive = voiceState != VoiceSessionState.Idle
+    val voicePermissionPrompt = voicePermissionStage == VoicePracticeStage.Rationale ||
+        voicePermissionStage == VoicePracticeStage.AwaitingAndroid
+    // A Voice Back cancels capture/permission overlay in this same route.
+    // Otherwise P03's root BackHandler exits Driving immediately.
+    BackHandler(enabled = voiceActive || voicePermissionPrompt) {
+        if (voiceActive) onVoiceCancel() else onVoicePermissionCancel()
+    }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MusicColors.background) {
         Column(
@@ -216,7 +236,18 @@ fun DrivingModeScreen(
                 )
             }
 
-            if (recovery.showTransportControls) {
+            if (voiceActive || voicePermissionPrompt) {
+                // WF-08 Voice state is an origin-owned inline overlay, NOT a
+                // NavHost destination. Transport cannot be tapped under it.
+                DrivingVoiceSessionOverlay(
+                    state = voiceState,
+                    permissionStage = voicePermissionStage,
+                    onPermissionContinue = onVoicePermissionContinue,
+                    onPermissionCancel = onVoicePermissionCancel,
+                    onVoiceCancel = onVoiceCancel,
+                    onVoiceRetry = onVoiceRetry,
+                )
+            } else if (recovery.showTransportControls) {
                 if (onTransport == null) {
                     Text(
                         stringResource(R.string.i9_driving_transports_not_ready),
@@ -266,17 +297,40 @@ fun DrivingModeScreen(
                 }
             }
 
-            // CMP-06: large but genuinely unavailable until P07 permission +
-            // VoiceSessionCoordinator capability approves a real session.
-            OutlinedButton(
-                onClick = { onMic?.invoke() },
-                enabled = state.micEnabled && onMic != null,
-                modifier = Modifier.fillMaxWidth().widthIn(max = 320.dp)
-                    .heightIn(min = MusicSize.drivingMicMinDp),
-            ) {
-                Text(
-                    stringResource(R.string.i9_driving_mic_voice),
-                    style = MusicTextStyles.drivingMeta,
+            // Mic is a one-shot PTT entry, never an always-on listener.
+            // A missing permission opens an explicit rationale; the Android
+            // result NEVER starts recognition without another user tap.
+            if (!voiceActive && !voicePermissionPrompt) {
+                OutlinedButton(
+                    onClick = { onMic?.invoke() },
+                    enabled = state.micEnabled && onMic != null,
+                    modifier = Modifier.fillMaxWidth().widthIn(max = 320.dp)
+                        .heightIn(min = MusicSize.drivingMicMinDp),
+                ) {
+                    Text(
+                        stringResource(R.string.i9_driving_mic_voice),
+                        style = MusicTextStyles.drivingMeta,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                val statusText = when {
+                    voiceStartRejected -> stringResource(R.string.i9_voice_start_unavailable)
+                    voicePermissionStage == VoicePracticeStage.ReadyForVoiceHandoff ->
+                        stringResource(R.string.i9_voice_granted_tap_again)
+                    voicePermissionStage == VoicePracticeStage.PermissionDenied ->
+                        stringResource(R.string.i9_voice_permission_denied)
+                    voicePermissionStage == VoicePracticeStage.ProviderUnavailable ||
+                        voiceAvailability == DrivingVoiceAvailability.ProviderUnavailable ->
+                        stringResource(R.string.i9_voice_local_provider_unavailable)
+                    voiceAvailability == DrivingVoiceAvailability.NeedsPermission ->
+                        stringResource(R.string.i9_voice_permission_rationale_brief)
+                    else -> null
+                }
+                if (statusText != null) Text(
+                    statusText,
+                    modifier = Modifier.fillMaxWidth(),
+                    style = MusicTextStyles.bodyMedium,
+                    color = MusicColors.textSecondary,
                     textAlign = TextAlign.Center,
                 )
             }
@@ -354,4 +408,63 @@ private fun drivingRecoveryMessage(message: DrivingRecoveryMessage?): String? = 
         stringResource(R.string.i7_command_pending)
     DrivingRecoveryMessage.CommandRejected ->
         stringResource(R.string.i7_action_failed)
+}
+
+/**
+ * Same-route Voice overlay. Only the application VoiceSessionCoordinator
+ * supplies these states; a disabled provider never creates fake Listening.
+ * Confirming is display-only until #10/#11 implement token confirmation.
+ */
+@Composable
+private fun DrivingVoiceSessionOverlay(
+    state: VoiceSessionState,
+    permissionStage: VoicePracticeStage,
+    onPermissionContinue: () -> Unit,
+    onPermissionCancel: () -> Unit,
+    onVoiceCancel: () -> Unit,
+    onVoiceRetry: () -> Unit,
+) {
+    val rationale = permissionStage == VoicePracticeStage.Rationale
+    val awaiting = permissionStage == VoicePracticeStage.AwaitingAndroid
+    val heading = when {
+        rationale -> stringResource(R.string.i9_voice_permission_heading)
+        awaiting -> stringResource(R.string.i9_voice_permission_wait)
+        state is VoiceSessionState.Listening -> stringResource(R.string.i9_voice_listening)
+        state is VoiceSessionState.Processing -> stringResource(R.string.i9_voice_processing)
+        state is VoiceSessionState.Confirming -> stringResource(R.string.i9_voice_confirmation_unavailable)
+        state is VoiceSessionState.Executed -> stringResource(R.string.i9_voice_executed)
+        state is VoiceSessionState.Failed -> stringResource(R.string.i9_voice_failed)
+        else -> stringResource(R.string.i9_voice_permission_heading)
+    }
+    Text(
+        heading,
+        modifier = Modifier.fillMaxWidth().semantics { heading() },
+        style = MusicTextStyles.drivingMeta,
+        color = MusicColors.textPrimary,
+        textAlign = TextAlign.Center,
+    )
+    if (rationale) {
+        Text(
+            stringResource(R.string.i9_voice_permission_explanation),
+            style = MusicTextStyles.bodyMedium,
+            color = MusicColors.textSecondary,
+            textAlign = TextAlign.Center,
+        )
+        Button(
+            onClick = onPermissionContinue,
+            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.drivingExitMinDp),
+        ) { Text(stringResource(R.string.i9_voice_continue)) }
+    }
+    if (state is VoiceSessionState.Failed && state.canRetry) {
+        OutlinedButton(
+            onClick = onVoiceRetry,
+            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.drivingExitMinDp),
+        ) { Text(stringResource(R.string.i9_voice_retry)) }
+    }
+    // Cancel remains available while Android is awaiting a permission result;
+    // it drops the intent but cannot dismiss the OS-owned dialog.
+    OutlinedButton(
+        onClick = if (rationale || awaiting) onPermissionCancel else onVoiceCancel,
+        modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.drivingExitMinDp),
+    ) { Text(stringResource(R.string.i9_voice_cancel)) }
 }
