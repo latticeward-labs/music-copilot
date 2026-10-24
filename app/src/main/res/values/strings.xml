@@ -216,4 +216,22 @@
     <string name="i9_voice_continue">Continue</string>
     <string name="i9_voice_retry">Retry voice command</string>
     <string name="i9_voice_cancel">Cancel voice</string>
+    <!-- Issue #9 P08: complete screen-reader actions, focus and disabled status. -->
+    <string name="i9_a11y_exit">Exit Driving Mode immediately</string>
+    <string name="i9_a11y_artwork">Album artwork unavailable</string>
+    <string name="i9_a11y_previous">Previous track</string>
+    <string name="i9_a11y_play">Play playback</string>
+    <string name="i9_a11y_pause">Pause playback</string>
+    <string name="i9_a11y_next">Next track</string>
+    <string name="i9_a11y_seek_back">Seek backward ten seconds</string>
+    <string name="i9_a11y_mic">Voice command; press to talk</string>
+    <string name="i9_a11y_continue_permission">Continue to Android microphone permission</string>
+    <string name="i9_a11y_retry_voice">Retry voice command</string>
+    <string name="i9_a11y_cancel_voice">Cancel voice command and return to Driving</string>
+    <string name="i9_a11y_controller_not_ready">Playback controller not connected</string>
+    <string name="i9_a11y_missing_track">No current playable track</string>
+    <string name="i9_a11y_playback_unavailable">Playback temporarily unavailable</string>
+    <string name="i9_a11y_command_pending">Waiting for playback service</string>
+    <string name="i9_a11y_unsupported_action">Action unavailable for this track</string>
+    <string name="i9_a11y_action_unavailable">Action unavailable</string>
 </resources>
