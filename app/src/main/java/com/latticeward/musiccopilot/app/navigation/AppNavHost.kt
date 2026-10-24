@@ -38,6 +38,8 @@ import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
+import com.latticeward.musiccopilot.core.application.driving.DrivingPresentationPolicy
+import com.latticeward.musiccopilot.core.application.driving.DrivingViewState
 import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
@@ -110,6 +112,11 @@ fun AppNavHost(
         },
     )
     val playerUi by playerModel.ui.collectAsStateWithLifecycle()
+    // Activity-scoped, configuration-retained, but never SavedState-restored.
+    // No automatic Driving entry on cold launch/process restart/BT reconnect.
+    val drivingNavigation: DrivingNavigationViewModel = viewModel(
+        key = "issue9-root-driving-navigation",
+    )
     var manualFallback by rememberSaveable { mutableStateOf(false) }
     var settingsOpen by rememberSaveable { mutableStateOf(false) }
     var searchOpen by rememberSaveable { mutableStateOf(false) }
@@ -130,15 +137,25 @@ fun AppNavHost(
     val actualRoute = if (route == BootstrapRoute.PermissionRecovery && manualFallback) {
         BootstrapRoute.HomeLibrary
     } else route
+    // System/permission and first-use routes always override a Driving session.
+    // The Voice overlay is deliberately not a NavHost destination.
+    LaunchedEffect(actualRoute, mediaRequestUi.outcome, replayingEducation) {
+        if (actualRoute != BootstrapRoute.HomeLibrary ||
+            mediaRequestUi.outcome != MediaPermissionOutcome.None ||
+            replayingEducation
+        ) drivingNavigation.clearForSystemBoundary()
+    }
     val target = when {
         actualRoute == BootstrapRoute.Preparing || actualRoute == BootstrapRoute.RetryStartup ->
             Destination.Bootstrap
         actualRoute == BootstrapRoute.Onboarding -> Destination.Onboarding
         replayingEducation -> Destination.Onboarding
-        settingsOpen -> Destination.Settings
         mediaRequestUi.outcome != MediaPermissionOutcome.None ->
             Destination.PermissionRecovery
         actualRoute == BootstrapRoute.PermissionRecovery -> Destination.PermissionRecovery
+        settingsOpen -> Destination.Settings
+        drivingNavigation.state.active && actualRoute == BootstrapRoute.HomeLibrary ->
+            Destination.Driving
         playerOpen && actualRoute == BootstrapRoute.HomeLibrary -> Destination.FullPlayer
         searchOpen && actualRoute == BootstrapRoute.HomeLibrary ->
             Destination.Search
@@ -251,6 +268,15 @@ fun AppNavHost(
                 playerUi = playerUi,
                 onOpenPlayer = { playerOpen = true },
                 onTogglePlayback = playerModel::togglePlayPause,
+                onEnterDriving = {
+                    drivingNavigation.enterFrom(
+                        Destination.Library,
+                        allowedByAppRoute = actualRoute == BootstrapRoute.HomeLibrary &&
+                            mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                            !settingsOpen && !searchOpen && !replayingEducation &&
+                            !playerOpen,
+                    )
+                },
                 initialGroup = pendingSearchGroup,
                 onGroupConsumed = { pendingSearchGroup = null },
                 onExit = onExit,
@@ -295,6 +321,38 @@ fun AppNavHost(
                 library = libraryRepository,
                 canReadLocalMetadata = permission == PermissionStatus.Granted,
                 onBack = { playerOpen = false },
+                onEnterDriving = {
+                    drivingNavigation.enterFrom(
+                        Destination.FullPlayer,
+                        allowedByAppRoute = actualRoute == BootstrapRoute.HomeLibrary &&
+                            mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                            playerOpen && !settingsOpen && !replayingEducation,
+                    )
+                },
+            )
+        }
+        composable(Destination.Driving.route) {
+            val projected = DrivingPresentationPolicy.project(
+                connection = playerUi.connection,
+                snapshot = playerUi.snapshot,
+                pending = playerUi.pending,
+            )
+            // Both Exit and Android Back have the same navigation-only result.
+            // Exit never stops/pauses playback or executes a transport command.
+            val exitDriving = { drivingNavigation.exit() }
+            BackHandler(onBack = { exitDriving() })
+            val stateName = when (projected.view) {
+                DrivingViewState.Playing -> stringResource(R.string.i9_driving_state_playing)
+                DrivingViewState.Paused -> stringResource(R.string.i9_driving_state_paused)
+                DrivingViewState.NoTrack -> stringResource(R.string.i9_driving_state_no_track)
+            }
+            // P03 is strictly a navigation boundary. P04/P05 replace this
+            // honest shell with the approved full WF-07 controls and metadata.
+            FirstLaunchBoundary(
+                title = stringResource(R.string.i9_driving_heading),
+                message = stringResource(R.string.i9_driving_nav_pending, stateName),
+                primary = stringResource(R.string.i9_exit_driving),
+                onPrimary = { exitDriving() },
             )
         }
         composable(Destination.Settings.route) {
