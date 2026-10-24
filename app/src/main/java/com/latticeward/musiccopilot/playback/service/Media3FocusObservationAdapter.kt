@@ -10,6 +10,8 @@ import com.latticeward.musiccopilot.playback.interruption.InterruptionEnvelope
 import com.latticeward.musiccopilot.playback.interruption.InterruptionEvent
 import com.latticeward.musiccopilot.playback.interruption.InterruptionPlayback
 import com.latticeward.musiccopilot.playback.interruption.InterruptionReducer
+import com.latticeward.musiccopilot.playback.interruption.InterruptionNotice
+import com.latticeward.musiccopilot.playback.interruption.InterruptionNoticePolicy
 import com.latticeward.musiccopilot.playback.interruption.InterruptionSequenceSource
 import com.latticeward.musiccopilot.playback.interruption.InterruptionState
 import com.latticeward.musiccopilot.playback.interruption.InterruptionTransition
@@ -35,6 +37,7 @@ internal class Media3FocusObservationAdapter(
     private val pauseUnsafePlayback: () -> Unit,
     private val onDeniedFocusAutoResume: () -> Unit,
     private val onVoiceCancellationRequested: (PlaybackVoiceInterruptionReason) -> Unit,
+    private val onInterruptionNotice: (InterruptionNotice) -> Unit,
     private val clock: InterruptionClock = InterruptionClock {
         SystemClock.elapsedRealtime()
     },
@@ -78,6 +81,14 @@ internal class Media3FocusObservationAdapter(
             ),
         )
         state = transition.state
+        // P10 only reports accepted typed events. A duplicate/old event,
+        // caller-owned URI, device ID, exception or call identity cannot
+        // enter the diagnostic/error surface.
+        if (transition.applied) {
+            InterruptionNoticePolicy.fromAccepted(event, transition)?.let { notice ->
+                onInterruptionNotice(notice)
+            }
+        }
         // P09: Consume the P02 reducer's *accepted effect* at Main-looper
         // receipt time, not after a suspended command/recognition coroutine.
         // A duplicate focus/route signal has no effect, so does not cancel
