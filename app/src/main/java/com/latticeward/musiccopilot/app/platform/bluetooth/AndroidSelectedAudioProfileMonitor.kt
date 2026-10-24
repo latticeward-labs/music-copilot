@@ -14,6 +14,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.latticeward.musiccopilot.core.application.bluetooth.BluetoothObservationCause
 import com.latticeward.musiccopilot.core.application.bluetooth.BluetoothSelectionToken
@@ -41,6 +43,7 @@ class AndroidSelectedAudioProfileMonitor(
     private val onResult: (SelectedAudioConnectionStatus, BluetoothObservationCause) -> Unit,
 ) {
     private val app = context.applicationContext
+    private val mainHandler = Handler(Looper.getMainLooper())
     private var active = false
     private var epoch = 0L
     private var sequence = 0L
@@ -78,7 +81,11 @@ class AndroidSelectedAudioProfileMonitor(
                         profileConnectPulse = false
                     schedule(BluetoothObservationCause.ProfileConnectionEvent)
                 }
-                BluetoothAdapter.ACTION_STATE_CHANGED,
+                BluetoothAdapter.ACTION_STATE_CHANGED -> {
+                    // Radio may have been off when getProfileProxy was first
+                    // attempted; bind proxies on a later actual ON event.
+                    refresh()
+                }
                 BluetoothDevice.ACTION_BOND_STATE_CHANGED,
                 BluetoothDevice.ACTION_ACL_CONNECTED,
                 BluetoothDevice.ACTION_ACL_DISCONNECTED ->
@@ -87,41 +94,44 @@ class AndroidSelectedAudioProfileMonitor(
         }
     }
 
-    // Per-session listener captures an epoch. A late proxy callback from a
-    // previous selection, old Activity or stopped monitor can never become
-    // current connected evidence.
+    // Per-session listener captures an epoch. Always process it on the
+    // Activity/main dispatcher; profile callbacks may arrive on binder threads.
+    // Old session callbacks after a selection/Activity change are discarded.
     private fun listenerFor(generation: Long): BluetoothProfile.ServiceListener =
         object : BluetoothProfile.ServiceListener {
             override fun onServiceConnected(profile: Int, proxy: BluetoothProfile?) {
-                if (!active || epoch != generation) return
-                when (profile) {
-                    BluetoothProfile.A2DP -> {
-                        a2dp = proxy
-                        waitingForA2dp = false
+                mainHandler.post {
+                    if (!active || epoch != generation) return@post
+                    when (profile) {
+                        BluetoothProfile.A2DP -> {
+                            a2dp = proxy
+                            waitingForA2dp = false
+                        }
+                        BluetoothProfile.HEADSET -> {
+                            headset = proxy
+                            waitingForHeadset = false
+                        }
                     }
-                    BluetoothProfile.HEADSET -> {
-                        headset = proxy
-                        waitingForHeadset = false
-                    }
+                    schedule(BluetoothObservationCause.ProfileService)
                 }
-                // A proxy handshake is not a new connection edge.
-                schedule(BluetoothObservationCause.ProfileService)
             }
 
             override fun onServiceDisconnected(profile: Int) {
-                if (!active || epoch != generation) return
-                when (profile) {
-                    BluetoothProfile.A2DP -> {
-                        a2dp = null
-                        waitingForA2dp = true
+                mainHandler.post {
+                    if (!active || epoch != generation) return@post
+                    when (profile) {
+                        BluetoothProfile.A2DP -> {
+                            a2dp = null
+                            waitingForA2dp = true
+                        }
+                        BluetoothProfile.HEADSET -> {
+                            headset = null
+                            waitingForHeadset = true
+                        }
                     }
-                    BluetoothProfile.HEADSET -> {
-                        headset = null
-                        waitingForHeadset = true
-                    }
+                    profileConnectPulse = false
+                    schedule(BluetoothObservationCause.ProfileService)
                 }
-                profileConnectPulse = false
-                schedule(BluetoothObservationCause.ProfileService)
             }
         }
 
