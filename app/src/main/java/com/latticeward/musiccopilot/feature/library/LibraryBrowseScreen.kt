@@ -161,6 +161,7 @@ fun LibraryBrowseScreen(
                 // Bluetooth, indexing or playback state changes.
                 TextButton(
                     onClick = onEnterDriving,
+                    enabled = permission == PermissionStatus.Granted,
                     modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
                 ) {
                     Text(stringResource(R.string.i9_enter_driving))
