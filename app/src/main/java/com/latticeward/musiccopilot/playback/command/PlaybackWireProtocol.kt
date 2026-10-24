@@ -128,7 +128,8 @@ object PlaybackWireProtocol {
             if (code !in ALLOWED_ERROR_CODES) return null
             when (args.getString(KEY_ERROR_FAMILY)) {
                 "media" -> AppError.MediaItem(code, Recoverability.RECOVERABLE, RecoveryAction.Skip)
-                "interruption" -> AppError.Interruption(code, Recoverability.RECOVERABLE, RecoveryAction.ManualResume)
+                "interruption" -> if (code in INTERRUPTION_CODES) interruptionError(code)
+                    else return null
                 "playback" -> if (code == AppErrorCodes.PERMISSION_REVOKED) {
                     AppError.Playback(
                         code, Recoverability.USER_ACTION_REQUIRED, RecoveryAction.OpenSettings
@@ -171,11 +172,38 @@ object PlaybackWireProtocol {
             )
             "controller" -> AppError.Controller(code, Recoverability.RECOVERABLE, RecoveryAction.Retry)
             "media" -> AppError.MediaItem(code, Recoverability.RECOVERABLE, RecoveryAction.Skip)
-            "interruption" -> AppError.Interruption(code, Recoverability.RECOVERABLE, RecoveryAction.ManualResume)
+            "interruption" -> if (code in INTERRUPTION_CODES) interruptionError(code)
+                else AppError.Playback(
+                    AppErrorCodes.PLAYBACK_REJECTED,
+                    Recoverability.RECOVERABLE,
+                    RecoveryAction.Retry,
+                )
             else -> AppError.Playback(code, Recoverability.RECOVERABLE, RecoveryAction.Retry)
         }
         return AppResult.Failure(error)
     }
+
+    /**
+     * These are the ONLY app-visible interruption diagnostics. No raw
+     * device/call/media identity or exception value can be decoded from a
+     * forged family+code pair. Preserve action hints across Media3 Bundle.
+     */
+    private val INTERRUPTION_CODES = setOf(
+        AppErrorCodes.FOCUS_NOT_RECOVERED,
+        AppErrorCodes.ROUTE_INVALIDATED,
+        AppErrorCodes.CALL_OR_ROUTE_SAFE_PAUSED,
+    )
+
+    private fun interruptionError(code: String): AppError.Interruption =
+        AppError.Interruption(
+            code = code,
+            recoverability = if (code == AppErrorCodes.CALL_OR_ROUTE_SAFE_PAUSED) {
+                Recoverability.RECOVERABLE
+            } else {
+                Recoverability.USER_ACTION_REQUIRED
+            },
+            recoveryAction = RecoveryAction.ManualResume,
+        )
 
     private val ALLOWED_ERROR_CODES = setOf(
         AppErrorCodes.PLAYBACK_BUSY, AppErrorCodes.PLAYBACK_REJECTED,
