@@ -167,4 +167,16 @@
     <string name="i7_media_untouched">Your music files were not changed.</string>
     <string name="i7_continue_with_next">Continue with next</string>
     <string name="i7_return_to_browse">Return to Library or Search</string>
+    <!-- Issue #8 P10: static, non-identifying interruption guidance. No
+         call identity, song name, hardware address, or exception text. -->
+    <string name="i8_audio_temporarily_paused">Audio temporarily interrupted. Playback is paused safely.</string>
+    <string name="i8_focus_not_recovered">Audio is not available yet. When the interruption ends, resume manually.</string>
+    <string name="i8_output_changed">Your audio output changed. Check the selected speaker or headset before resuming.</string>
+    <string name="i8_interruption_heading">Playback paused safely</string>
+    <string name="i8_resume_when_ready">Resume when safe</string>
+    <!-- P11 compact status for Mini Player/TalkBack on narrow car/phone screens.
+         The longer explanation remains in Full Player; no phone/route identity. -->
+    <string name="i8_paused_focus_short">Paused — audio interrupted</string>
+    <string name="i8_paused_focus_unavailable_short">Paused — audio unavailable</string>
+    <string name="i8_paused_route_short">Paused — output changed</string>
 </resources>

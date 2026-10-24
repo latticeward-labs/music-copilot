@@ -1,0 +1,1387 @@
+{
+  "schema_version": 1,
+  "issue": 8,
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/8-audio-focus-route-recovery",
+  "base_branch": "main",
+  "frozen_entry_main_sha": "62c6115ac11af4cb2790b306f885f580b82a146b",
+  "file_type": "P01_SOURCE_TRACEABILITY_NOT_TEST_REPORT",
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12,
+    "hash_status": "ALL_12_ARCHIVE_ENTRIES_HASH_VERIFIED"
+  },
+  "evidence_contract": {
+    "manual_count": 45,
+    "technical_count": 15,
+    "manual_state": "NOT_RUN",
+    "technical_state": "NOT_RUN",
+    "acceptance_state": "UNVERIFIED",
+    "phase_P01": "SOURCE_ONLY",
+    "one_final_build": "P13_ONLY",
+    "technical_execution": "DEFERRED_UNTIL_SEPARATE_OWNER_AUTHORIZATION"
+  },
+  "dor": {
+    "DoR01": {
+      "status": "MERGED_OWNER_ATTESTED_INDEPENDENT_STABILITY_UNVERIFIED",
+      "depends_on_issue": 7
+    },
+    "DoR02": {
+      "status": "APPROVED_ARCHITECTURE",
+      "depends_on_issue": 16
+    },
+    "DoR03": {
+      "status": "PARTIAL_P02_INJECTABLE_EVENT_SEAMS_REQUIRED"
+    }
+  },
+  "owner_map": {
+    "playback_service": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+    "focus_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+    "route_adapter": "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+    "pure_interruption_policy_seam": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+    "commands": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+    "media_session": "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+    "snapshot": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt",
+    "voice_cancellation_port": "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+    "android_manifest": "app/src/main/AndroidManifest.xml",
+    "qa_register": "docs/implementation/ISSUE_8_QA_RESULTS.json",
+    "media3_focus_observation": "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+    "bluetooth_reconnect_gate": "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+    "system_transport_ingress": "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+    "play_origin": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+    "command_receipt_and_safety": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+    "snapshot_projection": "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+    "controller_snapshot": "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+    "player_ui_projection": "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+    "voice_interruption_port": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+    "voice_cancellation_owner": "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+    "voice_provider_teardown": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+    "interruption_notice_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+    "interruption_error_transport": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+    "android_oem_compatibility_audit": "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
+    "integrated_test_sources": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+    "p12_source_integration_audit": "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
+    "final_owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+    "p13_apk_provenance_report": "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
+    "issue8_final_owner_acceptance": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md"
+  },
+  "phase_dependencies": {
+    "P00": [],
+    "P01": [
+      "P00"
+    ],
+    "P02": [
+      "P01"
+    ],
+    "P03": [
+      "P02"
+    ],
+    "P04": [
+      "P03"
+    ],
+    "P05": [
+      "P03"
+    ],
+    "P06": [
+      "P05"
+    ],
+    "P07": [
+      "P04",
+      "P05",
+      "P06"
+    ],
+    "P08": [
+      "P07"
+    ],
+    "P09": [
+      "P07",
+      "P08"
+    ],
+    "P10": [
+      "P08"
+    ],
+    "P11": [
+      "P08",
+      "P10"
+    ],
+    "P12": [
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P09",
+      "P10",
+      "P11"
+    ],
+    "P13": [
+      "P12"
+    ]
+  },
+  "risk_owners": {
+    "R08-01": [
+      "P02",
+      "P03",
+      "P04"
+    ],
+    "R08-02": [
+      "P05",
+      "P07"
+    ],
+    "R08-03": [
+      "P06",
+      "P07"
+    ],
+    "R08-04": [
+      "P05",
+      "P07",
+      "P13"
+    ],
+    "R08-05": [
+      "P09"
+    ],
+    "R08-06": [
+      "P05",
+      "P06"
+    ],
+    "R08-07": [
+      "P08",
+      "P10"
+    ],
+    "R08-08": [
+      "P11",
+      "P12",
+      "P13"
+    ]
+  },
+  "acceptance_criteria": {
+    "AC01": {
+      "title": "CALL_PAUSE_DUCK_RECOVERY",
+      "phases": [
+        "P02",
+        "P03",
+        "P04"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "FR-03",
+        "UF-11",
+        "ADR-0002"
+      ],
+      "risks": [
+        "R08-01",
+        "R08-05"
+      ],
+      "manual_case_ids": [
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10"
+      ],
+      "technical_case_ids": [
+        "T01",
+        "T02",
+        "T03",
+        "T04"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC02": {
+      "title": "FOCUS_TRANSIENT_PERMANENT_DUCK_POLICY",
+      "phases": [
+        "P02",
+        "P03",
+        "P04"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "Runtime §8",
+        "TS-04",
+        "ADR-0002"
+      ],
+      "risks": [
+        "R08-01"
+      ],
+      "manual_case_ids": [
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17"
+      ],
+      "technical_case_ids": [
+        "T01",
+        "T02",
+        "T03",
+        "T04"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC03": {
+      "title": "IMMEDIATE_WIRED_BLUETOOTH_PAUSE",
+      "phases": [
+        "P05",
+        "P06"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "FR-03",
+        "UF-11",
+        "ADR-0002"
+      ],
+      "risks": [
+        "R08-02",
+        "R08-04"
+      ],
+      "manual_case_ids": [
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M27",
+        "M28",
+        "M29",
+        "M30"
+      ],
+      "technical_case_ids": [
+        "T05",
+        "T06"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC04": {
+      "title": "NO_UNREQUESTED_PHONE_SPEAKER_LEAK",
+      "phases": [
+        "P05",
+        "P06",
+        "P07"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "FR-03",
+        "SYS-07/08/09",
+        "UF-11"
+      ],
+      "risks": [
+        "R08-02",
+        "R08-03",
+        "R08-04"
+      ],
+      "manual_case_ids": [
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M27",
+        "M28",
+        "M29",
+        "M30"
+      ],
+      "technical_case_ids": [
+        "T05",
+        "T06",
+        "T07"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC05": {
+      "title": "SERVICE_MEDIASESSION_UI_SYNC",
+      "phases": [
+        "P07",
+        "P08"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "ADR-0002",
+        "Runtime §8",
+        "Issue #16"
+      ],
+      "risks": [
+        "R08-07"
+      ],
+      "manual_case_ids": [
+        "M33",
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M39"
+      ],
+      "technical_case_ids": [
+        "T07",
+        "T08",
+        "T09"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC06": {
+      "title": "RECONNECT_NO_SURPRISE_RESUME",
+      "phases": [
+        "P06",
+        "P07"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/SystemTransportPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "UF-11",
+        "Runtime §8",
+        "ADR-0007"
+      ],
+      "risks": [
+        "R08-03"
+      ],
+      "manual_case_ids": [
+        "M21",
+        "M22",
+        "M23",
+        "M29",
+        "M30",
+        "M31",
+        "M32"
+      ],
+      "technical_case_ids": [
+        "T05",
+        "T06",
+        "T07"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC07": {
+      "title": "RACE_ORDERING_NO_DUPLICATE_PLAYBACK",
+      "phases": [
+        "P07"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "UF-11",
+        "TS-04"
+      ],
+      "risks": [
+        "R08-02",
+        "R08-03",
+        "R08-04"
+      ],
+      "manual_case_ids": [
+        "M40",
+        "M41",
+        "M42",
+        "M43"
+      ],
+      "technical_case_ids": [
+        "T06",
+        "T07",
+        "T08"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC08": {
+      "title": "VOICE_FOCUS_CALL_INTEROP",
+      "phases": [
+        "P09"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "ADR-0004",
+        "Issue #10",
+        "UF-11"
+      ],
+      "risks": [
+        "R08-05"
+      ],
+      "manual_case_ids": [
+        "M44",
+        "M45"
+      ],
+      "technical_case_ids": [
+        "T10"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC09": {
+      "title": "PRIVACY_SAFE_FOCUS_ROUTE_CODES",
+      "phases": [
+        "P10"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackSnapshot.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "docs/architecture/RUNTIME_POLICIES.md",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "ADR-0003",
+        "Runtime §12-14"
+      ],
+      "risks": [
+        "R08-07"
+      ],
+      "manual_case_ids": [
+        "M39"
+      ],
+      "technical_case_ids": [
+        "T11"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC10": {
+      "title": "DETERMINISTIC_UNIT_INTEGRATION_TEST_COVERAGE",
+      "phases": [
+        "P12"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "sources": [
+        "Issue #16 testing architecture",
+        "UF-11"
+      ],
+      "risks": [
+        "R08-01",
+        "R08-08"
+      ],
+      "manual_case_ids": [],
+      "technical_case_ids": [
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC11": {
+      "title": "OEM_DEVICE_FIELD_MATRIX",
+      "phases": [
+        "P11",
+        "P12",
+        "P13"
+      ],
+      "existing_source_files": [
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "MVP Week 4",
+        "UF-11"
+      ],
+      "risks": [
+        "R08-08"
+      ],
+      "manual_case_ids": [],
+      "technical_case_ids": [
+        "T12",
+        "T13"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    },
+    "AC12": {
+      "title": "NO_CRASH_OR_UNINTENDED_OUTPUT",
+      "phases": [
+        "P07",
+        "P08",
+        "P09",
+        "P10",
+        "P11",
+        "P12",
+        "P13"
+      ],
+      "existing_source_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/AndroidManifest.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "sources": [
+        "FR-03",
+        "UF-11",
+        "ADR-0002"
+      ],
+      "risks": [
+        "R08-02",
+        "R08-04",
+        "R08-08"
+      ],
+      "manual_case_ids": [
+        "M01",
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M27",
+        "M28",
+        "M29",
+        "M30",
+        "M31",
+        "M32",
+        "M33",
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M39",
+        "M40",
+        "M41",
+        "M42",
+        "M43",
+        "M44",
+        "M45"
+      ],
+      "technical_case_ids": [
+        "T05",
+        "T06",
+        "T07",
+        "T08",
+        "T09",
+        "T10",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "status": "UNVERIFIED",
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
+    }
+  },
+  "qa_mutation_rules": [
+    "Do not update M01-M45 or T01-T15 to PASS without actual owner/technical evidence",
+    "No product AC may be ticked based on P01 documents alone",
+    "Do not assign a compiled source SHA or APK SHA before P13",
+    "Do not use issue #7 owner acceptance as issue #8 technical evidence",
+    "Never enable or invoke Actions or execute tests P00-P12"
+  ],
+  "references": [
+    "docs/implementation/ISSUE_8_PHASE0_SOURCE_AND_READINESS_AUDIT.md",
+    "docs/implementation/ISSUE_8_PHASE1_GITHUB_EXECUTION_CONTRACT.md",
+    "docs/implementation/ISSUE_8_PHASED_EXECUTION_PLAN.md",
+    "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+    "docs/implementation/ISSUE_8_QA_RESULTS.json",
+    "docs/user-flows/UF-11_INTERRUPTION_AUDIO_ROUTE.md",
+    "docs/architecture/RUNTIME_POLICIES.md",
+    "docs/adr/0002-service-owned-media3-playback.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+    "docs/implementation/ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+    "docs/implementation/ISSUE_8_PHASE3_MEDIA3_FOCUS_SERVICE_INTEGRATION.md",
+    "docs/implementation/ISSUE_8_PHASE4_CALL_FOCUS_DUCK_RECOVERY_AUDIT.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+    "docs/implementation/ISSUE_8_PHASE5_HEADSET_USB_NOISY_ROUTE_SAFETY_AUDIT.md",
+    "docs/implementation/ISSUE_8_PHASE6_BLUETOOTH_RECONNECT_AVRCP_SAFETY_AUDIT.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+    "docs/implementation/ISSUE_8_PHASE7_EVENT_ORDERING_AND_RACE_CONTAINMENT_AUDIT.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+    "docs/implementation/ISSUE_8_PHASE8_UNIFIED_SESSION_NOTIFICATION_UI_AUDIT.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+    "docs/implementation/ISSUE_8_PHASE9_VOICE_FOCUS_ROUTE_CANCELLATION_AUDIT.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+    "docs/implementation/ISSUE_8_PHASE10_PRIVACY_SAFE_INTERRUPTION_ERRORS.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+    "app/src/main/res/values/strings.xml",
+    "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
+    "app/src/main/AndroidManifest.xml",
+    "app/build.gradle.kts",
+    "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt",
+    "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
+    ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
+    ".github/issue8-p13-apk-request.txt",
+    "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md"
+  ],
+  "phase_artifacts": {
+    "P02": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt"
+      ],
+      "removed": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt"
+      ],
+      "specification": "docs/implementation/ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md",
+      "focus_resume_four_guards": "SOURCE_AUTHORED",
+      "event_sequence_and_injected_clock": "SOURCE_AUTHORED",
+      "media3_service_adapter": "P03_NOT_STARTED",
+      "tests_executed": 0,
+      "builds": 0,
+      "runtime_acceptance": "UNVERIFIED"
+    },
+    "P03": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE3_MEDIA3_FOCUS_SERVICE_INTEGRATION.md",
+      "focus_owner": "EXISTING_EXOPLAYER_ONLY",
+      "media3_signals": [
+        "PLAYBACK_SUPPRESSION_REASON_TRANSIENT_AUDIO_FOCUS_LOSS",
+        "PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS",
+        "onIsPlayingChanged"
+      ],
+      "player_snapshot_owner": "EXISTING_MUSIC_PLAYBACK_SERVICE",
+      "focus_duck_call_recovery": "P04_PENDING",
+      "route_epoch_pending_idle": "P05_P07_PENDING",
+      "technical_tests_executed": 0,
+      "apk_built": false,
+      "acceptance_criteria": "ALL_UNVERIFIED"
+    },
+    "P04": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-23",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE4_CALL_FOCUS_DUCK_RECOVERY_AUDIT.md",
+      "four_guard_resume": "SOURCE_WIRED_MEDIA3_SUPPRESSION_AND_GATE",
+      "unsafe_auto_return": "SERVICE_PAUSE_SAFETY_LATCH",
+      "permanent_focus_loss": "SAFE_PAUSED_SOURCE",
+      "ducking": "OS_MEDIA3_MANAGED_NO_DUPLICATE_ATTENUATION",
+      "phone_call_specific_detection": "NOT_CLAIMED_NO_TELEPHONY",
+      "route_epoch_and_command_race": "P05_P07_PENDING",
+      "voice_cancellation": "P09_PENDING",
+      "builds": 0,
+      "tests_executed": 0,
+      "original_acceptance_criteria": "AC01_AC12_ALL_UNVERIFIED"
+    },
+    "P05": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-23",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE5_HEADSET_USB_NOISY_ROUTE_SAFETY_AUDIT.md",
+      "removed_active_player_requirement": true,
+      "real_route_loss_callback": "SOURCE_WIRED_TO_SINGLE_SERVICE_PLAYER_MAIN",
+      "noisy_merged_with_removed_sink": true,
+      "route_epoch_and_io_generation_fenced_when_player_idle": true,
+      "one_route_epoch_per_armed_loss_episode": true,
+      "p02_route_disconnected_forwarded": true,
+      "voice_cancel_effect_execution": "P09_NOT_DONE",
+      "bluetooth_reconnect_and_autoplay": "P06_P07_NOT_DONE",
+      "actual_device_validation": "NOT_RUN",
+      "technical_tests_executed": 0,
+      "builds": 0,
+      "apk_built": false,
+      "acceptance": "ALL_12_AC_UNVERIFIED"
+    },
+    "P06": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-23",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE6_BLUETOOTH_RECONNECT_AVRCP_SAFETY_AUDIT.md",
+      "typed_play_provenance": "TRUSTED_PRIVATE_VS_AMBIGUOUS_SYSTEM_TRANSPORT",
+      "route_stamp": "SYSTEM_PLAY_RECEIPT_ROUTE_EPOCH",
+      "ingress": "FAIL_CLOSED_DURING_LOST_ROUTE_BLUETOOTH_ADDED_WHILE_PAUSED_OR_FOCUS_INTERRUPTION",
+      "worker": "RECHECK_STAMP_AND_ROUTE_FOCUS_GATE_BEFORE_PLAY",
+      "bluetooth_device_added": "OBSERVED_CATEGORY_ONLY_NO_ACTIVE_ROUTE_ASSERTION",
+      "bluetooth_reconnect_auto_resume": "FORBIDDEN",
+      "media_key_while_quarantined": "AMBIGUOUS_PLAY_REJECTED_EVEN_IF_PHYSICAL_PRESS",
+      "preserved_nonplay_commands": true,
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "acceptance": "AC01_AC12_UNVERIFIED"
+    },
+    "P07": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-23",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE7_EVENT_ORDERING_AND_RACE_CONTAINMENT_AUDIT.md",
+      "single_worker": "PRESERVED",
+      "receipt_token_fields": [
+        "routeGeneration",
+        "safetyGeneration",
+        "commandGeneration"
+      ],
+      "queued_stale_dispatch": "GUARDED_AT_WORKER_START",
+      "stale_after_io": "EXISTING_SOURCE_ROUTE_AND_COMMAND_GENERATION_CHECKS",
+      "priority_pause_stop": "IMMEDIATE_MAIN_PLAYER_PAUSE_AT_RECEIPT_ORDERED_STOP_WORKER_CLEANUP",
+      "focus_route_BT_events": "SERVICE_MAIN_INVALIDATES_PRE_EVENT_COMMAND_RECEIPTS",
+      "duplicate_noisy_removal": "P05_SAME_ARMED_EPISODE",
+      "P02_sequence": "P02_SOURCE_MONOTONIC_EPISODE_GUARD",
+      "voice_cancellation": "P09_NOT_WIRED",
+      "source_compiled": false,
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "original_ac_status": "12_UNVERIFIED"
+    },
+    "P08": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-23",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+      ],
+      "document": "docs/implementation/ISSUE_8_PHASE8_UNIFIED_SESSION_NOTIFICATION_UI_AUDIT.md",
+      "projection": "MEDIA3_ACTUAL_PLAYER_WITH_FOCUS_SUPPRESSION_AND_ROUTE_MANUAL_SAFE_PAUSED_PRIORITY",
+      "snapshot_revision": "CHANGED_ONLY_MONOTONIC",
+      "session_extras": "ONE_COMPLETE_SERVICE_SNAPSHOT",
+      "media3_native_notification": "UNCHANGED_PLAYER_AND_SESSION_OWNERSHIP",
+      "controller": "RELAY_DROPS_STALE_REVISION_AND_RETURNS_NEWEST_CONFIRMED_SNAPSHOT",
+      "full_mini": "SAME_PLAYER_UI_STATE_READY_GATED",
+      "driving_ui": "NOT_IMPLEMENTED_PLACEHOLDER_FUTURE_WORK",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "acceptance": "ALL_12_UNVERIFIED"
+    },
+    "P09": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-23",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE9_VOICE_FOCUS_ROUTE_CANCELLATION_AUDIT.md",
+      "focus_event": "P02_ACCEPTED_CANCEL_VOICE_FOR_FOCUS_TO_APP_SCOPED_EXISTING_COORDINATOR",
+      "route_event": "P02_ACCEPTED_CANCEL_VOICE_FOR_ROUTE_TO_APP_SCOPED_EXISTING_COORDINATOR",
+      "voice_providers": "EXISTING_ON_DEVICE_STT_AND_OFFLINE_TTS_INDEPENDENT_TEARDOWN",
+      "late_callbacks": "SESSION_AND_CHILD_JOB_GENERATION_INVALIDATED_BEFORE_TEARDOWN",
+      "duplicate_event": "P02_EFFECT_ONLY_IDEMPOTENT",
+      "duck": "NO_NEW_APP_SIDE_DUCK_OR_AUTO_PLAY",
+      "phone_call_identity": "NOT_DETECTED_MEDIA3_FOCUS_ONLY",
+      "voice_start_while_focus_lost": "FUTURE_ADMISSION_BOUNDARY_NOT_CLAIMED",
+      "confirm_feature": "ISSUE10_11_STUB_NOT_CLAIMED",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "original_acceptance_criteria": "AC01_AC12_UNVERIFIED"
+    },
+    "P10": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-24",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE10_PRIVACY_SAFE_INTERRUPTION_ERRORS.md",
+      "error_codes": [
+        "CALL_OR_ROUTE_SAFE_PAUSED",
+        "FOCUS_NOT_RECOVERED",
+        "ROUTE_INVALIDATED"
+      ],
+      "error_family": "EXISTING_APPERROR_INTERRUPTION",
+      "recovery_actions": "MANUAL_RESUME_ONLY_WITH_SERVICE_GATE",
+      "warning_priority": "PERMISSION_MEDIA_PLAYBACK_ERRORS_PRESERVED_ROUTE_OUTRANKS_FOCUS_REMINDER",
+      "source_of_truth": "SINGLE_RUNTIME_ERROR_TO_MEDIA3_SESSION_SNAPSHOT",
+      "ui": "STATIC_PRIVATE_SAFE_FULL_MINI_GUIDANCE",
+      "privacy": "NO_DIAGNOSTIC_PERSISTENCE_NO_NEW_TELEMETRY_NO_IDENTIFIERS",
+      "stale_events": "NO_UNAUTHORIZED_NEW_RUNTIME_ERROR",
+      "call_identification": "NOT_INFERRED_FROM_MEDIA3",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "AC": "ALL_12_UNVERIFIED"
+    },
+    "P11": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-24",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml"
+      ],
+      "reviewed_unchanged": [
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "documentation": "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
+      "minSdk": 29,
+      "targetSdk": 36,
+      "compileSdk": 36,
+      "BLE_API31_GUARD": "CODE_ADDED_NOT_COMPILED",
+      "MEDIA3_FOREGROUND_NOTIFICATION": "EXISTING_SERVICE_SOURCE_REVIEW_ONLY",
+      "ANDROID_15_AUDIO_FOCUS": "TOP_APP_OR_ALREADY_FGS_REQUIRED_PLATFORM_POLICY",
+      "OEM_DEVICE_MATRIX": "HONOR_PIXEL_SAMSUNG_XIAOMI_AND_THREE_PARKED_VEHICLES_PLANNED_NOT_RUN",
+      "ANDROID_AUTO": "EXCLUDED_APPROVED_MVP_ADR0006",
+      "TALKBACK": "SHORT_MINIPLAYER_STATUS_FULL_PLAYER_POLITE_LIVE_REGION_SOURCE",
+      "runtime_field_evidence": "NONE",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "AC01_AC12": "UNVERIFIED"
+    },
+    "P12": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-24",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "authored_tests": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt"
+      ],
+      "updated_legacy_test_sources": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "new_jvm_test_methods": 28,
+      "legacy_test_methods_reconciled": 30,
+      "documentation": "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
+      "owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+      "defect_fixed": "INTERRUPTION_NOTICE_PRESERVED_ACROSS_NON_RECOVERY_COMMANDS",
+      "source_only_reconciliation": "ISSUE7_AND_ISSUE8_MEDIA3_PLAYBACK_AND_ROUTE_EPOCHS",
+      "single_app_player_and_session": "PRESERVED",
+      "requested_final_artifact": "P13_ONLY_ONE_CUMULATIVE_DEBUG_APK",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "manual_cases": "45_NOT_RUN",
+      "technical_cases": "15_NOT_RUN",
+      "original_12_acceptance": "UNVERIFIED",
+      "phone_device_field_evidence": "NONE"
+    },
+    "P13": {
+      "status": "OWNER_MVP_IMPLEMENTATION_ACCEPTED_MERGE_AUTHORIZED_WITH_DEFERRED_TECHNICAL_EVIDENCE",
+      "date": "2026-10-24",
+      "documentation": "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
+      "workflow": ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
+      "trigger_marker": ".github/issue8-p13-apk-request.txt",
+      "run_id": 40079909648,
+      "run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648",
+      "source_commit": "2951647da5a995f7e28fa2b9dfc89c596697715e",
+      "apk_name": "app-debug.apk",
+      "apk_size_bytes": 36691339,
+      "apk_sha256": "20259add73fcbe06db50dd65f4e440b4cdce823f28f12d50d6f7f86cbd80f19b",
+      "artifact_id": 12554742975,
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648/artifacts/12554742975",
+      "artifact_verified": "YES_ACTUAL_DOWNLOADED_ZIP_EXTRACTED_APK_HASH_MATCHED",
+      "owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+      "user_M_cases": "45_NOT_RUN",
+      "technical_T_cases": "15_NOT_RUN",
+      "original_AC": "12_UNVERIFIED",
+      "no_test_invocation": true,
+      "apk_built": true,
+      "no_pr_merge": true,
+      "issue_open": true,
+      "owner_final_report": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+      "owner_phone_self_report": "43_PASS_OWNER_ATTESTED_2_BLOCKED_VOICE",
+      "media_fix_retest": "R01_R02_R03_PASS_OWNER_ATTESTED",
+      "technical_evidence": "T01_T15_NOT_RUN",
+      "owner_authorized_merge_close": "YES_2026_10_24",
+      "risk_disposition": "DOCUMENTED_DEFERRED_ACCEPTED_FOR_MVP"
+    }
+  }
+}

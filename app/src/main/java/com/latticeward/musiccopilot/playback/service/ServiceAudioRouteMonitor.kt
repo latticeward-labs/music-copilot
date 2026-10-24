@@ -21,17 +21,39 @@ import android.os.Looper
 internal class ServiceAudioRouteMonitor(
     context: Context,
     private val onPersonalOutputDisconnected: () -> Unit,
+    private val onBluetoothSinkAvailable: () -> Unit = {},
 ) : AutoCloseable {
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private var registered = false
     private val callback = object : AudioDeviceCallback() {
+        override fun onAudioDevicesAdded(addedDevices: Array<out AudioDeviceInfo>) {
+            if (!registered) return
+            if (addedDevices.any {
+                    it.isSink && PlaybackInterruptionGate.isBluetoothOutput(it.type)
+                }
+            ) {
+                // May include the initial API-provided list of available
+                // outputs. Presence is NOT proof of selection/active routing,
+                // intentional Play, focus regain or successful pairing.
+                // Never trigger Player.play(), restore playback or clear a
+                // route-loss latch just because an A2DP/BLE sink appeared.
+                onBluetoothSinkAvailable()
+            }
+        }
+
         override fun onAudioDevicesRemoved(removedDevices: Array<out AudioDeviceInfo>) {
+            // OEMs can deliver already-queued callbacks after unregister.
+            // No released Player may receive a late route signal.
+            if (!registered) return
             if (removedDevices.any {
                     it.isSink && PlaybackInterruptionGate.isPersonalOutput(it.type)
                 }
             ) {
-                // The listener is registered on the main thread, same as
-                // Media3, PlaybackCommandProcessor and route-generation gate.
+                // One callback may remove several endpoints, but constitutes
+                // just one safety signal. Do not require a nonempty Player:
+                // an in-flight queue request may still be verifying MediaStore
+                // content while the old headset/USB output disappears.
+                // Both callbacks and Player policy run on the service Main.
                 onPersonalOutputDisconnected()
             }
         }

@@ -166,8 +166,10 @@ class PlaybackControllerConnection(
                 val current = PlaybackWireProtocol.decodeSnapshot(
                     result.extras.getBundle(PlaybackWireProtocol.KEY_SNAPSHOT)
                 ) ?: return disconnected()
+                // A late refresh must not return a snapshot older than an
+                // interruption event already published by onExtrasChanged.
                 relay.publish(current, false)
-                AppResult.Success(current)
+                AppResult.Success(relay.snapshot.value)
             }
         } catch (cancelled: CancellationException) {
             throw cancelled
@@ -217,8 +219,11 @@ class PlaybackControllerConnection(
                 ) ?: return AppResult.Failure(AppError.Controller(
                     AppErrorCodes.CONTROLLER_CONNECT_FAILED,
                     Recoverability.RECOVERABLE, RecoveryAction.Retry))
+                // Command acknowledgements can arrive after a newer
+                // Media3 focus/route event. Do not return the obsolete
+                // success payload to Full/Mini/Driving presentations.
                 relay.publish(confirmed, false)
-                AppResult.Success(confirmed)
+                AppResult.Success(relay.snapshot.value)
             }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { disconnected() }

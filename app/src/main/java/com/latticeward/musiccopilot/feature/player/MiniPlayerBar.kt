@@ -26,6 +26,9 @@ import com.latticeward.musiccopilot.app.theme.MusicSize
 import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
+import com.latticeward.musiccopilot.core.result.AppError
+import com.latticeward.musiccopilot.core.result.AppErrorCodes
+import com.latticeward.musiccopilot.playback.api.PlaybackState
 
 /**
  * CMP-09. Uses the very same PlayerViewModel projection as Full Player.
@@ -82,18 +85,23 @@ fun playbackStatusLabel(state: PlayerUiState): String =
         PlaybackConnectionState.Connecting -> stringResource(R.string.i7_connecting)
         PlaybackConnectionState.Disconnected -> stringResource(R.string.i7_disconnected)
         PlaybackConnectionState.RecoverableError -> stringResource(R.string.i7_controller_error)
-        PlaybackConnectionState.Ready -> when (state.snapshot.playbackState) {
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Playing ->
-                stringResource(R.string.i7_playing)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Buffering ->
-                stringResource(R.string.i7_buffering)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Paused ->
-                stringResource(R.string.i7_paused)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Ended ->
-                stringResource(R.string.i7_ended)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Error ->
-                stringResource(R.string.i7_playback_error)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Idle ->
-                stringResource(R.string.i7_no_track)
+        PlaybackConnectionState.Ready -> when {
+            state.snapshot.playbackState == PlaybackState.Paused &&
+                state.snapshot.lastError is AppError.Interruption ->
+                when (state.snapshot.lastError.code) {
+                    AppErrorCodes.ROUTE_INVALIDATED ->
+                        stringResource(R.string.i8_paused_route_short)
+                    AppErrorCodes.FOCUS_NOT_RECOVERED ->
+                        stringResource(R.string.i8_paused_focus_unavailable_short)
+                    else -> stringResource(R.string.i8_paused_focus_short)
+                }
+            else -> when (state.snapshot.playbackState) {
+                PlaybackState.Playing -> stringResource(R.string.i7_playing)
+                PlaybackState.Buffering -> stringResource(R.string.i7_buffering)
+                PlaybackState.Paused -> stringResource(R.string.i7_paused)
+                PlaybackState.Ended -> stringResource(R.string.i7_ended)
+                PlaybackState.Error -> stringResource(R.string.i7_playback_error)
+                PlaybackState.Idle -> stringResource(R.string.i7_no_track)
+            }
         }
     }

@@ -1,6 +1,7 @@
 package com.latticeward.musiccopilot.playback.service
 
 import android.media.AudioDeviceInfo
+import android.os.Build
 import androidx.media3.common.Player
 
 /**
@@ -21,15 +22,56 @@ internal class PlaybackInterruptionGate {
     var explicitlyPaused: Boolean = false
         private set
 
-    fun onHeadsetOrBluetoothLost() {
-        routeGeneration++
+    // One physical route-loss episode may arrive as both the Media3 noisy
+    // event and Android AudioDeviceCallback. Do not bump the epoch twice.
+    // A fresh verified Play closes this episode; the next removal is new.
+    private var routeEpochExhausted = false
+
+    /**
+     * Coarse event only, NEVER an active-route claim: the system reports
+     * available Bluetooth sinks, not which one currently carries music.
+     * Reconnect can NEVER clear requiresExplicitResume by itself.
+     */
+    var bluetoothReconnectedWhilePaused: Boolean = false
+        private set
+    private var bluetoothConnectionPlayQuarantine: Boolean = false
+
+    /**
+     * Android reports newly available devices, including initial enumeration.
+     * If playback is currently paused, a controller Play immediately after
+     * availability cannot be proven to be a user keypress, so quarantine it.
+     * Do NOT pause uninterrupted playback on other routes.
+     */
+    fun onBluetoothSinkAvailable(alreadyPlayingOrRequested: Boolean) {
+        if (requiresExplicitResume) bluetoothReconnectedWhilePaused = true
+        if (!alreadyPlayingOrRequested) bluetoothConnectionPlayQuarantine = true
+    }
+
+    /**
+     * Arm even when the Player is empty/idle: a suspended MediaStore queue
+     * request may otherwise start playing on the built-in speaker later.
+     * Returns true only for the first signal of this unsafe episode.
+     */
+    fun onHeadsetOrBluetoothLost(): Boolean {
+        if (requiresExplicitResume) return false
         requiresExplicitResume = true
+        bluetoothReconnectedWhilePaused = false
+        bluetoothConnectionPlayQuarantine = true
+        if (routeGeneration == Long.MAX_VALUE) {
+            // Never wrap/reuse a stale epoch. At exhaustion, stay paused.
+            routeEpochExhausted = true
+        } else {
+            routeGeneration++
+        }
+        return true
     }
 
     fun onExplicitUserPlaybackRequest() {
         // An explicit player/media-key/notification Play or selected song is
         // the ONLY way to clear a route-loss pause. Reconnecting alone is not.
-        requiresExplicitResume = false
+        if (!routeEpochExhausted) requiresExplicitResume = false
+        bluetoothReconnectedWhilePaused = false
+        bluetoothConnectionPlayQuarantine = false
         explicitlyPaused = false
     }
 
@@ -40,11 +82,36 @@ internal class PlaybackInterruptionGate {
         // Do not clear an existing route-loss latch.
     }
 
+    /**
+     * P04: Media3 can remove transient suppression without a user command.
+     * If the four-guard reducer refuses that recovery, preserve Safe Paused.
+     * Distinct from manual Pause: never falsify manual intent/history.
+     */
+    fun onDisallowedFocusAutoResume() {
+        explicitlyPaused = true // An explicit user Play is needed to clear.
+    }
+
     fun shouldSuppressAutomaticPlay(): Boolean =
-        requiresExplicitResume || explicitlyPaused
+        requiresExplicitResume || explicitlyPaused || routeEpochExhausted ||
+            bluetoothConnectionPlayQuarantine
+
+    /**
+     * A NEW Play delivered by Android's media controls is a request, not
+     * automatic focus recovery. Manual Pause must remain authoritative against
+     * delayed focus GAIN, but must not permanently disable notification or
+     * headset Play on a still-valid route.
+     *
+     * Bluetooth reconnect and lost-route quarantine remain stronger vetoes:
+     * Android/AVRCP provides no reliable physical-button provenance, so this
+     * does not unlock a disconnected route or a fresh BT connection. Only an
+     * in-app verified Play can explicitly clear those safety latches.
+     */
+    fun mayAdmitExternalPlayAttempt(): Boolean =
+        !requiresExplicitResume && !routeEpochExhausted &&
+            !bluetoothConnectionPlayQuarantine
 
     fun requestIsStillCurrent(expectedRouteGeneration: Long): Boolean =
-        routeGeneration == expectedRouteGeneration
+        !routeEpochExhausted && routeGeneration == expectedRouteGeneration
 
     companion object {
         /**
@@ -61,10 +128,31 @@ internal class PlaybackInterruptionGate {
             AudioDeviceInfo.TYPE_USB_HEADSET,
             AudioDeviceInfo.TYPE_USB_DEVICE,
             AudioDeviceInfo.TYPE_USB_ACCESSORY,
-            AudioDeviceInfo.TYPE_HEARING_AID,
-            AudioDeviceInfo.TYPE_BLE_HEADSET,
-            AudioDeviceInfo.TYPE_BLE_SPEAKER -> true
-            else -> false
+            AudioDeviceInfo.TYPE_HEARING_AID -> true
+            else -> isBleOutputOnApi31Plus(type)
+        }
+
+        /** Public Bluetooth output category only; no device/address/route ID. */
+        fun isBluetoothOutput(type: Int): Boolean = when (type) {
+            AudioDeviceInfo.TYPE_BLUETOOTH_A2DP,
+            AudioDeviceInfo.TYPE_BLUETOOTH_SCO,
+            AudioDeviceInfo.TYPE_HEARING_AID -> true
+            else -> isBleOutputOnApi31Plus(type)
+        }
+
+        /**
+         * BLE headset/speaker device categories were added in Android 12
+         * (API 31), while minSdk is 29. Keep every API31 field access behind
+         * an explicit runtime version gate for Android 10/11 and strict lint.
+         * An unknown future device category is NOT evidence of a safe route.
+         */
+        private fun isBleOutputOnApi31Plus(type: Int): Boolean {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return false
+            return when (type) {
+                AudioDeviceInfo.TYPE_BLE_HEADSET,
+                AudioDeviceInfo.TYPE_BLE_SPEAKER -> true
+                else -> false
+            }
         }
 
         fun isNoisyChangeReason(reason: Int): Boolean =

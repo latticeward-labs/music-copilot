@@ -1,0 +1,1462 @@
+{
+  "issue": 8,
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/8-audio-focus-route-recovery",
+  "planning_date": "2026-10-23",
+  "phase": "P13_OWNER_ATTESTED_PHONE_QA_ACCEPTED_FOR_MVP_RELEASE_WITH_EXPLICIT_DEFERRED_VERIFICATION",
+  "implementation_started": true,
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12
+  },
+  "source_baseline_sha": "62c6115ac11af4cb2790b306f885f580b82a146b",
+  "depends_on": {
+    "issue7": "CLOSED_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+    "issue16": "APPROVED",
+    "issues5and6": "DEFERRED_QA_IN_73_AND_74"
+  },
+  "contract": {
+    "P00_to_P12": "SOURCE_AND_DOCUMENTATION_ONLY_NO_BUILD_NO_TEST_NO_ACTIONS",
+    "P13": "ONE_CUMULATIVE_BUILD_ONLY_APK_THEN_OWNER_PHONE_TESTS",
+    "technical_tests": "NO_EXECUTION_UNLESS_OWNER_SEPARATELY_AUTHORIZES",
+    "media": "LOCAL_ONLY",
+    "qa_status_policy": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "NOT_RUN",
+      "N/A"
+    ]
+  },
+  "phases": {
+    "P00": {
+      "status": "PASS_SOURCE_AUDIT_ONLY",
+      "completed_on": "2026-10-23",
+      "audit_document": "docs/implementation/ISSUE_8_PHASE0_SOURCE_AND_READINESS_AUDIT.md",
+      "source_baseline_sha": "62c6115ac11af4cb2790b306f885f580b82a146b",
+      "completion_commit": "08decf9e58d4eed8a9bebe97563bb5f6c4daa3ba",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_AUDIT_ONLY"
+    },
+    "P01": {
+      "status": "PASS_EXECUTION_CONTRACT_ONLY",
+      "completed_on": "2026-10-23",
+      "owner_approval_scope": "P01_DOCUMENTARY_EXECUTION_GOVERNANCE_NOT_RUNTIME",
+      "contract_document": "docs/implementation/ISSUE_8_PHASE1_GITHUB_EXECUTION_CONTRACT.md",
+      "traceability_document": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "source_archive_reverified_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+      "source_pdf_entries_rehashed": 12,
+      "initial_main_sha": "62c6115ac11af4cb2790b306f885f580b82a146b",
+      "feature_branch": "feature/8-audio-focus-route-recovery",
+      "merge_target": "main",
+      "branch_base_compare_at_entry": {
+        "ahead": 8,
+        "behind": 0
+      },
+      "contract_commit_sha": "78b0a1cd9acdd91902b45cd707af4fb222e5d6c0",
+      "traceability_commit_sha": "6ed024760c8708b9ae1141518023a919ca87d94c",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_DOCUMENTATION_ONLY"
+    },
+    "P02": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_path": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+      "removed_placeholder": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/PackageBoundary.kt",
+      "documentation": "docs/implementation/ISSUE_8_PHASE2_DETERMINISTIC_INTERRUPTION_POLICY.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "source_contract": "PURE_KOTLIN_NO_ANDROID_MEDIA3_IMPORT_FOUR_GUARD_ELIGIBILITY_AND_TYPED_EFFECTS",
+      "focus_owner": "EXISTING_MEDIA3_FOCUS_UNCHANGED",
+      "service_adapter": "NOT_CONNECTED_P03",
+      "actual_runtime_verification": "NOT_RUN",
+      "source_sha_at_first_policy_commit": "31b1608bda99659dff81a102657a855b71bfa93d",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
+    },
+    "P03": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE3_MEDIA3_FOCUS_SERVICE_INTEGRATION.md",
+      "traceability_document": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "existing_media3_focus_owner_preserved": true,
+      "actual_media3_focus_observation_wired": "SOURCE_ONLY",
+      "android_focus_callback_behaviour_verified": false,
+      "focus_loss_classification": "PUBLIC_MEDIA3_SUPPRESSION_AND_PLAYWHENREADY_REASON_ONLY",
+      "voice_cancellation_runtime": "P09_NOT_CONNECTED",
+      "call_and_duck_recovery": "P04_NOT_COMPLETED",
+      "pending_route_epoch_gap": "P05_P07",
+      "source_compile_status": "NOT_RUN",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "evidence_type": "SOURCE_ONLY_NO_DEVICE_OR_HOST_TEST"
+    },
+    "P04": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE4_CALL_FOCUS_DUCK_RECOVERY_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "policy": "FOUR_GUARD_TRANSIENT_RESUME_AND_EXPLICIT_PLAY_ONLY_FALLBACK",
+      "permanent_focus_loss": "SAFE_PAUSED",
+      "ducking": "OS_MEDIA3_OWNED_NO_DUPLICATE_VOLUME_CHANGE",
+      "telephony_specific_observation": "NOT_AVAILABLE_AND_NOT_CLAIMED",
+      "route_generation_and_fast_events": "P05_P07_PENDING",
+      "voice_cancellation_effect_handoff": "P09_PENDING",
+      "compilation_verified": false,
+      "actual_phone_call_verified": false,
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
+    },
+    "P05": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE5_HEADSET_USB_NOISY_ROUTE_SAFETY_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "route_disconnection_main_thread": "SOURCE_WIRED",
+      "empty_idle_player_stale_io_hole": "SOURCE_MITIGATED_UNVERIFIED",
+      "duplicate_noisy_removed_sink": "SINGLE_ARMED_EPISODE_SOURCE",
+      "voice_cancel_effect_runtime": "P09_NOT_CONNECTED",
+      "bluetooth_avrcp": "P06_P07_PENDING",
+      "on_device_zero_speaker_leak_proven": false,
+      "compilation_verified": false,
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
+    },
+    "P06": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/ServiceSessionTransportPlayer.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE6_BLUETOOTH_RECONNECT_AVRCP_SAFETY_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "system_play_provenance": "SOURCE_STAMPED_AS_AMBIGUOUS_EXTERNAL",
+      "external_play_receipt_early_veto": true,
+      "external_play_worker_epoch_and_focus_recheck": true,
+      "bluetooth_available_no_autoplay": true,
+      "bluetooth_paused_quarantine": "SOURCE_AUTHORED",
+      "physical_remote_play_while_quarantine": "REJECTED_BY_CONSERVATIVE_POLICY",
+      "android_media_key_intent_proof": "NOT_AVAILABLE",
+      "active_route_identity": "NOT_INFERRED",
+      "source_compilation": "NOT_RUN",
+      "actual_hardware_bluetooth_test": "NOT_RUN",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
+    },
+    "P07": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE7_EVENT_ORDERING_AND_RACE_CONTAINMENT_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "receipt_token": "ROUTE_SAFETY_COMMAND_GENERATION_AT_SUBMIT",
+      "stale_queued_requests": "REJECT_BEFORE_HANDLER",
+      "pending_io": "POST_IO_GENERATION_CHECKS_PRESERVED",
+      "pause_stop": "IMMEDIATE_SINGLE_PLAYER_PAUSE_AT_RECEIPT_ORDERED_WORKER_CLEANUP",
+      "focus_loss_transient_denied_BT_quarantine": "SUPERSEDE_OLDER_RECEIPTS",
+      "manual_policy_revision": "ONCE_AT_RECEIPT_NOT_DOUBLE_AT_DISPATCH",
+      "worker_count": "EXISTING_ONE",
+      "source_compilation": "NOT_RUN",
+      "runtime_race_tests": "NOT_RUN",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_INSPECTION_ONLY"
+    },
+    "P08": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE8_UNIFIED_SESSION_NOTIFICATION_UI_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "service_snapshot": "ACTUAL_MEDIA3_PLAYER_STATE_WITH_ROUTE_FOCUS_SAFE_PAUSE",
+      "media3_notification": "UNMODIFIED_ONE_SESSION_AND_NOTIFICATION_AUTHORITY",
+      "revision_policy": "CHANGE_ONLY_MONOTONIC_SERVICE",
+      "late_controller_response": "RETURNS_LATEST_RELAY_SNAPSHOT_NOT_STALE",
+      "full_mini": "SAME_UI_STATE_READY_GATED",
+      "driving_ui": "PLACEHOLDER_NOT_IMPLEMENTED_NOT_CLAIMED",
+      "source_compilation": "NOT_RUN",
+      "physical_ui_parity": "NOT_RUN",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
+    },
+    "P09": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-23",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE9_VOICE_FOCUS_ROUTE_CANCELLATION_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "real_existing_voice_coordinator": "APPLICATION_BINDINGS_SINGLE_INSTANCE",
+      "focus_cancellation": "P02_ACCEPTED_EFFECT_TO_VOICE_CANCEL_CALL_OR_FOCUS_INVALIDATED",
+      "route_cancellation": "P02_ACCEPTED_EFFECT_TO_VOICE_CANCEL_ROUTE_INVALIDATED",
+      "denied_focus_auto_resume": "CANCELS_NEWER_VOICE_GENERATION",
+      "voice_stt_tts": "GENERATION_INVALIDATED_THEN_INDEPENDENT_PROVIDER_CANCEL_STOP",
+      "confirmation": "EXISTING_STALE_SESSION_ONLY_STUB",
+      "no_independent_voice_duck": true,
+      "no_phone_call_detection": true,
+      "real_call_coverage_verified": false,
+      "source_compilation": "NOT_RUN",
+      "physical_voice_interruption_test": "NOT_RUN",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
+    },
+    "P10": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-24",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/Media3FocusObservationAdapter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/media3/Media3SnapshotProjector.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE10_PRIVACY_SAFE_INTERRUPTION_ERRORS.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "error_codes": "EXISTING_ALLOWLISTED_FOCUS_NOT_RECOVERED_ROUTE_INVALIDATED_CALL_OR_ROUTE_SAFE_PAUSED",
+      "error_family": "APPERROR_INTERRUPTION_SINGLE_SNAPSHOT",
+      "serious_error_priority": "PERMISSION_MEDIAITEM_PLAYBACK_PRESERVED",
+      "wire_recoverability": "MANUALRESUME_STATIC_CODES",
+      "ui": "STATIC_FULL_MINI_GUIDANCE_AND_MANUAL_RESUME",
+      "privacy": "NO_NEW_LOGS_TELEMETRY_RECORDS_IDENTIFIERS_OR_PERMISSIONS",
+      "source_compilation": "NOT_RUN",
+      "physical_recovery_tests": "NOT_RUN",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_REVIEW_ONLY"
+    },
+    "P11": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-24",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/res/values/strings.xml"
+      ],
+      "reviewed_unchanged": [
+        "app/src/main/AndroidManifest.xml",
+        "app/build.gradle.kts",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
+      "traceability": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+      "android_api_matrix": "API_29_30_31_32_33_34_35_36_SOURCE_REVIEW",
+      "api31_BLE_guard": "CODE_AUTHORED_COMPILE_NOT_RUN",
+      "android15_focus_FGS": "PLATFORM_RULE_NOT_RUNTIME_PROVEN",
+      "media3_native_notification": "PRESERVED",
+      "android_auto": "EXCLUDED_BY_ADR_0006",
+      "OEM_phone_matrix": "HONOR_OWNER_PIXEL_SAMSUNG_XIAOMI_PENDING",
+      "parked_vehicle_matrix": "A_B_C_NOT_RUN",
+      "accessibility": "STATIC_SHORT_STATUS_AND_POLITE_LIVE_ANNOUNCEMENT_NOT_DEVICE_CHECKED",
+      "source_compilation": "NOT_RUN",
+      "hardware_checks": "NOT_RUN",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "qa_evidence": "NONE_SOURCE_AND_OFFICIAL_DOC_REVIEW_ONLY"
+    },
+    "P12": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-24",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
+      "owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+      "new_JVM_test_methods_authored": 28,
+      "old_ISSUE7_test_source_methods_reconciled": 30,
+      "source_compile": "NOT_RUN",
+      "tests_executed": 0,
+      "builds": 0,
+      "apk_built": false,
+      "compilation_status": "NOT_RUN",
+      "lint_status": "NOT_RUN",
+      "device_status": "NOT_RUN",
+      "Actions_runs_started": 0,
+      "source_review_scope": "SOURCE_INSPECTION_ONLY_NO_KOTLIN_COMPILER_PROOF",
+      "one_service_session_player": "PRESERVED",
+      "P10_integrated_fix": "RETENTION_OF_INTERRUPT_NOTICE_UNTIL_VERIFIED_RECOVERY",
+      "quality_evidence": "NONE_SOURCE_ONLY",
+      "android_auto": "EXCLUDED_APPROVED_MVP_ADR0006"
+    },
+    "P13": {
+      "status": "OWNER_ACCEPTED_PHONE_QA_FOR_MVP_RELEASE_TECHNICAL_AND_VOICE_DEFERRED",
+      "completed_on": "2026-10-24",
+      "workflow": ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
+      "owner_request_marker": ".github/issue8-p13-apk-request.txt",
+      "github_run_id": 40086837929,
+      "github_job_id": 120851405837,
+      "github_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+      "build_conclusion": "success",
+      "build_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+      "gradle_task": ":app:assembleDebug",
+      "apk_file": "app-debug.apk",
+      "apk_size_bytes": 36691339,
+      "apk_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+      "artifact_id": 12557347787,
+      "artifact_name": "issue8-p13-one-cumulative-owner-apk",
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929/artifacts/12557347787",
+      "artifact_expires_at": "2026-11-07T10:43:14Z",
+      "artifact_zip_size_bytes": 13353338,
+      "checksum_verified_against_downloaded_apk": true,
+      "local_extracted_apk_sha256_verified": true,
+      "owner_handset_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+      "owner_handset_tests_run": 43,
+      "technical_tests_run": 0,
+      "emulator_tests_run": 0,
+      "jvm_tests_run": 0,
+      "lint_runs": 0,
+      "android_test_runs": 0,
+      "device_install_verified": false,
+      "owner_results": "43_PASS_OWNER_REPORTED_2_BLOCKED_VOICE",
+      "AC_verified": 0,
+      "merge": "NOT_DONE",
+      "issue_closed": false,
+      "notes": "Owner confirmed 2026-10-24 all accessible Issue #8 cases PASS after fix (no per-case logs). M01–M43 PASS by owner blanket attestation; M44/M45 BLOCKED missing Voice UI; T01–T15 NOT_RUN, AC01–AC12 UNVERIFIED. Explicit acceptance to merge and close Issue #8 with unresolved evidence deferred.",
+      "original_build_source_commit": "2951647da5a995f7e28fa2b9dfc89c596697715e",
+      "original_build_run_id": 40079909648,
+      "original_apk_sha256": "20259add73fcbe06db50dd65f4e440b4cdce823f28f12d50d6f7f86cbd80f19b",
+      "owner_retest_fix_count": 3,
+      "owner_retest_fix_results": "3_PASS_OWNER_REPORTED",
+      "owner_provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      }
+    }
+  },
+  "apk": {
+    "built": true,
+    "source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+    "sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+    "build_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+    "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929/artifacts/12557347787",
+    "install_verified": false,
+    "artifact_id": 12557347787,
+    "file_name": "app-debug.apk",
+    "size_bytes": 36691339,
+    "checksum_verified": true,
+    "expiration": "2026-11-07T10:43:14Z"
+  },
+  "owner_phone_cases": {
+    "M01": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M02": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M03": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M04": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M05": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M06": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M07": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M08": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M09": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M10": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M11": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M12": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M13": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M14": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M15": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M16": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M17": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M18": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M19": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M20": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M21": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M22": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M23": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M24": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M25": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M26": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M27": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M28": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M29": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M30": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M31": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M32": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M33": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M34": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M35": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M36": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M37": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M38": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M39": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M40": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M41": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M42": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M43": {
+      "status": "PASS",
+      "provenance": {
+        "source": "OWNER_SELF_REPORT_IN_CHAT",
+        "date": "2026-10-24",
+        "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+        "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+        "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+      },
+      "notes": "Owner-reported PASS via global statement on revised APK. No test-by-test proof or additional OEM/vehicle evidence; recorded as attestation, not independently certified."
+    },
+    "M44": {
+      "status": "BLOCKED",
+      "provenance": {
+        "source": "KNOWN_NOT_EXPOSED_IN_P13_APK",
+        "confirmed_by": "GitHub MainActivity / VoicePracticeGate inspection in earlier turn 2026-10-24",
+        "apk_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df"
+      },
+      "notes": "Voice live capture/listening not exposed or activated by this APK; Issue #9/#10 downstream. Owner general PASS statement cannot override unavailable feature. Deferred to Voice implementation."
+    },
+    "M45": {
+      "status": "BLOCKED",
+      "provenance": {
+        "source": "KNOWN_NOT_EXPOSED_IN_P13_APK",
+        "confirmed_by": "GitHub MainActivity / VoicePracticeGate inspection in earlier turn 2026-10-24",
+        "apk_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df"
+      },
+      "notes": "Voice live capture/listening not exposed or activated by this APK; Issue #9/#10 downstream. Owner general PASS statement cannot override unavailable feature. Deferred to Voice implementation."
+    }
+  },
+  "technical_cases": {
+    "T01": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T02": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T03": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T04": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T05": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T06": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T07": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T08": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T09": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T10": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T11": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T12": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T13": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T14": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    },
+    "T15": {
+      "status": "NOT_RUN",
+      "provenance": null,
+      "notes": null
+    }
+  },
+  "acceptance_criteria": {
+    "AC01": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC02": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC03": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC04": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC05": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC06": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC07": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC08": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC09": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC10": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC11": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    },
+    "AC12": {
+      "status": "UNVERIFIED",
+      "evidence": null
+    }
+  },
+  "field_coverage": {
+    "owner_phone": "43_PASS_OWNER_ATTESTED_2_BLOCKED_VOICE",
+    "pixel": "NOT_RUN",
+    "samsung": "NOT_RUN",
+    "xiaomi": "NOT_RUN",
+    "vehicle_head_units_three": "NOT_RUN"
+  },
+  "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
+  "note": "2026-10-24 user reports all Issue #8 checks passed after three targeted fixes; R01-R03 PASS by owner attestation and M01-M43 PASS by global owner self-report only. M44/M45 BLOCKED (live Voice UI absent); T01–T15 NOT_RUN, multi-OEM & vehicles NOT_RUN, AC01–AC12 UNVERIFIED (formal technical evidence absent). Owner explicitly authorizes merge and closure of implementation Issue as MVP-accepted WITH THESE EXCEPTIONS, not a declaration of technical QA 100%. Build-only run 40086837929 success source fea9301fa29986439070fe50428bf8e90a2942df APK SHA 318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c.",
+  "phase0_readiness": {
+    "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
+    "dor01": {
+      "status": "MERGED_OWNER_ATTESTED_NOT_INDEPENDENTLY_VERIFIED",
+      "issue": 7
+    },
+    "dor02": {
+      "status": "PASS_ARCHITECTURE_APPROVED",
+      "issue": 16
+    },
+    "dor03": {
+      "status": "PARTIAL_REQUIRES_P02_INJECTABLE_FOCUS_ROUTE_EVENT_SEAMS"
+    },
+    "risks": [
+      {
+        "id": "R08-01",
+        "phase": "P02-P04",
+        "level": "P0",
+        "topic": "FOUR_GUARD_FOCUS_RESUME"
+      },
+      {
+        "id": "R08-02",
+        "phase": "P05-P07",
+        "level": "P0",
+        "topic": "ROUTE_EVENT_WHILE_PLAYER_IDLE_WITH_PENDING_IO"
+      },
+      {
+        "id": "R08-03",
+        "phase": "P06-P07",
+        "level": "P0",
+        "topic": "BT_AVRCP_AUTOPLAY_PROVENANCE"
+      },
+      {
+        "id": "R08-04",
+        "phase": "P05-P07",
+        "level": "P0",
+        "topic": "NOISY_ROUTE_CALLBACK_RACE"
+      },
+      {
+        "id": "R08-05",
+        "phase": "P09",
+        "level": "P0",
+        "topic": "VOICE_CANCELLATION_HANDOFF"
+      },
+      {
+        "id": "R08-06",
+        "phase": "P05-P06",
+        "level": "P1",
+        "topic": "NON_ACTIVE_SINK_DISCONNECT"
+      },
+      {
+        "id": "R08-07",
+        "phase": "P08-P10",
+        "level": "P1",
+        "topic": "INTERRUPTION_TYPED_UI_DIAGNOSTICS"
+      },
+      {
+        "id": "R08-08",
+        "phase": "P11-P13",
+        "level": "P0_RELEASE_EVIDENCE",
+        "topic": "OEM_CALL_FIELD_PROOF_MISSING"
+      }
+    ]
+  },
+  "p01_execution_control": {
+    "scope": "P01_DOCUMENTS_ONLY",
+    "implementation_started": false,
+    "delivery_contract": "P00-P12_NO_BUILD_NO_TEST_NO_ACTIONS_P13_SINGLE_CUMULATIVE_APK",
+    "code_owners": "LOGICAL_PACKAGE_OWNERS_NOT_GITHUB_ASSIGNEES",
+    "dependency_policy": "REUSE_ISSUE7_AND_ISSUE16_NO_SECOND_PLAYER_OR_FOCUS_REQUEST",
+    "sha_provenance": "ISSUE7_APK_DOES_NOT_PROVE_ISSUE8",
+    "rollback": "REVERT_CULPRIT_PHASE_COMMITS_NO_FORCE_PUSH_PRESERVE_MAIN_AND_ISSUE7",
+    "phase_dependencies_doc": "docs/implementation/ISSUE_8_PHASE1_TRACEABILITY_INDEX.json",
+    "source_test_gate": "FOCUS_ROUTE_INJECTABLE_SEAM_REQUIRED_P02",
+    "ac_changes": 0,
+    "manual_qa_changes": 0,
+    "technical_qa_changes": 0,
+    "workflow_runs_triggered_by_assistant": 0
+  },
+  "phase2_readiness": {
+    "next_phase": "P03",
+    "focus_event_adapter": "MUST_VERIFY_REAL_MEDIA3_CALLBACKS_AND_PRELOSS_ISPLAYING",
+    "route_loss_generation_while_idle": "PURE_POLICY_IMPLEMENTED_SERVICE_WIRING_DEFERRED_P05_P07",
+    "headset_reconnect": "PURE_POLICY_NO_AUTOPLAY",
+    "voice_cancellation_effects": "PURE_EFFECTS_ONLY_P09_INTEGRATION_PENDING",
+    "pending_unit_integration_tests": "P12_AUTHOR_ONLY_EXECUTION_UNAUTHORIZED",
+    "acceptance_criteria_original": "AC01_AC12_UNVERIFIED",
+    "no_automatic_actions": true
+  },
+  "phase3_readiness": {
+    "next_phase": "P04",
+    "closed_source_scope": "MEDIA3_PUBLIC_PLAYER_EVENTS_TO_P02_POLICY_IN_ONE_SERVICE",
+    "primary_ambiguity": "MEDIA3_FOCUS_REASONS_DO_NOT_PROVE_CALL_IDENTITY",
+    "resume_blocking_gap": "P04_PROVE_DISALLOWED_AUTO_RESUME_PREVENTION",
+    "route_generation_gap": "P05_P07",
+    "headunit_play_origin": "P06_P07",
+    "accepted_android_field_evidence": "NONE",
+    "no_additional_permissions": true,
+    "no_second_focus_owner": true
+  },
+  "phase4_readiness": {
+    "next_phase": "P05",
+    "allowed_automatic_resume": "PREVIOUSLY_AUDIBLE_MATCHED_MEDIA3_FOCUS_EPISODE_SAME_ROUTE_NO_LATER_MANUAL_PAUSE",
+    "rejected_automatic_resume": "EXPLICIT_PLAY_ONLY_SAFE_PAUSED",
+    "ducking": "MEDIA3_ANDROID_SYSTEM_HANDLES_NO_MANUAL_ATTENUATION",
+    "call_specific_status": "FOCUS_COMPATIBLE_NOT_TELEPHONY_OBSERVED",
+    "route_epoch_gap": "P05_P07_ISSUE7_IDLE_PLAYER_PENDING_IO",
+    "headunit_provenance": "P06_P07_PENDING",
+    "hardware_testing": "P13_OWNER_ONLY",
+    "original_acs": "12_UNVERIFIED"
+  },
+  "phase5_readiness": {
+    "next_phase": "P06",
+    "route_loss_safety": "P05_GATE_AND_SERVICE_PREEMPT_PENDING_IO_EVEN_EMPTY_IDLE_PLAYER",
+    "route_validated_after_deliberate_user_play": "P06_MUST_FENCE_AMBIGUOUS_HEADUNIT_AUTOPLAY",
+    "duplicate_event_policy": "COLLAPSE_UNTIL_FRESH_USER_PLAY",
+    "no_active_output_identity_assertion": true,
+    "physical_no_leak_verified": false,
+    "voice_cancellation": "P09_PENDING",
+    "oem_tests": "P13_NOT_RUN"
+  },
+  "phase6_readiness": {
+    "next_phase": "P07",
+    "queued_ambiguous_external_play": "P06_RECEIPT_EPOCH_WORKER_CHECK_WIRED",
+    "all_app_command_receipt_races": "P07_PENDING",
+    "headset_reconnect_paired_active_route": "CATEGORY_AVAILABLE_NOT_ACTIVE_OUTPUT_PROOF",
+    "real_Bluetooth_Device_evidence": "P13_OWNER_TESTS_NOT_RUN",
+    "untrusted_AVRCP_play_vs_real_media_button": "INDISTINGUISHABLE_CONSERVATIVE_REJECTION",
+    "voice_cancel": "P09_PENDING",
+    "remaining_qa": "45_M_NOT_RUN_15_T_NOT_RUN_12_AC_UNVERIFIED"
+  },
+  "phase7_readiness": {
+    "next_phase": "P08",
+    "stale_recipient_selection": "RECEIPT_GENERATION_RECHECK_SOURCE",
+    "fast_headset_focus_BT_events": "MAIN_SERVICE_SAFETY_GENERATION_SOURCE",
+    "queued_Pause_or_Stop": "EARLY_SILENCE_ORDERED_COMMIT",
+    "snapshot_parity": "P08_PENDING",
+    "voice_effect_wiring": "P09_PENDING",
+    "privacy_codes": "P10_PENDING",
+    "oem_API_validation": "P11_AND_P13_PENDING",
+    "test_source": "P12_NOT_RUN",
+    "physical_proof": "P13_USER_NOT_RUN"
+  },
+  "phase8_readiness": {
+    "next_phase": "P09",
+    "voice_cancellation": "P09_PENDING",
+    "runtime_ui_parity": "P13_OWNER_NOT_RUN",
+    "driving_screen": "NOT_PRESENT_SEPARATE_IMPLEMENTATION_REQUIRED",
+    "api_oem": "P11_PENDING",
+    "privacy_errors": "P10_PENDING",
+    "technical_tests": "P12_SOURCE_ONLY_P13_NO_AUTOMATIC_TEST_EXECUTION",
+    "release_criteria": "12_UNVERIFIED"
+  },
+  "phase9_readiness": {
+    "next_phase": "P10",
+    "voice_cancellation_owner": "APPLICATION_GRAPH_EXISTING_COORDINATOR",
+    "accepted_effect_dispatch": "SERVICE_MAIN",
+    "hardware_microphone_stop": "P13_OWNER_NOT_RUN",
+    "actual_call_identity": "NOT_DETECTED",
+    "manual_cases": [
+      "M44",
+      "M45"
+    ],
+    "technical_cases": [
+      "T10"
+    ],
+    "sanitized_diagnostics": "P10_PENDING",
+    "android_OEM": "P11_PENDING",
+    "tests": "P12_AUTHOR_ONLY_P13_OWNER_EXECUTES_PHONE"
+  },
+  "phase10_readiness": {
+    "next_phase": "P11",
+    "android_oem_compatibility": "P11_PENDING",
+    "technical_tests": "P12_AUTHOR_ONLY",
+    "apk": "P13_ONLY",
+    "original_ACs": "12_UNVERIFIED",
+    "manual_cases": [
+      "M39"
+    ],
+    "technical_cases": [
+      "T11"
+    ],
+    "voice_cancellation": "P09_SOURCE_ONLY_NOT_PHYSICAL_VALIDATED"
+  },
+  "phase11_readiness": {
+    "next_phase": "P12",
+    "test_source_authoring": "P12_DO_NOT_EXECUTE",
+    "android10_11_BLE": "NO_API31_REFERENCES_BEFORE_RUNTIME_GUARD_SOURCE",
+    "foreground_audio_focus": "ANDROID15_TARGET35_36_REQUIRES_TOP_OR_EXISTING_FGS",
+    "real_call_identity": "NOT_INFERRED",
+    "AndroidAuto": "OUTSIDE_MVP",
+    "manufacturer_coverage": {
+      "Honor": "NOT_RUN",
+      "Pixel": "NOT_RUN",
+      "Samsung": "NOT_RUN",
+      "Xiaomi": "NOT_RUN"
+    },
+    "parked_vehicles": {
+      "A": "NOT_RUN",
+      "B": "NOT_RUN",
+      "C": "NOT_RUN"
+    },
+    "owner_manual_cases": "M01_M45_NOT_RUN",
+    "technical_cases": "T01_T15_NOT_RUN",
+    "acceptance": "AC01_AC12_UNVERIFIED"
+  },
+  "phase12_readiness": {
+    "next_phase": "P13",
+    "final_artifact": "ONE_APK_ONLY_COMBINED_P02_P12_PLUS_EXISTING_ISSUE7",
+    "build_mode": "BUILD_ONLY_ASSEMBLE_DEBUG_NO_UNIT_TEST_LINT_INSTRUMENTATION",
+    "source_hash": "P13_MUST_CAPTURE_ACTUAL_HEAD_SHA",
+    "apk_hash": "NOT_AVAILABLE_BEFORE_P13",
+    "download_url": "NOT_AVAILABLE_BEFORE_P13",
+    "APK": "NOT_BUILT",
+    "owner_phone": "M01_M45_NOT_RUN",
+    "technical": "T01_T15_NOT_RUN",
+    "AC": "AC01_AC12_UNVERIFIED",
+    "independent_devices": "PIXEL_SAMSUNG_XIAOMI_AND_3_PARKED_VEHICLES_NOT_RUN",
+    "next_action": "P13_BUILD_SINGLE_CUMULATIVE_APK_HUMAN_PHONE_TEST_HANDOFF"
+  },
+  "phase13_readiness": {
+    "status": "OWNER_MVP_MERGE_AND_CLOSURE_AUTHORIZED_WITH_DISCLOSED_DEFERRED_QA",
+    "source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+    "owner_report": "43_M_PASS_BY_OWNER_GLOBAL_ATTESTATION_2_M_BLOCKED_VOICE_THREE_FIXES_PASS_BY_OWNER_ATTESTATION",
+    "technical_case_results": "T01_T15_NOT_RUN",
+    "original_acceptance": "AC01_AC12_UNVERIFIED",
+    "github_issue": "OPEN",
+    "next_action": "CREATE_PR_MERGE_CLOSE_ISSUE_AS_OWNER_ACCEPTED_WITH_EVIDENCE_EXCEPTIONS",
+    "ci_tests": "ZERO",
+    "artifact_retention": "14_DAYS_GITHUB_ARTIFACT"
+  },
+  "previous_apk": {
+    "built": true,
+    "source_commit": "2951647da5a995f7e28fa2b9dfc89c596697715e",
+    "sha256": "20259add73fcbe06db50dd65f4e440b4cdce823f28f12d50d6f7f86cbd80f19b",
+    "build_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648",
+    "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648/artifacts/12554742975",
+    "install_verified": false,
+    "artifact_id": 12554742975,
+    "file_name": "app-debug.apk",
+    "size_bytes": 36691339,
+    "checksum_verified": true,
+    "expiration": "2026-11-07T08:58:07Z"
+  },
+  "owner_reported_regressions": {
+    "updated_on": "2026-10-24",
+    "owner_summary": "User reports all observed phone checks passed except: (1) Android media notification Play does not work while Pause/Next/Previous do; (2) tapping Android media card does not open app; (3) AirPods media Play does not work while volume and Pause do.",
+    "source_scope": "ONLY scoped playback focus route Play admission, MediaSession notification launch, transport comments and 3 authored-not-run regression tests; APK request marker updated for owner-authorized rebuild",
+    "fixes": [
+      {
+        "id": "R01",
+        "issue": "Android notification Player Play fails",
+        "implementation": "PlaybackInterruptionGate.mayAdmitExternalPlayAttempt and MusicPlaybackService.configureSystemPlaySafety + queued command admission guard; external Play after manual Pause admitted while route-loss and Bluetooth connection quarantine remain protected",
+        "owner_retest": "PASS",
+        "provenance": {
+          "source": "OWNER_SELF_REPORT_IN_CHAT",
+          "date": "2026-10-24",
+          "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+          "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+          "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+          "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+          "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+        },
+        "notes": "Owner reports all Issue #8 tests now pass after revised APK; no screenshot or per-control log was submitted."
+      },
+      {
+        "id": "R02",
+        "issue": "Tapping Android media notification/card does not open app",
+        "implementation": "MusicPlaybackService MediaSession.Builder.setSessionActivity with immutable explicit MainActivity PendingIntent and task reuse flags",
+        "owner_retest": "PASS",
+        "provenance": {
+          "source": "OWNER_SELF_REPORT_IN_CHAT",
+          "date": "2026-10-24",
+          "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+          "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+          "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+          "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+          "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+        },
+        "notes": "Owner reports all Issue #8 tests now pass after revised APK; no screenshot or per-control log was submitted."
+      },
+      {
+        "id": "R03",
+        "issue": "AirPods physical Play after Pause fails",
+        "implementation": "Same MediaSession external Play transport route as R01; no duplicate Player; route reconnect remains fail-closed",
+        "owner_retest": "PASS",
+        "provenance": {
+          "source": "OWNER_SELF_REPORT_IN_CHAT",
+          "date": "2026-10-24",
+          "statement_fa": "خب الان کل تست های issue 8 پاس شدند در گیت هاب ثبت کن و merge انجام بده و کلا این issue رو نهایی کن و ببند",
+          "artifact_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+          "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+          "device_evidence": "Owner-reported handset testing; no logs/screenshots, per-case evidence, Android API record or second OEM supplied on this turn",
+          "limitation": "User assertion, NOT independently replayed or machine-verified; conditional/no-hardware cases not separately distinguished by owner"
+        },
+        "notes": "Owner reports all Issue #8 tests now pass after revised APK; no screenshot or per-control log was submitted."
+      }
+    ],
+    "source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+    "build_run_id": 40086837929,
+    "build_result": "SUCCESS_BUILD_ONLY_NO_TESTS",
+    "artifact_id": 12557347787,
+    "apk_sha256": "318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c",
+    "apk_byte_size": 36691339,
+    "zip_integrity": "PASS",
+    "apk_integrity": "PASS",
+    "extracted_apk_hash_matches_github_build": "PASS",
+    "owner_report_summary_only": true,
+    "explicit_individual_M_statuses_recorded": true,
+    "three_targeted_jvm_regression_tests": "AUTHORED_NOT_EXECUTED",
+    "technical_T_results": "UNCHANGED_NOT_RUN",
+    "acceptance_AC_results": "UNCHANGED_UNVERIFIED",
+    "owner_phone_retest": "R01_R02_R03_PASS_OWNER_ATTESTED",
+    "note": "Owner's global attestation recorded as 43 PASS phone cases excluding unavailable Voice M44/M45 BLOCKED; no false independent execution, no T runs.",
+    "owner_summary_after_rebuild": "Owner says all Issue #8 phone tests PASS and explicitly requests merge and closure; mark R01–R03 PASS by self-report, distinguish 2 unavailable Voice and 15 technical NOT_RUN."
+  },
+  "owner_final_acceptance": {
+    "date": "2026-10-24",
+    "by": "project owner via conversation",
+    "request": "Register all tests as passed; merge and finalize/close Issue #8",
+    "accepted_scope": "MVP implementation and owner-observed handset scenarios on P13 updated APK",
+    "phone_status_count": {
+      "PASS_OWNER_ATTESTED": 43,
+      "BLOCKED_UNAVAILABLE_VOICE": 2
+    },
+    "repaired_external_controls": {
+      "Android_media_Play": "PASS_OWNER_ATTESTED",
+      "Android_card_opens_app": "PASS_OWNER_ATTESTED",
+      "AirPods_Play": "PASS_OWNER_ATTESTED"
+    },
+    "deferred": {
+      "technical_automated_and_oem": "T01_T15_NOT_RUN",
+      "acceptance": "AC01_AC12_UNVERIFIED_AS_FORMAL_FULL_MATRIX",
+      "Voice": "M44_M45_BLOCKED_PENDING_LIVE_VOICE_ISSUES_9_10",
+      "multiOEM": "NOT_RUN",
+      "three_parked_vehicles": "NOT_RUN"
+    },
+    "decision": "MERGE_AND_CLOSE_IMPLEMENTATION_ISSUE_WITH_DECLARED_EXCEPTIONS_NOT_FULL_QA_SIGNOFF",
+    "independent_review": "NOT_RUN"
+  }
+}

@@ -56,17 +56,22 @@ class Issue7Phase12IntegratedBoundaryContractTest {
 
     @Test fun mediaStoreQueuePreparationRespectsNewerCommandReceipts() {
         val service = code("playback/service/MusicPlaybackService.kt")
-        assertTrue(service.contains("val commandEpoch = ++restoreGeneration"))
+        // P07 stamps the ORIGINAL receive-time generation, never dispatch.
+        assertTrue(service.contains("val commandEpoch = restoreGeneration"))
+        assertTrue(service.contains("processor.configureReceiptSafety("))
+        assertTrue(service.contains("receipt.commandGeneration == restoreGeneration"))
         assertTrue(service.contains("commandEpoch != restoreGeneration"))
         assertTrue(service.contains("routeAtStart = interruptionGate.routeGeneration"))
-        assertTrue(service.contains("++recoveryGeneration"))
+        assertTrue(service.contains("recoveryGeneration"))
     }
 
     @Test fun serviceOwnedFocusNoisyAndRouteLossRemainActive() {
         val service = code("playback/service/MusicPlaybackService.kt")
         assertTrue(service.contains("setHandleAudioBecomingNoisy(true)"))
         assertTrue(service.contains("interruptionGate.onHeadsetOrBluetoothLost()"))
-        assertTrue(service.contains("ServiceAudioRouteMonitor(this)"))
+        // P05/P06 now supply Main-looper named callbacks.
+        assertTrue(service.contains("ServiceAudioRouteMonitor("))
+        assertTrue(service.contains("onPersonalOutputDisconnected ="))
         assertTrue(service.contains("candidate.setAudioAttributes("))
     }
 

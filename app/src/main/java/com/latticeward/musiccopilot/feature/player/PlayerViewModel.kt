@@ -39,7 +39,10 @@ data class PlayerUiState(
     val hasTrack: Boolean get() = snapshot.currentItem != null
     val ready: Boolean get() = connection == PlaybackConnectionState.Ready
     val canControl: Boolean get() = ready && hasTrack && !pending
-    val isPlaying: Boolean get() = snapshot.playbackState == PlaybackState.Playing
+    // An old cached Playing snapshot while a MediaController is disconnected
+    // is NOT evidence of currently audible playback. Mini/Full and future
+    // Driving share this same connection-gated presentation projection.
+    val isPlaying: Boolean get() = ready && snapshot.playbackState == PlaybackState.Playing
 }
 
 class PlayerViewModel(
@@ -55,7 +58,11 @@ class PlayerViewModel(
     init {
         viewModelScope.launch {
             gateway.connectionState.collect { status ->
+                // The relay publishes the complete Snapshot BEFORE Ready,
+                // but collectors run on independent coroutine schedules.
+                // Always read its latest value together with the new status.
                 mutable.value = mutable.value.copy(
+                    snapshot = gateway.snapshot.value,
                     connection = status,
                     // Do not retain a misleading transient command failure
                     // during a new controller connection.
@@ -65,8 +72,12 @@ class PlayerViewModel(
             }
         }
         viewModelScope.launch {
-            gateway.snapshot.collect { confirmed ->
+            gateway.snapshot.collect {
+                // A queued flow emission may be older than a focus/route
+                // update delivered while this collector was suspended.
+                val confirmed = gateway.snapshot.value
                 mutable.value = mutable.value.copy(
+                    connection = gateway.connectionState.value,
                     snapshot = confirmed,
                     // A recovered successor may carry a brief MediaItem
                     // notice while actually Playing. That is NOT a failed
@@ -101,18 +112,25 @@ class PlayerViewModel(
     private fun submit(make: (CommandId) -> PlaybackCommand) {
         if (!mutable.value.canControl) return
         val command = make(CommandId("player-ui-${UUID.randomUUID()}"))
+        val acceptedRevision = mutable.value.snapshot.revision
         mutable.value = mutable.value.copy(pending = true, requestFailed = false)
         viewModelScope.launch {
             try {
                 val result = gateway.execute(command)
-                // No optimistic service snapshot; collector is sole authority.
-                if (result is AppResult.Failure) {
+                // An old failed request is not allowed to show a new error
+                // over a newer authoritative focus/route snapshot.
+                if (result is AppResult.Failure &&
+                    mutable.value.ready &&
+                    mutable.value.snapshot.revision == acceptedRevision
+                ) {
                     mutable.value = mutable.value.copy(requestFailed = true)
                 }
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
-                mutable.value = mutable.value.copy(requestFailed = true)
+                if (mutable.value.ready &&
+                    mutable.value.snapshot.revision == acceptedRevision
+                ) mutable.value = mutable.value.copy(requestFailed = true)
             } finally {
                 mutable.value = mutable.value.copy(pending = false)
             }
