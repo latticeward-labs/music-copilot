@@ -1,6 +1,7 @@
 package com.latticeward.musiccopilot.playback.service
 
 import android.media.AudioDeviceInfo
+import android.os.Build
 import androidx.media3.common.Player
 
 /**
@@ -112,20 +113,31 @@ internal class PlaybackInterruptionGate {
             AudioDeviceInfo.TYPE_USB_HEADSET,
             AudioDeviceInfo.TYPE_USB_DEVICE,
             AudioDeviceInfo.TYPE_USB_ACCESSORY,
-            AudioDeviceInfo.TYPE_HEARING_AID,
-            AudioDeviceInfo.TYPE_BLE_HEADSET,
-            AudioDeviceInfo.TYPE_BLE_SPEAKER -> true
-            else -> false
+            AudioDeviceInfo.TYPE_HEARING_AID -> true
+            else -> isBleOutputOnApi31Plus(type)
         }
 
         /** Public Bluetooth output category only; no device/address/route ID. */
         fun isBluetoothOutput(type: Int): Boolean = when (type) {
             AudioDeviceInfo.TYPE_BLUETOOTH_A2DP,
             AudioDeviceInfo.TYPE_BLUETOOTH_SCO,
-            AudioDeviceInfo.TYPE_HEARING_AID,
-            AudioDeviceInfo.TYPE_BLE_HEADSET,
-            AudioDeviceInfo.TYPE_BLE_SPEAKER -> true
-            else -> false
+            AudioDeviceInfo.TYPE_HEARING_AID -> true
+            else -> isBleOutputOnApi31Plus(type)
+        }
+
+        /**
+         * BLE headset/speaker device categories were added in Android 12
+         * (API 31), while minSdk is 29. Keep every API31 field access behind
+         * an explicit runtime version gate for Android 10/11 and strict lint.
+         * An unknown future device category is NOT evidence of a safe route.
+         */
+        private fun isBleOutputOnApi31Plus(type: Int): Boolean {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return false
+            return when (type) {
+                AudioDeviceInfo.TYPE_BLE_HEADSET,
+                AudioDeviceInfo.TYPE_BLE_SPEAKER -> true
+                else -> false
+            }
         }
 
         fun isNoisyChangeReason(reason: Int): Boolean =
