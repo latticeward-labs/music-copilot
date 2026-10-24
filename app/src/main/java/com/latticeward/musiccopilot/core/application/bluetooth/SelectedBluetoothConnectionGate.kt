@@ -81,8 +81,16 @@ class SelectedBluetoothConnectionGate {
         ) {
             eventCounter++
         }
-        knownDisconnected = if (connected) false
-            else status == SelectedAudioConnectionStatus.Disconnected
+        // A proxy handoff may temporarily report WaitingForProfiles after a
+        // *confirmed* disconnection. Do not lose that observed negative edge:
+        // an ensuing fresh connected-profile callback should remain eligible.
+        // Revoke the baseline on permission/radio/device/storage failures.
+        knownDisconnected = when {
+            connected -> false
+            status == SelectedAudioConnectionStatus.Disconnected -> true
+            status == SelectedAudioConnectionStatus.WaitingForProfiles -> knownDisconnected
+            else -> false
+        }
 
         current = SelectedAudioConnectionState(
             status = status,
