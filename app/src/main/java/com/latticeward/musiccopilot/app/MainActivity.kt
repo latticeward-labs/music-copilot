@@ -131,7 +131,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun onDrivingMicPermissionDismiss() {
-        // Never persist/replay a blocked capture intent after leaving Driving.
+        // Do not touch an unrelated onboarding permission/education gate.
+        if (!drivingMicPermissionOrigin &&
+            drivingMicUi.value == VoicePracticeStage.Idle) return
         drivingMicPermissionOrigin = false
         drivingMicUi.value = VoicePracticeStage.Idle
         voicePracticeGate.manualOnly()
@@ -439,6 +441,12 @@ class MainActivity : ComponentActivity() {
                 localVoiceProviderAvailable = micGranted &&
                     bindings.onDeviceVoicePracticeCapability() ==
                         VoiceProviderCapability.OnDeviceAvailable,
+                freshCanStartDrivingVoice = {
+                    checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) ==
+                        PackageManager.PERMISSION_GRANTED &&
+                        bindings.onDeviceVoicePracticeCapability() ==
+                            VoiceProviderCapability.OnDeviceAvailable
+                },
                 drivingMicPermissionStage = drivingMicStage,
                 onDrivingMicPermissionTap = ::onDrivingMicPermissionTap,
                 onDrivingMicPermissionContinue = ::onDrivingMicPermissionContinue,
