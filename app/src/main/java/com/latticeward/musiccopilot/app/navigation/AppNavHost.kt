@@ -3,12 +3,6 @@ package com.latticeward.musiccopilot.app.navigation
 import androidx.activity.compose.BackHandler
 import android.os.SystemClock
 import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Alignment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberUpdatedState
 import kotlinx.coroutines.flow.collect
 import androidx.lifecycle.ViewModel
@@ -16,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
@@ -32,14 +25,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import android.os.SystemClock
-import kotlinx.coroutines.flow.collect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -74,12 +64,6 @@ import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
 import com.latticeward.musiccopilot.app.platform.bluetooth.AndroidPairedAudioDeviceSource
 import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
-import com.latticeward.musiccopilot.core.application.bluetooth.SelectedAudioConnectionState
-import com.latticeward.musiccopilot.feature.driving.BluetoothEntrySuggestionBanner
-import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
-import com.latticeward.musiccopilot.core.application.bluetooth.VerifiedAudioReconnectEvent
-import com.latticeward.musiccopilot.core.application.bluetooth.BluetoothEntrySuggestionPolicy
-import com.latticeward.musiccopilot.core.application.bluetooth.BluetoothEntrySuggestionState
 import com.latticeward.musiccopilot.core.application.bluetooth.SelectedAudioConnectionState
 import com.latticeward.musiccopilot.feature.driving.BluetoothEntrySuggestionBanner
 import com.latticeward.musiccopilot.feature.settings.bluetooth.BluetoothSelectionViewModel
@@ -121,7 +105,6 @@ fun AppNavHost(
     selectedBluetoothConnection: SelectedBluetoothConnectionCoordinator? = null,
     onRequestBluetoothConnectPermission: () -> Unit = {},
     onOpenBluetoothPermissionSettings: () -> Unit = {},
-    selectedBluetoothConnection: SelectedBluetoothConnectionCoordinator? = null,
     freshBluetoothConnectPermission: () -> Boolean = { false },
     onRetry: () -> Unit,
     onRefreshPermission: () -> Unit,
@@ -259,99 +242,6 @@ fun AppNavHost(
             Destination.Search
         else -> Destination.Library
     }
-    // P11 suggestions are one-use, transient and never SavedState-restored.
-    // Activity foreground/profile listener is P10. P11 only observes its
-    // verified event stream while STARTED; no background app surface is made.
-    val lifecycleOwner = LocalLifecycleOwner.current
-    var btOffer by remember { mutableStateOf(BluetoothEntrySuggestionState()) }
-    val liveConnection = selectedBluetoothConnection?.state
-        ?.collectAsStateWithLifecycle()?.value ?: SelectedAudioConnectionState()
-    val uiForeground = selectedBluetoothConnection?.uiForeground
-        ?.collectAsStateWithLifecycle()?.value ?: false
-    val selectionEpoch = selectedBluetoothConnection?.currentSelectionEpoch ?: -1L
-    val canShowBluetoothOffer = selectedBluetoothConnection != null &&
-        uiForeground && bluetoothConnectGranted &&
-        bluetoothStorageState == PreferencesLoadState.Ready &&
-        storedBluetoothPreferences.selectedBluetoothHint != null &&
-        actualRoute == BootstrapRoute.HomeLibrary &&
-        permission == PermissionStatus.Granted &&
-        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
-        !settingsOpen && !searchOpen && !replayingEducation &&
-        !drivingNavigation.state.active &&
-        voiceSessionState == VoiceSessionState.Idle &&
-        drivingMicPermissionStage == VoicePracticeStage.Idle &&
-        (target == Destination.Library || target == Destination.FullPlayer)
-
-    val onVerifiedBluetoothReconnect by rememberUpdatedState<
-        (VerifiedAudioReconnectEvent) -> Unit
-    >(newValue = { event ->
-        // Ignore all events received on the wrong surface, after a changed
-        // preference or from a lifecycle/permission-stale Android callback.
-        val validAtReceipt = canShowBluetoothOffer &&
-            selectedBluetoothConnection?.isUnclaimedOfferCurrent(event) == true
-        btOffer = BluetoothEntrySuggestionPolicy.onVerifiedReconnect(
-            old = btOffer,
-            event = event,
-            evidence = selectedBluetoothConnection?.state?.value
-                ?: SelectedAudioConnectionState(),
-            currentSelectionEpoch = selectedBluetoothConnection?.currentSelectionEpoch ?: -1L,
-            surfaceAllowed = validAtReceipt,
-            elapsedMs = SystemClock.elapsedRealtime(),
-        )
-    })
-    LaunchedEffect(selectedBluetoothConnection, lifecycleOwner) {
-        // No event replay or collector when app is in background.
-        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            selectedBluetoothConnection?.verifiedReconnects?.collect { event ->
-                onVerifiedBluetoothReconnect(event)
-            }
-        }
-    }
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP) {
-                btOffer = BluetoothEntrySuggestionPolicy.invalidate(btOffer)
-            }
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
-    }
-    LaunchedEffect(canShowBluetoothOffer, liveConnection, selectionEpoch) {
-        // Clear immediately on route/selection/connection/permission changes.
-        btOffer = BluetoothEntrySuggestionPolicy.reconcile(
-            old = btOffer,
-            evidence = liveConnection,
-            currentSelectionEpoch = selectionEpoch,
-            surfaceAllowed = canShowBluetoothOffer,
-        )
-    }
-    val visibleBluetoothOffer = btOffer.pending?.takeIf { event ->
-        canShowBluetoothOffer &&
-            selectedBluetoothConnection?.isUnclaimedOfferCurrent(event) == true
-    }
-    val notNowBluetooth: () -> Unit = {
-        btOffer = BluetoothEntrySuggestionPolicy.notNow(
-            btOffer, SystemClock.elapsedRealtime()
-        )
-    }
-    val enterBluetoothDriving: () -> Unit = {
-        val event = btOffer.pending
-        val origin = if (playerOpen) Destination.FullPlayer else Destination.Library
-        // A click can occur after OS permission is revoked or a disconnect.
-        // Recheck source, route, full priority stack and one-use event now.
-        if (event != null && canShowBluetoothOffer &&
-            (origin == Destination.Library || origin == Destination.FullPlayer) &&
-            selectedBluetoothConnection?.claimOffer(event) == true
-        ) {
-            drivingNavigation.enterFrom(origin, allowedByAppRoute = true)
-            btOffer = BluetoothEntrySuggestionPolicy.accepted(btOffer)
-        } else {
-            btOffer = BluetoothEntrySuggestionPolicy.invalidate(btOffer)
-        }
-        // Critically: no mediaPlay, voice start, BT connect, player/queue
-        // command, notification or background Activity launch.
-    }
-
     // Only the existing Library and Full Player can host a small, nonmodal
     // invitation. No Search/Settings/permission/onboarding/Driving overlay.
     val invitationSurfaceAllowed =
@@ -443,7 +333,6 @@ fun AppNavHost(
             }
         }
     }
-    Box(modifier = Modifier.fillMaxSize()) {
     NavHost(navController = navController, startDestination = Destination.Bootstrap.route) {
         composable(Destination.Bootstrap.route) {
             if (route == BootstrapRoute.RetryStartup) {
@@ -799,23 +688,6 @@ fun AppNavHost(
             )
         }
     }
-    if (visibleBluetoothOffer != null) {
-        // In-route, nonmodal, no extra NavHost route, no system notification.
-        // Underlying screen remains available outside this compact banner.
-        BluetoothEntrySuggestionBanner(
-            onEnter = enterBluetoothDriving,
-            onNotNow = notNowBluetooth,
-            modifier = Modifier.align(Alignment.BottomCenter)
-                .safeDrawingPadding()
-                .padding(MusicSpacing.mdDp),
-        )
-    }
-    // Back dismisses this optional invitation instead of leaving the
-    // current manual music screen. No player action accompanies Back.
-    BackHandler(enabled = visibleBluetoothOffer != null) {
-        notNowBluetooth()
-    }
-    } // Root Box enclosing existing NavHost and optional P1 banner
 }
 
 @Composable
