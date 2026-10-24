@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P08_ACCESSIBILITY_SCALE_FOCUS_SOURCE_COMPLETE_P09_NEXT",
+  "status": "P09_OPTIONAL_BLUETOOTH_SETTINGS_SOURCE_COMPLETE_P10_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -15,7 +15,7 @@
     "P06": "PASS_SCOPED_SHARED_VM_SERVICE_ACK_SOURCE_23_JUNIT_AUTHORED_NOT_RUN",
     "P07": "PASS_SCOPED_MIC_VOICE_HANDOFF_SOURCE_19_JUNIT_AUTHORED_NOT_RUN",
     "P08": "PASS_SCOPED_ACCESSIBILITY_SOURCE_11_COMPOSE_TESTS_AUTHORED_NOT_RUN",
-    "P09": "PLANNED_NOT_EXECUTED",
+    "P09": "PASS_SCOPED_BLUETOOTH_SETTINGS_SOURCE_18_JUNIT_AUTHORED_NOT_RUN",
     "P10": "PLANNED_NOT_EXECUTED",
     "P11": "PLANNED_NOT_EXECUTED",
     "P12": "PLANNED_NOT_EXECUTED",
@@ -130,6 +130,9 @@
     "P07 19 JUnit policy methods authored, zero executed; cumulative P02/P03/P05/P06/P07 96 authored, 0 run. No Gradle/Android/CI/Actions/Lint/device or APK; 14 AC NOT_VERIFIED, 46 M NOT_RUN and 5 technical groups NOT_RUN.",
     "P08: fixed immediate Exit outside scrolling content at 200% text; TalkBack ordered heading/Exit/state/metadata/actions/Mic and explicit spoken labels/stable disabled reason, polite state/error copy, metadata grouped but actions separate; decorative artwork skipped by accessibility; keyboard focus outline/Voice-overlay focus restoration. 64dp transports/72dp Mic/56dp Exit+Voice actions; 4-to-2x2 control reflow and scaled artwork.",
     "P08: 11 Compose androidTest accessibility methods authored, 0 executed. These are instrumentation test sources, not an additional integrated APK or device/emulator execution. Real TalkBack speech, large-font clipping, contrast/keyboard focus and OEM/vehicle behavior remain NOT_VERIFIED for user P13 M27-M32.",
-    "P08: no Gradle, Java/Kotlin compile, JUnit, Compose tests, lint, Actions, emulator, APK, owner phone or car tests performed. All 14 product AC NOT_VERIFIED, M01–M46 NOT_RUN, five technical groups NOT_RUN, APK NOT_BUILT; Issue open/PR absent."
+    "P08: no Gradle, Java/Kotlin compile, JUnit, Compose tests, lint, Actions, emulator, APK, owner phone or car tests performed. All 14 product AC NOT_VERIFIED, M01–M46 NOT_RUN, five technical groups NOT_RUN, APK NOT_BUILT; Issue open/PR absent.",
+    "P09: same WF-10 Settings route now includes optional Bluetooth section. User explicitly opens paired eligible AUDIO_VIDEO output device list, stages one, Saves/Removes through existing local PreferencesRepository.SetBluetoothHint DataStore ACK. Saved identity uses salted SHA-256 opaque v1 token; no raw MAC/name persisted and invalid legacy hints are not trusted.",
+    "P09: Android 10/11 legacy BLUETOOTH and Android 12+ explicit BLUETOOTH_CONNECT runtime permission with fresh OS read, rationale and manual app-Settings recovery; no scan/location/auto pair/connect, auto-Driving, autoplay or mic. OS results/onResume never auto-enumerate. Save rechecks pairing and permission; failures retain prior preference. Remove works with BT off/revoked.",
+    "P09: 18 pure JUnit methods authored 0 executed; cumulative prior source tests (96 JVM +11 Compose) +18 = 125 authored, 0 executed. 14 original AC NOT_VERIFIED; M01–M46 NOT_RUN, five technical groups NOT_RUN; APK NOT_BUILT; no GitHub Actions, Gradle, PR, merge or close."
   ]
 }
