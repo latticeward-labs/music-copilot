@@ -139,10 +139,13 @@ fun AppNavHost(
     } else route
     // System/permission and first-use routes always override a Driving session.
     // The Voice overlay is deliberately not a NavHost destination.
-    LaunchedEffect(actualRoute, mediaRequestUi.outcome, replayingEducation) {
+    LaunchedEffect(
+        actualRoute, mediaRequestUi.outcome, replayingEducation, settingsOpen, permission,
+    ) {
         if (actualRoute != BootstrapRoute.HomeLibrary ||
             mediaRequestUi.outcome != MediaPermissionOutcome.None ||
-            replayingEducation
+            replayingEducation || settingsOpen ||
+            permission != PermissionStatus.Granted
         ) drivingNavigation.clearForSystemBoundary()
     }
     val target = when {
@@ -339,8 +342,18 @@ fun AppNavHost(
             )
             // Both Exit and Android Back have the same navigation-only result.
             // Exit never stops/pauses playback or executes a transport command.
-            val exitDriving = { drivingNavigation.exit() }
-            BackHandler(onBack = { exitDriving() })
+            val exitDriving: () -> Unit = {
+                val origin = drivingNavigation.exit()
+                // Explicitly restore the recorded, non-Driving origin, rather
+                // than trusting independently changing Player UI flags.
+                if (actualRoute == BootstrapRoute.HomeLibrary &&
+                    mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                    permission == PermissionStatus.Granted
+                ) {
+                    playerOpen = origin == Destination.FullPlayer
+                }
+            }
+            BackHandler(onBack = exitDriving)
             val stateName = when (projected.view) {
                 DrivingViewState.Playing -> stringResource(R.string.i9_driving_state_playing)
                 DrivingViewState.Paused -> stringResource(R.string.i9_driving_state_paused)
@@ -352,7 +365,7 @@ fun AppNavHost(
                 title = stringResource(R.string.i9_driving_heading),
                 message = stringResource(R.string.i9_driving_nav_pending, stateName),
                 primary = stringResource(R.string.i9_exit_driving),
-                onPrimary = { exitDriving() },
+                onPrimary = exitDriving,
             )
         }
         composable(Destination.Settings.route) {
