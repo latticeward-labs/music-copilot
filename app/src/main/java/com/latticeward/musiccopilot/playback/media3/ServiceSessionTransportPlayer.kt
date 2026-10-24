@@ -25,7 +25,8 @@ class ServiceSessionTransportPlayer(
     private var nextId: Long = 0L
 
     // Exactly one Main-thread service owner installs these before the session
-    // is created. Fail closed if Play arrives before configuration.
+    // is created. The gate excludes disconnected/reconnected BT and unsafe
+    // focus, but a user's previous Pause cannot permanently block new Play.
     private var canAcceptExternalPlay: (() -> Boolean)? = null
     private var currentRouteGeneration: (() -> Long)? = null
 
@@ -42,9 +43,9 @@ class ServiceSessionTransportPlayer(
     private fun forward(action: SystemTransportPolicy.Action, positionMs: Long = 0L) {
         val translated = SystemTransportPolicy.translate(action, id(), positionMs) ?: return
         if (translated is PlaybackCommand.Play) {
-            // Android/AVRCP supplies no trustworthy user-intent bit. A Play
-            // arriving during an interrupted route is indistinguishable from
-            // auto-Play-on-reconnect; fail closed rather than clear its latch.
+            // Android/AVRCP supplies no trustworthy user-intent bit.
+            // Keep unsafe route/reconnect quarantine, but allow a fresh Play
+            // after an ordinary manual Pause while the route stayed valid.
             val epoch = currentRouteGeneration?.invoke() ?: return
             if (canAcceptExternalPlay?.invoke() != true) return
             submit(
