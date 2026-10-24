@@ -34,6 +34,7 @@ class Issue9Phase6DrivingCommandAdmissionTest {
         previous: Boolean = true,
         next: Boolean = true,
         seek: Boolean = true,
+        lastError: com.latticeward.musiccopilot.core.result.AppError? = null,
     ): PlaybackSnapshot = PlaybackSnapshot(
         revision = revision,
         queueRevision = queueRevision,
@@ -46,6 +47,7 @@ class Issue9Phase6DrivingCommandAdmissionTest {
         canSeek = seek,
         canSkipPrevious = previous,
         canSkipNext = next,
+        lastError = lastError,
     )
 
     private fun command(
@@ -98,7 +100,7 @@ class Issue9Phase6DrivingCommandAdmissionTest {
             command(shown = atZero, action = DrivingAction.SeekBack))
     }
 
-    @Test fun requestPendingRejectsReentrantTapBeforeGeneratingSecondCommand() {
+    @Test fun requestPendingRejectsReentrantTapBeforeServiceDispatch() {
         assertNull(command(pending = true))
     }
 
@@ -183,5 +185,22 @@ class Issue9Phase6DrivingCommandAdmissionTest {
         val s = snapshot()
         assertEquals(PlaybackCommand.Next(cmdId),
             command(shown = s, latest = s, action = DrivingAction.Next))
+    }
+
+    @Test fun changedQueueContentsAreRejectedEvenIfRevisionWasNotBumped() {
+        val shown = snapshot()
+        val latest = snapshot(queue = listOf(a, MediaRef("audio:999")))
+        assertNull(command(shown = shown, latest = latest,
+            action = DrivingAction.Next))
+    }
+
+    @Test fun routeInterruptionErrorChangeIsRejectedEvenWithSameRevision() {
+        val shown = snapshot()
+        val interrupted = snapshot(lastError = com.latticeward.musiccopilot.core.result.AppError.Interruption(
+            code = com.latticeward.musiccopilot.core.result.AppErrorCodes.ROUTE_INVALIDATED,
+            recoverability = com.latticeward.musiccopilot.core.result.Recoverability.USER_ACTION_REQUIRED,
+            recoveryAction = com.latticeward.musiccopilot.core.result.RecoveryAction.ManualResume,
+        ))
+        assertNull(command(shown = shown, latest = interrupted))
     }
 }
