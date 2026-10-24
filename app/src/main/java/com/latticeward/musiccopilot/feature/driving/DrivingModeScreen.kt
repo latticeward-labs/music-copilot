@@ -48,6 +48,7 @@ import com.latticeward.musiccopilot.core.model.MediaRef
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.data.api.LibraryItem
 import com.latticeward.musiccopilot.data.api.LibraryRepository
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -83,9 +84,17 @@ fun DrivingModeScreen(
     ) {
         value = null
         if (safeRef != null) {
-            val result = withContext(Dispatchers.IO) { library.get(safeRef) }
-            value = if (result is AppResult.Success && result.value.ref == safeRef)
-                DrivingResolvedMetadata(safeRef, result.value) else null
+            try {
+                val result = withContext(Dispatchers.IO) { library.get(safeRef) }
+                value = if (result is AppResult.Success && result.value.ref == safeRef)
+                    DrivingResolvedMetadata(safeRef, result.value) else null
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                // Metadata is display-only. A revoked/stale local lookup must
+                // not crash Driving, leak a path or invent a playing item.
+                value = null
+            }
         }
     }
     // A cancelled old lookup or a permission revocation cannot reattach stale
