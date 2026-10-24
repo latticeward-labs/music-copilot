@@ -1,6 +1,6 @@
-# Issue #9 — FINAL P13 owner-phone QA checklist (PREPARED; NOT EXECUTED)
+# Issue #9 — P13 owner-phone QA results (45 PASS; M45 deferred to Issue #10)
 
-> **Status:** DRAFT FOR FINAL CUMULATIVE APK HANDOFF; **ALL 46 CASES = NOT_RUN** as of 2026-10-24. NO APK built in planning/P00–P12. Do not tick PASS until the owner personally reports actual observation on a specifically fingerprinted P13 APK.
+> **Owner-reported closeout (2026-10-25):** **M01–M44 and M46 = PASS** (45 user-reported cases); **M45 = BLOCKED/DEFERRED TO ISSUE #10** (real Voice/STT NEXT). Owner reported all cases except M45 passing after M35 repair. Result was reported as one batch; no per-case screenshots/logs or independently checked on-device APK fingerprint were provided. The successful replacement build is GitHub Actions #40140441123, source `63618d3aefaa5629f514843f38df49f1972f1bbd`, APK SHA-256 `3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be`. This checksum identifies the delivered build, not a cryptographically proven phone install. Automated JVM/Compose/Lint and additional OEM vehicle-device matrix remain NOT_RUN; user authorizes PR/merge/Issue #9 closeout with these explicitly tracked deferrals.
 > Linked plan: [Issue #9 executable phases](ISSUE_9_PHASED_EXECUTION_PLAN.md). Issue: https://github.com/latticeward-labs/music-copilot/issues/9.
 
 ## How the owner will use this list (after P13 only)
@@ -17,77 +17,77 @@
 
 | ID | Action / condition | Expected observation | Status |
 |---|---|---|---|
-| **M01** | From Home/Library with a track playing, tap Enter Driving | Driving one-layer screen opens with current track; nothing restarts | NOT_RUN |
-| **M02** | From Full Player, enter Driving, then Exit | Immediate return to Full Player with same service queue/playback | NOT_RUN |
-| **M03** | From Home/Library, enter Driving then Android Back | Back acts exactly like Exit; returns to latest non-driving screen | NOT_RUN |
-| **M04** | On a Playing track, inspect metadata, artwork and state label | Actual title/artist/artwork or safe placeholders; Playing reflects service | NOT_RUN |
-| **M05** | Pause before entry and inspect Driving | Paused plus Play action, without fake Playing or autoplay | NOT_RUN |
-| **M06** | Enter with no playable/current track | No Track and truthful explanation, not a fabricated song | NOT_RUN |
-| **M07** | Inspect controls with no track or unavailable controller | Unavailable commands disabled/explained; no crash | NOT_RUN |
-| **M08** | With No Track, inspect absence of unverified Play Last and tap Exit | No saved/unverified track playback; Exit to Home/Library without changing queue | NOT_RUN |
+| **M01** | From Home/Library with a track playing, tap Enter Driving | Driving one-layer screen opens with current track; nothing restarts | PASS (owner report) |
+| **M02** | From Full Player, enter Driving, then Exit | Immediate return to Full Player with same service queue/playback | PASS (owner report) |
+| **M03** | From Home/Library, enter Driving then Android Back | Back acts exactly like Exit; returns to latest non-driving screen | PASS (owner report) |
+| **M04** | On a Playing track, inspect metadata, artwork and state label | Actual title/artist/artwork or safe placeholders; Playing reflects service | PASS (owner report) |
+| **M05** | Pause before entry and inspect Driving | Paused plus Play action, without fake Playing or autoplay | PASS (owner report) |
+| **M06** | Enter with no playable/current track | No Track and truthful explanation, not a fabricated song | PASS (owner report) |
+| **M07** | Inspect controls with no track or unavailable controller | Unavailable commands disabled/explained; no crash | PASS (owner report) |
+| **M08** | With No Track, inspect absence of unverified Play Last and tap Exit | No saved/unverified track playback; Exit to Home/Library without changing queue | PASS (owner report) |
 
 ### B. Manual transport/service parity
 
 | ID | Action / condition | Expected observation | Status |
 |---|---|---|---|
-| **M09** | Tap Play/Pause inside Driving | Actual sound and screen/service media card converge; one state change | NOT_RUN |
-| **M10** | Tap Previous | Queue previous-policy honored once; metadata synchronized | NOT_RUN |
-| **M11** | Tap Next | Next local item once; no duplicate queue or service | NOT_RUN |
-| **M12** | Tap Seek back | Position goes backwards by approved fixed interval; clamps at zero | NOT_RUN |
-| **M13** | Try Previous/Next at queue beginning/end | Bounded correct service behavior, no invalid index or crash | NOT_RUN |
-| **M14** | Tap transport quickly multiple times | No duplicate/unintended command receipts or false optimistic state | NOT_RUN |
-| **M15** | With an unavailable/stale track or controller issue | Readable error/recovery; no false success or service ownership leak | NOT_RUN |
-| **M16** | Inspect/tap separate large Mic | Visible and accessible; handoff only to real approved Voice readiness, otherwise honest unavailable/manual fallback; do NOT mark live STT PASS if #10 incomplete | NOT_RUN |
-| **M17** | Exit during active Playing | Exits immediately; audio continues and standard manual UI remains usable | NOT_RUN |
+| **M09** | Tap Play/Pause inside Driving | Actual sound and screen/service media card converge; one state change | PASS (owner report) |
+| **M10** | Tap Previous | Queue previous-policy honored once; metadata synchronized | PASS (owner report) |
+| **M11** | Tap Next | Next local item once; no duplicate queue or service | PASS (owner report) |
+| **M12** | Tap Seek back | Position goes backwards by approved fixed interval; clamps at zero | PASS (owner report) |
+| **M13** | Try Previous/Next at queue beginning/end | Bounded correct service behavior, no invalid index or crash | PASS (owner report) |
+| **M14** | Tap transport quickly multiple times | No duplicate/unintended command receipts or false optimistic state | PASS (owner report) |
+| **M15** | With an unavailable/stale track or controller issue | Readable error/recovery; no false success or service ownership leak | PASS (owner report) |
+| **M16** | Inspect/tap separate large Mic | Visible and accessible; handoff only to real approved Voice readiness, otherwise honest unavailable/manual fallback; do NOT mark live STT PASS if #10 incomplete | PASS (owner report) |
+| **M17** | Exit during active Playing | Exits immediately; audio continues and standard manual UI remains usable | PASS (owner report) |
 
 ### C. Lifecycle / #7 and #8 regressions
 
 | ID | Action / condition | Expected observation | Status |
 |---|---|---|---|
-| **M18** | Leave app to background then foreground while Driving | Real service snapshot restored; no second Player | NOT_RUN |
-| **M19** | Rotate/recreate Activity or change UI configuration | Correct title/queue/state after recreation, stable destination/Exit | NOT_RUN |
-| **M20** | Use system media card/notification then return to app | Driving or intended surface reflects authoritative MediaSession | NOT_RUN |
-| **M21** | Reopen app after process/UI restart with saved session | No automatic Driving entry or unauthorized autoplay; service/restore truth shown | NOT_RUN |
-| **M22** | Pause then Play on Android system media card | Previously fixed Play resumes once, matching app state | NOT_RUN |
-| **M23** | Tap Android media card artwork/title | Opens Music Copilot, does not spawn duplicate playback | NOT_RUN |
-| **M24** | Connected AirPods/headset: Pause then physical Play | Previously fixed external Play works while route connected; no duplication | NOT_RUN |
-| **M25** | During Driving receive transient call/focus event | Playback respects #8 policy and state, safe conditional resume only | NOT_RUN |
-| **M26** | During Playing disconnect then reconnect Bluetooth/headset | Immediate safe Pause, no phone speaker leak, no connection-only autoplay | NOT_RUN |
+| **M18** | Leave app to background then foreground while Driving | Real service snapshot restored; no second Player | PASS (owner report) |
+| **M19** | Rotate/recreate Activity or change UI configuration | Correct title/queue/state after recreation, stable destination/Exit | PASS (owner report) |
+| **M20** | Use system media card/notification then return to app | Driving or intended surface reflects authoritative MediaSession | PASS (owner report) |
+| **M21** | Reopen app after process/UI restart with saved session | No automatic Driving entry or unauthorized autoplay; service/restore truth shown | PASS (owner report) |
+| **M22** | Pause then Play on Android system media card | Previously fixed Play resumes once, matching app state | PASS (owner report) |
+| **M23** | Tap Android media card artwork/title | Opens Music Copilot, does not spawn duplicate playback | PASS (owner report) |
+| **M24** | Connected AirPods/headset: Pause then physical Play | Previously fixed external Play works while route connected; no duplication | PASS (owner report) |
+| **M25** | During Driving receive transient call/focus event | Playback respects #8 policy and state, safe conditional resume only | PASS (owner report) |
+| **M26** | During Playing disconnect then reconnect Bluetooth/headset | Immediate safe Pause, no phone speaker leak, no connection-only autoplay | PASS (owner report) |
 
 ### D. Driving ergonomics / accessibility
 
 | ID | Action / condition | Expected observation | Status |
 |---|---|---|---|
-| **M27** | Inspect four large controls, Mic and Exit at normal font | Reachable high-contrast touch targets: at least 48dp, HF recommended 64/72/56 | NOT_RUN |
-| **M28** | Enable TalkBack and navigate Playing, Paused, No Track | Status, metadata, Previous, Play/Pause, Next, Seek back, Mic, Exit read logically | NOT_RUN |
-| **M29** | Set system font/display scaling up to 200% | No clipped hidden Exit/primary actions, usable reflow | NOT_RUN |
-| **M30** | Inspect contrast, icon shape and error/pending text | No color-only state; meaningful readable labels | NOT_RUN |
-| **M31** | Explore all active Driving controls | One layer; no typing, search, long list, settings chooser or nested menus | NOT_RUN |
-| **M32** | Read road-attention notice | Concise driver's-responsibility copy, no guaranteed-safe-driving claim | NOT_RUN |
+| **M27** | Inspect four large controls, Mic and Exit at normal font | Reachable high-contrast touch targets: at least 48dp, HF recommended 64/72/56 | PASS (owner report) |
+| **M28** | Enable TalkBack and navigate Playing, Paused, No Track | Status, metadata, Previous, Play/Pause, Next, Seek back, Mic, Exit read logically | PASS (owner report) |
+| **M29** | Set system font/display scaling up to 200% | No clipped hidden Exit/primary actions, usable reflow | PASS (owner report) |
+| **M30** | Inspect contrast, icon shape and error/pending text | No color-only state; meaningful readable labels | PASS (owner report) |
+| **M31** | Explore all active Driving controls | One layer; no typing, search, long list, settings chooser or nested menus | PASS (owner report) |
+| **M32** | Read road-attention notice | Concise driver's-responsibility copy, no guaranteed-safe-driving claim | PASS (owner report) |
 
 ### E. P1 Bluetooth selected-device suggestion
 
 | ID | Action / condition | Expected observation | Status |
 |---|---|---|---|
-| **M33** | Outside Driving open Settings Bluetooth suggestion section | Only eligible paired audio devices can be selected, after contextual permission | NOT_RUN |
-| **M34** | Choose and Save a device | Selection acknowledged and remains local after Settings reopen | NOT_RUN |
-| **M35** | With app foreground on Library/Full Player, establish VERIFIED selected-device disconnected baseline, then connect selected audio profile | At most one nonblocking optional Driving suggestion only for the new selected-device reconnect; already connected at app launch is not a new invitation | NOT_RUN |
-| **M36** | Tap Not now on suggestion | No Driving launch or Play/Voice; current screen unchanged | NOT_RUN |
-| **M37** | After five-minute Not now cooldown (or as separate fresh session), disconnect/reconnect selected device, then tap Enter on a NEW offer | Driving opens only from this deliberate in-app tap and reflects actual playback state; no auto-play | NOT_RUN |
-| **M38** | Connect a different, unselected Bluetooth audio device | No selected-device Driving suggestion | NOT_RUN |
-| **M39** | Connect selected device with app in background | No forced foreground Activity, Driving, sound or microphone; permitted notification only with explicit opt-in | NOT_RUN |
-| **M40** | Disconnect/reconnect rapidly; switch A2DP/Headset and reconnect while a prior invite is still visible; rotate or background during a pending offer | One current selected-device offer at most; duplicates and stale/old-epoch events ignored; background or disconnect clears invite | NOT_RUN |
-| **M41** | Deny/revoke Nearby devices on Android 12+ (or disable BT) | P1 fails closed with outside-Driving recovery; P0 manual Driving still usable | NOT_RUN |
-| **M42** | Remove selected device or disable P1 | Future connection does not suggest; manual Driving and playback still work | NOT_RUN |
-| **M43** | Reopen Settings after app restart | Last deliberately saved selection remains; removal remains respected | NOT_RUN |
-| **M44** | Disable notification permission if applicable and retry selected connect | No forced background launch or notification-permission coercion; manual Driving works | NOT_RUN |
+| **M33** | Outside Driving open Settings Bluetooth suggestion section | Only eligible paired audio devices can be selected, after contextual permission | PASS (owner report) |
+| **M34** | Choose and Save a device | Selection acknowledged and remains local after Settings reopen | PASS (owner report) |
+| **M35** | With app foreground on Library/Full Player, establish VERIFIED selected-device disconnected baseline, then connect selected audio profile | At most one nonblocking optional Driving suggestion only for the new selected-device reconnect; already connected at app launch is not a new invitation | PASS (owner report) |
+| **M36** | Tap Not now on suggestion | No Driving launch or Play/Voice; current screen unchanged | PASS (owner report) |
+| **M37** | After five-minute Not now cooldown (or as separate fresh session), disconnect/reconnect selected device, then tap Enter on a NEW offer | Driving opens only from this deliberate in-app tap and reflects actual playback state; no auto-play | PASS (owner report) |
+| **M38** | Connect a different, unselected Bluetooth audio device | No selected-device Driving suggestion | PASS (owner report) |
+| **M39** | Connect selected device with app in background | No forced foreground Activity, Driving, sound or microphone; permitted notification only with explicit opt-in | PASS (owner report) |
+| **M40** | Disconnect/reconnect rapidly; switch A2DP/Headset and reconnect while a prior invite is still visible; rotate or background during a pending offer | One current selected-device offer at most; duplicates and stale/old-epoch events ignored; background or disconnect clears invite | PASS (owner report) |
+| **M41** | Deny/revoke Nearby devices on Android 12+ (or disable BT) | P1 fails closed with outside-Driving recovery; P0 manual Driving still usable | PASS (owner report) |
+| **M42** | Remove selected device or disable P1 | Future connection does not suggest; manual Driving and playback still work | PASS (owner report) |
+| **M43** | Reopen Settings after app restart | Last deliberately saved selection remains; removal remains respected | PASS (owner report) |
+| **M44** | Disable notification permission if applicable and retry selected connect | No forced background launch or notification-permission coercion; manual Driving works | PASS (owner report) |
 
 ### F. Parked golden-scenario checks / evidence scope
 
 | ID | Action / condition | Expected observation | Status |
 |---|---|---|---|
-| **M45** | STATIONARY vehicle/head unit: manually enter Driving, Mic 'Next song' | GS-04 full pass requires real #10 English STT/intent/TTS and one service Next; otherwise BLOCKED (#10), not PASS | NOT_RUN |
-| **M46** | STATIONARY vehicle/head unit: call/focus or BT route drop and reconnect | GS-05 safety: service-owned Pause/restricted resume, no unintended speaker output; without real vehicle mark BLOCKED, do not infer from earbuds | NOT_RUN |
+| **M45** | STATIONARY vehicle/head unit: manually enter Driving, Mic 'Next song' | GS-04 full pass requires real #10 English STT/intent/TTS and one service Next; otherwise BLOCKED (#10), not PASS | BLOCKED (#10 Voice) |
+| **M46** | STATIONARY vehicle/head unit: call/focus or BT route drop and reconnect | GS-05 safety: service-owned Pause/restricted resume, no unintended speaker output; without real vehicle mark BLOCKED, do not infer from earbuds | PASS (owner report) |
 
 ## Owner response template
 
@@ -118,6 +118,15 @@ Any FAIL: ID, action sequence, expected vs actual, screenshots/log description i
 6. Report per-case **PASS/FAIL/BLOCKED/N/A/NOT_RUN** with the single P13 APK SHA-256, exact phone/Android version, accessory category and reproducible error steps, never raw BT MAC/device name, voice transcript or personal song details.
 
 **Important engineering truth:** An Android build, even a successful P13 APK build, does not execute the 177 previously authored source tests or the 19 P12-authored new test methods, and cannot change the 14 acceptance criteria or 46 manual outcomes to PASS. During P13, record the *actual* build outcome and keep test groups NOT_RUN unless the owner separately authorizes execution.
+
+## Final owner-reported field closeout — 2026-10-25
+
+- **45 PASS (owner reported):** M01–M44, M46.
+- **1 BLOCKED (owner explicitly excluded):** M45 GS-04 Driving Voice `Next song`. This is tracked by the still-open **Issue #10**, not represented as a pass or implemented Voice provider in Issue #9.
+- Prior M35 failure was recorded on the original P13 APK. The owner subsequently reported the remaining 45 tests PASS after delivery of [M35 replacement build](ISSUE_9_M35_REPLACEMENT_APK_BUILD.json); retain both records for traceability.
+- Source-authored tests (198) have **zero execution results**. JVM, instrumentation, automated accessibility, Lint, and the additional multi-OEM/parked-vehicle matrix are **NOT_RUN**; these are accepted *deferrals*, not PASS.
+- Per-case phone screenshots, logs, exact device details and the installed APK SHA-256 were not independently provided; this is **user-reported field acceptance** only. No fabricated media/device evidence.
+- Owner explicitly authorized Merge and Issue #9 closure with M45 deferred, on 2026-10-25.
 
 ## Completion controls and separate engineering debt
 
