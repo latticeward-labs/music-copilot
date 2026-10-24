@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
@@ -171,9 +173,17 @@ fun FullPlayerScreen(
                         style = MusicTextStyles.bodyLarge,
                         color = MusicColors.textSecondary,
                     )
-                    Text(playbackStatusLabel(state),
+                    // Only service-confirmed focus/route changes are read
+                    // aloud. Polite semantics avoid interrupting the user's
+                    // TalkBack navigation or inventing phone-call identity.
+                    Text(
+                        playbackStatusLabel(state),
+                        modifier = Modifier.semantics {
+                            liveRegion = LiveRegionMode.Polite
+                        },
                         style = MusicTextStyles.bodyMedium,
-                        color = MusicColors.primary)
+                        color = MusicColors.primary,
+                    )
                     if (state.requestFailed && snap.lastError == null) {
                         Text(stringResource(R.string.i7_action_failed),
                             color = MusicColors.textPrimary,
