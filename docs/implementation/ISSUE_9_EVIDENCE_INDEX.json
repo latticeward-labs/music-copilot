@@ -46,13 +46,13 @@
       "source_commit": null
     },
     "P01": {
-      "status": "P01_AUTHORED_PENDING_GITHUB_READBACK",
+      "status": "PASS_CONTRACT_ONLY_STATIC_GITHUB_READBACK",
       "evidence_files": [
         "docs/implementation/ISSUE_9_PHASE1_EXECUTION_CONTRACT.md",
         ".github/PULL_REQUEST_TEMPLATE/issue-9-driving-mode-bluetooth-suggestion.md",
         "docs/implementation/ISSUE_9_EVIDENCE_INDEX.json"
       ],
-      "source_commit": null
+      "source_commit": "636918047346173ff604f603934cf27be6dbd402"
     },
     "P02": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1025,7 +1025,8 @@
     "product_acs_verified": 0,
     "phone_pass": 0,
     "technical_pass": 0,
-    "apk_status": "NOT_BUILT"
+    "apk_status": "NOT_BUILT",
+    "phases_scoped_contract_complete": 2
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1036,6 +1037,7 @@
     "P00 PASS is a static-source readiness audit only; does not satisfy any AC.",
     "P01 records contract and source trace only; implementation and Android/JVM/UI tests have not been run.",
     "AC12 M45 requires actual #10 voice and stationary vehicle; M46 requires a parked vehicle/head unit.",
-    "One device/headset never proves multi-OEM/multi-vehicle release QA."
+    "One device/headset never proves multi-OEM/multi-vehicle release QA.",
+    "P01 GitHub read-back verified contract, P13-only template and evidence index: 14 phases, 14 AC, 46/46 manual IDs traced, five technical groups; no tests executed."
   ]
 }
