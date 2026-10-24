@@ -63,7 +63,8 @@
     "integrated_test_sources": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
     "p12_source_integration_audit": "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
     "final_owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
-    "p13_apk_provenance_report": "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md"
+    "p13_apk_provenance_report": "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
+    "issue8_final_owner_acceptance": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md"
   },
   "phase_dependencies": {
     "P00": [],
@@ -212,9 +213,22 @@
         "T04"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC02": {
       "title": "FOCUS_TRANSIENT_PERMANENT_DUCK_POLICY",
@@ -270,9 +284,22 @@
         "T04"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC03": {
       "title": "IMMEDIATE_WIRED_BLUETOOTH_PAUSE",
@@ -333,9 +360,22 @@
         "T06"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC04": {
       "title": "NO_UNREQUESTED_PHONE_SPEAKER_LEAK",
@@ -395,9 +435,22 @@
         "T07"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC05": {
       "title": "SERVICE_MEDIASESSION_UI_SYNC",
@@ -454,9 +507,22 @@
         "T09"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC06": {
       "title": "RECONNECT_NO_SURPRISE_RESUME",
@@ -511,9 +577,22 @@
         "T07"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC07": {
       "title": "RACE_ORDERING_NO_DUPLICATE_PLAYBACK",
@@ -569,9 +648,22 @@
         "T08"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC08": {
       "title": "VOICE_FOCUS_CALL_INTEROP",
@@ -611,9 +703,22 @@
         "T10"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC09": {
       "title": "PRIVACY_SAFE_FOCUS_ROUTE_CODES",
@@ -657,9 +762,22 @@
         "T11"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC10": {
       "title": "DETERMINISTIC_UNIT_INTEGRATION_TEST_COVERAGE",
@@ -703,9 +821,22 @@
         "T15"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC11": {
       "title": "OEM_DEVICE_FIELD_MATRIX",
@@ -744,9 +875,22 @@
         "T13"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     },
     "AC12": {
       "title": "NO_CRASH_OR_UNINTENDED_OUTPUT",
@@ -858,9 +1002,22 @@
         "T15"
       ],
       "status": "UNVERIFIED",
-      "owner_phone_provenance": null,
-      "technical_provenance": null,
-      "actual_test_or_build_evidence": null
+      "owner_phone_provenance": {
+        "type": "OWNER_GLOBAL_SELF_REPORT",
+        "date": "2026-10-24",
+        "artifact_source_commit": "fea9301fa29986439070fe50428bf8e90a2942df",
+        "evidence": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+        "exception": "M44_M45_VOICE_BLOCKED_AND_NO_INDEPENDENT_PER_ID_REPORT"
+      },
+      "technical_provenance": {
+        "status": "NOT_RUN",
+        "reason": "BUILD_ONLY_OWNER_INSTRUCTION"
+      },
+      "actual_test_or_build_evidence": {
+        "apk_build_only": "https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929",
+        "technical_test_result": "NOT_RUN",
+        "acceptance": "UNVERIFIED"
+      }
     }
   },
   "qa_mutation_rules": [
@@ -918,7 +1075,8 @@
     "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt",
     "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
     ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
-    ".github/issue8-p13-apk-request.txt"
+    ".github/issue8-p13-apk-request.txt",
+    "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md"
   ],
   "phase_artifacts": {
     "P02": {
@@ -1196,7 +1354,7 @@
       "phone_device_field_evidence": "NONE"
     },
     "P13": {
-      "status": "BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+      "status": "OWNER_MVP_IMPLEMENTATION_ACCEPTED_MERGE_AUTHORIZED_WITH_DEFERRED_TECHNICAL_EVIDENCE",
       "date": "2026-10-24",
       "documentation": "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
       "workflow": ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
@@ -1217,7 +1375,13 @@
       "no_test_invocation": true,
       "apk_built": true,
       "no_pr_merge": true,
-      "issue_open": true
+      "issue_open": true,
+      "owner_final_report": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
+      "owner_phone_self_report": "43_PASS_OWNER_ATTESTED_2_BLOCKED_VOICE",
+      "media_fix_retest": "R01_R02_R03_PASS_OWNER_ATTESTED",
+      "technical_evidence": "T01_T15_NOT_RUN",
+      "owner_authorized_merge_close": "YES_2026_10_24",
+      "risk_disposition": "DOCUMENTED_DEFERRED_ACCEPTED_FOR_MVP"
     }
   }
 }
