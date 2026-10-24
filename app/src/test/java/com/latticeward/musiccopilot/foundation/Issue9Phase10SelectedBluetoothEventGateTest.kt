@@ -8,7 +8,7 @@ import org.junit.Assert.*
 import org.junit.Test
 
 /**
- * Issue #9 P10 — 24 source-authored pure JUnit tests, NOT EXECUTED.
+ * Issue #9 P10 — 26 source-authored pure JUnit tests, NOT EXECUTED.
  * Test tokens and MAC input are synthetic, no actual Bluetooth hardware or
  * receiver/proxy is started. Physical OEM/vehicle proof is P13 owner QA.
  */
@@ -231,5 +231,30 @@ class Issue9Phase10SelectedBluetoothEventGateTest {
             BluetoothObservationCause.Initial)
         assertFalse(current.toString().contains(syntheticAddress))
         assertFalse(current.toString().contains(token))
+    }
+
+    /** M35: a temporary missing profile proxy cannot erase proven offline state. */
+    @Test fun profileProxyHandoffAfterConfirmedOfflineStillAllowsSelectedReconnect() {
+        val g = gate()
+        g.update(SelectedAudioConnectionStatus.Disconnected,
+            BluetoothObservationCause.ProfileConnectionEvent)
+        g.update(SelectedAudioConnectionStatus.WaitingForProfiles,
+            BluetoothObservationCause.ProfileService)
+        val result = g.update(SelectedAudioConnectionStatus.ConnectedA2dp,
+            BluetoothObservationCause.ProfileConnectionEvent)
+        assertTrue(result.selectedConnected)
+        assertTrue(result.canOfferEntry)
+        assertEquals(1L, result.connectionEventId)
+    }
+
+    /** M35: revocation never retains armed state through a permission failure. */
+    @Test fun failedPermissionAfterDisconnectRequiresNewBaselineBeforeOffer() {
+        val g = gate()
+        g.update(SelectedAudioConnectionStatus.Disconnected)
+        g.update(SelectedAudioConnectionStatus.PermissionRequired)
+        val result = g.update(SelectedAudioConnectionStatus.ConnectedHeadset,
+            BluetoothObservationCause.ProfileConnectionEvent)
+        assertTrue(result.selectedConnected)
+        assertFalse(result.canOfferEntry)
     }
 }
