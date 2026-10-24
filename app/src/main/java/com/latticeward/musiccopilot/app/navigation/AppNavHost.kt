@@ -39,7 +39,7 @@ import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
 import com.latticeward.musiccopilot.core.application.driving.DrivingPresentationPolicy
-import com.latticeward.musiccopilot.core.application.driving.DrivingViewState
+import com.latticeward.musiccopilot.feature.driving.DrivingModeScreen
 import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
@@ -356,18 +356,16 @@ fun AppNavHost(
                 }
             }
             BackHandler(onBack = exitDriving)
-            val stateName = when (projected.view) {
-                DrivingViewState.Playing -> stringResource(R.string.i9_driving_state_playing)
-                DrivingViewState.Paused -> stringResource(R.string.i9_driving_state_paused)
-                DrivingViewState.NoTrack -> stringResource(R.string.i9_driving_state_no_track)
-            }
-            // P03 is strictly a navigation boundary. P04/P05 replace this
-            // honest shell with the approved full WF-07 controls and metadata.
-            FirstLaunchBoundary(
-                title = stringResource(R.string.i9_driving_heading),
-                message = stringResource(R.string.i9_driving_nav_pending, stateName),
-                primary = stringResource(R.string.i9_exit_driving),
-                onPrimary = exitDriving,
+            // P04: approved WF-07/HF-07 actual Compose presentation.
+            // This phase supplies truthful status/metadata and Exit only.
+            // P06 will bind transport ACK commands; P07 will bind Mic/Voice.
+            // Until then transport and Mic are genuinely disabled in the UI.
+            DrivingModeScreen(
+                state = projected,
+                currentItem = playerUi.snapshot.currentItem,
+                library = libraryRepository,
+                canReadLocalMetadata = permission == PermissionStatus.Granted,
+                onExit = exitDriving,
             )
         }
         composable(Destination.Settings.route) {
