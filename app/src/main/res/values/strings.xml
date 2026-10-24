@@ -234,4 +234,28 @@
     <string name="i9_a11y_command_pending">Waiting for playback service</string>
     <string name="i9_a11y_unsupported_action">Action unavailable for this track</string>
     <string name="i9_a11y_action_unavailable">Action unavailable</string>
+    <!-- Issue #9 P09 CE-20 optional Bluetooth preference; explicit local opt-in. -->
+    <string name="i9_bt_section_title">Bluetooth suggestion</string>
+    <string name="i9_bt_section_subtitle">P1 preference · optional</string>
+    <string name="i9_bt_open">Open</string>
+    <string name="i9_bt_privacy_note">Choose only an already-paired audio device. Its identity is stored privately on this phone, not uploaded. No device is scanned, paired or connected by this setting.</string>
+    <string name="i9_bt_never_automatic">A Bluetooth connection never starts music, opens Driving Mode or turns on the microphone. Any suggestion requires a separate explicit choice.</string>
+    <string name="i9_bt_saved_preference">One Bluetooth audio preference is saved locally.</string>
+    <string name="i9_bt_saved_cannot_verify">A device is saved locally but could not be verified among the currently paired audio devices. It will not trigger any suggestion until validated.</string>
+    <string name="i9_bt_permission_needed">Nearby devices permission is needed on Android 12 or later to list paired Bluetooth audio devices. Denying it does not affect normal music playback.</string>
+    <string name="i9_bt_request_permission">Allow paired Bluetooth devices</string>
+    <string name="i9_bt_app_settings">Open Android app settings</string>
+    <string name="i9_bt_refresh">Refresh paired audio devices</string>
+    <string name="i9_bt_save">Save</string>
+    <string name="i9_bt_remove">Remove</string>
+    <string name="i9_bt_cancel">Cancel</string>
+    <string name="i9_bt_saved">✓ Updated: selected device saved locally.</string>
+    <string name="i9_bt_removed">Saved device selection removed.</string>
+    <string name="i9_bt_storage_failed">Could not save this preference. The previous selection is unchanged. Try again.</string>
+    <string name="i9_bt_device_changed">That audio device is no longer paired or available. Refresh and choose another.</string>
+    <string name="i9_bt_disabled">Bluetooth is turned off. Enable it in Android settings to view paired devices.</string>
+    <string name="i9_bt_unsupported">Bluetooth is unavailable on this device. Driving Mode still works manually.</string>
+    <string name="i9_bt_read_failed">Could not read paired audio devices. Try Refresh; no preference was changed.</string>
+    <string name="i9_bt_no_paired_audio">No previously paired audio devices found. Pair an audio device through Android settings first.</string>
+    <string name="i9_bt_working">Checking Bluetooth devices or saving the preference…</string>
 </resources>
