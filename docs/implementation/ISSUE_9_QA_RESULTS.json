@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P11_FOREGROUND_BLUETOOTH_OPTIN_SOURCE_COMPLETE_P12_NEXT",
+  "status": "P12_SOURCE_HARDENING_TRACEABILITY_PHONE_QA_COMPLETE_P13_ONE_CUMULATIVE_APK_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -18,7 +18,7 @@
     "P09": "PASS_SCOPED_BLUETOOTH_SETTINGS_SOURCE_18_JUNIT_AUTHORED_NOT_RUN",
     "P10": "PASS_SCOPED_SELECTED_AUDIO_PROFILE_GATE_SOURCE_24_JUNIT_AUTHORED_NOT_RUN",
     "P11": "PASS_SCOPED_FOREGROUND_OPTIN_SOURCE_24_JUNIT_4_COMPOSE_AUTHORED_NOT_RUN",
-    "P12": "PLANNED_NOT_EXECUTED",
+    "P12": "PASS_SCOPED_P12_CROSS_FEATURE_HARDENING_16_JUNIT_3_COMPOSE_AUTHORED_NOT_RUN",
     "P13": "PLANNED_NOT_EXECUTED"
   },
   "acceptance": {
@@ -139,6 +139,10 @@
     "P10: 24 new pure JUnit methods authored, 0 executed; cumulative 96 old pure + 18 P09 pure + 24 P10 pure + 11 P08 Compose = 149 authored, 0 executed. 14 acceptance criteria NOT_VERIFIED; 46 manual phone tests and five technical groups NOT_RUN; APK NOT_BUILT. No Gradle/Kotlin compile/JVM/UI/CI/Actions or OEM tests, no PR/merge/issue closure.",
     "P11: a replay=0 one-shot verified selected-audio reconnect event (no MAC/name/token) drives a small in-route Library/FullPlayer Enter/Not now proposal, gated by foreground, saved selection, fresh Android Bluetooth permission, OS-verified P10 profile, current media/bootstrap route and no active Voice/Driving. No auto-entry, autoplay, microphone activation or background notification.",
     "P11: explicit Enter checks latest event identity/selection epoch, OS CONNECT permission, foreground, current profile and visible approved route before claiming one event and using P03 DrivingNavigationViewModel.enterFrom; Not now leaves screen/playback untouched and suppresses fresh reconnect proposals for 5 minutes (UI-memory only). Stale/disconnected/background/permission events immediately invalidate; no second NavHost.",
-    "P11: 24 pure JUnit +4 Compose methods authored, 0 run. Cumulative Issue #9 177 authored test methods (149 prior +28 P11), NONE executed. 14 original AC NOT_VERIFIED, 46 handset M NOT_RUN, five technical groups NOT_RUN, APK NOT_BUILT; no Gradle, compilation, CI/Actions, PR or merge."
+    "P11: 24 pure JUnit +4 Compose methods authored, 0 run. Cumulative Issue #9 177 authored test methods (149 prior +28 P11), NONE executed. 14 original AC NOT_VERIFIED, 46 handset M NOT_RUN, five technical groups NOT_RUN, APK NOT_BUILT; no Gradle, compilation, CI/Actions, PR or merge.",
+    "P12: static cross-feature source hardening and issue8 parity reviewed: single AppNavHost + Media3/PlaybackGateway/PlayerViewModel, approved Manual Driving/Exit, NoTrack and Paused/route interruption; P1 opt-in selected paired Bluetooth and verified foreground event only, no autoPlay/mic/Activity, fresh permission and one-use offer. Branch vs main diff has no playback/service implementation changes.",
+    "P12: Settings transient Bluetooth section no longer rememberSaveable; 4 Bluetooth screen-reader labels localized, banner real 48dp Button semantics testTags, P11 Compose 200pct test target corrected to actual clickable buttons. 16 new source-only JVM cross-feature JUnit and 3 new source-only Compose methods authored, 0 executed; cumulative tests 196 source-authored, 0 executed.",
+    "P12: docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md now contains 46 owner phone M-cases all NOT_RUN, revised M08/M35/M37/M40 and stationary vehicle/Voice dependency scopes. docs/implementation/ISSUE_9_P13_APK_BUILD_MANIFEST.json skeleton NOT_BUILT, no fictitious link/SHA/size; P13 only one full-branch :app:assembleDebug build, no tests/lint/Actions tests.",
+    "P12 release gate NOT_VERIFIED: original 14 AC unchanged NOT_VERIFIED, 46 M NOT_RUN and five technical groups NOT_RUN. Kotlin/Gradle compile, OEM A2DP/HFP permission callback order, real route/focus, TalkBack and AirPods/Android media-card parity not verified; no PR, merge or issue closure."
   ]
 }
