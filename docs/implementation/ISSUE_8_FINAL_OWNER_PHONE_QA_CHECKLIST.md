@@ -1,6 +1,6 @@
 # Issue #8 — Final Owner Handset Checklist (ONE P13 APK)
 
-**Status:** CHECKLIST AUTHORED / ALL CASES NOT_RUN · **Date:** 2026-10-23 · **Source:** [P00–P13 plan](ISSUE_8_PHASED_EXECUTION_PLAN.md) + Issue #8 AC01–AC12 + UF-11 / SYS-07..09.
+**Status:** P12 INTEGRATION PREPARED / ALL CASES NOT_RUN · **Updated:** 2026-10-24 · **Source:** [P00–P13 plan](ISSUE_8_PHASED_EXECUTION_PLAN.md) + Issue #8 AC01–AC12 + UF-11 / SYS-07..09.
 
 ## Important owner rules
 
@@ -64,6 +64,22 @@
 ## Optional device/OEM & car follow-up — not part of the one-phone PASS assertion
 
 Repeat the relevant M cases on **Pixel/stock Android**, **Samsung One UI**, and **Xiaomi HyperOS/MIUI**, each with physical device/API/OEM build recorded, when equipment becomes available. Record each model separately; owner's Honor x7d Android 15 covers only their actual device. For later **three distinct parked vehicle/head-unit** combos, repeat M26–M43 and the call/focus subset (M06–M17) where safe. Android Auto integration is **not** part of MVP; normal Bluetooth head-unit controls may be.
+
+## P12 authored regression-source inventory — no tests executed
+
+All new P12 tests are **repository source files**, not test results. They are deliberately **not** part of the P13 build-only command. The existing merged Issue #7 test sources have also been reconciled to the Issue #8 first-route-loss and receipt-time policies.
+
+| GitHub test source | Authored @Test methods | Relevant deferred proof |
+|---|---:|---|
+| `app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt` | 14 | T01–T03: focus episodes, four resume guards, manual Pause, stale gain; T05–T06 duplicate route/noisy; T08 overlap |
+| `app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt` | 5 | T06–T08: receipt order, duplicate ID, queued stale remote Play, preemption at arrival |
+| `app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt` | 9 | T04, T09–T12: one Media3 owner, P09 Voice cancellation seam, sanitized P10 errors, P11 API guard |
+| Updated `Issue7Phase9RouteFocusGuardTest.kt` | 15 existing | P05/P06 first-loss deduplication and P11 API31 BLE guards; supersedes outdated Issue #7 assumption that duplicate loss creates two epochs |
+| Updated `Issue7Phase12IntegratedBoundaryContractTest.kt` | 15 existing | P07 original receipt epoch, current named route callbacks, previous Issue #7 owner invariants |
+
+**Total newly authored for #8: 28 methods; executed 0.** This inventory is not complete evidence of real Bluetooth routes, OS foreground eligibility, Media3 notifications, true Call detection or speaker leakage. T13 OEM/vehicle evidence and T14 APK provenance **cannot** be supplied by JVM source tests.
+
+**P13 one integrated APK build-only:** The owner-facing build must use `feature/8-audio-focus-route-recovery` at its exact committed HEAD, compile `:app:assembleDebug` once as a unified candidate (exclude Gradle unit/lint/instrumentation tasks), upload the complete debug APK and record source SHA, APK SHA-256, Android variant, CI/job URL and download instructions. A failed compile requires a source fix and rerun *within P13*, not an invented artifact or P12 PASS. User installs this single final APK and runs M01–M45 on their own handset, submitting observed statuses to be recorded on GitHub.
 
 ## Technical T01–T15 — source-authored later, NOT executed without authorization
 
