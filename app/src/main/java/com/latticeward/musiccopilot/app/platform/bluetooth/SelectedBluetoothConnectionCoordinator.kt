@@ -5,9 +5,13 @@ import com.latticeward.musiccopilot.core.application.bluetooth.BluetoothSelectio
 import com.latticeward.musiccopilot.core.application.bluetooth.SelectedAudioConnectionState
 import com.latticeward.musiccopilot.core.application.bluetooth.SelectedAudioConnectionStatus
 import com.latticeward.musiccopilot.core.application.bluetooth.SelectedBluetoothConnectionGate
+import com.latticeward.musiccopilot.core.application.bluetooth.VerifiedAudioReconnectEvent
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -27,6 +31,41 @@ class SelectedBluetoothConnectionCoordinator(
     private val gate = SelectedBluetoothConnectionGate()
     private val mutable = MutableStateFlow(gate.state)
     val state: StateFlow<SelectedAudioConnectionState> = mutable
+
+    // P11: replay=0, so Activity stop/relaunch never surfaces an old offer.
+    // Values carry only a verified event counter + private selection epoch,
+    // no Bluetooth MAC/name/hashed token. No UI/Activity is started here.
+    private val reconnectMutable = MutableSharedFlow<VerifiedAudioReconnectEvent>(
+        replay = 0, extraBufferCapacity = 8,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
+    )
+    val verifiedReconnects: SharedFlow<VerifiedAudioReconnectEvent> = reconnectMutable
+    private val uiForegroundMutable = MutableStateFlow(false)
+    val uiForeground: StateFlow<Boolean> = uiForegroundMutable
+    private var selectionEpoch = 0L
+    private var claimedEventId = 0L
+
+    /** Read immediately at the explicit Enter tap, not from a stale screen. */
+    fun isUnclaimedOfferCurrent(event: VerifiedAudioReconnectEvent): Boolean {
+        val current = mutable.value
+        return foreground && uiForegroundMutable.value &&
+            loadReady && preferences.loadState.value == PreferencesLoadState.Ready &&
+            selectedToken != null &&
+            selectedToken == preferences.preferences.value.selectedBluetoothHint &&
+            event.selectionEpoch == selectionEpoch &&
+            event.connectionEventId > claimedEventId &&
+            current.selectedConnected &&
+            current.connectionEventId == event.connectionEventId
+    }
+
+    /** Consumes exactly one invitation after the user explicitly chooses Enter. */
+    fun claimOffer(event: VerifiedAudioReconnectEvent): Boolean {
+        if (!isUnclaimedOfferCurrent(event)) return false
+        claimedEventId = event.connectionEventId
+        return true
+    }
+
+    val currentSelectionEpoch: Long get() = selectionEpoch
     private val source = context?.let { appContext ->
         AndroidSelectedAudioProfileMonitor(
             context = appContext,
@@ -35,7 +74,16 @@ class SelectedBluetoothConnectionCoordinator(
         ) { status, cause ->
             val token = selectedToken
             if (foreground && token != null) {
-                mutable.value = gate.observe(token, status, cause)
+                val verified = gate.observe(token, status, cause)
+                mutable.value = verified
+                if (verified.canOfferEntry) {
+                    reconnectMutable.tryEmit(
+                        VerifiedAudioReconnectEvent(
+                            connectionEventId = verified.connectionEventId,
+                            selectionEpoch = selectionEpoch,
+                        )
+                    )
+                }
             }
         }
     }
@@ -60,12 +108,15 @@ class SelectedBluetoothConnectionCoordinator(
     fun onUiStarted() {
         if (foreground) return
         foreground = true
+        uiForegroundMutable.value = true
         reconcile()
     }
 
     /** No background receiver, profile proxy or stale eligibility. */
     fun onUiStopped() {
         foreground = false
+        uiForegroundMutable.value = false
+        selectionEpoch++
         source?.stop()
         selectedToken = null
         gate.stop()
@@ -83,6 +134,7 @@ class SelectedBluetoothConnectionCoordinator(
                 BluetoothSelectionToken.isCurrentFormat(it)
         }
         if (next == selectedToken) return
+        selectionEpoch++
         source?.stop()
         selectedToken = next
         if (!foreground) gate.stop() else gate.start(next)
