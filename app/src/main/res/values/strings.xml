@@ -261,4 +261,9 @@
     <string name="i9_bt_read_failed">Could not read paired audio devices. Try Refresh; no preference was changed.</string>
     <string name="i9_bt_no_paired_audio">No previously paired audio devices found. Pair an audio device through Android settings first.</string>
     <string name="i9_bt_working">Checking Bluetooth devices or saving the preference…</string>
+    <!-- Issue #9 P11: foreground, nonblocking and entirely optional P1 offer. -->
+    <string name="i9_bt_offer_title">Driving Mode?</string>
+    <string name="i9_bt_offer_description">Your selected Bluetooth audio device connected. You can open Driving Mode manually. Music will not start automatically.</string>
+    <string name="i9_bt_offer_enter">Enter</string>
+    <string name="i9_bt_offer_not_now">Not now</string>
 </resources>
