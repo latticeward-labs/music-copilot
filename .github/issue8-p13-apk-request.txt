@@ -5,3 +5,13 @@ Do NOT run any JVM, instrumentation, emulator, device, security or Lint test.
 One final owner-facing app-debug.apk, SHA-256 and provenance artifact.
 Owner M01–M45 and deferred T01–T15 all NOT_RUN; AC01–AC12 UNVERIFIED.
 Request generation: P13-initial
+
+Issue #8 owner-authorized follow-up build request (2026-10-24):
+Scope: ONLY Android MediaSession external Play button (notification + AirPods),
+MediaSession notification card opens existing MainActivity, and related
+Bluetooth-loss safety admission guards.
+No other production behavior may be changed.
+Assemble ONE new debug APK from the scoped fix commits, upload checksum.
+NO JUnit/JVM/lint/emulator/AndroidTest/device tests.
+Owner will separately validate 3 fixes on real phone and report outcomes.
+Request generation: P13-owner-play-and-card-fix-r1
