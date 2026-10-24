@@ -489,7 +489,6 @@ class MainActivity : ComponentActivity() {
                 selectedBluetoothConnection = bindings.selectedBluetoothConnection,
                 onRequestBluetoothConnectPermission = ::onRequestBluetoothConnectPermission,
                 onOpenBluetoothPermissionSettings = ::onOpenBluetoothPermissionSettings,
-                selectedBluetoothConnection = bindings.selectedBluetoothConnection,
                 freshBluetoothConnectPermission = ::hasBluetoothConnectPermission,
                 onRetry = bindings::retryFirstLaunch,
                 onRefreshPermission = onRefreshPermission,
