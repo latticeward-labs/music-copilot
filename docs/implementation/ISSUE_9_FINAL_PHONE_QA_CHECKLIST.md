@@ -24,7 +24,7 @@
 | **M05** | Pause before entry and inspect Driving | Paused plus Play action, without fake Playing or autoplay | NOT_RUN |
 | **M06** | Enter with no playable/current track | No Track and truthful explanation, not a fabricated song | NOT_RUN |
 | **M07** | Inspect controls with no track or unavailable controller | Unavailable commands disabled/explained; no crash | NOT_RUN |
-| **M08** | In No Track, try eligible last-track option if shown; otherwise Exit | Play last only for verified accessible item; fallback Home/Library | NOT_RUN |
+| **M08** | With No Track, inspect absence of unverified Play Last and tap Exit | No saved/unverified track playback; Exit to Home/Library without changing queue | NOT_RUN |
 
 ### B. Manual transport/service parity
 
@@ -71,12 +71,12 @@
 |---|---|---|---|
 | **M33** | Outside Driving open Settings Bluetooth suggestion section | Only eligible paired audio devices can be selected, after contextual permission | NOT_RUN |
 | **M34** | Choose and Save a device | Selection acknowledged and remains local after Settings reopen | NOT_RUN |
-| **M35** | Connect the selected audio device while app foreground | At most one nonblocking optional Driving suggestion | NOT_RUN |
+| **M35** | With app foreground on Library/Full Player, establish VERIFIED selected-device disconnected baseline, then connect selected audio profile | At most one nonblocking optional Driving suggestion only for the new selected-device reconnect; already connected at app launch is not a new invitation | NOT_RUN |
 | **M36** | Tap Not now on suggestion | No Driving launch or Play/Voice; current screen unchanged | NOT_RUN |
-| **M37** | Connect selected device again if needed; explicitly tap Enter | Driving opens only from this user action and reflects real playback state | NOT_RUN |
+| **M37** | After five-minute Not now cooldown (or as separate fresh session), disconnect/reconnect selected device, then tap Enter on a NEW offer | Driving opens only from this deliberate in-app tap and reflects actual playback state; no auto-play | NOT_RUN |
 | **M38** | Connect a different, unselected Bluetooth audio device | No selected-device Driving suggestion | NOT_RUN |
 | **M39** | Connect selected device with app in background | No forced foreground Activity, Driving, sound or microphone; permitted notification only with explicit opt-in | NOT_RUN |
-| **M40** | Disconnect/reconnect rapidly / send duplicate connection signals | Suggestions deduplicated and stale prompts ignored | NOT_RUN |
+| **M40** | Disconnect/reconnect rapidly; switch A2DP/Headset and reconnect while a prior invite is still visible; rotate or background during a pending offer | One current selected-device offer at most; duplicates and stale/old-epoch events ignored; background or disconnect clears invite | NOT_RUN |
 | **M41** | Deny/revoke Nearby devices on Android 12+ (or disable BT) | P1 fails closed with outside-Driving recovery; P0 manual Driving still usable | NOT_RUN |
 | **M42** | Remove selected device or disable P1 | Future connection does not suggest; manual Driving and playback still work | NOT_RUN |
 | **M43** | Reopen Settings after app restart | Last deliberately saved selection remains; removal remains respected | NOT_RUN |
@@ -103,6 +103,21 @@ M45 BLOCKED (#10 Voice pending)   # example only; replace with actual observatio
 M46 NOT_RUN                       # example only; replace with actual observation
 Any FAIL: ID, action sequence, expected vs actual, screenshots/log description if available
 ```
+
+## P12 source handoff and priority verification order
+
+**Source-only handoff:** [P12 hardening report](ISSUE_9_PHASE12_CROSS_FEATURE_HARDENING_AUDIT.md), [P13 build manifest (NOT_BUILT)](ISSUE_9_P13_APK_BUILD_MANIFEST.json). These do NOT imply runtime or build PASS. All 46 M cases remain NOT_RUN.
+
+**Phone sequence (stationary only):**
+
+1. First validate manual P0 functionality without Bluetooth permission: M01–M08, M09–M17, M18–M21. Reproduce Paused, No Track, Exit, real Media3 card, and service-owned commands.
+2. Check safe focus/call/route/headset state M22–M26 and that Android media card Play, card tap opening app and AirPods Play still work (Issue #8 regression: do NOT infer from only pause/volume).
+3. Check TalkBack, 150%/200% text, physical touch geometry and road disclaimer M27–M32. Capture device OS/font-scale settings; avoid actual driving.
+4. Only if a real eligible already-paired audio output exists: M33–M44 on Android 12+ use explicit Nearby Devices grant (on Android 10/11 no runtime Bluetooth dialog). Confirm **Save** then **Remove**, persisted preference after restart, selected vs nonselected device, denial/radio-off, no automatic entry/play/mic. To test M35/M37, first observe DISCONNECTED with the app foreground; a device already connected on startup is NOT a new offer. M36 Not now starts a five-minute cooldown: account for it before M37.
+5. Test GS-04 M45 only with the actual voice provider/intent flow from the related Voice issues; mark BLOCKED if incomplete. Test GS-05 M46 only with a **parked real car/head unit**; headphones alone cannot validate vehicle criteria.
+6. Report per-case **PASS/FAIL/BLOCKED/N/A/NOT_RUN** with the single P13 APK SHA-256, exact phone/Android version, accessory category and reproducible error steps, never raw BT MAC/device name, voice transcript or personal song details.
+
+**Important engineering truth:** An Android build, even a successful P13 APK build, does not execute the 177 previously authored source tests or the 19 P12-authored new test methods, and cannot change the 14 acceptance criteria or 46 manual outcomes to PASS. During P13, record the *actual* build outcome and keep test groups NOT_RUN unless the owner separately authorizes execution.
 
 ## Completion controls and separate engineering debt
 
