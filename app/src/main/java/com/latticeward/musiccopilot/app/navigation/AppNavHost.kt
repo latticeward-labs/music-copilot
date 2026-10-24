@@ -160,12 +160,20 @@ fun AppNavHost(
     // The Voice overlay is deliberately not a NavHost destination.
     LaunchedEffect(
         actualRoute, mediaRequestUi.outcome, replayingEducation, settingsOpen, permission,
+        voiceSessionState,
     ) {
         if (actualRoute != BootstrapRoute.HomeLibrary ||
             mediaRequestUi.outcome != MediaPermissionOutcome.None ||
             replayingEducation || settingsOpen ||
             permission != PermissionStatus.Granted
-        ) drivingNavigation.clearForSystemBoundary()
+        ) {
+            if (voiceSessionCoordinator != null &&
+                DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionState)
+            ) voiceSessionCoordinator.cancel(VoiceCancelReason.OriginInvalidated)
+            if (drivingMicPermissionStage != VoicePracticeStage.Idle)
+                onDrivingMicPermissionDismiss()
+            drivingNavigation.clearForSystemBoundary()
+        }
     }
     val target = when {
         actualRoute == BootstrapRoute.Preparing || actualRoute == BootstrapRoute.RetryStartup ->
