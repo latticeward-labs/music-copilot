@@ -426,7 +426,7 @@ private fun DrivingVoiceSessionOverlay(
 ) {
     val rationale = permissionStage == VoicePracticeStage.Rationale
     val awaiting = permissionStage == VoicePracticeStage.AwaitingAndroid
-    val heading = when {
+    val headingText = when {
         rationale -> stringResource(R.string.i9_voice_permission_heading)
         awaiting -> stringResource(R.string.i9_voice_permission_wait)
         state is VoiceSessionState.Listening -> stringResource(R.string.i9_voice_listening)
@@ -437,7 +437,7 @@ private fun DrivingVoiceSessionOverlay(
         else -> stringResource(R.string.i9_voice_permission_heading)
     }
     Text(
-        heading,
+        headingText,
         modifier = Modifier.fillMaxWidth().semantics { heading() },
         style = MusicTextStyles.drivingMeta,
         color = MusicColors.textPrimary,
