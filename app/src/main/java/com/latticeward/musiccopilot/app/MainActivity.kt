@@ -32,6 +32,8 @@ import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeGate
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
+import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceHandoffPolicy
+import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.feature.permission.MediaRequestUiState
 import com.latticeward.musiccopilot.feature.permission.PermissionViewModel
@@ -50,6 +52,12 @@ class MainActivity : ComponentActivity() {
     private var observedMicrophoneGrant = false
     private val voicePracticeGate = VoicePracticeGate(Build.VERSION.SDK_INT)
     private val voicePracticeUi = MutableStateFlow(VoicePracticeStage.Idle)
+    // P07: separate transient Driving presentation, reusing the EXACT same
+    // VoicePracticeGate and Android RequestPermission launcher. No second
+    // microphone permission subsystem or saved OS grant.
+    private val drivingMicUi = MutableStateFlow(VoicePracticeStage.Idle)
+    private val microphoneAccess = MutableStateFlow(false)
+    private var drivingMicPermissionOrigin = false
     private val requestLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             // ActivityResult Boolean is not permission truth. Re-read Android OS.
@@ -76,10 +84,58 @@ class MainActivity : ComponentActivity() {
             val provider = if (freshGrant)
                 (application as MusicCopilotApplication).bindings.onDeviceVoicePracticeCapability()
             else VoiceProviderCapability.ProviderUnavailable
-            voicePracticeUi.value = voicePracticeGate.androidResult(freshGrant, provider)
-            // No VoiceSessionCoordinator.start(): live speech and playback belong
-            // to the separate Voice execution Issues, not P09 education.
+            microphoneAccess.value = freshGrant
+            val stage = voicePracticeGate.androidResult(freshGrant, provider)
+            if (drivingMicPermissionOrigin) {
+                // Permission result NEVER auto-starts capture. The user must
+                // explicitly tap Mic again after this stage is displayed.
+                drivingMicUi.value = stage
+                voicePracticeUi.value = VoicePracticeStage.Idle
+                drivingMicPermissionOrigin = false
+            } else {
+                voicePracticeUi.value = stage
+            }
+            // No VoiceSessionCoordinator.start() from an OS permission result.
         }
+
+    private fun onDrivingMicPermissionTap() {
+        // Called only by an explicit Mic tap while Driving is the NavHost
+        // target. A rationale is shown BEFORE any Android OS request.
+        if (drivingMicPermissionOrigin || voicePracticeGate.awaitingAndroidResult) return
+        if (voicePracticeGate.microphoneTapped()) {
+            drivingMicPermissionOrigin = true
+            drivingMicUi.value = voicePracticeGate.stage
+            voicePracticeUi.value = VoicePracticeStage.Idle
+        }
+    }
+
+    private fun onDrivingMicPermissionContinue() {
+        if (!drivingMicPermissionOrigin || !voicePracticeGate.confirmRationale()) return
+        drivingMicUi.value = voicePracticeGate.stage
+        val alreadyGranted = checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) ==
+            PackageManager.PERMISSION_GRANTED
+        if (alreadyGranted) {
+            microphoneAccess.value = true
+            drivingMicUi.value = voicePracticeGate.androidResult(
+                true, (application as MusicCopilotApplication).bindings.onDeviceVoicePracticeCapability()
+            )
+            drivingMicPermissionOrigin = false
+        } else {
+            try { microphoneLauncher.launch(android.Manifest.permission.RECORD_AUDIO) }
+            catch (_: RuntimeException) {
+                voicePracticeGate.requestLaunchFailed()
+                drivingMicUi.value = voicePracticeGate.stage
+                drivingMicPermissionOrigin = false
+            }
+        }
+    }
+
+    private fun onDrivingMicPermissionDismiss() {
+        // Never persist/replay a blocked capture intent after leaving Driving.
+        drivingMicPermissionOrigin = false
+        drivingMicUi.value = VoicePracticeStage.Idle
+        voicePracticeGate.manualOnly()
+    }
 
     private fun onExplicitPracticeTap() {
         if (voicePracticeGate.practiceTapped())
@@ -128,6 +184,10 @@ class MainActivity : ComponentActivity() {
             )
         }
         voicePracticeUi.value = voicePracticeGate.stage
+        // A new process has no authorized Driving-origin session, regardless
+        // of stale ActivityResult or saved presentation on old Activity.
+        drivingMicPermissionOrigin = false
+        drivingMicUi.value = VoicePracticeStage.Idle
         window.statusBarColor = MusicColors.systemBar.toArgb()
         window.navigationBarColor = MusicColors.systemBar.toArgb()
         WindowCompat.getInsetsController(window, window.decorView)
@@ -148,6 +208,8 @@ class MainActivity : ComponentActivity() {
                 onOpenAndroidSettings = ::openMediaAppSettings,
                 mediaRequestUi = permissionUi.ui,
                 voicePracticeUi = voicePracticeUi,
+                drivingMicUi = drivingMicUi,
+                microphoneAccess = microphoneAccess,
             )
         }
     }
@@ -289,7 +351,11 @@ class MainActivity : ComponentActivity() {
             )
         }
         observedMicrophoneGrant = freshMic
+        microphoneAccess.value = freshMic
         voicePracticeGate.recheck(freshMic)
+        if (!freshMic && drivingMicUi.value == VoicePracticeStage.ReadyForVoiceHandoff) {
+            drivingMicUi.value = VoicePracticeStage.PermissionDenied
+        }
         voicePracticeUi.value = voicePracticeGate.stage
         (application as MusicCopilotApplication).bindings.onForeground()
     }
@@ -306,6 +372,8 @@ class MainActivity : ComponentActivity() {
         onOpenAndroidSettings: () -> Unit,
         mediaRequestUi: kotlinx.coroutines.flow.StateFlow<MediaRequestUiState>,
         voicePracticeUi: kotlinx.coroutines.flow.StateFlow<VoicePracticeStage>,
+        drivingMicUi: kotlinx.coroutines.flow.StateFlow<VoicePracticeStage>,
+        microphoneAccess: kotlinx.coroutines.flow.StateFlow<Boolean>,
     ) {
         val library by bindings.libraryRepository.index.collectAsStateWithLifecycle()
         val playbackConnection by bindings.playbackGateway.connectionState.collectAsStateWithLifecycle()
@@ -316,6 +384,9 @@ class MainActivity : ComponentActivity() {
         val permission by mediaAccess.collectAsStateWithLifecycle()
         val mediaRequest by mediaRequestUi.collectAsStateWithLifecycle()
         val practice by voicePracticeUi.collectAsStateWithLifecycle()
+        val drivingMicStage by drivingMicUi.collectAsStateWithLifecycle()
+        val micGranted by microphoneAccess.collectAsStateWithLifecycle()
+        val voiceState by bindings.voiceSessionCoordinator.state.collectAsStateWithLifecycle()
 
         // Permission-aware readiness is computed from the same OS observation
         // and repository revision for navigation AND the visible Library status.
@@ -361,6 +432,17 @@ class MainActivity : ComponentActivity() {
                 onPracticeVoice = ::onExplicitPracticeTap,
                 onPracticeRationaleContinue = ::onPracticeRationaleContinue,
                 onPracticeManualOnly = ::onPracticeManualOnly,
+                voiceSessionCoordinator = bindings.voiceSessionCoordinator,
+                voiceSessionState = voiceState,
+                microphoneGranted = micGranted,
+                localVoiceProviderSupported = Build.VERSION.SDK_INT >= 31,
+                localVoiceProviderAvailable = micGranted &&
+                    bindings.onDeviceVoicePracticeCapability() ==
+                        VoiceProviderCapability.OnDeviceAvailable,
+                drivingMicPermissionStage = drivingMicStage,
+                onDrivingMicPermissionTap = ::onDrivingMicPermissionTap,
+                onDrivingMicPermissionContinue = ::onDrivingMicPermissionContinue,
+                onDrivingMicPermissionDismiss = ::onDrivingMicPermissionDismiss,
                 onFirstUseComplete = {
                     onPracticeManualOnly()
                     bindings.onForeground()
