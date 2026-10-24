@@ -46,7 +46,8 @@ class Media3SnapshotProjector {
         val state = when {
             // Do not overwrite a terminal error with a plausible Playing UI.
             player.playerError != null ||
-                (error != null && player.playbackState == Player.STATE_IDLE) ->
+                (error != null && error !is AppError.Interruption &&
+                    player.playbackState == Player.STATE_IDLE) ->
                 PlaybackState.Error
             player.playbackState == Player.STATE_ENDED -> PlaybackState.Ended
             player.playbackState == Player.STATE_IDLE && queue.isEmpty() ->
