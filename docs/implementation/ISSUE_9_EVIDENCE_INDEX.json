@@ -282,7 +282,8 @@
         ".github/issue9-p13-apk-request.txt",
         "docs/implementation/ISSUE_9_P13_APK_BUILD_MANIFEST.json",
         "docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md",
-        "docs/implementation/ISSUE_9_QA_RESULTS.json"
+        "docs/implementation/ISSUE_9_QA_RESULTS.json",
+        "docs/implementation/ISSUE_9_PHASE13_APK_BUILD_AND_OWNER_QA_HANDOFF.md"
       ],
       "source_commit": "67f690483842694926f277f72000a7faf6d0db23",
       "source_tree_sha": "3ec710875652eead4b0547f0c56fd91e42b0e2b4",
