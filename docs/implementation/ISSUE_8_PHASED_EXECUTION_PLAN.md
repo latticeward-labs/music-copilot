@@ -84,3 +84,10 @@ P13 build success establishes **build success**, not phone/system safety or test
 - [Issue #16 architecture](https://github.com/latticeward-labs/music-copilot/issues/16) / [Runtime Policy](../architecture/RUNTIME_POLICIES.md)
 - [Issue #7 delivery](https://github.com/latticeward-labs/music-copilot/pull/76) / [Service](../../app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt) / [Gate](../../app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt) / [Route monitor](../../app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt)
 - Android: https://developer.android.com/media/optimize/audio-focus and https://developer.android.com/reference/androidx/media3/exoplayer/ExoPlayer
+
+
+---
+
+## 2026-10-24 owner acceptance and implementation closure disposition
+
+[Owner signoff with exact QA limitations](ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md) supersedes prior “P13 waiting for owner” statements. Corrected [build-only run 40086837929](https://github.com/latticeward-labs/music-copilot/actions/runs/40086837929) succeeded at source `fea9301fa29986439070fe50428bf8e90a2942df`; APK SHA-256 `318f801c3a972af6f96f6454c0f1219a196b178c7ddb3eb8aa38549e835b130c`. Owner reports accessible phone coverage and R01/R02/R03 fix retests PASS. **M01–M43 PASS (OWNER SELF-REPORT), M44/M45 BLOCKED (Voice capture UI not available); T01–T15 NOT_RUN, AC01–AC12 UNVERIFIED**, OEMs/vehicles deferred. Owner explicitly requests merge and close despite these documented evidence limitations. This closes **MVP implementation delivery**, not every platform/technical QA obligation. No test execution authorized.
