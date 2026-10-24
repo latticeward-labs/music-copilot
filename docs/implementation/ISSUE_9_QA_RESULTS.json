@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P04_WF07_PLAYING_COMPOSE_SOURCE_COMPLETE_P05_NEXT",
+  "status": "P05_RECOVERY_STATE_SOURCE_COMPLETE_P06_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -11,7 +11,7 @@
     "P02": "PASS_SCOPED_POLICY_SOURCE_AND_21_TESTS_AUTHORED_NOT_RUN",
     "P03": "PASS_SCOPED_NAVIGATION_SOURCE_12_TESTS_AUTHORED_NOT_RUN",
     "P04": "PASS_SCOPED_PLAYING_COMPOSE_SOURCE_ONLY_NO_BUILD_NO_TESTS",
-    "P05": "PLANNED_NOT_EXECUTED",
+    "P05": "PASS_SCOPED_PAUSED_NO_TRACK_RECOVERY_SOURCE_21_JUNIT_AUTHORED_NOT_RUN",
     "P06": "PLANNED_NOT_EXECUTED",
     "P07": "PLANNED_NOT_EXECUTED",
     "P08": "PLANNED_NOT_EXECUTED",
@@ -118,6 +118,9 @@
     "P03 source/GitHub static audit only, not Android compile or functioning device validation. Original AC01-AC14 NOT_VERIFIED, M01-M46 and 5 technical groups NOT_RUN, APK NOT_BUILT, Actions/Gradle/PR/Merge/close not performed.",
     "P04: actual HF-07/WF-07 service-observed Driving Compose screen with title/artist from confirmed local service MediaRef, approved artwork placeholder, four 64dp+ transport affordances, Mic 72dp+ and Exit 56dp+, road notice and font/width reflow source. P03 temporary navigation screen replaced.",
     "P04: no false clickable controls: onTransport=null until P06 and onMic=null until P07; both disabled in UI. Paused/NoTrack recovery completion P05; actual microphone #10. No P04 tests authored or executed, no Gradle/Actions/preview/emulator/APK. 14 AC NOT_VERIFIED, 46 M NOT_RUN, 5 technical NOT_RUN.",
-    "P04 scope: new feature/driving/DrivingModeScreen.kt, AppNavHost + string resources, deletion of structural driving PackageBoundary.kt only. Existing service-owned Media3/Queue/Focus/BT route/notification/headset fixes untouched."
+    "P04 scope: new feature/driving/DrivingModeScreen.kt, AppNavHost + string resources, deletion of structural driving PackageBoundary.kt only. Existing service-owned Media3/Queue/Focus/BT route/notification/headset fixes untouched.",
+    "P05: dedicated Paused and NoTrack variants; NoTrack omits invalid transports/artwork/title/artist and Exit/Back routes to Library; Paused shows manual resume guidance. Typed controller/route/focus/item/ACK/pending recovery from service public AppError and existing PlayerUiState; Playing suppresses stale recovery notices. Zero media queue mutations.",
+    "P05: No Play Last shown: no service-owned lastPlayedRef + MediaStore permission revalidation contract exists; optional feature not fabricated. 21 new pure JUnit methods authored but 0 executed; P02 21 and P03 12 also still NOT_RUN.",
+    "P05: static source-only review. No Gradle, compile, JUnit, lint, Android/UI, Actions, device, APK, PR or merge; original AC01–AC14 NOT_VERIFIED, 46 owner M NOT_RUN, 5 technical NOT_RUN; APK NOT_BUILT."
   ]
 }
