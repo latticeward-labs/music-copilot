@@ -162,9 +162,23 @@
       "driving_mic_qa": "NOT_RUN"
     },
     "P08": {
-      "status": "PLANNED_NOT_EXECUTED",
-      "evidence_files": [],
-      "source_commit": null
+      "status": "PASS_SCOPED_A11Y_SOURCE_11_COMPOSE_TESTS_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/androidTest/java/com/latticeward/musiccopilot/Issue9Phase8DrivingAccessibilityUiTest.kt",
+        "docs/implementation/ISSUE_9_PHASE8_ACCESSIBILITY_SCALING_FOCUS_AUDIT.md",
+        "docs/high-fidelity/phase-7/app-visible/CC-05.md",
+        "docs/high-fidelity/phase-7/app-visible/CC-06.md",
+        "docs/high-fidelity/phase-7/app-visible/CC-07.md"
+      ],
+      "source_commit": "d6c3e36553db222e51cca530b1af63893c2ee74e",
+      "authored_compose_android_tests": 11,
+      "executed_compose_android_tests": 0,
+      "owner_talkback": "NOT_RUN",
+      "owner_font_scale_200_pct": "NOT_RUN",
+      "owner_contrast_focus": "NOT_RUN",
+      "app_build": "NOT_BUILT"
     },
     "P09": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1103,7 +1117,7 @@
     "phone_pass": 0,
     "technical_pass": 0,
     "apk_status": "NOT_BUILT",
-    "phases_scoped_contract_complete": 8,
+    "phases_scoped_contract_complete": 9,
     "p02_authored_tests": 21,
     "p02_executed_tests": 0,
     "p03_authored_tests": 12,
@@ -1117,7 +1131,12 @@
     "cumulative_p02_p03_p05_p06_junit_authored": 77,
     "p07_authored_tests": 19,
     "p07_executed_tests": 0,
-    "cumulative_p02_p03_p05_p06_p07_junit_authored": 96
+    "cumulative_p02_p03_p05_p06_p07_junit_authored": 96,
+    "p08_authored_compose_tests": 11,
+    "p08_executed_compose_tests": 0,
+    "p02_p03_p05_p06_p07_junit_authored": 96,
+    "p02_p03_p05_p06_p07_junit_executed": 0,
+    "cumulative_issue9_source_tests_authored": 107
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1135,6 +1154,7 @@
     "P04 actual HF-07 Playing Compose source authored, rooted in only Driving NavHost route; controls visibly disabled pending P06/P07, so this is NOT full app capability PASS. No UI test/Gradle/phone execution, 14 AC NOT_VERIFIED.",
     "P05: CC-06 and CC-07 source + typed service recovery/ACK/error precedence, 21 JUnit methods authored not run. P06 real controls/ACK pending, no Play Last source contract exists; 14 original AC NOT_VERIFIED.",
     "P06 full Driving four-button callback to existing root PlayerViewModel and PlaybackGateway public port authored. Stale tap/readback admission and epoch guard source only. 23 JUnit methods authored, 0 run; all product AC NOT_VERIFIED; no APK.",
-    "P07 actual Driving Mic/Voice permission and origin handoff authored using existing app-scoped coordinator/provider. 19 pure JUnit methods authored, NOT_RUN; provider availability and complete STT/voice E2E / ducking remain external Issue #10/#11 validation. All AC NOT_VERIFIED, no APK."
+    "P07 actual Driving Mic/Voice permission and origin handoff authored using existing app-scoped coordinator/provider. 19 pure JUnit methods authored, NOT_RUN; provider availability and complete STT/voice E2E / ducking remain external Issue #10/#11 validation. All AC NOT_VERIFIED, no APK.",
+    "P08 actual Compose accessibility code and 11 authored, NOT RUN instrumentation tests. Runtime TalkBack 100/150/200%, focus, contrast and physical 64/72/56dp remain UNVERIFIED. P09 optional BT next; no APK or PR."
   ]
 }
