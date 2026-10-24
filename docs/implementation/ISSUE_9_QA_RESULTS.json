@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P02_POLICY_SOURCE_COMPLETE_P03_NEXT",
+  "status": "P03_DRIVING_NAVIGATION_SOURCE_COMPLETE_P04_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -9,7 +9,7 @@
     "P00": "PASS_STATIC_SOURCE_AND_READINESS_AUDIT_NO_TESTS",
     "P01": "PASS_CONTRACT_ONLY_NO_BUILD_NO_TESTS",
     "P02": "PASS_SCOPED_POLICY_SOURCE_AND_21_TESTS_AUTHORED_NOT_RUN",
-    "P03": "PLANNED_NOT_EXECUTED",
+    "P03": "PASS_SCOPED_NAVIGATION_SOURCE_12_TESTS_AUTHORED_NOT_RUN",
     "P04": "PLANNED_NOT_EXECUTED",
     "P05": "PLANNED_NOT_EXECUTED",
     "P06": "PLANNED_NOT_EXECUTED",
@@ -112,6 +112,9 @@
     "No P01 production changes, no PR, no merge, no Issue close; AC01–AC14 NOT_VERIFIED, M01–M46 and five technical groups NOT_RUN, APK NOT_BUILT.",
     "P02 source: core/application/driving/DrivingPresentationPolicy.kt; pure 3-state projection, 4 fixed transports and command decisions; existing playback/api authority preserved. 21 JUnit methods authored, 0 executed.",
     "P02 scope read-back was static only: Android/Gradle/JVM/UI/Lint/Actions/emulator/phone tests NOT_RUN, final single APK remains P13 NOT_BUILT; original AC01–AC14 remain NOT_VERIFIED.",
-    "P02 deleted only obsolete core/application/driving/PackageBoundary.kt stub after introducing real policy; no Playback service, nav, Bluetooth or manifest production source changed."
+    "P02 deleted only obsolete core/application/driving/PackageBoundary.kt stub after introducing real policy; no Playback service, nav, Bluetooth or manifest production source changed.",
+    "P03 single Driving NavHost destination and explicit Library/FullPlayer entry, origin-aware Exit/Android Back, process-fresh inactive root ViewModel and system/permission gating committed. P03 contains an honest temporary navigation-only UI shell; final Driving UI and transports P04-P06 pending.",
+    "P03 12 JUnit @Test methods authored, zero executed. P02 DrivingPresentationPolicy accidental literal escaped newlines corrected as a narrow Kotlin source formatting fix; no service/queue/route/BT/Voice code changed.",
+    "P03 source/GitHub static audit only, not Android compile or functioning device validation. Original AC01-AC14 NOT_VERIFIED, M01-M46 and 5 technical groups NOT_RUN, APK NOT_BUILT, Actions/Gradle/PR/Merge/close not performed."
   ]
 }
