@@ -21,7 +21,7 @@ object DrivingVoiceHandoffPolicy {
         session: VoiceSessionState,
     ): DrivingVoiceAvailability = when {
         !drivingActive -> DrivingVoiceAvailability.OutsideDriving
-        session.isDrivingSession() -> DrivingVoiceAvailability.SessionActive
+        session != VoiceSessionState.Idle -> DrivingVoiceAvailability.SessionActive
         !localProviderSupported -> DrivingVoiceAvailability.ProviderUnavailable
         !microphoneGranted -> DrivingVoiceAvailability.NeedsPermission
         !localProviderAvailable -> DrivingVoiceAvailability.ProviderUnavailable
