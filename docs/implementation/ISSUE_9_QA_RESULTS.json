@@ -1,14 +1,14 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P01_GITHUB_CONTRACT_COMPLETE_P02_NEXT",
+  "status": "P02_POLICY_SOURCE_COMPLETE_P03_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
   "phase_status": {
     "P00": "PASS_STATIC_SOURCE_AND_READINESS_AUDIT_NO_TESTS",
     "P01": "PASS_CONTRACT_ONLY_NO_BUILD_NO_TESTS",
-    "P02": "PLANNED_NOT_EXECUTED",
+    "P02": "PASS_SCOPED_POLICY_SOURCE_AND_21_TESTS_AUTHORED_NOT_RUN",
     "P03": "PLANNED_NOT_EXECUTED",
     "P04": "PLANNED_NOT_EXECUTED",
     "P05": "PLANNED_NOT_EXECUTED",
@@ -109,6 +109,9 @@
     "P00 did not run Gradle/JVM/UI/Lint/Actions, did not assemble an APK and did not perform phone QA. AC01–AC14 NOT_VERIFIED, M01–M46 and all technical cases NOT_RUN.",
     "P01 GitHub governance/evidence handoff PASS_CONTRACT_ONLY: branch reused; explicit one-P13-APK protocol; source/AC/M/T traceability and P13-only PR template committed and read back.",
     "Repository CONTRIBUTING proposes develop but authenticated P01 compare shows develop is 1065 commits behind main; proposed main PR base requires explicit P13 owner/reviewer policy exception; ruleset/protection and Project V2 status were not verifiable by this connection.",
-    "No P01 production changes, no PR, no merge, no Issue close; AC01–AC14 NOT_VERIFIED, M01–M46 and five technical groups NOT_RUN, APK NOT_BUILT."
+    "No P01 production changes, no PR, no merge, no Issue close; AC01–AC14 NOT_VERIFIED, M01–M46 and five technical groups NOT_RUN, APK NOT_BUILT.",
+    "P02 source: core/application/driving/DrivingPresentationPolicy.kt; pure 3-state projection, 4 fixed transports and command decisions; existing playback/api authority preserved. 21 JUnit methods authored, 0 executed.",
+    "P02 scope read-back was static only: Android/Gradle/JVM/UI/Lint/Actions/emulator/phone tests NOT_RUN, final single APK remains P13 NOT_BUILT; original AC01–AC14 remain NOT_VERIFIED.",
+    "P02 deleted only obsolete core/application/driving/PackageBoundary.kt stub after introducing real policy; no Playback service, nav, Bluetooth or manifest production source changed."
   ]
 }
