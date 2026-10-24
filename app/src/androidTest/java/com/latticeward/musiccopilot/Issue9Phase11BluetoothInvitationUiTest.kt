@@ -6,6 +6,7 @@ import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
@@ -75,9 +76,10 @@ class Issue9Phase11BluetoothInvitationUiTest {
                 }
             }
         }
-        compose.onNodeWithText("Enter")
+        // Measure the CLICKABLE Button semantics node, not its Text child.
+        compose.onNodeWithTag("issue9_bt_enter")
             .assertHeightIsAtLeast(48.dp)
-        compose.onNodeWithText("Not now")
+        compose.onNodeWithTag("issue9_bt_not_now")
             .assertHeightIsAtLeast(48.dp)
     }
 }
