@@ -2,6 +2,8 @@ package com.latticeward.musiccopilot.feature.driving
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -24,11 +26,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,6 +56,7 @@ import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.driving.DrivingAction
 import com.latticeward.musiccopilot.core.application.driving.DrivingActionLabel
 import com.latticeward.musiccopilot.core.application.driving.DrivingControlState
+import com.latticeward.musiccopilot.core.application.driving.DrivingDisabledReason
 import com.latticeward.musiccopilot.core.application.driving.DrivingPresentationState
 import com.latticeward.musiccopilot.core.application.driving.DrivingRecoveryMessage
 import com.latticeward.musiccopilot.core.application.driving.DrivingRecoveryPolicy
@@ -120,6 +135,18 @@ fun DrivingModeScreen(
     val voiceActive = voiceState != VoiceSessionState.Idle
     val voicePermissionPrompt = voicePermissionStage == VoicePracticeStage.Rationale ||
         voicePermissionStage == VoicePracticeStage.AwaitingAndroid
+    val micFocusRequester = remember { FocusRequester() }
+    val overlayFocusRequester = remember { FocusRequester() }
+    var overlayWasOpen by remember { mutableStateOf(false) }
+    val overlayIsOpen = voiceActive || voicePermissionPrompt
+    // Request focus only on the overlay open/close transition, not on each
+    // transient STT state / playback position / composition frame.
+    LaunchedEffect(overlayIsOpen, state.micEnabled) {
+        if (overlayIsOpen) overlayFocusRequester.requestFocus()
+        else if (overlayWasOpen && state.micEnabled && onMic != null)
+            micFocusRequester.requestFocus()
+        overlayWasOpen = overlayIsOpen
+    }
     // A Voice Back cancels capture/permission overlay in this same route.
     // Otherwise P03's root BackHandler exits Driving immediately.
     BackHandler(enabled = voiceActive || voicePermissionPrompt) {
@@ -129,13 +156,11 @@ fun DrivingModeScreen(
     Surface(modifier = Modifier.fillMaxSize(), color = MusicColors.background) {
         Column(
             modifier = Modifier.fillMaxSize().safeDrawingPadding()
-                .verticalScroll(rememberScrollState())
                 .padding(horizontal = MusicGrid.drivingMarginDp, vertical = MusicSpacing.smDp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(MusicSpacing.mdDp),
         ) {
-            // Header always exposes a truthful state and an immediate Exit.
-            // P08 will verify precise TalkBack traversal under font scaling.
+            // Fixed, always-accessible Exit. Never scroll it out of reach at
+            // 200% font scaling, narrow devices or long error explanations.
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -149,21 +174,37 @@ fun DrivingModeScreen(
                 )
                 Button(
                     onClick = onExit,
-                    modifier = Modifier.heightIn(min = MusicSize.drivingExitMinDp),
+                    modifier = drivingFocusOutline()
+                        .heightIn(min = MusicSize.drivingExitMinDp)
+                        .semantics {
+                            contentDescription = "Exit Driving Mode immediately"
+                        },
                 ) {
                     Text(stringResource(R.string.i9_driving_exit_short))
                 }
             }
-
-            // State comes before the verified metadata in accessibility order.
-            // No Track is a distinct CC-07 variant, not a fake empty song.
-            Text(
-                text = when (state.view) {
+            // Only body scrolls; screen safety Exit remains pinned above it.
+            Column(
+                modifier = Modifier.fillMaxWidth().weight(1f)
+                    .verticalScroll(rememberScrollState())
+                    .padding(top = MusicSpacing.mdDp, bottom = MusicSpacing.mdDp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(MusicSpacing.mdDp),
+            ) {
+            // State comes before verified metadata in TalkBack traversal.
+            // Do not announce a guessed service result or every position tick.
+            val playbackStatusText = when (state.view) {
                     DrivingViewState.Playing -> stringResource(R.string.i9_driving_state_playing)
                     DrivingViewState.Paused -> stringResource(R.string.i9_driving_state_paused)
                     DrivingViewState.NoTrack -> stringResource(R.string.i9_driving_state_no_track)
-                }.uppercase(),
-                modifier = Modifier.fillMaxWidth().semantics { heading() },
+                }.uppercase()
+            Text(
+                text = playbackStatusText,
+                modifier = Modifier.fillMaxWidth().semantics {
+                    heading()
+                    stateDescription = playbackStatusText
+                    liveRegion = LiveRegionMode.Polite
+                },
                 color = MusicColors.primary,
                 style = MusicTextStyles.drivingState,
                 textAlign = TextAlign.Center,
@@ -172,11 +213,20 @@ fun DrivingModeScreen(
             if (recovery.showArtworkAndMetadata) {
                 // CC-05/CC-06: subordinate CMP-08 neutral artwork only.
                 // Never fabricate a bitmap or cache a revoked private file.
+                // Artwork is decorative while no verified local bitmap exists.
+                // Shrink before touch targets when fonts grow to 200%.
+                val artworkSize = when {
+                    LocalDensity.current.fontScale >= 2f -> 72.dp
+                    LocalDensity.current.fontScale >= 1.5f -> 96.dp
+                    else -> 160.dp
+                }
                 Box(
-                    modifier = Modifier.size(160.dp).background(
+                    modifier = Modifier.size(artworkSize).background(
                         MusicColors.surfaceVariant,
                         RoundedCornerShape(MusicRadius.mdDp),
-                    ),
+                    ).semantics(mergeDescendants = true) {
+                        contentDescription = "Album artwork unavailable"
+                    },
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
@@ -187,22 +237,31 @@ fun DrivingModeScreen(
                 }
                 // CMP-07: service-verified MediaRef only. The producer cancels
                 // prior lookups; mismatched references never render.
-                Text(
-                    text = metadata?.title?.takeIf { it.isNotBlank() }
-                        ?: stringResource(R.string.i7_unknown_track),
-                    modifier = Modifier.fillMaxWidth(),
-                    color = MusicColors.textPrimary,
-                    style = MusicTextStyles.drivingTitle,
-                    textAlign = TextAlign.Center,
-                )
-                Text(
-                    text = metadata?.artist?.takeIf { it.isNotBlank() }
-                        ?: stringResource(R.string.i9_driving_unknown_artist),
-                    modifier = Modifier.fillMaxWidth(),
-                    color = MusicColors.textSecondary,
-                    style = MusicTextStyles.drivingMeta,
-                    textAlign = TextAlign.Center,
-                )
+                // Group related local title and artist; action buttons remain
+                // their own independent accessibility focus targets.
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                        .semantics(mergeDescendants = true) {},
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(MusicSpacing.xsDp),
+                ) {
+                    Text(
+                        text = metadata?.title?.takeIf { it.isNotBlank() }
+                            ?: stringResource(R.string.i7_unknown_track),
+                        modifier = Modifier.fillMaxWidth(),
+                        color = MusicColors.textPrimary,
+                        style = MusicTextStyles.drivingTitle,
+                        textAlign = TextAlign.Center,
+                    )
+                    Text(
+                        text = metadata?.artist?.takeIf { it.isNotBlank() }
+                            ?: stringResource(R.string.i9_driving_unknown_artist),
+                        modifier = Modifier.fillMaxWidth(),
+                        color = MusicColors.textSecondary,
+                        style = MusicTextStyles.drivingMeta,
+                        textAlign = TextAlign.Center,
+                    )
+                }
             } else {
                 // CC-07: NO TRACK has no artwork or claimed current artist.
                 Text(
@@ -229,7 +288,9 @@ fun DrivingModeScreen(
             if (explanation != null) {
                 Text(
                     text = explanation,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().semantics {
+                        liveRegion = LiveRegionMode.Polite
+                    },
                     color = MusicColors.textSecondary,
                     style = MusicTextStyles.bodyMedium,
                     textAlign = TextAlign.Center,
@@ -246,6 +307,7 @@ fun DrivingModeScreen(
                     onPermissionCancel = onVoicePermissionCancel,
                     onVoiceCancel = onVoiceCancel,
                     onVoiceRetry = onVoiceRetry,
+                    focusRequester = overlayFocusRequester,
                 )
             } else if (recovery.showTransportControls) {
                 if (onTransport == null) {
@@ -305,7 +367,12 @@ fun DrivingModeScreen(
                     onClick = { onMic?.invoke() },
                     enabled = state.micEnabled && onMic != null,
                     modifier = Modifier.fillMaxWidth().widthIn(max = 320.dp)
-                        .heightIn(min = MusicSize.drivingMicMinDp),
+                        .focusRequester(micFocusRequester)
+                        .then(drivingFocusOutline())
+                        .heightIn(min = MusicSize.drivingMicMinDp)
+                        .semantics {
+                            contentDescription = "Voice command; press to talk"
+                        },
                 ) {
                     Text(
                         stringResource(R.string.i9_driving_mic_voice),
@@ -328,7 +395,9 @@ fun DrivingModeScreen(
                 }
                 if (statusText != null) Text(
                     statusText,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().semantics {
+                        liveRegion = LiveRegionMode.Polite
+                    },
                     style = MusicTextStyles.bodyMedium,
                     color = MusicColors.textSecondary,
                     textAlign = TextAlign.Center,
@@ -347,7 +416,8 @@ fun DrivingModeScreen(
                 color = MusicColors.textSecondary,
                 textAlign = TextAlign.Center,
             )
-        }
+            } // scrollable body
+        } // fixed header + body
     }
 }
 
@@ -366,10 +436,27 @@ private fun DrivingTransportButton(
         DrivingActionLabel.Next -> stringResource(R.string.i7_next)
         DrivingActionLabel.SeekBack10Seconds -> stringResource(R.string.i9_driving_seek_back_short)
     }
+    val spokenLabel = when (control.label) {
+        DrivingActionLabel.Previous -> "Previous track"
+        DrivingActionLabel.Play -> "Play playback"
+        DrivingActionLabel.Pause -> "Pause playback"
+        DrivingActionLabel.Next -> "Next track"
+        DrivingActionLabel.SeekBack10Seconds -> "Seek backward ten seconds"
+    }
+    val disabledText = when {
+        onTransport == null -> "Playback connection is not ready"
+        else -> drivingDisabledReason(control.disabledReason)
+    }
+    val enabledNow = control.enabled && onTransport != null
     OutlinedButton(
         onClick = { onTransport?.invoke(control.action) },
-        enabled = control.enabled && onTransport != null,
-        modifier = modifier.heightIn(min = MusicSize.drivingControlMinDp),
+        enabled = enabledNow,
+        modifier = modifier.then(drivingFocusOutline())
+            .heightIn(min = MusicSize.drivingControlMinDp)
+            .semantics {
+                contentDescription = spokenLabel
+                if (!enabledNow) stateDescription = disabledText
+            },
     ) {
         Text(
             text = label,
@@ -423,6 +510,7 @@ private fun DrivingVoiceSessionOverlay(
     onPermissionCancel: () -> Unit,
     onVoiceCancel: () -> Unit,
     onVoiceRetry: () -> Unit,
+    focusRequester: FocusRequester,
 ) {
     val rationale = permissionStage == VoicePracticeStage.Rationale
     val awaiting = permissionStage == VoicePracticeStage.AwaitingAndroid
@@ -438,7 +526,13 @@ private fun DrivingVoiceSessionOverlay(
     }
     Text(
         headingText,
-        modifier = Modifier.fillMaxWidth().semantics { heading() },
+        modifier = Modifier.fillMaxWidth()
+            .focusRequester(focusRequester).focusable()
+            .semantics {
+                heading()
+                liveRegion = LiveRegionMode.Polite
+                stateDescription = headingText
+            },
         style = MusicTextStyles.drivingMeta,
         color = MusicColors.textPrimary,
         textAlign = TextAlign.Center,
@@ -452,19 +546,51 @@ private fun DrivingVoiceSessionOverlay(
         )
         Button(
             onClick = onPermissionContinue,
-            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.drivingExitMinDp),
+            modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
+                .heightIn(min = MusicSize.drivingExitMinDp)
+                .semantics { contentDescription = "Continue to Android microphone permission" },
         ) { Text(stringResource(R.string.i9_voice_continue)) }
     }
     if (state is VoiceSessionState.Failed && state.canRetry) {
         OutlinedButton(
             onClick = onVoiceRetry,
-            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.drivingExitMinDp),
+            modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
+                .heightIn(min = MusicSize.drivingExitMinDp)
+                .semantics { contentDescription = "Retry voice command once" },
         ) { Text(stringResource(R.string.i9_voice_retry)) }
     }
     // Cancel remains available while Android is awaiting a permission result;
     // it drops the intent but cannot dismiss the OS-owned dialog.
     OutlinedButton(
         onClick = if (rationale || awaiting) onPermissionCancel else onVoiceCancel,
-        modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.drivingExitMinDp),
+        modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
+            .heightIn(min = MusicSize.drivingExitMinDp)
+            .semantics { contentDescription = "Cancel voice command and return to Driving" },
     ) { Text(stringResource(R.string.i9_voice_cancel)) }
+}
+
+/** P08 keyboard/switch-access focus outline; Android TalkBack draws its own
+ * accessibility rectangle. No extra clickable layer or semantics group.
+ * Uses the exact approved Night Signal focus token from MusicColors.
+ */
+@Composable
+private fun drivingFocusOutline(): Modifier {
+    var focused by remember { mutableStateOf(false) }
+    return Modifier
+        .onFocusChanged { focused = it.isFocused }
+        .border(
+            width = if (focused) MusicSize.focusRingWidthDp else 0.dp,
+            color = if (focused) MusicColors.focusRing else MusicColors.background,
+            shape = RoundedCornerShape(MusicRadius.mdDp),
+        )
+}
+
+/** Only sanitized reasons, not raw route, path, file name or exception. */
+private fun drivingDisabledReason(reason: DrivingDisabledReason?): String = when (reason) {
+    DrivingDisabledReason.NoCurrentTrack -> "No current playable track"
+    DrivingDisabledReason.ControllerNotReady -> "Playback controller not connected"
+    DrivingDisabledReason.PlaybackUnavailable -> "Playback temporarily unavailable"
+    DrivingDisabledReason.CommandPending -> "Waiting for playback service"
+    DrivingDisabledReason.Unsupported -> "Action unavailable for this track"
+    null -> "Action unavailable"
 }
