@@ -266,4 +266,8 @@
     <string name="i9_bt_offer_description">Your selected Bluetooth audio device connected. You can open Driving Mode manually. Music will not start automatically.</string>
     <string name="i9_bt_offer_enter">Enter</string>
     <string name="i9_bt_offer_not_now">Not now</string>
+    <string name="i9_bt_a11y_save">Save selected Bluetooth audio device</string>
+    <string name="i9_bt_a11y_remove">Remove saved Bluetooth device preference</string>
+    <string name="i9_bt_a11y_staged"> · selected, not saved</string>
+    <string name="i9_bt_a11y_committed"> · saved preference</string>
 </resources>
