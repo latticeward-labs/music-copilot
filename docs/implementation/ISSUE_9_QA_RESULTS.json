@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P03_DRIVING_NAVIGATION_SOURCE_COMPLETE_P04_NEXT",
+  "status": "P04_WF07_PLAYING_COMPOSE_SOURCE_COMPLETE_P05_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -10,7 +10,7 @@
     "P01": "PASS_CONTRACT_ONLY_NO_BUILD_NO_TESTS",
     "P02": "PASS_SCOPED_POLICY_SOURCE_AND_21_TESTS_AUTHORED_NOT_RUN",
     "P03": "PASS_SCOPED_NAVIGATION_SOURCE_12_TESTS_AUTHORED_NOT_RUN",
-    "P04": "PLANNED_NOT_EXECUTED",
+    "P04": "PASS_SCOPED_PLAYING_COMPOSE_SOURCE_ONLY_NO_BUILD_NO_TESTS",
     "P05": "PLANNED_NOT_EXECUTED",
     "P06": "PLANNED_NOT_EXECUTED",
     "P07": "PLANNED_NOT_EXECUTED",
@@ -115,6 +115,9 @@
     "P02 deleted only obsolete core/application/driving/PackageBoundary.kt stub after introducing real policy; no Playback service, nav, Bluetooth or manifest production source changed.",
     "P03 single Driving NavHost destination and explicit Library/FullPlayer entry, origin-aware Exit/Android Back, process-fresh inactive root ViewModel and system/permission gating committed. P03 contains an honest temporary navigation-only UI shell; final Driving UI and transports P04-P06 pending.",
     "P03 12 JUnit @Test methods authored, zero executed. P02 DrivingPresentationPolicy accidental literal escaped newlines corrected as a narrow Kotlin source formatting fix; no service/queue/route/BT/Voice code changed.",
-    "P03 source/GitHub static audit only, not Android compile or functioning device validation. Original AC01-AC14 NOT_VERIFIED, M01-M46 and 5 technical groups NOT_RUN, APK NOT_BUILT, Actions/Gradle/PR/Merge/close not performed."
+    "P03 source/GitHub static audit only, not Android compile or functioning device validation. Original AC01-AC14 NOT_VERIFIED, M01-M46 and 5 technical groups NOT_RUN, APK NOT_BUILT, Actions/Gradle/PR/Merge/close not performed.",
+    "P04: actual HF-07/WF-07 service-observed Driving Compose screen with title/artist from confirmed local service MediaRef, approved artwork placeholder, four 64dp+ transport affordances, Mic 72dp+ and Exit 56dp+, road notice and font/width reflow source. P03 temporary navigation screen replaced.",
+    "P04: no false clickable controls: onTransport=null until P06 and onMic=null until P07; both disabled in UI. Paused/NoTrack recovery completion P05; actual microphone #10. No P04 tests authored or executed, no Gradle/Actions/preview/emulator/APK. 14 AC NOT_VERIFIED, 46 M NOT_RUN, 5 technical NOT_RUN.",
+    "P04 scope: new feature/driving/DrivingModeScreen.kt, AppNavHost + string resources, deletion of structural driving PackageBoundary.kt only. Existing service-owned Media3/Queue/Focus/BT route/notification/headset fixes untouched."
   ]
 }
