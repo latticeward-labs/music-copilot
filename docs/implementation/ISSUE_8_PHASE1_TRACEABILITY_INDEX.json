@@ -59,7 +59,10 @@
     "voice_provider_teardown": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
     "interruption_notice_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionNoticePolicy.kt",
     "interruption_error_transport": "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
-    "android_oem_compatibility_audit": "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md"
+    "android_oem_compatibility_audit": "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
+    "integrated_test_sources": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+    "p12_source_integration_audit": "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
+    "final_owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md"
   },
   "phase_dependencies": {
     "P00": [],
@@ -178,7 +181,12 @@
         "app/src/main/res/values/strings.xml",
         "app/src/main/AndroidManifest.xml",
         "app/build.gradle.kts",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "FR-03",
@@ -230,7 +238,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "Runtime §8",
@@ -286,7 +299,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
         "app/src/main/res/values/strings.xml",
         "app/src/main/AndroidManifest.xml",
-        "app/build.gradle.kts"
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "FR-03",
@@ -342,7 +360,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
         "app/src/main/res/values/strings.xml",
         "app/src/main/AndroidManifest.xml",
-        "app/build.gradle.kts"
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "FR-03",
@@ -400,7 +423,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
         "app/src/main/res/values/strings.xml",
         "app/src/main/AndroidManifest.xml",
-        "app/build.gradle.kts"
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "ADR-0002",
@@ -452,7 +480,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
         "app/src/main/res/values/strings.xml",
         "app/src/main/AndroidManifest.xml",
-        "app/build.gradle.kts"
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "UF-11",
@@ -507,7 +540,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
         "app/src/main/res/values/strings.xml",
         "app/src/main/AndroidManifest.xml",
-        "app/build.gradle.kts"
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "UF-11",
@@ -549,7 +587,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackCommandProcessor.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackVoiceInterruptionHost.kt",
         "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "ADR-0004",
@@ -592,7 +635,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
         "app/src/main/AndroidManifest.xml",
         "app/build.gradle.kts",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServiceAudioRouteMonitor.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "ADR-0003",
@@ -619,7 +667,13 @@
       ],
       "existing_source_files": [
         "app/src/main/java/com/latticeward/musiccopilot/playback/interruption/InterruptionPolicy.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt"
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
       ],
       "sources": [
         "Issue #16 testing architecture",
@@ -669,7 +723,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/playback/service/PlaybackInterruptionGate.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
-        "app/src/main/res/values/strings.xml"
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "MVP Week 4",
@@ -720,7 +779,12 @@
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/MiniPlayerBar.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
         "app/src/main/res/values/strings.xml",
-        "app/build.gradle.kts"
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
       ],
       "sources": [
         "FR-03",
@@ -844,7 +908,13 @@
     "app/src/main/res/values/strings.xml",
     "docs/implementation/ISSUE_8_PHASE11_ANDROID_OEM_ACCESSIBILITY_COMPATIBILITY.md",
     "app/src/main/AndroidManifest.xml",
-    "app/build.gradle.kts"
+    "app/build.gradle.kts",
+    "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
   ],
   "phase_artifacts": {
     "P02": {
@@ -1089,6 +1159,37 @@
       "tests_executed": 0,
       "apk_built": false,
       "AC01_AC12": "UNVERIFIED"
+    },
+    "P12": {
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "date": "2026-10-24",
+      "implementation": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "authored_tests": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt"
+      ],
+      "updated_legacy_test_sources": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "new_jvm_test_methods": 28,
+      "legacy_test_methods_reconciled": 30,
+      "documentation": "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
+      "owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+      "defect_fixed": "INTERRUPTION_NOTICE_PRESERVED_ACROSS_NON_RECOVERY_COMMANDS",
+      "source_only_reconciliation": "ISSUE7_AND_ISSUE8_MEDIA3_PLAYBACK_AND_ROUTE_EPOCHS",
+      "single_app_player_and_session": "PRESERVED",
+      "requested_final_artifact": "P13_ONLY_ONE_CUMULATIVE_DEBUG_APK",
+      "builds": 0,
+      "tests_executed": 0,
+      "apk_built": false,
+      "manual_cases": "45_NOT_RUN",
+      "technical_cases": "15_NOT_RUN",
+      "original_12_acceptance": "UNVERIFIED",
+      "phone_device_field_evidence": "NONE"
     }
   }
 }
