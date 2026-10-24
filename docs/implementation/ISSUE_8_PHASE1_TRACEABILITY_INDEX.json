@@ -1354,7 +1354,7 @@
       "phone_device_field_evidence": "NONE"
     },
     "P13": {
-      "status": "OWNER_MVP_IMPLEMENTATION_ACCEPTED_MERGE_AUTHORIZED_WITH_DEFERRED_TECHNICAL_EVIDENCE",
+      "status": "OWNER_APPROVED_PR77_MERGED_ISSUE8_CLOSED_WITH_DEFERRED_TECHNICAL_QA",
       "date": "2026-10-24",
       "documentation": "docs/implementation/ISSUE_8_PHASE13_ONE_CUMULATIVE_APK_BUILD_AND_OWNER_HANDOFF.md",
       "workflow": ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
@@ -1377,11 +1377,18 @@
       "no_pr_merge": true,
       "issue_open": true,
       "owner_final_report": "docs/implementation/ISSUE_8_OWNER_MVP_ACCEPTANCE_AND_DEFERRED_EVIDENCE.md",
-      "owner_phone_self_report": "43_PASS_OWNER_ATTESTED_2_BLOCKED_VOICE",
+      "owner_phone_self_report": "43_PASS_2_BLOCKED_VOICE",
       "media_fix_retest": "R01_R02_R03_PASS_OWNER_ATTESTED",
-      "technical_evidence": "T01_T15_NOT_RUN",
+      "technical_evidence": "15_NOT_RUN",
       "owner_authorized_merge_close": "YES_2026_10_24",
-      "risk_disposition": "DOCUMENTED_DEFERRED_ACCEPTED_FOR_MVP"
+      "risk_disposition": "DOCUMENTED_DEFERRED_ACCEPTED_FOR_MVP",
+      "pr_number": 77,
+      "pr_url": "https://github.com/latticeward-labs/music-copilot/pull/77",
+      "pr_merged": true,
+      "pr_merge_sha": "061d98191ef96e6316f8da8a0c6b9946c1345ac2",
+      "pr_merged_at": "2026-10-24T11:06:22Z",
+      "issue_closed": true,
+      "issue_closed_at": "2026-10-24T11:06:23Z"
     }
   }
 }
