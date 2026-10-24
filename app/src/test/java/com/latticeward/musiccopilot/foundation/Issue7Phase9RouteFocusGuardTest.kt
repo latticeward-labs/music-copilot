@@ -1,6 +1,7 @@
 package com.latticeward.musiccopilot.foundation
 
 import android.media.AudioDeviceInfo
+import android.os.Build
 import androidx.media3.common.Player
 import com.latticeward.musiccopilot.playback.service.PlaybackInterruptionGate
 import org.junit.Assert.*
@@ -24,11 +25,14 @@ class Issue7Phase9RouteFocusGuardTest {
         assertTrue(gate.shouldSuppressAutomaticPlay())
     }
 
-    @Test fun disconnectAdvancesRouteGeneration() {
+    @Test fun duplicateNoisyAndRemovedEventsShareOneRouteGeneration() {
         val gate = PlaybackInterruptionGate()
-        gate.onHeadsetOrBluetoothLost()
+        assertTrue(gate.onHeadsetOrBluetoothLost())
         assertEquals(1L, gate.routeGeneration)
-        gate.onHeadsetOrBluetoothLost()
+        assertFalse(gate.onHeadsetOrBluetoothLost())
+        assertEquals(1L, gate.routeGeneration)
+        gate.onExplicitUserPlaybackRequest()
+        assertTrue(gate.onHeadsetOrBluetoothLost())
         assertEquals(2L, gate.routeGeneration)
     }
 
@@ -89,12 +93,17 @@ class Issue7Phase9RouteFocusGuardTest {
         assertTrue(PlaybackInterruptionGate.isPersonalOutput(AudioDeviceInfo.TYPE_BLUETOOTH_SCO))
     }
 
-    @Test fun usbBleAndHearingAidOutputsAreProtected() {
+    @Test fun usbAndHearingAidOutputsAreProtectedAndBleNeedsApi31() {
         assertTrue(PlaybackInterruptionGate.isPersonalOutput(AudioDeviceInfo.TYPE_USB_HEADSET))
         assertTrue(PlaybackInterruptionGate.isPersonalOutput(AudioDeviceInfo.TYPE_USB_DEVICE))
-        assertTrue(PlaybackInterruptionGate.isPersonalOutput(AudioDeviceInfo.TYPE_BLE_HEADSET))
-        assertTrue(PlaybackInterruptionGate.isPersonalOutput(AudioDeviceInfo.TYPE_BLE_SPEAKER))
         assertTrue(PlaybackInterruptionGate.isPersonalOutput(AudioDeviceInfo.TYPE_HEARING_AID))
+        // JVM Android stubs are NOT Android 12 devices. P11 intentionally
+        // declines to classify API31 BLE constants on SDK29/30.
+        val bleSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+        assertEquals(bleSupported, PlaybackInterruptionGate.isPersonalOutput(
+            AudioDeviceInfo.TYPE_BLE_HEADSET))
+        assertEquals(bleSupported, PlaybackInterruptionGate.isPersonalOutput(
+            AudioDeviceInfo.TYPE_BLE_SPEAKER))
     }
 
     @Test fun builtInSpeakerLossNeverTriggersHeadsetGuard() {
