@@ -148,7 +148,7 @@ class MusicPlaybackService : MediaSessionService() {
                     // Install the gate *before* exposing the MediaSession.
                     systemTransport.configureSystemPlaySafety(
                         mayPlay = {
-                            !interruptionGate.shouldSuppressAutomaticPlay() &&
+                            interruptionGate.mayAdmitExternalPlayAttempt() &&
                                 (!::focusObserver.isInitialized ||
                                     focusObserver.policyState.focus == FocusCondition.AVAILABLE)
                         },
