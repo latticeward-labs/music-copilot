@@ -96,17 +96,12 @@ fun playbackStatusLabel(state: PlayerUiState): String =
                     else -> stringResource(R.string.i8_audio_temporarily_paused)
                 }
             else -> when (state.snapshot.playbackState) {
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Playing ->
-                stringResource(R.string.i7_playing)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Buffering ->
-                stringResource(R.string.i7_buffering)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Paused ->
-                stringResource(R.string.i7_paused)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Ended ->
-                stringResource(R.string.i7_ended)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Error ->
-                stringResource(R.string.i7_playback_error)
-            com.latticeward.musiccopilot.playback.api.PlaybackState.Idle ->
-                stringResource(R.string.i7_no_track)
-                }
+                PlaybackState.Playing -> stringResource(R.string.i7_playing)
+                PlaybackState.Buffering -> stringResource(R.string.i7_buffering)
+                PlaybackState.Paused -> stringResource(R.string.i7_paused)
+                PlaybackState.Ended -> stringResource(R.string.i7_ended)
+                PlaybackState.Error -> stringResource(R.string.i7_playback_error)
+                PlaybackState.Idle -> stringResource(R.string.i7_no_track)
+            }
+        }
     }
