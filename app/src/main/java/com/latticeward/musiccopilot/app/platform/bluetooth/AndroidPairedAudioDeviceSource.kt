@@ -50,8 +50,17 @@ class AndroidPairedAudioDeviceSource(context: Context) : PairedAudioDeviceSource
                     if (device.bondState != android.bluetooth.BluetoothDevice.BOND_BONDED)
                         return@mapNotNull null
                     val btClass = device.bluetoothClass ?: return@mapNotNull null
-                    if (btClass.majorDeviceClass != BluetoothClass.Device.Major.AUDIO_VIDEO)
-                        return@mapNotNull null
+                    if (btClass.majorDeviceClass != BluetoothClass.Device.Major.AUDIO_VIDEO ||
+                        btClass.deviceClass !in setOf(
+                            BluetoothClass.Device.AUDIO_VIDEO_CAR_AUDIO,
+                            BluetoothClass.Device.AUDIO_VIDEO_HANDSFREE,
+                            BluetoothClass.Device.AUDIO_VIDEO_HEADPHONES,
+                            BluetoothClass.Device.AUDIO_VIDEO_HIFI_AUDIO,
+                            BluetoothClass.Device.AUDIO_VIDEO_LOUDSPEAKER,
+                            BluetoothClass.Device.AUDIO_VIDEO_PORTABLE_AUDIO,
+                            BluetoothClass.Device.AUDIO_VIDEO_WEARABLE_HEADSET,
+                        )
+                    ) return@mapNotNull null
                     val address = device.address ?: return@mapNotNull null
                     if (com.latticeward.musiccopilot.core.application.bluetooth.BluetoothSelectionToken
                             .normalizeAddress(address) == null
