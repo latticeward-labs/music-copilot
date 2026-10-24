@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -43,7 +43,9 @@ fun BluetoothPreferenceSettingsSection(
     onOpenAndroidPermissionSettings: () -> Unit,
 ) {
     val ui by model.ui.collectAsStateWithLifecycle()
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
+    val saveDescription = stringResource(R.string.i9_bt_a11y_save)
+    val removeDescription = stringResource(R.string.i9_bt_a11y_remove)
     // Disposing Settings loses drafts but never changes committed DataStore.
     DisposableEffect(model) { onDispose { model.dismiss() } }
     Column(
@@ -160,7 +162,7 @@ fun BluetoothPreferenceSettingsSection(
                     modifier = Modifier.fillMaxWidth()
                         .heightIn(min = MusicSize.touchTargetMinDp)
                         .semantics {
-                            contentDescription = "Save selected Bluetooth audio device"
+                            contentDescription = saveDescription
                         },
                 ) { Text(stringResource(R.string.i9_bt_save)) }
             }
@@ -174,7 +176,7 @@ fun BluetoothPreferenceSettingsSection(
                     modifier = Modifier.fillMaxWidth()
                         .heightIn(min = MusicSize.touchTargetMinDp)
                         .semantics {
-                            contentDescription = "Remove saved Bluetooth device preference"
+                            contentDescription = removeDescription
                         },
                 ) { Text(stringResource(R.string.i9_bt_remove)) }
             }
@@ -225,12 +227,14 @@ private fun BluetoothDeviceChoice(
     enabled: Boolean,
     onSelect: () -> Unit,
 ) {
+    val stagedSuffix = stringResource(R.string.i9_bt_a11y_staged)
+    val committedSuffix = stringResource(R.string.i9_bt_a11y_committed)
     val label = buildString {
         append(device.displayName)
         append(" · ")
         append(ordinal)
-        if (checked) append(" · selected, not saved")
-        else if (committed) append(" · saved preference")
+        if (checked) append(stagedSuffix)
+        else if (committed) append(committedSuffix)
     }
     OutlinedButton(
         onClick = onSelect,
