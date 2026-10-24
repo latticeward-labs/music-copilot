@@ -362,10 +362,10 @@ fun AppNavHost(
                 }
             }
             BackHandler(onBack = exitDriving)
-            // P04: approved WF-07/HF-07 actual Compose presentation.
-            // This phase supplies truthful status/metadata and Exit only.
-            // P06 will bind transport ACK commands; P07 will bind Mic/Voice.
-            // Until then transport and Mic are genuinely disabled in the UI.
+            // P06: deliberate Driving taps use the *same* existing
+            // PlayerViewModel/PlaybackGateway service-ACK pipeline as Full.
+            // No second Media3 session, local queue or optimistic UI state.
+            // P07 still owns Mic/Voice and is not activated here.
             DrivingModeScreen(
                 state = projected,
                 currentItem = playerUi.snapshot.currentItem,
@@ -374,6 +374,16 @@ fun AppNavHost(
                 onExit = exitDriving,
                 lastError = playerUi.snapshot.lastError,
                 requestFailed = playerUi.requestFailed,
+                onTransport = { action ->
+                    // Event-time source gate. A queued/stale tap after Exit,
+                    // permission revocation or system recovery is discarded.
+                    if (drivingNavigation.state.active &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                        !settingsOpen && !replayingEducation
+                    ) playerModel.drivingTransport(action)
+                },
             )
         }
         composable(Destination.Settings.route) {
