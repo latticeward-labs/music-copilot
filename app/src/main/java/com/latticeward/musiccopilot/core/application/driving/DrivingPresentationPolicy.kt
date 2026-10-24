@@ -5,7 +5,7 @@ import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
-import com.latticeward.musiccopilot.playback.command.PlaybackNavigationPolicy
+import com.latticeward.musiccopilot.core.result.AppError
 
 /**
  * Issue #9 P02: PURE, side-effect-free Driving presentation/action policy.
@@ -61,7 +61,7 @@ object DrivingPresentationPolicy {
      * Approved WF-07 order is fixed: Previous -> Play/Pause -> Next -> Seek back,
      * followed by the separate Mic and immediate Exit on the screen.
      */
-    val transportOrder: List<DrivingAction> = listOf(
+    // WF-07 uses the existing service's approved -10s SeekBy transport contract.\n    // P02 intentionally does NOT import playback.command implementation: ADR-0008\n    // application code may depend only on the playback/api public port.\n    const val SEEK_BACK_MS = 10_000L\n\n    val transportOrder: List<DrivingAction> = listOf(
         DrivingAction.Previous,
         DrivingAction.PlayPause,
         DrivingAction.Next,
@@ -106,7 +106,7 @@ object DrivingPresentationPolicy {
                 DrivingStatusNotice.PlaybackError
             snapshot.playbackState == PlaybackState.Buffering ->
                 DrivingStatusNotice.Buffering
-            snapshot.lastError is com.latticeward.musiccopilot.core.result.AppError.Interruption ->
+            snapshot.lastError is AppError.Interruption ->
                 DrivingStatusNotice.Interruption
             else -> DrivingStatusNotice.None
         }
@@ -125,7 +125,8 @@ object DrivingPresentationPolicy {
                 DrivingAction.PlayPause -> true
                 DrivingAction.Next -> snapshot.canSkipNext
                 DrivingAction.SeekBack -> snapshot.canSeek &&
-                    snapshot.positionMs >= 0L
+                    snapshot.positionMs >= 0L &&
+                    (snapshot.durationMs == null || snapshot.durationMs >= 0L)
             }
             val reason = blocked ?: if (!isSupported) DrivingDisabledReason.Unsupported else null
             val label = when (action) {
@@ -170,17 +171,9 @@ object DrivingPresentationPolicy {
                     PlaybackCommand.Pause(commandId)
                 else PlaybackCommand.Play(commandId)
             DrivingAction.Next -> PlaybackCommand.Next(commandId)
-            DrivingAction.SeekBack -> {
-                // Only produce the approved bounded -10s command when the
-                // service-reported position is seekable; no UI clock/seek.
-                if (PlaybackNavigationPolicy.seekBack(
-                        snapshot.positionMs, snapshot.durationMs, snapshot.canSeek,
-                    ) == null
-                ) null
-                else PlaybackCommand.SeekBy(
-                    commandId, -PlaybackNavigationPolicy.VOICE_SEEK_BACK_MS,
-                )
-            }
+            DrivingAction.SeekBack -> PlaybackCommand.SeekBy(
+                commandId, -SEEK_BACK_MS,
+            )
         }
     }
 }
