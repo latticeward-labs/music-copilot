@@ -278,10 +278,16 @@ fun AppNavHost(
         // Replayed/queued background events cannot open a foreground offer.
         lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             selectedBluetoothConnection?.verifiedReconnects?.collect { event ->
+                // A verified reconnect is emitted in the same main-thread
+                // turn as the coordinator's StateFlow update. Compose state
+                // collection can lag one frame, so latestBluetoothEvidence
+                // would still be Disconnected here and permanently consume
+                // this one-shot event without ever displaying an invitation.
+                // Read the coordinator's authoritative synchronous snapshot.
                 bluetoothSuggestionModel.onReconnect(
                     event = event,
-                    latest = latestBluetoothEvidence,
-                    selectionEpoch = latestBluetoothEpoch,
+                    latest = selectedBluetoothConnection.state.value,
+                    selectionEpoch = selectedBluetoothConnection.currentSelectionEpoch,
                     isAllowedSurface = latestInvitationSurface &&
                         selectedBluetoothConnection.isUnclaimedOfferCurrent(event),
                     nowElapsedMs = SystemClock.elapsedRealtime(),
