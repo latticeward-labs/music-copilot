@@ -204,9 +204,24 @@
       "bluetooth_optin_suggestion": "P11_PENDING"
     },
     "P10": {
-      "status": "PLANNED_NOT_EXECUTED",
-      "evidence_files": [],
-      "source_commit": null
+      "status": "PASS_SCOPED_AUDIO_PROFILE_EVENT_GATE_SOURCE_24_JUNIT_AUTHORED_NOT_RUN",
+      "evidence_files": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/bluetooth/SelectedBluetoothConnectionGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/AndroidSelectedAudioProfileMonitor.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/bluetooth/SelectedBluetoothConnectionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue9Phase10SelectedBluetoothEventGateTest.kt",
+        "docs/implementation/ISSUE_9_PHASE10_SELECTED_DEVICE_PROFILE_EVENT_AUDIT.md"
+      ],
+      "source_commit": "9788a2be75173a15171c3d758a6696d537b765ac",
+      "authored_junit_methods": 24,
+      "executed_junit_methods": 0,
+      "profile_evidence": "A2DP_OR_HEADSET_MATCHED_FRESH_PAIRED_AND_PROFILE_CONNECTION_SOURCE_ONLY",
+      "permission_recovery": "SOURCE_ONLY_NOT_DEVICE_VERIFIED",
+      "profile_disconnect_dedupe": "PURE_POLICY_SOURCE_ONLY",
+      "suggestion_ui": "NOT_IMPLEMENTED_P11_PENDING",
+      "apk": "NOT_BUILT"
     },
     "P11": {
       "status": "PLANNED_NOT_EXECUTED",
@@ -1135,7 +1150,7 @@
     "phone_pass": 0,
     "technical_pass": 0,
     "apk_status": "NOT_BUILT",
-    "phases_scoped_contract_complete": 10,
+    "phases_scoped_contract_complete": 11,
     "p02_authored_tests": 21,
     "p02_executed_tests": 0,
     "p03_authored_tests": 12,
@@ -1154,9 +1169,11 @@
     "p08_executed_compose_tests": 0,
     "p02_p03_p05_p06_p07_junit_authored": 96,
     "p02_p03_p05_p06_p07_junit_executed": 0,
-    "cumulative_issue9_source_tests_authored": 125,
+    "cumulative_issue9_source_tests_authored": 149,
     "p09_authored_tests": 18,
-    "p09_executed_tests": 0
+    "p09_executed_tests": 0,
+    "p10_authored_tests": 24,
+    "p10_executed_tests": 0
   },
   "human_validation": {
     "review_approval": "NOT_VERIFIED",
@@ -1176,6 +1193,7 @@
     "P06 full Driving four-button callback to existing root PlayerViewModel and PlaybackGateway public port authored. Stale tap/readback admission and epoch guard source only. 23 JUnit methods authored, 0 run; all product AC NOT_VERIFIED; no APK.",
     "P07 actual Driving Mic/Voice permission and origin handoff authored using existing app-scoped coordinator/provider. 19 pure JUnit methods authored, NOT_RUN; provider availability and complete STT/voice E2E / ducking remain external Issue #10/#11 validation. All AC NOT_VERIFIED, no APK.",
     "P08 actual Compose accessibility code and 11 authored, NOT RUN instrumentation tests. Runtime TalkBack 100/150/200%, focus, contrast and physical 64/72/56dp remain UNVERIFIED. P09 optional BT next; no APK or PR.",
-    "P09 optional CE-20 paired Bluetooth audio preference, local hashed token, Android 12+ CONNECT gate and ACK-only rollback authored; 18 JUnit source methods NOT_RUN. P10/P11 actual selected profile and optional proposal still pending. All original 14 AC NOT_VERIFIED; 46 M/5 technical NOT_RUN, no APK."
+    "P09 optional CE-20 paired Bluetooth audio preference, local hashed token, Android 12+ CONNECT gate and ACK-only rollback authored; 18 JUnit source methods NOT_RUN. P10/P11 actual selected profile and optional proposal still pending. All original 14 AC NOT_VERIFIED; 46 M/5 technical NOT_RUN, no APK.",
+    "P10 live GitHub selected-device Bluetooth A2DP/HFP profile event adapter/foreground app owner and pure reconnect reducer authored, with 24 pure JUnit tests NOT_RUN. No P11 prompt or automatic Driving, no runtime connectivity verification. P13 owns the sole APK and owner phone QA. Product 14 AC NOT_VERIFIED, 46 M/5 technical NOT_RUN."
   ]
 }
