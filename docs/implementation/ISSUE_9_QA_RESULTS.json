@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P06_DRIVING_SERVICE_ACK_WIRING_SOURCE_COMPLETE_P07_NEXT",
+  "status": "P07_MIC_VOICE_HANDOFF_SOURCE_COMPLETE_P08_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -13,7 +13,7 @@
     "P04": "PASS_SCOPED_PLAYING_COMPOSE_SOURCE_ONLY_NO_BUILD_NO_TESTS",
     "P05": "PASS_SCOPED_PAUSED_NO_TRACK_RECOVERY_SOURCE_21_JUNIT_AUTHORED_NOT_RUN",
     "P06": "PASS_SCOPED_SHARED_VM_SERVICE_ACK_SOURCE_23_JUNIT_AUTHORED_NOT_RUN",
-    "P07": "PLANNED_NOT_EXECUTED",
+    "P07": "PASS_SCOPED_MIC_VOICE_HANDOFF_SOURCE_19_JUNIT_AUTHORED_NOT_RUN",
     "P08": "PLANNED_NOT_EXECUTED",
     "P09": "PLANNED_NOT_EXECUTED",
     "P10": "PLANNED_NOT_EXECUTED",
@@ -124,6 +124,9 @@
     "P05: static source-only review. No Gradle, compile, JUnit, lint, Android/UI, Actions, device, APK, PR or merge; original AC01–AC14 NOT_VERIFIED, 46 owner M NOT_RUN, 5 technical NOT_RUN; APK NOT_BUILT.",
     "P06: four Driving UI buttons now invoke one existing root PlayerViewModel and public PlaybackGateway.execute(service-ACK) after tap-time guard for route/permission + current connected service snapshot/revision/queue/item/state/capability/route error. No new Player, MediaSession or queue.",
     "P06: shared PlayerViewModel submit now reserves pending synchronously, uses one request epoch to ignore stale ACK failures and old cleanup, renders service snapshot only (no optimistic Playing); important P13 regression checks for #8 notification/AirPods/route fixes still NOT_RUN.",
-    "P06 authored 23 new pure JUnit methods (none executed). Cumulative P02 21 + P03 12 + P05 21 + P06 23 = 77 authored, 0 executed. Actual ACK/timeout and repeated-tap runtime behavior NOT_VERIFIED; no compile/Gradle/Actions/tests/APK. 14 original product AC remain NOT_VERIFIED; owner 46 M and 5 technical groups remain NOT_RUN."
+    "P06 authored 23 new pure JUnit methods (none executed). Cumulative P02 21 + P03 12 + P05 21 + P06 23 = 77 authored, 0 executed. Actual ACK/timeout and repeated-tap runtime behavior NOT_VERIFIED; no compile/Gradle/Actions/tests/APK. 14 original product AC remain NOT_VERIFIED; owner 46 M and 5 technical groups remain NOT_RUN.",
+    "P07 connects the real app-scoped VoiceSessionCoordinator (VoiceOrigin.Driving) with an explicitly user-tapped Mic; on-device provider capability+fresh OS RECORD_AUDIO checked at tap; the existing VoicePracticeGate/ActivityResult shows rationale and permission result NEVER starts capture. Voice owned by Driving cancelled on Exit/Back/system route/permission invalidation/background. No second service, provider, NavHost route or automatic listening.",
+    "P07 on unsupported Android 10/11 or absent OEM on-device recognizer disables Mic and explains manual fallback; real provider execution and all six English voice intents are NOT claimed. Current PLAY_ARTIST/confirmation remains a #10/#11 dependency, as does complete ADR-0004 audio ducking, TTS and GS-04 vehicle evidence.",
+    "P07 19 JUnit policy methods authored, zero executed; cumulative P02/P03/P05/P06/P07 96 authored, 0 run. No Gradle/Android/CI/Actions/Lint/device or APK; 14 AC NOT_VERIFIED, 46 M NOT_RUN and 5 technical groups NOT_RUN."
   ]
 }
