@@ -13,6 +13,14 @@
     <string name="action_not_now">Not now</string>
     <string name="action_review_access">Review music access</string>
     <string name="action_back">Back</string>
+    <!-- Issue #9 P03 navigation-only Driving shell; P04/P05 add full approved UI. -->
+    <string name="i9_enter_driving">Driving</string>
+    <string name="i9_exit_driving">Exit Driving Mode</string>
+    <string name="i9_driving_heading">DRIVING MODE</string>
+    <string name="i9_driving_state_playing">Playing</string>
+    <string name="i9_driving_state_paused">Paused</string>
+    <string name="i9_driving_state_no_track">No track</string>
+    <string name="i9_driving_nav_pending">Playback status: %1$s. Driving controls are being prepared. Exit returns to your previous screen. Playback is unchanged.</string>
     <string name="action_skip">Skip</string>
     <string name="action_continue">Continue</string>
     <string name="first_use_save_error">Could not save this step. Retry, or use Back to exit without claiming completion.</string>
