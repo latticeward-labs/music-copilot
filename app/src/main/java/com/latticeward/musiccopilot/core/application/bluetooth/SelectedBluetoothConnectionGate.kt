@@ -66,8 +66,10 @@ class SelectedBluetoothConnectionGate {
         status: SelectedAudioConnectionStatus,
         cause: BluetoothObservationCause,
     ): SelectedAudioConnectionState {
-        if (!active || selectedToken == null || token != selectedToken) {
-            stop()
+        if (!active) return current
+        if (selectedToken == null || token != selectedToken) {
+            // Old callbacks must neither grant eligibility nor clobber a
+            // newer, still-valid selection that is being verified.
             return current
         }
         val connected = status == SelectedAudioConnectionStatus.ConnectedA2dp ||
