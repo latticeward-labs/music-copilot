@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P05_RECOVERY_STATE_SOURCE_COMPLETE_P06_NEXT",
+  "status": "P06_DRIVING_SERVICE_ACK_WIRING_SOURCE_COMPLETE_P07_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -12,7 +12,7 @@
     "P03": "PASS_SCOPED_NAVIGATION_SOURCE_12_TESTS_AUTHORED_NOT_RUN",
     "P04": "PASS_SCOPED_PLAYING_COMPOSE_SOURCE_ONLY_NO_BUILD_NO_TESTS",
     "P05": "PASS_SCOPED_PAUSED_NO_TRACK_RECOVERY_SOURCE_21_JUNIT_AUTHORED_NOT_RUN",
-    "P06": "PLANNED_NOT_EXECUTED",
+    "P06": "PASS_SCOPED_SHARED_VM_SERVICE_ACK_SOURCE_23_JUNIT_AUTHORED_NOT_RUN",
     "P07": "PLANNED_NOT_EXECUTED",
     "P08": "PLANNED_NOT_EXECUTED",
     "P09": "PLANNED_NOT_EXECUTED",
@@ -121,6 +121,9 @@
     "P04 scope: new feature/driving/DrivingModeScreen.kt, AppNavHost + string resources, deletion of structural driving PackageBoundary.kt only. Existing service-owned Media3/Queue/Focus/BT route/notification/headset fixes untouched.",
     "P05: dedicated Paused and NoTrack variants; NoTrack omits invalid transports/artwork/title/artist and Exit/Back routes to Library; Paused shows manual resume guidance. Typed controller/route/focus/item/ACK/pending recovery from service public AppError and existing PlayerUiState; Playing suppresses stale recovery notices. Zero media queue mutations.",
     "P05: No Play Last shown: no service-owned lastPlayedRef + MediaStore permission revalidation contract exists; optional feature not fabricated. 21 new pure JUnit methods authored but 0 executed; P02 21 and P03 12 also still NOT_RUN.",
-    "P05: static source-only review. No Gradle, compile, JUnit, lint, Android/UI, Actions, device, APK, PR or merge; original AC01–AC14 NOT_VERIFIED, 46 owner M NOT_RUN, 5 technical NOT_RUN; APK NOT_BUILT."
+    "P05: static source-only review. No Gradle, compile, JUnit, lint, Android/UI, Actions, device, APK, PR or merge; original AC01–AC14 NOT_VERIFIED, 46 owner M NOT_RUN, 5 technical NOT_RUN; APK NOT_BUILT.",
+    "P06: four Driving UI buttons now invoke one existing root PlayerViewModel and public PlaybackGateway.execute(service-ACK) after tap-time guard for route/permission + current connected service snapshot/revision/queue/item/state/capability/route error. No new Player, MediaSession or queue.",
+    "P06: shared PlayerViewModel submit now reserves pending synchronously, uses one request epoch to ignore stale ACK failures and old cleanup, renders service snapshot only (no optimistic Playing); important P13 regression checks for #8 notification/AirPods/route fixes still NOT_RUN.",
+    "P06 authored 23 new pure JUnit methods (none executed). Cumulative P02 21 + P03 12 + P05 21 + P06 23 = 77 authored, 0 executed. Actual ACK/timeout and repeated-tap runtime behavior NOT_VERIFIED; no compile/Gradle/Actions/tests/APK. 14 original product AC remain NOT_VERIFIED; owner 46 M and 5 technical groups remain NOT_RUN."
   ]
 }
