@@ -3,7 +3,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/8-audio-focus-route-recovery",
   "planning_date": "2026-10-23",
-  "phase": "P12_CUMULATIVE_SOURCE_AND_28_UNRUN_TESTS_COMPLETE_P13_ONE_APK_NEXT",
+  "phase": "P13_ONE_CUMULATIVE_APK_BUILT_OWNER_PHONE_QA_PENDING",
   "implementation_started": true,
   "source_archive": {
     "name": "MSM2(1)(1).rar",
@@ -342,18 +342,53 @@
       "android_auto": "EXCLUDED_APPROVED_MVP_ADR0006"
     },
     "P13": {
-      "status": "NOT_STARTED",
-      "builds": 0,
-      "tests_executed": 0
+      "status": "BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+      "completed_on": "2026-10-24",
+      "workflow": ".github/workflows/issue-8-p13-one-cumulative-apk.yml",
+      "owner_request_marker": ".github/issue8-p13-apk-request.txt",
+      "github_run_id": 40079909648,
+      "github_job_id": 120831111496,
+      "github_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648",
+      "build_conclusion": "success",
+      "build_source_commit": "2951647da5a995f7e28fa2b9dfc89c596697715e",
+      "gradle_task": ":app:assembleDebug",
+      "apk_file": "app-debug.apk",
+      "apk_size_bytes": 36691339,
+      "apk_sha256": "20259add73fcbe06db50dd65f4e440b4cdce823f28f12d50d6f7f86cbd80f19b",
+      "artifact_id": 12554742975,
+      "artifact_name": "issue8-p13-one-cumulative-owner-apk",
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648/artifacts/12554742975",
+      "artifact_expires_at": "2026-11-07T08:58:07Z",
+      "artifact_zip_size_bytes": 13353338,
+      "checksum_verified_against_downloaded_apk": true,
+      "local_extracted_apk_sha256_verified": true,
+      "owner_handset_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+      "owner_handset_tests_run": 0,
+      "technical_tests_run": 0,
+      "emulator_tests_run": 0,
+      "jvm_tests_run": 0,
+      "lint_runs": 0,
+      "android_test_runs": 0,
+      "device_install_verified": false,
+      "owner_results": "NOT_RECEIVED",
+      "AC_verified": 0,
+      "merge": "NOT_DONE",
+      "issue_closed": false,
+      "notes": "P13 one cumulative APK built successfully. The successful compile is not evidence that audio focus, route, call handling, Voice or UI behavior passed on any handset."
     }
   },
   "apk": {
-    "built": false,
-    "source_commit": null,
-    "sha256": null,
-    "build_run_url": null,
-    "artifact_url": null,
-    "install_verified": false
+    "built": true,
+    "source_commit": "2951647da5a995f7e28fa2b9dfc89c596697715e",
+    "sha256": "20259add73fcbe06db50dd65f4e440b4cdce823f28f12d50d6f7f86cbd80f19b",
+    "build_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648",
+    "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40079909648/artifacts/12554742975",
+    "install_verified": false,
+    "artifact_id": 12554742975,
+    "file_name": "app-debug.apk",
+    "size_bytes": 36691339,
+    "checksum_verified": true,
+    "expiration": "2026-11-07T08:58:07Z"
   },
   "owner_phone_cases": {
     "M01": {
@@ -717,7 +752,7 @@
     "vehicle_head_units_three": "NOT_RUN"
   },
   "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
-  "note": "P12 source integration completed without compile/test/build: fixed P10 interruption notice clearing on non-recovery commands; reconciled two Issue7 tests superseded by P05 route dedup and P07 receipt-time epochs; authored 28 new JUnit/source test methods without running them; retained entire M01-M45 owner checklist and all T01-T15. 0 Gradle, Actions, tests or APK; 45 M NOT_RUN, 15 T NOT_RUN, all 12 AC UNVERIFIED. P13 single cumulative APK next, no PR/merge/Issue closure.",
+  "note": "P13 REAL ONE cumulative debug APK build SUCCESS on GitHub Actions run 40079909648 at source commit 2951647da5a995f7e28fa2b9dfc89c596697715e. Verified downloaded app-debug.apk byte size 36,691,339 and SHA-256 20259add73fcbe06db50dd65f4e440b4cdce823f28f12d50d6f7f86cbd80f19b matches run checksum. NO tests, lint, emulator, device validation or GitHub merge/issue close. All 45 owner M NOT_RUN, all 15 technical T NOT_RUN, all 12 AC UNVERIFIED. Waiting for actual owner phone observations.",
   "phase0_readiness": {
     "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
     "dor01": {
@@ -937,5 +972,16 @@
     "AC": "AC01_AC12_UNVERIFIED",
     "independent_devices": "PIXEL_SAMSUNG_XIAOMI_AND_3_PARKED_VEHICLES_NOT_RUN",
     "next_action": "P13_BUILD_SINGLE_CUMULATIVE_APK_HUMAN_PHONE_TEST_HANDOFF"
+  },
+  "phase13_readiness": {
+    "status": "BUILT_AWAITING_OWNER_PHONE_REPORT",
+    "source_commit": "2951647da5a995f7e28fa2b9dfc89c596697715e",
+    "owner_report": "M01_M45_ALL_NOT_RUN",
+    "technical_case_results": "T01_T15_NOT_RUN",
+    "original_acceptance": "AC01_AC12_UNVERIFIED",
+    "github_issue": "OPEN",
+    "next_action": "OWNER_INSTALLS_P13_APK_AND_REPORTS_OBSERVED_CASES",
+    "ci_tests": "ZERO",
+    "artifact_retention": "14_DAYS_GITHUB_ARTIFACT"
   }
 }
