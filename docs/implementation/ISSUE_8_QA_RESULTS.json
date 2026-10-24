@@ -3,7 +3,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/8-audio-focus-route-recovery",
   "planning_date": "2026-10-23",
-  "phase": "P11_ANDROID_OEM_ACCESSIBILITY_SOURCE_HARDENING_COMPLETE_P12_NEXT",
+  "phase": "P12_CUMULATIVE_SOURCE_AND_28_UNRUN_TESTS_COMPLETE_P13_ONE_APK_NEXT",
   "implementation_started": true,
   "source_archive": {
     "name": "MSM2(1)(1).rar",
@@ -313,9 +313,33 @@
       "qa_evidence": "NONE_SOURCE_AND_OFFICIAL_DOC_REVIEW_ONLY"
     },
     "P12": {
-      "status": "NOT_STARTED",
+      "status": "PASS_SOURCE_ONLY_NOT_COMPILED_OR_TESTED",
+      "completed_on": "2026-10-24",
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12InterruptionReducerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12NoticeAndOwnershipTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase9RouteFocusGuardTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue7Phase12IntegratedBoundaryContractTest.kt"
+      ],
+      "audit_document": "docs/implementation/ISSUE_8_PHASE12_CUMULATIVE_INTEGRATION_AND_TEST_SOURCE_AUDIT.md",
+      "owner_phone_checklist": "docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md",
+      "new_JVM_test_methods_authored": 28,
+      "old_ISSUE7_test_source_methods_reconciled": 30,
+      "source_compile": "NOT_RUN",
+      "tests_executed": 0,
       "builds": 0,
-      "tests_executed": 0
+      "apk_built": false,
+      "compilation_status": "NOT_RUN",
+      "lint_status": "NOT_RUN",
+      "device_status": "NOT_RUN",
+      "Actions_runs_started": 0,
+      "source_review_scope": "SOURCE_INSPECTION_ONLY_NO_KOTLIN_COMPILER_PROOF",
+      "one_service_session_player": "PRESERVED",
+      "P10_integrated_fix": "RETENTION_OF_INTERRUPT_NOTICE_UNTIL_VERIFIED_RECOVERY",
+      "quality_evidence": "NONE_SOURCE_ONLY",
+      "android_auto": "EXCLUDED_APPROVED_MVP_ADR0006"
     },
     "P13": {
       "status": "NOT_STARTED",
@@ -693,7 +717,7 @@
     "vehicle_head_units_three": "NOT_RUN"
   },
   "privacy": "No track title, artist, path, URI, Bluetooth names/MAC/IDs, phone identity, raw Voice or transcripts in diagnostics.",
-  "note": "P11 source-only: guarded API31 BLE headset/speaker constants behind Build.VERSION.SDK_INT, added compact accessible Full/Mini safe-pause guidance, inspected Android29–36 FGS/audio-focus/Media3/permission manifest contracts, documented Honor+Pixel/Samsung/Xiaomi and 3 parked-car matrices. ADR-0006 Android Auto excluded. No device, compile, lint, Gradle, tests, Actions, APK, PR or merge. All 45 M & 15 T NOT_RUN, all 12 AC UNVERIFIED. P12 next.",
+  "note": "P12 source integration completed without compile/test/build: fixed P10 interruption notice clearing on non-recovery commands; reconciled two Issue7 tests superseded by P05 route dedup and P07 receipt-time epochs; authored 28 new JUnit/source test methods without running them; retained entire M01-M45 owner checklist and all T01-T15. 0 Gradle, Actions, tests or APK; 45 M NOT_RUN, 15 T NOT_RUN, all 12 AC UNVERIFIED. P13 single cumulative APK next, no PR/merge/Issue closure.",
   "phase0_readiness": {
     "summary": "P00_DOCUMENTARY_GATE_PASS_ONLY_ISSUE8_ACS_STILL_UNVERIFIED",
     "dor01": {
@@ -899,5 +923,19 @@
     "owner_manual_cases": "M01_M45_NOT_RUN",
     "technical_cases": "T01_T15_NOT_RUN",
     "acceptance": "AC01_AC12_UNVERIFIED"
+  },
+  "phase12_readiness": {
+    "next_phase": "P13",
+    "final_artifact": "ONE_APK_ONLY_COMBINED_P02_P12_PLUS_EXISTING_ISSUE7",
+    "build_mode": "BUILD_ONLY_ASSEMBLE_DEBUG_NO_UNIT_TEST_LINT_INSTRUMENTATION",
+    "source_hash": "P13_MUST_CAPTURE_ACTUAL_HEAD_SHA",
+    "apk_hash": "NOT_AVAILABLE_BEFORE_P13",
+    "download_url": "NOT_AVAILABLE_BEFORE_P13",
+    "APK": "NOT_BUILT",
+    "owner_phone": "M01_M45_NOT_RUN",
+    "technical": "T01_T15_NOT_RUN",
+    "AC": "AC01_AC12_UNVERIFIED",
+    "independent_devices": "PIXEL_SAMSUNG_XIAOMI_AND_3_PARKED_VEHICLES_NOT_RUN",
+    "next_action": "P13_BUILD_SINGLE_CUMULATIVE_APK_HUMAN_PHONE_TEST_HANDOFF"
   }
 }
