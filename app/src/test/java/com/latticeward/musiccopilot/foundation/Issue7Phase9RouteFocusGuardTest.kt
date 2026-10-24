@@ -58,6 +58,35 @@ class Issue7Phase9RouteFocusGuardTest {
         assertTrue(gate.shouldSuppressAutomaticPlay())
     }
 
+    // Issue #8 owner feedback: M34 notification Play and Bluetooth/AirPods
+    // Play are new external transport requests, not delayed focus auto-resume.
+    // The source of these tests is authored only; no JVM tests run for APK.
+    @Test fun pausedNotificationOrHeadsetPlayIsAdmittedOnStableRoute() {
+        val gate = PlaybackInterruptionGate()
+        gate.onManualPauseOrStop()
+        assertTrue(gate.shouldSuppressAutomaticPlay())
+        assertTrue(gate.mayAdmitExternalPlayAttempt())
+        gate.onExplicitUserPlaybackRequest()
+        assertFalse(gate.shouldSuppressAutomaticPlay())
+    }
+
+    @Test fun lostBluetoothRouteStillRejectsNotificationAndHeadsetPlay() {
+        val gate = PlaybackInterruptionGate()
+        gate.onHeadsetOrBluetoothLost()
+        assertFalse(gate.mayAdmitExternalPlayAttempt())
+        gate.onBluetoothSinkAvailable(alreadyPlayingOrRequested = false)
+        assertFalse(gate.mayAdmitExternalPlayAttempt())
+    }
+
+    @Test fun initialBluetoothConnectionWhilePausedRemainsQuarantined() {
+        val gate = PlaybackInterruptionGate()
+        gate.onBluetoothSinkAvailable(alreadyPlayingOrRequested = false)
+        assertFalse(gate.mayAdmitExternalPlayAttempt())
+        gate.onExplicitUserPlaybackRequest()
+        gate.onManualPauseOrStop()
+        assertTrue(gate.mayAdmitExternalPlayAttempt())
+    }
+
     @Test fun routeLossLatchSurvivesManualPause() {
         val gate = PlaybackInterruptionGate()
         gate.onHeadsetOrBluetoothLost()
