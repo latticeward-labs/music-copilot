@@ -1,0 +1,96 @@
+name: "Issue 8 P13 - ONE cumulative APK BUILD ONLY"
+# Owner-authorized P13 only. NO unit tests, instrumentation, lint,
+# JVM test tasks, emulator, device test, or other QA is executed here.
+# Ordinary code and documentation pushes cannot trigger this workflow.
+on:
+  push:
+    branches:
+      - feature/8-audio-focus-route-recovery
+    paths:
+      - ".github/issue8-p13-apk-request.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue8-p13-apk-only-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-one-integrated-debug-apk:
+    name: "Build integrated debug APK without running tests"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout entire Issue 8 plus merged Issue 7 source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install Android SDK tools
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - name: Install Gradle with verified wrapper
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install Android 36 compile platform
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Assemble one debug APK ONLY — NO TESTS / LINT
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/build/outputs/issue8-p13
+          {
+            echo "repository=${{ github.repository }}"
+            echo "branch=${{ github.ref_name }}"
+            echo "source_sha=${{ github.sha }}"
+            echo "run_id=${{ github.run_id }}"
+            echo "run_attempt=${{ github.run_attempt }}"
+            echo "scope=app:assembleDebug_only"
+            echo "jvm_tests=NOT_RUN"
+            echo "instrumentation=NOT_RUN"
+            echo "lint=NOT_RUN"
+            echo "device_qa=NOT_RUN"
+            echo "m01_m45=NOT_RUN"
+            echo "t01_t15=NOT_RUN"
+            echo "ac01_ac12=UNVERIFIED"
+          } > app/build/outputs/issue8-p13/BUILD_PROVENANCE.txt
+          ./gradlew --no-daemon --console=plain :app:assembleDebug --stacktrace 2>&1 | tee app/build/outputs/issue8-p13/assemble-output.log
+          apk="app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$apk"
+          sha256sum "$apk" | tee app/build/outputs/issue8-p13/app-debug.apk.sha256
+          cp "$apk" app/build/outputs/issue8-p13/app-debug.apk
+          {
+            echo "## Issue #8 P13 — ONE cumulative debug APK"
+            echo "Source SHA: \`${{ github.sha }}\`"
+            echo "APK created by \`:app:assembleDebug\` only. JVM/Lint/instrumentation/handset tests: **NOT_RUN**."
+            echo "Owner handset checklist: \`docs/implementation/ISSUE_8_FINAL_OWNER_PHONE_QA_CHECKLIST.md\`."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload exact one APK with checksum and provenance
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue8-p13-one-cumulative-owner-apk
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            app/build/outputs/issue8-p13/app-debug.apk
+            app/build/outputs/issue8-p13/app-debug.apk.sha256
+            app/build/outputs/issue8-p13/BUILD_PROVENANCE.txt
+      - name: Upload build error output if compilation fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue8-p13-build-failure-logs
+          retention-days: 7
+          if-no-files-found: ignore
+          path: |
+            app/build/outputs/issue8-p13/BUILD_PROVENANCE.txt
+            app/build/outputs/issue8-p13/assemble-output.log
