@@ -1,7 +1,7 @@
 {
   "issue": 9,
   "repository": "latticeward-labs/music-copilot",
-  "status": "P07_MIC_VOICE_HANDOFF_SOURCE_COMPLETE_P08_NEXT",
+  "status": "P08_ACCESSIBILITY_SCALE_FOCUS_SOURCE_COMPLETE_P09_NEXT",
   "as_of_utc_date": "2026-10-24",
   "archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "branch": "feature/9-driving-mode-bluetooth-suggestion",
@@ -14,7 +14,7 @@
     "P05": "PASS_SCOPED_PAUSED_NO_TRACK_RECOVERY_SOURCE_21_JUNIT_AUTHORED_NOT_RUN",
     "P06": "PASS_SCOPED_SHARED_VM_SERVICE_ACK_SOURCE_23_JUNIT_AUTHORED_NOT_RUN",
     "P07": "PASS_SCOPED_MIC_VOICE_HANDOFF_SOURCE_19_JUNIT_AUTHORED_NOT_RUN",
-    "P08": "PLANNED_NOT_EXECUTED",
+    "P08": "PASS_SCOPED_ACCESSIBILITY_SOURCE_11_COMPOSE_TESTS_AUTHORED_NOT_RUN",
     "P09": "PLANNED_NOT_EXECUTED",
     "P10": "PLANNED_NOT_EXECUTED",
     "P11": "PLANNED_NOT_EXECUTED",
@@ -127,6 +127,9 @@
     "P06 authored 23 new pure JUnit methods (none executed). Cumulative P02 21 + P03 12 + P05 21 + P06 23 = 77 authored, 0 executed. Actual ACK/timeout and repeated-tap runtime behavior NOT_VERIFIED; no compile/Gradle/Actions/tests/APK. 14 original product AC remain NOT_VERIFIED; owner 46 M and 5 technical groups remain NOT_RUN.",
     "P07 connects the real app-scoped VoiceSessionCoordinator (VoiceOrigin.Driving) with an explicitly user-tapped Mic; on-device provider capability+fresh OS RECORD_AUDIO checked at tap; the existing VoicePracticeGate/ActivityResult shows rationale and permission result NEVER starts capture. Voice owned by Driving cancelled on Exit/Back/system route/permission invalidation/background. No second service, provider, NavHost route or automatic listening.",
     "P07 on unsupported Android 10/11 or absent OEM on-device recognizer disables Mic and explains manual fallback; real provider execution and all six English voice intents are NOT claimed. Current PLAY_ARTIST/confirmation remains a #10/#11 dependency, as does complete ADR-0004 audio ducking, TTS and GS-04 vehicle evidence.",
-    "P07 19 JUnit policy methods authored, zero executed; cumulative P02/P03/P05/P06/P07 96 authored, 0 run. No Gradle/Android/CI/Actions/Lint/device or APK; 14 AC NOT_VERIFIED, 46 M NOT_RUN and 5 technical groups NOT_RUN."
+    "P07 19 JUnit policy methods authored, zero executed; cumulative P02/P03/P05/P06/P07 96 authored, 0 run. No Gradle/Android/CI/Actions/Lint/device or APK; 14 AC NOT_VERIFIED, 46 M NOT_RUN and 5 technical groups NOT_RUN.",
+    "P08: fixed immediate Exit outside scrolling content at 200% text; TalkBack ordered heading/Exit/state/metadata/actions/Mic and explicit spoken labels/stable disabled reason, polite state/error copy, metadata grouped but actions separate; decorative artwork skipped by accessibility; keyboard focus outline/Voice-overlay focus restoration. 64dp transports/72dp Mic/56dp Exit+Voice actions; 4-to-2x2 control reflow and scaled artwork.",
+    "P08: 11 Compose androidTest accessibility methods authored, 0 executed. These are instrumentation test sources, not an additional integrated APK or device/emulator execution. Real TalkBack speech, large-font clipping, contrast/keyboard focus and OEM/vehicle behavior remain NOT_VERIFIED for user P13 M27-M32.",
+    "P08: no Gradle, Java/Kotlin compile, JUnit, Compose tests, lint, Actions, emulator, APK, owner phone or car tests performed. All 14 product AC NOT_VERIFIED, M01–M46 NOT_RUN, five technical groups NOT_RUN, APK NOT_BUILT; Issue open/PR absent."
   ]
 }
