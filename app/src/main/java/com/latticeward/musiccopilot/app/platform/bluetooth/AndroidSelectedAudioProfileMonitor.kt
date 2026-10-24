@@ -71,9 +71,32 @@ class AndroidSelectedAudioProfileMonitor(
             when (intent?.action) {
                 BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED,
                 BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED -> {
-                    // Event extras are untrusted and never grant eligibility.
-                    // A connected profile event ONLY schedules a fresh profile
-                    // + paired-device check from our owned proxies.
+                    // A broadcast about some *other* paired headset is
+                    // NEVER an edge for the saved selected car/headphones.
+                    // The device extra alone is still untrusted: even after a
+                    // matching hint, fresh bonding + getConnectedDevices
+                    // from Android's real profile proxies are mandatory.
+                    val reportedDevice = try {
+                        if (Build.VERSION.SDK_INT >= 33)
+                            intent.getParcelableExtra(
+                                BluetoothDevice.EXTRA_DEVICE, BluetoothDevice::class.java
+                            )
+                        else {
+                            @Suppress("DEPRECATION")
+                            val legacy = intent.getParcelableExtra<BluetoothDevice>(
+                                BluetoothDevice.EXTRA_DEVICE
+                            )
+                            legacy
+                        }
+                    } catch (_: RuntimeException) { null }
+                    val eventAddress = try { reportedDevice?.address }
+                        catch (_: SecurityException) { null }
+                    if (!granted() || eventAddress == null ||
+                        !BluetoothSelectionToken.matches(selectedToken, eventAddress)
+                    ) {
+                        schedule(BluetoothObservationCause.ExternalRecheck)
+                        return
+                    }
                     val connectionState = intent.getIntExtra(
                         BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED
                     )
