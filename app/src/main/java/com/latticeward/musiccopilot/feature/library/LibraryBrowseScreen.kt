@@ -79,7 +79,6 @@ fun LibraryBrowseScreen(
     playerUi: PlayerUiState,
     onOpenPlayer: () -> Unit,
     onTogglePlayback: () -> Unit,
-    onEnterDriving: () -> Unit,
     onRefreshPermission: () -> Unit,
     onRetryLibraryScan: () -> Unit,
     onRescanLibrary: () -> Unit,
@@ -88,6 +87,7 @@ fun LibraryBrowseScreen(
     initialGroup: LibraryBrowseEntry? = null,
     onGroupConsumed: () -> Unit = {},
     onExit: () -> Unit,
+    onEnterDriving: () -> Unit = {},
 ) {
     val state by model.ui.collectAsStateWithLifecycle()
     // Open the approved WF-06 route ONLY after a truthful service ACK.
