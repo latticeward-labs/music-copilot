@@ -307,6 +307,15 @@
         "apk_bytes": 37105222,
         "zip_sha256": "dbb83e30ae5dccf4cf005f2e6b5e4638abe72662761ae92eeae6db2509045294",
         "report": "docs/implementation/ISSUE_9_M35_REPLACEMENT_APK_BUILD.json"
+      },
+      "owner_retest_status": "M35_PASS_OWNER_REPORTED_2026_10_25",
+      "owner_qa_closeout": {
+        "owner_reported_pass_count": 45,
+        "owner_excluded_case": "M45",
+        "deferred_issue": 10,
+        "automated_groups": "5_NOT_RUN",
+        "source_authored_tests_executed": 0,
+        "owner_approved_merge_close": true
       }
     }
   },
@@ -714,17 +723,19 @@
   ],
   "owner_phone_cases": {
     "M01": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_navigation_and_states",
       "traced_acceptance": [
         "AC07"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M02": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_navigation_and_states",
       "traced_acceptance": [
         "AC07",
@@ -732,10 +743,12 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M03": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_navigation_and_states",
       "traced_acceptance": [
         "AC07",
@@ -743,10 +756,12 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M04": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_navigation_and_states",
       "traced_acceptance": [
         "AC01",
@@ -754,10 +769,12 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M05": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_navigation_and_states",
       "traced_acceptance": [
         "AC02",
@@ -765,10 +782,12 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M06": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_navigation_and_states",
       "traced_acceptance": [
         "AC02",
@@ -776,110 +795,132 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M07": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_navigation_and_states",
       "traced_acceptance": [
         "AC02"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M08": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_navigation_and_states",
       "traced_acceptance": [
         "AC02"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M09": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M10": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M11": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M12": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M13": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M14": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M15": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M16": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC01"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M17": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "manual_playback_controls",
       "traced_acceptance": [
         "AC11",
@@ -887,100 +928,120 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M18": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC10"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M19": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC10"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M20": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC10"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M21": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC10"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M22": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M23": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M24": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC03"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M25": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC10"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M26": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "lifecycle_and_issue8_regressions",
       "traced_acceptance": [
         "AC10"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M27": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "driving_accessibility",
       "traced_acceptance": [
         "AC01",
@@ -988,10 +1049,12 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M28": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "driving_accessibility",
       "traced_acceptance": [
         "AC04",
@@ -1000,10 +1063,12 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M29": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "driving_accessibility",
       "traced_acceptance": [
         "AC05",
@@ -1011,179 +1076,215 @@
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M30": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "driving_accessibility",
       "traced_acceptance": [
         "AC04"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M31": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "driving_accessibility",
       "traced_acceptance": [
         "AC06"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M32": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "driving_accessibility",
       "traced_acceptance": [
         "AC13"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M33": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M34": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M35": {
-      "status": "FAIL",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": "Owner selected and saved an audio device then disconnected/reconnected repeatedly while app open; optional Driving Mode? suggestion never appeared.",
-      "evidence_source": "USER_REPORT_ONLY_NO_RUNTIME_SCREENSHOT",
-      "retest": "REPLACEMENT_BUILD_READY_NOT_RUN"
+      "observation": "Earlier failed on original P13 build. Owner reports all cases other than M45 now pass after replacement APK delivery; M35 repair accepted by owner; no individual log or screenshot was attached.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "retest": "PASS_OWNER_REPORTED_AFTER_REPLACEMENT",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M36": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M37": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M38": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M39": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M40": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M41": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC09"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M42": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC09"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M43": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC09"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M44": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "P1_bluetooth_suggestion",
       "traced_acceptance": [
         "AC08"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M45": {
-      "status": "NOT_RUN",
+      "status": "BLOCKED_DEFERRED_ISSUE10",
       "category": "stationary_golden_scenarios",
       "traced_acceptance": [
         "AC12"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner explicitly excluded this GS-04 English Next song Voice/STT scenario and directs completion to existing Voice Issue #10; NOT tested or PASS.",
+      "deferred_issue_number": 10,
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     },
     "M46": {
-      "status": "NOT_RUN",
+      "status": "PASS_OWNER_REPORTED",
       "category": "stationary_golden_scenarios",
       "traced_acceptance": [
         "AC12"
       ],
       "device": null,
       "apk_sha256": null,
-      "observation": null
+      "observation": "Owner reports this case PASS in one 45-case closeout statement; no per-case independent log/screenshot supplied.",
+      "evidence_source": "DIRECT_OWNER_REPORT_IN_CHAT_2026_10_25",
+      "expected_delivery_apk_sha256": "3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be"
     }
   },
   "technical_groups": {
@@ -1219,10 +1320,10 @@
     "phone_cases": 46,
     "phone_cases_traced_to_ac": 46,
     "technical_groups": 5,
-    "product_acs_verified": 0,
-    "phone_pass": 0,
+    "product_acs_verified": 13,
+    "phone_pass": 45,
     "technical_pass": 0,
-    "apk_status": "M35_REPLACEMENT_BUILT_PHONE_RETEST_PENDING",
+    "apk_status": "REPLACEMENT_APK_BUILT_OWNER_45_CASES_PASS_M45_DEFERRED",
     "phases_scoped_contract_complete": 14,
     "p02_authored_tests": 21,
     "p02_executed_tests": 0,
@@ -1257,12 +1358,17 @@
     "p13_build_run_id": 40113515014,
     "p13_build_source_sha": "67f690483842694926f277f72000a7faf6d0db23",
     "p13_all_46_owner_tests_done": false,
-    "phone_fail": 1,
-    "phone_not_run": 45
+    "phone_fail": 0,
+    "phone_not_run": 0,
+    "phone_blocked": 1,
+    "product_acs_deferred": 1,
+    "technical_groups_not_run": 5,
+    "owner_scope_accepted": true,
+    "owner_authorized_merge_close": true
   },
   "human_validation": {
-    "review_approval": "NOT_VERIFIED",
-    "owner_app_acceptance": "NOT_RECEIVED",
+    "review_approval": "OWNER_EXPLICIT_MERGE_CLOSE_2026_10_25_NO_INDEPENDENT_CODE_REVIEW",
+    "owner_app_acceptance": "OWNER_REPORTED_45_MANUAL_PASS_M45_DEFERRED_ISSUE10",
     "single_apk_checksum": "71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e"
   },
   "provenance_notes": [
@@ -1286,6 +1392,7 @@
     "All original 14 Issue9 AC remain NOT_VERIFIED and all 5 technical groups NOT_RUN. P13 only single combined debug APK with actual bytes/SHA; no current APK artifact, PR or merge.",
     "P13 exact cumulative APK built once on GitHub Actions with successful :app:assembleDebug at source commit 67f69048; artifact #12567766876, 37,105,222-byte APK and independently verified SHA256 71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e. No test tasks executed. All 14 AC NOT_VERIFIED, 46 M/5 technical groups NOT_RUN and no PR/merge/close.",
     "2026-10-25 owner M35 FAIL reported: optional Bluetooth invitation absent despite repeated reconnect of manually saved paired audio device. Do NOT treat provided illustrative example image as runtime evidence. No other M cases moved from NOT_RUN, all 14 AC remain NOT_VERIFIED.",
-    "Owner M35 FAIL repair compiled successfully in replacement GitHub build-only run 40140441123: source 63618d3a, SHA256 3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be. 2 additional pure JUnit methods written NOT_RUN, 198 total authored NOT_RUN. Original 14 AC remain NOT_VERIFIED; M35 FAIL, 45 others NOT_RUN, 5 technical groups NOT_RUN. Preserve original P13 APK evidence."
+    "Owner M35 FAIL repair compiled successfully in replacement GitHub build-only run 40140441123: source 63618d3a, SHA256 3fa56445fc66c20deb76d63eb246bc533061fe12b3613c03b509ad0e632d03be. 2 additional pure JUnit methods written NOT_RUN, 198 total authored NOT_RUN. Original 14 AC remain NOT_VERIFIED; M35 FAIL, 45 others NOT_RUN, 5 technical groups NOT_RUN. Preserve original P13 APK evidence.",
+    "2026-10-25 owner batch field report: M01–M44 and M46 45 PASS; M45 BLOCKED/deferred to Issue #10. M35 old-build FAIL retained in QA history, owner reports repaired build PASS. No per-case instrumentation screenshots or installed APK checksum confirmation. AC12 deferred partial Voice Golden Scenario; 13/14 AC product/source scope accepted. Five technical groups not run, 198 source authored tests not executed. Owner authorized PR/merge/close with explicit exception."
   ]
 }
