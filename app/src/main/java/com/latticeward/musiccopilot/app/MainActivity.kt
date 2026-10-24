@@ -57,6 +57,9 @@ class MainActivity : ComponentActivity() {
     // microphone permission subsystem or saved OS grant.
     private val drivingMicUi = MutableStateFlow(VoicePracticeStage.Idle)
     private val microphoneAccess = MutableStateFlow(false)
+    // P09 Nearby Devices permission is never saved as DataStore consent;
+    // freshly recheck OS on every resume and explicit paired-device action.
+    private val bluetoothConnectAccess = MutableStateFlow(Build.VERSION.SDK_INT < 31)
     private var drivingMicPermissionOrigin = false
     private val requestLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
@@ -97,6 +100,40 @@ class MainActivity : ComponentActivity() {
             }
             // No VoiceSessionCoordinator.start() from an OS permission result.
         }
+
+    private val bluetoothConnectLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            // Native result updates permission presentation only. No automatic
+            // enumerate/scan/Connect/Driving/playback/Voice side effects.
+            bluetoothConnectAccess.value = hasBluetoothConnectPermission()
+        }
+
+    private fun hasBluetoothConnectPermission(): Boolean =
+        Build.VERSION.SDK_INT < 31 ||
+            checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT) ==
+                PackageManager.PERMISSION_GRANTED
+
+    /** Only called after tapping the Bluetooth request button in Settings. */
+    private fun onRequestBluetoothConnectPermission() {
+        if (hasBluetoothConnectPermission()) {
+            bluetoothConnectAccess.value = true
+            return
+        }
+        if (Build.VERSION.SDK_INT >= 31) {
+            try {
+                bluetoothConnectLauncher.launch(android.Manifest.permission.BLUETOOTH_CONNECT)
+            } catch (_: RuntimeException) {
+                bluetoothConnectAccess.value = hasBluetoothConnectPermission()
+            }
+        }
+    }
+
+    /** Separate from media permission's retry gate; explicit Settings button. */
+    private fun onOpenBluetoothPermissionSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+            ("package:$packageName").toUri())
+        try { startActivity(intent) } catch (_: RuntimeException) { /* app stays usable */ }
+    }
 
     private fun onDrivingMicPermissionTap() {
         // Called only by an explicit Mic tap while Driving is the NavHost
@@ -218,6 +255,7 @@ class MainActivity : ComponentActivity() {
                 voicePracticeUi = voicePracticeUi,
                 drivingMicUi = drivingMicUi,
                 microphoneAccess = microphoneAccess,
+                bluetoothConnectAccess = bluetoothConnectAccess,
             )
         }
     }
@@ -369,6 +407,9 @@ class MainActivity : ComponentActivity() {
         }
         observedMicrophoneGrant = freshMic
         microphoneAccess.value = freshMic
+        // Never enumerate paired devices on resume/permission result. Settings
+        // explicitly asks the user to Refresh after OS permission changes.
+        bluetoothConnectAccess.value = hasBluetoothConnectPermission()
         voicePracticeGate.recheck(freshMic)
         if (!freshMic && drivingMicUi.value == VoicePracticeStage.ReadyForVoiceHandoff) {
             drivingMicUi.value = VoicePracticeStage.PermissionDenied
@@ -391,6 +432,7 @@ class MainActivity : ComponentActivity() {
         voicePracticeUi: kotlinx.coroutines.flow.StateFlow<VoicePracticeStage>,
         drivingMicUi: kotlinx.coroutines.flow.StateFlow<VoicePracticeStage>,
         microphoneAccess: kotlinx.coroutines.flow.StateFlow<Boolean>,
+        bluetoothConnectAccess: kotlinx.coroutines.flow.StateFlow<Boolean>,
     ) {
         val library by bindings.libraryRepository.index.collectAsStateWithLifecycle()
         val playbackConnection by bindings.playbackGateway.connectionState.collectAsStateWithLifecycle()
@@ -403,6 +445,7 @@ class MainActivity : ComponentActivity() {
         val practice by voicePracticeUi.collectAsStateWithLifecycle()
         val drivingMicStage by drivingMicUi.collectAsStateWithLifecycle()
         val micGranted by microphoneAccess.collectAsStateWithLifecycle()
+        val btGranted by bluetoothConnectAccess.collectAsStateWithLifecycle()
         val voiceState by bindings.voiceSessionCoordinator.state.collectAsStateWithLifecycle()
 
         // Permission-aware readiness is computed from the same OS observation
@@ -435,6 +478,9 @@ class MainActivity : ComponentActivity() {
                 preferencesRepository = bindings.preferencesRepository,
                 remoteSpeechDecision = bindings.remoteSpeechDecision(),
                 onRevokeCloudSpeechConsent = bindings::revokeCloudSpeechConsent,
+                bluetoothConnectGranted = btGranted,
+                onRequestBluetoothConnectPermission = ::onRequestBluetoothConnectPermission,
+                onOpenBluetoothPermissionSettings = ::onOpenBluetoothPermissionSettings,
                 onRetry = bindings::retryFirstLaunch,
                 onRefreshPermission = onRefreshPermission,
                 onRetryLibraryScan = bindings::retryLibraryAfterError,
