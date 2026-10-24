@@ -2,11 +2,11 @@
   "schema_version": 1,
   "issue": 9,
   "phase": "P13",
-  "status": "NOT_BUILT_P12_SKELETON_ONLY",
+  "status": "APK_BUILT_BUILD_ONLY_OWNER_PHONE_QA_NOT_RUN",
   "repository": "latticeward-labs/music-copilot",
   "source_branch": "feature/9-driving-mode-bluetooth-suggestion",
-  "source_commit_sha": null,
-  "source_git_tree_sha": null,
+  "source_commit_sha": "67f690483842694926f277f72000a7faf6d0db23",
+  "source_git_tree_sha": "3ec710875652eead4b0547f0c56fd91e42b0e2b4",
   "archive_source_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
   "package_id_debug": "com.latticeward.musiccopilot.debug",
   "android_min_sdk": 29,
@@ -23,26 +23,38 @@
       "kaptDebugUnitTestKotlin"
     ],
     "build_must_run_only_in_p13": true,
-    "runner_status": "NOT_RUN",
-    "runner_kind": null,
-    "workflow_run_id": null,
-    "artifact_name": "issue9-cumulative-debug-apk",
-    "output_in_apk": "app/build/outputs/apk/debug/app-debug.apk"
+    "runner_status": "COMPLETED_SUCCESS",
+    "runner_kind": "GITHUB_ACTIONS_UBUNTU_24_04",
+    "workflow_run_id": 40113515014,
+    "artifact_name": "issue9-p13-one-cumulative-phone-apk",
+    "output_in_apk": "app/build/outputs/apk/debug/app-debug.apk",
+    "workflow_run_attempt": 1
   },
   "build_result": {
-    "build_started_at": null,
-    "build_finished_at": null,
-    "build_status": "NOT_BUILT",
-    "source_head_verified_before_build": null,
-    "source_head_verified_after_build": null,
-    "apk_sha256": null,
-    "apk_size_bytes": null,
-    "apk_filename": null,
+    "build_started_at": "2026-10-24T16:51:57Z",
+    "build_finished_at": "2026-10-24T16:54:38Z",
+    "build_status": "SUCCESS_BUILT_ONLY_NO_QA",
+    "source_head_verified_before_build": "67f690483842694926f277f72000a7faf6d0db23",
+    "source_head_verified_after_build": "67f690483842694926f277f72000a7faf6d0db23",
+    "apk_sha256": "71a90627c8aa8393e2dbcdc699474cd479d26bfe6a04d0743d8dcdf0539d2d1e",
+    "apk_size_bytes": 37105222,
+    "apk_filename": "app-debug.apk",
     "apk_download_url": null,
-    "artifact_zip_url": null,
-    "artifact_sha256": null,
+    "artifact_zip_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40113515014/artifacts/12567766876",
+    "artifact_sha256": "4ce365476dcaf9b936a77b273e8191b5d7a3958d06a40f45996a922c045271ae",
     "apk_signature_cert_sha256": null,
-    "build_logs_url": null
+    "build_logs_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40113515014",
+    "artifact_zip_sha256": "4ce365476dcaf9b936a77b273e8191b5d7a3958d06a40f45996a922c045271ae",
+    "artifact_zip_size_bytes": 13505698,
+    "artifact_id": 12567766876,
+    "build_validation": "APK_ZIP_CRC_OK_MANIFEST_RESOURCES_DEX_PRESENT_SHA256_MATCHES_ARTIFACT_CHECKSUM",
+    "gradle_report": "BUILD SUCCESSFUL in 1m 48s; task :app:assembleDebug",
+    "compilation_warnings": [
+      "KAPT language version 2.0 falls back to 1.9",
+      "statusBarColor/navigationBarColor deprecated",
+      "AppNavHost condition always true",
+      "two native .so files not stripped"
+    ]
   },
   "tests": {
     "jvm": "NOT_RUN",
@@ -50,7 +62,10 @@
     "lint": "NOT_RUN",
     "github_actions_tests": "NOT_RUN",
     "manual_phone_count": 46,
-    "manual_phone_status": "NOT_RUN"
+    "manual_phone_status": "NOT_RUN",
+    "phone_M01_M46": "NOT_RUN",
+    "product_AC01_AC14": "NOT_VERIFIED",
+    "technical_groups_five": "NOT_RUN"
   },
   "delivery": {
     "final_phone_checklist": "docs/implementation/ISSUE_9_FINAL_PHONE_QA_CHECKLIST.md",
@@ -60,6 +75,6 @@
     "pr_created": false,
     "merged": false,
     "issue_closed": false,
-    "notes": "Never claim APK built, verified, signed, downloadable, tested or accepted until actual P13 build and owner field results. No second per-phase APK."
+    "notes": "GitHub Actions run 40113515014 SUCCESS: one P00-P12 cumulative app-debug.apk, SHA256 and size independently verified from downloaded ZIP. APK accessible as chat attachment and GitHub Actions ZIP artifact (not a raw GitHub APK URL). Do not mark manual QA/technical tests/AC passed. No PR, merge, close. Because manifest update is documentation-only after the build, source SHA remains the exact triggering commit; subsequent branch HEAD is not the compiled source."
   }
 }
