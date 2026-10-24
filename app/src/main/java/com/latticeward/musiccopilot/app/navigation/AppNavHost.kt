@@ -4,6 +4,11 @@ import androidx.activity.compose.BackHandler
 import android.os.SystemClock
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.DisposableEffect
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.collect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +41,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.latticeward.musiccopilot.R
@@ -134,6 +140,8 @@ fun AppNavHost(
     onDrivingMicPermissionDismiss: () -> Unit = {},
 ) {
     val navController = rememberNavController()
+    val visibleBackStackEntry by navController.currentBackStackEntryAsState()
+    val lifecycleOwner = LocalLifecycleOwner.current
     // A single navigation-scoped ViewModel observes the existing Gateway.
     // It never creates an ExoPlayer/MediaSession or replaces a queue.
     val playerModel: PlayerViewModel = viewModel(
@@ -246,6 +254,7 @@ fun AppNavHost(
     // invitation. No Search/Settings/permission/onboarding/Driving overlay.
     val invitationSurfaceAllowed =
         (target == Destination.Library || target == Destination.FullPlayer) &&
+        visibleBackStackEntry?.destination?.route == target.route &&
         actualRoute == BootstrapRoute.HomeLibrary &&
         permission == PermissionStatus.Granted &&
         mediaRequestUi.outcome == MediaPermissionOutcome.None &&
@@ -264,17 +273,29 @@ fun AppNavHost(
     val latestBluetoothEpoch by rememberUpdatedState(
         selectedBluetoothConnection?.currentSelectionEpoch ?: -1L
     )
-    LaunchedEffect(selectedBluetoothConnection, bluetoothSuggestionModel) {
-        selectedBluetoothConnection?.verifiedReconnects?.collect { event ->
-            bluetoothSuggestionModel.onReconnect(
-                event = event,
-                latest = latestBluetoothEvidence,
-                selectionEpoch = latestBluetoothEpoch,
-                isAllowedSurface = latestInvitationSurface &&
-                    selectedBluetoothConnection.isUnclaimedOfferCurrent(event),
-                nowElapsedMs = SystemClock.elapsedRealtime(),
-            )
+    LaunchedEffect(selectedBluetoothConnection, bluetoothSuggestionModel, lifecycleOwner) {
+        // Only collect one-shot event invitations while Activity STARTED.
+        // Replayed/queued background events cannot open a foreground offer.
+        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            selectedBluetoothConnection?.verifiedReconnects?.collect { event ->
+                bluetoothSuggestionModel.onReconnect(
+                    event = event,
+                    latest = latestBluetoothEvidence,
+                    selectionEpoch = latestBluetoothEpoch,
+                    isAllowedSurface = latestInvitationSurface &&
+                        selectedBluetoothConnection.isUnclaimedOfferCurrent(event),
+                    nowElapsedMs = SystemClock.elapsedRealtime(),
+                )
+            }
         }
+    }
+    DisposableEffect(lifecycleOwner, bluetoothSuggestionModel) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP)
+                bluetoothSuggestionModel.invalidate()
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
     LaunchedEffect(invitationSurfaceAllowed, selectedAudioEvidence,
         selectedBluetoothConnection?.currentSelectionEpoch
@@ -445,6 +466,9 @@ fun AppNavHost(
                 onExit = onExit,
             )
                 } // body remains playable/searchable beneath small offer
+                BackHandler(enabled = offeredReconnect != null) {
+                    declineBluetoothOffer()
+                }
             }
         }
         composable(Destination.Search.route) {
@@ -505,6 +529,9 @@ fun AppNavHost(
                 },
             )
                 } // existing full player/Media3 controls remain unchanged
+                BackHandler(enabled = offeredReconnect != null) {
+                    declineBluetoothOffer()
+                }
             }
         }
         composable(Destination.Driving.route) {
