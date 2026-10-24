@@ -221,14 +221,11 @@ fun DrivingModeScreen(
                     LocalDensity.current.fontScale >= 1.5f -> 96.dp
                     else -> 160.dp
                 }
-                val artworkDescription = stringResource(R.string.i9_a11y_artwork)
                 Box(
                     modifier = Modifier.size(artworkSize).background(
                         MusicColors.surfaceVariant,
                         RoundedCornerShape(MusicRadius.mdDp),
-                    ).clearAndSetSemantics {
-                        contentDescription = artworkDescription
-                    },
+                    ).clearAndSetSemantics { /* decorative neutral placeholder */ },
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
