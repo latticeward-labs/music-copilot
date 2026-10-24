@@ -39,6 +39,7 @@ import com.latticeward.musiccopilot.app.theme.MusicSpacing
 import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.application.bootstrap.BootstrapRoute
 import com.latticeward.musiccopilot.core.application.driving.DrivingPresentationPolicy
+import com.latticeward.musiccopilot.core.application.driving.DrivingViewState
 import com.latticeward.musiccopilot.feature.driving.DrivingModeScreen
 import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
@@ -352,7 +353,12 @@ fun AppNavHost(
                     mediaRequestUi.outcome == MediaPermissionOutcome.None &&
                     permission == PermissionStatus.Granted
                 ) {
-                    playerOpen = origin == Destination.FullPlayer
+                    // CC-07 specifically requires Exit-to-Library when
+                    // no current playable track remains, even if entry
+                    // originally came from Full Player. Other states still
+                    // restore their precise P03 recorded origin.
+                    playerOpen = projected.view != DrivingViewState.NoTrack &&
+                        origin == Destination.FullPlayer
                 }
             }
             BackHandler(onBack = exitDriving)
@@ -366,6 +372,8 @@ fun AppNavHost(
                 library = libraryRepository,
                 canReadLocalMetadata = permission == PermissionStatus.Granted,
                 onExit = exitDriving,
+                lastError = playerUi.snapshot.lastError,
+                requestFailed = playerUi.requestFailed,
             )
         }
         composable(Destination.Settings.route) {
