@@ -428,13 +428,21 @@ fun AppNavHost(
                 onVoicePermissionContinue = onDrivingMicPermissionContinue,
                 onVoicePermissionCancel = onDrivingMicPermissionDismiss,
                 onVoiceCancel = {
-                    voiceSessionCoordinator?.cancel(VoiceCancelReason.UserBack)
+                    if (voiceSessionCoordinator != null &&
+                        DrivingVoiceHandoffPolicy.shouldCancelOnExit(
+                            voiceSessionCoordinator.state.value
+                        )
+                    ) voiceSessionCoordinator.cancel(VoiceCancelReason.UserBack)
                     voiceStartRejected = false
                 },
                 onVoiceRetry = {
-                    if (voiceSessionState is VoiceSessionState.Failed &&
+                    if (drivingNavigation.state.active &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        voiceSessionState is VoiceSessionState.Failed &&
                         voiceSessionState.origin == VoiceOrigin.Driving &&
-                        voiceSessionState.canRetry && freshCanStartDrivingVoice()
+                        voiceSessionState.canRetry &&
+                        freshCanStartDrivingVoice()
                     ) {
                         voiceStartRejected = voiceSessionCoordinator?.retry() !is AppResult.Success
                     } else voiceStartRejected = true
@@ -452,7 +460,8 @@ fun AppNavHost(
                                 // Fresh OS+provider recheck at the actual tap;
                                 // ActivityResult/Resume never auto-start voice.
                                 if (freshCanStartDrivingVoice() &&
-                                    voiceSessionCoordinator != null
+                                    voiceSessionCoordinator != null &&
+                                    voiceSessionCoordinator.state.value == VoiceSessionState.Idle
                                 ) {
                                     voiceStartRejected =
                                         voiceSessionCoordinator.start(VoiceOrigin.Driving) !is AppResult.Success
