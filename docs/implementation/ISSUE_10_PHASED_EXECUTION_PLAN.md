@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_NEXT**. Implementation P05–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_NEXT**. Implementation P06–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -58,6 +58,8 @@
 ### P05 — Deterministic mapper limited to five direct controls
 **Work:** Version ordered normalization, punctuation/spacing and approved English phrases. Support `PLAY`, `PAUSE`, `NEXT`, `PREVIOUS`, `SEEK_BACK` only as executable #10 results. Resolve source discrepancy by accepting bare approved phrases on explicit PTT; `musico` may be accepted as an *optional spoken prefix after tapping*, NEVER an always-on wake listener. Apply bounded configurable BuildConfig threshold; never invent confidence if provider omits it, never guess unknown/unsupported commands or map them to nearest command. Explicitly document/handle low/absent confidence safely; validate direct recognition target at P13. Keep `PLAY_ARTIST` reserved for #11.
 **Output:** pure mapper/policy, phrase dictionary, source-only contract checks and authored test cases. No tests/build.
+
+> **P05 evidence (2026-10-25):** [P05 five-intent mapper source audit](ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md) · [25 new JUnit grammar/threshold cases, AUTHORED_ONLY](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt) · [Updated pre-existing Phase8 source-only grammar assertion](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt). 19 exact phrases/5 controls, optional *spoken* `musico`, no artist direct or cloud; all 16 AC remain NOT_VERIFIED, all QA NOT_RUN, no build or Actions.
 
 ### P06 — Typed playback dispatch, ACK and duplicate execution protection
 **Work:** Dispatch exactly one typed `PlaybackCommand` through existing `PlaybackGateway`/MediaSession service; `PLAY` resuming safely, `PAUSE`, `NEXT`, `PREVIOUS` using existing fixed playback rules and `SEEK_BACK = -10,000ms` clamped to zero. Serialize command admission, preserve source snapshot authority, enforce one-shot command identity per session/result, ignore stale late ACK; only publish Executed after acknowledged outcome. Empty queue/end-of-queue/controller error are safe failures, not optimistic success.
