@@ -199,7 +199,7 @@ class Issue10Phase2VoiceStateMachineTest {
         } finally { coordinator.close(); parent.cancel(); pendingAck.cancel() }
     }
 
-    @Test fun replacedSlowProviderCannotPublishOrExecuteAfterNewGeneration() = runTest {
+    @Test fun cancelledSlowProviderCannotPublishOrExecuteAfterFreshExplicitStart() = runTest {
         val delayed = CompletableDeferred<AppResult<SpeechRecognitionResult>>()
         val stt = Stt(response = { req ->
             if (req.sessionId.value == 1L) withContext(NonCancellable) { delayed.await() }
@@ -212,9 +212,15 @@ class Issue10Phase2VoiceStateMachineTest {
             stt, Tts(), gateway, recognitionEnabled = true
         )
         try {
-            coordinator.start(VoiceOrigin.Player)
+            val oldId = (coordinator.start(VoiceOrigin.Player) as AppResult.Success<VoiceSessionId>).value
             runCurrent()
             val replaced = coordinator.activeGenerationJob
+            // P10: a rapid second tap cannot replace an active Voice; this
+            // static fixture now explicitly cancels BEFORE a new user tap.
+            assertTrue(coordinator.start(VoiceOrigin.Driving) is AppResult.Failure)
+            assertEquals(VoiceSessionState.Listening(oldId, VoiceOrigin.Player, 1),
+                coordinator.state.value)
+            coordinator.cancel(VoiceCancelReason.UserBack)
             val newId = (coordinator.start(VoiceOrigin.Driving) as AppResult.Success<VoiceSessionId>).value
             runCurrent()
             assertEquals(VoiceSessionState.Executed(newId, VoiceOrigin.Driving), coordinator.state.value)
