@@ -214,6 +214,16 @@ class PlaybackControllerConnection(
             if (result.resultCode != SessionResult.RESULT_SUCCESS) {
                 PlaybackWireProtocol.decodeFailure(result.extras)
             } else {
+                // P06: Voice cannot report Executed from an uncorrelated
+                // success/stale service response. Manual commands preserve
+                // their original compatibility and service snapshot path.
+                if (!PlaybackWireProtocol.acknowledges(command, result.extras)) {
+                    return AppResult.Failure(AppError.Controller(
+                        AppErrorCodes.CONTROLLER_CONNECT_FAILED,
+                        Recoverability.RECOVERABLE,
+                        RecoveryAction.ManualFallback,
+                    ))
+                }
                 val confirmed = PlaybackWireProtocol.decodeSnapshot(
                     result.extras.getBundle(PlaybackWireProtocol.KEY_SNAPSHOT)
                 ) ?: return AppResult.Failure(AppError.Controller(
