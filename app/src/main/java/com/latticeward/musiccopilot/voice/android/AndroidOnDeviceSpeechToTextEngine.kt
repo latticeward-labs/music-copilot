@@ -45,7 +45,9 @@ class AndroidOnDeviceSpeechToTextEngine(
 ) : SpeechToTextEngine, AutoCloseable {
     private val app = context.applicationContext
     private val mainHandler = Handler(app.mainLooper)
-    private var live: Session? = null
+    // Volatile snapshot lets non-Main cancellation capture the exact old
+    // recognizer identity; teardown itself remains serialized on Main.
+    @Volatile private var live: Session? = null
     @Volatile private var closed = false
 
     private class Session(
@@ -116,7 +118,11 @@ class AndroidOnDeviceSpeechToTextEngine(
                 }
 
                 continuation.invokeOnCancellation {
-                    mainHandler.post { teardown(cancelFirst = true) }
+                    // P10: synchronous when already on Main. Do not leave a
+                    // cancelled SpeechRecognizer alive while retry starts.
+                    // teardown checks object identity, not just sessionId:
+                    // an old queued cancel cannot destroy a newer attempt.
+                    onMain { teardown(cancelFirst = true) }
                 }
 
                 try {
@@ -134,27 +140,34 @@ class AndroidOnDeviceSpeechToTextEngine(
                             SpeechRecognizer.ERROR_NO_MATCH -> AppErrorCodes.VOICE_NO_MATCH
                             else -> AppErrorCodes.VOICE_UNAVAILABLE
                         }
-                        finish(failure(code))
+                        // Some OEM recognizers deliver callbacks off Main.
+                        // Always serialize ownership checks on Main and
+                        // refuse callbacks from an already-released instance.
+                        onMain { finish(failure(code)) }
                     }
                     override fun onResults(results: Bundle?) {
-                        // Do not persist transcript or use a requested locale
-                        // as fabricated DETECTED language evidence.
-                        val transcript = results
-                            ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-                            ?.firstOrNull()?.trim()
-                        if (transcript.isNullOrBlank() || transcript.length > 256) {
-                            finish(failure(AppErrorCodes.VOICE_NO_MATCH))
-                            return
+                        // No user transcript is saved. Process the provider
+                        // callback only if THIS recognizer still owns live.
+                        // An old callback can never finish the new retry.
+                        onMain {
+                            if (live !== session || !continuation.isActive) return@onMain
+                            val transcript = results
+                                ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                                ?.firstOrNull()?.trim()
+                            if (transcript.isNullOrBlank() || transcript.length > 256) {
+                                finish(failure(AppErrorCodes.VOICE_NO_MATCH))
+                                return@onMain
+                            }
+                            val confidence = results
+                                ?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
+                                ?.firstOrNull()?.toDouble()
+                                ?.takeIf { it.isFinite() && it in 0.0..1.0 }
+                            finish(AppResult.Success(SpeechRecognitionResult(
+                                transcript = transcript,
+                                providerConfidence = confidence,
+                                detectedLanguageTag = null,
+                            )))
                         }
-                        val confidence = results
-                            ?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
-                            ?.firstOrNull()?.toDouble()
-                            ?.takeIf { it.isFinite() && it in 0.0..1.0 }
-                        finish(AppResult.Success(SpeechRecognitionResult(
-                            transcript = transcript,
-                            providerConfidence = confidence,
-                            detectedLanguageTag = null, // unavailable unless platform proves it
-                        )))
                     }
                     })
                 } catch (_: Exception) {
@@ -212,12 +225,15 @@ class AndroidOnDeviceSpeechToTextEngine(
     }
 
     override fun cancel(sessionId: VoiceSessionId) {
+        // Snapshot at invocation, not on a queued Main callback. Retry #2
+        // retains the same logical sessionId but MUST NOT be cancelled by
+        // a delayed cancel request for attempt #1.
+        val expected = live?.takeIf { it.id == sessionId } ?: return
         onMain {
-            val current = live
-            if (current?.id == sessionId) {
+            if (live === expected) {
                 live = null
-                try { current.recognizer.cancel() } catch (_: Exception) { }
-                try { current.recognizer.destroy() } catch (_: Exception) { }
+                try { expected.recognizer.cancel() } catch (_: Exception) { }
+                try { expected.recognizer.destroy() } catch (_: Exception) { }
             }
         }
     }
