@@ -500,7 +500,6 @@ fun FullPlayerScreen(
     }
 }
 
-/** Pure display formatting; never moves the service playback position. */
 /**
  * P03 Full Player WF-08 inline Voice controls. P09 refines the final design
  * and focus handoff. No recorder, permission requester or Media3 owner here.
@@ -599,6 +598,7 @@ private fun PlayerVoiceControls(
 }
 
 
+/** Pure display formatting; never moves the service playback position. */
 private fun formatTime(positionMs: Long): String {
     val seconds = positionMs.coerceAtLeast(0L) / 1000
     return "${seconds / 60}:${(seconds % 60).toString().padStart(2, '0')}"
