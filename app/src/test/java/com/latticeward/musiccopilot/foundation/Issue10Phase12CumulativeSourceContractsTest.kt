@@ -148,11 +148,9 @@ class Issue10Phase12CumulativeSourceContractsTest {
     }
 
     @Test fun allP13DeviceAcceptanceMustRemainUnmeasuredAtSourcePhase() {
-        val json = File("../docs/implementation/ISSUE_10_QA_RESULTS.json")
-        // Fixture path is intentionally supplied by P13 only; do not interpret
-        // an absent local checked-out docs path as a runtime PASS.
-        assertFalse(source("voice/session/DefaultVoiceSessionCoordinator.kt").contains(
-            "AC_VERIFIED_ON_PHONE"
-        ))
+        // This is source checking, not simulated device evidence.
+        val coordinator = source("voice/session/DefaultVoiceSessionCoordinator.kt")
+        assertFalse(coordinator.contains("AC_VERIFIED_ON_PHONE"))
+        assertFalse(coordinator.contains("markAcceptancePassed("))
     }
 }
