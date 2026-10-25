@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P10_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P11_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -149,10 +149,13 @@
       "notes": "P10 foreground-only Voice; atomic rapid-tap block, provider recognizer/utterance cancellation identity, app-stop/revoked permission, focus and BT route, bounded un-Duck controller drain. No Build, JUnit, Actions."
     },
     "P11": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+      "authored_junit_cases": 19,
+      "notes": "P11 transcript redaction in result toString, stricter future cloud disclosure, 4 typed local Voice diagnostics, 7 privacy strings in Settings, nonpersistent NoOp sink and networkless production boundary audited. No Build/JUnit/Actions."
     },
     "P12": {
       "state": "NOT_STARTED",
@@ -290,9 +293,9 @@
         "M52"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
+      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
       "verified_at": null
     },
     {
@@ -399,9 +402,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
       "verified_at": null
     },
     {
@@ -459,9 +462,9 @@
         "M51"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P08 bounded optional feedback and deterministic resources authored; TTS duration, interruption and Android device behavior NOT_VERIFIED. P09/P10/P13 pending.",
+      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
       "verified_at": null
     },
     {
@@ -476,9 +479,9 @@
         "M52"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
       "verified_at": null
     },
     {
@@ -502,9 +505,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
       "verified_at": null
     },
     {
@@ -1808,14 +1811,17 @@
       "name": "Privacy/consent/manifest/static inspection",
       "phase": "P11",
       "kind": "SOURCE_AUDIT_AND_LINT",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "19 P11 source-authored privacy/consent/diagnostic JUnit methods. ZERO executed.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T10",
@@ -1860,7 +1866,7 @@
     "ac_verified": 0,
     "technical_groups": 10,
     "technical_executed": 0,
-    "technical_groups_authored": 8,
+    "technical_groups_authored": 9,
     "technical_groups_executed": 0
   },
   "quality_gates": {
@@ -2182,6 +2188,35 @@
         "Media3 already-accepted command cannot rollback",
         "service packet might not arrive; TTL best effort",
         "no OEM phone testing yet"
+      ]
+    },
+    "P11": {
+      "date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+      ],
+      "authored_junit_methods": 19,
+      "technical_status": "NOT_RUN",
+      "voice_transcript": "Ephemeral in-memory result; toString redacted; no history/DB or app-owned network upload",
+      "manifest": "no INTERNET; backup disabled; RECORD_AUDIO JIT",
+      "production_cloud": "remoteAdapterApproved=false and legalApproval=false; stale consent cannot authorize",
+      "diagnostics": [
+        "ManualOnlyPlatform",
+        "MicrophonePermissionRequired",
+        "OnDeviceProviderUnavailable",
+        "OnDeviceProviderPresentUnverified"
+      ],
+      "telemetry": "AllowlistedTelemetryPrivacyGate and NoOpTelemetrySink: events dropped",
+      "limitations": [
+        "OEM recognition engine and logcat privacy not verified",
+        "Merged manifest, device network/backup checks not run",
+        "Cloud legal/processor terms require future review",
+        "No executed tests"
       ]
     }
   }
