@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P13_BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+  "stage": "P13_VOICE_FIX_REPLACEMENT_BUILT_OWNER_RETEST_PENDING",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -171,42 +171,53 @@
       "notes": "P12 cumulative P00-P11 and Issue7/8/9 static review, source F12-01 voice receipt process-namespace hardening and F12-02 Compose heading rename, 15 authored-only JUnit methods, 16 AC traced, 50 lab cases prepared NOT_RUN; no build, CI, phone QA or APK."
     },
     "P13": {
-      "state": "BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+      "state": "BUILD_SUCCESS_OWNER_VOICE_RETEST_PENDING",
       "source_delivered": true,
       "test_execution": "NOT_RUN",
       "apk_built": true,
       "build_verified": true,
       "source_audit_file": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
-      "artifact_id": 12593353938,
-      "workflow_run_id": 40180566730,
-      "build_source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+      "artifact_id": 12608466440,
+      "workflow_run_id": 40218586084,
+      "build_source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
       "owner_phone_qa": "NOT_RUN",
       "lab_50_attempts": "NOT_RUN",
-      "notes": "One cumulative P00–P12 APK built and independently extracted/hash-verified; no JVM/Lint/instrumented/phone tests run. Await owner results before PASS/merge/close."
+      "notes": "P13 replacement Voice-only offline model-support probe repair built. Owner previously observed immediate Unavailable; retest pending. All new APK test cases NOT_RUN, all 16 AC NOT_VERIFIED."
     }
   },
   "apk": {
-    "state": "BUILT_VERIFIED_ARTIFACT",
+    "state": "BUILT_VERIFIED_ARTIFACT_OWNER_RETEST_PENDING",
     "phase_authorized": "P13_ONLY",
     "cumulative": true,
     "apk_filename": "app-debug.apk",
-    "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
-    "sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+    "source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
+    "sha256": "7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f",
     "bytes": 37285182,
-    "build_workflow_run_id": 40180566730,
-    "artifact_id": 12593353938,
-    "verified_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+    "build_workflow_run_id": 40218586084,
+    "artifact_id": 12608466440,
+    "verified_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40218586084/artifacts/12608466440",
     "device_candidate_version": "0.1.0-foundation-debug",
     "artifact_name": "issue10-p13-one-cumulative-debug-apk",
-    "zip_sha256": "8b00edcf3fda48406c85aeb65875f07c2a43d0acf0c16afa923310da130987ce",
-    "zip_bytes": 13563944,
+    "zip_sha256": "3738e90480a2f8d0241e206b017094d9713f0efcb1a32364b0b807dfa7ad4700",
+    "zip_bytes": 13564230,
     "build_task": ":app:assembleDebug",
-    "job_id": 121130546863,
+    "job_id": 121244994062,
     "build_status": "SUCCESS",
     "app_id": "com.latticeward.musiccopilot.debug",
     "min_sdk": 29,
     "compile_sdk": 36,
-    "target_sdk": 36
+    "target_sdk": 36,
+    "replacement_of": {
+      "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+      "apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+      "run_id": 40180566730,
+      "artifact_id": 12593353938,
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+      "reason_superseded": "Immediate Voice unavailable owner phone observation before replacement; not a faulty build integrity claim."
+    },
+    "repair_scope": "Android on-device STT support metadata unavailability only",
+    "report": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md",
+    "phone_retest_required": true
   },
   "device_environment": {
     "owner_device_name": null,
@@ -2315,7 +2326,25 @@
       ],
       "checklist": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
       "corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
-      "report": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md"
+      "report": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
+      "replacement": {
+        "date_utc": "2026-10-25",
+        "reason": "Owner saw immediate Voice Unavailable after tapping Mic with audio TTS fallback; device root cause unproven",
+        "source_files_changed": [
+          "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+          "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt"
+        ],
+        "new_build_source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
+        "new_build_run_id": 40218586084,
+        "new_apk_sha256": "7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f",
+        "apk_bytes": 37285182,
+        "artifact_id": 12608466440,
+        "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40218586084/artifacts/12608466440",
+        "report": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md",
+        "tests_executed": 0,
+        "owner_retest": "PENDING",
+        "prior_apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396"
+      }
     }
   }
 }
