@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_SOURCE_IMPLEMENTED_UNBUILT; P10_SOURCE_IMPLEMENTED_UNBUILT; P11_SOURCE_IMPLEMENTED_UNBUILT; P12_SOURCE_AUDITED_UNBUILT; P13_NEXT**. Implementation P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_SOURCE_IMPLEMENTED_UNBUILT; P10_SOURCE_IMPLEMENTED_UNBUILT; P11_SOURCE_IMPLEMENTED_UNBUILT; P12_SOURCE_AUDITED_UNBUILT; P13_BUILD_SUCCESS_OWNER_PHONE_QA_PENDING**. P13 build-only completed from exact SHA; implementation runtime AC and all tests are **NOT_VERIFIED/NOT_RUN**. No merge or issue closure.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -106,6 +106,8 @@
 ### P13 — Only cumulative APK + owner-run phone/lab QA + evidence registration
 **Work:** (1) Freeze full accumulated HEAD (P00–P12, no per-phase APK); (2) run strictly one **build-only workflow** with `:app:assembleDebug` (repeat only for actual compile repair), retrieve real GitHub artifact and expose a verified download; (3) record actual commit/size/SHA-256; (4) deliver [Persian owner checklist](ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md) and 50-attempt direct-command lab matrix; (5) owner tests on personal Android phone and reports observed outcomes; (6) log each result and issue AC evidence in GitHub; (7) identify any remaining unresolved technical tests as NOT_RUN/DEFERRED — never mark them PASS by assertion; (8) only when owner instructs and acceptance evidence permits, prepare PR, merge, close #10.
 **Output:** **one single cumulative `app-debug.apk`**, real downloadable artifact + SHA-256 build manifest, annotated owner results and factual closeout/deferral report.
+
+> **P13 real build (2026-10-25):** [Build & owner-phone QA handoff](ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md) · [successful GitHub run](https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730) · [verified GitHub APK ZIP artifact](https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938). Source `16a71b5b412361fd83d37d196676bf5b4c39bd24`; extracted APK `37285182` bytes, SHA256 `4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396`. **ONLY** `:app:assembleDebug` executed; M01–M60, 50 lab attempts, all ten technical groups `NOT_RUN`; all 16 AC `NOT_VERIFIED`. `main` unchanged; Issue #10 stays open.
 
 ## Acceptance and quality gate
 
