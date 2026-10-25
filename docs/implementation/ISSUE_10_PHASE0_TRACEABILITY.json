@@ -1,0 +1,416 @@
+{
+  "schema": "music-copilot.issue10.phase0-audit.v1",
+  "recorded_date": "2026-10-25",
+  "issue": "https://github.com/latticeward-labs/music-copilot/issues/10",
+  "audit_phase": "P00",
+  "audit_status": "SOURCE_AUDIT_COMPLETED_WITH_IMPLEMENTATION_GAPS",
+  "baseline": {
+    "repository": "latticeward-labs/music-copilot",
+    "main_commit": "e13172683ee8495e26b7c2d56f88444e4969891e",
+    "branch": "feature/10-ptt-voice-five-control-intents",
+    "branch_comparison_before_p00": {
+      "ahead_by": 2,
+      "behind_by": 0,
+      "changed_paths": [
+        "docs/implementation/ISSUE_10_PHASED_EXECUTION_PLAN.md",
+        "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md"
+      ]
+    },
+    "source_rar_filename": "MSM2(1)(1).rar",
+    "source_rar_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12
+  },
+  "verified_dependencies": [
+    {
+      "issue": 7,
+      "issue_status": "CLOSED",
+      "source_risk": "Playback mobile + technical evidence incomplete in historical owner acceptance"
+    },
+    {
+      "issue": 8,
+      "issue_status": "CLOSED",
+      "source_risk": "Focus/route behavior must be preserved; technical QA not fully executed"
+    },
+    {
+      "issue": 9,
+      "issue_status": "CLOSED",
+      "source_risk": "M45 real English NEXT STT/GS04 BLOCKED and deferred to #10"
+    },
+    {
+      "issue": 16,
+      "issue_status": "CLOSED",
+      "source_risk": "Architecture contract approved, not a runtime voice approval"
+    },
+    {
+      "issue": 17,
+      "issue_status": "CLOSED",
+      "source_risk": "WF08 design approved, not executed Voice runtime QA"
+    }
+  ],
+  "external_debt_issues": [
+    74,
+    78
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "requirement": "Voice State Machine: Idle → Listening → Processing → (Confirming if needed) → Executed/Failed",
+      "implementation_phases": [
+        "P02",
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "source_observation": "State types exist; direct-path transitions and terminal lifecycle need hardening.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC02",
+      "requirement": "Explicit mic tap only; no always-on / wake word",
+      "implementation_phases": [
+        "P03"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt"
+      ],
+      "source_observation": "Driving explicit tap partially wired; Full Player microphone missing.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC03",
+      "requirement": "Service-respecting Voice duck while Listening and reliable unduck",
+      "implementation_phases": [
+        "P07"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "source_observation": "No Voice-scoped duck/restore lease found in reviewed public contract/coordinator.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC04",
+      "requirement": "Listening ≤6s; no more than one retry",
+      "implementation_phases": [
+        "P02",
+        "P04"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/VoicePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "source_observation": "6000ms and 2 attempts declared; timeout/cancellation/races not verified.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC05",
+      "requirement": "Replaceable STT and TTS providers",
+      "implementation_phases": [
+        "P04"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/TextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
+      ],
+      "source_observation": "Replaceable interfaces exist; device/provider/language readiness unverified.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC06",
+      "requirement": "Only five executable controls in #10",
+      "implementation_phases": [
+        "P05"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "source_observation": "Six-type source declares PLAY_ARTIST, coordinator does not dispatch it; mapping needs PTT/bare-phrase policy.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC07",
+      "requirement": "Direct recognized command → service without navigation",
+      "implementation_phases": [
+        "P06"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt"
+      ],
+      "source_observation": "Typed gateway dispatch exists; ACK, safety and real executions not verified.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC08",
+      "requirement": "UI observes Voice and does not own playback/recognition",
+      "implementation_phases": [
+        "P03",
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt"
+      ],
+      "source_observation": "Driving observes coordinator; Full Player overlay not wired.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC09",
+      "requirement": "At most one short TTS sentence",
+      "implementation_phases": [
+        "P08"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "source_observation": "Short 'Done' on ACK is source-visible; all terminal feedback/error/cancel cases incomplete.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC10",
+      "requirement": "Timeout/failure/cancel preserves playback and manual controls",
+      "implementation_phases": [
+        "P02",
+        "P07",
+        "P10"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "source_observation": "Manual fallback rules exist; duck cleanup/route safety not proven.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC11",
+      "requirement": "Lifecycle/recreation/background/interruption no duplicate command",
+      "implementation_phases": [
+        "P10"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "source_observation": "Generation checks exist; late RPC/ACK and lifecycle state race unverified.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC12",
+      "requirement": "Lab direct-command success ≥90%",
+      "implementation_phases": [
+        "P13"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt"
+      ],
+      "source_observation": "Zero issue-10 lab executions; later 5×10 attempts require ≥45/50.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC13",
+      "requirement": "No raw voice recording or logging",
+      "implementation_phases": [
+        "P11"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "source_observation": "No persistence appears in reviewed coordinator; app-wide runtime/telemetry audit pending.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC14",
+      "requirement": "If cloud STT, separate consent and processing/retention disclosure",
+      "implementation_phases": [
+        "P11"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
+      ],
+      "source_observation": "Production binds on-device/no-network fallback; conditional cloud gate stays mandatory if scope changes.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC15",
+      "requirement": "Mapper/timeout/states/idempotence test coverage",
+      "implementation_phases": [
+        "P02",
+        "P05",
+        "P06",
+        "P10",
+        "P12"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "source_observation": "Previous source test fixtures exist; new #10 authored tests NOT_STARTED; none executed for #10.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    },
+    {
+      "id": "AC16",
+      "requirement": "WF-08 voice presentation, TalkBack and visible state",
+      "implementation_phases": [
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt"
+      ],
+      "source_observation": "Driving has partial Voice semantics; P09 Full Player/WF08 and physical TalkBack not verified.",
+      "product_status": "NOT_VERIFIED",
+      "issue10_test_status": "NOT_RUN"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "G01",
+      "severity": "BLOCKER",
+      "description": "Voice-specific playback duck and safe restore not implemented",
+      "phases": [
+        "P07"
+      ]
+    },
+    {
+      "id": "G02",
+      "severity": "BLOCKER",
+      "description": "Full Player microphone/overlay entry not connected",
+      "phases": [
+        "P03",
+        "P09"
+      ]
+    },
+    {
+      "id": "G03",
+      "severity": "BLOCKER",
+      "description": "Current mapper requires spoken musico prefix; direct PTT examples omit it",
+      "phases": [
+        "P05"
+      ]
+    },
+    {
+      "id": "G04",
+      "severity": "HIGH",
+      "description": "Missing provider confidence maps to RequiresConfirmation and then Failed; decide fail-closed policy and measure",
+      "phases": [
+        "P04",
+        "P05"
+      ]
+    },
+    {
+      "id": "G05",
+      "severity": "HIGH",
+      "description": "On-device STT explicitly unavailable on Android 10/11 (API 29/30); manual fallback contract",
+      "phases": [
+        "P04"
+      ]
+    },
+    {
+      "id": "G06",
+      "severity": "HIGH",
+      "description": "One-shot service dispatch/ACK and retry/lifecycle race behavior not validated",
+      "phases": [
+        "P02",
+        "P06",
+        "P10"
+      ]
+    },
+    {
+      "id": "G07",
+      "severity": "HIGH",
+      "description": "Voice UI accessibility and feedback incomplete cross origin",
+      "phases": [
+        "P08",
+        "P09"
+      ]
+    },
+    {
+      "id": "G08",
+      "severity": "HIGH",
+      "description": "Issue #9 M45 explicitly untested/deferred to #10",
+      "phases": [
+        "P13"
+      ]
+    },
+    {
+      "id": "G09",
+      "severity": "QUALITY_GATE",
+      "description": "Direct-command lab 50 attempts not run; minimum 45 successes",
+      "phases": [
+        "P13"
+      ]
+    },
+    {
+      "id": "G10",
+      "severity": "RISK",
+      "description": "Device matrix, separate test execution and privacy audit not completed",
+      "phases": [
+        "P11",
+        "P12",
+        "P13"
+      ]
+    }
+  ],
+  "scope": {
+    "in": [
+      "PTT on Full Player and Driving",
+      "Five deterministic direct English commands",
+      "Replaceable local STT/TTS",
+      "One coordinator; one service playback owner",
+      "Voice duck/restore",
+      "Safe recovery and privacy"
+    ],
+    "out": [
+      "PLAY_ARTIST execution (#11)",
+      "Wake word/background listening",
+      "Cloud STT deployment",
+      "New backend or streaming",
+      "New Player or MediaSession"
+    ]
+  },
+  "execution_policy": {
+    "P00_to_P12": "STATIC_SOURCE_AND_DOCUMENTATION_ONLY_NO_BUILD_NO_EXECUTED_TESTS",
+    "P13": "ONE_CUMULATIVE_APK_BUILD_ONLY_AND_OWNER_PHONE_QA",
+    "performed_phase0": [
+      "RAR extraction and text-only static review",
+      "GitHub issue/dependency/source inspection",
+      "Traceability documentation"
+    ],
+    "not_performed": [
+      "Gradle",
+      "GitHub Actions",
+      "APK",
+      "JVM tests",
+      "Android instrumentation",
+      "Emulator/device tests",
+      "Lint"
+    ]
+  },
+  "next_phase": "P01"
+}
