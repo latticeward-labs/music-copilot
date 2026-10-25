@@ -40,7 +40,8 @@
     "phase7_audit": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
     "phase8_audit": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
     "phase9_audit": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
-    "phase10_audit": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+    "phase10_audit": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+    "phase11_audit": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -218,11 +219,19 @@
     },
     {
       "phase": "P11",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "P11 redacted recognition result string, strict conditional cloud STT disclosure and no-consent activation, private typed Settings diagnostics and 19 authored JUnit. No QA run."
     },
     {
       "phase": "P12",
@@ -362,9 +371,10 @@
         "M52"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
       ],
-      "notes": "P04 source review only; AC NOT_VERIFIED."
+      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
     },
     {
       "id": "AC06",
@@ -493,9 +503,10 @@
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
     },
     {
       "id": "AC11",
@@ -562,9 +573,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
       ],
-      "notes": "P08 pure/resource and authored-only JUnit evidence; no runtime TTS or manual audio verification; NOT_VERIFIED."
+      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
     },
     {
       "id": "AC14",
@@ -582,9 +594,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
     },
     {
       "id": "AC15",
@@ -616,9 +629,10 @@
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
     },
     {
       "id": "AC16",
@@ -1218,8 +1232,15 @@
       "name": "Privacy/consent/manifest/static inspection",
       "phase": "P11",
       "kind": "SOURCE_AUDIT_AND_LINT",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T10",
@@ -1264,7 +1285,11 @@
     "phase10_lifecycle_policy": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceLifecycleSafetyPolicy.kt",
     "phase10_stt_race": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
     "phase10_tts_race": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
-    "phase10_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+    "phase10_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt",
+    "phase11_result_redaction": "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+    "phase11_consent_policy": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+    "phase11_diagnostics": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
+    "phase11_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
   },
   "known_gaps": [
     {
@@ -1378,8 +1403,9 @@
         "P12",
         "P13"
       ],
-      "state": "OPEN",
-      "resolved_by": null
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "P11 explicit source privacy audit/redacted transcript/conditional cloud consent and no-op telemetry. Build/merged manifest, OEM runtime traffic/logcat/permissions and device matrix remain NOT_RUN. Do NOT close."
     }
   ],
   "cross_issue": {
@@ -1432,6 +1458,8 @@
     "P09_source_delivered": true,
     "P09_authored_junit_methods": 20,
     "P10_source_delivered": true,
-    "P10_authored_junit_methods": 17
+    "P10_authored_junit_methods": 17,
+    "P11_source_delivered": true,
+    "P11_authored_junit_methods": 19
   }
 }
