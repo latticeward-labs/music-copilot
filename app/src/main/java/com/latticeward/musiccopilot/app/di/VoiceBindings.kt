@@ -36,6 +36,7 @@ internal object VoiceBindings {
         scope: CoroutineScope, stt: SpeechToTextEngine, tts: TextToSpeechEngine,
         playback: PlaybackGateway, enabled: Boolean,
         context: Context? = null,
+        canBeginSession: () -> Boolean = { true },
     ): DefaultVoiceSessionCoordinator = DefaultVoiceSessionCoordinator(
         scope, stt, tts, playback = playback,
         intentMapper = RestrictedVoiceIntentMapper(
@@ -47,5 +48,6 @@ internal object VoiceBindings {
         ducking = (playback as? VoiceDuckingPort) ?: UnavailableVoiceDuckingPort,
         feedbackCatalog = if (context == null) EnglishVoiceFeedbackCatalog
             else AndroidVoiceFeedbackCatalog(context),
+        canBeginSession = canBeginSession,
     )
 }
