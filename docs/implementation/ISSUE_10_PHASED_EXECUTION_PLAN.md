@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_NEXT**. Implementation P03–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_NEXT**. Implementation P04–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -46,6 +46,8 @@
 ### P03 — Explicit PTT entry for Full Player and Driving
 **Work:** Wire actual Full Player microphone to the same app-scoped coordinator already used by #9 Driving; reuse microphone OS permission/VoicePracticeGate and existing NavHost; require a new deliberate tap after permission grant; never start Voice from startup, BT connect, background, navigation, ActivityResult or notification. Prevent double-tap double-session and preserve usable manual controls.
 **Output:** Full Player + Driving one-tap entry and shared consent/permission presentation source, with no new Voice Activity or playback owner. No tests/build.
+
+> **P03 evidence (2026-10-25):** [Full Player/Driving PTT source audit](ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md) · [12 authored-only PTT cases](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt) · [QA ledger](ISSUE_10_QA_RESULTS.json). One OS gate/launcher; no capture from ActivityResult. Source only; 16 AC remain NOT_VERIFIED and all manual/lab/technical executions NOT_RUN.
 
 ### P04 — Replaceable STT/TTS platform and capability gate
 **Work:** Harden `SpeechToTextEngine`/Android on-device recognizer availability, English locale/language pack behavior, cancellation, teardown, exact listening timeout, missing confidence, OEM errors, and retry-safe session identity. Keep `TextToSpeechEngine` replaceable. **No implicit network/cloud STT fallback**; currently unsupported API29/30 should show truthful manual fallback unless separately approved and implemented with consent. Do not claim offline recognition on unverified hardware.
