@@ -278,33 +278,90 @@ class DefaultVoiceSessionCoordinator(
         true
     }
 
-    private fun failAttempt(
+    /** A retryable failure is visual-only to avoid talking over the retry. */
+    private suspend fun failAttempt(
         id: VoiceSessionId,
         origin: VoiceOrigin,
         number: Int,
         generation: Job,
         code: String,
     ) {
-        synchronized(gate) {
-            if (!isCurrentLocked(id, generation, number)) return
+        val failed = synchronized(gate) {
+            if (!isCurrentLocked(id, generation, number)) return@synchronized null
             val active = mutableState.value
             if (!VoiceTransitionPolicy.mayProcess(active, id, origin, number) &&
                 !VoiceTransitionPolicy.mayComplete(active, id, origin, number)
-            ) return
-            // Teardown occurs before Failed becomes available for Retry.
-            // Provider exceptions cannot strand the state machine.
+            ) return@synchronized null
             runCatching { stt.cancel(id) }
             activeDuckToken?.let { token ->
                 runCatching { ducking.releaseVoiceDuck(token) }
                 activeDuckToken = null
             }
-            mutableState.value = VoiceSessionState.Failed(
-                id,
-                origin,
+            VoiceSessionState.Failed(
+                id, origin,
                 AppError.Voice(code, Recoverability.RECOVERABLE, RecoveryAction.ManualFallback),
                 canRetry = VoiceTransitionPolicy.canOfferRetry(number, code),
-            )
+            ).also { mutableState.value = it }
+        } ?: return
+        VoiceFeedbackPolicy.terminalFailure(code, failed.canRetry)?.let { key ->
+            deliverFeedback(id, origin, number, generation, key)
         }
+    }
+
+    /**
+     * Only the owning, current terminal attempt may claim its one sentence.
+     * ACK/Failed state is already published: TTS has NO playback authority.
+     * Provider errors, absence and 2s timeout leave UI/manual playback intact.
+     */
+    private suspend fun deliverFeedback(
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        number: Int,
+        generation: Job,
+        key: VoiceFeedbackKey,
+    ) {
+        val output = VoiceFeedbackPolicy.output(id, key, feedbackCatalog) ?: return
+        val claimed = synchronized(gate) {
+            val st = mutableState.value
+            val terminal = when (st) {
+                is VoiceSessionState.Executed ->
+                    st.sessionId == id && st.origin == origin &&
+                        key in SUCCESS_FEEDBACK_KEYS
+                is VoiceSessionState.Failed ->
+                    st.sessionId == id && st.origin == origin &&
+                        !st.canRetry && key in FAILURE_FEEDBACK_KEYS
+                else -> false
+            }
+            if (!isCurrentLocked(id, generation, number) || feedbackClaimed || !terminal)
+                false
+            else {
+                feedbackClaimed = true // claim BEFORE suspending
+                true
+            }
+        }
+        if (!claimed) return
+        try {
+            if (tts.isAvailable()) {
+                withTimeoutOrNull(VoiceFeedbackPolicy.MAX_SPEAK_MS) {
+                    tts.speak(output) // optional; never affects terminal state
+                }
+            }
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            // A missing/offline TTS voice cannot undo a Media3 ACK.
+        }
+    }
+
+    private companion object {
+        val SUCCESS_FEEDBACK_KEYS = setOf(
+            VoiceFeedbackKey.Play, VoiceFeedbackKey.Pause, VoiceFeedbackKey.Next,
+            VoiceFeedbackKey.Previous, VoiceFeedbackKey.SeekBack,
+        )
+        val FAILURE_FEEDBACK_KEYS = setOf(
+            VoiceFeedbackKey.Timeout, VoiceFeedbackKey.NotRecognized,
+            VoiceFeedbackKey.Unavailable,
+        )
     }
 
     override fun confirm(token: VoiceCandidateToken, optionIndex: Int): AppResult<Unit> =
