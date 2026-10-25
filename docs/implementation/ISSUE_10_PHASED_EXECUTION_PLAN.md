@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_NEXT**. Implementation P08–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_NEXT**. Implementation P09–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -76,6 +76,8 @@
 ### P08 — Short feedback and nonblocking TTS
 **Work:** One brief English sentence maximum per terminal result, no repetitive speech, no audible overlapping utterances; gracefully handle TTS absent, failed or cancelled. TTS is after playback ACK and must not roll back a successful command, mute manual controls or keep the microphone open.
 **Output:** feedback catalog/localized strings, fail-open optional TTS adapter and authored cases. No tests/build.
+
+> **P08 evidence (2026-10-25):** [Short offline TTS feedback source audit](ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md) · [15 authored-only P08 JUnit cases](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt) · [updated source-only Phase8 test](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt). One resource-backed sentence on acknowledged success or final failure (retryable failures silent); 2s bound; no Gradle, test, Actions, APK. AC NOT_VERIFIED.
 
 ### P09 — Approved WF-08 Voice UI, accessibility and safe manual fallback
 **Work:** Bind `Idle/Listening/Processing/Executed/Failed` and available `Confirming` presentation to origin, not navigation; truthful microphone/listening and attempt state; Cancel and one Retry only when allowed; state-specific TalkBack/live-region announcements, 48dp+ controls, 150–200% scaling, focus return to originating mic/manual control, no personal transcripts displayed/logged.
