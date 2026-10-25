@@ -22,6 +22,9 @@ android {
         buildConfigField("boolean", "QUALITY_EXTERNAL_DIAGNOSTICS_ENABLED", "false")
         buildConfigField("boolean", "QUALITY_CRASH_UPLOAD_ENABLED", "false")
         buildConfigField("boolean", "QUALITY_VERBOSE_LOGGING_ENABLED", "false")
+        // Issue #10 P05: compile-time only, bounded in DirectControlPhrasePolicy.
+        // No network config, transcript or external telemetry endpoint.
+        buildConfigField("double", "VOICE_DIRECT_CONFIDENCE_THRESHOLD", "0.90")
     }
 
     buildTypes {
