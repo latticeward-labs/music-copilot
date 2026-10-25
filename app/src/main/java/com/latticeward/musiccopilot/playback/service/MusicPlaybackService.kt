@@ -237,6 +237,16 @@ class MusicPlaybackService : MediaSessionService() {
             context = this,
             onPersonalOutputDisconnected = { handlePersonalOutputDisconnected() },
             onBluetoothSinkAvailable = {
+                // P10: an unrequested route change during active PTT
+                // invalidates the microphone/output context. It is NOT an
+                // instruction to Play, Resume or open another Voice session.
+                // This service callback remains on the one Player Main looper.
+                revokeVoiceDuck()
+                (application as PlaybackVoiceInterruptionHost)
+                    .cancelActiveVoiceForPlaybackInterruption(
+                        com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionReason
+                            .ROUTE_INVALIDATED
+                    )
                 // Bluetooth reconnect is an observation, NOT a Play request,
                 // user intent, proof of the active output, or latch release.
                 val blockedBefore = interruptionGate.shouldSuppressAutomaticPlay()
