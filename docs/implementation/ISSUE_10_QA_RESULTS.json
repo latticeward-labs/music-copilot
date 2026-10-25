@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P04_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P05_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -92,10 +92,14 @@
       "notes": "On-device English STT API33+ installed-model preflight, API29/30 manual-only, optional offline TTS and callback lifecycle; source-only."
     },
     "P05": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+      "authored_junit_cases": 25,
+      "legacy_authored_junit_adjusted": 1,
+      "notes": "Finite 19-entry English PTT dictionary (5 controls), optional spoken musico, bounded BuildConfig threshold and fail-closed absent confidence; no tests/build/Actions."
     },
     "P06": {
       "state": "NOT_STARTED",
@@ -294,9 +298,9 @@
         "M22"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P05 source grammar and authored-only JUnit evidence; no execution or verified outcome; P06/P10/P12/P13 remain",
       "verified_at": null
     },
     {
@@ -481,9 +485,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
+      "decision_note": "P05 source grammar and authored-only JUnit evidence; no execution or verified outcome; P06/P10/P12/P13 remain",
       "verified_at": null
     },
     {
@@ -1646,14 +1650,18 @@
       "name": "Deterministic intent mapping and rejection",
       "phase": "P05",
       "kind": "JVM",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "25 new P05 JUnit grammar/threshold cases authored and one Phase8 legacy method updated. 0 executed, no PASS.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T02",
@@ -1819,7 +1827,7 @@
     "ac_verified": 0,
     "technical_groups": 10,
     "technical_executed": 0,
-    "technical_groups_authored": 3,
+    "technical_groups_authored": 4,
     "technical_groups_executed": 0
   },
   "quality_gates": {
@@ -1913,6 +1921,47 @@
         "P09 accessibility",
         "P10 lifecycle and OEM",
         "P13 cumulative build and owner QA"
+      ]
+    },
+    "P05": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt",
+        "docs/VOICE_CONTRACT.md"
+      ],
+      "grammar_version": "issue10-five-controls-v1",
+      "supported_intents": [
+        "PLAY",
+        "PAUSE",
+        "NEXT",
+        "PREVIOUS",
+        "SEEK_BACK"
+      ],
+      "enabled_direct_intent_count": 5,
+      "approved_phrase_count": 19,
+      "spoken_prefix": "optional_musico_only_after_explicit_tap",
+      "wake_listener": false,
+      "confidence_policy": "BuildConfig default=0.90, bounds=0.80..0.98, null/invalid/low fails closed; unknown/artist rejected",
+      "reserved_for_issue11": [
+        "PLAY_ARTIST",
+        "fuzzy_artist_resolution",
+        "one_step_artist_confirmation"
+      ],
+      "authored_junit_methods": 25,
+      "legacy_authored_case_updated": 1,
+      "technical_execution": "NOT_RUN",
+      "remaining": [
+        "P06 Media3 single command ACK and service idempotency",
+        "P07 voice duck lease",
+        "P08 feedback",
+        "P09 WF08 TalkBack",
+        "P10 interruption/lifecycle",
+        "P13 owner phone 5x10 lab"
       ]
     }
   }
