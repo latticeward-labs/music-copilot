@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_NEXT**. Implementation P06–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_NEXT**. Implementation P07–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -64,6 +64,8 @@
 ### P06 — Typed playback dispatch, ACK and duplicate execution protection
 **Work:** Dispatch exactly one typed `PlaybackCommand` through existing `PlaybackGateway`/MediaSession service; `PLAY` resuming safely, `PAUSE`, `NEXT`, `PREVIOUS` using existing fixed playback rules and `SEEK_BACK = -10,000ms` clamped to zero. Serialize command admission, preserve source snapshot authority, enforce one-shot command identity per session/result, ignore stale late ACK; only publish Executed after acknowledged outcome. Empty queue/end-of-queue/controller error are safe failures, not optimistic success.
 **Output:** Voice->gateway adapter and idempotency policy plus authored-only integration cases. No tests/build.
+
+> **P06 evidence (2026-10-25):** [Voice → Media3 ACK and idempotency static audit](ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md) · [15 authored-only JUnit service/duplicate/ACK cases](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt) · [QA ledger](ISSUE_10_QA_RESULTS.json). Reuses the existing single Media3 Service/Processor, adds exact `command_ack_id` validation for Voice and rejects Voice-only NEXT at last occurrence. No compile/test/Actions/APK, all AC NOT_VERIFIED.
 
 ### P07 — Voice listening duck and exact restoration
 **Work:** Implement a **Voice-scoped duck lease** through approved playback/audio-focus boundary (not direct UI volume or an extra player). Request before Listening; restore original, currently valid attenuation on success, failure, timeout, Retry switch, Back/cancel, TTS failure, recreation, background and permission interruption. Respect #8 external call/focus/route precedence, avoid double attenuation/un-duck and **never auto-resume a track paused by user or route loss**.
