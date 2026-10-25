@@ -1,12 +1,12 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Planning status:** READY_FOR_PHASE_0; implementation **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Planning status:** P00_STATIC_AUDIT_COMPLETED; P01_NEXT; P01–P13 implementation **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
 > **Work branch:** `feature/10-ptt-voice-five-control-intents`. **Issue:** [#10](https://github.com/latticeward-labs/music-copilot/issues/10). **Final phone checklist:** [ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md](ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md).
 
-## Governing inputs and dependencies
+> **P00 evidence (2026-10-25):** [Readiness audit](ISSUE_10_PHASE0_READINESS_AUDIT.md) · [AC01–AC16 traceability/source SHA register](ISSUE_10_PHASE0_TRACEABILITY.json). Static source review completed with open implementation gaps; no build, tests, APK, or runtime PASS. All 16 Issue #10 AC remain NOT_VERIFIED.\n\n## Governing inputs and dependencies
 
 - Uploaded English PRD/MVP, technical blueprint, system architecture, ADR-0002/0004/0005/0006, User Flows Phase 0/1.
 - Repository: [PRD](../PRD.md), [MVP](../MVP.md), [Voice Contract](../VOICE_CONTRACT.md), [Software Architecture](../SOFTWARE_ARCHITECTURE.md), [Issue #16 implementation contracts](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Issue #17 handoff](../design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md).
