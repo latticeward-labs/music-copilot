@@ -141,7 +141,7 @@ class Phase8VoiceFoundationTest {
             advanceUntilIdle()
             assertEquals(VoiceSessionState.Executed(started.value, VoiceOrigin.Driving), voice.state.value)
             assertTrue(player.commands.single() is PlaybackCommand.Pause)
-            assertEquals("Done", tts.spoken.single().shortText)
+            assertEquals("Playback paused.", tts.spoken.single().shortText)
             assertEquals(6_000L, stt.requests.single().maxListeningMs)
         } finally { voice.close(); job.cancel() }
     }
