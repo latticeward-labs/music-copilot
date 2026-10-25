@@ -4,6 +4,8 @@ import android.content.Context
 import com.latticeward.musiccopilot.BuildConfig
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
+import com.latticeward.musiccopilot.playback.api.VoiceDuckingPort
+import com.latticeward.musiccopilot.playback.api.UnavailableVoiceDuckingPort
 import com.latticeward.musiccopilot.voice.android.AndroidOfflineTextToSpeechEngine
 import com.latticeward.musiccopilot.voice.android.AndroidOnDeviceSpeechToTextEngine
 import com.latticeward.musiccopilot.voice.android.UnavailableSpeechToTextEngine
@@ -37,5 +39,8 @@ internal object VoiceBindings {
             BuildConfig.VOICE_DIRECT_CONFIDENCE_THRESHOLD
         ),
         recognitionEnabled = enabled,
+        // No fake success in production: if this app lost its Media3
+        // controller, STT fails closed and manual Player remains usable.
+        ducking = (playback as? VoiceDuckingPort) ?: UnavailableVoiceDuckingPort,
     )
 }
