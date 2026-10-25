@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P05_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P06_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -102,10 +102,13 @@
       "notes": "Finite 19-entry English PTT dictionary (5 controls), optional spoken musico, bounded BuildConfig threshold and fail-closed absent confidence; no tests/build/Actions."
     },
     "P06": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+      "authored_junit_cases": 15,
+      "notes": "P06 typed Voice dispatch, service ACK correlation, existing bounded idempotency reuse, voice-only safe NEXT-at-end/no-queue and blocked PLAY; code committed but NO Gradle/test/Actions."
     },
     "P07": {
       "state": "NOT_STARTED",
@@ -298,9 +301,9 @@
         "M22"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P05 source grammar and authored-only JUnit evidence; no execution or verified outcome; P06/P10/P12/P13 remain",
+      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
       "verified_at": null
     },
     {
@@ -318,9 +321,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
       "verified_at": null
     },
     {
@@ -382,9 +385,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
+      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
       "verified_at": null
     },
     {
@@ -406,9 +409,9 @@
         "M47"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
+      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
       "verified_at": null
     },
     {
@@ -485,9 +488,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P05 source grammar and authored-only JUnit evidence; no execution or verified outcome; P06/P10/P12/P13 remain",
+      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
       "verified_at": null
     },
     {
@@ -1699,14 +1702,18 @@
       "name": "Playback ACK and one-shot duplicate suppression",
       "phase": "P06",
       "kind": "JVM",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "15 new P06 JUnit tests authored, previous Issue8 receipt tests unchanged; zero JUnit/Android execution.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T05",
@@ -1827,7 +1834,7 @@
     "ac_verified": 0,
     "technical_groups": 10,
     "technical_executed": 0,
-    "technical_groups_authored": 4,
+    "technical_groups_authored": 5,
     "technical_groups_executed": 0
   },
   "quality_gates": {
@@ -1962,6 +1969,37 @@
         "P09 WF08 TalkBack",
         "P10 interruption/lifecycle",
         "P13 owner phone 5x10 lab"
+      ]
+    },
+    "P06": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt"
+      ],
+      "authored_junit_methods": 15,
+      "technical_status": "NOT_RUN",
+      "one_player": true,
+      "new_worker": false,
+      "media3_ack": "command_ack_id must equal voice CommandId on successful SessionResult",
+      "command_id_scheme": "voice-<positive-session-id>-<attempt-1-or-2>",
+      "existing_service_dedup": "PlaybackCommandProcessor with bounded 256 receipt ledger; same ID same payload shares Deferred, conflicting ID rejects",
+      "voice_implicit_success_preventions": [
+        "empty queue PLAY rejected",
+        "voice NEXT final occurrence rejected",
+        "service-unsafe Voice PLAY rejected",
+        "mismatched Voice ACK rejected"
+      ],
+      "known_limits": [
+        "In-memory dedup not process-global exactly-once",
+        "Cancel cannot rollback service-committed playback",
+        "Media3 ACK is accepted command, not proof of immediately audible output",
+        "P10 device/lifecycle/route race still pending"
       ]
     }
   }
