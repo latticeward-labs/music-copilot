@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P07_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P08_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -120,10 +120,14 @@
       "notes": "P07 source-only Media3 service lease, 0.25 volume multiplier, 22s TTL, caller-private commands, pre-STT ack, fail/terminal cancellation/focus/route release; no build/tests."
     },
     "P08": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+      "authored_junit_cases": 15,
+      "legacy_authored_junit_adjusted": 1,
+      "notes": "P08 8 localizable English single-sentence feedback messages; 5 success only after Media3 ACK, optional final failure speech, retryable silence, one-shot gen gate and 2s max TTS; source-only no Gradle/test/Actions."
     },
     "P09": {
       "state": "NOT_STARTED",
@@ -362,9 +366,9 @@
         "M40"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
+      "decision_note": "P08 bounded optional feedback and deterministic resources authored; TTS duration, interruption and Android device behavior NOT_VERIFIED. P09/P10/P13 pending.",
       "verified_at": null
     },
     {
@@ -388,9 +392,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
+      "decision_note": "P08 bounded optional feedback and deterministic resources authored; TTS duration, interruption and Android device behavior NOT_VERIFIED. P09/P10/P13 pending.",
       "verified_at": null
     },
     {
@@ -448,9 +452,9 @@
         "M51"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
+      "decision_note": "P08 bounded optional feedback and deterministic resources authored; TTS duration, interruption and Android device behavior NOT_VERIFIED. P09/P10/P13 pending.",
       "verified_at": null
     },
     {
@@ -491,9 +495,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
+      "decision_note": "P08 bounded optional feedback and deterministic resources authored; TTS duration, interruption and Android device behavior NOT_VERIFIED. P09/P10/P13 pending.",
       "verified_at": null
     },
     {
@@ -1741,6 +1745,8 @@
       "phase": "P08",
       "kind": "JVM",
       "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt",
         "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
       ],
       "authored": true,
@@ -1749,8 +1755,8 @@
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": "P04 contains 12 source-authored policy/fake/provider methods, partial TTS feedback contract only; P08 full cases pending.",
-      "source_status": "AUTHORED_ONLY_PARTIAL"
+      "notes": "15 P08 authored-only feedback/bounded-timeout/error/ACK cases plus updated Phase8 legacy assertion. P04 optional offline TTS cases also exist; ZERO tests executed.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T07",
@@ -2040,6 +2046,41 @@
         "TTL best effort inside alive service",
         "service controller detach may lose release, TTL owns fallback",
         "late in-flight acquire/release and OEM volume/focus race requires P10/P13 scrutiny"
+      ]
+    },
+    "P08": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/feedback/VoiceFeedbackCatalog.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidVoiceFeedbackCatalog.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt"
+      ],
+      "authored_junit_methods": 15,
+      "legacy_authored_case_updated": 1,
+      "technical_status": "NOT_RUN",
+      "success_feedback_only_after_ack": true,
+      "failure_feedback_only_final": true,
+      "retryable_failures_silent": true,
+      "max_sentences_per_eligible_terminal": 1,
+      "max_message_characters": 120,
+      "tts_timeout_ms": 2000,
+      "provider": "Android installed English offline voice only; optional",
+      "catalog": "8 stable resource keys with Android strings.xml, pure English JVM fallback",
+      "no_new_playback_service": true,
+      "no_background_stt": true,
+      "no_cloud_voice": true,
+      "remaining": [
+        "P09 WF-08 screen/a11y and visual copy",
+        "P10 TTS/duck/focus/route lifecycle races",
+        "P11 privacy full audit",
+        "P12 final source audit",
+        "P13 cumulative APK, OEM/audio tests"
       ]
     }
   }
