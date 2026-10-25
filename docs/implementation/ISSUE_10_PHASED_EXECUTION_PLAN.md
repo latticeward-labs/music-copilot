@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_NEXT**. Implementation P07–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_NEXT**. Implementation P08–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -70,6 +70,8 @@
 ### P07 — Voice listening duck and exact restoration
 **Work:** Implement a **Voice-scoped duck lease** through approved playback/audio-focus boundary (not direct UI volume or an extra player). Request before Listening; restore original, currently valid attenuation on success, failure, timeout, Retry switch, Back/cancel, TTS failure, recreation, background and permission interruption. Respect #8 external call/focus/route precedence, avoid double attenuation/un-duck and **never auto-resume a track paused by user or route loss**.
 **Output:** source integration, lease ownership/release contract, exception-safe cleanup, authored-only policy tests. No tests/build.
+
+> **P07 evidence (2026-10-25):** [Voice duck/restore/focus source audit](ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md) · [13 source-only JUnit lease and cancellation cases](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt). Service-owned gain lease via private Media3 commands; focus/route emergency revocation and 22s TTL; **no tests/Gradle/Actions/APK**. AC still NOT_VERIFIED.
 
 ### P08 — Short feedback and nonblocking TTS
 **Work:** One brief English sentence maximum per terminal result, no repetitive speech, no audible overlapping utterances; gracefully handle TTS absent, failed or cancelled. TTS is after playback ACK and must not roll back a successful command, mute manual controls or keep the microphone open.
