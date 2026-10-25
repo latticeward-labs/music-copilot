@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P06_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P07_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -111,10 +111,13 @@
       "notes": "P06 typed Voice dispatch, service ACK correlation, existing bounded idempotency reuse, voice-only safe NEXT-at-end/no-queue and blocked PLAY; code committed but NO Gradle/test/Actions."
     },
     "P07": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+      "authored_junit_cases": 13,
+      "notes": "P07 source-only Media3 service lease, 0.25 volume multiplier, 22s TTL, caller-private commands, pre-STT ack, fail/terminal cancellation/focus/route release; no build/tests."
     },
     "P08": {
       "state": "NOT_STARTED",
@@ -238,9 +241,9 @@
         "M42"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
       "verified_at": null
     },
     {
@@ -257,9 +260,9 @@
         "M28"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
+      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
       "verified_at": null
     },
     {
@@ -385,9 +388,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
+      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
       "verified_at": null
     },
     {
@@ -409,9 +412,9 @@
         "M47"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
+      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
       "verified_at": null
     },
     {
@@ -488,9 +491,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
+      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
       "verified_at": null
     },
     {
@@ -1720,14 +1723,17 @@
       "name": "Ducking lease/focus/route priority",
       "phase": "P07",
       "kind": "JVM",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "13 P07 pure/fake/source JUnit scenarios authored only, 0 run. Phone audio focus/call/BT not verified.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T06",
@@ -1834,7 +1840,7 @@
     "ac_verified": 0,
     "technical_groups": 10,
     "technical_executed": 0,
-    "technical_groups_authored": 5,
+    "technical_groups_authored": 6,
     "technical_groups_executed": 0
   },
   "quality_gates": {
@@ -2000,6 +2006,40 @@
         "Cancel cannot rollback service-committed playback",
         "Media3 ACK is accepted command, not proof of immediately audible output",
         "P10 device/lifecycle/route race still pending"
+      ]
+    },
+    "P07": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/VoiceDuckingPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/ServiceVoiceDuckLease.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
+      ],
+      "authored_junit_methods": 13,
+      "technical_status": "NOT_RUN",
+      "volume_owner": "MusicPlaybackService single ExoPlayer",
+      "duck_factor": 0.25,
+      "acquire_timeout_ms": 2000,
+      "service_ttl_ms": 22000,
+      "token": "UUIDv4 opaque per-Voice attempt",
+      "release_guards": [
+        "token equality",
+        "observed player.volume not externally changed",
+        "superseded/stale token tombstones",
+        "focus/route emergency revoke",
+        "Service onDestroy",
+        "app cancel/retry/finally"
+      ],
+      "safety_limitations": [
+        "source-only not audible proof",
+        "TTL best effort inside alive service",
+        "service controller detach may lose release, TTL owns fallback",
+        "late in-flight acquire/release and OEM volume/focus race requires P10/P13 scrutiny"
       ]
     }
   }
