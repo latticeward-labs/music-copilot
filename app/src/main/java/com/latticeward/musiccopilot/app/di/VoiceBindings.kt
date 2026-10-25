@@ -7,6 +7,8 @@ import com.latticeward.musiccopilot.playback.api.PlaybackGateway
 import com.latticeward.musiccopilot.playback.api.VoiceDuckingPort
 import com.latticeward.musiccopilot.playback.api.UnavailableVoiceDuckingPort
 import com.latticeward.musiccopilot.voice.android.AndroidOfflineTextToSpeechEngine
+import com.latticeward.musiccopilot.voice.android.AndroidVoiceFeedbackCatalog
+import com.latticeward.musiccopilot.voice.feedback.EnglishVoiceFeedbackCatalog
 import com.latticeward.musiccopilot.voice.android.AndroidOnDeviceSpeechToTextEngine
 import com.latticeward.musiccopilot.voice.android.UnavailableSpeechToTextEngine
 import com.latticeward.musiccopilot.voice.android.UnavailableTextToSpeechEngine
@@ -33,6 +35,7 @@ internal object VoiceBindings {
     fun coordinator(
         scope: CoroutineScope, stt: SpeechToTextEngine, tts: TextToSpeechEngine,
         playback: PlaybackGateway, enabled: Boolean,
+        context: Context? = null,
     ): DefaultVoiceSessionCoordinator = DefaultVoiceSessionCoordinator(
         scope, stt, tts, playback = playback,
         intentMapper = RestrictedVoiceIntentMapper(
@@ -42,5 +45,7 @@ internal object VoiceBindings {
         // No fake success in production: if this app lost its Media3
         // controller, STT fails closed and manual Player remains usable.
         ducking = (playback as? VoiceDuckingPort) ?: UnavailableVoiceDuckingPort,
+        feedbackCatalog = if (context == null) EnglishVoiceFeedbackCatalog
+            else AndroidVoiceFeedbackCatalog(context),
     )
 }
