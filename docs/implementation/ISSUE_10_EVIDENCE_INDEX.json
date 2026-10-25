@@ -34,7 +34,8 @@
     "design_handoff": "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md",
     "phase2_audit": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
     "phase3_audit": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
-    "phase4_audit": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+    "phase4_audit": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+    "phase5_audit": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -105,11 +106,20 @@
     },
     {
       "phase": "P05",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt",
+        "docs/VOICE_CONTRACT.md"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "19 phrase grammar 5 direct controls, 25 authored JUnit checks plus legacy authored fixture aligned; no test execution/build."
     },
     {
       "phase": "P06",
@@ -314,8 +324,10 @@
         "M21",
         "M22"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md"
+      ],
+      "notes": "P05 source and authored JUnit only; NOT_VERIFIED pending real execution."
     },
     {
       "id": "AC07",
@@ -517,9 +529,10 @@
         "M33"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md"
       ],
-      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
+      "notes": "P05 source and authored JUnit only; NOT_VERIFIED pending real execution."
     },
     {
       "id": "AC16",
@@ -1009,8 +1022,14 @@
       "name": "Deterministic intent mapping and rejection",
       "phase": "P05",
       "kind": "JVM",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T02",
@@ -1112,7 +1131,10 @@
     "phase3_ptt_admission": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePttAdmissionPolicy.kt",
     "phase3_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
     "on_device_english_policy": "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
-    "phase4_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
+    "phase4_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt",
+    "phase5_dictionary": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
+    "phase5_mapper": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+    "phase5_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt"
   },
   "known_gaps": [
     {
@@ -1144,8 +1166,9 @@
       "phases": [
         "P05"
       ],
-      "state": "OPEN",
-      "resolved_by": null
+      "state": "SOURCE_FIXED_PENDING_VERIFICATION",
+      "resolved_by": "P05_SOURCE_ONLY",
+      "notes": "Bare approved phrases now accepted on explicit PTT and optional spoken musico prefix; no device verification."
     },
     {
       "id": "G04",
@@ -1157,7 +1180,7 @@
       ],
       "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
       "resolved_by": null,
-      "notes": "Provider confidence remains optional; P05 mapper gap still open"
+      "notes": "Missing/low provider confidence is fail-closed with bounded BuildConfig threshold; no synthetic confidence, field quality may be impacted."
     },
     {
       "id": "G05",
@@ -1266,6 +1289,8 @@
     "P03_source_delivered": true,
     "P03_authored_junit_methods": 12,
     "P04_source_delivered": true,
-    "P04_authored_junit_methods": 12
+    "P04_authored_junit_methods": 12,
+    "P05_source_delivered": true,
+    "P05_authored_junit_methods": 25
   }
 }
