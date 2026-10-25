@@ -92,7 +92,7 @@ class Issue10Phase4SpeechProvidersTest {
             )
             override fun cancel(sessionId: VoiceSessionId) = Unit
         }
-        val spoken = stt.recognize(request) as AppResult.Success
+        val spoken = stt.recognize(request) as AppResult.Success<SpeechRecognitionResult>
         assertNull(spoken.value.providerConfidence)
         assertNull(spoken.value.detectedLanguageTag)
     }
