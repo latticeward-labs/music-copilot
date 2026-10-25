@@ -8,6 +8,9 @@ import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
+import com.latticeward.musiccopilot.playback.api.VoiceDuckingPort
+import com.latticeward.musiccopilot.playback.api.NoOpVoiceDuckingPort
+import java.util.UUID
 import com.latticeward.musiccopilot.voice.api.SpeechOutput
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionRequest
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
@@ -44,6 +47,9 @@ class DefaultVoiceSessionCoordinator(
     private val playback: PlaybackGateway? = null,
     private val intentMapper: VoiceIntentMapper = RestrictedVoiceIntentMapper(),
     private val recognitionEnabled: Boolean = false,
+    // Production binds Media3's private duck port. The default is only for
+    // legacy no-Android JVM fixtures, NEVER chosen by production VoiceBindings.
+    private val ducking: VoiceDuckingPort = NoOpVoiceDuckingPort,
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
@@ -62,6 +68,7 @@ class DefaultVoiceSessionCoordinator(
     private var currentOrigin: VoiceOrigin? = null
     private var attempt = 0
     private var dispatchClaimed = false
+    private var activeDuckToken: String? = null
     private var closed = false
 
     internal val activeGenerationJob: Job?
@@ -95,10 +102,14 @@ class DefaultVoiceSessionCoordinator(
         val generation = SupervisorJob(ownerScope.coroutineContext[Job])
         childJob = generation
         dispatchClaimed = false
+        // Unique even if Android kills/restarts only the app controller while
+        // MediaSessionService retains music and an old lease.
+        val duckToken = "voice-duck-${UUID.randomUUID()}"
+        activeDuckToken = duckToken
         mutableState.value = VoiceSessionState.Listening(id, origin, number)
         // Keep the original non-recording fake seam for foundation tests.
         if (!recognitionEnabled) return
-        ownerScope.launch(generation) { runAttempt(id, origin, number, generation) }
+        ownerScope.launch(generation) { runAttempt(id, origin, number, generation, duckToken) }
     }
 
     private suspend fun runAttempt(
@@ -106,8 +117,23 @@ class DefaultVoiceSessionCoordinator(
         origin: VoiceOrigin,
         number: Int,
         generation: Job,
+        duckToken: String,
     ) {
         try {
+            // STT must NEVER open until the service has acknowledged
+            // attenuation, not merely a UI/state transition to Listening.
+            val acquired = try {
+                ducking.acquireVoiceDuck(duckToken)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) { false }
+            coroutineContext.ensureActive()
+            if (!isCurrent(id, generation, number)) return
+            if (!acquired) {
+                markFailed(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                return
+            }
+
             val recognition = try {
                 withTimeoutOrNull(VoicePolicy.LISTEN_TIMEOUT_MS) {
                     stt.recognize(
@@ -196,6 +222,9 @@ class DefaultVoiceSessionCoordinator(
                 }
             }
         } finally {
+            // An old attempt's release can never alter the new attempt's
+            // different UUID lease in the service.
+            runCatching { ducking.releaseVoiceDuck(duckToken) }
             // Do not erase a newer generation if retry/start ran while an old
             // STT, TTS or Playback continuation was cancelling.
             synchronized(gate) {
@@ -264,6 +293,10 @@ class DefaultVoiceSessionCoordinator(
             // Teardown occurs before Failed becomes available for Retry.
             // Provider exceptions cannot strand the state machine.
             runCatching { stt.cancel(id) }
+            activeDuckToken?.let { token ->
+                runCatching { ducking.releaseVoiceDuck(token) }
+                activeDuckToken = null
+            }
             mutableState.value = VoiceSessionState.Failed(
                 id,
                 origin,
@@ -293,6 +326,10 @@ class DefaultVoiceSessionCoordinator(
         // generation and its provider BEFORE starting attempt two.
         childJob?.cancel()
         childJob = null
+        activeDuckToken?.let { runCatching { token ->
+            ducking.releaseVoiceDuck(token)
+        } }
+        activeDuckToken = null
         runCatching { stt.cancel(id) }
         runCatching { tts.stop(id) }
         attempt += 1
@@ -311,6 +348,10 @@ class DefaultVoiceSessionCoordinator(
         currentOrigin = null
         attempt = 0
         dispatchClaimed = false
+        activeDuckToken?.let { token -> runCatching {
+            ducking.releaseVoiceDuck(token)
+        } }
+        activeDuckToken = null
         val job = childJob
         childJob = null
         mutableState.value = VoiceSessionState.Idle
