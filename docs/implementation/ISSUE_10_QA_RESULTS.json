@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P12_SOURCE_AUDITED_UNBUILT",
+  "stage": "P13_BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -171,24 +171,42 @@
       "notes": "P12 cumulative P00-P11 and Issue7/8/9 static review, source F12-01 voice receipt process-namespace hardening and F12-02 Compose heading rename, 15 authored-only JUnit methods, 16 AC traced, 50 lab cases prepared NOT_RUN; no build, CI, phone QA or APK."
     },
     "P13": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": true,
+      "build_verified": true,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
+      "artifact_id": 12593353938,
+      "workflow_run_id": 40180566730,
+      "build_source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+      "owner_phone_qa": "NOT_RUN",
+      "lab_50_attempts": "NOT_RUN",
+      "notes": "One cumulative P00–P12 APK built and independently extracted/hash-verified; no JVM/Lint/instrumented/phone tests run. Await owner results before PASS/merge/close."
     }
   },
   "apk": {
-    "state": "NOT_BUILT",
+    "state": "BUILT_VERIFIED_ARTIFACT",
     "phase_authorized": "P13_ONLY",
     "cumulative": true,
     "apk_filename": "app-debug.apk",
-    "source_sha": null,
-    "sha256": null,
-    "bytes": null,
-    "build_workflow_run_id": null,
-    "artifact_id": null,
-    "verified_download_url": null,
-    "device_candidate_version": null
+    "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+    "sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+    "bytes": 37285182,
+    "build_workflow_run_id": 40180566730,
+    "artifact_id": 12593353938,
+    "verified_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+    "device_candidate_version": "0.1.0-foundation-debug",
+    "artifact_name": "issue10-p13-one-cumulative-debug-apk",
+    "zip_sha256": "8b00edcf3fda48406c85aeb65875f07c2a43d0acf0c16afa923310da130987ce",
+    "zip_bytes": 13563944,
+    "build_task": ":app:assembleDebug",
+    "job_id": 121130546863,
+    "build_status": "SUCCESS",
+    "app_id": "com.latticeward.musiccopilot.debug",
+    "min_sdk": 29,
+    "compile_sdk": 36,
+    "target_sdk": 36
   },
   "device_environment": {
     "owner_device_name": null,
@@ -2271,6 +2289,33 @@
       "p13_one_cumulative_apk": true,
       "p13_tests_disallowed": true,
       "p13_output": "app/build/outputs/apk/debug/app-debug.apk"
+    },
+    "P13": {
+      "build_date_utc": "2026-10-25",
+      "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+      "run_id": 40180566730,
+      "job_id": 121130546863,
+      "artifact_id": 12593353938,
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+      "apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+      "apk_bytes": 37285182,
+      "zip_sha256": "8b00edcf3fda48406c85aeb65875f07c2a43d0acf0c16afa923310da130987ce",
+      "zip_bytes": 13563944,
+      "run_result": "completed/success",
+      "build_task": ":app:assembleDebug",
+      "gradle_status": "BUILD SUCCESSFUL in 2m 20s",
+      "tests_executed": 0,
+      "technical_groups_executed": 0,
+      "manual_tests_executed": 0,
+      "lab_attempts_executed": 0,
+      "open_risks": [
+        "Real device PTT/Media3/Lifecycle/BT/Focus/Call/TalkBack not yet verified",
+        "Quality gate >=45 actual successes out of 50 not measured",
+        "Android 10/11 manual only; availability and confidence of on-device English OEM models unknown"
+      ],
+      "checklist": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+      "report": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md"
     }
   }
 }
