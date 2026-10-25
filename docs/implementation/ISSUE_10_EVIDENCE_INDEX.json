@@ -32,7 +32,8 @@
     "PR_template": ".github/PULL_REQUEST_TEMPLATE/issue-10-ptt-voice-five-control-intents.md",
     "architecture": "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
     "design_handoff": "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md",
-    "phase2_audit": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+    "phase2_audit": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+    "phase3_audit": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -74,11 +75,18 @@
     },
     {
       "phase": "P03",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePttAdmissionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "One shared OS permission gate, Full Player mic and existing Driving callback, 12 tests authored (NOT_RUN)."
     },
     {
       "phase": "P04",
@@ -206,8 +214,10 @@
         "M07",
         "M31"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+      ],
+      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
     },
     {
       "id": "AC03",
@@ -335,8 +345,10 @@
         "M43",
         "M53"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+      ],
+      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
     },
     {
       "id": "AC09",
@@ -379,9 +391,10 @@
         "M57"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
       ],
-      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
+      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
     },
     {
       "id": "AC11",
@@ -406,9 +419,10 @@
         "M47"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
       ],
-      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
+      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
     },
     {
       "id": "AC12",
@@ -507,8 +521,10 @@
         "M49",
         "M50"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+      ],
+      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
     }
   ],
   "owner_phone_cases": [
@@ -1036,8 +1052,12 @@
       "name": "Lifecycle/permission/late-callback race",
       "phase": "P10",
       "kind": "JVM_AND_ANDROID_INSTRUMENTATION",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T09",
@@ -1067,7 +1087,9 @@
     "playback_contract": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
     "playback_service": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
     "voice_transition_policy": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt",
-    "phase2_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt"
+    "phase2_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+    "phase3_ptt_admission": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePttAdmissionPolicy.kt",
+    "phase3_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
   },
   "known_gaps": [
     {
@@ -1088,8 +1110,9 @@
         "P03",
         "P09"
       ],
-      "state": "OPEN",
-      "resolved_by": null
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "P03 Full Player Mic wired in source; runtime still untested."
     },
     {
       "id": "G03",
@@ -1143,8 +1166,9 @@
         "P08",
         "P09"
       ],
-      "state": "OPEN",
-      "resolved_by": null
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "P03 basic Full Player overlay exists; final WF08 a11y in P09."
     },
     {
       "id": "G08",
@@ -1213,6 +1237,8 @@
     "APK_count": 0,
     "source_phase1_docs_complete": true,
     "P02_source_delivered": true,
-    "P02_authored_junit_methods": 8
+    "P02_authored_junit_methods": 8,
+    "P03_source_delivered": true,
+    "P03_authored_junit_methods": 12
   }
 }
