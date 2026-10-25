@@ -13,7 +13,7 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.voice.api.SpeechOutput
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
-import com.latticeward.musiccopilot.voice.policy.VoicePolicy
+import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackPolicy
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -70,8 +70,8 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
 
     override suspend fun speak(output: SpeechOutput): AppResult<Unit> =
         withContext(Dispatchers.Main.immediate) {
-            if (!isAvailable() || output.shortText.isBlank() ||
-                output.shortText.length > VoicePolicy.MAX_SHORT_FEEDBACK_CHARS ||
+            if (!isAvailable() ||
+                !VoiceFeedbackPolicy.isShortSentence(output.shortText) ||
                 active != null
             ) return@withContext unavailable()
             val engine = tts ?: return@withContext unavailable()
@@ -99,6 +99,12 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
                             }
                             @Deprecated("Some TTS implementations invoke this overload")
                             override fun onError(id: String?) {
+                                if (id == utteranceId) complete(unavailable())
+                            }
+                            override fun onError(id: String?, errorCode: Int) {
+                                if (id == utteranceId) complete(unavailable())
+                            }
+                            override fun onStop(id: String?, interrupted: Boolean) {
                                 if (id == utteranceId) complete(unavailable())
                             }
                         })
