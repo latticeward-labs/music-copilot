@@ -575,11 +575,17 @@ fun AppNavHost(
                         onEnterDriving = {
                             // Do not change origin while a mic/Voice overlay is active.
                             if (voiceSessionCoordinator?.state?.value == VoiceSessionState.Idle &&
-                                playerMicPermissionStage == VoicePracticeStage.Idle
-                            ) drivingNavigation.enterFrom(
-                                Destination.FullPlayer,
-                                allowedByAppRoute = playerActive && playerOpen,
-                            )
+                                playerMicPermissionStage != VoicePracticeStage.Rationale &&
+                                playerMicPermissionStage != VoicePracticeStage.AwaitingAndroid
+                            ) {
+                                // Finished/denied permission presentation must not
+                                // block ordinary Player -> Driving navigation.
+                                onPlayerMicPermissionDismiss()
+                                drivingNavigation.enterFrom(
+                                    Destination.FullPlayer,
+                                    allowedByAppRoute = playerActive && playerOpen,
+                                )
+                            }
                         },
                         voiceState = ownedState,
                         voiceAvailability = availability,
@@ -596,7 +602,7 @@ fun AppNavHost(
                                 freshCanStartDrivingVoice()
                             ) {
                                 voiceStartRejected =
-                                    voiceSessionCoordinator.retry() !is AppResult.Success
+                                    voiceSessionCoordinator?.retry() !is AppResult.Success
                             } else voiceStartRejected = true
                         },
                         onMic = {
@@ -608,16 +614,19 @@ fun AppNavHost(
                                         onPlayerMicPermissionTap()
                                     VoicePttAvailability.Ready -> {
                                         // Fresh OS+provider evidence and Idle read at click time.
+                                        val freshEligible = freshCanStartDrivingVoice()
                                         if (VoicePttAdmissionPolicy.mayStart(
                                                 availability,
-                                                freshAndroidGrant = freshCanStartDrivingVoice(),
-                                                freshOnDeviceProvider = localVoiceProviderAvailable,
+                                                freshAndroidGrant = freshEligible,
+                                                freshOnDeviceProvider = freshEligible,
                                                 latest = voiceSessionCoordinator.state.value,
                                             )
-                                        ) voiceStartRejected =
-                                            voiceSessionCoordinator.start(VoiceOrigin.Player) !is
-                                                AppResult.Success
-                                        else voiceStartRejected = true
+                                        ) {
+                                            voiceStartRejected =
+                                                voiceSessionCoordinator.start(
+                                                    VoiceOrigin.Player
+                                                ) !is AppResult.Success
+                                        } else voiceStartRejected = true
                                     }
                                     else -> Unit
                                 }
