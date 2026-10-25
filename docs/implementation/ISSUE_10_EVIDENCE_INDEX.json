@@ -36,7 +36,8 @@
     "phase3_audit": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
     "phase4_audit": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
     "phase5_audit": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
-    "phase6_audit": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
+    "phase6_audit": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+    "phase7_audit": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -141,11 +142,21 @@
     },
     {
       "phase": "P07",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/VoiceDuckingPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/ServiceVoiceDuckLease.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "P07 service-owned Media3 attenuation and pre-STT ACK, token-guarded restore on all terminal/interruption paths, TTL, 13 source-only JUnit."
     },
     {
       "phase": "P08",
@@ -265,8 +276,10 @@
         "M41",
         "M42"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
+      ],
+      "notes": "P07 source-only duck and restore; NOT_VERIFIED physical/audio focus/route."
     },
     {
       "id": "AC04",
@@ -286,9 +299,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
       ],
-      "notes": "P04 source review only; AC NOT_VERIFIED."
+      "notes": "P07 source-only duck and restore; NOT_VERIFIED physical/audio focus/route."
     },
     {
       "id": "AC05",
@@ -431,9 +445,10 @@
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
       ],
-      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
+      "notes": "P07 source-only duck and restore; NOT_VERIFIED physical/audio focus/route."
     },
     {
       "id": "AC11",
@@ -460,9 +475,10 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
       ],
-      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
+      "notes": "P07 source-only duck and restore; NOT_VERIFIED physical/audio focus/route."
     },
     {
       "id": "AC12",
@@ -546,9 +562,10 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
       ],
-      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
+      "notes": "P07 source-only duck and restore; NOT_VERIFIED physical/audio focus/route."
     },
     {
       "id": "AC16",
@@ -1086,8 +1103,13 @@
       "name": "Ducking lease/focus/route priority",
       "phase": "P07",
       "kind": "JVM",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/ServiceVoiceDuckLease.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T06",
@@ -1159,7 +1181,10 @@
     "phase5_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
     "phase6_voice_dispatcher": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
     "phase6_voice_receipt_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
-    "phase6_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt"
+    "phase6_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+    "phase7_duck_api": "app/src/main/java/com/latticeward/musiccopilot/playback/api/VoiceDuckingPort.kt",
+    "phase7_service_lease": "app/src/main/java/com/latticeward/musiccopilot/playback/command/ServiceVoiceDuckLease.kt",
+    "phase7_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
   },
   "known_gaps": [
     {
@@ -1169,8 +1194,9 @@
       "phases": [
         "P07"
       ],
-      "state": "OPEN",
-      "resolved_by": null
+      "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
+      "resolved_by": "P07_SOURCE_ONLY",
+      "notes": "P07 voice duck port, service TTL lease, main-owned volume restoration; runtime and OEM/focus/route still unverified at P13."
     },
     {
       "id": "G02",
@@ -1318,6 +1344,8 @@
     "P05_source_delivered": true,
     "P05_authored_junit_methods": 25,
     "P06_source_delivered": true,
-    "P06_authored_junit_methods": 15
+    "P06_authored_junit_methods": 15,
+    "P07_source_delivered": true,
+    "P07_authored_junit_methods": 13
   }
 }
