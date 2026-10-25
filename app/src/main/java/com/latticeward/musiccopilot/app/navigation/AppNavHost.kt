@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot.app.navigation
 
 import androidx.activity.compose.BackHandler
 import android.os.SystemClock
+import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.DisposableEffect
@@ -67,6 +68,8 @@ import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelect
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
+import com.latticeward.musiccopilot.core.application.voice.VoicePrivacyDiagnosticsPolicy
+import com.latticeward.musiccopilot.core.application.voice.LocalVoiceDiagnostic
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
@@ -793,6 +796,44 @@ fun AppNavHost(
                         stringResource(R.string.p10_notification_exempt_status),
                         modifier = Modifier.padding(top = MusicSpacing.lgDp),
                         style = MusicTextStyles.bodyLarge,
+                    )
+                    // P11: source-only, non-identifying voice diagnostic.
+                    // Do not print provider package, file path, transcript,
+                    // raw microphone status, exception or device identifier.
+                    Text(
+                        stringResource(R.string.p11_voice_privacy_heading),
+                        modifier = Modifier.padding(top = MusicSpacing.lgDp)
+                            .semantics { heading() },
+                        style = MusicTextStyles.bodyLarge,
+                    )
+                    Text(
+                        stringResource(R.string.p11_voice_local_only),
+                        modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    val localSpeechStatus = VoicePrivacyDiagnosticsPolicy.local(
+                        apiLevel = Build.VERSION.SDK_INT,
+                        microphoneGranted = microphoneGranted,
+                        onDeviceProviderAvailable = localVoiceProviderAvailable,
+                    )
+                    Text(
+                        stringResource(when (localSpeechStatus) {
+                            LocalVoiceDiagnostic.ManualOnlyPlatform ->
+                                R.string.p11_voice_api_manual_only
+                            LocalVoiceDiagnostic.MicrophonePermissionRequired ->
+                                R.string.p11_voice_permission_needed
+                            LocalVoiceDiagnostic.OnDeviceProviderUnavailable ->
+                                R.string.p11_voice_provider_missing
+                            LocalVoiceDiagnostic.OnDeviceProviderPresentUnverified ->
+                                R.string.p11_voice_provider_unverified
+                        }),
+                        modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Text(
+                        stringResource(R.string.p11_voice_privacy_no_history),
+                        modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                     Text(
                         stringResource(R.string.p10_cloud_stt_disabled),
