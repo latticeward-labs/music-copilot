@@ -42,7 +42,7 @@ object PlaybackWireProtocol {
 
     fun validVoiceDuckToken(args: Bundle): String? =
         args.getString(KEY_VOICE_DUCK_TOKEN)
-            ?.takeIf(ServiceVoiceDuckLease::isValidToken)
+            ?.takeIf { ServiceVoiceDuckLease.isValidToken(it) }
 
 
     /**
