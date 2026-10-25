@@ -21,7 +21,6 @@ import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.voice.api.VoiceOrigin
 import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 import com.latticeward.musiccopilot.voice.feedback.EnglishVoiceFeedbackCatalog
-import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackCatalog
 import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackKey
 import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackPolicy
 import com.latticeward.musiccopilot.voice.intent.RestrictedIntent
