@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_NEXT**. Implementation P04–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_NEXT**. Implementation P05–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -52,6 +52,8 @@
 ### P04 — Replaceable STT/TTS platform and capability gate
 **Work:** Harden `SpeechToTextEngine`/Android on-device recognizer availability, English locale/language pack behavior, cancellation, teardown, exact listening timeout, missing confidence, OEM errors, and retry-safe session identity. Keep `TextToSpeechEngine` replaceable. **No implicit network/cloud STT fallback**; currently unsupported API29/30 should show truthful manual fallback unless separately approved and implemented with consent. Do not claim offline recognition on unverified hardware.
 **Output:** robust provider adapters/fakes, typed errors and documented Android 10/12/14+/OEM matrix. No tests/build.
+
+> **P04 evidence (2026-10-25):** [Static STT/TTS audit](ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md) · [12 new JUnit scenarios (AUTHORED_ONLY / NOT_RUN)](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt). English installed-model check on API33+, Android 10/11 manual-only, offline TTS without cloud fallback. No build, test, Actions, APK. All 16 AC NOT_VERIFIED.
 
 ### P05 — Deterministic mapper limited to five direct controls
 **Work:** Version ordered normalization, punctuation/spacing and approved English phrases. Support `PLAY`, `PAUSE`, `NEXT`, `PREVIOUS`, `SEEK_BACK` only as executable #10 results. Resolve source discrepancy by accepting bare approved phrases on explicit PTT; `musico` may be accepted as an *optional spoken prefix after tapping*, NEVER an always-on wake listener. Apply bounded configurable BuildConfig threshold; never invent confidence if provider omits it, never guess unknown/unsupported commands or map them to nearest command. Explicitly document/handle low/absent confidence safely; validate direct recognition target at P13. Keep `PLAY_ARTIST` reserved for #11.
