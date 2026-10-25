@@ -47,6 +47,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.latticeward.musiccopilot.R
+import com.latticeward.musiccopilot.feature.voice.VoiceSessionPanel
 import com.latticeward.musiccopilot.app.theme.MusicColors
 import com.latticeward.musiccopilot.app.theme.MusicGrid
 import com.latticeward.musiccopilot.app.theme.MusicRadius
@@ -304,7 +305,7 @@ fun DrivingModeScreen(
             if (voiceActive || voicePermissionPrompt) {
                 // WF-08 Voice state is an origin-owned inline overlay, NOT a
                 // NavHost destination. Transport cannot be tapped under it.
-                DrivingVoiceSessionOverlay(
+                VoiceSessionPanel(
                     state = voiceState,
                     permissionStage = voicePermissionStage,
                     onPermissionContinue = onVoicePermissionContinue,
@@ -312,6 +313,7 @@ fun DrivingModeScreen(
                     onVoiceCancel = onVoiceCancel,
                     onVoiceRetry = onVoiceRetry,
                     focusRequester = overlayFocusRequester,
+                    driving = true,
                 )
             } else if (recovery.showTransportControls) {
                 if (onTransport == null) {
@@ -500,81 +502,6 @@ private fun drivingRecoveryMessage(message: DrivingRecoveryMessage?): String? = 
         stringResource(R.string.i7_command_pending)
     DrivingRecoveryMessage.CommandRejected ->
         stringResource(R.string.i7_action_failed)
-}
-
-/**
- * Same-route Voice overlay. Only the application VoiceSessionCoordinator
- * supplies these states; a disabled provider never creates fake Listening.
- * Confirming is display-only until #10/#11 implement token confirmation.
- */
-@Composable
-private fun DrivingVoiceSessionOverlay(
-    state: VoiceSessionState,
-    permissionStage: VoicePracticeStage,
-    onPermissionContinue: () -> Unit,
-    onPermissionCancel: () -> Unit,
-    onVoiceCancel: () -> Unit,
-    onVoiceRetry: () -> Unit,
-    focusRequester: FocusRequester,
-) {
-    val rationale = permissionStage == VoicePracticeStage.Rationale
-    val awaiting = permissionStage == VoicePracticeStage.AwaitingAndroid
-    val headingText = when {
-        rationale -> stringResource(R.string.i9_voice_permission_heading)
-        awaiting -> stringResource(R.string.i9_voice_permission_wait)
-        state is VoiceSessionState.Listening -> stringResource(R.string.i9_voice_listening)
-        state is VoiceSessionState.Processing -> stringResource(R.string.i9_voice_processing)
-        state is VoiceSessionState.Confirming -> stringResource(R.string.i9_voice_confirmation_unavailable)
-        state is VoiceSessionState.Executed -> stringResource(R.string.i9_voice_executed)
-        state is VoiceSessionState.Failed -> stringResource(R.string.i9_voice_failed)
-        else -> stringResource(R.string.i9_voice_permission_heading)
-    }
-    Text(
-        headingText,
-        modifier = Modifier.fillMaxWidth()
-            .focusRequester(focusRequester).focusable()
-            .semantics {
-                heading()
-                liveRegion = LiveRegionMode.Polite
-                stateDescription = headingText
-            },
-        style = MusicTextStyles.drivingMeta,
-        color = MusicColors.textPrimary,
-        textAlign = TextAlign.Center,
-    )
-    val continueA11y = stringResource(R.string.i9_a11y_continue_permission)
-    val retryA11y = stringResource(R.string.i9_a11y_retry_voice)
-    val cancelA11y = stringResource(R.string.i9_a11y_cancel_voice)
-    if (rationale) {
-        Text(
-            stringResource(R.string.i9_voice_permission_explanation),
-            style = MusicTextStyles.bodyMedium,
-            color = MusicColors.textSecondary,
-            textAlign = TextAlign.Center,
-        )
-        Button(
-            onClick = onPermissionContinue,
-            modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
-                .heightIn(min = MusicSize.drivingExitMinDp)
-                .semantics { contentDescription = continueA11y },
-        ) { Text(stringResource(R.string.i9_voice_continue)) }
-    }
-    if (state is VoiceSessionState.Failed && state.canRetry) {
-        OutlinedButton(
-            onClick = onVoiceRetry,
-            modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
-                .heightIn(min = MusicSize.drivingExitMinDp)
-                .semantics { contentDescription = retryA11y },
-        ) { Text(stringResource(R.string.i9_voice_retry)) }
-    }
-    // Cancel remains available while Android is awaiting a permission result;
-    // it drops the intent but cannot dismiss the OS-owned dialog.
-    OutlinedButton(
-        onClick = if (rationale || awaiting) onPermissionCancel else onVoiceCancel,
-        modifier = Modifier.fillMaxWidth().then(drivingFocusOutline())
-            .heightIn(min = MusicSize.drivingExitMinDp)
-            .semantics { contentDescription = cancelA11y },
-    ) { Text(stringResource(R.string.i9_voice_cancel)) }
 }
 
 /** P08 keyboard/switch-access focus outline; Android TalkBack draws its own
