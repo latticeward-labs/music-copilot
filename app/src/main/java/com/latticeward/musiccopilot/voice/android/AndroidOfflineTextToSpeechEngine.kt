@@ -30,8 +30,8 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
     private val mainHandler = Handler(Looper.getMainLooper())
     @Volatile private var ready = false
     @Volatile private var closed = false
-    private var active: VoiceSessionId? = null
-    private var activeUtteranceId: String? = null
+    @Volatile private var active: VoiceSessionId? = null
+    @Volatile private var activeUtteranceId: String? = null
     private var serial = 0L
     private var tts: TextToSpeech? = null
 
@@ -108,7 +108,12 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
                                 if (id == utteranceId) complete(unavailable())
                             }
                         })
-                        continuation.invokeOnCancellation { stop(output.sessionId) }
+                        continuation.invokeOnCancellation {
+                            // A delayed cancellation for utterance A must
+                            // NEVER stop a new utterance B from a retry with
+                            // the same logical VoiceSessionId.
+                            stopMatched(output.sessionId, utteranceId)
+                        }
                         if (engine.speak(
                                 output.shortText, TextToSpeech.QUEUE_FLUSH, null, utteranceId
                             ) != TextToSpeech.SUCCESS
@@ -120,8 +125,15 @@ class AndroidOfflineTextToSpeechEngine(context: Context) : TextToSpeechEngine, A
         }
 
     override fun stop(sessionId: VoiceSessionId) {
+        // Capture identity before posting onto the Main Looper. The logical
+        // session ID is deliberately shared by the single allowed retry.
+        val expectedUtterance = activeUtteranceId ?: return
+        stopMatched(sessionId, expectedUtterance)
+    }
+
+    private fun stopMatched(sessionId: VoiceSessionId, utteranceId: String) {
         onMain {
-            if (active == sessionId) {
+            if (active == sessionId && activeUtteranceId == utteranceId) {
                 active = null
                 activeUtteranceId = null
                 try { tts?.stop() } catch (_: Exception) { }
