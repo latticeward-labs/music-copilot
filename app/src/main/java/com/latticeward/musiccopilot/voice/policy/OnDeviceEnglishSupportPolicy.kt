@@ -1,7 +1,5 @@
 package com.latticeward.musiccopilot.voice.policy
 
-import java.util.Locale
-
 /**
  * Android API 33+ recognition-support metadata is provider evidence, not
  * permission or proof of an actual successful utterance. No model download
