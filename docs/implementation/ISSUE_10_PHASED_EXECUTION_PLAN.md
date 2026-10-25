@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_SOURCE_IMPLEMENTED_UNBUILT; P10_SOURCE_IMPLEMENTED_UNBUILT; P11_NEXT**. Implementation P11–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_SOURCE_IMPLEMENTED_UNBUILT; P10_SOURCE_IMPLEMENTED_UNBUILT; P11_SOURCE_IMPLEMENTED_UNBUILT; P12_NEXT**. Implementation P12–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -94,6 +94,8 @@
 ### P11 — Privacy, cloud-consent boundary and diagnostics
 **Work:** Reject audio/transcript/file-name persistence, logs, analytics and crash breadcrumbs; use allowlisted intent/result/coarse bucket metadata only if an approved local sink exists; do not require or enable backend/cloud. If cloud STT is proposed later, separate opt-in plus processor/destination/purpose/retention review MUST precede its activation. Ensure deny/manual-only never harms local music playback.
 **Output:** explicit privacy invariants, provider/permission diagnostic status and authored-only privacy tests. No tests/build.
+
+> **P11 evidence (2026-10-25):** [Voice privacy, offline consent boundary and diagnostics source audit](ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md) · [19 authored-only privacy tests](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt). STT result redacted on stringification; strict future cloud disclosure, no approved adapter, typed Settings status, zero-sink analytics; all AC NOT_VERIFIED, no Gradle/JUnit/Lint/Actions/APK.
 
 ### P12 — Cumulative source hardening and P13 handoff
 **Work:** Static review all P00–P11 diffs, #7/#8/#9 regressions, API29/30 offline availability, STT/TTS interfaces, state mapping, disabled and stale states, source test coverage and all 16 original AC; prepare lab corpus for 5x10 direct commands and M01–M60 manual cases; freeze exclusions for #11. Record **AUTHOR_ONLY/NOT_RUN** for every unit/UI/integration test and **NOT_VERIFIED** for runtime criteria.
