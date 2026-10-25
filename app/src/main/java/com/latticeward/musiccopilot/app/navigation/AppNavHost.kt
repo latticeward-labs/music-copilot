@@ -530,6 +530,7 @@ fun AppNavHost(
         }
         composable(Destination.FullPlayer.route) {
             val playerActive = target == Destination.FullPlayer &&
+                playerOpen && !drivingNavigation.state.active &&
                 actualRoute == BootstrapRoute.HomeLibrary &&
                 permission == PermissionStatus.Granted &&
                 mediaRequestUi.outcome == MediaPermissionOutcome.None &&
@@ -592,7 +593,10 @@ fun AppNavHost(
                         voicePermissionStage = playerMicPermissionStage,
                         voiceStartRejected = voiceStartRejected,
                         onVoicePermissionContinue = onPlayerMicPermissionContinue,
-                        onVoicePermissionCancel = onPlayerMicPermissionDismiss,
+                        onVoicePermissionCancel = {
+                            onPlayerMicPermissionDismiss()
+                            voiceStartRejected = false
+                        },
                         onVoiceCancel = dismissPlayerVoice,
                         onVoiceRetry = {
                             val latest = voiceSessionCoordinator?.state?.value
