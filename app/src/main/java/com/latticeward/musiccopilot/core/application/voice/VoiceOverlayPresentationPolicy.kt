@@ -28,8 +28,10 @@ data class VoiceOverlayPresentation(
  * dispatches Media3 commands or saves transcript/voice state.
  */
 object VoiceOverlayPresentationPolicy {
-    fun project(state: VoiceSessionState, permissionStage: VoicePracticeStage):
-        VoiceOverlayPresentation {
+    fun project(
+        state: VoiceSessionState,
+        permissionStage: VoicePracticeStage,
+    ): VoiceOverlayPresentation {
         if (permissionStage == VoicePracticeStage.Rationale) {
             return VoiceOverlayPresentation(
                 VoiceOverlayStatus.PermissionRationale, false, true,
