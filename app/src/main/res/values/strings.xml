@@ -279,4 +279,26 @@
     <string name="i10_feedback_timeout">I didn\'t hear a command.</string>
     <string name="i10_feedback_notrecognized">Command not recognized.</string>
     <string name="i10_feedback_unavailable">Use the manual player controls.</string>
+    <!-- Issue #10 P09: WF-08 accessible shared Voice state; no transcript or OS details. -->
+    <string name="i10_voice_permission_title">Microphone permission</string>
+    <string name="i10_voice_permission_waiting">Waiting for Android microphone permission</string>
+    <string name="i10_voice_listening">Preparing or listening for your command</string>
+    <string name="i10_voice_processing">Processing voice command</string>
+    <string name="i10_voice_confirmation_unavailable">This command is not supported here</string>
+    <string name="i10_voice_executed">Command acknowledged by the playback service</string>
+    <string name="i10_voice_timeout">No command heard in time</string>
+    <string name="i10_voice_not_recognized">Command not recognized</string>
+    <string name="i10_voice_unavailable">Voice command unavailable</string>
+    <string name="i10_voice_permission_result_note">Android will return the permission result. Recording will not begin until you tap Mic again.</string>
+    <string name="i10_voice_listen_help">Speak one short English control command when the microphone is ready. You can cancel at any time.</string>
+    <string name="i10_voice_processing_help">Waiting for the playback service. Cancel to return to manual controls.</string>
+    <string name="i10_voice_executed_help">The playback service accepted your command. Manual playback controls remain available.</string>
+    <string name="i10_voice_manual_fallback">Your music and manual playback controls are available. No other voice command will run automatically.</string>
+    <string name="i10_voice_retry_a11y">Retry one voice recognition attempt</string>
+    <string name="i10_voice_cancel_active">Cancel voice</string>
+    <string name="i10_voice_not_now">Not now</string>
+    <string name="i10_voice_back_manual">Back to manual controls</string>
+    <string name="i10_voice_cancel_a11y">Cancel active voice and return to manual playback</string>
+    <string name="i10_voice_not_now_a11y">Dismiss microphone permission request and use manual controls</string>
+    <string name="i10_voice_back_manual_a11y">Close voice result and return to manual controls</string>
 </resources>
