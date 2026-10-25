@@ -55,6 +55,9 @@ class DefaultVoiceSessionCoordinator(
     // legacy no-Android JVM fixtures, NEVER chosen by production VoiceBindings.
     private val ducking: VoiceDuckingPort = NoOpVoiceDuckingPort,
     private val feedbackCatalog: VoiceFeedbackCatalog = EnglishVoiceFeedbackCatalog,
+    // Production supplies the current Activity STARTED observation. A queued
+    // Mic/Retry callback after onStop cannot reopen the microphone.
+    private val canBeginSession: () -> Boolean = { true },
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
@@ -88,7 +91,8 @@ class DefaultVoiceSessionCoordinator(
      */
     override fun start(origin: VoiceOrigin): AppResult<VoiceSessionId> =
         synchronized(gate) {
-            if (closed || ownerScope.coroutineContext[Job]?.isActive != true ||
+            val foreground = runCatching { canBeginSession() }.getOrDefault(false)
+            if (closed || !foreground || ownerScope.coroutineContext[Job]?.isActive != true ||
                 !VoiceLifecycleSafetyPolicy.canAdmitExplicitTap(mutableState.value)
             ) {
                 return@synchronized failure(AppErrorCodes.VOICE_UNAVAILABLE)
@@ -381,7 +385,9 @@ class DefaultVoiceSessionCoordinator(
                 failed, currentId, currentOrigin, attempt
             )
         ) return@synchronized failure(AppErrorCodes.VOICE_SECOND_ATTEMPT_FAILED)
-        if (closed || ownerScope.coroutineContext[Job]?.isActive != true) {
+        if (closed || !runCatching { canBeginSession() }.getOrDefault(false) ||
+            ownerScope.coroutineContext[Job]?.isActive != true
+        ) {
             return@synchronized failure(AppErrorCodes.VOICE_UNAVAILABLE)
         }
         val id = currentId ?: return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
