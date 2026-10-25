@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P11_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P12_SOURCE_AUDITED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -158,10 +158,17 @@
       "notes": "P11 transcript redaction in result toString, stricter future cloud disclosure, 4 typed local Voice diagnostics, 7 privacy strings in Settings, nonpersistent NoOp sink and networkless production boundary audited. No Build/JUnit/Actions."
     },
     "P12": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_AUDITED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "traceability_file": "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+      "lab_corpus_file": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+      "authored_junit_cases": 15,
+      "legacy_authored_junit_adjusted": 1,
+      "static_review_only": true,
+      "notes": "P12 cumulative P00-P11 and Issue7/8/9 static review, source F12-01 voice receipt process-namespace hardening and F12-02 Compose heading rename, 15 authored-only JUnit methods, 16 AC traced, 50 lab cases prepared NOT_RUN; no build, CI, phone QA or APK."
     },
     "P13": {
       "state": "NOT_STARTED",
@@ -211,9 +218,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -233,9 +240,9 @@
         "M31"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -255,9 +262,9 @@
         "M42"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -274,9 +281,9 @@
         "M28"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -293,9 +300,9 @@
         "M52"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -318,9 +325,9 @@
         "M22"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -338,9 +345,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -359,9 +366,9 @@
         "M53"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -376,9 +383,9 @@
         "M40"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P08 bounded optional feedback and deterministic resources authored; TTS duration, interruption and Android device behavior NOT_VERIFIED. P09/P10/P13 pending.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -402,9 +409,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -426,9 +433,9 @@
         "M47"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -446,9 +453,9 @@
         "L05"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P12 lab corpus prepared 50 records, but ZERO actual attempts; 45/50 gate NOT_MEASURED. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -462,9 +469,9 @@
         "M51"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -479,9 +486,9 @@
         "M52"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -505,9 +512,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P11 source-only privacy/consent/diagnostic safeguards and authored tests; merged manifest, OEM/STT privacy, runtime and phone behavior NOT_VERIFIED.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     },
     {
@@ -525,9 +532,9 @@
         "M50"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
       "verified_at": null
     }
   ],
@@ -1689,7 +1696,8 @@
       "phase": "P02",
       "kind": "JVM",
       "source_cases": [
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "authored": true,
       "execution_status": "NOT_RUN",
@@ -1697,7 +1705,7 @@
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": "8 P02 JUnit methods are authored; runtime executed=0; any prior Phase8 tests unchanged/unrun here.",
+      "notes": "8 P02 JUnit methods are authored; runtime executed=0; any prior Phase8 tests unchanged/unrun here. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
       "source_status": "AUTHORED_ONLY"
     },
     {
@@ -1724,7 +1732,8 @@
       "kind": "JVM",
       "source_cases": [
         "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "authored": true,
       "execution_status": "NOT_RUN",
@@ -1732,7 +1741,7 @@
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": "15 new P06 JUnit tests authored, previous Issue8 receipt tests unchanged; zero JUnit/Android execution.",
+      "notes": "15 new P06 JUnit tests authored, previous Issue8 receipt tests unchanged; zero JUnit/Android execution. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
       "source_status": "AUTHORED_ONLY"
     },
     {
@@ -1777,7 +1786,8 @@
       "phase": "P09",
       "kind": "ANDROID_INSTRUMENTATION",
       "source_cases": [
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "authored": true,
       "execution_status": "NOT_RUN",
@@ -1785,7 +1795,7 @@
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": "20 new P09 pure/UI-static contract JUnit methods authored only. TalkBack/Compose/device execution = 0.",
+      "notes": "20 new P09 pure/UI-static contract JUnit methods authored only. TalkBack/Compose/device execution = 0. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
       "source_status": "AUTHORED_ONLY"
     },
     {
@@ -1795,7 +1805,8 @@
       "kind": "JVM_AND_ANDROID_INSTRUMENTATION",
       "source_cases": [
         "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "authored": true,
       "execution_status": "NOT_RUN",
@@ -1803,7 +1814,7 @@
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": "17 P10 authored-only lifecycle/race methods, one P02 legacy fixture adapted. ZERO executed.",
+      "notes": "17 P10 authored-only lifecycle/race methods, one P02 legacy fixture adapted. ZERO executed. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
       "source_status": "AUTHORED_ONLY"
     },
     {
@@ -1812,7 +1823,8 @@
       "phase": "P11",
       "kind": "SOURCE_AUDIT_AND_LINT",
       "source_cases": [
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "authored": true,
       "execution_status": "NOT_RUN",
@@ -1820,7 +1832,7 @@
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": "19 P11 source-authored privacy/consent/diagnostic JUnit methods. ZERO executed.",
+      "notes": "19 P11 source-authored privacy/consent/diagnostic JUnit methods. ZERO executed. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
       "source_status": "AUTHORED_ONLY"
     },
     {
@@ -2218,6 +2230,47 @@
         "Cloud legal/processor terms require future review",
         "No executed tests"
       ]
+    },
+    "P12": {
+      "date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "report": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+      "lab_corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+      "authored_junit_methods": 15,
+      "technical_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "fixed_source_findings": [
+        {
+          "id": "F12-01",
+          "risk": "process restart collision voice-42-1 service dedup",
+          "source_fix": "random 32hex process nonce for command IDs; legacy wire compatible"
+        },
+        {
+          "id": "F12-02",
+          "risk": "heading variable shadows semantics heading()",
+          "source_fix": "headingText rename in shared WF-08 Compose panel"
+        }
+      ],
+      "blocked_until_p13": [
+        "Kotlin/Gradle compile and merged manifest",
+        "OEM English STT confidence readiness",
+        "Media3 Duck/Focus/Route/Call/BT real tests",
+        "TalkBack font scale and speech duration",
+        "M01-M60 user physical tests",
+        "L01-L05 50 user lab attempts ≥45 PASS",
+        "Issue #9 inherited M45"
+      ],
+      "p13_build_only_task": ":app:assembleDebug",
+      "p13_one_cumulative_apk": true,
+      "p13_tests_disallowed": true,
+      "p13_output": "app/build/outputs/apk/debug/app-debug.apk"
     }
   }
 }
