@@ -33,6 +33,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -55,6 +57,7 @@ import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.voice.VoicePttAdmissionPolicy
 import com.latticeward.musiccopilot.core.application.voice.VoicePttAvailability
+import com.latticeward.musiccopilot.feature.voice.VoiceSessionPanel
 import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 import androidx.compose.ui.semantics.stateDescription
 import com.latticeward.musiccopilot.data.api.LibraryRepository
@@ -132,7 +135,13 @@ fun FullPlayerScreen(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         OutlinedButton(
-                            onClick = onBack,
+                            onClick = {
+                                when {
+                                    voiceActive -> onVoiceCancel()
+                                    voicePermissionPrompt -> onVoicePermissionCancel()
+                                    else -> onBack()
+                                }
+                            },
                             modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
                         ) { Text(stringResource(R.string.action_back)) }
                         Text(stringResource(R.string.i7_player_title),
@@ -505,6 +514,12 @@ fun FullPlayerScreen(
  * and focus handoff. No recorder, permission requester or Media3 owner here.
  * All text is generic/resource-backed; never display raw transcripts.
  */
+/**
+ * WF-08 P09: exactly the same accessible Voice projection as Driving, hosted
+ * inline in Full Player without a navigation destination or recorder.
+ * Restore keyboard/switch focus to Mic on dismissal; never refocus on every
+ * STT status change or start another voice session automatically.
+ */
 @Composable
 private fun PlayerVoiceControls(
     voiceState: VoiceSessionState,
@@ -518,15 +533,27 @@ private fun PlayerVoiceControls(
     onRetry: () -> Unit,
 ) {
     val active = voiceState != VoiceSessionState.Idle
-    val rationale = permissionStage == VoicePracticeStage.Rationale
-    val awaitingAndroid = permissionStage == VoicePracticeStage.AwaitingAndroid
-    val permissionPrompt = rationale || awaitingAndroid
-    if (!active && !permissionPrompt) {
+    val permissionPrompt = permissionStage == VoicePracticeStage.Rationale ||
+        permissionStage == VoicePracticeStage.AwaitingAndroid
+    val panelVisible = active || permissionPrompt
+    val micFocus = remember { FocusRequester() }
+    val panelFocus = remember { FocusRequester() }
+    var panelWasVisible by remember { mutableStateOf(false) }
+    LaunchedEffect(panelVisible, availability) {
+        if (panelVisible) panelFocus.requestFocus()
+        else if (panelWasVisible && VoicePttAdmissionPolicy.canTapMic(availability))
+            micFocus.requestFocus()
+        panelWasVisible = panelVisible
+    }
+
+    if (!panelVisible) {
         val micLabel = stringResource(R.string.i9_a11y_mic)
         OutlinedButton(
             onClick = onMic,
             enabled = VoicePttAdmissionPolicy.canTapMic(availability),
-            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.touchTargetMinDp)
+            modifier = Modifier.fillMaxWidth()
+                .focusRequester(micFocus)
+                .heightIn(min = MusicSize.touchTargetMinDp)
                 .semantics { contentDescription = micLabel },
         ) { Text(stringResource(R.string.i9_driving_mic_voice)) }
         val note = when {
@@ -544,57 +571,23 @@ private fun PlayerVoiceControls(
             else -> null
         }
         if (note != null) Text(
-            stringResource(note), color = MusicColors.textSecondary,
+            stringResource(note),
+            color = MusicColors.textSecondary,
             modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
             style = MusicTextStyles.bodyMedium,
         )
-        return
-    }
-    val stateLabel = when {
-        rationale -> stringResource(R.string.i9_voice_permission_heading)
-        awaitingAndroid -> stringResource(R.string.i9_voice_permission_wait)
-        voiceState is VoiceSessionState.Listening ->
-            stringResource(R.string.i9_voice_listening)
-        voiceState is VoiceSessionState.Processing ->
-            stringResource(R.string.i9_voice_processing)
-        voiceState is VoiceSessionState.Confirming ->
-            stringResource(R.string.i9_voice_confirmation_unavailable)
-        voiceState is VoiceSessionState.Executed ->
-            stringResource(R.string.i9_voice_executed)
-        voiceState is VoiceSessionState.Failed ->
-            stringResource(R.string.i9_voice_failed)
-        else -> stringResource(R.string.i9_voice_permission_heading)
-    }
-    Text(
-        stateLabel,
-        color = MusicColors.textPrimary,
-        style = MusicTextStyles.bodyLarge,
-        modifier = Modifier.fillMaxWidth().semantics {
-            heading()
-            liveRegion = LiveRegionMode.Polite
-            stateDescription = stateLabel
-        },
-    )
-    if (rationale) {
-        Text(
-            stringResource(R.string.i9_voice_permission_explanation),
-            color = MusicColors.textSecondary, style = MusicTextStyles.bodyMedium,
+    } else {
+        VoiceSessionPanel(
+            state = voiceState,
+            permissionStage = permissionStage,
+            onPermissionContinue = onPermissionContinue,
+            onPermissionCancel = onPermissionCancel,
+            onVoiceCancel = onCancel,
+            onVoiceRetry = onRetry,
+            focusRequester = panelFocus,
+            driving = false,
         )
-        Button(
-            onClick = onPermissionContinue,
-            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.touchTargetMinDp),
-        ) { Text(stringResource(R.string.i9_voice_continue)) }
     }
-    if (voiceState is VoiceSessionState.Failed && voiceState.canRetry) {
-        OutlinedButton(
-            onClick = onRetry,
-            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.touchTargetMinDp),
-        ) { Text(stringResource(R.string.i9_voice_retry)) }
-    }
-    OutlinedButton(
-        onClick = if (permissionPrompt) onPermissionCancel else onCancel,
-        modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.touchTargetMinDp),
-    ) { Text(stringResource(R.string.i9_voice_cancel)) }
 }
 
 
