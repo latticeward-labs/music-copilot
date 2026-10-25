@@ -270,4 +270,13 @@
     <string name="i9_bt_a11y_remove">Remove saved Bluetooth device preference</string>
     <string name="i9_bt_a11y_staged"> · selected, not saved</string>
     <string name="i9_bt_a11y_committed"> · saved preference</string>
+    <!-- Issue #10 P08: deterministic voice feedback; one brief English sentence. -->
+    <string name="i10_feedback_play">Play command accepted.</string>
+    <string name="i10_feedback_pause">Playback paused.</string>
+    <string name="i10_feedback_next">Next track selected.</string>
+    <string name="i10_feedback_previous">Previous command accepted.</string>
+    <string name="i10_feedback_seekback">Moved back ten seconds.</string>
+    <string name="i10_feedback_timeout">I didn\'t hear a command.</string>
+    <string name="i10_feedback_notrecognized">Command not recognized.</string>
+    <string name="i10_feedback_unavailable">Use the manual player controls.</string>
 </resources>
