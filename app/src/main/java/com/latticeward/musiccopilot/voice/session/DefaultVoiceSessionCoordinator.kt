@@ -326,9 +326,9 @@ class DefaultVoiceSessionCoordinator(
         // generation and its provider BEFORE starting attempt two.
         childJob?.cancel()
         childJob = null
-        activeDuckToken?.let { runCatching { token ->
-            ducking.releaseVoiceDuck(token)
-        } }
+        activeDuckToken?.let { token ->
+            runCatching { ducking.releaseVoiceDuck(token) }
+        }
         activeDuckToken = null
         runCatching { stt.cancel(id) }
         runCatching { tts.stop(id) }
