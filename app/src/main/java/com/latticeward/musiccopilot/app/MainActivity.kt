@@ -34,6 +34,8 @@ import com.latticeward.musiccopilot.core.application.permission.VoicePracticeSta
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
 import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceHandoffPolicy
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
+import com.latticeward.musiccopilot.voice.api.VoiceOrigin
+import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.feature.permission.MediaRequestUiState
 import com.latticeward.musiccopilot.feature.permission.PermissionViewModel
@@ -52,15 +54,15 @@ class MainActivity : ComponentActivity() {
     private var observedMicrophoneGrant = false
     private val voicePracticeGate = VoicePracticeGate(Build.VERSION.SDK_INT)
     private val voicePracticeUi = MutableStateFlow(VoicePracticeStage.Idle)
-    // P07: separate transient Driving presentation, reusing the EXACT same
-    // VoicePracticeGate and Android RequestPermission launcher. No second
-    // microphone permission subsystem or saved OS grant.
+    // P03 #10: two *presentations*, one permission machine / native launcher.
+    // Neither view owns a recognizer or permission grant.
     private val drivingMicUi = MutableStateFlow(VoicePracticeStage.Idle)
+    private val playerMicUi = MutableStateFlow(VoicePracticeStage.Idle)
     private val microphoneAccess = MutableStateFlow(false)
     // P09 Nearby Devices permission is never saved as DataStore consent;
     // freshly recheck OS on every resume and explicit paired-device action.
     private val bluetoothConnectAccess = MutableStateFlow(Build.VERSION.SDK_INT < 31)
-    private var drivingMicPermissionOrigin = false
+    private var micPermissionOrigin: VoiceOrigin? = null
     private val requestLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             // ActivityResult Boolean is not permission truth. Re-read Android OS.
@@ -89,15 +91,22 @@ class MainActivity : ComponentActivity() {
             else VoiceProviderCapability.ProviderUnavailable
             microphoneAccess.value = freshGrant
             val stage = voicePracticeGate.androidResult(freshGrant, provider)
-            if (drivingMicPermissionOrigin) {
-                // Permission result NEVER auto-starts capture. The user must
-                // explicitly tap Mic again after this stage is displayed.
-                drivingMicUi.value = stage
-                voicePracticeUi.value = VoicePracticeStage.Idle
-                drivingMicPermissionOrigin = false
-            } else {
-                voicePracticeUi.value = stage
+            // Consume the *single* gesture origin. The OS callback only
+            // displays the outcome; it must NEVER start speech capture.
+            when (micPermissionOrigin) {
+                VoiceOrigin.Driving -> {
+                    drivingMicUi.value = stage
+                    playerMicUi.value = VoicePracticeStage.Idle
+                    voicePracticeUi.value = VoicePracticeStage.Idle
+                }
+                VoiceOrigin.Player -> {
+                    playerMicUi.value = stage
+                    drivingMicUi.value = VoicePracticeStage.Idle
+                    voicePracticeUi.value = VoicePracticeStage.Idle
+                }
+                null -> voicePracticeUi.value = stage
             }
+            micPermissionOrigin = null
             // No VoiceSessionCoordinator.start() from an OS permission result.
         }
 
@@ -135,46 +144,75 @@ class MainActivity : ComponentActivity() {
         try { startActivity(intent) } catch (_: RuntimeException) { /* app stays usable */ }
     }
 
-    private fun onDrivingMicPermissionTap() {
-        // Called only by an explicit Mic tap while Driving is the NavHost
-        // target. A rationale is shown BEFORE any Android OS request.
-        if (drivingMicPermissionOrigin || voicePracticeGate.awaitingAndroidResult) return
+    private fun onMicPermissionTap(origin: VoiceOrigin) {
+        // This is called from an explicit, eligible surface Mic click only.
+        // Shared permission gate prevents interleaving Player/Driving requests.
+        if (micPermissionOrigin != null || voicePracticeGate.awaitingAndroidResult) return
+        if ((application as MusicCopilotApplication).bindings
+                .voiceSessionCoordinator.state.value != VoiceSessionState.Idle) return
         if (voicePracticeGate.microphoneTapped()) {
-            drivingMicPermissionOrigin = true
-            drivingMicUi.value = voicePracticeGate.stage
+            micPermissionOrigin = origin
+            val stage = voicePracticeGate.stage
+            playerMicUi.value =
+                if (origin == VoiceOrigin.Player) stage else VoicePracticeStage.Idle
+            drivingMicUi.value =
+                if (origin == VoiceOrigin.Driving) stage else VoicePracticeStage.Idle
             voicePracticeUi.value = VoicePracticeStage.Idle
         }
     }
 
-    private fun onDrivingMicPermissionContinue() {
-        if (!drivingMicPermissionOrigin || !voicePracticeGate.confirmRationale()) return
-        drivingMicUi.value = voicePracticeGate.stage
-        val alreadyGranted = checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) ==
+    private fun onMicPermissionContinue(origin: VoiceOrigin) {
+        if (micPermissionOrigin != origin ||
+            !voicePracticeGate.confirmRationale()) return
+        val stage = voicePracticeGate.stage
+        if (origin == VoiceOrigin.Player) playerMicUi.value = stage
+        else drivingMicUi.value = stage
+        val granted = checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) ==
             PackageManager.PERMISSION_GRANTED
-        if (alreadyGranted) {
+        if (granted) {
             microphoneAccess.value = true
-            drivingMicUi.value = voicePracticeGate.androidResult(
-                true, (application as MusicCopilotApplication).bindings.onDeviceVoicePracticeCapability()
+            val result = voicePracticeGate.androidResult(
+                true, (application as MusicCopilotApplication)
+                    .bindings.onDeviceVoicePracticeCapability()
             )
-            drivingMicPermissionOrigin = false
+            if (origin == VoiceOrigin.Player) playerMicUi.value = result
+            else drivingMicUi.value = result
+            micPermissionOrigin = null
+            // Deliberately no coordinator.start() here. A NEW Mic tap is required.
         } else {
             try { microphoneLauncher.launch(android.Manifest.permission.RECORD_AUDIO) }
             catch (_: RuntimeException) {
                 voicePracticeGate.requestLaunchFailed()
-                drivingMicUi.value = voicePracticeGate.stage
-                drivingMicPermissionOrigin = false
+                if (origin == VoiceOrigin.Player)
+                    playerMicUi.value = voicePracticeGate.stage
+                else drivingMicUi.value = voicePracticeGate.stage
+                micPermissionOrigin = null
             }
         }
     }
 
-    private fun onDrivingMicPermissionDismiss() {
-        // Do not touch an unrelated onboarding permission/education gate.
-        if (!drivingMicPermissionOrigin &&
-            drivingMicUi.value == VoicePracticeStage.Idle) return
-        drivingMicPermissionOrigin = false
-        drivingMicUi.value = VoicePracticeStage.Idle
+    private fun onMicPermissionDismiss(origin: VoiceOrigin) {
+        // A detached screen must not dismiss another origin's pending request.
+        val displayed = if (origin == VoiceOrigin.Player) playerMicUi else drivingMicUi
+        if (micPermissionOrigin != origin &&
+            displayed.value == VoicePracticeStage.Idle) return
+        if (micPermissionOrigin != null && micPermissionOrigin != origin) return
+        micPermissionOrigin = null
+        displayed.value = VoicePracticeStage.Idle
         voicePracticeGate.manualOnly()
     }
+
+    private fun onDrivingMicPermissionTap() = onMicPermissionTap(VoiceOrigin.Driving)
+    private fun onDrivingMicPermissionContinue() =
+        onMicPermissionContinue(VoiceOrigin.Driving)
+    private fun onDrivingMicPermissionDismiss() =
+        onMicPermissionDismiss(VoiceOrigin.Driving)
+
+    private fun onPlayerMicPermissionTap() = onMicPermissionTap(VoiceOrigin.Player)
+    private fun onPlayerMicPermissionContinue() =
+        onMicPermissionContinue(VoiceOrigin.Player)
+    private fun onPlayerMicPermissionDismiss() =
+        onMicPermissionDismiss(VoiceOrigin.Player)
 
     private fun onExplicitPracticeTap() {
         if (voicePracticeGate.practiceTapped())
@@ -217,6 +255,8 @@ class MainActivity : ComponentActivity() {
             savedInstanceState?.getBoolean("p09_native_microphone_request_pending") == true
         val pendingDrivingOrigin = nativeMicPending &&
             savedInstanceState?.getBoolean("i9_native_driving_mic_origin") == true
+        val pendingPlayerOrigin = nativeMicPending && !pendingDrivingOrigin &&
+            savedInstanceState?.getBoolean("i10_native_player_mic_origin") == true
         if (nativeMicPending) {
             voicePracticeGate.restorePending()
         } else {
@@ -226,10 +266,16 @@ class MainActivity : ComponentActivity() {
                 savedInstanceState?.getString("p11_voice_practice_stage"),
             )
         }
-        drivingMicPermissionOrigin = pendingDrivingOrigin
+        micPermissionOrigin = when {
+            pendingDrivingOrigin -> VoiceOrigin.Driving
+            pendingPlayerOrigin -> VoiceOrigin.Player
+            else -> null
+        }
         drivingMicUi.value = if (pendingDrivingOrigin)
             VoicePracticeStage.AwaitingAndroid else VoicePracticeStage.Idle
-        voicePracticeUi.value = if (pendingDrivingOrigin)
+        playerMicUi.value = if (pendingPlayerOrigin)
+            VoicePracticeStage.AwaitingAndroid else VoicePracticeStage.Idle
+        voicePracticeUi.value = if (micPermissionOrigin != null)
             VoicePracticeStage.Idle else voicePracticeGate.stage
         // ActivityResult may deliver after Activity recreation, but NEVER
         // launches recognition by itself. A fresh, explicit Mic tap is needed.
@@ -254,6 +300,7 @@ class MainActivity : ComponentActivity() {
                 mediaRequestUi = permissionUi.ui,
                 voicePracticeUi = voicePracticeUi,
                 drivingMicUi = drivingMicUi,
+                playerMicUi = playerMicUi,
                 microphoneAccess = microphoneAccess,
                 bluetoothConnectAccess = bluetoothConnectAccess,
             )
@@ -341,10 +388,14 @@ class MainActivity : ComponentActivity() {
         outState.putBoolean("p05_native_media_request_pending", gate.awaitingPlatformResult)
         outState.putBoolean("p05_media_attempted", permissionUi.ui.value.attempted)
         outState.putBoolean("p09_native_microphone_request_pending", voicePracticeGate.awaitingAndroidResult)
-        // One pending UI-origin bit is harmless; never persist grant, speech
-        // session, recording intent, voice token or selected media.
+        // Only the one pending *UI origin* is restored; never save grant,
+        // speech state, recognition request, transcript or executable action.
         outState.putBoolean("i9_native_driving_mic_origin",
-            drivingMicPermissionOrigin && voicePracticeGate.awaitingAndroidResult)
+            micPermissionOrigin == VoiceOrigin.Driving &&
+                voicePracticeGate.awaitingAndroidResult)
+        outState.putBoolean("i10_native_player_mic_origin",
+            micPermissionOrigin == VoiceOrigin.Player &&
+                voicePracticeGate.awaitingAndroidResult)
         // Enum presentation only. Never write actual OS grant, provider status,
         // media identity, voice transcript, or executable blocked action to Bundle.
         outState.putString("p11_voice_practice_stage", voicePracticeGate.stage.name)
@@ -369,7 +420,8 @@ class MainActivity : ComponentActivity() {
         // Do not keep the microphone recording after the app leaves the
         // foreground. Route/focus interruption may cancel earlier as well.
         val voice = (application as MusicCopilotApplication).bindings.voiceSessionCoordinator
-        if (DrivingVoiceHandoffPolicy.shouldCancelOnExit(voice.state.value))
+        // Applies to BOTH Player and Driving PTT: never record in background.
+        if (voice.state.value != VoiceSessionState.Idle)
             voice.cancel(VoiceCancelReason.OriginInvalidated)
         // P08: detach the Activity-facing MediaController only. An ongoing
         // playback service is independent of Activity/Compose/Home/rotation/
@@ -418,8 +470,11 @@ class MainActivity : ComponentActivity() {
         // explicitly asks the user to Refresh after OS permission changes.
         bluetoothConnectAccess.value = hasBluetoothConnectPermission()
         voicePracticeGate.recheck(freshMic)
-        if (!freshMic && drivingMicUi.value == VoicePracticeStage.ReadyForVoiceHandoff) {
-            drivingMicUi.value = VoicePracticeStage.PermissionDenied
+        if (!freshMic) {
+            if (drivingMicUi.value == VoicePracticeStage.ReadyForVoiceHandoff)
+                drivingMicUi.value = VoicePracticeStage.PermissionDenied
+            if (playerMicUi.value == VoicePracticeStage.ReadyForVoiceHandoff)
+                playerMicUi.value = VoicePracticeStage.PermissionDenied
         }
         voicePracticeUi.value = voicePracticeGate.stage
         (application as MusicCopilotApplication).bindings.onForeground()
@@ -438,6 +493,7 @@ class MainActivity : ComponentActivity() {
         mediaRequestUi: kotlinx.coroutines.flow.StateFlow<MediaRequestUiState>,
         voicePracticeUi: kotlinx.coroutines.flow.StateFlow<VoicePracticeStage>,
         drivingMicUi: kotlinx.coroutines.flow.StateFlow<VoicePracticeStage>,
+        playerMicUi: kotlinx.coroutines.flow.StateFlow<VoicePracticeStage>,
         microphoneAccess: kotlinx.coroutines.flow.StateFlow<Boolean>,
         bluetoothConnectAccess: kotlinx.coroutines.flow.StateFlow<Boolean>,
     ) {
@@ -451,6 +507,7 @@ class MainActivity : ComponentActivity() {
         val mediaRequest by mediaRequestUi.collectAsStateWithLifecycle()
         val practice by voicePracticeUi.collectAsStateWithLifecycle()
         val drivingMicStage by drivingMicUi.collectAsStateWithLifecycle()
+        val playerMicStage by playerMicUi.collectAsStateWithLifecycle()
         val micGranted by microphoneAccess.collectAsStateWithLifecycle()
         val btGranted by bluetoothConnectAccess.collectAsStateWithLifecycle()
         val voiceState by bindings.voiceSessionCoordinator.state.collectAsStateWithLifecycle()
@@ -517,6 +574,10 @@ class MainActivity : ComponentActivity() {
                         bindings.onDeviceVoicePracticeCapability() ==
                             VoiceProviderCapability.OnDeviceAvailable
                 },
+                playerMicPermissionStage = playerMicStage,
+                onPlayerMicPermissionTap = ::onPlayerMicPermissionTap,
+                onPlayerMicPermissionContinue = ::onPlayerMicPermissionContinue,
+                onPlayerMicPermissionDismiss = ::onPlayerMicPermissionDismiss,
                 drivingMicPermissionStage = drivingMicStage,
                 onDrivingMicPermissionTap = ::onDrivingMicPermissionTap,
                 onDrivingMicPermissionContinue = ::onDrivingMicPermissionContinue,
