@@ -11,7 +11,6 @@ import com.latticeward.musiccopilot.playback.api.PlaybackGateway
 import com.latticeward.musiccopilot.playback.api.VoiceDuckingPort
 import com.latticeward.musiccopilot.playback.api.NoOpVoiceDuckingPort
 import java.util.UUID
-import com.latticeward.musiccopilot.voice.api.SpeechOutput
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionRequest
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
