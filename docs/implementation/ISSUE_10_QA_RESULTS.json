@@ -1,0 +1,1812 @@
+{
+  "schema_version": "1.0",
+  "issue": 10,
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/10-ptt-voice-five-control-intents",
+  "created_date": "2026-10-25",
+  "stage": "P01_GOVERNANCE_REGISTER",
+  "provenance": {
+    "source_archive_name": "MSM2(1)(1).rar",
+    "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "source_pdf_count": 12,
+    "base_branch": "main",
+    "base_commit_at_P00": "e13172683ee8495e26b7c2d56f88444e4969891e",
+    "source_of_truth": "ISSUE_10_PHASE0_TRACEABILITY.json",
+    "manual_checklist": "ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+    "no_tests_before_P13": true
+  },
+  "vocabulary": {
+    "phone": [
+      "NOT_RUN",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "N/A"
+    ],
+    "lab_attempt": [
+      "NOT_RUN",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "N/A"
+    ],
+    "technical": [
+      "NOT_RUN",
+      "AUTHORED_ONLY",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "DEFERRED"
+    ],
+    "acceptance": [
+      "NOT_VERIFIED",
+      "VERIFIED_PASS",
+      "VERIFIED_FAIL",
+      "DEFERRED",
+      "NOT_APPLICABLE_WITH_REASON"
+    ],
+    "evidence_owners": {
+      "phone": "OWNER_ACTUAL_DEVICE",
+      "lab": "OWNER_CONTROLLED_ENVIRONMENT",
+      "technical": "ACTUAL_EXECUTION_ONLY"
+    }
+  },
+  "phase_status": {
+    "P00": {
+      "state": "STATIC_AUDIT_COMPLETED_WITH_IMPLEMENTATION_GAPS",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P01": {
+      "state": "GOVERNANCE_SOURCE_DELIVERED_UNTESTED",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P02": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P03": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P04": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P05": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P06": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P07": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P08": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P09": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P10": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P11": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P12": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P13": {
+      "state": "NOT_STARTED",
+      "source_delivered": false,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    }
+  },
+  "apk": {
+    "state": "NOT_BUILT",
+    "phase_authorized": "P13_ONLY",
+    "cumulative": true,
+    "apk_filename": "app-debug.apk",
+    "source_sha": null,
+    "sha256": null,
+    "bytes": null,
+    "build_workflow_run_id": null,
+    "artifact_id": null,
+    "verified_download_url": null,
+    "device_candidate_version": null
+  },
+  "device_environment": {
+    "owner_device_name": null,
+    "android_api": null,
+    "android_release": null,
+    "recognizer_name": null,
+    "recognizer_on_device_available": null,
+    "english_language_pack_ready": null,
+    "output_route": null,
+    "owner_recorded_at": null
+  },
+  "acceptance": [
+    {
+      "id": "AC01",
+      "requirement": "Voice State Machine: Idle → Listening → Processing → (Confirming if needed) → Executed/Failed",
+      "phase_owners": [
+        "P02",
+        "P09"
+      ],
+      "source_observation": "State types exist; direct-path transitions and terminal lifecycle need hardening.",
+      "phone_or_lab_case_ids": [
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M29",
+        "M33"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC02",
+      "requirement": "Explicit mic tap only; no always-on / wake word",
+      "phase_owners": [
+        "P03"
+      ],
+      "source_observation": "Driving explicit tap partially wired; Full Player microphone missing.",
+      "phone_or_lab_case_ids": [
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M31"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC03",
+      "requirement": "Service-respecting Voice duck while Listening and reliable unduck",
+      "phase_owners": [
+        "P07"
+      ],
+      "source_observation": "No Voice-scoped duck/restore lease found in reviewed public contract/coordinator.",
+      "phone_or_lab_case_ids": [
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M41",
+        "M42"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC04",
+      "requirement": "Listening ≤6s; no more than one retry",
+      "phase_owners": [
+        "P02",
+        "P04"
+      ],
+      "source_observation": "6000ms and 2 attempts declared; timeout/cancellation/races not verified.",
+      "phone_or_lab_case_ids": [
+        "M26",
+        "M27",
+        "M28"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC05",
+      "requirement": "Replaceable STT and TTS providers",
+      "phase_owners": [
+        "P04"
+      ],
+      "source_observation": "Replaceable interfaces exist; device/provider/language readiness unverified.",
+      "phone_or_lab_case_ids": [
+        "M10",
+        "M39",
+        "M40",
+        "M52"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC06",
+      "requirement": "Only five executable controls in #10",
+      "phase_owners": [
+        "P05"
+      ],
+      "source_observation": "Six-type source declares PLAY_ARTIST, coordinator does not dispatch it; mapping needs PTT/bare-phrase policy.",
+      "phone_or_lab_case_ids": [
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M21",
+        "M22"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC07",
+      "requirement": "Direct recognized command → service without navigation",
+      "phase_owners": [
+        "P06"
+      ],
+      "source_observation": "Typed gateway dispatch exists; ACK, safety and real executions not verified.",
+      "phone_or_lab_case_ids": [
+        "M23",
+        "M24",
+        "M25",
+        "M32",
+        "M33"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC08",
+      "requirement": "UI observes Voice and does not own playback/recognition",
+      "phase_owners": [
+        "P03",
+        "P09"
+      ],
+      "source_observation": "Driving observes coordinator; Full Player overlay not wired.",
+      "phone_or_lab_case_ids": [
+        "M04",
+        "M05",
+        "M23",
+        "M43",
+        "M53"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC09",
+      "requirement": "At most one short TTS sentence",
+      "phase_owners": [
+        "P08"
+      ],
+      "source_observation": "Short 'Done' on ACK is source-visible; all terminal feedback/error/cancel cases incomplete.",
+      "phone_or_lab_case_ids": [
+        "M39",
+        "M40"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC10",
+      "requirement": "Timeout/failure/cancel preserves playback and manual controls",
+      "phase_owners": [
+        "P02",
+        "P07",
+        "P10"
+      ],
+      "source_observation": "Manual fallback rules exist; duck cleanup/route safety not proven.",
+      "phone_or_lab_case_ids": [
+        "M08",
+        "M19",
+        "M20",
+        "M28",
+        "M29",
+        "M36",
+        "M38",
+        "M43",
+        "M57"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC11",
+      "requirement": "Lifecycle/recreation/background/interruption no duplicate command",
+      "phase_owners": [
+        "P10"
+      ],
+      "source_observation": "Generation checks exist; late RPC/ACK and lifecycle state race unverified.",
+      "phone_or_lab_case_ids": [
+        "M30",
+        "M31",
+        "M32",
+        "M41",
+        "M42",
+        "M44",
+        "M45",
+        "M46",
+        "M47"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC12",
+      "requirement": "Lab direct-command success ≥90%",
+      "phase_owners": [
+        "P13"
+      ],
+      "source_observation": "Zero issue-10 lab executions; later 5×10 attempts require ≥45/50.",
+      "phone_or_lab_case_ids": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC13",
+      "requirement": "No raw voice recording or logging",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_observation": "No persistence appears in reviewed coordinator; app-wide runtime/telemetry audit pending.",
+      "phone_or_lab_case_ids": [
+        "M51"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC14",
+      "requirement": "If cloud STT, separate consent and processing/retention disclosure",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_observation": "Production binds on-device/no-network fallback; conditional cloud gate stays mandatory if scope changes.",
+      "phone_or_lab_case_ids": [
+        "M10",
+        "M52"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC15",
+      "requirement": "Mapper/timeout/states/idempotence test coverage",
+      "phase_owners": [
+        "P02",
+        "P05",
+        "P06",
+        "P10",
+        "P12"
+      ],
+      "source_observation": "Previous source test fixtures exist; new #10 authored tests NOT_STARTED; none executed for #10.",
+      "phone_or_lab_case_ids": [
+        "M26",
+        "M27",
+        "M28",
+        "M30",
+        "M31",
+        "M32",
+        "M33"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    },
+    {
+      "id": "AC16",
+      "requirement": "WF-08 voice presentation, TalkBack and visible state",
+      "phase_owners": [
+        "P09"
+      ],
+      "source_observation": "Driving has partial Voice semantics; P09 Full Player/WF08 and physical TalkBack not verified.",
+      "phone_or_lab_case_ids": [
+        "M23",
+        "M24",
+        "M48",
+        "M49",
+        "M50"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": null,
+      "runtime_evidence": null,
+      "decision_note": null,
+      "verified_at": null
+    }
+  ],
+  "phone_tests": [
+    {
+      "id": "M01",
+      "summary": "APK تجمیعی P13 نصب و باز شود؛ برنامه و Player اصلی بدون کرش فعال باشند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M02",
+      "summary": "با شروع برنامه هیچ ضبط صدای خودکار یا Voice Overlay ظاهر نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M03",
+      "summary": "بدون لمس میکروفون، گفتن «Play» هیچ دستوری اجرا نکند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M04",
+      "summary": "ورود از Full Player؛ میکروفون قابل مشاهده و قابل لمس باشد یا علت غیرفعال بودن روشن باشد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M05",
+      "summary": "ورود به Driving Mode از مسیر دستی؛ میکروفون همان Voice coordinator را استفاده کند و صفحهٔ جدید مستقل باز نکند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M06",
+      "summary": "اولین ورود با میکروفونِ فاقد مجوز؛ راهنمای مجوز مناسب نمایش داده شود و بدون انتخاب کاربر ضبط شروع نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M07",
+      "summary": "انتخاب Continue و مجوز Android؛ با برگشت از دیالوگ، ضبط خودکار شروع نشود؛ لمس مجدد لازم باشد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M08",
+      "summary": "انتخاب Don't allow؛ موسیقی و دکمه‌های دستی همچنان قابل استفاده باشند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M09",
+      "summary": "خاموش کردن مجوز میکروفون از Settings و برگشت؛ هنگام درخواست جدید، دسترسی دوباره بررسی شود و کرش نکند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M10",
+      "summary": "اگر تشخیص گفتار روی‌دستگاه یا زبان انگلیسی موجود نیست (خصوصاً Android 10/11)، پیام واقعیِ عدم پشتیبانی و مسیر کنترل دستی نمایش داده شود؛ سرویس ابری بی‌اجازه فعال نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M11",
+      "summary": "در حالت Pause با صف آماده بگو «Play»؛ همان موسیقی به صورت واقعی پخش شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M12",
+      "summary": "هنگام پخش بگو «Pause»؛ پخش متوقف شود و جایگاه صف حفظ شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M13",
+      "summary": "پس از Pause بگو «Resume»؛ پخش همان موسیقی از موقعیت صحیح ادامه پیدا کند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M14",
+      "summary": "با «Next song» به آهنگ بعدی همان صف برو.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M15",
+      "summary": "با «Previous song» رفتار ثابت Previous مطابق Player فعلی باشد (شروع آهنگ/ترک قبلی برحسب موقعیت).",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M16",
+      "summary": "با «Go back 10 seconds» حدود ۱۰ ثانیه به عقب Seek شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M17",
+      "summary": "همین Seek را در ۵ ثانیهٔ اول آهنگ انجام بده؛ موقعیت به صفر محدود شود، منفی/کرش نداشته باشد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M18",
+      "summary": "«Stop music» باید فقط PAUSE باشد، نه حذف صف/بستن Player.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M19",
+      "summary": "انتهای صف «Next»؛ هیچ ترک خیالی یا پخش غیرمنتظره‌ای رخ ندهد؛ پیغام کوتاه مناسب باشد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M20",
+      "summary": "با صف خالی «Play»؛ فقط در صورت وجود و اعتبار Play Last طبق قرارداد Player عمل کند، وگرنه خطای امن/کنترل دستی؛ هیچ صف خیالی ساخته نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M21",
+      "summary": "با گفتن جملهٔ نامربوط مثل «What is the weather?» هیچ عملی روی Player اجرا نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M22",
+      "summary": "با «Volume up»، «Play YouTube» و «Play songs by Adele» در Issue #10 هیچ intent غیرمجاز یا PLAY_ARTIST اجرا نشود؛ رفتار امن مشاهده شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M23",
+      "summary": "پس از لمس Mic حالت Listening واضح و منطبق با وضعیت واقعی دیده شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M24",
+      "summary": "پس از گفتن فرمان معتبر، Processing در صورت طول کافی قابل مشاهده باشد؛ سپس نتیجهٔ واقعی Executed نمایش داده شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M25",
+      "summary": "فرمان قطعیِ پنج‌گانه بدون صفحهٔ جدید یا مرحلهٔ تأیید اضافه اجرا شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M26",
+      "summary": "عدم صحبت بعد از Mic؛ Listening حداکثر ۶ ثانیه باشد (اندازه‌گیری دستی را تقریبی ثبت کن؛ اثبات دقیق با آزمون فنی جداست).",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M27",
+      "summary": "بعد از Timeout فقط یک Retry قابل انجام باشد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M28",
+      "summary": "Timeout یا عدم تشخیص در تلاش دوم؛ Retry سوم مجاز نباشد و حالت امن دستی بازگردد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M29",
+      "summary": "لمس Cancel یا Back هنگام Listening؛ ضبط فوراً متوقف و فرمانی اجرا نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M30",
+      "summary": "لمس Cancel هنگام Processing؛ پاسخ دیررس Voice هیچ دستور تازه‌ای اجرا نکند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M31",
+      "summary": "چند لمس سریع Mic؛ فقط یک جلسهٔ فعال وجود داشته باشد، نه دو ضبط/دو دستور.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M32",
+      "summary": "یک بار گفتن Next؛ دقیقاً یک ترک جلو برود، حتی اگر بازخورد/نتیجه دوباره به UI برسد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M33",
+      "summary": "نمایش Executed فقط پس از اجرای واقعی فرمان باشد؛ خطای Controller به اشتباه Executed نشان داده نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M34",
+      "summary": "در حال پخش موزیک Mic را بزن؛ صدای موزیک هنگام Listening به شکل قابل تشخیص کم شود (Ducking).",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M35",
+      "summary": "با اجرای موفق فرمان، Duck پایان یابد و سطح صدا متناسب با وضعیت جدید برگردد؛ افزایش تجمعی یا صدای ناگهانی رخ ندهد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M36",
+      "summary": "در Listening روی Cancel بزن؛ کاهش صدای موقت پایان یابد، ولی آهنگی که قبلاً Pause بوده خودکار Play نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M37",
+      "summary": "دو Listening متوالی و یک Retry؛ صدا مرحله‌به‌مرحله به سمت صفر نرود و Duck باقی نماند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M38",
+      "summary": "پس از Timeout/Failed، موسیقی و سطح صدا مطابق حالت امن قبل و مداخلات سیستم باقی بمانند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M39",
+      "summary": "پاسخ TTS اگر موجود باشد یک جملهٔ کوتاه باشد؛ تکرار پی‌درپی یا حرف‌زدن ممتد نداشته باشد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M40",
+      "summary": "موتور TTS غایب/غیرفعال/بدون زبان مناسب؛ اجرای فرمانِ معتبر معطل نشود و موسیقی خراب نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M41",
+      "summary": "حین Voice یک تماس تلفنی یا قطع Audio Focus رخ دهد؛ Voice لغو شود، تماس و اولویت سیستم محترم بمانند و پخش خودکار ناامن نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M42",
+      "summary": "حین Listening هندزفری/بلوتوث صدا قطع شود؛ صدای موسیقی به شکل ناخواسته از اسپیکر گوشی ادامه پیدا نکند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M43",
+      "summary": "هنگام Failed/Processing، دکمه‌های دستی Play/Pause/Next/Previous همان Player همچنان کار کنند یا با خروج فوری در دسترس باشند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M44",
+      "summary": "هنگام Listening صفحه را بچرخان یا Activity را بازسازی کن (اگر سیستم اجازه دهد)؛ ضبط/فرمان دوم بدون درخواست کاربر ساخته نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M45",
+      "summary": "هنگام Listening برنامه را به پس‌زمینه بفرست؛ مطابق سیاست Lifecycle ضبط لغو شود و برگشت خودکار ضبط را آغاز نکند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M46",
+      "summary": "هنگام Listening از Driving Mode خارج شو؛ Voice متعلق به Driving لغو شود و کنترل دستی سالم بماند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M47",
+      "summary": "حین Listening مجوز میکروفون را در تنظیمات لغو کن؛ با بازگشت، جلسه خاتمه و دسترسی تازه بررسی شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M48",
+      "summary": "TalkBack را فعال کن؛ برچسب Mic، Listening، Processing، Failed، Retry، Cancel و نتیجهٔ واقعی قابل فهم باشد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M49",
+      "summary": "اندازهٔ فونت را ۱۵۰٪ و ۲۰۰٪ کن؛ وضعیت صوتی و Cancel/Retry قابل رؤیت، اسکرول و لمس باشد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M50",
+      "summary": "پس از خروج از Voice، فوکوس دسترس‌پذیری/کنترل به سطح اولیه بازگردد؛ هیچ صفحهٔ جداگانهٔ گیرکننده ایجاد نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M51",
+      "summary": "لاگ/دادهٔ ذخیره‌شدهٔ قابل مشاهدهٔ اپ نباید فایل ضبط صدای خام یا تاریخچهٔ متن گفتار بسازد (فقط بازبینی کاربر؛ ممیزی کامل نیازمند تست فنی است).",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M52",
+      "summary": "بدون رضایت جداگانه و افشای مقصد/نگهداری، هیچ گزینهٔ STT ابری فعال یا اجباری نباشد؛ انتخاب «نه» مانع موسیقی آفلاین نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M53",
+      "summary": "Mini Player و Full Player پس از اجرای هر کدام از پنج فرمان از snapshot واقعی Media3 یکسان پیروی کنند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M54",
+      "summary": "دکمه‌های Play/Pause/Next/Previous در Android media notification همانند قبل کار کنند؛ لمس media card در صورت قابلیت قبلی اپ را باز کند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M55",
+      "summary": "کنترل Play/Pause/Next از ایرپاد یا هدست (اگر در دسترس است) بعد از Voice همچنان کار کند.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M56",
+      "summary": "ورود/خروج دستی Driving Mode و پیشنهاد اختیاری Bluetooth از Issue #9 مستقل از Voice بماند؛ هیچ ورود خودکار یا autoplay ناخواسته رخ ندهد.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M57",
+      "summary": "اگر آهنگ خراب/حذف‌شده یا Controller disconnected باشد، اجرای فرمان صوتی خطای کوتاه و امن بدهد، نه کرش/موفقیت ساختگی.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M58",
+      "summary": "کم‌وزیاد کردن صدا، قطع Bluetooth و تماس پس از اتمام Voice، سیاست‌های #8 و #9 را نقض نکند و صدای گوشی ناخواسته بلند نشود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M59",
+      "summary": "نسخه و SHA-256 APK مورد تست با فایل تحویل P13 تطبیق داده و همهٔ FAIL/BLOCKED/N/A با دلیل ثبت شود.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    },
+    {
+      "id": "M60",
+      "summary": "ثبت محدودیت تست تک‌دستگاهی؛ بررسی API29/30/31+/OEM و خودرو/هدیونیت که واقعاً انجام نشده صادقانه به صورت NOT_RUN/BLOCKED/N/A گزارش شود، نه PASS.",
+      "status": "NOT_RUN",
+      "apk_sha256": null,
+      "observed_at": null,
+      "device": null,
+      "evidence_links": [],
+      "observation": null,
+      "reason_if_blocked_or_na": null
+    }
+  ],
+  "laboratory": {
+    "state": "NOT_RUN",
+    "prerequisite": "P13_CUMULATIVE_APK_AND_SUPPORTED_ON_DEVICE_STT",
+    "planned_total_attempts": 50,
+    "required_successes": 45,
+    "required_rate": 0.9,
+    "actual_attempts": 0,
+    "actual_successes": null,
+    "actual_failures": null,
+    "actual_success_rate": null,
+    "gate_passed": null,
+    "owner_tested_at": null,
+    "apk_sha256": null,
+    "groups": [
+      {
+        "id": "L01",
+        "intent": "PLAY",
+        "planned_attempts": 10,
+        "completed_attempts": 0,
+        "successful_attempts": null,
+        "failed_attempts": null,
+        "status": "NOT_RUN",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          }
+        ]
+      },
+      {
+        "id": "L02",
+        "intent": "PAUSE",
+        "planned_attempts": 10,
+        "completed_attempts": 0,
+        "successful_attempts": null,
+        "failed_attempts": null,
+        "status": "NOT_RUN",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          }
+        ]
+      },
+      {
+        "id": "L03",
+        "intent": "NEXT",
+        "planned_attempts": 10,
+        "completed_attempts": 0,
+        "successful_attempts": null,
+        "failed_attempts": null,
+        "status": "NOT_RUN",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          }
+        ]
+      },
+      {
+        "id": "L04",
+        "intent": "PREVIOUS",
+        "planned_attempts": 10,
+        "completed_attempts": 0,
+        "successful_attempts": null,
+        "failed_attempts": null,
+        "status": "NOT_RUN",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          }
+        ]
+      },
+      {
+        "id": "L05",
+        "intent": "SEEK_BACK",
+        "planned_attempts": 10,
+        "completed_attempts": 0,
+        "successful_attempts": null,
+        "failed_attempts": null,
+        "status": "NOT_RUN",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_RUN",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": null
+          }
+        ]
+      }
+    ]
+  },
+  "technical_tests": [
+    {
+      "id": "T01",
+      "name": "Deterministic intent mapping and rejection",
+      "phase": "P05",
+      "kind": "JVM",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T02",
+      "name": "Voice reducer/state transitions/generation",
+      "phase": "P02",
+      "kind": "JVM",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T03",
+      "name": "6s timeout, one retry, cancellation",
+      "phase": "P02/P04",
+      "kind": "JVM",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T04",
+      "name": "Playback ACK and one-shot duplicate suppression",
+      "phase": "P06",
+      "kind": "JVM",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T05",
+      "name": "Ducking lease/focus/route priority",
+      "phase": "P07",
+      "kind": "JVM",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T06",
+      "name": "Voice feedback, optional TTS failures",
+      "phase": "P08",
+      "kind": "JVM",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T07",
+      "name": "Compose voice overlay/semantics/a11y",
+      "phase": "P09",
+      "kind": "ANDROID_INSTRUMENTATION",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T08",
+      "name": "Lifecycle/permission/late-callback race",
+      "phase": "P10",
+      "kind": "JVM_AND_ANDROID_INSTRUMENTATION",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T09",
+      "name": "Privacy/consent/manifest/static inspection",
+      "phase": "P11",
+      "kind": "SOURCE_AUDIT_AND_LINT",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    },
+    {
+      "id": "T10",
+      "name": "Android 10/12/14+, OEM, parked vehicle and real voice integration",
+      "phase": "P13",
+      "kind": "PHYSICAL_DEVICE",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    }
+  ],
+  "deferred_carryover": {
+    "issue9_case_id": "M45",
+    "issue9_result": "BLOCKED",
+    "expected_retest": "Issue #9 M45: parked Driving -> explicit Mic -> English 'Next song' -> exactly one Media3 NEXT",
+    "source_issue": "https://github.com/latticeward-labs/music-copilot/issues/9",
+    "status": "NOT_RUN_IN_ISSUE_10",
+    "not_to_be_confused_with_issue10_M45": "Issue #10 M45 refers to background/cancellation; different checklist."
+  },
+  "privacy": {
+    "raw_audio_stored": false,
+    "raw_transcript_stored": false,
+    "command_utterance_text_in_telemetry": false,
+    "no_personal_song_names_in_ledger": true,
+    "policy": "Never attach private audio/transcripts/music paths/Bluetooth MACs/call identity"
+  },
+  "summary": {
+    "manual_total": 60,
+    "manual_recorded": 0,
+    "manual_passed": null,
+    "manual_failed": null,
+    "manual_blocked": null,
+    "manual_na": null,
+    "lab_total": 50,
+    "lab_measured": 0,
+    "ac_total": 16,
+    "ac_verified": 0,
+    "technical_groups": 10,
+    "technical_executed": 0
+  },
+  "quality_gates": {
+    "P01_complete_only_on_source_commit": true,
+    "technical_QA_not_authorized_for_execution": true,
+    "owner_phone_results_deferred_to_P13": true,
+    "field_QA_requires_lab_gate_pass": true,
+    "no_merge_close_without_owner_instruction": true
+  }
+}
