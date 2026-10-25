@@ -188,9 +188,7 @@ class PlaybackControllerConnection(
         val controller = active ?: return false
         val captured = generation
         if (released || connectionState.value != PlaybackConnectionState.Ready ||
-            !PlaybackWireProtocol.validVoiceDuckToken(
-                PlaybackWireProtocol.voiceDuckArgs(token)
-            ).equals(token)
+            !com.latticeward.musiccopilot.playback.command.ServiceVoiceDuckLease.isValidToken(token)
         ) return false
         return try {
             val outcome = withTimeoutOrNull(2_000L) {
