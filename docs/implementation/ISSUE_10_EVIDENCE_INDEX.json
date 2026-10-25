@@ -41,7 +41,10 @@
     "phase8_audit": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
     "phase9_audit": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
     "phase10_audit": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
-    "phase11_audit": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+    "phase11_audit": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+    "phase12_final_source_audit": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+    "phase12_acceptance_traceability": "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+    "phase12_p13_lab_corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json"
   },
   "phase_evidence": [
     {
@@ -235,11 +238,20 @@
     },
     {
       "phase": "P12",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_AUDITED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "Cumulative P00–P11 source audit; F12-01 cross-process Voice ACK ID namespace and F12-02 Compose heading shadow fix; 15 authored JUnit, 16 AC source trace, 50 P13 lab samples NOT_RUN."
     },
     {
       "phase": "P13",
@@ -273,9 +285,11 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC02",
@@ -300,9 +314,11 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC03",
@@ -325,9 +341,11 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC04",
@@ -349,9 +367,11 @@
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC05",
@@ -372,9 +392,11 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC06",
@@ -400,9 +422,11 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC07",
@@ -423,9 +447,11 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC08",
@@ -448,9 +474,11 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC09",
@@ -468,9 +496,11 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P08 pure/resource and authored-only JUnit evidence; no runtime TTS or manual audio verification; NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC10",
@@ -504,9 +534,11 @@
         "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC11",
@@ -535,9 +567,11 @@
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC12",
@@ -555,8 +589,11 @@
         "L04",
         "L05"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 5x10 lab corpus authored, 0 measured, requires ≥45/50 real successes. P13 owner testing required."
     },
     {
       "id": "AC13",
@@ -574,9 +611,11 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC14",
@@ -595,9 +634,11 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC15",
@@ -630,9 +671,11 @@
         "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P11 privacy/consent boundary source reviewed; physical tests/logcat/OEM checks NOT_VERIFIED."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     },
     {
       "id": "AC16",
@@ -653,9 +696,11 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
       ],
-      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
     }
   ],
   "owner_phone_cases": [
@@ -1140,7 +1185,9 @@
       "status": "AUTHORED_ONLY",
       "evidence_uris": [
         "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
-        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "execution_status": "NOT_RUN"
     },
@@ -1166,7 +1213,9 @@
         "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
         "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
         "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "execution_status": "NOT_RUN"
     },
@@ -1209,7 +1258,9 @@
         "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
         "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
         "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "execution_status": "NOT_RUN"
     },
@@ -1223,7 +1274,9 @@
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
         "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
         "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "execution_status": "NOT_RUN"
     },
@@ -1238,7 +1291,9 @@
         "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
         "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
         "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
       ],
       "execution_status": "NOT_RUN"
     },
@@ -1289,7 +1344,10 @@
     "phase11_result_redaction": "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
     "phase11_consent_policy": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
     "phase11_diagnostics": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
-    "phase11_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+    "phase11_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt",
+    "phase12_voice_nonce": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+    "phase12_receipt_parser": "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+    "phase12_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
   },
   "known_gaps": [
     {
@@ -1360,7 +1418,7 @@
       ],
       "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
       "resolved_by": null,
-      "notes": "P02 claim+generation and P06 correlated ACK, service bounded 256-ID dedup, NEXT end/Play guard implemented in source. P10 lifecycle/cancel races and P13 device proof remain pending. P10 added foreground lease, STT/TTS identity guards, focus/route Voice cancellation and bounded unDuck controller receipt. Device QA pending; NOT_CLOSED."
+      "notes": "P02/P06/P10 generation+service receipt sources and P12 F12-01 process-namespaced command IDs fix; zero runtime verification. Retains Media3 process restart/ACK race risk until P13."
     },
     {
       "id": "G07",
@@ -1405,7 +1463,7 @@
       ],
       "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
       "resolved_by": null,
-      "notes": "P11 explicit source privacy audit/redacted transcript/conditional cloud consent and no-op telemetry. Build/merged manifest, OEM runtime traffic/logcat/permissions and device matrix remain NOT_RUN. Do NOT close."
+      "notes": "P11 privacy and P12 full 16-AC static audit, authored JUnit and 5×10 lab corpus. No compile/merged manifest/OEM/network/Android matrix/phone QA; remains OPEN until P13 evidence."
     }
   ],
   "cross_issue": {
@@ -1460,6 +1518,10 @@
     "P10_source_delivered": true,
     "P10_authored_junit_methods": 17,
     "P11_source_delivered": true,
-    "P11_authored_junit_methods": 19
+    "P11_authored_junit_methods": 19,
+    "P12_source_audited": true,
+    "P12_authored_junit_methods": 15,
+    "P12_ac_source_traced": 16,
+    "P12_lab_corpus_prepared": 50
   }
 }
