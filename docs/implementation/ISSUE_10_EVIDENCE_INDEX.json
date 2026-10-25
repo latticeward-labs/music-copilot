@@ -35,7 +35,8 @@
     "phase2_audit": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
     "phase3_audit": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
     "phase4_audit": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
-    "phase5_audit": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md"
+    "phase5_audit": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+    "phase6_audit": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -123,11 +124,20 @@
     },
     {
       "phase": "P06",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "Voice/Media3 ID-correlated ACK, bounded idempotency, no NEXT end false success; 15 authored JUnit, none executed."
     },
     {
       "phase": "P07",
@@ -325,9 +335,10 @@
         "M22"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
       ],
-      "notes": "P05 source and authored JUnit only; NOT_VERIFIED pending real execution."
+      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
     },
     {
       "id": "AC07",
@@ -346,8 +357,10 @@
         "M32",
         "M33"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
+      ],
+      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
     },
     {
       "id": "AC08",
@@ -417,9 +430,10 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
       ],
-      "notes": "P04 source review only; AC NOT_VERIFIED."
+      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
     },
     {
       "id": "AC11",
@@ -445,9 +459,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
       ],
-      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
+      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
     },
     {
       "id": "AC12",
@@ -530,9 +545,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
       ],
-      "notes": "P05 source and authored JUnit only; NOT_VERIFIED pending real execution."
+      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
     },
     {
       "id": "AC16",
@@ -1056,8 +1072,14 @@
       "name": "Playback ACK and one-shot duplicate suppression",
       "phase": "P06",
       "kind": "JVM",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T05",
@@ -1134,7 +1156,10 @@
     "phase4_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt",
     "phase5_dictionary": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
     "phase5_mapper": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
-    "phase5_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt"
+    "phase5_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+    "phase6_voice_dispatcher": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+    "phase6_voice_receipt_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+    "phase6_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt"
   },
   "known_gaps": [
     {
@@ -1204,7 +1229,7 @@
       ],
       "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
       "resolved_by": null,
-      "notes": "P02 generation/cancellation/claim guards authored; P06 service dispatch & P10 lifecycle integration not yet complete."
+      "notes": "P02 claim+generation and P06 correlated ACK, service bounded 256-ID dedup, NEXT end/Play guard implemented in source. P10 lifecycle/cancel races and P13 device proof remain pending."
     },
     {
       "id": "G07",
@@ -1291,6 +1316,8 @@
     "P04_source_delivered": true,
     "P04_authored_junit_methods": 12,
     "P05_source_delivered": true,
-    "P05_authored_junit_methods": 25
+    "P05_authored_junit_methods": 25,
+    "P06_source_delivered": true,
+    "P06_authored_junit_methods": 15
   }
 }
