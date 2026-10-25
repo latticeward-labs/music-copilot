@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P08_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P09_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -130,10 +130,13 @@
       "notes": "P08 8 localizable English single-sentence feedback messages; 5 success only after Media3 ACK, optional final failure speech, retryable silence, one-shot gen gate and 2s max TTS; source-only no Gradle/test/Actions."
     },
     "P09": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+      "authored_junit_cases": 20,
+      "notes": "P09 pure WF-08 shared status projection; one accessible Compose Voice panel reused by Full Player and Driving, 21 string resources, focus-return, truthful retry/dismiss/manual paths. Source only: no build, Tests or Actions."
     },
     "P10": {
       "state": "NOT_STARTED",
@@ -201,9 +204,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
+      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
       "verified_at": null
     },
     {
@@ -223,9 +226,9 @@
         "M31"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
+      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
       "verified_at": null
     },
     {
@@ -349,9 +352,9 @@
         "M53"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
+      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
       "verified_at": null
     },
     {
@@ -392,9 +395,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P08 bounded optional feedback and deterministic resources authored; TTS duration, interruption and Android device behavior NOT_VERIFIED. P09/P10/P13 pending.",
+      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
       "verified_at": null
     },
     {
@@ -495,9 +498,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P08 bounded optional feedback and deterministic resources authored; TTS duration, interruption and Android device behavior NOT_VERIFIED. P09/P10/P13 pending.",
+      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
       "verified_at": null
     },
     {
@@ -515,9 +518,9 @@
         "M50"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
+      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
       "verified_at": null
     }
   ],
@@ -1763,14 +1766,17 @@
       "name": "Compose voice overlay/semantics/a11y",
       "phase": "P09",
       "kind": "ANDROID_INSTRUMENTATION",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "20 new P09 pure/UI-static contract JUnit methods authored only. TalkBack/Compose/device execution = 0.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T08",
@@ -1846,7 +1852,7 @@
     "ac_verified": 0,
     "technical_groups": 10,
     "technical_executed": 0,
-    "technical_groups_authored": 6,
+    "technical_groups_authored": 7,
     "technical_groups_executed": 0
   },
   "quality_gates": {
@@ -2081,6 +2087,53 @@
         "P11 privacy full audit",
         "P12 final source audit",
         "P13 cumulative APK, OEM/audio tests"
+      ]
+    },
+    "P09": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+      ],
+      "authored_junit_methods": 20,
+      "technical_status": "NOT_RUN",
+      "single_shared_panel": true,
+      "model": "VoiceSessionState + VoicePracticeStage only; UI does not own recording/playback",
+      "status_keys": [
+        "PermissionRationale",
+        "PermissionPending",
+        "Listening",
+        "Processing",
+        "ConfirmationUnavailable",
+        "Executed",
+        "Timeout",
+        "NotRecognized",
+        "Unavailable"
+      ],
+      "displayed_microphone_claim": "Preparing or listening because duck ACK precedes STT",
+      "manual_exit_policy": [
+        "CancelCapture",
+        "DismissPermission",
+        "ReturnToManual"
+      ],
+      "a11y": [
+        "Polite LiveRegion",
+        "Heading semantics",
+        "Button contentDescriptions",
+        "48dp+ token targets",
+        "Focus restore only on panel open/close",
+        "Driving fixed exit remains"
+      ],
+      "unverified": [
+        "Physical TalkBack announcements",
+        "200% text scaling and focus return",
+        "OEM screen reader state",
+        "Failure and ACK end-to-end",
+        "P10 lifecycle race/interruptions"
       ]
     }
   }
