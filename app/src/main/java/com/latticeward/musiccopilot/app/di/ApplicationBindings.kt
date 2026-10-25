@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat
 import android.os.Build
 import android.Manifest
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
+import com.latticeward.musiccopilot.core.application.voice.VoiceLifecycleSafetyPolicy
+import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechConsentPolicy
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
@@ -215,6 +217,13 @@ class ApplicationBindings(
 
     /** No user audio or Room rows are deleted; app index is hidden immediately. */
     fun onMediaAccessRevoked() {
+        // A revoked music-library permission is a system boundary for the
+        // voice-origin screen too. Do not allow pending Voice dispatch to
+        // consume a queue that lost its authorized media source.
+        if (VoiceLifecycleSafetyPolicy.requiresCancellationAtUiBoundary(
+                voiceOwner.state.value
+            )
+        ) voiceOwner.cancel(VoiceCancelReason.PermissionLost)
         scanLaunchGate.cancelInFlight()
         libraryRepository.invalidateMediaAccess()
     }
@@ -236,6 +245,14 @@ class ApplicationBindings(
      * decides whether real active audio requires ongoing foreground playback.
      */
     fun onUiStopped() {
+        // Application boundary is authoritative even if Activity callbacks
+        // raced with route loss, rotation or task dismissal. Cancel FIRST,
+        // while this MediaController is still connected so P07 release can
+        // reach the service. Never stop or pause the service-owned Player.
+        if (VoiceLifecycleSafetyPolicy.requiresCancellationAtUiBoundary(
+                voiceOwner.state.value
+            )
+        ) voiceOwner.cancel(VoiceCancelReason.OriginInvalidated)
         selectedBluetoothConnection.onUiStopped()
         controller.detachUiController()
     }
