@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_NEXT**. Implementation P02–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_NEXT**. Implementation P03–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -40,6 +40,8 @@
 ### P02 — Single Voice state machine, session generation and transition contracts
 **Work:** Implement/repair `Idle -> Listening -> Processing -> [Confirming when applicable] -> Executed | Failed -> Idle`; direct five commands skip Confirming. One app-scoped generation, explicit invalidation, no stale callbacks, atomic start/retry/cancel and terminal cleanup; timeouts <=6,000ms **per listening attempt**, at most one retry, no repeated command dispatch after configuration change. Confirming type stays compatible with #11 but no PLAY_ARTIST handler added.
 **Output:** coordinator/reducer contracts, bounded policies, lifecycle ownership and **authored-only** reducer/JUnit cases. No tests/build.
+
+> **P02 evidence (2026-10-25):** [Voice state machine source audit](ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md) · [P02 eight authored-only JUnit scenarios](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt) · [evidence index](ISSUE_10_EVIDENCE_INDEX.json). Source only, NO compile or tests. AC remain NOT_VERIFIED.
 
 ### P03 — Explicit PTT entry for Full Player and Driving
 **Work:** Wire actual Full Player microphone to the same app-scoped coordinator already used by #9 Driving; reuse microphone OS permission/VoicePracticeGate and existing NavHost; require a new deliberate tap after permission grant; never start Voice from startup, BT connect, background, navigation, ActivityResult or notification. Prevent double-tap double-session and preserve usable manual controls.
