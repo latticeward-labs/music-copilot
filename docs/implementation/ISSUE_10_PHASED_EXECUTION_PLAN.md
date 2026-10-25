@@ -1,12 +1,16 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Planning status:** P00_STATIC_AUDIT_COMPLETED; P01_NEXT; P01–P13 implementation **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_NEXT**. Implementation P02–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
 > **Work branch:** `feature/10-ptt-voice-five-control-intents`. **Issue:** [#10](https://github.com/latticeward-labs/music-copilot/issues/10). **Final phone checklist:** [ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md](ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md).
 
-> **P00 evidence (2026-10-25):** [Readiness audit](ISSUE_10_PHASE0_READINESS_AUDIT.md) · [AC01–AC16 traceability/source SHA register](ISSUE_10_PHASE0_TRACEABILITY.json). Static source review completed with open implementation gaps; no build, tests, APK, or runtime PASS. All 16 Issue #10 AC remain NOT_VERIFIED.\n\n## Governing inputs and dependencies
+> **P00 evidence (2026-10-25):** [Readiness audit](ISSUE_10_PHASE0_READINESS_AUDIT.md) · [AC01–AC16 traceability/source SHA register](ISSUE_10_PHASE0_TRACEABILITY.json). Static source review completed with open implementation gaps; no build, tests, APK, or runtime PASS. All 16 Issue #10 AC remain NOT_VERIFIED.
+
+> **P01 evidence (2026-10-25):** [P01 execution contract](ISSUE_10_PHASE1_EXECUTION_CONTRACT.md) · [Evidence index](ISSUE_10_EVIDENCE_INDEX.json) · [QA results ledger: 60 M cases, 5×10 L attempts, 16 AC, 10 technical groups — all NOT_RUN or NOT_VERIFIED](ISSUE_10_QA_RESULTS.json) · [Future PR template](../../.github/PULL_REQUEST_TEMPLATE/issue-10-ptt-voice-five-control-intents.md). No PR/Actions/tests/build/APK/merge/issue closure in P01.
+
+## Governing inputs and dependencies
 
 - Uploaded English PRD/MVP, technical blueprint, system architecture, ADR-0002/0004/0005/0006, User Flows Phase 0/1.
 - Repository: [PRD](../PRD.md), [MVP](../MVP.md), [Voice Contract](../VOICE_CONTRACT.md), [Software Architecture](../SOFTWARE_ARCHITECTURE.md), [Issue #16 implementation contracts](../architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md), [Issue #17 handoff](../design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md).
@@ -31,7 +35,7 @@
 
 ### P01 — Branch governance, evidence ledger and delivery contract
 **Work:** Establish the issue-specific branch/file structure, status vocabulary and source ownership; define exact phase handoff rules, baseline, PR strategy and no-test/no-build guard, checklist M01–M60 and lab results schema; keep all product acceptance NOT_VERIFIED.
-**Output:** issue-specific execution agreement, evidence index, QA JSON ledger (NOT_RUN), and future PR description template. No tests/build.
+**Output:** issue-specific execution agreement, evidence index, QA JSON ledger (NOT_RUN), and future PR description template. No tests/build. **P01 SOURCE-DELIVERED 2026-10-25** ([contract](ISSUE_10_PHASE1_EXECUTION_CONTRACT.md)); not implementation/runtime PASS.
 
 ### P02 — Single Voice state machine, session generation and transition contracts
 **Work:** Implement/repair `Idle -> Listening -> Processing -> [Confirming when applicable] -> Executed | Failed -> Idle`; direct five commands skip Confirming. One app-scoped generation, explicit invalidation, no stale callbacks, atomic start/retry/cancel and terminal cleanup; timeouts <=6,000ms **per listening attempt**, at most one retry, no repeated command dispatch after configuration change. Confirming type stays compatible with #11 but no PLAY_ARTIST handler added.
