@@ -31,7 +31,8 @@
     "QA_register": "docs/implementation/ISSUE_10_QA_RESULTS.json",
     "PR_template": ".github/PULL_REQUEST_TEMPLATE/issue-10-ptt-voice-five-control-intents.md",
     "architecture": "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
-    "design_handoff": "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md"
+    "design_handoff": "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md",
+    "phase2_audit": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -60,11 +61,16 @@
     },
     {
       "phase": "P02",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "P02 source code delivered and 8 JVM tests authored only. No compiler, build, lint, emulator or Actions execution."
     },
     {
       "phase": "P03",
@@ -175,8 +181,10 @@
         "M29",
         "M33"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+      ],
+      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
     },
     {
       "id": "AC02",
@@ -239,8 +247,10 @@
         "M27",
         "M28"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+      ],
+      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
     },
     {
       "id": "AC05",
@@ -368,8 +378,10 @@
         "M43",
         "M57"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+      ],
+      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
     },
     {
       "id": "AC11",
@@ -393,8 +405,10 @@
         "M46",
         "M47"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+      ],
+      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
     },
     {
       "id": "AC12",
@@ -471,8 +485,10 @@
         "M32",
         "M33"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+      ],
+      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
     },
     {
       "id": "AC16",
@@ -968,8 +984,12 @@
       "name": "Voice reducer/state transitions/generation",
       "phase": "P02",
       "kind": "JVM",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T03",
@@ -1045,7 +1065,9 @@
     "driving": "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
     "binding": "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
     "playback_contract": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
-    "playback_service": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+    "playback_service": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+    "voice_transition_policy": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt",
+    "phase2_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt"
   },
   "known_gaps": [
     {
@@ -1109,8 +1131,9 @@
         "P06",
         "P10"
       ],
-      "state": "OPEN",
-      "resolved_by": null
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "P02 generation/cancellation/claim guards authored; P06 service dispatch & P10 lifecycle integration not yet complete."
     },
     {
       "id": "G07",
@@ -1188,6 +1211,8 @@
     "technical_groups": 10,
     "technical_groups_executed": 0,
     "APK_count": 0,
-    "source_phase1_docs_complete": true
+    "source_phase1_docs_complete": true,
+    "P02_source_delivered": true,
+    "P02_authored_junit_methods": 8
   }
 }
