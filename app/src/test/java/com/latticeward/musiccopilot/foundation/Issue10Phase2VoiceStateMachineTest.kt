@@ -130,7 +130,7 @@ class Issue10Phase2VoiceStateMachineTest {
             stt, tts, gateway, recognitionEnabled = true
         )
         try {
-            val session = (coordinator.start(VoiceOrigin.Player) as AppResult.Success).value
+            val session = (coordinator.start(VoiceOrigin.Player) as AppResult.Success<VoiceSessionId>).value
             val generation = coordinator.activeGenerationJob
             assertEquals(VoiceSessionState.Listening(session, VoiceOrigin.Player, 1), coordinator.state.value)
             runCurrent()
@@ -153,7 +153,7 @@ class Issue10Phase2VoiceStateMachineTest {
             stt, Tts(), Gateway(), recognitionEnabled = true
         )
         try {
-            val id = (coordinator.start(VoiceOrigin.Driving) as AppResult.Success).value
+            val id = (coordinator.start(VoiceOrigin.Driving) as AppResult.Success<VoiceSessionId>).value
             runCurrent()
             advanceTimeBy(6_000L)
             runCurrent()
@@ -215,7 +215,7 @@ class Issue10Phase2VoiceStateMachineTest {
             coordinator.start(VoiceOrigin.Player)
             runCurrent()
             val replaced = coordinator.activeGenerationJob
-            val newId = (coordinator.start(VoiceOrigin.Driving) as AppResult.Success).value
+            val newId = (coordinator.start(VoiceOrigin.Driving) as AppResult.Success<VoiceSessionId>).value
             runCurrent()
             assertEquals(VoiceSessionState.Executed(newId, VoiceOrigin.Driving), coordinator.state.value)
             delayed.complete(utterance("musico pause"))
