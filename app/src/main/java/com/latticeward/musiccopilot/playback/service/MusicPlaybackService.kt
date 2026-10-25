@@ -45,6 +45,7 @@ import com.latticeward.musiccopilot.playback.media3.LocalMedia3QueueItems
 import com.latticeward.musiccopilot.playback.media3.ServiceSessionTransportPlayer
 import kotlinx.coroutines.CancellationException
 import com.latticeward.musiccopilot.playback.command.PlaybackReceiptStamp
+import com.latticeward.musiccopilot.playback.command.VoiceCommandReceiptPolicy
 import com.latticeward.musiccopilot.playback.command.PlaybackCommandProcessor
 import com.latticeward.musiccopilot.playback.command.PlaybackWireProtocol
 import com.latticeward.musiccopilot.playback.media3.ServicePlaybackRuntimeOwner
@@ -591,7 +592,10 @@ class MusicPlaybackService : MediaSessionService() {
                         if (!result.isDone) {
                             result.set(when (response) {
                                 is AppResult.Success -> SessionResult(
-                                    SessionResult.RESULT_SUCCESS, wrap(response.value)
+                                    SessionResult.RESULT_SUCCESS,
+                                    PlaybackWireProtocol.acknowledgedSnapshot(
+                                        response.value, command.commandId,
+                                    )
                                 )
                                 is AppResult.Failure -> SessionResult(
                                     SessionError.ERROR_UNKNOWN,
@@ -981,6 +985,15 @@ class MusicPlaybackService : MediaSessionService() {
                     player.pause()
                 }
                 is PlaybackCommand.Next -> {
+                    // A Voice NEXT at the final occurrence (or empty queue)
+                    // must never produce a fake "Executed" while the manual
+                    // transport keeps its established end-of-queue behavior.
+                    // Check on the serialized service worker, not cached UI.
+                    if (VoiceCommandReceiptPolicy.isVoiceCommand(command) &&
+                        !VoiceCommandReceiptPolicy.canAdvance(
+                            player.currentMediaItemIndex, player.mediaItemCount
+                        )
+                    ) return rejected()
                     if (runtimeError?.code == AppErrorCodes.PERMISSION_REVOKED) {
                         // Access was revoked: no next-item read until Android
                         // grants permission again. UI offers Settings/Library.
@@ -1062,6 +1075,18 @@ class MusicPlaybackService : MediaSessionService() {
                     pausedCheckpoint.onStop()
                     player.stop()
                 }
+            }
+            // Voice PLAY should not claim execution if service focus/route
+            // safety has already disallowed or suppressed its audible intent.
+            // This does NOT assume the player reached Playing synchronously.
+            if (command is PlaybackCommand.Play &&
+                VoiceCommandReceiptPolicy.isVoiceCommand(command) &&
+                (!player.playWhenReady ||
+                    interruptionGate.shouldSuppressAutomaticPlay() ||
+                    focusObserver.policyState.focus != FocusCondition.AVAILABLE)
+            ) {
+                publishSnapshot()
+                return rejected()
             }
             // Async ExoPlayer transitions are projected as Buffering/Paused,
             // never fabricated "Playing" from command acknowledgement.
