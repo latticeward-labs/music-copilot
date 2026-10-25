@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P09_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P10_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -139,10 +139,14 @@
       "notes": "P09 pure WF-08 shared status projection; one accessible Compose Voice panel reused by Full Player and Driving, 21 string resources, focus-return, truthful retry/dismiss/manual paths. Source only: no build, Tests or Actions."
     },
     "P10": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "authored_junit_cases": 17,
+      "legacy_authored_junit_adjusted": 1,
+      "notes": "P10 foreground-only Voice; atomic rapid-tap block, provider recognizer/utterance cancellation identity, app-stop/revoked permission, focus and BT route, bounded un-Duck controller drain. No Build, JUnit, Actions."
     },
     "P11": {
       "state": "NOT_STARTED",
@@ -204,9 +208,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -226,9 +230,9 @@
         "M31"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -248,9 +252,9 @@
         "M42"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -267,9 +271,9 @@
         "M28"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -331,9 +335,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P06 source-only typed Media3 ACK and bounded duplicate prevention; zero runtime/technical executions, P10/P12/P13 verification pending",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -352,9 +356,9 @@
         "M53"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -395,9 +399,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -419,9 +423,9 @@
         "M47"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P07 service-owned voice attenuation source evidence only; no audio, focus, route or runtime verification. P10/P13 remain.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -472,9 +476,9 @@
         "M52"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -498,9 +502,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P09 WF-08 UI source and 20 authored-only JUnit methods; TalkBack/manual/a11y behavior NOT_VERIFIED until user phone QA P13. No build/test.",
+      "decision_note": "P10 source-only lifecycle and provider identity cancellation; real focus/route/background behavior NOT_VERIFIED until phone P13.",
       "verified_at": null
     },
     {
@@ -1698,14 +1702,17 @@
       "name": "6s timeout, one retry, cancellation",
       "phase": "P02/P04",
       "kind": "JVM",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "17 P10 authored-only lifecycle/race methods, one P02 legacy fixture adapted. ZERO executed.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T04",
@@ -1784,7 +1791,8 @@
       "phase": "P10",
       "kind": "JVM_AND_ANDROID_INSTRUMENTATION",
       "source_cases": [
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
       ],
       "authored": true,
       "execution_status": "NOT_RUN",
@@ -1792,7 +1800,7 @@
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": "12 P03 tests authored for origin permission and source wiring; actual lifecycle Android instrumentation P10/T08 not executed.",
+      "notes": "17 P10 authored-only lifecycle/race methods, one P02 legacy fixture adapted. ZERO executed.",
       "source_status": "AUTHORED_ONLY"
     },
     {
@@ -1852,7 +1860,7 @@
     "ac_verified": 0,
     "technical_groups": 10,
     "technical_executed": 0,
-    "technical_groups_authored": 7,
+    "technical_groups_authored": 8,
     "technical_groups_executed": 0
   },
   "quality_gates": {
@@ -2134,6 +2142,46 @@
         "OEM screen reader state",
         "Failure and ACK end-to-end",
         "P10 lifecycle race/interruptions"
+      ]
+    },
+    "P10": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceLifecycleSafetyPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+      ],
+      "authored_junit_methods": 17,
+      "legacy_authored_junit_adjusted": 1,
+      "technical_status": "NOT_RUN",
+      "foreground_lease": "Activity onStart/onStop in-memory, blocks post-stop Mic and Retry",
+      "max_listen_ms": 6000,
+      "max_recognition_attempts": 2,
+      "duck_release_controller_drain_ms": 1000,
+      "provider_cancel_guards": [
+        "STT recognizer identity",
+        "TTS utterance identity",
+        "Main OEM callback serializing",
+        "Voice id/attempt/Job"
+      ],
+      "interruption_sources": [
+        "focus/call Media3",
+        "wired/BT output loss",
+        "BT output availability",
+        "media permission revocation",
+        "Activity UI stop"
+      ],
+      "limitations": [
+        "Media3 already-accepted command cannot rollback",
+        "service packet might not arrive; TTL best effort",
+        "no OEM phone testing yet"
       ]
     }
   }
