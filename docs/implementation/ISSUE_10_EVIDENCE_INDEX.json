@@ -33,7 +33,8 @@
     "architecture": "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
     "design_handoff": "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md",
     "phase2_audit": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
-    "phase3_audit": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+    "phase3_audit": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+    "phase4_audit": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -90,11 +91,17 @@
     },
     {
       "phase": "P04",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "STT/TTS adapters hardened in source; 12 JUnit authored, none run."
     },
     {
       "phase": "P05",
@@ -258,9 +265,10 @@
         "M28"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
       ],
-      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
+      "notes": "P04 source review only; AC NOT_VERIFIED."
     },
     {
       "id": "AC05",
@@ -279,8 +287,10 @@
         "M40",
         "M52"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+      ],
+      "notes": "P04 source review only; AC NOT_VERIFIED."
     },
     {
       "id": "AC06",
@@ -364,8 +374,10 @@
         "M39",
         "M40"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+      ],
+      "notes": "P04 source review only; AC NOT_VERIFIED."
     },
     {
       "id": "AC10",
@@ -392,9 +404,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
       ],
-      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
+      "notes": "P04 source review only; AC NOT_VERIFIED."
     },
     {
       "id": "AC11",
@@ -456,8 +469,10 @@
       "linked_phone_lab_ids": [
         "M51"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+      ],
+      "notes": "P04 source review only; AC NOT_VERIFIED."
     },
     {
       "id": "AC14",
@@ -473,8 +488,10 @@
         "M10",
         "M52"
       ],
-      "evidence_uris": [],
-      "notes": "No #10 runtime validation yet"
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+      ],
+      "notes": "P04 source review only; AC NOT_VERIFIED."
     },
     {
       "id": "AC15",
@@ -1036,8 +1053,12 @@
       "name": "Voice feedback, optional TTS failures",
       "phase": "P08",
       "kind": "JVM",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY_PARTIAL",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T07",
@@ -1089,7 +1110,9 @@
     "voice_transition_policy": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt",
     "phase2_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
     "phase3_ptt_admission": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePttAdmissionPolicy.kt",
-    "phase3_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+    "phase3_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
+    "on_device_english_policy": "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+    "phase4_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
   },
   "known_gaps": [
     {
@@ -1132,8 +1155,9 @@
         "P04",
         "P05"
       ],
-      "state": "OPEN",
-      "resolved_by": null
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "Provider confidence remains optional; P05 mapper gap still open"
     },
     {
       "id": "G05",
@@ -1142,8 +1166,9 @@
       "phases": [
         "P04"
       ],
-      "state": "OPEN",
-      "resolved_by": null
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "API29/30 manual-only, 31/32 unknown model readiness, 33+ English preflight"
     },
     {
       "id": "G06",
@@ -1168,7 +1193,7 @@
       ],
       "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
       "resolved_by": null,
-      "notes": "P03 basic Full Player overlay exists; final WF08 a11y in P09."
+      "notes": "TTS adapter cleanup strengthened; P08/P09 full feedback/accessibility still open"
     },
     {
       "id": "G08",
@@ -1239,6 +1264,8 @@
     "P02_source_delivered": true,
     "P02_authored_junit_methods": 8,
     "P03_source_delivered": true,
-    "P03_authored_junit_methods": 12
+    "P03_authored_junit_methods": 12,
+    "P04_source_delivered": true,
+    "P04_authored_junit_methods": 12
   }
 }
