@@ -1,0 +1,1193 @@
+{
+  "schema_version": "1.0",
+  "issue": 10,
+  "repository": "latticeward-labs/music-copilot",
+  "created_date": "2026-10-25",
+  "branch": "feature/10-ptt-voice-five-control-intents",
+  "base_branch": "main",
+  "source_lock": {
+    "main_commit_at_P00": "e13172683ee8495e26b7c2d56f88444e4969891e",
+    "rar_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "rar_pdf_count": 12,
+    "develop_behind_main_at_P01": 1066,
+    "branch_ahead_of_main_at_P01_start": 6,
+    "branch_behind_main_at_P01_start": 0,
+    "branch_policy": "Target main proposed; contributing guide prefers develop. Recheck live divergence and obtain owner approval before final PR/merge."
+  },
+  "evidence_role_taxonomy": {
+    "SOURCE_ONLY": "File inspected or committed; does NOT mean running",
+    "AUTHORED_ONLY": "Test source exists but was NOT executed",
+    "BUILD_ONLY": "assembleDebug output; not test PASS",
+    "OWNER_REPORTED": "User report from physical phone linked to exact APK SHA",
+    "EXECUTED_TECHNICAL": "Real execution with logs/run IDs",
+    "DEFERRED": "Unverified with explicit reason"
+  },
+  "linked_documents": {
+    "phase_plan": "docs/implementation/ISSUE_10_PHASED_EXECUTION_PLAN.md",
+    "readiness_audit": "docs/implementation/ISSUE_10_PHASE0_READINESS_AUDIT.md",
+    "phase0_traceability": "docs/implementation/ISSUE_10_PHASE0_TRACEABILITY.json",
+    "phase1_contract": "docs/implementation/ISSUE_10_PHASE1_EXECUTION_CONTRACT.md",
+    "phone_checklist": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+    "QA_register": "docs/implementation/ISSUE_10_QA_RESULTS.json",
+    "PR_template": ".github/PULL_REQUEST_TEMPLATE/issue-10-ptt-voice-five-control-intents.md",
+    "architecture": "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
+    "design_handoff": "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md"
+  },
+  "phase_evidence": [
+    {
+      "phase": "P00",
+      "status": "SOURCE_AUDIT_COMPLETE",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE0_READINESS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE0_TRACEABILITY.json"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "Static audit only; G01-G10 outstanding"
+    },
+    {
+      "phase": "P01",
+      "status": "GOVERNANCE_DOCS_COMPLETE",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE1_EXECUTION_CONTRACT.md",
+        "docs/implementation/ISSUE_10_EVIDENCE_INDEX.json",
+        "docs/implementation/ISSUE_10_QA_RESULTS.json",
+        ".github/PULL_REQUEST_TEMPLATE/issue-10-ptt-voice-five-control-intents.md"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "Documentation and QA scaffolding only"
+    },
+    {
+      "phase": "P02",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P03",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P04",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P05",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P06",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P07",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P08",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P09",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P10",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P11",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P12",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    },
+    {
+      "phase": "P13",
+      "status": "NOT_STARTED",
+      "evidence_paths": [],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": null
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P02",
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M29",
+        "M33"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC02",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P03"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M31"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC03",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P07"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M41",
+        "M42"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC04",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P02",
+        "P04"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/VoicePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M26",
+        "M27",
+        "M28"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC05",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P04"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/TextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M10",
+        "M39",
+        "M40",
+        "M52"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC06",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P05"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M21",
+        "M22"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC07",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P06"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M23",
+        "M24",
+        "M25",
+        "M32",
+        "M33"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC08",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P03",
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M04",
+        "M05",
+        "M23",
+        "M43",
+        "M53"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC09",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P08"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M39",
+        "M40"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC10",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P02",
+        "P07",
+        "P10"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M08",
+        "M19",
+        "M20",
+        "M28",
+        "M29",
+        "M36",
+        "M38",
+        "M43",
+        "M57"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC11",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P10"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M30",
+        "M31",
+        "M32",
+        "M41",
+        "M42",
+        "M44",
+        "M45",
+        "M46",
+        "M47"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC12",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P13"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC13",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M51"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC14",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M10",
+        "M52"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC15",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P02",
+        "P05",
+        "P06",
+        "P10",
+        "P12"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M26",
+        "M27",
+        "M28",
+        "M30",
+        "M31",
+        "M32",
+        "M33"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    },
+    {
+      "id": "AC16",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M23",
+        "M24",
+        "M48",
+        "M49",
+        "M50"
+      ],
+      "evidence_uris": [],
+      "notes": "No #10 runtime validation yet"
+    }
+  ],
+  "owner_phone_cases": [
+    {
+      "id": "M01",
+      "status": "NOT_RUN",
+      "QA_register_key": "M01",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M02",
+      "status": "NOT_RUN",
+      "QA_register_key": "M02",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M03",
+      "status": "NOT_RUN",
+      "QA_register_key": "M03",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M04",
+      "status": "NOT_RUN",
+      "QA_register_key": "M04",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M05",
+      "status": "NOT_RUN",
+      "QA_register_key": "M05",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M06",
+      "status": "NOT_RUN",
+      "QA_register_key": "M06",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M07",
+      "status": "NOT_RUN",
+      "QA_register_key": "M07",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M08",
+      "status": "NOT_RUN",
+      "QA_register_key": "M08",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M09",
+      "status": "NOT_RUN",
+      "QA_register_key": "M09",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M10",
+      "status": "NOT_RUN",
+      "QA_register_key": "M10",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M11",
+      "status": "NOT_RUN",
+      "QA_register_key": "M11",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M12",
+      "status": "NOT_RUN",
+      "QA_register_key": "M12",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M13",
+      "status": "NOT_RUN",
+      "QA_register_key": "M13",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M14",
+      "status": "NOT_RUN",
+      "QA_register_key": "M14",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M15",
+      "status": "NOT_RUN",
+      "QA_register_key": "M15",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M16",
+      "status": "NOT_RUN",
+      "QA_register_key": "M16",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M17",
+      "status": "NOT_RUN",
+      "QA_register_key": "M17",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M18",
+      "status": "NOT_RUN",
+      "QA_register_key": "M18",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M19",
+      "status": "NOT_RUN",
+      "QA_register_key": "M19",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M20",
+      "status": "NOT_RUN",
+      "QA_register_key": "M20",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M21",
+      "status": "NOT_RUN",
+      "QA_register_key": "M21",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M22",
+      "status": "NOT_RUN",
+      "QA_register_key": "M22",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M23",
+      "status": "NOT_RUN",
+      "QA_register_key": "M23",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M24",
+      "status": "NOT_RUN",
+      "QA_register_key": "M24",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M25",
+      "status": "NOT_RUN",
+      "QA_register_key": "M25",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M26",
+      "status": "NOT_RUN",
+      "QA_register_key": "M26",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M27",
+      "status": "NOT_RUN",
+      "QA_register_key": "M27",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M28",
+      "status": "NOT_RUN",
+      "QA_register_key": "M28",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M29",
+      "status": "NOT_RUN",
+      "QA_register_key": "M29",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M30",
+      "status": "NOT_RUN",
+      "QA_register_key": "M30",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M31",
+      "status": "NOT_RUN",
+      "QA_register_key": "M31",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M32",
+      "status": "NOT_RUN",
+      "QA_register_key": "M32",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M33",
+      "status": "NOT_RUN",
+      "QA_register_key": "M33",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M34",
+      "status": "NOT_RUN",
+      "QA_register_key": "M34",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M35",
+      "status": "NOT_RUN",
+      "QA_register_key": "M35",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M36",
+      "status": "NOT_RUN",
+      "QA_register_key": "M36",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M37",
+      "status": "NOT_RUN",
+      "QA_register_key": "M37",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M38",
+      "status": "NOT_RUN",
+      "QA_register_key": "M38",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M39",
+      "status": "NOT_RUN",
+      "QA_register_key": "M39",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M40",
+      "status": "NOT_RUN",
+      "QA_register_key": "M40",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M41",
+      "status": "NOT_RUN",
+      "QA_register_key": "M41",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M42",
+      "status": "NOT_RUN",
+      "QA_register_key": "M42",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M43",
+      "status": "NOT_RUN",
+      "QA_register_key": "M43",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M44",
+      "status": "NOT_RUN",
+      "QA_register_key": "M44",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M45",
+      "status": "NOT_RUN",
+      "QA_register_key": "M45",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M46",
+      "status": "NOT_RUN",
+      "QA_register_key": "M46",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M47",
+      "status": "NOT_RUN",
+      "QA_register_key": "M47",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M48",
+      "status": "NOT_RUN",
+      "QA_register_key": "M48",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M49",
+      "status": "NOT_RUN",
+      "QA_register_key": "M49",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M50",
+      "status": "NOT_RUN",
+      "QA_register_key": "M50",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M51",
+      "status": "NOT_RUN",
+      "QA_register_key": "M51",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M52",
+      "status": "NOT_RUN",
+      "QA_register_key": "M52",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M53",
+      "status": "NOT_RUN",
+      "QA_register_key": "M53",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M54",
+      "status": "NOT_RUN",
+      "QA_register_key": "M54",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M55",
+      "status": "NOT_RUN",
+      "QA_register_key": "M55",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M56",
+      "status": "NOT_RUN",
+      "QA_register_key": "M56",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M57",
+      "status": "NOT_RUN",
+      "QA_register_key": "M57",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M58",
+      "status": "NOT_RUN",
+      "QA_register_key": "M58",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M59",
+      "status": "NOT_RUN",
+      "QA_register_key": "M59",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M60",
+      "status": "NOT_RUN",
+      "QA_register_key": "M60",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    }
+  ],
+  "lab_cases": [
+    {
+      "id": "L01",
+      "command": "PLAY",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "L02",
+      "command": "PAUSE",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "L03",
+      "command": "NEXT",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "L04",
+      "command": "PREVIOUS",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "L05",
+      "command": "SEEK_BACK",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    }
+  ],
+  "technical_groups": [
+    {
+      "id": "T01",
+      "name": "Deterministic intent mapping and rejection",
+      "phase": "P05",
+      "kind": "JVM",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T02",
+      "name": "Voice reducer/state transitions/generation",
+      "phase": "P02",
+      "kind": "JVM",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T03",
+      "name": "6s timeout, one retry, cancellation",
+      "phase": "P02/P04",
+      "kind": "JVM",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T04",
+      "name": "Playback ACK and one-shot duplicate suppression",
+      "phase": "P06",
+      "kind": "JVM",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T05",
+      "name": "Ducking lease/focus/route priority",
+      "phase": "P07",
+      "kind": "JVM",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T06",
+      "name": "Voice feedback, optional TTS failures",
+      "phase": "P08",
+      "kind": "JVM",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T07",
+      "name": "Compose voice overlay/semantics/a11y",
+      "phase": "P09",
+      "kind": "ANDROID_INSTRUMENTATION",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T08",
+      "name": "Lifecycle/permission/late-callback race",
+      "phase": "P10",
+      "kind": "JVM_AND_ANDROID_INSTRUMENTATION",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T09",
+      "name": "Privacy/consent/manifest/static inspection",
+      "phase": "P11",
+      "kind": "SOURCE_AUDIT_AND_LINT",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "T10",
+      "name": "Android 10/12/14+, OEM, parked vehicle and real voice integration",
+      "phase": "P13",
+      "kind": "PHYSICAL_DEVICE",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    }
+  ],
+  "source_boundaries": {
+    "one_voice_owner": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+    "replaceable_stt": "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+    "replaceable_tts": "app/src/main/java/com/latticeward/musiccopilot/voice/api/TextToSpeechEngine.kt",
+    "restricted_mapper": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+    "player": "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+    "driving": "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+    "binding": "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+    "playback_contract": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+    "playback_service": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+  },
+  "known_gaps": [
+    {
+      "id": "G01",
+      "severity": "BLOCKER",
+      "description": "Voice-specific playback duck and safe restore not implemented",
+      "phases": [
+        "P07"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G02",
+      "severity": "BLOCKER",
+      "description": "Full Player microphone/overlay entry not connected",
+      "phases": [
+        "P03",
+        "P09"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G03",
+      "severity": "BLOCKER",
+      "description": "Current mapper requires spoken musico prefix; direct PTT examples omit it",
+      "phases": [
+        "P05"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G04",
+      "severity": "HIGH",
+      "description": "Missing provider confidence maps to RequiresConfirmation and then Failed; decide fail-closed policy and measure",
+      "phases": [
+        "P04",
+        "P05"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G05",
+      "severity": "HIGH",
+      "description": "On-device STT explicitly unavailable on Android 10/11 (API 29/30); manual fallback contract",
+      "phases": [
+        "P04"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G06",
+      "severity": "HIGH",
+      "description": "One-shot service dispatch/ACK and retry/lifecycle race behavior not validated",
+      "phases": [
+        "P02",
+        "P06",
+        "P10"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G07",
+      "severity": "HIGH",
+      "description": "Voice UI accessibility and feedback incomplete cross origin",
+      "phases": [
+        "P08",
+        "P09"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G08",
+      "severity": "HIGH",
+      "description": "Issue #9 M45 explicitly untested/deferred to #10",
+      "phases": [
+        "P13"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G09",
+      "severity": "QUALITY_GATE",
+      "description": "Direct-command lab 50 attempts not run; minimum 45 successes",
+      "phases": [
+        "P13"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G10",
+      "severity": "RISK",
+      "description": "Device matrix, separate test execution and privacy audit not completed",
+      "phases": [
+        "P11",
+        "P12",
+        "P13"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    }
+  ],
+  "cross_issue": {
+    "M45_from_issue9": "BLOCKED_DEFERRED_TO_ISSUE10_P13_GS04",
+    "issue9_link": "https://github.com/latticeward-labs/music-copilot/issues/9",
+    "deferred_QA_issues": [
+      74,
+      78
+    ],
+    "issue11": "PLAY_ARTIST reserved for Issue #11"
+  },
+  "release_evidence": {
+    "source_commit_sha": null,
+    "apk_sha256": null,
+    "apk_size_bytes": null,
+    "artifact_url": null,
+    "build_only_run_id": null,
+    "phone_owner_results_receipt": null,
+    "lab_gate": null,
+    "independent_reviewer": null,
+    "PR_url": null,
+    "merge_sha": null,
+    "closed_at": null
+  },
+  "summary": {
+    "AC_total": 16,
+    "AC_verified": 0,
+    "M_total": 60,
+    "M_executed": 0,
+    "L_groups": 5,
+    "L_attempts_executed": 0,
+    "technical_groups": 10,
+    "technical_groups_executed": 0,
+    "APK_count": 0,
+    "source_phase1_docs_complete": true
+  }
+}
