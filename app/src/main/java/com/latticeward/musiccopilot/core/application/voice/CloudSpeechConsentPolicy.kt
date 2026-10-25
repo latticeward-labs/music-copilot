@@ -7,8 +7,23 @@ data class RemoteSpeechDisclosure(
     val purpose: String,
     val retention: String,
 ) {
+    /**
+     * A stored "Granted" flag does NOT establish a legal disclosure.
+     * Reject placeholder/obscured fields and control characters: future
+     * provider activation still requires a separate UX/legal review.
+     */
     fun complete(): Boolean = listOf(processor, destination, purpose, retention).all {
-        it.isNotBlank() && it.trim() != "unknown" && it.trim() != "TBD"
+        val field = it.trim()
+        field.isNotEmpty() && field.length <= 256 &&
+            field.lowercase(java.util.Locale.ROOT) !in PLACEHOLDERS &&
+            field.none { char -> Character.isISOControl(char) }
+    }
+
+    private companion object {
+        val PLACEHOLDERS = setOf(
+            "unknown", "tbd", "n/a", "na", "none", "pending",
+            "not applicable", "not disclosed", "undisclosed", "-"
+        )
     }
 }
 
