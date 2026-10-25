@@ -539,7 +539,7 @@ private fun PlayerVoiceControls(
     val micFocus = remember { FocusRequester() }
     val panelFocus = remember { FocusRequester() }
     var panelWasVisible by remember { mutableStateOf(false) }
-    LaunchedEffect(panelVisible, availability) {
+    LaunchedEffect(panelVisible) {
         if (panelVisible) panelFocus.requestFocus()
         else if (panelWasVisible && VoicePttAdmissionPolicy.canTapMic(availability))
             micFocus.requestFocus()
