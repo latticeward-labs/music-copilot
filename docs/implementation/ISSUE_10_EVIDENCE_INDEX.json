@@ -38,7 +38,8 @@
     "phase5_audit": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
     "phase6_audit": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
     "phase7_audit": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
-    "phase8_audit": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md"
+    "phase8_audit": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+    "phase9_audit": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -180,11 +181,19 @@
     },
     {
       "phase": "P09",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "Single shared WF-08 panel, pure state/error projection, 21 accessible string resources and focus return; 20 JUnit authored, no execution."
     },
     {
       "phase": "P10",
@@ -240,9 +249,10 @@
         "M33"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
       ],
-      "notes": "P02 source implementation only; AC NOT_VERIFIED pending actual behavior and phase integration."
+      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
     },
     {
       "id": "AC02",
@@ -265,9 +275,10 @@
         "M31"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
       ],
-      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
+      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
     },
     {
       "id": "AC03",
@@ -407,9 +418,10 @@
         "M53"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
       ],
-      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
+      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
     },
     {
       "id": "AC09",
@@ -460,9 +472,10 @@
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
       ],
-      "notes": "P08 pure/resource and authored-only JUnit evidence; no runtime TTS or manual audio verification; NOT_VERIFIED."
+      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
     },
     {
       "id": "AC11",
@@ -579,9 +592,10 @@
         "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
       ],
-      "notes": "P08 pure/resource and authored-only JUnit evidence; no runtime TTS or manual audio verification; NOT_VERIFIED."
+      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
     },
     {
       "id": "AC16",
@@ -601,9 +615,10 @@
         "M50"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
       ],
-      "notes": "P03 source only; AC NOT_VERIFIED and device/UX evidence pending."
+      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
     }
   ],
   "owner_phone_cases": [
@@ -1148,8 +1163,14 @@
       "name": "Compose voice overlay/semantics/a11y",
       "phase": "P09",
       "kind": "ANDROID_INSTRUMENTATION",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T08",
@@ -1207,7 +1228,10 @@
     "phase7_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt",
     "phase8_feedback_catalog": "app/src/main/java/com/latticeward/musiccopilot/voice/feedback/VoiceFeedbackCatalog.kt",
     "phase8_android_catalog": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidVoiceFeedbackCatalog.kt",
-    "phase8_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt"
+    "phase8_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+    "phase9_projection": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+    "phase9_shared_compose": "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+    "phase9_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
   },
   "known_gaps": [
     {
@@ -1288,9 +1312,9 @@
         "P08",
         "P09"
       ],
-      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
-      "resolved_by": null,
-      "notes": "P08 one-sentence TTS catalog, bounded 2s speak, callback stop/error and no duplicate feedback added in source. P09 Voice overlay/TalkBack, P10 race/OEM and P13 phone checks remain unverified."
+      "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
+      "resolved_by": "P08_P09_SOURCE_ONLY",
+      "notes": "P08 bounded TTS and P09 common WF-08 panel, TalkBack labels, font-scale-friendly targets, focus return. P10/P13 real accessibility, OEM and late callback checks not run; do not close gap."
     },
     {
       "id": "G08",
@@ -1371,6 +1395,8 @@
     "P07_source_delivered": true,
     "P07_authored_junit_methods": 13,
     "P08_source_delivered": true,
-    "P08_authored_junit_methods": 15
+    "P08_authored_junit_methods": 15,
+    "P09_source_delivered": true,
+    "P09_authored_junit_methods": 20
   }
 }
