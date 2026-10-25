@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P01_GOVERNANCE_REGISTER",
+  "stage": "P02_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -65,10 +65,13 @@
       "apk_built": false
     },
     "P02": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+      "authored_junit_cases": 8,
+      "notes": "Coordinator/transition policy implemented in source only; no Gradle/JVM/Android/Actions run."
     },
     "P03": {
       "state": "NOT_STARTED",
@@ -178,9 +181,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
       "verified_at": null
     },
     {
@@ -241,9 +244,9 @@
         "M28"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
       "verified_at": null
     },
     {
@@ -369,9 +372,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
       "verified_at": null
     },
     {
@@ -393,9 +396,9 @@
         "M47"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
       "verified_at": null
     },
     {
@@ -472,9 +475,9 @@
         "M33"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
       "verified_at": null
     },
     {
@@ -1651,14 +1654,17 @@
       "name": "Voice reducer/state transitions/generation",
       "phase": "P02",
       "kind": "JVM",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "8 P02 JUnit methods are authored; runtime executed=0; any prior Phase8 tests unchanged/unrun here.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T03",
@@ -1800,7 +1806,9 @@
     "ac_total": 16,
     "ac_verified": 0,
     "technical_groups": 10,
-    "technical_executed": 0
+    "technical_executed": 0,
+    "technical_groups_authored": 1,
+    "technical_groups_executed": 0
   },
   "quality_gates": {
     "P01_complete_only_on_source_commit": true,
@@ -1808,5 +1816,33 @@
     "owner_phone_results_deferred_to_P13": true,
     "field_QA_requires_lab_gate_pass": true,
     "no_merge_close_without_owner_instruction": true
+  },
+  "phase_notes": {
+    "P02": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt"
+      ],
+      "implemented_source_boundaries": [
+        "one cancellable session generation",
+        "main-safe state admission",
+        "per-attempt six-second Listening",
+        "one recognition retry",
+        "terminal STT teardown",
+        "stale callback suppression",
+        "single dispatch claim before suspension",
+        "service ACK controls success state"
+      ],
+      "not_claimed": [
+        "service-level duplicate proof (P06)",
+        "duck lease P07",
+        "UI or Android device voice",
+        "automated test PASS"
+      ],
+      "unit_cases_authored": 8,
+      "technical_status": "NOT_RUN"
+    }
   }
 }
