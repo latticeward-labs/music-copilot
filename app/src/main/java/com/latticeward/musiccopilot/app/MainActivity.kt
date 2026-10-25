@@ -32,7 +32,6 @@ import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeGate
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
-import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceHandoffPolicy
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.voice.api.VoiceOrigin
 import com.latticeward.musiccopilot.voice.api.VoiceSessionState
@@ -476,7 +475,11 @@ class MainActivity : ComponentActivity() {
             if (playerMicUi.value == VoicePracticeStage.ReadyForVoiceHandoff)
                 playerMicUi.value = VoicePracticeStage.PermissionDenied
         }
-        voicePracticeUi.value = voicePracticeGate.stage
+        // Surface-owned rationale/result must not surface as onboarding practice.
+        if (micPermissionOrigin == null &&
+            playerMicUi.value == VoicePracticeStage.Idle &&
+            drivingMicUi.value == VoicePracticeStage.Idle
+        ) voicePracticeUi.value = voicePracticeGate.stage
         (application as MusicCopilotApplication).bindings.onForeground()
     }
 
