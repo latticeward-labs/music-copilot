@@ -103,7 +103,7 @@ class ApplicationBindings(
     val textToSpeechEngine: TextToSpeechEngine = VoiceBindings.textToSpeech(context)
 
     private val voiceOwner: DefaultVoiceSessionCoordinator =
-        VoiceBindings.coordinator(voiceScope, speechToTextEngine, textToSpeechEngine, playbackGateway, context != null)
+        VoiceBindings.coordinator(voiceScope, speechToTextEngine, textToSpeechEngine, playbackGateway, context != null, context)
     val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
 
     /**
