@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_SOURCE_IMPLEMENTED_UNBUILT; P10_NEXT**. Implementation P10–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_SOURCE_IMPLEMENTED_UNBUILT; P10_SOURCE_IMPLEMENTED_UNBUILT; P11_NEXT**. Implementation P11–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -88,6 +88,8 @@
 ### P10 — Interruption, background and race hardening
 **Work:** Cancel STT/TTS/duck on Back/Driving Exit, origin loss, app background according to approved lifecycle, permission revocation, call/focus invalidation and wired/headphone/Bluetooth route loss. Resolve rapid second tap, retry-vs-late-STT, callback-after-cancel, repeat/rotation, background/foreground and multiple ack race. Never leak playback to handset speaker.
 **Output:** lifecycle/interruption policy, idempotent generation cleanup and authored-only race tests. No tests/build.
+
+> **P10 evidence (2026-10-25):** [Lifecycle/Interruption/Race source audit](ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md) · [17 source-only JUnit race cases](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt). Exact recognizer and utterance teardown identity, app-start admission, no double tap/late mic, focus/BT route cancellation, bounded unDuck receipt drain. All AC NOT_VERIFIED; no Gradle/tests/Actions/APK.
 
 ### P11 — Privacy, cloud-consent boundary and diagnostics
 **Work:** Reject audio/transcript/file-name persistence, logs, analytics and crash breadcrumbs; use allowlisted intent/result/coarse bucket metadata only if an approved local sink exists; do not require or enable backend/cloud. If cloud STT is proposed later, separate opt-in plus processor/destination/purpose/retention review MUST precede its activation. Ensure deny/manual-only never harms local music playback.
