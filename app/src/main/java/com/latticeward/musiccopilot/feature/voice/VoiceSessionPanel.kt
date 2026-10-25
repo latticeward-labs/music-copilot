@@ -64,7 +64,7 @@ fun VoiceSessionPanel(
     val projected = VoiceOverlayPresentationPolicy.project(state, permissionStage)
     if (!projected.visible) return
 
-    val heading = when (projected.status) {
+    val headingText = when (projected.status) {
         VoiceOverlayStatus.Hidden -> return
         VoiceOverlayStatus.PermissionRationale -> stringResource(R.string.i10_voice_permission_title)
         VoiceOverlayStatus.PermissionPending -> stringResource(R.string.i10_voice_permission_waiting)
@@ -102,7 +102,7 @@ fun VoiceSessionPanel(
         verticalArrangement = Arrangement.spacedBy(MusicSpacing.smDp),
     ) {
         Text(
-            text = heading,
+            text = headingText,
             modifier = Modifier.fillMaxWidth()
                 .focusRequester(focusRequester)
                 .focusable()
