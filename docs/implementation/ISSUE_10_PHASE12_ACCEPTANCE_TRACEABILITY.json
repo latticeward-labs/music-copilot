@@ -1,0 +1,419 @@
+{
+  "schema": "issue10-p12-acceptance-traceability-v1",
+  "as_of_date": "2026-10-25",
+  "phase": "P12_CUMULATIVE_SOURCE_REVIEW",
+  "branch": "feature/10-ptt-voice-five-control-intents",
+  "source_baseline_archive": "MSM2(1)(1).rar",
+  "source_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "acceptance_total": 16,
+  "acceptance_verified": 0,
+  "source_evidence_counts": 53,
+  "phone_tests_expected": 60,
+  "phone_tests_executed": 0,
+  "lab_corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+  "lab_groups_expected": 5,
+  "lab_attempts_expected": 50,
+  "lab_pass_requirement": 45,
+  "lab_attempts_executed": 0,
+  "automated_groups_expected": 10,
+  "automated_groups_executed": 0,
+  "apk_build_authorized_phase": "P13_ONLY",
+  "issue_closure": "FORBIDDEN_PENDING_USER_REAL_QA",
+  "source_risks": [
+    "Compilation and Kotlin/Compose compatibility not proven because no build is permitted P12",
+    "No physical OEM English offline provider availability, focus/call/route/audio/TalkBack proof",
+    "No measured 45/50 lab success; null recognition confidence may suppress all five controls on some providers",
+    "No merged manifest/Lint/security scanner or actions execution",
+    "Media3 service may survive app restart; P12 command ID process nonce source hardening requires P13 verification"
+  ],
+  "criteria": [
+    {
+      "id": "AC01",
+      "requirement": "Voice State Machine: Idle → Listening → Processing → (Confirming if needed) → Executed/Failed",
+      "phase_owners": [
+        "P02",
+        "P09"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M29",
+        "M33"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC02",
+      "requirement": "Explicit mic tap only; no always-on / wake word",
+      "phase_owners": [
+        "P03"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M31"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC03",
+      "requirement": "Service-respecting Voice duck while Listening and reliable unduck",
+      "phase_owners": [
+        "P07"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M41",
+        "M42"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC04",
+      "requirement": "Listening ≤6s; no more than one retry",
+      "phase_owners": [
+        "P02",
+        "P04"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M26",
+        "M27",
+        "M28"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC05",
+      "requirement": "Replaceable STT and TTS providers",
+      "phase_owners": [
+        "P04"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M10",
+        "M39",
+        "M40",
+        "M52"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC06",
+      "requirement": "Only five executable controls in #10",
+      "phase_owners": [
+        "P05"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M21",
+        "M22"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC07",
+      "requirement": "Direct recognized command → service without navigation",
+      "phase_owners": [
+        "P06"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M23",
+        "M24",
+        "M25",
+        "M32",
+        "M33"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC08",
+      "requirement": "UI observes Voice and does not own playback/recognition",
+      "phase_owners": [
+        "P03",
+        "P09"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M04",
+        "M05",
+        "M23",
+        "M43",
+        "M53"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC09",
+      "requirement": "At most one short TTS sentence",
+      "phase_owners": [
+        "P08"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M39",
+        "M40"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC10",
+      "requirement": "Timeout/failure/cancel preserves playback and manual controls",
+      "phase_owners": [
+        "P02",
+        "P07",
+        "P10"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M08",
+        "M19",
+        "M20",
+        "M28",
+        "M29",
+        "M36",
+        "M38",
+        "M43",
+        "M57"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC11",
+      "requirement": "Lifecycle/recreation/background/interruption no duplicate command",
+      "phase_owners": [
+        "P10"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M30",
+        "M31",
+        "M32",
+        "M41",
+        "M42",
+        "M44",
+        "M45",
+        "M46",
+        "M47"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC12",
+      "requirement": "Lab direct-command success ≥90%",
+      "phase_owners": [
+        "P13"
+      ],
+      "source_evidence_paths": [],
+      "physical_test_cases": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC13",
+      "requirement": "No raw voice recording or logging",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M51"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC14",
+      "requirement": "If cloud STT, separate consent and processing/retention disclosure",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M10",
+        "M52"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC15",
+      "requirement": "Mapper/timeout/states/idempotence test coverage",
+      "phase_owners": [
+        "P02",
+        "P05",
+        "P06",
+        "P10",
+        "P12"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M26",
+        "M27",
+        "M28",
+        "M30",
+        "M31",
+        "M32",
+        "M33"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    },
+    {
+      "id": "AC16",
+      "requirement": "WF-08 voice presentation, TalkBack and visible state",
+      "phase_owners": [
+        "P09"
+      ],
+      "source_evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
+      ],
+      "physical_test_cases": [
+        "M23",
+        "M24",
+        "M48",
+        "M49",
+        "M50"
+      ],
+      "source_status": "SOURCE_EVIDENCE_NOT_RUNTIME_VERIFIED",
+      "acceptance_status": "NOT_VERIFIED",
+      "runtime_evidence": null,
+      "verification_method": "P13 owner physical phone & separate technical execution if necessary"
+    }
+  ]
+}
