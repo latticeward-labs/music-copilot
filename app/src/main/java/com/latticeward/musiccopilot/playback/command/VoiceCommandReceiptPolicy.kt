@@ -23,9 +23,10 @@ object VoiceCommandReceiptPolicy {
         itemCount > 0 && currentIndex >= 0 && currentIndex < itemCount - 1
 
     /** Service has the authoritative revision and item; never infer from UI. */
-    fun hasCoherentQueue(snapshot: PlaybackSnapshot): Boolean =
-        snapshot.queue.isNotEmpty() &&
-            snapshot.currentIndex != null &&
-            snapshot.currentIndex in snapshot.queue.indices &&
-            snapshot.currentItem == snapshot.queue[snapshot.currentIndex]
+    fun hasCoherentQueue(snapshot: PlaybackSnapshot): Boolean {
+        val index = snapshot.currentIndex ?: return false
+        return snapshot.queue.isNotEmpty() &&
+            index in snapshot.queue.indices &&
+            snapshot.currentItem == snapshot.queue[index]
+    }
 }
