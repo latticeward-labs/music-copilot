@@ -24,7 +24,6 @@ import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionRequest
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionResult
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
-import com.latticeward.musiccopilot.voice.policy.EnglishModelReadiness
 import com.latticeward.musiccopilot.voice.policy.OnDeviceEnglishSupportPolicy
 import com.latticeward.musiccopilot.voice.policy.VoicePolicy
 import kotlinx.coroutines.CancellationException
@@ -195,21 +194,32 @@ class AndroidOnDeviceSpeechToTextEngine(
                             object : RecognitionSupportCallback {
                                 override fun onSupportResult(support: RecognitionSupport) {
                                     if (live !== session || !continuation.isActive) return
-                                    val readiness = OnDeviceEnglishSupportPolicy.evaluate(
-                                        request.languageTag,
-                                        installed = support.installedOnDeviceLanguages,
-                                        downloadable = support.supportedOnDeviceLanguages,
-                                        pending = support.pendingOnDeviceLanguages,
-                                    )
-                                    if (readiness == EnglishModelReadiness.Installed)
-                                        startListening()
-                                    else finish(unavailable())
+                                    val installed = support.installedOnDeviceLanguages
+                                    val downloadable = support.supportedOnDeviceLanguages
+                                    val pending = support.pendingOnDeviceLanguages
+                                    // Some OEM on-device providers return empty
+                                    // support lists even though local recognition
+                                    // works. This means UNKNOWN, not unsupported:
+                                    // the *on-device* recognizer may try once.
+                                    // Explicitly downloadable/unavailable English
+                                    // remains blocked; no cloud/model download.
+                                    if (OnDeviceEnglishSupportPolicy.canAttemptOfflineEnglish(
+                                            request.languageTag, installed, downloadable, pending
+                                        )
+                                    ) startListening() else finish(unavailable())
                                 }
 
                                 override fun onError(error: Int) {
-                                    // Provider cannot confirm English availability:
-                                    // fail closed and retain manual music controls.
-                                    finish(unavailable())
+                                    if (live !== session || !continuation.isActive) return
+                                    // Android API33+ explicitly permits a service
+                                    // to refuse this *metadata query*. It does not
+                                    // mean that startListening() is unsupported.
+                                    // The recognizer was created with the
+                                    // on-device-only constructor, so one direct
+                                    // attempt cannot select a cloud STT adapter.
+                                    if (error == SpeechRecognizer.ERROR_CANNOT_CHECK_SUPPORT) {
+                                        startListening()
+                                    } else finish(unavailable())
                                 }
                             },
                         )
