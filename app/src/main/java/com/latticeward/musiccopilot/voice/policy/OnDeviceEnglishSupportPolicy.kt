@@ -23,6 +23,29 @@ object OnDeviceEnglishSupportPolicy {
     fun isSupportedRequest(languageTag: String): Boolean =
         languageTag.equals(REQUIRED_LANGUAGE_TAG, ignoreCase = true)
 
+    /**
+     * Some OEM on-device services expose a recognizer but cannot enumerate
+     * any support metadata. Empty collections are UNKNOWN, not proof that
+     * English is absent. It is safe to attempt ONLY the explicitly on-device
+     * recognizer in this case: platform errors still fail closed, and no
+     * cloud recognizer, download, or background listening is introduced.
+     *
+     * Nonempty evidence saying English requires download or is unsupported
+     * remains a hard block: no automatic model download is attempted.
+     */
+    fun canAttemptOfflineEnglish(
+        requestedTag: String,
+        installed: List<String>,
+        downloadable: List<String>,
+        pending: List<String>,
+    ): Boolean {
+        if (!isSupportedRequest(requestedTag)) return false
+        if (evaluate(requestedTag, installed, downloadable, pending) ==
+            EnglishModelReadiness.Installed
+        ) return true
+        return installed.isEmpty() && downloadable.isEmpty() && pending.isEmpty()
+    }
+
     fun evaluate(
         requestedTag: String,
         installed: List<String>,
