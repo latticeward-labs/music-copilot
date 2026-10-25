@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot.voice.session
 
 import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
 import com.latticeward.musiccopilot.core.model.VoiceSessionId
+import com.latticeward.musiccopilot.core.application.voice.VoiceLifecycleSafetyPolicy
 import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
@@ -80,15 +81,20 @@ class DefaultVoiceSessionCoordinator(
         get() = synchronized(gate) { childJob }
 
     /**
-     * A deliberate new start replaces the previous generation (architecture
-     * contract); P03 owns tap-time admission to avoid accidental double taps.
+     * P10: one active generation is exclusive even before Compose collects its
+     * new state. A second tap can NEVER silently replace active STT or TTS.
+     * The user first explicitly exits/cancels to Idle, then taps Mic again.
      * Neither permission callbacks nor app bootstrap may call start().
      */
     override fun start(origin: VoiceOrigin): AppResult<VoiceSessionId> =
         synchronized(gate) {
-            if (closed || ownerScope.coroutineContext[Job]?.isActive != true) {
+            if (closed || ownerScope.coroutineContext[Job]?.isActive != true ||
+                !VoiceLifecycleSafetyPolicy.canAdmitExplicitTap(mutableState.value)
+            ) {
                 return@synchronized failure(AppErrorCodes.VOICE_UNAVAILABLE)
             }
+            // Defensive cleanup for a previous completed/invalidated generation;
+            // no fresh command/recorder exists unless this explicit tap passed.
             invalidateLocked()
             val ready = try { stt.isAvailable() } catch (_: Exception) { false }
             if (!ready || sequence == Long.MAX_VALUE) {
