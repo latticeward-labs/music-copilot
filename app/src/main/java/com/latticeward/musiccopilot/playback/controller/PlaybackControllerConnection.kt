@@ -49,6 +49,9 @@ class PlaybackControllerConnection(
     private var released = false
     private var connecting: ListenableFuture<MediaController>? = null
     private var active: MediaController? = null
+    // P10: retain only the final service release receipt until the
+    // foreground MediaController is safely detached. Never holds playback.
+    private var pendingVoiceRelease: ListenableFuture<SessionResult>? = null
 
     private val relay = ControllerSnapshotRelay()
     override val connectionState: StateFlow<PlaybackConnectionState> = relay.connectionState
@@ -217,7 +220,7 @@ class PlaybackControllerConnection(
                 .isValidToken(token)
         ) return
         try {
-            controller.sendCustomCommand(
+            pendingVoiceRelease = controller.sendCustomCommand(
                 PlaybackWireProtocol.voiceDuckReleaseCommand(),
                 PlaybackWireProtocol.voiceDuckArgs(token),
             )
@@ -315,10 +318,32 @@ class PlaybackControllerConnection(
         if (released) return
         ++generation // Ignore callbacks from old binding/reconnect.
         connecting?.let(MediaController::releaseFuture)
-        active?.release()
+        val oldController = active
+        val releaseReceipt = pendingVoiceRelease
         active = null
         connecting = null
+        pendingVoiceRelease = null
         relay.disconnected()
+        if (oldController != null) {
+            if (releaseReceipt != null && !releaseReceipt.isDone) {
+                // The Main Activity is leaving; closing its controller
+                // immediately could drop the Voice-unDuck command it just
+                // sent. Keep ONLY the old controller until the command is
+                // serviced or one short timeout expires, then release it.
+                // No UI/Voice lifecycle, microphone or Player is retained.
+                ownerScope.launch {
+                    try {
+                        withTimeoutOrNull(1_000L) { await(releaseReceipt) }
+                    } catch (_: CancellationException) {
+                        // App teardown still releases this controller.
+                    } catch (_: Exception) {
+                        // Service-owned 22s lease TTL is a final fallback.
+                    } finally {
+                        oldController.release()
+                    }
+                }
+            } else oldController.release()
+        }
     }
 
     override fun close() {
