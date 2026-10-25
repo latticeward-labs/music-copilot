@@ -52,6 +52,9 @@ class ApplicationBindings(
     private val applicationJob = SupervisorJob()
     private val repositoryJob = SupervisorJob(applicationJob)
     private val voiceJob = SupervisorJob(applicationJob)
+    // P10: foreground is not inferred from a historical permission grant.
+    // Activity onStart/onStop remain the only writers; never DataStore-backed.
+    @Volatile private var uiVoiceStarted = false
 
     internal val applicationScope = CoroutineScope(
         applicationJob + dispatchers.main + CoroutineName("ApplicationControllers")
@@ -105,7 +108,11 @@ class ApplicationBindings(
     val textToSpeechEngine: TextToSpeechEngine = VoiceBindings.textToSpeech(context)
 
     private val voiceOwner: DefaultVoiceSessionCoordinator =
-        VoiceBindings.coordinator(voiceScope, speechToTextEngine, textToSpeechEngine, playbackGateway, context != null, context)
+        VoiceBindings.coordinator(
+            voiceScope, speechToTextEngine, textToSpeechEngine,
+            playbackGateway, context != null, context,
+            canBeginSession = { uiVoiceStarted },
+        )
     val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
 
     /**
@@ -229,6 +236,7 @@ class ApplicationBindings(
     }
 
     fun onUiStarted() {
+        uiVoiceStarted = true
         selectedBluetoothConnection.onUiStarted()
     }
 
@@ -245,6 +253,7 @@ class ApplicationBindings(
      * decides whether real active audio requires ongoing foreground playback.
      */
     fun onUiStopped() {
+        uiVoiceStarted = false
         // Application boundary is authoritative even if Activity callbacks
         // raced with route loss, rotation or task dismissal. Cancel FIRST,
         // while this MediaController is still connected so P07 release can
@@ -258,6 +267,7 @@ class ApplicationBindings(
     }
 
     override fun close() {
+        uiVoiceStarted = false
         selectedBluetoothConnection.close()
         voiceOwner.close()
         (speechToTextEngine as? AutoCloseable)?.close()
