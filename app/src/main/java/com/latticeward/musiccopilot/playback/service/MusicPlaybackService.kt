@@ -30,6 +30,7 @@ import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackPlayOrigin
 import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionHost
+import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionReason
 import com.latticeward.musiccopilot.playback.interruption.FocusCondition
 import com.latticeward.musiccopilot.playback.interruption.InterruptionNotice
 import com.latticeward.musiccopilot.playback.interruption.InterruptionNoticePolicy
@@ -244,8 +245,7 @@ class MusicPlaybackService : MediaSessionService() {
                 revokeVoiceDuck()
                 (application as PlaybackVoiceInterruptionHost)
                     .cancelActiveVoiceForPlaybackInterruption(
-                        com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionReason
-                            .ROUTE_INVALIDATED
+                        PlaybackVoiceInterruptionReason.ROUTE_INVALIDATED
                     )
                 // Bluetooth reconnect is an observation, NOT a Play request,
                 // user intent, proof of the active output, or latch release.
