@@ -146,7 +146,7 @@ class Issue10Phase6VoicePlaybackAckTest {
         val gateway = Gateway()
         val result = VoicePlaybackDispatcher(gateway).execute(RestrictedIntent.NEXT, sid, 1)
         assertTrue(result is AppResult.Success)
-        assertEquals(gateway.snapshot.value, (result as AppResult.Success).value)
+        assertEquals(gateway.snapshot.value, (result as AppResult.Success<PlaybackSnapshot>).value)
         assertEquals(listOf(PlaybackCommand.Next(CommandId("voice-42-1"))), gateway.commands)
     }
 
