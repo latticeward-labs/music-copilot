@@ -10,7 +10,13 @@ import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
  * The Media3 service's existing PlaybackCommandProcessor owns deduplication.
  */
 object VoiceCommandReceiptPolicy {
-    private val voiceId = Regex("^voice-[1-9][0-9]*-[12]$")
+    // Current process-scoped IDs prevent post-restart collisions while the
+    // same Media3 service keeps its 256-command dedup history. Accept the
+    // historical format only to preserve older in-flight receipt parsing;
+    // newly created P12 commands always use the random namespace.
+    private val voiceId = Regex(
+        "^voice-(?:[0-9a-f]{32}-)?[1-9][0-9]*-[12]$"
+    )
 
     fun isVoiceCommand(command: PlaybackCommand): Boolean =
         voiceId.matches(command.commandId.value)
