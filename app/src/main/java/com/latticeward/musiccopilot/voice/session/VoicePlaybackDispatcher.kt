@@ -14,6 +14,7 @@ import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.command.PlaybackNavigationPolicy
 import com.latticeward.musiccopilot.voice.intent.RestrictedIntent
 import kotlinx.coroutines.CancellationException
+import java.util.UUID
 
 /**
  * P06 voice-to-existing-Media3-port boundary. Creates no player/controller.
@@ -42,13 +43,19 @@ internal class VoicePlaybackDispatcher(private val gateway: PlaybackGateway) {
     }
 
     companion object {
+        // Never persist or log this process-local random namespace. The
+        // MediaSessionService may outlive Activity/app process recreation:
+        // a local sequence beginning at 1 must not collide with a cached
+        // command receipt from the previous process.
+        private val processNonce: String = UUID.randomUUID().toString().replace("-", "")
+
         fun commandFor(
             intent: RestrictedIntent,
             sessionId: VoiceSessionId,
             attempt: Int,
         ): PlaybackCommand? {
             if (sessionId.value <= 0L || attempt !in 1..2) return null
-            val id = CommandId("voice-${sessionId.value}-$attempt")
+            val id = CommandId("voice-$processNonce-${sessionId.value}-$attempt")
             return when (intent) {
                 RestrictedIntent.PLAY -> PlaybackCommand.Play(id)
                 RestrictedIntent.PAUSE -> PlaybackCommand.Pause(id)
