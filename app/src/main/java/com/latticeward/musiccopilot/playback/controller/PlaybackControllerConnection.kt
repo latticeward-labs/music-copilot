@@ -16,6 +16,7 @@ import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
+import com.latticeward.musiccopilot.playback.api.VoiceDuckingPort
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
 import com.latticeward.musiccopilot.playback.command.PlaybackWireProtocol
@@ -40,7 +41,7 @@ import kotlin.coroutines.resume
 class PlaybackControllerConnection(
     private val ownerScope: CoroutineScope,
     context: Context? = null,
-) : PlaybackGateway, AutoCloseable {
+) : PlaybackGateway, VoiceDuckingPort, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Controller requires structured scope" } }
 
     private val appContext = context?.applicationContext
@@ -176,6 +177,53 @@ class PlaybackControllerConnection(
         } catch (_: Exception) {
             disconnected()
         }
+    }
+
+    /**
+     * P07: private Media3 service owns all volume changes; controller only
+     * sends a bounded request and checks an exact service-owned receipt.
+     * A rejected/timed-out acquire MUST prevent microphone activation.
+     */
+    override suspend fun acquireVoiceDuck(token: String): Boolean {
+        val controller = active ?: return false
+        val captured = generation
+        if (released || connectionState.value != PlaybackConnectionState.Ready ||
+            !PlaybackWireProtocol.validVoiceDuckToken(
+                PlaybackWireProtocol.voiceDuckArgs(token)
+            ).equals(token)
+        ) return false
+        return try {
+            val outcome = withTimeoutOrNull(2_000L) {
+                await(controller.sendCustomCommand(
+                    PlaybackWireProtocol.voiceDuckAcquireCommand(),
+                    PlaybackWireProtocol.voiceDuckArgs(token),
+                ))
+            }
+            !released && captured == generation && active === controller &&
+                connectionState.value == PlaybackConnectionState.Ready &&
+                outcome?.resultCode == SessionResult.RESULT_SUCCESS &&
+                outcome.extras.getString(PlaybackWireProtocol.KEY_VOICE_DUCK_TOKEN) == token
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) { false }
+    }
+
+    /**
+     * No suspended callback on UI Back/permission loss. Sending release is
+     * best-effort; the service also has a bounded expiry and focus/route
+     * emergency revocation. Duplicate/stale releases cannot unduck a new lease.
+     */
+    override fun releaseVoiceDuck(token: String) {
+        val controller = active ?: return
+        if (released || !com.latticeward.musiccopilot.playback.command.ServiceVoiceDuckLease
+                .isValidToken(token)
+        ) return
+        try {
+            controller.sendCustomCommand(
+                PlaybackWireProtocol.voiceDuckReleaseCommand(),
+                PlaybackWireProtocol.voiceDuckArgs(token),
+            )
+        } catch (_: Exception) { /* service TTL prevents permanent duck */ }
     }
 
     override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
