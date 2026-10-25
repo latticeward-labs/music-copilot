@@ -119,7 +119,8 @@ class AndroidOnDeviceSpeechToTextEngine(
                     mainHandler.post { teardown(cancelFirst = true) }
                 }
 
-                recognizer.setRecognitionListener(object : RecognitionListener {
+                try {
+                    recognizer.setRecognitionListener(object : RecognitionListener {
                     override fun onReadyForSpeech(params: Bundle?) = Unit
                     override fun onBeginningOfSpeech() = Unit
                     override fun onRmsChanged(rmsdB: Float) = Unit
@@ -146,7 +147,7 @@ class AndroidOnDeviceSpeechToTextEngine(
                             return
                         }
                         val confidence = results
-                            .getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
+                            ?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
                             ?.firstOrNull()?.toDouble()
                             ?.takeIf { it.isFinite() && it in 0.0..1.0 }
                         finish(AppResult.Success(SpeechRecognitionResult(
@@ -155,7 +156,11 @@ class AndroidOnDeviceSpeechToTextEngine(
                             detectedLanguageTag = null, // unavailable unless platform proves it
                         )))
                     }
-                })
+                    })
+                } catch (_: Exception) {
+                    finish(unavailable())
+                    return@suspendCancellableCoroutine
+                }
 
                 fun startListening() {
                     if (live !== session || !continuation.isActive) return
