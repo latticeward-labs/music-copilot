@@ -67,12 +67,17 @@ class Issue10Phase6VoicePlaybackAckTest {
     }
 
     @Test fun preciselyFiveTransportCommandsUseOneDeterministicVoiceIdPerAttempt() {
+        // P12: stable *within* one process/attempt, with a process-local
+        // nonce so a surviving service cannot replay an older receipt.
+        val id = VoicePlaybackDispatcher.commandFor(RestrictedIntent.PLAY, sid, 1)!!.commandId
+        assertTrue(VoiceCommandReceiptPolicy.isVoiceCommand(PlaybackCommand.Play(id)))
+        assertTrue(id.value.matches(Regex("^voice-[0-9a-f]{32}-42-1$")))
         val expected = listOf(
-            RestrictedIntent.PLAY to PlaybackCommand.Play(CommandId("voice-42-1")),
-            RestrictedIntent.PAUSE to PlaybackCommand.Pause(CommandId("voice-42-1")),
-            RestrictedIntent.NEXT to PlaybackCommand.Next(CommandId("voice-42-1")),
-            RestrictedIntent.PREVIOUS to PlaybackCommand.Previous(CommandId("voice-42-1")),
-            RestrictedIntent.SEEK_BACK to PlaybackCommand.SeekBy(CommandId("voice-42-1"), -10_000L),
+            RestrictedIntent.PLAY to PlaybackCommand.Play(id),
+            RestrictedIntent.PAUSE to PlaybackCommand.Pause(id),
+            RestrictedIntent.NEXT to PlaybackCommand.Next(id),
+            RestrictedIntent.PREVIOUS to PlaybackCommand.Previous(id),
+            RestrictedIntent.SEEK_BACK to PlaybackCommand.SeekBy(id, -10_000L),
         )
         for ((intent, command) in expected) {
             assertEquals(command, VoicePlaybackDispatcher.commandFor(intent, sid, 1))
@@ -147,7 +152,7 @@ class Issue10Phase6VoicePlaybackAckTest {
         val result = VoicePlaybackDispatcher(gateway).execute(RestrictedIntent.NEXT, sid, 1)
         assertTrue(result is AppResult.Success)
         assertEquals(gateway.snapshot.value, (result as AppResult.Success<PlaybackSnapshot>).value)
-        assertEquals(listOf(PlaybackCommand.Next(CommandId("voice-42-1"))), gateway.commands)
+        assertEquals(listOf(VoicePlaybackDispatcher.commandFor(RestrictedIntent.NEXT, sid, 1)!!), gateway.commands)
     }
 
     @Test fun rejectedServiceCommandNeverBecomesVoiceSuccess() = runBlocking {
