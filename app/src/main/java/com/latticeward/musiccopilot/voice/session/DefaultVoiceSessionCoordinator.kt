@@ -57,9 +57,6 @@ class DefaultVoiceSessionCoordinator(
      * race a synchronous cancel/retry or publish a stale result.
      */
     private val gate = Any()
-    private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
-    override val state: StateFlow<VoiceSessionState> = mutableState
-
     private var sequence = 0L
     private var childJob: Job? = null
     private var currentId: VoiceSessionId? = null
