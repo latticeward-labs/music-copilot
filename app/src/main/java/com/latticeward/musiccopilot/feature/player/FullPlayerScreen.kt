@@ -52,6 +52,11 @@ import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppError
+import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
+import com.latticeward.musiccopilot.core.application.voice.VoicePttAdmissionPolicy
+import com.latticeward.musiccopilot.core.application.voice.VoicePttAvailability
+import com.latticeward.musiccopilot.voice.api.VoiceSessionState
+import androidx.compose.ui.semantics.stateDescription
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -73,8 +78,25 @@ fun FullPlayerScreen(
     canReadLocalMetadata: Boolean,
     onBack: () -> Unit,
     onEnterDriving: () -> Unit = {},
+    voiceState: VoiceSessionState = VoiceSessionState.Idle,
+    voiceAvailability: VoicePttAvailability = VoicePttAvailability.ProviderUnavailable,
+    voicePermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
+    voiceStartRejected: Boolean = false,
+    onMic: () -> Unit = {},
+    onVoicePermissionContinue: () -> Unit = {},
+    onVoicePermissionCancel: () -> Unit = {},
+    onVoiceCancel: () -> Unit = {},
+    onVoiceRetry: () -> Unit = {},
 ) {
     BackHandler(onBack = onBack)
+    val voiceActive = voiceState != VoiceSessionState.Idle
+    val voicePermissionPrompt = voicePermissionStage == VoicePracticeStage.Rationale ||
+        voicePermissionStage == VoicePracticeStage.AwaitingAndroid
+    // Back first dismisses an owned Voice/rationale instead of leaving a
+    // recording active behind Full Player. The regular Back still closes Player.
+    BackHandler(enabled = voiceActive || voicePermissionPrompt) {
+        if (voiceActive) onVoiceCancel() else onVoicePermissionCancel()
+    }
     val snap = state.snapshot
     val listState = rememberLazyListState()
     val scrollScope = rememberCoroutineScope()
@@ -122,6 +144,7 @@ fun FullPlayerScreen(
                     // recorded return origin. No change to service playback.
                     OutlinedButton(
                         onClick = onEnterDriving,
+                        enabled = !voiceActive && !voicePermissionPrompt,
                         modifier = Modifier.fillMaxWidth().heightIn(
                             min = MusicSize.touchTargetMinDp,
                         ),
@@ -143,6 +166,19 @@ fun FullPlayerScreen(
                             min = MusicSize.touchTargetMinDp
                         ),
                     ) { Text(stringResource(R.string.i7_queue_action)) }
+                    // P03: a same-route, one-shot PTT surface. This does not
+                    // alter LazyColumn item indexes or own recognition/player.
+                    PlayerVoiceControls(
+                        voiceState = voiceState,
+                        availability = voiceAvailability,
+                        permissionStage = voicePermissionStage,
+                        startRejected = voiceStartRejected,
+                        onMic = onMic,
+                        onPermissionContinue = onVoicePermissionContinue,
+                        onPermissionCancel = onVoicePermissionCancel,
+                        onCancel = onVoiceCancel,
+                        onRetry = onVoiceRetry,
+                    )
                 }
             }
             item(key = "player_artwork") {
@@ -465,6 +501,104 @@ fun FullPlayerScreen(
 }
 
 /** Pure display formatting; never moves the service playback position. */
+/**
+ * P03 Full Player WF-08 inline Voice controls. P09 refines the final design
+ * and focus handoff. No recorder, permission requester or Media3 owner here.
+ * All text is generic/resource-backed; never display raw transcripts.
+ */
+@Composable
+private fun PlayerVoiceControls(
+    voiceState: VoiceSessionState,
+    availability: VoicePttAvailability,
+    permissionStage: VoicePracticeStage,
+    startRejected: Boolean,
+    onMic: () -> Unit,
+    onPermissionContinue: () -> Unit,
+    onPermissionCancel: () -> Unit,
+    onCancel: () -> Unit,
+    onRetry: () -> Unit,
+) {
+    val active = voiceState != VoiceSessionState.Idle
+    val rationale = permissionStage == VoicePracticeStage.Rationale
+    val awaitingAndroid = permissionStage == VoicePracticeStage.AwaitingAndroid
+    val permissionPrompt = rationale || awaitingAndroid
+    if (!active && !permissionPrompt) {
+        val micLabel = stringResource(R.string.i9_a11y_mic)
+        OutlinedButton(
+            onClick = onMic,
+            enabled = VoicePttAdmissionPolicy.canTapMic(availability),
+            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.touchTargetMinDp)
+                .semantics { contentDescription = micLabel },
+        ) { Text(stringResource(R.string.i9_driving_mic_voice)) }
+        val note = when {
+            startRejected -> R.string.i9_voice_start_unavailable
+            permissionStage == VoicePracticeStage.ReadyForVoiceHandoff ->
+                R.string.i9_voice_granted_tap_again
+            permissionStage == VoicePracticeStage.PermissionDenied ->
+                R.string.i9_voice_permission_denied
+            permissionStage == VoicePracticeStage.ProviderUnavailable ||
+                permissionStage == VoicePracticeStage.LanguageUnsupported ||
+                availability == VoicePttAvailability.ProviderUnavailable ->
+                R.string.i9_voice_local_provider_unavailable
+            availability == VoicePttAvailability.NeedsPermission ->
+                R.string.i9_voice_permission_rationale_brief
+            else -> null
+        }
+        if (note != null) Text(
+            stringResource(note), color = MusicColors.textSecondary,
+            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+            style = MusicTextStyles.bodyMedium,
+        )
+        return
+    }
+    val stateLabel = when {
+        rationale -> stringResource(R.string.i9_voice_permission_heading)
+        awaitingAndroid -> stringResource(R.string.i9_voice_permission_wait)
+        voiceState is VoiceSessionState.Listening ->
+            stringResource(R.string.i9_voice_listening)
+        voiceState is VoiceSessionState.Processing ->
+            stringResource(R.string.i9_voice_processing)
+        voiceState is VoiceSessionState.Confirming ->
+            stringResource(R.string.i9_voice_confirmation_unavailable)
+        voiceState is VoiceSessionState.Executed ->
+            stringResource(R.string.i9_voice_executed)
+        voiceState is VoiceSessionState.Failed ->
+            stringResource(R.string.i9_voice_failed)
+        else -> stringResource(R.string.i9_voice_permission_heading)
+    }
+    Text(
+        stateLabel,
+        color = MusicColors.textPrimary,
+        style = MusicTextStyles.bodyLarge,
+        modifier = Modifier.fillMaxWidth().semantics {
+            heading()
+            liveRegion = LiveRegionMode.Polite
+            stateDescription = stateLabel
+        },
+    )
+    if (rationale) {
+        Text(
+            stringResource(R.string.i9_voice_permission_explanation),
+            color = MusicColors.textSecondary, style = MusicTextStyles.bodyMedium,
+        )
+        Button(
+            onClick = onPermissionContinue,
+            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.touchTargetMinDp),
+        ) { Text(stringResource(R.string.i9_voice_continue)) }
+    }
+    if (voiceState is VoiceSessionState.Failed && voiceState.canRetry) {
+        OutlinedButton(
+            onClick = onRetry,
+            modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.touchTargetMinDp),
+        ) { Text(stringResource(R.string.i9_voice_retry)) }
+    }
+    OutlinedButton(
+        onClick = if (permissionPrompt) onPermissionCancel else onCancel,
+        modifier = Modifier.fillMaxWidth().heightIn(min = MusicSize.touchTargetMinDp),
+    ) { Text(stringResource(R.string.i9_voice_cancel)) }
+}
+
+
 private fun formatTime(positionMs: Long): String {
     val seconds = positionMs.coerceAtLeast(0L) / 1000
     return "${seconds / 60}:${(seconds % 60).toString().padStart(2, '0')}"
