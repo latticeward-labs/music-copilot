@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P03_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P04_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -83,10 +83,13 @@
       "notes": "Real source wiring on Full Player + existing Driving, one ActivityResult launcher, one permission gate, shared Coordinator, source checks only. P04/P09/P10 pending."
     },
     "P04": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+      "authored_junit_cases": 12,
+      "notes": "On-device English STT API33+ installed-model preflight, API29/30 manual-only, optional offline TTS and callback lifecycle; source-only."
     },
     "P05": {
       "state": "NOT_STARTED",
@@ -247,9 +250,9 @@
         "M28"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
+      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
       "verified_at": null
     },
     {
@@ -266,9 +269,9 @@
         "M52"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
       "verified_at": null
     },
     {
@@ -349,9 +352,9 @@
         "M40"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
       "verified_at": null
     },
     {
@@ -375,9 +378,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
+      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
       "verified_at": null
     },
     {
@@ -435,9 +438,9 @@
         "M51"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
       "verified_at": null
     },
     {
@@ -452,9 +455,9 @@
         "M52"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P04 static STT/TTS source evidence; no compilation/device/runtime verification.",
       "verified_at": null
     },
     {
@@ -1716,14 +1719,17 @@
       "name": "Voice feedback, optional TTS failures",
       "phase": "P08",
       "kind": "JVM",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "P04 contains 12 source-authored policy/fake/provider methods, partial TTS feedback contract only; P08 full cases pending.",
+      "source_status": "AUTHORED_ONLY_PARTIAL"
     },
     {
       "id": "T07",
@@ -1813,7 +1819,7 @@
     "ac_verified": 0,
     "technical_groups": 10,
     "technical_executed": 0,
-    "technical_groups_authored": 2,
+    "technical_groups_authored": 3,
     "technical_groups_executed": 0
   },
   "quality_gates": {
@@ -1881,6 +1887,32 @@
         "Full Player TalkBack focus lifecycle",
         "Android version/OEM behavior",
         "service command safety"
+      ]
+    },
+    "P04": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
+      ],
+      "authored_junit_methods": 12,
+      "technical_status": "NOT_RUN",
+      "android_policy": {
+        "API29_30": "MANUAL_ONLY",
+        "API31_32": "ON_DEVICE_BEST_EFFORT_PACK_UNVERIFIED",
+        "API33_PLUS": "INSTALLED_ENGLISH_SUPPORT_CHECK_BEFORE_LISTEN",
+        "cloud": "DISABLED",
+        "automatic_model_download": false
+      },
+      "remaining": [
+        "P05 deterministic mapper",
+        "P07 playback ducking",
+        "P08 final TTS feedback",
+        "P09 accessibility",
+        "P10 lifecycle and OEM",
+        "P13 cumulative build and owner QA"
       ]
     }
   }
