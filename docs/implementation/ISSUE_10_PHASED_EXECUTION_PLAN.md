@@ -1,6 +1,6 @@
 # Issue #10 — Phased execution plan: Push-to-Talk, Voice State Machine, five control intents
 
-> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_NEXT**. Implementation P09–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
+> **Execution status:** P00_STATIC_AUDIT_COMPLETED; P01_GOVERNANCE_SOURCE_DELIVERED_UNTESTED; **P02_SOURCE_IMPLEMENTED_UNBUILT; P03_SOURCE_IMPLEMENTED_UNBUILT; P04_SOURCE_IMPLEMENTED_UNBUILT; P05_SOURCE_IMPLEMENTED_UNBUILT; P06_SOURCE_IMPLEMENTED_UNBUILT; P07_SOURCE_IMPLEMENTED_UNBUILT; P08_SOURCE_IMPLEMENTED_UNBUILT; P09_SOURCE_IMPLEMENTED_UNBUILT; P10_NEXT**. Implementation P10–P13 **NOT_STARTED** in this branch. This is a plan, not proof of completed phases, a compiled APK, executed tests or Issue acceptance.
 >
 > **Repository baseline audited:** `main` at `e13172683ee8495e26b7c2d56f88444e4969891e` (2026-10-25); source package `MSM2(1)(1).rar` SHA-256 `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`.
 >
@@ -82,6 +82,8 @@
 ### P09 — Approved WF-08 Voice UI, accessibility and safe manual fallback
 **Work:** Bind `Idle/Listening/Processing/Executed/Failed` and available `Confirming` presentation to origin, not navigation; truthful microphone/listening and attempt state; Cancel and one Retry only when allowed; state-specific TalkBack/live-region announcements, 48dp+ controls, 150–200% scaling, focus return to originating mic/manual control, no personal transcripts displayed/logged.
 **Output:** Compose source for Full Player and Driving overlays aligned with #17 and authored-only UI tests. No tests/build.
+
+> **P09 evidence (2026-10-25):** [Shared WF-08 Voice UI and accessibility source audit](ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md) · [20 authored-only P09 policy/a11y JUnit scenarios](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt). Common inline Driving/Full Player panel; TalkBack labels, error-specific messaging and focus return. All 16 AC NOT_VERIFIED and phone/technical QA NOT_RUN; no Gradle/Actions/APK.
 
 ### P10 — Interruption, background and race hardening
 **Work:** Cancel STT/TTS/duck on Back/Driving Exit, origin loss, app background according to approved lifecycle, permission revocation, call/focus invalidation and wired/headphone/Bluetooth route loss. Resolve rapid second tap, retry-vs-late-STT, callback-after-cancel, repeat/rotation, background/foreground and multiple ack race. Never leak playback to handset speaker.
