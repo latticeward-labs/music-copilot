@@ -1782,11 +1782,11 @@
     "not_to_be_confused_with_issue10_M45": "Issue #10 M45 refers to background/cancellation; different checklist."
   },
   "privacy": {
-    "raw_audio_stored": false,
-    "raw_transcript_stored": false,
-    "command_utterance_text_in_telemetry": false,
-    "no_personal_song_names_in_ledger": true,
-    "policy": "Never attach private audio/transcripts/music paths/Bluetooth MACs/call identity"
+    "ledger_fields_raw_audio": false,
+    "ledger_fields_raw_transcript": false,
+    "ledger_fields_personal_media_path": false,
+    "application_runtime_privacy_status": "NOT_VERIFIED",
+    "policy": "Never put private audio/transcripts/music paths/Bluetooth MAC/call identity in evidence or telemetry"
   },
   "summary": {
     "manual_total": 60,
