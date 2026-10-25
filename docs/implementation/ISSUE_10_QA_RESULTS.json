@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P02_SOURCE_IMPLEMENTED_UNBUILT",
+  "stage": "P03_SOURCE_IMPLEMENTED_UNBUILT",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -74,10 +74,13 @@
       "notes": "Coordinator/transition policy implemented in source only; no Gradle/JVM/Android/Actions run."
     },
     "P03": {
-      "state": "NOT_STARTED",
-      "source_delivered": false,
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
       "test_execution": "NOT_RUN",
-      "apk_built": false
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+      "authored_junit_cases": 12,
+      "notes": "Real source wiring on Full Player + existing Driving, one ActivityResult launcher, one permission gate, shared Coordinator, source checks only. P04/P09/P10 pending."
     },
     "P04": {
       "state": "NOT_STARTED",
@@ -203,9 +206,9 @@
         "M31"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
       "verified_at": null
     },
     {
@@ -329,9 +332,9 @@
         "M53"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
       "verified_at": null
     },
     {
@@ -372,9 +375,9 @@
         "M57"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
+      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
       "verified_at": null
     },
     {
@@ -396,9 +399,9 @@
         "M47"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": "Source-specific Phase 2 coverage authored/implemented; not runtime verified. Other phase dependencies remain.",
+      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
       "verified_at": null
     },
     {
@@ -495,9 +498,9 @@
         "M50"
       ],
       "status": "NOT_VERIFIED",
-      "source_review_evidence": null,
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
       "runtime_evidence": null,
-      "decision_note": null,
+      "decision_note": "P03 UI/permission source wired; runtime still not verified and P04/P09/P10 pending.",
       "verified_at": null
     }
   ],
@@ -1741,14 +1744,17 @@
       "name": "Lifecycle/permission/late-callback race",
       "phase": "P10",
       "kind": "JVM_AND_ANDROID_INSTRUMENTATION",
-      "source_cases": [],
-      "authored": false,
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+      ],
+      "authored": true,
       "execution_status": "NOT_RUN",
       "execution_run_id": null,
       "results_link": null,
       "measured_passed": null,
       "measured_failed": null,
-      "notes": null
+      "notes": "12 P03 tests authored for origin permission and source wiring; actual lifecycle Android instrumentation P10/T08 not executed.",
+      "source_status": "AUTHORED_ONLY"
     },
     {
       "id": "T09",
@@ -1807,7 +1813,7 @@
     "ac_verified": 0,
     "technical_groups": 10,
     "technical_executed": 0,
-    "technical_groups_authored": 1,
+    "technical_groups_authored": 2,
     "technical_groups_executed": 0
   },
   "quality_gates": {
@@ -1843,6 +1849,39 @@
       ],
       "unit_cases_authored": 8,
       "technical_status": "NOT_RUN"
+    },
+    "P03": {
+      "commit_date": "2026-10-25",
+      "authored_junit_methods": 12,
+      "technical_status": "NOT_RUN",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePttAdmissionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+      ],
+      "unchanged_sensitive_components": [
+        "MusicPlaybackService.kt",
+        "DrivingModeScreen.kt",
+        "AndroidManifest.xml",
+        "VoiceBindings.kt",
+        "RestrictedVoiceIntentMapper.kt"
+      ],
+      "implemented_source_boundaries": [
+        "Full Player explicit PTT controls",
+        "one shared permission gate and OS launcher",
+        "tap-time fresh OS+provider check",
+        "single coordinator",
+        "origin-specific cancel and no automatic start after permission callback"
+      ],
+      "unverified_runtime": [
+        "actual on-device STT",
+        "Audio Duck",
+        "Full Player TalkBack focus lifecycle",
+        "Android version/OEM behavior",
+        "service command safety"
+      ]
     }
   }
 }
