@@ -18,3 +18,9 @@ object NoOpVoiceDuckingPort : VoiceDuckingPort {
     override suspend fun acquireVoiceDuck(token: String) = true
     override fun releaseVoiceDuck(token: String) = Unit
 }
+
+/** Explicit manual-only fallback if the production service port is absent. */
+object UnavailableVoiceDuckingPort : VoiceDuckingPort {
+    override suspend fun acquireVoiceDuck(token: String) = false
+    override fun releaseVoiceDuck(token: String) = Unit
+}
