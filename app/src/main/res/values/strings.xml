@@ -301,4 +301,12 @@
     <string name="i10_voice_cancel_a11y">Cancel active voice and return to manual playback</string>
     <string name="i10_voice_not_now_a11y">Dismiss microphone permission request and use manual controls</string>
     <string name="i10_voice_back_manual_a11y">Close voice result and return to manual controls</string>
+    <!-- Issue #10 P11: local-only Voice capability and privacy-status diagnostics. -->
+    <string name="p11_voice_privacy_heading">Voice privacy and availability</string>
+    <string name="p11_voice_local_only">Voice commands use an on-device recognizer only. No online speech service is enabled.</string>
+    <string name="p11_voice_api_manual_only">Voice recognition is unavailable on this Android version. Manual music controls remain available.</string>
+    <string name="p11_voice_permission_needed">Microphone permission has not been granted. Speech recording cannot start.</string>
+    <string name="p11_voice_provider_missing">On-device speech recognition is unavailable. Use manual music controls.</string>
+    <string name="p11_voice_provider_unverified">An on-device speech provider is present. English model readiness and recognition success are checked separately when you tap Mic.</string>
+    <string name="p11_voice_privacy_no_history">Music Copilot does not save recordings or recognized speech history. Diagnostic events are not sent in this version.</string>
 </resources>
