@@ -46,6 +46,8 @@ import com.latticeward.musiccopilot.playback.media3.ServiceSessionTransportPlaye
 import kotlinx.coroutines.CancellationException
 import com.latticeward.musiccopilot.playback.command.PlaybackReceiptStamp
 import com.latticeward.musiccopilot.playback.command.VoiceCommandReceiptPolicy
+import com.latticeward.musiccopilot.playback.command.ServiceVoiceDuckLease
+import kotlinx.coroutines.Job
 import com.latticeward.musiccopilot.playback.command.PlaybackCommandProcessor
 import com.latticeward.musiccopilot.playback.command.PlaybackWireProtocol
 import com.latticeward.musiccopilot.playback.media3.ServicePlaybackRuntimeOwner
@@ -76,6 +78,12 @@ class MusicPlaybackService : MediaSessionService() {
     private lateinit var queueEngine: ServiceQueueEngine
     private lateinit var runtimeOwner: ServicePlaybackRuntimeOwner<Pair<ExoPlayer, MediaSession>>
     private val pendingResults = linkedSetOf<SettableFuture<SessionResult>>()
+    // P07: service-Main scoped attenuation; external Audio Focus remains Media3's.
+    private val voiceDuck = ServiceVoiceDuckLease()
+    private var voiceDuckExpiry: Job? = null
+    private val expiredOrReleasedVoiceTokens = LinkedHashSet<String>()
+    private val maxVoiceTokenTombstones = 64
+    private val maxVoiceDuckDurationMs = 22_000L
     private val projector = Media3SnapshotProjector()
     private var runtimeError: AppError? = null
     private lateinit var pausedCheckpoint: ServicePausedCheckpoint
@@ -208,6 +216,9 @@ class MusicPlaybackService : MediaSessionService() {
                 invalidatePendingSafetyReceipts()
             },
             onVoiceCancellationRequested = { reason ->
+                // An interruption owns precedence over PTT; restore property
+                // volume synchronously before app-level cancellation starts.
+                revokeVoiceDuck()
                 // P09 one real app-scoped Voice owner through the typed root
                 // port. Never start STT/TTS here or wait for queue/IO.
                 (application as PlaybackVoiceInterruptionHost)
@@ -248,6 +259,7 @@ class MusicPlaybackService : MediaSessionService() {
                 if (!playWhenReady &&
                     reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS
                 ) {
+                    revokeVoiceDuck()
                     // Media3 already paused. Supersede commands received
                     // before this authoritative focus-loss observation.
                     invalidatePendingSafetyReceipts()
@@ -268,6 +280,7 @@ class MusicPlaybackService : MediaSessionService() {
                 if (playbackSuppressionReason ==
                     Player.PLAYBACK_SUPPRESSION_REASON_TRANSIENT_AUDIO_FOCUS_LOSS
                 ) {
+                    revokeVoiceDuck()
                     // No extra Player.pause() on transient focus loss; Media3
                     // owns suppression. Invalidate only prior command receipt.
                     invalidatePendingSafetyReceipts()
@@ -342,6 +355,7 @@ class MusicPlaybackService : MediaSessionService() {
      */
     private fun handlePersonalOutputDisconnected() {
         if (serviceClosing) return
+        revokeVoiceDuck()
         val newEpisode = interruptionGate.onHeadsetOrBluetoothLost()
         if (newEpisode) {
             bumpSafetyGeneration()
@@ -466,6 +480,64 @@ class MusicPlaybackService : MediaSessionService() {
             receipt.commandGeneration == restoreGeneration
     }
 
+    /**
+     * Service Main looper is the ONLY writer of ExoPlayer.volume.
+     * Rejected focus/route NEVER causes playback to start or stop here.
+     */
+    private fun acquireVoiceDuck(token: String): Boolean {
+        if (serviceClosing || expiredOrReleasedVoiceTokens.contains(token) ||
+            !ServiceVoiceDuckLease.isValidToken(token) ||
+            !::player.isInitialized || !::focusObserver.isInitialized ||
+            focusObserver.policyState.focus != FocusCondition.AVAILABLE ||
+            interruptionGate.requiresExplicitResume ||
+            player.playbackSuppressionReason !=
+                Player.PLAYBACK_SUPPRESSION_REASON_NONE
+        ) return false
+        val previous = voiceDuck.currentToken
+        val update = voiceDuck.acquire(token, player.volume)
+        if (!update.accepted) return false
+        if (previous != null && previous != token) rememberVoiceTokenClosed(previous)
+        try {
+            update.volumeToApply?.let { player.volume = it }
+        } catch (_: Exception) {
+            revokeVoiceDuck()
+            return false
+        }
+        voiceDuckExpiry?.cancel()
+        voiceDuckExpiry = owner.scope.launch {
+            delay(maxVoiceDuckDurationMs)
+            // An old timeout can never release a newer session's token.
+            if (voiceDuck.currentToken == token) revokeVoiceDuck()
+        }
+        return true
+    }
+
+    private fun rememberVoiceTokenClosed(token: String) {
+        expiredOrReleasedVoiceTokens.add(token)
+        while (expiredOrReleasedVoiceTokens.size > maxVoiceTokenTombstones) {
+            val it = expiredOrReleasedVoiceTokens.iterator()
+            if (it.hasNext()) { it.next(); it.remove() } else break
+        }
+    }
+
+    /** No token for the next generation can be released by an old callback. */
+    private fun releaseVoiceDuck(token: String) {
+        if (!ServiceVoiceDuckLease.isValidToken(token)) return
+        rememberVoiceTokenClosed(token)
+        if (voiceDuck.currentToken != token) return
+        voiceDuckExpiry?.cancel()
+        voiceDuckExpiry = null
+        val restore = voiceDuck.release(token, player.volume)
+        try { restore.volumeToApply?.let { player.volume = it } }
+        catch (_: Exception) { /* service safety and focus policy still own playback */ }
+    }
+
+    /** Urgent, idempotent and synchronous on call/focus/route loss. */
+    private fun revokeVoiceDuck() {
+        val active = voiceDuck.currentToken ?: return
+        releaseVoiceDuck(active)
+    }
+
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession = session
 
     /**
@@ -526,6 +598,8 @@ class MusicPlaybackService : MediaSessionService() {
             if (privateCaller) {
                 commandBuilder.add(PlaybackWireProtocol.executeCommand())
                 commandBuilder.add(PlaybackWireProtocol.snapshotCommand())
+                commandBuilder.add(PlaybackWireProtocol.voiceDuckAcquireCommand())
+                commandBuilder.add(PlaybackWireProtocol.voiceDuckReleaseCommand())
             }
             val commands = commandBuilder.build()
             return MediaSession.ConnectionResult.AcceptedResultBuilder(session)
@@ -569,6 +643,26 @@ class MusicPlaybackService : MediaSessionService() {
                 publishSnapshot()
                 Futures.immediateFuture(
                     SessionResult(SessionResult.RESULT_SUCCESS, wrap(confirmed))
+                )
+            }
+            PlaybackWireProtocol.ACTION_VOICE_DUCK_ACQUIRE -> {
+                val token = PlaybackWireProtocol.validVoiceDuckToken(args)
+                if (token != null && acquireVoiceDuck(token)) {
+                    Futures.immediateFuture(SessionResult(
+                        SessionResult.RESULT_SUCCESS,
+                        PlaybackWireProtocol.voiceDuckArgs(token),
+                    ))
+                } else Futures.immediateFuture(
+                    SessionResult(SessionError.ERROR_BAD_VALUE)
+                )
+            }
+            PlaybackWireProtocol.ACTION_VOICE_DUCK_RELEASE -> {
+                val token = PlaybackWireProtocol.validVoiceDuckToken(args)
+                if (token != null) {
+                    releaseVoiceDuck(token)
+                    Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+                } else Futures.immediateFuture(
+                    SessionResult(SessionError.ERROR_BAD_VALUE)
                 )
             }
             PlaybackWireProtocol.ACTION_EXECUTE -> {
@@ -1261,6 +1355,9 @@ class MusicPlaybackService : MediaSessionService() {
 
     override fun onDestroy() {
         serviceClosing = true
+        revokeVoiceDuck()
+        voiceDuckExpiry?.cancel()
+        voiceDuckExpiry = null
         invalidatePendingSafetyReceipts()
         // Unregister BEFORE disposing the sole service player, so late
         // Android route callbacks cannot touch an already released engine.
