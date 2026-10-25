@@ -18,7 +18,93 @@
     },
     "source_rar_filename": "MSM2(1)(1).rar",
     "source_rar_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
-    "pdf_count": 12
+    "pdf_count": 12,
+    "source_file_snapshots": [
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "blob_sha": "bc0af2cba5d7e0fc8f793d2f209724cc59644e99",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "blob_sha": "d044081680668231fe265098a53146f0ad6eb6cd",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "blob_sha": "202a56455803b480387148af8237341c05aea190",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "blob_sha": "470a567c177063abb7e414d3eb2e734056fa0716",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "blob_sha": "a765434322d718a59fd45307f7dd7f3fed6b1d14",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "blob_sha": "9a14d688711e867cdf1eaa2d05a29444906d7567",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+        "blob_sha": "dfb7845dfee9fe8ce1618aac86c2e5d0b989d1a9",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "blob_sha": "8315a96578910316309e0411f321801a4926c0ed",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "blob_sha": "68425cae3b34cb5105607fbd9b5a0fab5609b067",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "blob_sha": "0ade247254c64e231e75179be7acb74039194d67",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "blob_sha": "d62ecd1cfb3e37b6a33456eb5553cd2fcda33ffd",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/voice/api/TextToSpeechEngine.kt",
+        "blob_sha": "b3678464f42ff45eb0136112d1a7892c2ae2a5f5",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+        "blob_sha": "0fa9193d4726ce7c3245508833135b7acac52e2e",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "blob_sha": "bc7571ecf1f12133c51de066eca02956c7a484a5",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/voice/policy/VoicePolicy.kt",
+        "blob_sha": "2020f51bfb2c0eecbe43ab9464823c49e3c793b1",
+        "verified": true
+      },
+      {
+        "path": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "blob_sha": "df295d0a82a8dd4ffced3ed4566f50fc91423068",
+        "verified": true
+      }
+    ],
+    "snapshot_verification": {
+      "verified_count": 16,
+      "missing_count": 0
+    }
   },
   "verified_dependencies": [
     {
