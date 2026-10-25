@@ -1,6 +1,5 @@
 package com.latticeward.musiccopilot.voice.session
 
-import com.latticeward.musiccopilot.core.model.CommandId
 import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
 import com.latticeward.musiccopilot.core.model.VoiceSessionId
 import com.latticeward.musiccopilot.core.result.AppError
@@ -8,7 +7,6 @@ import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
-import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
 import com.latticeward.musiccopilot.voice.api.SpeechOutput
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionRequest
@@ -57,6 +55,7 @@ class DefaultVoiceSessionCoordinator(
      * race a synchronous cancel/retry or publish a stale result.
      */
     private val gate = Any()
+    private val voiceDispatcher = playback?.let(::VoicePlaybackDispatcher)
     private var sequence = 0L
     private var childJob: Job? = null
     private var currentId: VoiceSessionId? = null
@@ -152,8 +151,11 @@ class DefaultVoiceSessionCoordinator(
                         is VoiceIntentDecision.Direct -> {
                             // P02 limits state admission; P05 will harden grammar.
                             // PLAY_ARTIST remains reserved for Issue #11.
-                            val command = mapPlaybackCommand(decision.intent, id, number)
-                            if (command == null || playback == null) {
+                            val dispatcher = voiceDispatcher
+                            if (dispatcher == null || VoicePlaybackDispatcher.commandFor(
+                                    decision.intent, id, number
+                                ) == null
+                            ) {
                                 markFailed(
                                     id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH
                                 )
@@ -161,7 +163,7 @@ class DefaultVoiceSessionCoordinator(
                             }
                             if (!claimDispatch(id, origin, number, generation)) return
                             val acknowledged = try {
-                                playback.execute(command)
+                                dispatcher.execute(decision.intent, id, number)
                             } catch (cancelled: CancellationException) {
                                 throw cancelled
                             } catch (_: Exception) {
@@ -268,20 +270,6 @@ class DefaultVoiceSessionCoordinator(
                 AppError.Voice(code, Recoverability.RECOVERABLE, RecoveryAction.ManualFallback),
                 canRetry = VoiceTransitionPolicy.canOfferRetry(number, code),
             )
-        }
-    }
-
-    private fun mapPlaybackCommand(
-        intent: RestrictedIntent, id: VoiceSessionId, number: Int,
-    ): PlaybackCommand? {
-        val commandId = CommandId("voice-${id.value}-${number}")
-        return when (intent) {
-            RestrictedIntent.PLAY -> PlaybackCommand.Play(commandId)
-            RestrictedIntent.PAUSE -> PlaybackCommand.Pause(commandId)
-            RestrictedIntent.NEXT -> PlaybackCommand.Next(commandId)
-            RestrictedIntent.PREVIOUS -> PlaybackCommand.Previous(commandId)
-            RestrictedIntent.SEEK_BACK -> PlaybackCommand.SeekBy(commandId, -10_000L)
-            RestrictedIntent.PLAY_ARTIST -> null // Issue #11 handles bounded artist resolution.
         }
     }
 
