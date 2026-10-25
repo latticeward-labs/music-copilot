@@ -46,7 +46,8 @@
     "phase12_acceptance_traceability": "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
     "phase12_p13_lab_corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
     "phase13_owner_handoff": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
-    "phase13_persian_phone_checklist": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md"
+    "phase13_persian_phone_checklist": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+    "phase13_local_stt_replacement": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md"
   },
   "phase_evidence": [
     {
@@ -257,17 +258,20 @@
     },
     {
       "phase": "P13",
-      "status": "BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+      "status": "REPLACEMENT_BUILD_SUCCESS_OWNER_RETEST_PENDING",
       "evidence_paths": [
         "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
         ".github/workflows/issue-10-p13-one-cumulative-apk.yml",
         ".github/issue10-p13-apk-request.txt",
         "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
-        "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json"
+        "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+        "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt"
       ],
       "runtime_status": "NOT_RUN",
       "build_status": "BUILD_SUCCESS",
-      "notes": "One cumulative Android P00–P12 APK from 16a71b5b412361fd83d37d196676bf5b4c39bd24; SHA256 4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396; 37285182 bytes; GitHub run 40180566730, artifact 12593353938. App/manual/JUnit/lab NOT_RUN; no AC PASS."
+      "notes": "Voice immediate Unavailable owner observation; local-only OEM support metadata fallback fixed in source; replacement app-debug.apk source cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4, sha256 7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f, GitHub run 40218586084, artifact 12608466440, 37285182 bytes. Retest M10/Voice pending; all M01-M60 and lab 50 on replacement NOT_RUN, AC NOT_VERIFIED."
     }
   ],
   "acceptance_criteria": [
@@ -1505,7 +1509,7 @@
     "L_attempts_executed": 0,
     "technical_groups": 10,
     "technical_groups_executed": 0,
-    "APK_count": 1,
+    "APK_count": 2,
     "source_phase1_docs_complete": true,
     "P02_source_delivered": true,
     "P02_authored_junit_methods": 8,
@@ -1532,9 +1536,27 @@
     "P12_ac_source_traced": 16,
     "P12_lab_corpus_prepared": 50,
     "P13_build_success": true,
-    "P13_owner_qa_pending": true
+    "P13_owner_qa_pending": true,
+    "P13_replacement_build_success": true
   },
   "verified_build": {
+    "source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
+    "run_id": 40218586084,
+    "job_id": 121244994062,
+    "artifact_id": 12608466440,
+    "artifact_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40218586084/artifacts/12608466440",
+    "artifact_name": "issue10-p13-one-cumulative-debug-apk",
+    "apk_name": "app-debug.apk",
+    "apk_size_bytes": 37285182,
+    "apk_sha256": "7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f",
+    "zip_size_bytes": 13564230,
+    "zip_sha256": "3738e90480a2f8d0241e206b017094d9713f0efcb1a32364b0b807dfa7ad4700",
+    "status": "REPLACEMENT_BUILD_SUCCESS_OWNER_VOICE_RETEST_PENDING",
+    "gradle_task": ":app:assembleDebug",
+    "test_execution": "NOT_RUN",
+    "repair_report": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md"
+  },
+  "previous_verified_build": {
     "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
     "run_id": 40180566730,
     "job_id": 121130546863,
