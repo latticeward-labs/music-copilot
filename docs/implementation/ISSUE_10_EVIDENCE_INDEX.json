@@ -39,7 +39,8 @@
     "phase6_audit": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
     "phase7_audit": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
     "phase8_audit": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
-    "phase9_audit": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
+    "phase9_audit": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+    "phase10_audit": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
   },
   "phase_evidence": [
     {
@@ -197,11 +198,23 @@
     },
     {
       "phase": "P10",
-      "status": "NOT_STARTED",
-      "evidence_paths": [],
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceLifecycleSafetyPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+      ],
       "runtime_status": "NOT_RUN",
       "build_status": "NOT_BUILT",
-      "notes": null
+      "notes": "P10 foreground admission, callback identity cancellation, BT route/focus safety and 1s unDuck receipt drain. 17 authored JUnit, no execution."
     },
     {
       "phase": "P11",
@@ -250,9 +263,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC02",
@@ -276,9 +290,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC03",
@@ -300,9 +315,10 @@
         "M42"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P07 source-only duck and restore; NOT_VERIFIED physical/audio focus/route."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC04",
@@ -323,9 +339,10 @@
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P07 source-only duck and restore; NOT_VERIFIED physical/audio focus/route."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC05",
@@ -395,9 +412,10 @@
         "M33"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P06 source only, no runtime ACK/duplicate tests; NOT_VERIFIED"
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC08",
@@ -419,9 +437,10 @@
       ],
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC09",
@@ -473,9 +492,10 @@
         "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC11",
@@ -503,9 +523,10 @@
         "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P07 source-only duck and restore; NOT_VERIFIED physical/audio focus/route."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC12",
@@ -560,9 +581,10 @@
         "M52"
       ],
       "evidence_uris": [
-        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P04 source review only; AC NOT_VERIFIED."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC15",
@@ -593,9 +615,10 @@
         "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
         "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
-        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md"
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md"
       ],
-      "notes": "P09 WF-08 shared UI source only; NOT_VERIFIED physical accessibility/TalkBack."
+      "notes": "P10 source-only; physical/technical results still NOT_VERIFIED."
     },
     {
       "id": "AC16",
@@ -1112,8 +1135,12 @@
       "name": "6s timeout, one retry, cancellation",
       "phase": "P02/P04",
       "kind": "JVM",
-      "status": "NOT_RUN",
-      "evidence_uris": []
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
     },
     {
       "id": "T04",
@@ -1180,7 +1207,9 @@
       "status": "AUTHORED_ONLY",
       "evidence_uris": [
         "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
-        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
       ],
       "execution_status": "NOT_RUN"
     },
@@ -1231,7 +1260,11 @@
     "phase8_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
     "phase9_projection": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
     "phase9_shared_compose": "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
-    "phase9_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+    "phase9_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt",
+    "phase10_lifecycle_policy": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceLifecycleSafetyPolicy.kt",
+    "phase10_stt_race": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+    "phase10_tts_race": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+    "phase10_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
   },
   "known_gaps": [
     {
@@ -1243,7 +1276,7 @@
       ],
       "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
       "resolved_by": "P07_SOURCE_ONLY",
-      "notes": "P07 voice duck port, service TTL lease, main-owned volume restoration; runtime and OEM/focus/route still unverified at P13."
+      "notes": "P07 voice duck port, service TTL lease, main-owned volume restoration; runtime and OEM/focus/route still unverified at P13. P10 added foreground lease, STT/TTS identity guards, focus/route Voice cancellation and bounded unDuck controller receipt. Device QA pending; NOT_CLOSED."
     },
     {
       "id": "G02",
@@ -1276,9 +1309,9 @@
         "P04",
         "P05"
       ],
-      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
       "resolved_by": null,
-      "notes": "Missing/low provider confidence is fail-closed with bounded BuildConfig threshold; no synthetic confidence, field quality may be impacted."
+      "notes": "Missing/low provider confidence is fail-closed with bounded BuildConfig threshold; no synthetic confidence, field quality may be impacted. P10 added foreground lease, STT/TTS identity guards, focus/route Voice cancellation and bounded unDuck controller receipt. Device QA pending; NOT_CLOSED."
     },
     {
       "id": "G05",
@@ -1300,9 +1333,9 @@
         "P06",
         "P10"
       ],
-      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
       "resolved_by": null,
-      "notes": "P02 claim+generation and P06 correlated ACK, service bounded 256-ID dedup, NEXT end/Play guard implemented in source. P10 lifecycle/cancel races and P13 device proof remain pending."
+      "notes": "P02 claim+generation and P06 correlated ACK, service bounded 256-ID dedup, NEXT end/Play guard implemented in source. P10 lifecycle/cancel races and P13 device proof remain pending. P10 added foreground lease, STT/TTS identity guards, focus/route Voice cancellation and bounded unDuck controller receipt. Device QA pending; NOT_CLOSED."
     },
     {
       "id": "G07",
@@ -1397,6 +1430,8 @@
     "P08_source_delivered": true,
     "P08_authored_junit_methods": 15,
     "P09_source_delivered": true,
-    "P09_authored_junit_methods": 20
+    "P09_authored_junit_methods": 20,
+    "P10_source_delivered": true,
+    "P10_authored_junit_methods": 17
   }
 }
