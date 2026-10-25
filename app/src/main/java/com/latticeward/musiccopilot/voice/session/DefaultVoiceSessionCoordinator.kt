@@ -24,6 +24,10 @@ import com.latticeward.musiccopilot.voice.intent.RestrictedVoiceIntentMapper
 import com.latticeward.musiccopilot.voice.intent.VoiceIntentDecision
 import com.latticeward.musiccopilot.voice.intent.VoiceIntentMapper
 import com.latticeward.musiccopilot.voice.policy.VoicePolicy
+import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackCatalog
+import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackKey
+import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackPolicy
+import com.latticeward.musiccopilot.voice.feedback.EnglishVoiceFeedbackCatalog
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -50,6 +54,7 @@ class DefaultVoiceSessionCoordinator(
     // Production binds Media3's private duck port. The default is only for
     // legacy no-Android JVM fixtures, NEVER chosen by production VoiceBindings.
     private val ducking: VoiceDuckingPort = NoOpVoiceDuckingPort,
+    private val feedbackCatalog: VoiceFeedbackCatalog = EnglishVoiceFeedbackCatalog,
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
@@ -68,6 +73,7 @@ class DefaultVoiceSessionCoordinator(
     private var currentOrigin: VoiceOrigin? = null
     private var attempt = 0
     private var dispatchClaimed = false
+    private var feedbackClaimed = false
     private var activeDuckToken: String? = null
     private var closed = false
 
@@ -102,6 +108,7 @@ class DefaultVoiceSessionCoordinator(
         val generation = SupervisorJob(ownerScope.coroutineContext[Job])
         childJob = generation
         dispatchClaimed = false
+        feedbackClaimed = false
         // Unique even if Android kills/restarts only the app controller while
         // MediaSessionService retains music and an old lease.
         val duckToken = "voice-duck-${UUID.randomUUID()}"
@@ -130,7 +137,7 @@ class DefaultVoiceSessionCoordinator(
             coroutineContext.ensureActive()
             if (!isCurrent(id, generation, number)) return
             if (!acquired) {
-                markFailed(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
                 return
             }
 
@@ -149,7 +156,7 @@ class DefaultVoiceSessionCoordinator(
             coroutineContext.ensureActive()
             if (!isCurrent(id, generation, number)) return
             if (recognition == null) {
-                markFailed(id, origin, number, generation, AppErrorCodes.VOICE_TIMEOUT)
+                failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_TIMEOUT)
                 return
             }
             when (recognition) {
@@ -159,7 +166,7 @@ class DefaultVoiceSessionCoordinator(
                         AppErrorCodes.VOICE_NO_MATCH -> AppErrorCodes.VOICE_NO_MATCH
                         else -> AppErrorCodes.VOICE_UNAVAILABLE
                     }
-                    markFailed(id, origin, number, generation, code)
+                    failAttempt(id, origin, number, generation, code)
                 }
                 is AppResult.Success -> {
                     if (!publishProcessing(id, origin, number, generation)) return
@@ -171,7 +178,7 @@ class DefaultVoiceSessionCoordinator(
                     when (decision) {
                         is VoiceIntentDecision.Rejected,
                         is VoiceIntentDecision.RequiresConfirmation ->
-                            markFailed(
+                            failAttempt(
                                 id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH
                             )
                         is VoiceIntentDecision.Direct -> {
@@ -182,7 +189,7 @@ class DefaultVoiceSessionCoordinator(
                                     decision.intent, id, number
                                 ) == null
                             ) {
-                                markFailed(
+                                failAttempt(
                                     id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH
                                 )
                                 return
@@ -199,21 +206,15 @@ class DefaultVoiceSessionCoordinator(
                             if (!isCurrent(id, generation, number)) return
                             when (acknowledged) {
                                 is AppResult.Failure ->
-                                    markFailed(
+                                    failAttempt(
                                         id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE
                                     )
                                 is AppResult.Success -> {
                                     if (!publishExecuted(id, origin, number, generation)) return
-                                    // P08 replaces this existing optional feedback;
-                                    // success is based solely on playback ACK.
-                                    try {
-                                        if (tts.isAvailable()) {
-                                            tts.speak(SpeechOutput(id, "voice_done", "Done"))
-                                        }
-                                    } catch (cancelled: CancellationException) {
-                                        throw cancelled
-                                    } catch (_: Exception) {
-                                        // TTS cannot undo an acknowledged command.
+                                    // One brief optional sentence ONLY after
+                                    // successful service ACK and published Executed.
+                                    VoiceFeedbackPolicy.acknowledged(decision.intent)?.let { key ->
+                                        deliverFeedback(id, origin, number, generation, key)
                                     }
                                 }
                             }
@@ -277,7 +278,7 @@ class DefaultVoiceSessionCoordinator(
         true
     }
 
-    private fun markFailed(
+    private fun failAttempt(
         id: VoiceSessionId,
         origin: VoiceOrigin,
         number: Int,
@@ -348,6 +349,7 @@ class DefaultVoiceSessionCoordinator(
         currentOrigin = null
         attempt = 0
         dispatchClaimed = false
+        feedbackClaimed = false
         activeDuckToken?.let { token -> runCatching {
             ducking.releaseVoiceDuck(token)
         } }
