@@ -82,6 +82,7 @@ fun FullPlayerScreen(
     onBack: () -> Unit,
     onEnterDriving: () -> Unit = {},
     voiceState: VoiceSessionState = VoiceSessionState.Idle,
+    heardPhrase: String? = null,
     voiceAvailability: VoicePttAvailability = VoicePttAvailability.ProviderUnavailable,
     voicePermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
     voiceStartRejected: Boolean = false,
@@ -179,6 +180,7 @@ fun FullPlayerScreen(
                     // alter LazyColumn item indexes or own recognition/player.
                     PlayerVoiceControls(
                         voiceState = voiceState,
+                        heardPhrase = heardPhrase,
                         availability = voiceAvailability,
                         permissionStage = voicePermissionStage,
                         startRejected = voiceStartRejected,
@@ -523,6 +525,7 @@ fun FullPlayerScreen(
 @Composable
 private fun PlayerVoiceControls(
     voiceState: VoiceSessionState,
+    heardPhrase: String?,
     availability: VoicePttAvailability,
     permissionStage: VoicePracticeStage,
     startRejected: Boolean,
@@ -580,6 +583,7 @@ private fun PlayerVoiceControls(
         VoiceSessionPanel(
             state = voiceState,
             permissionStage = permissionStage,
+            heardPhrase = heardPhrase,
             onPermissionContinue = onPermissionContinue,
             onPermissionCancel = onPermissionCancel,
             onVoiceCancel = onCancel,
