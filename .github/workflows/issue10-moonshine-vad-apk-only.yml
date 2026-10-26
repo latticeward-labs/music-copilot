@@ -1,0 +1,79 @@
+name: Issue 10 - Moonshine + Silero VAD APK (BUILD ONLY)
+on:
+  push:
+    branches:
+      - fix/issue10-moonshine-silero-vad
+    paths:
+      - "app/src/main/java/com/latticeward/musiccopilot/voice/**"
+      - "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
+      - "app/build.gradle.kts"
+      - ".github/workflows/issue10-moonshine-vad-apk-only.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  assemble:
+    name: Build complete Music Copilot debug APK - no tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: true
+      - name: Install target Android SDK
+        run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
+      - name: Bundle English Moonshine Tiny v2 and Silero VAD
+        shell: bash
+        run: |
+          set -euo pipefail
+          model=sherpa-onnx-moonshine-tiny-en-quantized-2026-02-27
+          mkdir -p app/src/main/assets app/libs
+          curl --fail --location --retry 4 --retry-delay 5 \
+            "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/$model.tar.bz2" \
+            -o /tmp/moonshine.tar.bz2
+          tar -xjf /tmp/moonshine.tar.bz2 -C app/src/main/assets
+          for required in encoder_model.ort decoder_model_merged.ort tokens.txt; do
+            test -s "app/src/main/assets/$model/$required"
+          done
+          rm -rf "app/src/main/assets/$model/test_wavs"
+          curl --fail --location --retry 4 --retry-delay 5 \
+            "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx" \
+            -o app/src/main/assets/silero_vad.onnx
+          test -s app/src/main/assets/silero_vad.onnx
+      - name: Fetch pinned Android Sherpa-ONNX runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 4 --retry-delay 5 \
+            "https://github.com/k2-fsa/sherpa-onnx/releases/download/v2.0.0/sherpa-onnx-2.0.0.aar" \
+            -o app/libs/sherpa-onnx-2.0.0.aar
+          echo "f0f8716982d27cb4ce695e3934018b1342d9d3d6fdb6ef1f1658fe8bad50b4fc  app/libs/sherpa-onnx-2.0.0.aar" \
+            | sha256sum -c -
+      - name: Assemble full application only - zero automatic tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./gradlew --no-daemon --console=plain :app:assembleDebug
+      - name: Stage APK and checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          cp app/build/outputs/apk/debug/app-debug.apk release/Music-Copilot-Issue10-Moonshine-VAD-debug.apk
+          sha256sum release/Music-Copilot-Issue10-Moonshine-VAD-debug.apk \
+            > release/Music-Copilot-Issue10-Moonshine-VAD-debug.apk.sha256
+          stat -c 'APK_BYTES=%s' release/Music-Copilot-Issue10-Moonshine-VAD-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Music-Copilot-Issue10-Moonshine-Silero-VAD-APK
+          path: release/
+          retention-days: 14
+          if-no-files-found: error
