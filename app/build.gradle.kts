@@ -98,6 +98,10 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.protobuf.javalite)
 
+    // Issue #10 only: on-device Moonshine/Silero STT runtime. The workflow
+    // obtains the pinned AAR before build; no network dependencies at runtime.
+    implementation(files("libs/sherpa-onnx-2.0.0.aar"))
+
     debugImplementation(libs.androidx.compose.ui.tooling)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
