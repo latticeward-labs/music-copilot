@@ -148,6 +148,9 @@ fun AppNavHost(
     onDrivingMicPermissionContinue: () -> Unit = {},
     onDrivingMicPermissionDismiss: () -> Unit = {},
 ) {
+    // In-memory, one-attempt Vosk readout. Clearing the session clears this UI.
+    val heardPhrase = voiceSessionCoordinator?.heardPhrase
+        ?.collectAsStateWithLifecycle()?.value
     val navController = rememberNavController()
     val visibleBackStackEntry by navController.currentBackStackEntryAsState()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -592,6 +595,7 @@ fun AppNavHost(
                             }
                         },
                         voiceState = ownedState,
+                        heardPhrase = heardPhrase.takeIf { ownedState != VoiceSessionState.Idle },
                         voiceAvailability = availability,
                         voicePermissionStage = playerMicPermissionStage,
                         voiceStartRejected = voiceStartRejected,
@@ -705,6 +709,9 @@ fun AppNavHost(
                 requestFailed = playerUi.requestFailed,
                 voiceState = if (DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionState))
                     voiceSessionState else VoiceSessionState.Idle,
+                heardPhrase = heardPhrase.takeIf {
+                    DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionState)
+                },
                 voiceAvailability = availability,
                 voicePermissionStage = drivingMicPermissionStage,
                 voiceStartRejected = voiceStartRejected,
