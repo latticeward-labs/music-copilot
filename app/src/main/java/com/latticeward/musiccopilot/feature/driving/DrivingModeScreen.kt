@@ -98,6 +98,7 @@ fun DrivingModeScreen(
     onTransport: ((DrivingAction) -> Unit)? = null,
     onMic: (() -> Unit)? = null,
     voiceState: VoiceSessionState = VoiceSessionState.Idle,
+    heardPhrase: String? = null,
     voiceAvailability: DrivingVoiceAvailability = DrivingVoiceAvailability.ProviderUnavailable,
     voicePermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
     voiceStartRejected: Boolean = false,
@@ -308,6 +309,7 @@ fun DrivingModeScreen(
                 VoiceSessionPanel(
                     state = voiceState,
                     permissionStage = voicePermissionStage,
+                    heardPhrase = heardPhrase,
                     onPermissionContinue = onVoicePermissionContinue,
                     onPermissionCancel = onVoicePermissionCancel,
                     onVoiceCancel = onVoiceCancel,
