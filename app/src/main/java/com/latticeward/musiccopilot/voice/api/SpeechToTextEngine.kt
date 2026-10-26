@@ -19,6 +19,12 @@ data class SpeechRecognitionResult(
     val transcript: String,
     val providerConfidence: Double?,
     val detectedLanguageTag: String?,
+    /**
+     * Explicit assurance from local VAD endpointing ONLY, not model confidence.
+     * Never enabled by synthetic results or the Android recognizer by default.
+     * The restricted mapper still requires an exact allowlisted English phrase.
+     */
+    val localVadEndpointVerified: Boolean = false,
 ) {
     override fun toString(): String = "SpeechRecognitionResult(redacted)"
 }
