@@ -1,8 +1,8 @@
-name: Issue 10 - Moonshine + Silero VAD APK (BUILD ONLY)
+name: Issue 10 - Vosk Small English + Silero VAD APK (BUILD ONLY)
 on:
   push:
     branches:
-      - fix/issue10-moonshine-silero-vad
+      - fix/issue10-vosk-small-en-us-015
     paths:
       - "app/src/main/java/com/latticeward/musiccopilot/voice/**"
       - "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
@@ -30,20 +30,21 @@ jobs:
           validate-wrappers: true
       - name: Install target Android SDK
         run: sdkmanager "platforms;android-36" "build-tools;35.0.0"
-      - name: Bundle English Moonshine Tiny v2 and Silero VAD
+      - name: Bundle exact offline Vosk small en-US 0.15 and Silero VAD
         shell: bash
         run: |
           set -euo pipefail
-          model=sherpa-onnx-moonshine-tiny-en-quantized-2026-02-27
+          model=vosk-model-small-en-us-0.15
           mkdir -p app/src/main/assets app/libs
           curl --fail --location --retry 4 --retry-delay 5 \
-            "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/$model.tar.bz2" \
-            -o /tmp/moonshine.tar.bz2
-          tar -xjf /tmp/moonshine.tar.bz2 -C app/src/main/assets
-          for required in encoder_model.ort decoder_model_merged.ort tokens.txt; do
-            test -s "app/src/main/assets/$model/$required"
-          done
-          rm -rf "app/src/main/assets/$model/test_wavs"
+            "https://alphacephei.com/vosk/models/$model.zip" \
+            -o /tmp/vosk-en-us-015.zip
+          unzip -tq /tmp/vosk-en-us-015.zip
+          unzip -q /tmp/vosk-en-us-015.zip -d app/src/main/assets
+          test -s "app/src/main/assets/$model/am/final.mdl"
+          test -s "app/src/main/assets/$model/conf/model.conf"
+          # Version tag for Vosk StorageService's local model cache.
+          printf "vosk-small-en-us-0.15-v1\n" > "app/src/main/assets/$model/uuid"
           curl --fail --location --retry 4 --retry-delay 5 \
             "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx" \
             -o app/src/main/assets/silero_vad.onnx
@@ -67,13 +68,13 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p release
-          cp app/build/outputs/apk/debug/app-debug.apk release/Music-Copilot-Issue10-Moonshine-VAD-debug.apk
-          sha256sum release/Music-Copilot-Issue10-Moonshine-VAD-debug.apk \
-            > release/Music-Copilot-Issue10-Moonshine-VAD-debug.apk.sha256
-          stat -c 'APK_BYTES=%s' release/Music-Copilot-Issue10-Moonshine-VAD-debug.apk
+          cp app/build/outputs/apk/debug/app-debug.apk release/Music-Copilot-Issue10-Vosk-Silero-VAD-debug.apk
+          sha256sum release/Music-Copilot-Issue10-Vosk-Silero-VAD-debug.apk \
+            > release/Music-Copilot-Issue10-Vosk-Silero-VAD-debug.apk.sha256
+          stat -c 'APK_BYTES=%s' release/Music-Copilot-Issue10-Vosk-Silero-VAD-debug.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: Music-Copilot-Issue10-Moonshine-Silero-VAD-APK
+          name: Music-Copilot-Issue10-Vosk-Silero-VAD-APK
           path: release/
           retention-days: 14
           if-no-files-found: error
