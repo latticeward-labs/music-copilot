@@ -13,6 +13,11 @@ android {
         applicationId = "com.latticeward.musiccopilot"
         minSdk = 29
         targetSdk = 36
+        // Issue #10 physical-device QA only: omit irrelevant emulator/32-bit
+        // JNI binaries from this *test APK*. Normal builds keep all ABIs.
+        if (project.providers.gradleProperty("issue10QaArm64Only").orNull == "true") {
+            ndk { abiFilters += "arm64-v8a" }
+        }
         versionCode = 1
         versionName = "0.1.0-foundation"
 
