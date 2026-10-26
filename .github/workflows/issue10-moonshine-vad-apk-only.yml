@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - fix/issue10-vosk-small-en-us-015
+      - fix/issue10-voice-heard-text-display
     paths:
       - "app/src/main/java/com/latticeward/musiccopilot/voice/**"
       - "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
