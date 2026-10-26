@@ -61,7 +61,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ./gradlew --no-daemon --console=plain :app:assembleDebug
+          ./gradlew --no-daemon --console=plain -Pissue10QaArm64Only=true :app:assembleDebug
       - name: Stage APK and checksum
         shell: bash
         run: |
