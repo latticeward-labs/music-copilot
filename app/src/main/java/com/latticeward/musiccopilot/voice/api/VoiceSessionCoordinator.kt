@@ -5,6 +5,7 @@ import com.latticeward.musiccopilot.core.model.VoiceSessionId
 import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.core.result.AppResult
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 enum class VoiceOrigin { Player, Driving }
 
@@ -65,9 +66,19 @@ sealed interface VoiceSessionState {
     ) : VoiceSessionState
 }
 
+/**
+ * Empty fallback for existing test/preview coordinators: no transcript
+ * available. The production coordinator overrides this only for the current
+ * on-screen voice attempt, and clears it on retry, dismissal and cancellation.
+ */
+private val emptyHeardPhrase = MutableStateFlow<String?>(null)
+
 /** Single app-scoped generation owner. No playback/queue authority in Voice. */
 interface VoiceSessionCoordinator {
     val state: StateFlow<VoiceSessionState>
+    /** Ephemeral recognition text for display only, never persisted or logged. */
+    val heardPhrase: StateFlow<String?>
+        get() = emptyHeardPhrase
     fun start(origin: VoiceOrigin): AppResult<VoiceSessionId>
     fun confirm(token: VoiceCandidateToken, optionIndex: Int): AppResult<Unit>
     fun retry(): AppResult<Unit>
