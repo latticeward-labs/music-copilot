@@ -62,6 +62,10 @@ class DefaultVoiceSessionCoordinator(
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
     override val state: StateFlow<VoiceSessionState> = mutableState
+    // UI-only. No transcripts in logs, repositories, SavedState, or telemetry.
+    // Cleared on retry, dismiss, lifecycle cancellation and the next session.
+    private val mutableHeardPhrase = MutableStateFlow<String?>(null)
+    override val heardPhrase: StateFlow<String?> = mutableHeardPhrase
 
     /**
      * UI, provider continuations and Media3 callbacks use the application Main
@@ -118,6 +122,7 @@ class DefaultVoiceSessionCoordinator(
         childJob = generation
         dispatchClaimed = false
         feedbackClaimed = false
+        mutableHeardPhrase.value = null
         // Unique even if Android kills/restarts only the app controller while
         // MediaSessionService retains music and an old lease.
         val duckToken = "voice-duck-${UUID.randomUUID()}"
@@ -178,7 +183,8 @@ class DefaultVoiceSessionCoordinator(
                     failAttempt(id, origin, number, generation, code)
                 }
                 is AppResult.Success -> {
-                    if (!publishProcessing(id, origin, number, generation)) return
+                    if (!publishProcessing(id, origin, number, generation,
+                            recognition.value.transcript)) return
                     val decision = try {
                         intentMapper.map(recognition.value)
                     } catch (_: Exception) {
@@ -255,10 +261,17 @@ class DefaultVoiceSessionCoordinator(
 
     private fun publishProcessing(
         id: VoiceSessionId, origin: VoiceOrigin, number: Int, generation: Job,
+        transcript: String,
     ): Boolean = synchronized(gate) {
         if (!isCurrentLocked(id, generation, number) ||
             !VoiceTransitionPolicy.mayProcess(mutableState.value, id, origin, number)
         ) return@synchronized false
+        // Raw provider text is shown in the current overlay only. It is NOT
+        // the accepted intent and it grants no command execution authority.
+        mutableHeardPhrase.value = transcript.trim().takeIf { text ->
+            text.isNotEmpty() && text.length <= 120 &&
+                text.none { Character.isISOControl(it) }
+        }
         mutableState.value = VoiceSessionState.Processing(id, origin, number)
         true
     }
@@ -418,6 +431,7 @@ class DefaultVoiceSessionCoordinator(
         attempt = 0
         dispatchClaimed = false
         feedbackClaimed = false
+        mutableHeardPhrase.value = null
         activeDuckToken?.let { token -> runCatching {
             ducking.releaseVoiceDuck(token)
         } }
