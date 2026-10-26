@@ -53,6 +53,7 @@ import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 fun VoiceSessionPanel(
     state: VoiceSessionState,
     permissionStage: VoicePracticeStage,
+    heardPhrase: String? = null,
     onPermissionContinue: () -> Unit,
     onPermissionCancel: () -> Unit,
     onVoiceCancel: () -> Unit,
@@ -101,6 +102,18 @@ fun VoiceSessionPanel(
         modifier = modifier.fillMaxWidth().padding(vertical = MusicSpacing.xsDp),
         verticalArrangement = Arrangement.spacedBy(MusicSpacing.smDp),
     ) {
+        // Diagnostic readout only for the current active session. If Vosk
+        // returned no words, do not add any placeholder or invented text.
+        // Keep the existing result ("Command not recognized", etc.) below it.
+        if (!heardPhrase.isNullOrBlank()) {
+            Text(
+                text = "Heard: $heardPhrase",
+                modifier = Modifier.fillMaxWidth(),
+                color = MusicColors.textPrimary,
+                style = textStyle,
+                textAlign = alignment,
+            )
+        }
         Text(
             text = headingText,
             modifier = Modifier.fillMaxWidth()
