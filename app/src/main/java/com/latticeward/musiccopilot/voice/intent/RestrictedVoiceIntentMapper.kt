@@ -48,12 +48,18 @@ class RestrictedVoiceIntentMapper(
         val intent = DirectControlPhrasePolicy.identify(result.transcript)
             ?: return VoiceIntentDecision.Rejected
 
-        // No local estimate or assumed 1.0 confidence may substitute for
-        // missing, NaN, infinity or below-threshold provider confidence.
-        if (!DirectControlPhrasePolicy.isDirectConfidence(
-                result.providerConfidence, directThreshold
-            )
-        ) return VoiceIntentDecision.RequiresConfirmation
+        // Calibrated score is preferred when a provider exposes one.
+        // Moonshine Tiny does not expose calibrated per-utterance confidence.
+        // For that *single* local VAD-complete path, accept only a verbatim,
+        // allowlisted direct-control phrase. Never fabricate a score or allow
+        // general speech, a partial VAD segment, or fuzzy intent matching.
+        val providerConfidenceAccepted = DirectControlPhrasePolicy.isDirectConfidence(
+            result.providerConfidence, directThreshold,
+        )
+        val verifiedLocalExactPhrase = result.providerConfidence == null &&
+            result.localVadEndpointVerified
+        if (!providerConfidenceAccepted && !verifiedLocalExactPhrase)
+            return VoiceIntentDecision.RequiresConfirmation
 
         return VoiceIntentDecision.Direct(intent)
     }
