@@ -4,6 +4,13 @@ import androidx.room.withTransaction
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
+import com.latticeward.musiccopilot.core.model.MediaRef
+import com.latticeward.musiccopilot.data.api.ArtistIndexEntry
+import com.latticeward.musiccopilot.data.api.ArtistLookupMode
+import com.latticeward.musiccopilot.data.api.ArtistLookupPage
+import com.latticeward.musiccopilot.data.api.ArtistLookupRequest
+import com.latticeward.musiccopilot.data.api.ArtistTrackRefsPage
+import com.latticeward.musiccopilot.data.api.ArtistTrackRefsRequest
 import com.latticeward.musiccopilot.data.api.LibraryBrowseCategory
 import com.latticeward.musiccopilot.data.api.LibraryBrowseEntry
 import com.latticeward.musiccopilot.data.api.LibraryBrowsePage
@@ -28,6 +35,21 @@ interface LibraryProjection {
         request: LibraryBrowseRequest,
         acceptedRevision: Long,
     ): LibraryBrowsePage = throw UnsupportedOperationException("browse query unavailable")
+
+    /**
+     * Issue #11 P03: artist identity and scoped member ref reads.
+     * Old JVM projections may safely fail; they MUST NOT return fake Empty.
+     * Production RoomLibraryProjection uses atomic read transactions.
+     */
+    suspend fun lookupArtistGroups(
+        request: ArtistLookupRequest,
+        acceptedRevision: Long,
+    ): ArtistLookupPage = throw UnsupportedOperationException("artist lookup unavailable")
+
+    suspend fun artistTrackRefs(
+        request: ArtistTrackRefsRequest,
+        acceptedRevision: Long,
+    ): ArtistTrackRefsPage = throw UnsupportedOperationException("artist member refs unavailable")
 
     /** No fabricated Search success from pre-P09 fake implementations. */
     suspend fun searchSurface(
@@ -77,6 +99,73 @@ class RoomLibraryProjection(private val database: MusicCopilotDatabase) : Librar
 
     override fun observeAll(): Flow<List<LibraryRow>> = dao.observeAll()
     override suspend fun all(): List<LibraryRow> = dao.all()
+
+    /**
+     * Count and page share ONE SQLite transaction. CandidatePage deliberately
+     * pages all known artists so P04 can score non-substring fuzzy matches;
+     * ExactNormalized is an exact indexed-field equality, never title search.
+     * Paging MUST be pinned to the same index revision by the repository.
+     */
+    override suspend fun lookupArtistGroups(
+        request: ArtistLookupRequest,
+        acceptedRevision: Long,
+    ): ArtistLookupPage = database.withTransaction {
+        currentCoroutineContext().ensureActive()
+        val total = when (request.mode) {
+            ArtistLookupMode.ExactNormalized ->
+                dao.voiceExactArtistCount(request.normalizedTarget)
+            ArtistLookupMode.CandidatePage -> dao.voiceArtistGroupCount()
+        }
+        val rows = when (request.mode) {
+            ArtistLookupMode.ExactNormalized -> dao.voiceExactArtistPage(
+                request.normalizedTarget, request.limit, request.offset,
+            )
+            ArtistLookupMode.CandidatePage ->
+                dao.voiceArtistPage(request.limit, request.offset)
+        }
+        currentCoroutineContext().ensureActive()
+        val next = if (rows.isNotEmpty() &&
+            request.offset.toLong() + rows.size.toLong() < total.toLong()
+        ) request.offset + rows.size else null
+
+        ArtistLookupPage(
+            entries = rows.map { row ->
+                ArtistIndexEntry(
+                    id = LibraryGroupId(row.groupId),
+                    displayLabel = row.label,
+                    normalizedKey = row.normalizedKey,
+                    indexedSongCount = row.songCount,
+                )
+            },
+            totalCount = total,
+            revision = acceptedRevision,
+            nextOffset = next,
+            requestedLimit = request.limit,
+        )
+    }
+
+    /** Project ONLY opaque refs in stable order; no LibraryRow hydration. */
+    override suspend fun artistTrackRefs(
+        request: ArtistTrackRefsRequest,
+        acceptedRevision: Long,
+    ): ArtistTrackRefsPage = database.withTransaction {
+        currentCoroutineContext().ensureActive()
+        val total = dao.voiceArtistMemberCount(request.artistGroupId.value)
+        val refs = dao.voiceArtistMemberRefs(
+            request.artistGroupId.value, request.limit, request.offset,
+        )
+        currentCoroutineContext().ensureActive()
+        val next = if (refs.isNotEmpty() &&
+            request.offset.toLong() + refs.size.toLong() < total.toLong()
+        ) request.offset + refs.size else null
+        ArtistTrackRefsPage(
+            refs = refs.map(::MediaRef),
+            totalCount = total,
+            revision = acceptedRevision,
+            nextOffset = next,
+            requestedLimit = request.limit,
+        )
+    }
 
 
     override suspend fun browsePage(
