@@ -5,7 +5,7 @@
   "issue": 11,
   "phase": "P13",
   "owner_request": "Generate one cumulative APK from all source phases P00-P12 and provide exact owner phone QA checklist, without running automated tests",
-  "status": "CUMULATIVE_APK_BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+  "status": "CUMULATIVE_APK_BUILD_SUCCESS_OWNER_REPORTED_MANUAL_QA_WITH_EXCEPTIONS",
   "source": {
     "branch": "feature/11-play-artist-one-step-ambiguity",
     "commit": "a8191014a1a95e4d337314caf196b282749f9f9d",
@@ -57,7 +57,7 @@
       "checksum_verified": true,
       "bytes_verified": true,
       "source_commit_verified": true,
-      "installed_on_phone": false
+      "installed_on_phone": "OWNER_REPORTS_INSTALLED_AND_USED_HASH_NOT_VERIFIED_ON_DEVICE"
     },
     "model_assets": {
       "source": "pinned Issue #10 Moonshine Tiny offline runtime included in cumulative APK",
@@ -80,243 +80,243 @@
     "manual": [
       {
         "id": "M01",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M02",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M03",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "BLOCKED",
+        "result": "UNVERIFIED_CONDITION"
       },
       {
         "id": "M04",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M05",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M06",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M07",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M08",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M09",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M10",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "REVIEW",
+        "result": "OWNER_OBSERVATION_NEEDS_TECHNICAL_TRIAGE"
       },
       {
         "id": "M11",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "FAIL",
+        "result": "OWNER_OBSERVED_FAILURE"
       },
       {
         "id": "M12",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "FAIL",
+        "result": "OWNER_OBSERVED_FAILURE"
       },
       {
         "id": "M13",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M14",
         "status": "NOT_RUN",
-        "result": null
+        "result": "EXPLICITLY_DEFERRED"
       },
       {
         "id": "M15",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "REVIEW",
+        "result": "OWNER_OBSERVATION_NEEDS_TECHNICAL_TRIAGE"
       },
       {
         "id": "M16",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M17",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M18",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M19",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M20",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M21",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M22",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M23",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M24",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M25",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M26",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M27",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M28",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M29",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "BLOCKED",
+        "result": "UNVERIFIED_CONDITION"
       },
       {
         "id": "M30",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M31",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M32",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M33",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M34",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M35",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M36",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M37",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M38",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M39",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M40",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M41",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M42",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M43",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M44",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M45",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M46",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M47",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       },
       {
         "id": "M48",
-        "status": "NOT_RUN",
-        "result": null
+        "status": "PASS",
+        "result": "OWNER_REPORTED_PASS"
       }
     ],
     "specialist": [
@@ -377,56 +377,70 @@
         "attempts": 10,
         "correct": null,
         "unintended_wrong_execution": null,
-        "status": "NOT_RUN"
+        "status": "NOT_REPORTED"
       },
       {
         "id": "L02",
         "attempts": 10,
         "correct": null,
         "unintended_wrong_execution": null,
-        "status": "NOT_RUN"
+        "status": "NOT_REPORTED"
       },
       {
         "id": "L03",
         "attempts": 10,
         "correct": null,
         "unintended_wrong_execution": null,
-        "status": "NOT_RUN"
+        "status": "NOT_REPORTED"
       },
       {
         "id": "L04",
         "attempts": 10,
         "correct": null,
         "unintended_wrong_execution": null,
-        "status": "NOT_RUN"
+        "status": "NOT_REPORTED"
       },
       {
         "id": "L05",
         "attempts": 10,
         "correct": null,
         "unintended_wrong_execution": null,
-        "status": "NOT_RUN"
+        "status": "NOT_REPORTED"
       },
       {
         "id": "L06",
         "attempts": 10,
         "correct": null,
         "unintended_wrong_execution": null,
-        "status": "NOT_RUN"
+        "status": "NOT_REPORTED"
       }
     ],
     "goal_lab_correct_at_least": 54,
     "goal_lab_total": 60,
     "goal_wrong_auto_executions": 0,
     "voice_p95_goal_ms_below": 2500,
-    "instructions": "Owner installs artifact APK and manually reports actual PASS/FAIL/BLOCKED, device, app source SHA and redacted notes; only then update case statuses"
+    "instructions": "Owner installs artifact APK and manually reports actual PASS/FAIL/BLOCKED, device, app source SHA and redacted notes; only then update case statuses",
+    "owner_report_date": "2026-11-14",
+    "owner_report_source": "Owner ChatGPT conversation + two app screenshots; no individual device logs collected",
+    "owner_report_document": "docs/implementation/ISSUE_11_P13_OWNER_REPORTED_QA_RESULTS_2026-11-14.md",
+    "owner_report_summary": {
+      "PASS": 41,
+      "FAIL": 2,
+      "REVIEW": 2,
+      "BLOCKED": 2,
+      "NOT_RUN": 1
+    },
+    "qa_limitations": "Phone-visible assertions only. M47 privacy and M20 exact ACK count are not independently instrumented or verified.",
+    "lab_gate_status": "NOT_VERIFIED",
+    "voice_p95_status": "NOT_MEASURED"
   },
   "acceptance": {
     "total_original_criteria": 13,
     "pass": 0,
     "fail": 0,
     "not_verified": 13,
-    "source": "docs/implementation/ISSUE_11_P12_ACCEPTANCE_AND_QA_LEDGER.json"
+    "source": "docs/implementation/ISSUE_11_P12_ACCEPTANCE_AND_QA_LEDGER.json",
+    "explanation": "Original AC boxes not checked; owner-visible manual checks partially pass but artist normalization, direct confidence, three plausible matches, lab and technical execution lack full acceptance proof."
   },
   "independent_quality_debt": {
     "issue": 80,
@@ -435,7 +449,7 @@
     "current_issue11_phone_lab": "NOT_RUN",
     "do_not_claim_resolved": true
   },
-  "release_decision": "HOLD_FOR_OWNER_PHONE_QA",
+  "release_decision": "OWNER_AUTHORIZED_IMPLEMENTATION_MERGE_WITH_EXCEPTIONS_NOT_BETA_OR_QUALITY_SIGNOFF",
   "merge": false,
   "pr": false,
   "issue_close": false,
@@ -445,6 +459,10 @@
     "No tracking, personal transcript/title/artist names, or session tokens should be posted in GitHub QA reports.",
     "Canceling after Media3 already accepted command cannot rewind actual service state; real route/call/focus must be checked on device.",
     "APK is debug build for owner field QA, not a Play Store release-signed artifact.",
-    "GitHub artifact has expiry. Direct sandbox copies have the exact same SHA as the downloaded artifact at build verification."
-  ]
+    "GitHub artifact has expiry. Direct sandbox copies have the exact same SHA as the downloaded artifact at build verification.",
+    "No tests or build executed during owner results documentation. Prior build-only APK provenance remains anchored to its compiled commit; later documentation commits are not APK rebuilds.",
+    "Owner explicitly requested GitHub recording, PR merge and Issue #11 closure despite exceptions; #82 tracks missing proof/defects and #80 historical STT gate remains open."
+  ],
+  "follow_up_issue": 82,
+  "known_defects": "M11 and M12 owner-observed failures; M10 and M15 need algorithm/ASR triage; M14 not run; M03 and M29 blocked"
 }
