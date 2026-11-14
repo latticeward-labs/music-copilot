@@ -28,7 +28,7 @@
     },
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/ArtistDecisionPolicy.kt",
-      "github_blob_sha": "7c0a7b6c0fa5775d18cee948aecf1471d310caa4",
+      "github_blob_sha": "215e901548cc63ba9fff1371b090d511f778f83c",
       "kind": "P05_SOURCE_UNWIRED"
     },
     {
@@ -389,5 +389,14 @@
     "no_merge": true,
     "no_issue_close": true,
     "no_acceptance_boxes_checked": true
+  },
+  "source_review": {
+    "status": "STATIC_SOURCE_REVIEW_ONLY",
+    "version_consistency": "Artist confidence and decision version strings source-checked",
+    "invalid_provider_evidence": "Cannot enter Direct or even low-confidence confirmation",
+    "legacy_controls": "Active five-command mapper remains unchanged",
+    "immutable_thresholds": "Existing VoicePolicy bounds 0.80..0.98, safe fallback 0.90",
+    "tests_executed": 0,
+    "note": "Static review is not a compile, test pass or runtime verification."
   }
 }
