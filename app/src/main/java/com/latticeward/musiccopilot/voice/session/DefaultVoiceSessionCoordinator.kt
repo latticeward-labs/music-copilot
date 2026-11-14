@@ -437,6 +437,55 @@ class DefaultVoiceSessionCoordinator(
         }
     }
 
+    /**
+     * P09: the one short spoken clarification is optional and asynchronous.
+     * The visible P08 choices must not wait for Android TTS availability.
+     * P07 still owns the token/expiry; a new generation cannot speak for it.
+     */
+    private fun queueArtistClarification(
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        number: Int,
+        generation: Job,
+    ) {
+        ownerScope.launch(generation) {
+            val key = synchronized(gate) {
+                val pending = pendingArtist
+                val ui = mutableState.value as? VoiceSessionState.Confirming
+                if (!isCurrentLocked(id, generation, number) ||
+                    pending?.generation !== generation || ui == null ||
+                    ui.sessionId != id || ui.origin != origin ||
+                    pending.snapshot.token != ui.token || artistPromptClaimed
+                ) null else {
+                    artistPromptClaimed = true
+                    if (ui.options.size == 1) VoiceFeedbackKey.ArtistConfirmOne
+                    else VoiceFeedbackKey.ArtistConfirmTwo
+                }
+            } ?: return@launch
+            val output = VoiceFeedbackPolicy.output(id, key, feedbackCatalog)
+                ?: return@launch
+            try {
+                if (tts.isAvailable()) {
+                    withTimeoutOrNull(VoiceFeedbackPolicy.MAX_SPEAK_MS) {
+                        val stillConfirming = synchronized(gate) {
+                            val pending = pendingArtist
+                            val ui = mutableState.value as? VoiceSessionState.Confirming
+                            isCurrentLocked(id, generation, number) &&
+                                pending?.generation === generation &&
+                                ui?.sessionId == id && ui.origin == origin &&
+                                ui.token == pending.snapshot.token
+                        }
+                        if (stillConfirming) tts.speak(output)
+                    }
+                }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                // Optional TTS: UI answer and manual Player remain authoritative.
+            }
+        }
+    }
+
     private fun publishArtistConfirmation(
         id: VoiceSessionId,
         origin: VoiceOrigin,
@@ -508,6 +557,9 @@ class DefaultVoiceSessionCoordinator(
         confirmationTimeoutJob?.cancel()
         confirmationTimeoutJob = null
         confirmingDispatchInFlight = false
+        // Stop any outstanding short spoken question; cancellation/Neither
+        // cannot leave a delayed TTS utterance over manual playback.
+        runCatching { tts.stop(pending.snapshot.sessionId) }
         mutableState.value = VoiceSessionState.Failed(
             pending.snapshot.sessionId, pending.snapshot.origin,
             AppError.Voice(code, Recoverability.TERMINAL_FOR_ATTEMPT,
@@ -695,6 +747,9 @@ class DefaultVoiceSessionCoordinator(
             confirmationTimeoutJob = null
             dispatchClaimed = true
             confirmingDispatchInFlight = true
+            // An answer supersedes the optional question; never overlap
+            // clarification audio with a subsequent service ACK result.
+            runCatching { tts.stop(id) }
             mutableState.value = VoiceSessionState.Processing(id, snapshot.origin, number)
 
             val executor = artistPlayback
@@ -728,14 +783,17 @@ class DefaultVoiceSessionCoordinator(
                     when (ack) {
                         is AppResult.Success ->
                             if (ack.value == PlayArtistDecision.Executed) {
-                                publishExecuted(id, snapshot.origin, number, generation)
+                                if (publishExecuted(id, snapshot.origin, number, generation)) {
+                                    deliverFeedback(id, snapshot.origin, number, generation,
+                                        VoiceFeedbackKey.ArtistPlaying)
+                                }
                             } else {
                                 failAttempt(id, snapshot.origin, number, generation,
-                                    AppErrorCodes.VOICE_UNAVAILABLE)
+                                    AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                             }
                         is AppResult.Failure ->
                             failAttempt(id, snapshot.origin, number, generation,
-                                AppErrorCodes.VOICE_UNAVAILABLE)
+                                AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                     }
                 } finally {
                     // Do not retain an in-flight generation after terminal ACK.
