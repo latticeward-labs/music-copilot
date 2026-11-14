@@ -296,6 +296,189 @@ class DefaultVoiceSessionCoordinator(
         }
     }
 
+
+    /**
+     * P07: P02 grammar -> P03/P04 resolver -> P05 provider gate ->
+     * P06 verified Media3 service command. This path is entered only for an
+     * approved PLAY_ARTIST phrase; the five transport intents are untouched.
+     * Unknown/unsupported/not-found do not mutate the existing player.
+     */
+    private suspend fun handleArtistRecognition(
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        number: Int,
+        generation: Job,
+        phrase: PlayArtistPhraseResult,
+        providerConfidence: Double?,
+    ) {
+        val recognized = phrase as? PlayArtistPhraseResult.Recognized
+        val resolver = artistResolver
+        val executor = artistPlayback
+        if (recognized == null || resolver == null || executor == null) {
+            failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH)
+            return
+        }
+        val resolved = try {
+            resolver.resolve(recognized.slot)
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+            return
+        }
+        coroutineContext.ensureActive()
+        if (!isCurrent(id, generation, number)) return
+
+        val outcome = try {
+            artistAdmission.decide(phrase, providerConfidence, resolved)
+        } catch (_: Exception) {
+            failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+            return
+        }
+        when (outcome) {
+            is AppResult.Failure ->
+                failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+            is AppResult.Success -> when (val value = outcome.value) {
+                is PlayArtistDecision.Direct -> {
+                    if (!claimDispatch(id, origin, number, generation)) return
+                    val claim = PlayArtistDispatchClaim.fromDirect(value, id, number)
+                    if (claim == null) {
+                        failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH)
+                        return
+                    }
+                    val sent = try {
+                        executor.execute(claim) {
+                            synchronized(gate) {
+                                isCurrentLocked(id, generation, number) &&
+                                    dispatchClaimed &&
+                                    !confirmingDispatchInFlight &&
+                                    VoiceTransitionPolicy.mayComplete(
+                                        mutableState.value, id, origin, number,
+                                    )
+                            }
+                        }
+                    } catch (cancelled: CancellationException) {
+                        throw cancelled
+                    } catch (_: Exception) {
+                        failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                        return
+                    }
+                    coroutineContext.ensureActive()
+                    if (!isCurrent(id, generation, number)) return
+                    when (sent) {
+                        is AppResult.Success -> {
+                            if (sent.value == PlayArtistDecision.Executed) {
+                                publishExecuted(id, origin, number, generation)
+                            } else {
+                                failAttempt(id, origin, number, generation,
+                                    AppErrorCodes.VOICE_UNAVAILABLE)
+                            }
+                        }
+                        is AppResult.Failure ->
+                            failAttempt(id, origin, number, generation,
+                                AppErrorCodes.VOICE_UNAVAILABLE)
+                    }
+                }
+                is PlayArtistDecision.Ambiguous -> {
+                    if (!publishArtistConfirmation(id, origin, number, generation, value)) {
+                        failAttempt(id, origin, number, generation,
+                            AppErrorCodes.VOICE_UNAVAILABLE)
+                    }
+                }
+                PlayArtistDecision.Unknown,
+                PlayArtistDecision.Unsupported,
+                PlayArtistDecision.NotFound,
+                PlayArtistDecision.Stale,
+                PlayArtistDecision.Cancel ->
+                    failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH)
+                PlayArtistDecision.PlaybackFailure ->
+                    failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                PlayArtistDecision.Executed ->
+                    // A decision result is not itself a Media3 acknowledgement.
+                    failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+            }
+        }
+    }
+
+    private fun publishArtistConfirmation(
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        number: Int,
+        generation: Job,
+        result: PlayArtistDecision.Ambiguous,
+    ): Boolean = synchronized(gate) {
+        if (!isCurrentLocked(id, generation, number) ||
+            pendingArtist != null ||
+            !VoiceTransitionPolicy.mayOfferArtistConfirmation(
+                mutableState.value, id, origin, number, dispatchClaimed,
+            ) ||
+            !runCatching { canBeginSession() }.getOrDefault(false)
+        ) return@synchronized false
+        val index = artistLibrary?.index?.value ?: return@synchronized false
+        if (index.status != LibraryIndexStatus.Ready ||
+            index.revision != result.expectedLibraryRevision
+        ) return@synchronized false
+
+        val token = VoiceCandidateToken(UUID.randomUUID().toString())
+        val options = result.candidates.mapIndexed { at, candidate ->
+            PlayArtistConfirmationOption(at, candidate)
+        }
+        val snapshot = PlayArtistConfirmationSnapshot(
+            sessionId = id, origin = origin, token = token,
+            expectedLibraryRevision = result.expectedLibraryRevision,
+            options = options,
+        )
+        pendingArtist = ArtistPending(snapshot, generation, number)
+        mutableState.value = VoiceSessionState.Confirming(
+            id, origin, token,
+            snapshot.options.map { VoiceConfirmationOption(it.optionIndex, it.candidate.displayLabel) },
+        )
+        confirmationTimeoutJob?.cancel()
+        confirmationTimeoutJob = ownerScope.launch(generation) {
+            delay(CONFIRMATION_TIMEOUT_MS)
+            expireArtistConfirmation(id, origin, number, generation, token)
+        }
+        true
+    }
+
+    private fun expireArtistConfirmation(
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        number: Int,
+        generation: Job,
+        token: VoiceCandidateToken,
+    ) {
+        synchronized(gate) {
+            val pending = pendingArtist ?: return@synchronized
+            val ui = mutableState.value
+            if (!isCurrentLocked(id, generation, number) ||
+                pending.generation !== generation ||
+                pending.snapshot.token != token ||
+                ui !is VoiceSessionState.Confirming || ui.token != token
+            ) return@synchronized
+            finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_TIMEOUT)
+        }
+    }
+
+    /** Terminal response without another STT turn or an executable command. */
+    private fun finishArtistConfirmationLocked(
+        pending: ArtistPending,
+        code: String,
+    ) {
+        pendingArtist = null
+        confirmationTimeoutJob?.cancel()
+        confirmationTimeoutJob = null
+        confirmingDispatchInFlight = false
+        mutableState.value = VoiceSessionState.Failed(
+            pending.snapshot.sessionId, pending.snapshot.origin,
+            AppError.Voice(code, Recoverability.TERMINAL_FOR_ATTEMPT,
+                RecoveryAction.ManualFallback),
+            canRetry = false,
+        )
+        if (childJob === pending.generation) childJob = null
+        pending.generation.cancel()
+    }
+
     private fun isCurrent(id: VoiceSessionId, generation: Job, number: Int): Boolean =
         synchronized(gate) { isCurrentLocked(id, generation, number) }
 
