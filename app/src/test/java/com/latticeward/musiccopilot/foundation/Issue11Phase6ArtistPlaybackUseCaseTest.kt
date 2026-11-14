@@ -42,7 +42,7 @@ import org.junit.Assert.*
 import org.junit.Test
 
 /**
- * Issue #11 P06 — 19 synthetic fixtures AUTHORED ONLY; NOT_RUN/NOT_COMPILED.
+ * Issue #11 P06 — 25 synthetic fixtures AUTHORED ONLY; NOT_RUN/NOT_COMPILED.
  * Owner restriction prohibits tests, Gradle and APK in P00–P12.
  *
  * Fake gateway success simulates the contractually ACKed service response.
@@ -188,7 +188,7 @@ class Issue11Phase6ArtistPlaybackUseCaseTest {
         val claim = claim()
         assertTrue(claim.commandId.value.matches(
             Regex("^voice-[0-9a-f]{32}-17-1$")))
-        assertSame(claim.commandId, claim.commandId)
+        assertEquals(claim.commandId, claim.commandId)
         assertFalse(claim.toString().contains(artist.value))
     }
 
@@ -224,7 +224,7 @@ class Issue11Phase6ArtistPlaybackUseCaseTest {
         val library = Library()
         val gateway = Gateway()
         val result = PlayArtistPlaybackUseCase(library, gateway).execute(claim()) { true }
-        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success).value)
+        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success<PlayArtistDecision>).value)
         val command = gateway.commands.single() as PlaybackCommand.ReplaceQueue
         assertEquals(listOf(ref(1)), command.items)
         assertEquals(0, command.startIndex)
@@ -294,7 +294,7 @@ class Issue11Phase6ArtistPlaybackUseCaseTest {
         val library = Library(listOf(ref(1), ref(2))).apply { missingIds = setOf(ref(1)) }
         val gateway = Gateway()
         val result = PlayArtistPlaybackUseCase(library, gateway).execute(claim()) { true }
-        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success).value)
+        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success<PlayArtistDecision>).value)
         assertEquals(listOf(ref(2)),
             (gateway.commands.single() as PlaybackCommand.ReplaceQueue).items)
     }
@@ -303,7 +303,7 @@ class Issue11Phase6ArtistPlaybackUseCaseTest {
         val library = Library(listOf(ref(1), ref(2))).apply { movedIds = setOf(ref(2)) }
         val gateway = Gateway()
         val result = PlayArtistPlaybackUseCase(library, gateway).execute(claim()) { true }
-        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success).value)
+        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success<PlayArtistDecision>).value)
         assertEquals(listOf(ref(1)),
             (gateway.commands.single() as PlaybackCommand.ReplaceQueue).items)
     }
@@ -329,7 +329,7 @@ class Issue11Phase6ArtistPlaybackUseCaseTest {
         val library = Library((1..121).map(::ref))
         val gateway = Gateway()
         val result = PlayArtistPlaybackUseCase(library, gateway).execute(claim()) { true }
-        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success).value)
+        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success<PlayArtistDecision>).value)
         assertEquals(121, library.getCalls)
         assertEquals(121,
             (gateway.commands.single() as PlaybackCommand.ReplaceQueue).items.size)
@@ -408,7 +408,7 @@ class Issue11Phase6ArtistPlaybackUseCaseTest {
         val library = Library(listOf(ref(1), ref(2), ref(3)))
         val gateway = Gateway().apply { dropSecond = true }
         val result = PlayArtistPlaybackUseCase(library, gateway).execute(claim()) { true }
-        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success).value)
+        assertSame(PlayArtistDecision.Executed, (result as AppResult.Success<PlayArtistDecision>).value)
         assertEquals(listOf(ref(1), ref(2), ref(3)),
             (gateway.commands.single() as PlaybackCommand.ReplaceQueue).items)
     }
