@@ -17,6 +17,21 @@ object VoiceLifecycleSafetyPolicy {
     fun requiresCancellationAtUiBoundary(state: VoiceSessionState): Boolean =
         state != VoiceSessionState.Idle
 
+    /**
+     * Issue #11 P10: permission is a *fresh Android OS observation*, not
+     * DataStore, a prior ActivityResult or the microphone button's status.
+     * An active generation may never become authorized merely because the
+     * app/Activity returned to foreground; it needs a new explicit PTT tap.
+     */
+    fun canContinueWithFreshOsGrant(
+        uiStarted: Boolean,
+        recordAudioGranted: Boolean,
+    ): Boolean = uiStarted && recordAudioGranted
+
+    /** Interruption/permission loss must invalidate even an in-flight ACK. */
+    fun mustCancelOnSafetyBoundary(state: VoiceSessionState): Boolean =
+        requiresCancellationAtUiBoundary(state)
+
     /** No Voice state — not even Executed — is restored from Android Bundle. */
     fun restoredStateAfterRecreation(): VoiceSessionState = VoiceSessionState.Idle
 }
