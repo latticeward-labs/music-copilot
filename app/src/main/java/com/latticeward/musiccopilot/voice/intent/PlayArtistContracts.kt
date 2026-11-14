@@ -14,7 +14,7 @@ import java.util.Collections
  * P13 is the sole app-build and owner-QA handoff phase.
  *
  * Private artist labels, opaque local group IDs and confirmation tokens must
- * never be logged, persisted in Voice state, or emitted to telemetry.
+ * never be logged, persisted to disk, or emitted to telemetry.
  */
 
 /** Provider evidence, never an artist-match score; missing is NOT 0.90. */
