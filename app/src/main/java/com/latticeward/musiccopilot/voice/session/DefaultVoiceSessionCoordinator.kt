@@ -266,6 +266,7 @@ class DefaultVoiceSessionCoordinator(
                                 return
                             }
                             if (!claimDispatch(id, origin, number, generation)) return
+                            if (!isCurrent(id, generation, number)) return
                             val acknowledged = try {
                                 dispatcher.execute(decision.intent, id, number)
                             } catch (cancelled: CancellationException) {
@@ -363,6 +364,7 @@ class DefaultVoiceSessionCoordinator(
             is AppResult.Success -> when (val value = outcome.value) {
                 is PlayArtistDecision.Direct -> {
                     if (!claimDispatch(id, origin, number, generation)) return
+                    if (!isCurrent(id, generation, number)) return
                     val claim = PlayArtistDispatchClaim.fromDirect(value, id, number)
                     if (claim == null) {
                         failAttempt(id, origin, number, generation,
@@ -372,7 +374,7 @@ class DefaultVoiceSessionCoordinator(
                     val sent = try {
                         executor.execute(claim) {
                             synchronized(gate) {
-                                isCurrentLocked(id, generation, number) &&
+                                isCurrentAndAuthorizedLocked(id, generation, number) &&
                                     dispatchClaimed &&
                                     !confirmingDispatchInFlight &&
                                     VoiceTransitionPolicy.mayComplete(
@@ -459,7 +461,7 @@ class DefaultVoiceSessionCoordinator(
             val key = synchronized(gate) {
                 val pending = pendingArtist
                 val ui = mutableState.value as? VoiceSessionState.Confirming
-                if (!isCurrentLocked(id, generation, number) ||
+                if (!isCurrentAndAuthorizedLocked(id, generation, number) ||
                     pending == null || pending.generation !== generation || ui == null ||
                     ui.sessionId != id || ui.origin != origin ||
                     pending.snapshot.token != ui.token || artistPromptClaimed
@@ -477,7 +479,7 @@ class DefaultVoiceSessionCoordinator(
                         val stillConfirming = synchronized(gate) {
                             val pending = pendingArtist
                             val ui = mutableState.value as? VoiceSessionState.Confirming
-                            isCurrentLocked(id, generation, number) &&
+                            isCurrentAndAuthorizedLocked(id, generation, number) &&
                                 pending != null && pending.generation === generation &&
                                 ui != null && ui.sessionId == id && ui.origin == origin &&
                                 ui.token == pending.snapshot.token
@@ -500,7 +502,7 @@ class DefaultVoiceSessionCoordinator(
         generation: Job,
         result: PlayArtistDecision.Ambiguous,
     ): Boolean = synchronized(gate) {
-        if (!isCurrentLocked(id, generation, number) ||
+        if (!isCurrentAndAuthorizedLocked(id, generation, number) ||
             pendingArtist != null ||
             !VoiceTransitionPolicy.mayOfferArtistConfirmation(
                 mutableState.value, id, origin, number, dispatchClaimed,
@@ -546,7 +548,7 @@ class DefaultVoiceSessionCoordinator(
         synchronized(gate) {
             val pending = pendingArtist ?: return@synchronized
             val ui = mutableState.value
-            if (!isCurrentLocked(id, generation, number) ||
+            if (!isCurrentAndAuthorizedLocked(id, generation, number) ||
                 pending.generation !== generation ||
                 pending.snapshot.token != token ||
                 ui !is VoiceSessionState.Confirming || ui.token != token
@@ -763,7 +765,7 @@ class DefaultVoiceSessionCoordinator(
             val generation = pending.generation
             val id = snapshot.sessionId
             val number = pending.attempt
-            if (!isCurrentLocked(id, generation, number) ||
+            if (!isCurrentAndAuthorizedLocked(id, generation, number) ||
                 !VoiceTransitionPolicy.mayClaimArtistConfirmation(
                     mutableState.value, id, snapshot.origin, token, dispatchClaimed,
                 ) || snapshot.token != token
@@ -807,6 +809,7 @@ class DefaultVoiceSessionCoordinator(
             val executor = artistPlayback
             ownerScope.launch(generation) {
                 try {
+                    if (!isCurrent(id, generation, number)) return@launch
                     if (executor == null) {
                         failAttempt(id, snapshot.origin, number, generation,
                             AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
@@ -815,7 +818,7 @@ class DefaultVoiceSessionCoordinator(
                     val ack = try {
                         executor.execute(claim) {
                             synchronized(gate) {
-                                isCurrentLocked(id, generation, number) &&
+                                isCurrentAndAuthorizedLocked(id, generation, number) &&
                                     confirmingDispatchInFlight &&
                                     dispatchClaimed &&
                                     VoiceTransitionPolicy.mayComplete(
@@ -868,7 +871,7 @@ class DefaultVoiceSessionCoordinator(
             val pending = pendingArtist
                 ?: return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
             val snapshot = pending.snapshot
-            if (!isCurrentLocked(snapshot.sessionId, pending.generation, pending.attempt) ||
+            if (!isCurrentAndAuthorizedLocked(snapshot.sessionId, pending.generation, pending.attempt) ||
                 !VoiceTransitionPolicy.mayClaimArtistConfirmation(
                     mutableState.value, snapshot.sessionId, snapshot.origin, token,
                     dispatchClaimed,
@@ -884,7 +887,7 @@ class DefaultVoiceSessionCoordinator(
             val pending = pendingArtist
                 ?: return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
             val snapshot = pending.snapshot
-            if (!isCurrentLocked(snapshot.sessionId, pending.generation, pending.attempt) ||
+            if (!isCurrentAndAuthorizedLocked(snapshot.sessionId, pending.generation, pending.attempt) ||
                 !VoiceTransitionPolicy.mayClaimArtistConfirmation(
                     mutableState.value, snapshot.sessionId, snapshot.origin, token,
                     dispatchClaimed,
