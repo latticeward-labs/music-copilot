@@ -91,6 +91,12 @@ fun VoiceSessionPanel(
         VoiceOverlayStatus.Executed -> stringResource(R.string.i10_voice_executed)
         VoiceOverlayStatus.Timeout -> stringResource(R.string.i10_voice_timeout)
         VoiceOverlayStatus.NotRecognized -> stringResource(R.string.i10_voice_not_recognized)
+        VoiceOverlayStatus.ArtistNotFound -> stringResource(R.string.i11_voice_artist_not_found)
+        VoiceOverlayStatus.ArtistUnsupported -> stringResource(R.string.i11_voice_artist_unsupported)
+        VoiceOverlayStatus.ArtistDeclined -> stringResource(R.string.i11_voice_artist_declined)
+        VoiceOverlayStatus.ArtistStale -> stringResource(R.string.i11_voice_artist_stale)
+        VoiceOverlayStatus.ArtistUnavailable -> stringResource(R.string.i11_voice_artist_unavailable)
+        VoiceOverlayStatus.ArtistPlaybackFailure -> stringResource(R.string.i11_voice_artist_playback_failed)
         VoiceOverlayStatus.Unavailable -> stringResource(R.string.i10_voice_unavailable)
     }
     val explanation = when (projected.status) {
@@ -109,6 +115,10 @@ fun VoiceSessionPanel(
         VoiceOverlayStatus.Timeout, VoiceOverlayStatus.NotRecognized,
         VoiceOverlayStatus.Unavailable, VoiceOverlayStatus.ConfirmationUnavailable ->
             stringResource(R.string.i10_voice_manual_fallback)
+        VoiceOverlayStatus.ArtistNotFound, VoiceOverlayStatus.ArtistUnsupported,
+        VoiceOverlayStatus.ArtistDeclined, VoiceOverlayStatus.ArtistStale,
+        VoiceOverlayStatus.ArtistUnavailable, VoiceOverlayStatus.ArtistPlaybackFailure ->
+            stringResource(R.string.i11_voice_artist_manual_fallback)
         VoiceOverlayStatus.Hidden -> ""
     }
     val actionSize = if (driving) MusicSize.drivingExitMinDp else MusicSize.touchTargetMinDp
