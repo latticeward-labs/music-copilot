@@ -8,7 +8,11 @@ import com.latticeward.musiccopilot.voice.policy.VoicePolicy
 
 /** Stable, non-personal message IDs. Never include STT text or media metadata. */
 enum class VoiceFeedbackKey {
-    Play, Pause, Next, Previous, SeekBack, Timeout, NotRecognized, Unavailable
+    Play, Pause, Next, Previous, SeekBack, Timeout, NotRecognized, Unavailable,
+    // P09: all constant, privacy-safe one-sentence English feedback.
+    ArtistPlaying, ArtistConfirmOne, ArtistConfirmTwo, ArtistNotFound,
+    ArtistUnsupported, ArtistDeclined, ArtistCanceled, ArtistStale,
+    ArtistUnavailable, ArtistPlaybackFailure
 }
 
 /** Replaceable catalog; production resolves Android English string resources. */
@@ -27,6 +31,16 @@ object EnglishVoiceFeedbackCatalog : VoiceFeedbackCatalog {
         VoiceFeedbackKey.Timeout -> "I didn't hear a command."
         VoiceFeedbackKey.NotRecognized -> "Command not recognized."
         VoiceFeedbackKey.Unavailable -> "Use the manual player controls."
+        VoiceFeedbackKey.ArtistPlaying -> "Playing songs by the selected artist."
+        VoiceFeedbackKey.ArtistConfirmOne -> "Did you mean this local artist?"
+        VoiceFeedbackKey.ArtistConfirmTwo -> "Which of these two local artists did you mean?"
+        VoiceFeedbackKey.ArtistNotFound -> "I could not find that artist in your library."
+        VoiceFeedbackKey.ArtistUnsupported -> "That artist request is not supported."
+        VoiceFeedbackKey.ArtistDeclined -> "No artist selected."
+        VoiceFeedbackKey.ArtistCanceled -> "Artist selection canceled."
+        VoiceFeedbackKey.ArtistStale -> "Your music library changed, so please choose manually."
+        VoiceFeedbackKey.ArtistUnavailable -> "Artist playback is unavailable; use manual controls."
+        VoiceFeedbackKey.ArtistPlaybackFailure -> "The player could not start that artist."
     }
 }
 
@@ -52,6 +66,12 @@ object VoiceFeedbackPolicy {
         return when (code) {
             AppErrorCodes.VOICE_TIMEOUT -> VoiceFeedbackKey.Timeout
             AppErrorCodes.VOICE_NO_MATCH -> VoiceFeedbackKey.NotRecognized
+            AppErrorCodes.VOICE_ARTIST_NOT_FOUND -> VoiceFeedbackKey.ArtistNotFound
+            AppErrorCodes.VOICE_ARTIST_UNSUPPORTED -> VoiceFeedbackKey.ArtistUnsupported
+            AppErrorCodes.VOICE_ARTIST_DECLINED -> VoiceFeedbackKey.ArtistDeclined
+            AppErrorCodes.VOICE_ARTIST_STALE -> VoiceFeedbackKey.ArtistStale
+            AppErrorCodes.VOICE_ARTIST_UNAVAILABLE -> VoiceFeedbackKey.ArtistUnavailable
+            AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED -> VoiceFeedbackKey.ArtistPlaybackFailure
             else -> VoiceFeedbackKey.Unavailable
         }
     }
