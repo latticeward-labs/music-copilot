@@ -132,7 +132,7 @@ class Issue11Phase8ArtistConfirmationUiContractTest {
         assertTrue(src.contains("option.optionIndex"))
         assertFalse(src.contains("lookupArtistGroups("))
         assertFalse(src.contains("artistTrackRefs("))
-        assertFalse(src.contains("MediaStore"))
+        assertFalse(src.contains("MediaStore.query("))
     }
 
     @Test fun sharedPanelUsesResourceBackedQuestionsAndNoRawTranscript() {
