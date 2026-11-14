@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot.app.di
 
 import android.content.Context
 import com.latticeward.musiccopilot.BuildConfig
+import com.latticeward.musiccopilot.quality.api.TelemetryEvent
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
@@ -48,6 +49,7 @@ internal object VoiceBindings {
         context: Context? = null,
         canBeginSession: () -> Boolean = { true },
         artistLibrary: LibraryRepository? = null,
+        tryRecordVoiceOutcome: (TelemetryEvent.VoiceIntentOutcome) -> Unit = {},
     ): DefaultVoiceSessionCoordinator = DefaultVoiceSessionCoordinator(
         scope, stt, tts, playback = playback,
         intentMapper = RestrictedVoiceIntentMapper(
@@ -64,5 +66,6 @@ internal object VoiceBindings {
         // PLAY_ARTIST. No backend, second Player or synthetic confidence.
         artistLibrary = if (enabled) artistLibrary else null,
         artistAdmission = artistDecisionPolicy(),
+        tryRecordVoiceOutcome = tryRecordVoiceOutcome,
     )
 }
