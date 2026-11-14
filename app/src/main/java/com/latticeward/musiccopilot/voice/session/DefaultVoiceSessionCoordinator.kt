@@ -677,6 +677,10 @@ class DefaultVoiceSessionCoordinator(
                 RecoveryAction.ManualFallback),
             canRetry = false,
         )
+        // P11: even Neither/timeout/invalid-index have one sanitized outcome,
+        // but no artist name, token or user choice is persisted.
+        queueArtistOutcomeLocked(pending.snapshot.sessionId, pending.generation,
+            pending.attempt, VoiceIntentDiagnosticPolicy.fromArtistError(code))
         if (childJob === pending.generation) childJob = null
         pending.generation.cancel()
     }
@@ -770,7 +774,11 @@ class DefaultVoiceSessionCoordinator(
                 ),
                 canRetry = code !in ARTIST_TERMINAL_CODES &&
                     VoiceTransitionPolicy.canOfferRetry(number, code),
-            ).also { mutableState.value = it }
+            ).also {
+                mutableState.value = it
+                queueArtistOutcomeLocked(id, generation, number,
+                    VoiceIntentDiagnosticPolicy.fromArtistError(code))
+            }
         } ?: return
         VoiceFeedbackPolicy.terminalFailure(code, failed.canRetry)?.let { key ->
             deliverFeedback(id, origin, number, generation, key)
@@ -995,6 +1003,10 @@ class DefaultVoiceSessionCoordinator(
                     dispatchClaimed,
                 ) || snapshot.token != token
             ) return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+            // Explicit Cancel is a terminal, non-identifying outcome. A
+            // lifecycle/permission revoke does NOT pretend to be a user cancel.
+            queueArtistOutcomeLocked(snapshot.sessionId, pending.generation,
+                pending.attempt, VoiceDiagnosticResult.CANCELED)
             invalidateLocked()
             AppResult.Success(Unit)
         }
