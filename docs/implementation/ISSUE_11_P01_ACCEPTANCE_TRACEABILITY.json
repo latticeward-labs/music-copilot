@@ -1,0 +1,335 @@
+{
+  "schema": "issue11-p01-acceptance-traceability-v1",
+  "project": "latticeward-labs/music-copilot",
+  "issue_number": 11,
+  "phase": "P01",
+  "created_on": "2026-11-14",
+  "source_branch": "feature/11-play-artist-one-step-ambiguity",
+  "source_baseline_main": "00ad93363cf773e0afb21953c7a7d324fc1c0404",
+  "owner_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "source_contract": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/PlayArtistContracts.kt",
+  "state_result_matrix": "docs/implementation/ISSUE_11_P01_PRODUCT_CONTRACT_AND_STATE_MATRIX.md",
+  "phase_status": "SOURCE_DELIVERED_UNWIRED",
+  "production_behavior": "UNCHANGED",
+  "source_level_review": "DOCUMENTED_ONLY",
+  "build_status": "NOT_RUN",
+  "tests_status": "NOT_RUN",
+  "github_actions_status": "NOT_RUN",
+  "apk_status": "NOT_CREATED",
+  "manual_phone_tests": "NOT_RUN",
+  "six_by_ten_voice_lab": "NOT_RUN",
+  "acceptance_summary": {
+    "total": 13,
+    "verified_pass": 0,
+    "verified_fail": 0,
+    "not_verified": 10,
+    "not_run": 3
+  },
+  "quality_blocker": {
+    "issue": 80,
+    "state": "OPEN",
+    "source_issue10_owner_attempts": 50,
+    "source_issue10_successes": 24,
+    "source_issue10_rate": 0.48,
+    "required_rate": 0.9,
+    "notes": "Existing Issue #10 failure, not a newly run Issue #11 measurement."
+  },
+  "allowed_confirmation_response": [
+    "Select(current_token,current_option_index)",
+    "Neither(current_token)",
+    "Cancel(current_token)"
+  ],
+  "recognition_retry_policy": "Only via existing retry() after eligible Failed state and at most one retry; not a second confirmation response.",
+  "rules": [
+    "Never infer provider confidence from fuzzy similarity or null STT confidence.",
+    "Do not introduce extra intent names or new phrase synonyms in P01.",
+    "Artist display labels/group IDs/tokens cannot enter GitHub QA evidence, telemetry, crash payloads or free-form logs.",
+    "No direct execution before P05 confidence gate, P06 live re-query and Media3 acknowledgement.",
+    "One confirmation, one reply, at most two immutable options, no requery in UI.",
+    "All source-only QA scenarios must remain NOT_RUN until P13; tests must not be executed in P01."
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "expectation": "Approved PLAY_ARTIST phrase and approved Voice Contract equivalents",
+      "decisions": [
+        "Unknown",
+        "Unsupported",
+        "Direct"
+      ],
+      "owner_phases": [
+        "P02",
+        "P12"
+      ],
+      "planned_qa_ids": [
+        "M01",
+        "M04",
+        "M05",
+        "M06"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "No additional phrase invented in P01"
+    },
+    {
+      "id": "AC02",
+      "expectation": "Bounded local artist-name normalization and fuzzy matching",
+      "decisions": [
+        "Direct",
+        "Ambiguous",
+        "NotFound"
+      ],
+      "owner_phases": [
+        "P03",
+        "P04"
+      ],
+      "planned_qa_ids": [
+        "M09",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "ArtistGroupId, not song-title candidates; algorithm/version P04"
+    },
+    {
+      "id": "AC03",
+      "expectation": "History as secondary tie-break only under approved local-data policy",
+      "decisions": [
+        "Direct",
+        "Ambiguous"
+      ],
+      "owner_phases": [
+        "P04"
+      ],
+      "planned_qa_ids": [
+        "M14",
+        "M15"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "No history source or preference value fabricated in P01"
+    },
+    {
+      "id": "AC04",
+      "expectation": "Certain match executes via service-owned PlaybackGateway with no extra screen",
+      "decisions": [
+        "Direct",
+        "Executed",
+        "PlaybackFailure"
+      ],
+      "owner_phases": [
+        "P05",
+        "P06"
+      ],
+      "planned_qa_ids": [
+        "M02",
+        "M03",
+        "M08",
+        "M30",
+        "M31"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "Direct decision is not acknowledgement"
+    },
+    {
+      "id": "AC05",
+      "expectation": "Low confidence or multiple meaningful matches leads to exactly one confirmation",
+      "decisions": [
+        "Ambiguous",
+        "Unknown"
+      ],
+      "owner_phases": [
+        "P05",
+        "P07",
+        "P08"
+      ],
+      "planned_qa_ids": [
+        "M13",
+        "M15",
+        "M17",
+        "M18",
+        "M23"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "One or two copied candidates and one token; provider null is not guessed"
+    },
+    {
+      "id": "AC06",
+      "expectation": "No duplicate execution on recreation, repeated events or rapid input",
+      "decisions": [
+        "Stale",
+        "Executed"
+      ],
+      "owner_phases": [
+        "P07",
+        "P10"
+      ],
+      "planned_qa_ids": [
+        "M20",
+        "M22",
+        "M24",
+        "M40"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "One-shot claim must occur before suspension; no implementation yet"
+    },
+    {
+      "id": "AC07",
+      "expectation": "NotFound preserves current playback, short response and manual fallback",
+      "decisions": [
+        "NotFound"
+      ],
+      "owner_phases": [
+        "P03",
+        "P04",
+        "P09"
+      ],
+      "planned_qa_ids": [
+        "M16",
+        "M32"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "No queue mutation"
+    },
+    {
+      "id": "AC08",
+      "expectation": "Rejection/cancellation preserves current playback and returns to manual controls",
+      "decisions": [
+        "Unknown",
+        "Unsupported",
+        "Cancel",
+        "Stale"
+      ],
+      "owner_phases": [
+        "P07",
+        "P09",
+        "P10"
+      ],
+      "planned_qa_ids": [
+        "M19",
+        "M21",
+        "M23",
+        "M32"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "Neither/Cancel is separate from recognition retry"
+    },
+    {
+      "id": "AC09",
+      "expectation": "Locally bounded confidence config; no backend",
+      "decisions": [
+        "Direct",
+        "Ambiguous",
+        "Unknown"
+      ],
+      "owner_phases": [
+        "P05"
+      ],
+      "planned_qa_ids": [
+        "M03",
+        "M07",
+        "M12"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "Existing BuildConfig direct default 0.90, allowed 0.80..0.98"
+    },
+    {
+      "id": "AC10",
+      "expectation": "Only approved coarse intent/confidence/latency/result telemetry, no personal media data",
+      "decisions": [
+        "NotFound",
+        "Unknown",
+        "Unsupported",
+        "PlaybackFailure",
+        "Executed"
+      ],
+      "owner_phases": [
+        "P11"
+      ],
+      "planned_qa_ids": [
+        "M45",
+        "M46",
+        "M47",
+        "M48"
+      ],
+      "status": "NOT_VERIFIED",
+      "note": "No new TelemetryEvent fields are approved in P01"
+    },
+    {
+      "id": "AC11",
+      "expectation": "Unit coverage for normalization/ties/threshold/similar artists/NotFound",
+      "decisions": [
+        "Direct",
+        "Ambiguous",
+        "NotFound"
+      ],
+      "owner_phases": [
+        "P04",
+        "P05",
+        "P12",
+        "P13"
+      ],
+      "planned_qa_ids": [
+        "T01",
+        "T02",
+        "T03",
+        "T04"
+      ],
+      "status": "NOT_RUN",
+      "note": "Authored later; never executed before P13"
+    },
+    {
+      "id": "AC12",
+      "expectation": "Integration coverage for Confirming transitions and playback dispatch",
+      "decisions": [
+        "Ambiguous",
+        "Cancel",
+        "Stale",
+        "PlaybackFailure",
+        "Executed"
+      ],
+      "owner_phases": [
+        "P07",
+        "P10",
+        "P12",
+        "P13"
+      ],
+      "planned_qa_ids": [
+        "T05",
+        "T06",
+        "T07",
+        "T08",
+        "T09",
+        "T10"
+      ],
+      "status": "NOT_RUN",
+      "note": "Authored later; runtime execution P13 only if owner authorizes"
+    },
+    {
+      "id": "AC13",
+      "expectation": "Direct-command laboratory quality gate",
+      "decisions": [
+        "Direct",
+        "Ambiguous",
+        "Executed",
+        "PlaybackFailure"
+      ],
+      "owner_phases": [
+        "P13"
+      ],
+      "planned_qa_ids": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05",
+        "L06"
+      ],
+      "status": "NOT_RUN",
+      "note": "Owner six-by-ten lab NOT_RUN; #80 existing 24/50 remains failed"
+    }
+  ]
+}
