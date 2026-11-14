@@ -80,11 +80,14 @@ class ArtistDecisionPolicy(
                 unknown()
             is ArtistResolution.Clear -> {
                 val candidate = matched.candidate
-                if (!plausibleEvidence(candidate)) return unknown()
+                // A P04 Clear result MUST be strong enough to be Clear.
+                // A malformed/mismatched scorer result is not "low STT
+                // confidence" and should not enter a guessed confirmation.
+                if (!plausibleEvidence(candidate) ||
+                    !strongEnoughForDirect(candidate)
+                ) return unknown()
 
-                if (ArtistConfidencePolicy.permitsDirect(evidence, directThreshold) &&
-                    strongEnoughForDirect(candidate)
-                ) {
+                if (ArtistConfidencePolicy.permitsDirect(evidence, directThreshold)) {
                     // P06 must still requery MediaStore and await a real ACK;
                     // this decision alone NEVER means music has played.
                     AppResult.Success(
