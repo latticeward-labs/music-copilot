@@ -15,6 +15,7 @@ import com.latticeward.musiccopilot.voice.android.UnavailableTextToSpeechEngine
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
 import com.latticeward.musiccopilot.voice.session.DefaultVoiceSessionCoordinator
+import com.latticeward.musiccopilot.voice.intent.ArtistDecisionPolicy
 import com.latticeward.musiccopilot.voice.intent.RestrictedVoiceIntentMapper
 import kotlinx.coroutines.CoroutineScope
 
@@ -31,6 +32,14 @@ internal object VoiceBindings {
     fun textToSpeech(context: Context?): TextToSpeechEngine =
         if (context == null) UnavailableTextToSpeechEngine()
         else AndroidOfflineTextToSpeechEngine(context)
+
+    /**
+     * Issue #11 P05 pure admission policy factory. Deliberately NOT connected
+     * to the existing five-control coordinator yet. P07/P12 own that wiring.
+     * One bounded, local BuildConfig value; no Remote Config or backend.
+     */
+    fun artistDecisionPolicy(): ArtistDecisionPolicy =
+        ArtistDecisionPolicy(BuildConfig.VOICE_ARTIST_DIRECT_CONFIDENCE_THRESHOLD)
 
     fun coordinator(
         scope: CoroutineScope, stt: SpeechToTextEngine, tts: TextToSpeechEngine,
