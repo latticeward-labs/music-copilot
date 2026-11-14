@@ -125,6 +125,14 @@ class ApplicationBindings(
                 )
             },
             artistLibrary = libraryRepository,
+            // P11: only typed, coarse and sanitizable values enter Quality.
+            // The production sink still drops ALL events (no diagnostic
+            // consent/UI or external quality transport is installed).
+            // Executed asynchronously by Coordinator; it cannot block Media3.
+            tryRecordVoiceOutcome = { event ->
+                qualityEventPublisher.tryRecord(event)
+                Unit
+            },
         )
     val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
 
