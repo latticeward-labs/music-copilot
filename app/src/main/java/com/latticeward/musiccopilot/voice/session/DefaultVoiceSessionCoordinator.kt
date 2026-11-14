@@ -3,6 +3,8 @@ package com.latticeward.musiccopilot.voice.session
 import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
 import com.latticeward.musiccopilot.core.model.VoiceSessionId
 import com.latticeward.musiccopilot.core.application.voice.VoiceLifecycleSafetyPolicy
+import com.latticeward.musiccopilot.data.api.LibraryIndexStatus
+import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
@@ -19,6 +21,15 @@ import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.voice.api.VoiceOrigin
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
 import com.latticeward.musiccopilot.voice.api.VoiceSessionState
+import com.latticeward.musiccopilot.voice.api.VoiceConfirmationOption
+import com.latticeward.musiccopilot.voice.intent.ArtistDecisionPolicy
+import com.latticeward.musiccopilot.voice.intent.ArtistResolver
+import com.latticeward.musiccopilot.voice.intent.PlayArtistConfirmationOption
+import com.latticeward.musiccopilot.voice.intent.PlayArtistConfirmationResponse
+import com.latticeward.musiccopilot.voice.intent.PlayArtistConfirmationSnapshot
+import com.latticeward.musiccopilot.voice.intent.PlayArtistDecision
+import com.latticeward.musiccopilot.voice.intent.PlayArtistPhrasePolicy
+import com.latticeward.musiccopilot.voice.intent.PlayArtistPhraseResult
 import com.latticeward.musiccopilot.voice.intent.RestrictedIntent
 import com.latticeward.musiccopilot.voice.intent.RestrictedVoiceIntentMapper
 import com.latticeward.musiccopilot.voice.intent.VoiceIntentDecision
@@ -30,6 +41,7 @@ import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackPolicy
 import com.latticeward.musiccopilot.voice.feedback.EnglishVoiceFeedbackCatalog
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.ensureActive
@@ -58,6 +70,10 @@ class DefaultVoiceSessionCoordinator(
     // Production supplies the current Activity STARTED observation. A queued
     // Mic/Retry callback after onStop cannot reopen the microphone.
     private val canBeginSession: () -> Boolean = { true },
+    // P07: supplied only by production composition root. Existing #10
+    // synthetic fakes omit this and retain all five transport behaviors.
+    private val artistLibrary: LibraryRepository? = null,
+    private val artistAdmission: ArtistDecisionPolicy = ArtistDecisionPolicy(),
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
@@ -70,6 +86,9 @@ class DefaultVoiceSessionCoordinator(
      */
     private val gate = Any()
     private val voiceDispatcher = playback?.let(::VoicePlaybackDispatcher)
+    private val artistResolver = artistLibrary?.let(::ArtistResolver)
+    private val artistPlayback = if (artistLibrary != null && playback != null)
+        PlayArtistPlaybackUseCase(artistLibrary, playback) else null
     private var sequence = 0L
     private var childJob: Job? = null
     private var currentId: VoiceSessionId? = null
@@ -77,6 +96,15 @@ class DefaultVoiceSessionCoordinator(
     private var attempt = 0
     private var dispatchClaimed = false
     private var feedbackClaimed = false
+    /** The single pending confirmation exists only for the active generation. */
+    private data class ArtistPending(
+        val snapshot: PlayArtistConfirmationSnapshot,
+        val generation: Job,
+        val attempt: Int,
+    )
+    private var pendingArtist: ArtistPending? = null
+    private var confirmingDispatchInFlight = false
+    private var confirmationTimeoutJob: Job? = null
     private var activeDuckToken: String? = null
     private var closed = false
 
@@ -118,6 +146,10 @@ class DefaultVoiceSessionCoordinator(
         childJob = generation
         dispatchClaimed = false
         feedbackClaimed = false
+        pendingArtist = null
+        confirmingDispatchInFlight = false
+        confirmationTimeoutJob?.cancel()
+        confirmationTimeoutJob = null
         // Unique even if Android kills/restarts only the app controller while
         // MediaSessionService retains music and an old lease.
         val duckToken = "voice-duck-${UUID.randomUUID()}"
@@ -179,6 +211,21 @@ class DefaultVoiceSessionCoordinator(
                 }
                 is AppResult.Success -> {
                     if (!publishProcessing(id, origin, number, generation)) return
+                    // P07: only the explicitly approved artist phrase enters
+                    // the sixth-intent path. Five exact transport controls
+                    // continue through the unmodified #10 intent mapper.
+                    val artistPhrase = PlayArtistPhrasePolicy.classify(
+                        recognition.value.transcript, recognition.value.detectedLanguageTag,
+                    )
+                    if (artistPhrase is PlayArtistPhraseResult.Recognized ||
+                        artistPhrase == PlayArtistPhraseResult.Unsupported
+                    ) {
+                        handleArtistRecognition(
+                            id, origin, number, generation, artistPhrase,
+                            recognition.value.providerConfidence,
+                        )
+                        return
+                    }
                     val decision = try {
                         intentMapper.map(recognition.value)
                     } catch (_: Exception) {
@@ -235,14 +282,17 @@ class DefaultVoiceSessionCoordinator(
             // An old attempt's release can never alter the new attempt's
             // different UUID lease in the service.
             runCatching { ducking.releaseVoiceDuck(duckToken) }
-            // Do not erase a newer generation if retry/start ran while an old
-            // STT, TTS or Playback continuation was cancelling.
-            synchronized(gate) {
-                if (currentId == id && childJob === generation && attempt == number) {
-                    childJob = null
-                }
+            // Confirmation must outlive recognition, but microphone/ducking
+            // never do. P07 retains ONLY the generation lease for one answer.
+            val keepForConfirmation = synchronized(gate) {
+                if (activeDuckToken == duckToken) activeDuckToken = null
+                val owned = currentId == id && childJob === generation && attempt == number
+                val keep = owned && (pendingArtist?.generation === generation ||
+                    confirmingDispatchInFlight)
+                if (owned && !keep) childJob = null
+                keep
             }
-            generation.cancel()
+            if (!keepForConfirmation) generation.cancel()
         }
     }
 
@@ -418,6 +468,10 @@ class DefaultVoiceSessionCoordinator(
         attempt = 0
         dispatchClaimed = false
         feedbackClaimed = false
+        pendingArtist = null
+        confirmingDispatchInFlight = false
+        confirmationTimeoutJob?.cancel()
+        confirmationTimeoutJob = null
         activeDuckToken?.let { token -> runCatching {
             ducking.releaseVoiceDuck(token)
         } }
