@@ -53,7 +53,7 @@ class Issue11Phase5ArtistDecisionPolicyTest {
 
     private fun value(result: AppResult<PlayArtistDecision>): PlayArtistDecision {
         assertTrue(result is AppResult.Success<*>)
-        return (result as AppResult.Success).value
+        return (result as AppResult.Success<PlayArtistDecision>).value
     }
 
     private fun decide(
@@ -160,11 +160,9 @@ class Issue11Phase5ArtistDecisionPolicyTest {
         assertEquals(2, result.candidates.size)
     }
 
-    @Test fun clearCandidateWithFuzzySimilarityBelowClearCannotBeDirect() {
+    @Test fun inconsistentP04ClearBelowClearThresholdMustFailClosed() {
         val result = decide(0.99, clear(fuzzy("Adelle", 0.80)))
-        assertTrue(result is PlayArtistDecision.Ambiguous)
-        assertEquals(ArtistAmbiguityReason.LOW_PROVIDER_CONFIDENCE,
-            (result as PlayArtistDecision.Ambiguous).reason)
+        assertSame(PlayArtistDecision.Unknown, result)
     }
 
     @Test fun fuzzyBelowPlausibleFloorIsNeverPresentedAsAnArtistCandidate() {
