@@ -6,6 +6,17 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Issue #11 P03: single real artist-group projection from the Room index.
+ * No title-based candidate matching, source URI, or person-specific logging.
+ */
+data class VoiceArtistGroupRow(
+    val groupId: String,
+    val label: String,
+    val normalizedKey: String,
+    val songCount: Int,
+)
+
 /** A single summary of one derived artist/album/folder grouping. */
 data class LibraryGroupCountRow(
     val groupId: String,
@@ -78,6 +89,74 @@ interface LibraryDao {
         LIMIT :limit OFFSET :offset
     """)
     suspend fun artists(limit: Int, offset: Int): List<LibraryGroupCountRow>
+
+    // Issue #11 P03. Do NOT reuse the song-title voice candidates query.
+    // No fabricated "Unknown Artist": missing metadata/legacy NULL group
+    // rows are excluded, but a genuinely user-authored label is preserved.
+    @Query("""
+        SELECT COUNT(DISTINCT artistGroupId) FROM library_items
+        WHERE artistGroupId IS NOT NULL AND artist IS NOT NULL
+            AND normalizedArtist <> ''
+    """)
+    suspend fun voiceArtistGroupCount(): Int
+
+    @Query("""
+        SELECT COUNT(DISTINCT artistGroupId) FROM library_items
+        WHERE artistGroupId IS NOT NULL AND artist IS NOT NULL
+            AND normalizedArtist = :normalizedTarget
+    """)
+    suspend fun voiceExactArtistCount(normalizedTarget: String): Int
+
+    /** Stable whole-index pagination for bounded P04 fuzzy scoring. */
+    @Query("""
+        SELECT artistGroupId AS groupId,
+               MIN(artist) AS label,
+               MIN(normalizedArtist) AS normalizedKey,
+               COUNT(*) AS songCount
+        FROM library_items
+        WHERE artistGroupId IS NOT NULL AND artist IS NOT NULL
+            AND normalizedArtist <> ''
+        GROUP BY artistGroupId
+        ORDER BY MIN(normalizedArtist), artistGroupId
+        LIMIT :limit OFFSET :offset
+    """)
+    suspend fun voiceArtistPage(limit: Int, offset: Int): List<VoiceArtistGroupRow>
+
+    /** Exact normalized artist group, not a match against song title. */
+    @Query("""
+        SELECT artistGroupId AS groupId,
+               MIN(artist) AS label,
+               MIN(normalizedArtist) AS normalizedKey,
+               COUNT(*) AS songCount
+        FROM library_items
+        WHERE artistGroupId IS NOT NULL AND artist IS NOT NULL
+            AND normalizedArtist = :normalizedTarget
+        GROUP BY artistGroupId
+        ORDER BY MIN(normalizedArtist), artistGroupId
+        LIMIT :limit OFFSET :offset
+    """)
+    suspend fun voiceExactArtistPage(
+        normalizedTarget: String, limit: Int, offset: Int,
+    ): List<VoiceArtistGroupRow>
+
+    /** The count and refs are read in the same Room read transaction. */
+    @Query("""
+        SELECT COUNT(*) FROM library_items
+        WHERE artistGroupId = :groupId AND artist IS NOT NULL
+            AND normalizedArtist <> ''
+    """)
+    suspend fun voiceArtistMemberCount(groupId: String): Int
+
+    @Query("""
+        SELECT mediaRef FROM library_items
+        WHERE artistGroupId = :groupId AND artist IS NOT NULL
+            AND normalizedArtist <> ''
+        ORDER BY normalizedTitle, mediaRef
+        LIMIT :limit OFFSET :offset
+    """)
+    suspend fun voiceArtistMemberRefs(
+        groupId: String, limit: Int, offset: Int,
+    ): List<String>
 
     @Query("SELECT COUNT(DISTINCT albumGroupId) FROM library_items WHERE albumGroupId IS NOT NULL")
     suspend fun albumCount(): Int
