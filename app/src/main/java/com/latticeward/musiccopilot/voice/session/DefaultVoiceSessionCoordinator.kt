@@ -96,6 +96,9 @@ class DefaultVoiceSessionCoordinator(
     private var attempt = 0
     private var dispatchClaimed = false
     private var feedbackClaimed = false
+    // P09: one optional clarification sentence for an artist choice, kept
+    // separate from the subsequent ACK-driven terminal response.
+    private var artistPromptClaimed = false
     /** The single pending confirmation exists only for the active generation. */
     private data class ArtistPending(
         val snapshot: PlayArtistConfirmationSnapshot,
@@ -146,6 +149,7 @@ class DefaultVoiceSessionCoordinator(
         childJob = generation
         dispatchClaimed = false
         feedbackClaimed = false
+        artistPromptClaimed = false
         pendingArtist = null
         confirmingDispatchInFlight = false
         confirmationTimeoutJob?.cancel()
@@ -323,7 +327,9 @@ class DefaultVoiceSessionCoordinator(
         val resolver = artistResolver
         val executor = artistPlayback
         if (recognized == null || resolver == null || executor == null) {
-            failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH)
+            failAttempt(id, origin, number, generation,
+                if (recognized == null) AppErrorCodes.VOICE_ARTIST_UNSUPPORTED
+                else AppErrorCodes.VOICE_ARTIST_UNAVAILABLE)
             return
         }
         val resolved = try {
@@ -345,13 +351,17 @@ class DefaultVoiceSessionCoordinator(
         }
         when (outcome) {
             is AppResult.Failure ->
-                failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                failAttempt(id, origin, number, generation,
+                    if (outcome.error.code == AppErrorCodes.LIBRARY_BROWSE_STALE)
+                        AppErrorCodes.VOICE_ARTIST_STALE
+                    else AppErrorCodes.VOICE_ARTIST_UNAVAILABLE)
             is AppResult.Success -> when (val value = outcome.value) {
                 is PlayArtistDecision.Direct -> {
                     if (!claimDispatch(id, origin, number, generation)) return
                     val claim = PlayArtistDispatchClaim.fromDirect(value, id, number)
                     if (claim == null) {
-                        failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH)
+                        failAttempt(id, origin, number, generation,
+                            AppErrorCodes.VOICE_ARTIST_UNAVAILABLE)
                         return
                     }
                     val sent = try {
@@ -368,7 +378,8 @@ class DefaultVoiceSessionCoordinator(
                     } catch (cancelled: CancellationException) {
                         throw cancelled
                     } catch (_: Exception) {
-                        failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                        failAttempt(id, origin, number, generation,
+                            AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                         return
                     }
                     coroutineContext.ensureActive()
@@ -376,31 +387,49 @@ class DefaultVoiceSessionCoordinator(
                     when (sent) {
                         is AppResult.Success -> {
                             if (sent.value == PlayArtistDecision.Executed) {
-                                publishExecuted(id, origin, number, generation)
+                                if (publishExecuted(id, origin, number, generation)) {
+                                    // P09: never say "Playing" before P06 validates
+                                    // a service-owned Media3 acknowledgement.
+                                    deliverFeedback(id, origin, number, generation,
+                                        VoiceFeedbackKey.ArtistPlaying)
+                                }
                             } else {
                                 failAttempt(id, origin, number, generation,
-                                    AppErrorCodes.VOICE_UNAVAILABLE)
+                                    AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                             }
                         }
                         is AppResult.Failure ->
                             failAttempt(id, origin, number, generation,
-                                AppErrorCodes.VOICE_UNAVAILABLE)
+                                AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                     }
                 }
                 is PlayArtistDecision.Ambiguous -> {
-                    if (!publishArtistConfirmation(id, origin, number, generation, value)) {
+                    if (publishArtistConfirmation(id, origin, number, generation, value)) {
+                        // This is a prompt, NOT a successful playback response.
+                        // Do not hold up P08 option buttons awaiting optional TTS.
+                        queueArtistClarification(id, origin, number, generation)
+                    } else {
                         failAttempt(id, origin, number, generation,
-                            AppErrorCodes.VOICE_UNAVAILABLE)
+                            AppErrorCodes.VOICE_ARTIST_STALE)
                     }
                 }
-                PlayArtistDecision.Unknown,
-                PlayArtistDecision.Unsupported,
-                PlayArtistDecision.NotFound,
-                PlayArtistDecision.Stale,
-                PlayArtistDecision.Cancel ->
+                PlayArtistDecision.Unknown ->
                     failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH)
+                PlayArtistDecision.Unsupported ->
+                    failAttempt(id, origin, number, generation,
+                        AppErrorCodes.VOICE_ARTIST_UNSUPPORTED)
+                PlayArtistDecision.NotFound ->
+                    failAttempt(id, origin, number, generation,
+                        AppErrorCodes.VOICE_ARTIST_NOT_FOUND)
+                PlayArtistDecision.Stale ->
+                    failAttempt(id, origin, number, generation,
+                        AppErrorCodes.VOICE_ARTIST_STALE)
+                PlayArtistDecision.Cancel ->
+                    failAttempt(id, origin, number, generation,
+                        AppErrorCodes.VOICE_ARTIST_DECLINED)
                 PlayArtistDecision.PlaybackFailure ->
-                    failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                    failAttempt(id, origin, number, generation,
+                        AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                 PlayArtistDecision.Executed ->
                     // A decision result is not itself a Media3 acknowledgement.
                     failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
