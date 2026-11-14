@@ -337,7 +337,8 @@ class DefaultVoiceSessionCoordinator(
         } catch (cancelled: CancellationException) {
             throw cancelled
         } catch (_: Exception) {
-            failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+            failAttempt(id, origin, number, generation,
+                AppErrorCodes.VOICE_ARTIST_UNAVAILABLE)
             return
         }
         coroutineContext.ensureActive()
@@ -346,7 +347,8 @@ class DefaultVoiceSessionCoordinator(
         val outcome = try {
             artistAdmission.decide(phrase, providerConfidence, resolved)
         } catch (_: Exception) {
-            failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+            failAttempt(id, origin, number, generation,
+                AppErrorCodes.VOICE_ARTIST_UNAVAILABLE)
             return
         }
         when (outcome) {
@@ -432,7 +434,8 @@ class DefaultVoiceSessionCoordinator(
                         AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                 PlayArtistDecision.Executed ->
                     // A decision result is not itself a Media3 acknowledgement.
-                    failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                    failAttempt(id, origin, number, generation,
+                        AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
             }
         }
     }
@@ -745,8 +748,8 @@ class DefaultVoiceSessionCoordinator(
                 PlayArtistDispatchClaim.fromSelectedConfirmation(snapshot, it, number)
             }
             if (claim == null) {
-                finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_NO_MATCH)
-                return@synchronized failure(AppErrorCodes.VOICE_NO_MATCH)
+                finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_ARTIST_DECLINED)
+                return@synchronized failure(AppErrorCodes.VOICE_ARTIST_DECLINED)
             }
 
             // Recheck ownership and index revision before accepting selection.
@@ -755,8 +758,8 @@ class DefaultVoiceSessionCoordinator(
                 index.revision != snapshot.expectedLibraryRevision ||
                 !runCatching { canBeginSession() }.getOrDefault(false)
             ) {
-                finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_STALE_SESSION)
-                return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+                finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_ARTIST_STALE)
+                return@synchronized failure(AppErrorCodes.VOICE_ARTIST_STALE)
             }
 
             // Claim exactly once before coroutine launch or Media3 suspension.
@@ -775,7 +778,7 @@ class DefaultVoiceSessionCoordinator(
                 try {
                     if (executor == null) {
                         failAttempt(id, snapshot.origin, number, generation,
-                            AppErrorCodes.VOICE_UNAVAILABLE)
+                            AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                         return@launch
                     }
                     val ack = try {
@@ -793,7 +796,7 @@ class DefaultVoiceSessionCoordinator(
                         throw cancelled
                     } catch (_: Exception) {
                         failAttempt(id, snapshot.origin, number, generation,
-                            AppErrorCodes.VOICE_UNAVAILABLE)
+                            AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED)
                         return@launch
                     }
                     coroutineContext.ensureActive()
@@ -840,7 +843,7 @@ class DefaultVoiceSessionCoordinator(
                     dispatchClaimed,
                 ) || snapshot.token != token
             ) return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
-            finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_NO_MATCH)
+            finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_ARTIST_DECLINED)
             AppResult.Success(Unit)
         }
 
