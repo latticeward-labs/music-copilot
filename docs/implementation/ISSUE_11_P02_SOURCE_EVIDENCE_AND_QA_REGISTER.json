@@ -1,0 +1,176 @@
+{
+  "schema": "issue11-p02-source-evidence-v1",
+  "date": "2026-11-14",
+  "repository": "latticeward-labs/music-copilot",
+  "issue": 11,
+  "phase": "P02",
+  "branch": "feature/11-play-artist-one-step-ambiguity",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "phase_disposition": "SOURCE_IMPLEMENTED_UNBUILT",
+  "language": "en",
+  "grammar_version": "issue11-play-artist-en-v1",
+  "approved_artist_phrase": "Play songs by [artist]",
+  "optional_post_tap_prefix": "musico",
+  "new_equivalent_phrases_added": 0,
+  "source_artifacts": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/PlayArtistPhrasePolicy.kt",
+      "kind": "new_pure_grammar",
+      "sha": "93958a06598bac9c049463555a13b851bb4f2dc3"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+      "kind": "additive_classifier_only",
+      "sha": "ebefa7fdf7b1ec60a590865dd5986b54fd6d58d7"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase2PlayArtistGrammarTest.kt",
+      "kind": "authored_unrun_test_source",
+      "sha": "75155528ac99f7cbbabbb48b85b3e192767e8158"
+    },
+    {
+      "path": "docs/implementation/ISSUE_11_P02_PLAY_ARTIST_GRAMMAR_AND_SLOT_AUDIT.md",
+      "kind": "source_audit",
+      "sha": "a293e9738dffe9bc617b83a32bfc8af0eb2fe9d4"
+    }
+  ],
+  "legacy_five_command_map_static_comparison": "UNCHANGED_SOURCE_BODY",
+  "legacy_voice_grammar_version": "issue10-five-controls-v1",
+  "legacy_phrase_count": 19,
+  "artist_playback_execution": "DISABLED_UNWIRED",
+  "artist_confirmation": "NOT_IMPLEMENTED",
+  "library_lookup": "NOT_IMPLEMENTED",
+  "provider_confidence_policy": "P05_PENDING",
+  "test_methods_authored": 18,
+  "test_methods_executed": 0,
+  "test_methods_not_run": 18,
+  "test_cases": [
+    {
+      "id": "P02-J01",
+      "method": "grammarHasStableVersionAndOnlyApprovedPrefix",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J02",
+      "method": "canonicalCommandExtractsPrivateArtistSlotWithoutPlayback",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J03",
+      "method": "artistSlotPreservesCaseWhileLookupKeyUsesLocaleIndependentCase",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J04",
+      "method": "approvedOptionalPostTapMusicoPrefixIsAcceptedOnlyOnce",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J05",
+      "method": "commonUnicodeQuotesAndApostrophesAreCanonicalized",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J06",
+      "method": "internalPunctuationAndArtistInitialismsAreNotBlindlyRemoved",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J07",
+      "method": "blankAndEmptyArtistAreTypedMalformedRatherThanDirect",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J08",
+      "method": "unrelatedAndUnapprovedAliasesAreNotGuessed",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J09",
+      "method": "detectedNonEnglishOverridesEnglishPrefix",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J10",
+      "method": "outputIsDeterministicForSameInputAndLanguage",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J11",
+      "method": "inputLimitIsBoundedAndRejectsControlAndFormatCharacters",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J12",
+      "method": "artistSlotLengthIsBoundedIndependentlyOfTranscriptLimit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J13",
+      "method": "questionAndSemicolonCompoundDoNotGuessArtist",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J14",
+      "method": "explicitStreamingAndMultipleTransportActionsAreUnsupported",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J15",
+      "method": "punctuationOnlyArtistIsMalformed",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J16",
+      "method": "artistParsingExposesNoPersonalContentInDiagnosticToString",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J17",
+      "method": "pureSourceMapperCanClassifyButLegacyFiveControlRuntimeIsUnchanged",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02-J18",
+      "method": "localVadIsNotAnArtistConfidenceScore",
+      "status": "NOT_RUN"
+    }
+  ],
+  "checks": {
+    "kotlin_compilation": "NOT_RUN",
+    "gradle": "NOT_RUN",
+    "static_lint": "NOT_RUN",
+    "jvm_tests": "NOT_RUN",
+    "android_tests": "NOT_RUN",
+    "github_actions": "NOT_RUN",
+    "emulator": "NOT_RUN",
+    "physical_phone": "NOT_RUN",
+    "apk": "NOT_CREATED"
+  },
+  "issue11_original_AC": {
+    "count": 13,
+    "passed": 0,
+    "not_verified": 10,
+    "not_run": 3
+  },
+  "phase_sourced_AC": {
+    "AC01": "GRAMMAR_SOURCE_IMPLEMENTED_UNWIRED_NOT_VERIFIED",
+    "AC02": "SLOT_NORMALIZATION_SOURCE_ONLY_FUZZY_NOT_IMPLEMENTED_NOT_VERIFIED",
+    "AC05": "NOT_IMPLEMENTED",
+    "AC08": "PARSER_REJECTION_SOURCE_ONLY_NOT_VERIFIED",
+    "AC11": "18_JUNIT_SCENARIOS_AUTHORED_NOT_RUN"
+  },
+  "user_QA_pending": {
+    "M01_to_M48": "NOT_RUN",
+    "T01_to_T10": "NOT_RUN",
+    "L01_to_L06_six_by_ten": "NOT_RUN"
+  },
+  "open_critical_risk": {
+    "issue": 80,
+    "status": "OPEN",
+    "reported_issue10_laboratory_accuracy": "24/50 (48%)",
+    "release_gate": "45/50 (90%)"
+  },
+  "next_phase": "P03 bounded revision-aware, permission-aware local artist-group lookup",
+  "privacy": "No user private artist/track names, transcripts, group ID or token are stored in this register."
+}
