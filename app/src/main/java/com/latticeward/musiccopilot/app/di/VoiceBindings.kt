@@ -35,9 +35,9 @@ internal object VoiceBindings {
         else AndroidOfflineTextToSpeechEngine(context)
 
     /**
-     * Issue #11 P05 pure admission policy factory. Deliberately NOT connected
-     * to the existing five-control coordinator yet. P07/P12 own that wiring.
-     * One bounded, local BuildConfig value; no Remote Config or backend.
+     * Issue #11 P05 pure admission policy factory. P07 injects it into
+     * the existing application-scoped coordinator without changing the five
+     * #10 transport command policies. Local bounded BuildConfig only.
      */
     fun artistDecisionPolicy(): ArtistDecisionPolicy =
         ArtistDecisionPolicy(BuildConfig.VOICE_ARTIST_DIRECT_CONFIDENCE_THRESHOLD)
