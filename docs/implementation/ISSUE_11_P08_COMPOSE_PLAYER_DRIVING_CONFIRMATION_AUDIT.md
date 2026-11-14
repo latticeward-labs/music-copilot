@@ -27,6 +27,7 @@ The exact attached \`MSM2(1)(1).rar\` (SHA-256 \`0618cf20f1d7bd596ab744c1fa7b19b
 | [\`app/navigation/AppNavHost.kt\`](../../app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt) | Both origin routes wire \`onVoiceConfirm(token,index)\`, \`onVoiceNeither(token)\`, \`onVoiceCancelConfirmation(token)\` to the **single app-scoped VoiceSessionCoordinator**. At callback time read \`coordinator.state.value\`, token, recorded origin, active destination/permission/route; dismiss/replaced origin cannot act. No navigation destination, local database query, Media3 call or STT request in UI action callbacks. |
 | [\`app/src/main/res/values/strings.xml\`](../../app/src/main/res/values/strings.xml) | Eight English, localization-ready question/action/TalkBack strings, including artist label and one-based index for screen-reader context. Only UI displays private local label; no transcript/log/telemetry persistence. |
 | [\`Issue11Phase8ArtistConfirmationUiContractTest.kt\`](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiContractTest.kt) | **27 new JUnit source methods written, zero executed**. Pure projection/event-guard cases plus source-boundary/accessibility/route/strings checks. Real TalkBack and 200%-font behavior still unverified. |
+| [\`Issue11Phase8ArtistConfirmationUiTest.kt\`](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt) | **24 additional source-authored JUnit cases, zero executed** for current-token eligibility, pure projection and Player/Driving Compose source invariants. |
 
 No change to the existing five #10 phrase dictionary, active transport dispatch, library Room/MediaStore SQL, STT provider, \`ArtistResolver\`, \`ArtistDecisionPolicy\`, P06 Media3 ACK use case, \`MusicPlaybackService\`, ExoPlayer, queue owner, privacy/telemetry sink or network.
 
@@ -57,7 +58,7 @@ No change to the existing five #10 phrase dictionary, active transport dispatch,
 
 ## 5. QA evidence and limitations
 
-[Machine-readable P08 source-evidence and QA register](ISSUE_11_P08_SOURCE_EVIDENCE_AND_QA_REGISTER.json) enumerates **27 authored synthetic JUnit cases** with \`NOT_RUN\` status. There were **zero** executed JVM/Compose/Android tests, static checker runs, Gradle builds, APKs or phone trials.
+[Machine-readable P08 source-evidence and QA register](ISSUE_11_P08_SOURCE_EVIDENCE_AND_QA_REGISTER.json) enumerates **51 authored synthetic JUnit cases across two files (27 + 24)** with \`NOT_RUN\` status. There were **zero** executed JVM/Compose/Android tests, static checker runs, Gradle builds, APKs or phone trials.
 
 P13 owner-run QA must explicitly cover: one option/two options/Neither/Cancel, one-step answer and duplicate taps, timeout token expiry, Back in each origin, Driving fixed Exit, TalkBack correct artist/index reading, button focus traversal, minimum 48/64dp targets, RTL language/layout, 150% and 200% text, long artist names, permission revocation, stale token after route switch, confirmation displayed while previous track continues or is paused, and ACK-dependent executed state.
 
