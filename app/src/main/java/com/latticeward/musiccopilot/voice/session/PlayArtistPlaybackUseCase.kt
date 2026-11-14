@@ -92,7 +92,9 @@ internal class PlayArtistDispatchClaim private constructor(
  * P06: gather ONLY selected group's refs, requery local MediaStore per item,
  * then dispatch a single ReplaceQueue through the existing PlaybackGateway.
  * No ExoPlayer, second queue owner, STT provider or UI in this class.
- * The class is intentionally not wired in production before P07/P12.
+ * P12 source integration: instantiated only by the app-scoped P07 Voice
+ * Coordinator when both local LibraryRepository and service-owned
+ * PlaybackGateway are present. No independent player or fallback queue.
  */
 internal class PlayArtistPlaybackUseCase(
     private val library: LibraryRepository,
