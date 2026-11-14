@@ -101,7 +101,7 @@ class Issue11Phase12CumulativeWiringContractTest {
         val confidence = main("voice/intent/ArtistConfidencePolicy.kt")
         assertTrue(admission.contains("ArtistProviderConfidence.Missing"))
         assertTrue(admission.contains("ArtistConfidencePolicy.permitsDirect"))
-        assertTrue(confidence.contains("providerConfidence"))
+        assertTrue(confidence.contains("rawProviderConfidence"))
     }
 
     @Test fun separateArtistBuildConfigDoesNotReplaceFiveTransportConfidence() {
