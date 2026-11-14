@@ -63,6 +63,16 @@
       "path": "docs/implementation/ISSUE_11_P08_COMPOSE_PLAYER_DRIVING_CONFIRMATION_AUDIT.md",
       "blob_sha": "14f43e3214ca917099dfc9f51ca98b381bd0034e",
       "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+      "sha": "658864f9b86add27846a89b912ca00c80d812372",
+      "source_only": true
+    },
+    {
+      "path": "docs/implementation/ISSUE_11_P08_PLAYER_DRIVING_CONFIRMATION_UI_AUDIT.md",
+      "sha": "080fd0dc39fb565df7a2454cfddb03410bcb7665",
+      "source_only": true
     }
   ],
   "contract": {
@@ -102,7 +112,7 @@
     "feedback": "P09 pending"
   },
   "qa": {
-    "authored_junit_methods": 27,
+    "authored_junit_methods": 51,
     "executed": 0,
     "passed": 0,
     "failed": 0,
@@ -268,6 +278,150 @@
         "method": "artistLabelsAndTokensNeverEnterAnalyticsOrUiLogs",
         "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiContractTest.kt",
         "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J28",
+        "method": "correctTokenAndVisiblePlayerOriginIsEligibleForCoordinatorDelegation",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J29",
+        "method": "wrongTokenNeverReachesCoordinatorSelection",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J30",
+        "method": "wrongOriginNeverConsumesAnotherScreensPendingToken",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J31",
+        "method": "hiddenPlayerOrReplacedDestinationCannotReply",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J32",
+        "method": "validDrivingStateRequiresDrivingOrigin",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J33",
+        "method": "idleStateCannotAcceptFormerConfirmation",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J34",
+        "method": "listeningStateCannotAcceptConfirmation",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J35",
+        "method": "processingStateCannotAcceptSameConfirmationAgain",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J36",
+        "method": "executedStateCannotAcceptOldTokenAgain",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J37",
+        "method": "confirmationProjectsToRealPanelWithNoRetry",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J38",
+        "method": "stalePermissionRationaleDoesNotHideLiveArtistChoice",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J39",
+        "method": "staleAndroidPermissionPromptDoesNotHideLiveArtistChoice",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J40",
+        "method": "oneChoiceAndTwoChoicesRemainOnlyBoundedCoordinatorOptions",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J41",
+        "method": "publicConfirmationDiagnosticsRedactPrivateLabelsAndToken",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J42",
+        "method": "playerAndDrivingUseTheSameVoiceSessionPanelNotTwoOverlayImplementations",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J43",
+        "method": "panelOnlyUsesExistingTypedConfirmingSnapshotForArtistNames",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J44",
+        "method": "panelArtistActionsNeverAppearToBeClickableNoOpHandlers",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J45",
+        "method": "artistButtonsHaveBoundedAccessibleLargeTouchTargets",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J46",
+        "method": "talkBackAnnouncementsAndFocusHandoffRemainPoliteAndOneLayer",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J47",
+        "method": "drivingChoicesAppearBeforeArtworkInScrollableBodyAndExitRemainsPinned",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J48",
+        "method": "playerBackAndHeaderUseTokenScopedCancel",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J49",
+        "method": "rootCallbacksReadCurrentCoordinatorStateAtClickNotStoredSnapshot",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J50",
+        "method": "allEightUserFacingStringsHaveOneNonDuplicatedDefinition",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P08-J51",
+        "method": "originalTransportAndPlayerOwnershipRemainOutsideConfirmationUI",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "status": "NOT_RUN"
       }
     ],
     "gradle": "NOT_RUN",
@@ -284,7 +438,20 @@
     "P13_M01_M48": "NOT_RUN",
     "P13_T01_T10": "NOT_RUN",
     "P13_L01_L06": "NOT_RUN",
-    "static_source_review": "INSPECTED_ONLY_NOT_COMPILED"
+    "static_source_review": "INSPECTED_ONLY_NOT_COMPILED",
+    "fixture_suites": [
+      {
+        "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiContractTest.kt",
+        "authored": 27,
+        "executed": 0
+      },
+      {
+        "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
+        "authored": 24,
+        "executed": 0
+      }
+    ],
+    "note": "Two complementary P08 source-authored fixtures (27+24), ALL NOT_RUN; no compilation, unit test, UI test or device verification."
   },
   "issue11": {
     "state": "OPEN",
