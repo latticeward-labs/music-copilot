@@ -587,6 +587,27 @@ class Issue11Phase7ArtistCoordinatorConfirmationTest {
         } finally { h.close() }
     }
 
+    @Test fun presentedOptionsAreUnmodifiableAndPrivateSelectionRemainsUnchanged() = runTest {
+        val h = create(CoroutineScope(SupervisorJob() + StandardTestDispatcher(testScheduler)))
+        try {
+            h.coordinator.start(VoiceOrigin.Player)
+            runCurrent()
+            val confirming = h.coordinator.state.value as VoiceSessionState.Confirming
+            val token = confirming.token
+            val options = confirming.options
+            try {
+                (options as MutableList).clear()
+                fail("The published option list must not be mutable")
+            } catch (_: UnsupportedOperationException) {
+                // Immutable view, original coordinator-owned selection remains.
+            }
+            assertEquals(1, options.size)
+            assertTrue(h.coordinator.confirm(token, 0) is AppResult.Success)
+            runCurrent()
+            assertEquals(1, h.gateway.calls.size)
+        } finally { h.close() }
+    }
+
     @Test fun confirmationStateToStringDoesNotExposeArtistNameOrToken() = runTest {
         val h = create(CoroutineScope(SupervisorJob() + StandardTestDispatcher(testScheduler)))
         try {
