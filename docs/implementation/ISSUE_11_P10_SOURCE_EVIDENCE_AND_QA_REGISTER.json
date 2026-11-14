@@ -1,0 +1,388 @@
+{
+  "schema": "issue11-p10-source-evidence-v1",
+  "date": "2026-11-14",
+  "issue": 11,
+  "phase": "P10",
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/11-play-artist-one-step-ambiguity",
+  "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+  "owner_archive": {
+    "filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12,
+    "relevant_sections": [
+      "ADR-0002_Service_Owned_Media3_Playback.pdf pages 2-4",
+      "ADR-0004_Replaceable_Voice_Provider.pdf pages 2-5",
+      "Music_Copilot_System_Architecture_MVP_v1_EN.pdf pages 9,15",
+      "Music_Copilot_PRD_v1_EN_Clarified.pdf pages 6,8-9",
+      "Music_Copilot_MVP_v1_EN.pdf pages 4-5"
+    ]
+  },
+  "controlling_github": [
+    "docs/implementation/ISSUE_11_PHASED_EXECUTION_PLAN_FA.md P10",
+    "Issue #11",
+    "P07/P08/P09 preexisting VoiceCoordinator/Compose/feedback",
+    "MediaSessionService focus/route owner from Issues #8/#9"
+  ],
+  "source_files": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceLifecycleSafetyPolicy.kt",
+      "github_blob_sha": "087dd3367f3442c0e715f9ec2596f5908cc2d889",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+      "github_blob_sha": "39dc9badc252c7a215843b385eee4c5d17cef745",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+      "github_blob_sha": "4dc1568f7d1e77bbf227465219dfcc9b6e38bf50",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+      "github_blob_sha": "4f861c67b9e2499ede95e24357450828b666aae9",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+      "github_blob_sha": "ecc4ee737eb13153abca5a94ecca7cf241a5c566",
+      "kind": "JVM_TEST_SOURCE_ONLY"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+      "github_blob_sha": "ea6d04c44fe1b71f751963e941121321b07e6135",
+      "kind": "JVM_TEST_SOURCE_ONLY"
+    },
+    {
+      "path": "docs/implementation/ISSUE_11_P10_LIFECYCLE_FOCUS_ROUTE_VOICE_SAFETY_AUDIT.md",
+      "github_blob_sha": "6e5349b2a928db29cd05f2dbfd0448cb5221fae3",
+      "kind": "TECHNICAL_AUDIT"
+    }
+  ],
+  "contracts": {
+    "explicit_ptt_only": true,
+    "no_auto_stt_after_onResume": true,
+    "android_os_microphone_truth": "ContextCompat.checkSelfPermission(RECORD_AUDIO) at the live canBeginSession boundary",
+    "foreground_truth": "Activity onStart/onStop driven volatile uiVoiceStarted; not DataStore",
+    "worker_admission": "isCurrentAndAuthorizedLocked under one coordinator gate: session ID, Job identity, attempt, Job active and foreground/OS mic grant",
+    "cancellation_without_permission": "invalidateLocked -> Idle, cancel STT/TTS/prompts/timeout/Job; token-scoped duck release",
+    "synchronous_token_admission": "confirm/neither/cancel/expiry must verify current generation and live authority",
+    "late_stt": "invalidated on resume after suspended recognition, no dispatch",
+    "late_ack": "cannot report Executed/Playing once voice generation invalidated, even if service previously accepted a command",
+    "confidence": "No provider confidence synthesized; existing P05 untouched",
+    "duck": "Single service voice duck token UUID with release in finally/cancel and 22s service-owned TTL fallback",
+    "tts": "P09 one-sentence prompt canceled on selection/timeout/lifecycle; no late speech result if voice canceled",
+    "route": "Service AudioDeviceCallback/noisy and quarantine preexisting; cannot assume BT is active audio route, no auto Play",
+    "focus": "Preexisting Media3 owner invokes PlaybackVoiceInterruptionHost; not call identity, no telephony listener",
+    "screen_off": "Only Voice session ends at UI stop; service-owned real active media is not paused by UI",
+    "recreation": "No pending confirmation token/artist in SavedState; new voice coordinator default Idle",
+    "process_death": "No voice pending authority or auto-dispatch restore",
+    "no_second_player": true,
+    "no_second_focus_owner": true,
+    "no_background_mic": true,
+    "previous_five_commands": "Existing Issue #10 Mapper/Dispatcher unchanged; fresh-permission gate applies to all voice commands"
+  },
+  "scenarios": {
+    "foreground_revocation": "onResume observes OS permission; no automatic regrant start",
+    "active_stt_cancel": "generation invalidation beats stale STT callback",
+    "active_confirmation_cancel": "token denied and prompt stopped",
+    "selected_artist_late_ack": "no new success callback or replay; already-accepted service change cannot be retroactively undone",
+    "bluetooth_disconnect": "preexisting service route gate SafePaused + voice cancellation",
+    "bluetooth_reconnect": "observation only, no Play",
+    "call_focus": "cancel voice from service focus guard before late callback",
+    "p13_hardware_tests": "Pending owner phone QA; no real route/call/BT/TTS validated"
+  },
+  "qa": {
+    "new_authored_methods": 38,
+    "source_authored_suites": [
+      {
+        "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "authored": 23,
+        "executed": 0
+      },
+      {
+        "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "authored": 15,
+        "executed": 0
+      }
+    ],
+    "cases": [
+      {
+        "id": "P10-J01",
+        "method": "explicitMicStartsOnlyFromIdleState",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J02",
+        "method": "freshOsGrantAndForegroundAreBothRequired",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J03",
+        "method": "grantingMicPermissionDoesNotAuthorizeStoppedActivity",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J04",
+        "method": "foregroundReturnDoesNotAuthorizeRevokedMicPermission",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J05",
+        "method": "everyActiveOrTerminalVoiceStateRequiresBoundaryCancellation",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J06",
+        "method": "idleCannotRequireExtraCancellation",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J07",
+        "method": "activityRecreationNeverRestoresPendingConfirmingToken",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J08",
+        "method": "appBindingReadsOsRecordAudioEveryGateEvaluation",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J09",
+        "method": "onStopCancelsVoiceBeforeDetachingMediaController",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J10",
+        "method": "onStopCannotStopOrPauseTheServiceOwnedMedia3Player",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J11",
+        "method": "activityDoesNotPersistVoiceGenerationOrConfirmationInBundle",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J12",
+        "method": "activityOsMicRevocationInvalidatesSingleAppVoiceOwner",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J13",
+        "method": "onResumeCannotAutomaticallyIssueArtistSelectionOrStartMic",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J14",
+        "method": "newVoiceGenerationRequiresFreshUserGestureAfterPermissionReturn",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J15",
+        "method": "staleSttAndServiceAckContinuationsRecheckForegroundAndPermission",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J16",
+        "method": "synchronousConfirmNeedsLatestTokenAndAuthorization",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J17",
+        "method": "staleTimeoutCannotFinishOrSpeakIntoAnotherGeneration",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J18",
+        "method": "promptAndTtsJobsAreCanceledAtLifecycleBoundary",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J19",
+        "method": "duckLeaseIsReleasedOnCancellationWithSessionUuid",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J20",
+        "method": "focusAndRouteSignalsAreMappedThroughOneAppVoiceOwner",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J21",
+        "method": "disconnectedBluetoothDoesNotTriggerReconnectAutoplay",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J22",
+        "method": "thereIsNoSecondAudioFocusOwnerOrTelephonyListenerInAppVoiceLayer",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J23",
+        "method": "serviceFocusInterruptionRevokesDuckBeforeCancelVoice",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecyclePolicyTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J24",
+        "method": "noMicGrantPreventsPushToTalkAndServiceDuck",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J25",
+        "method": "permissionsOnlyAllowOneNewExplicitTapAfterForegroundRecovery",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J26",
+        "method": "osMicRevocationDuringSlowSttInvalidatesGenerationOnLateCallback",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J27",
+        "method": "activeConfirmationRejectsSelectionAfterMicGrantWasRevoked",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J28",
+        "method": "onStopClearsPendingArtistAndRejectsFormerToken",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J29",
+        "method": "losingFocusDuringArtistChoiceInvalidatesWithoutQueueMutation",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J30",
+        "method": "bluetoothRouteLossDuringChoiceInvalidatesTokenAndNoAutoPlay",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J31",
+        "method": "delayedServiceAckAfterStopCannotPublishExecutedOrPlaying",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J32",
+        "method": "delayedDirectAckAfterMicRevocationCannotAnnounceSuccess",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J33",
+        "method": "cancelStopsHangingClarificationAudioWithoutSecondStt",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J34",
+        "method": "repeatedBackAndInterruptionSignalsRemainIdempotent",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J35",
+        "method": "activityRecreationDoesNotRestorePreviousArtistToken",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J36",
+        "method": "secondTapWhileConfirmingCannotReplaceFirstGeneration",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J37",
+        "method": "confirmedSelectionIsSingleUseEvenIfBothCallbacksArrive",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P10-J38",
+        "method": "oldDuckLeaseReleaseCannotAuthorizeAnotherMicWithoutExplicitTap",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase10VoiceLifecycleRaceTest.kt",
+        "status": "NOT_RUN"
+      }
+    ],
+    "executed": 0,
+    "passed": 0,
+    "failed": 0,
+    "source_audit": "REVIEWED_ONLY_NO_COMPILATION",
+    "gradle": "NOT_RUN",
+    "kotlin_compiler": "NOT_RUN",
+    "junit": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "actions_ci": "NOT_RUN",
+    "emulator": "NOT_RUN",
+    "physical_phone": "NOT_RUN",
+    "apk": "NOT_CREATED",
+    "phone_call": "NOT_VERIFIED",
+    "audio_focus": "NOT_VERIFIED",
+    "real_route": "NOT_VERIFIED",
+    "real_bluetooth": "NOT_VERIFIED",
+    "real_android_tts": "NOT_VERIFIED",
+    "real_service_ack": "NOT_VERIFIED",
+    "M01_M48": "NOT_RUN",
+    "T01_T10": "NOT_RUN",
+    "L01_L06": "NOT_RUN"
+  },
+  "issue11_ac": {
+    "total": 13,
+    "verified_pass": 0
+  },
+  "legacy_quality_debt": {
+    "issue": 80,
+    "state": "OPEN",
+    "previous_owner_issue10_voice_lab": "24/50 48%",
+    "target": "90%",
+    "p10_resolves_issue80": false
+  },
+  "boundaries": {
+    "change_media3_service": false,
+    "change_playback_queue": false,
+    "change_room_library": false,
+    "change_original_five_intent_mapper": false,
+    "change_bluetooth_monitor": false,
+    "create_pr": false,
+    "merge": false,
+    "close_issue": false,
+    "run_test": false,
+    "build_apk": false
+  },
+  "next": "P11 privacy telemetry allowlist; P12 integrated source/QA/traceability; P13 only APK build and owner phone test"
+}
