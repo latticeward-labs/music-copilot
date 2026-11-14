@@ -91,9 +91,9 @@ fun FullPlayerScreen(
     onVoicePermissionCancel: () -> Unit = {},
     onVoiceCancel: () -> Unit = {},
     onVoiceRetry: () -> Unit = {},
-    onVoiceConfirm: (VoiceCandidateToken, Int) -> Unit = { _, _ -> },
-    onVoiceNeither: (VoiceCandidateToken) -> Unit = {},
-    onVoiceCancelConfirmation: (VoiceCandidateToken) -> Unit = {},
+    onVoiceConfirm: ((VoiceCandidateToken, Int) -> Unit)? = null,
+    onVoiceNeither: ((VoiceCandidateToken) -> Unit)? = null,
+    onVoiceCancelConfirmation: ((VoiceCandidateToken) -> Unit)? = null,
 ) {
     BackHandler(onBack = onBack)
     val voiceActive = voiceState != VoiceSessionState.Idle
@@ -104,7 +104,8 @@ fun FullPlayerScreen(
     BackHandler(enabled = voiceActive || voicePermissionPrompt) {
         val confirming = voiceState as? VoiceSessionState.Confirming
         when {
-            confirming != null -> onVoiceCancelConfirmation(confirming.token)
+            confirming != null && onVoiceCancelConfirmation != null ->
+                onVoiceCancelConfirmation(confirming.token)
             voiceActive -> onVoiceCancel()
             else -> onVoicePermissionCancel()
         }
@@ -147,7 +148,9 @@ fun FullPlayerScreen(
                             onClick = {
                                 when {
                                     voiceState is VoiceSessionState.Confirming ->
-                                        onVoiceCancelConfirmation(voiceState.token)
+                                        if (onVoiceCancelConfirmation != null)
+                                            onVoiceCancelConfirmation(voiceState.token)
+                                        else onVoiceCancel()
                                     voiceActive -> onVoiceCancel()
                                     voicePermissionPrompt -> onVoicePermissionCancel()
                                     else -> onBack()
@@ -545,9 +548,9 @@ private fun PlayerVoiceControls(
     onPermissionCancel: () -> Unit,
     onCancel: () -> Unit,
     onRetry: () -> Unit,
-    onConfirm: (VoiceCandidateToken, Int) -> Unit,
-    onNeither: (VoiceCandidateToken) -> Unit,
-    onCancelConfirmation: (VoiceCandidateToken) -> Unit,
+    onConfirm: ((VoiceCandidateToken, Int) -> Unit)?,
+    onNeither: ((VoiceCandidateToken) -> Unit)?,
+    onCancelConfirmation: ((VoiceCandidateToken) -> Unit)?,
 ) {
     val active = voiceState != VoiceSessionState.Idle
     val permissionPrompt = permissionStage == VoicePracticeStage.Rationale ||
