@@ -187,9 +187,14 @@ class Issue11Phase7ArtistCoordinatorConfirmationTest {
         override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
             calls += command
             deferredAck?.let { return withContext(NonCancellable) { it.await() } }
+            if (command !is PlaybackCommand.ReplaceQueue) {
+                // Existing Issue #10 transport commands keep their own ACK
+                // envelope and must not be cast to an artist queue.
+                return AppResult.Success(snapshot.value)
+            }
             return if (wrongAck) AppResult.Success(snapshot.value)
             else {
-                val items = (command as PlaybackCommand.ReplaceQueue).items
+                val items = command.items
                 AppResult.Success(PlaybackSnapshot(
                     2L, 3L, PlaybackState.Buffering,
                     items, 0, items.firstOrNull(),
@@ -499,6 +504,51 @@ class Issue11Phase7ArtistCoordinatorConfirmationTest {
         val lib = FakeLibrary(artistNames = listOf("Completely Other"))
         val h = create(CoroutineScope(SupervisorJob() + StandardTestDispatcher(testScheduler)),
             library = lib)
+        try {
+            h.coordinator.start(VoiceOrigin.Player)
+            runCurrent()
+            assertTrue(h.coordinator.state.value is VoiceSessionState.Failed)
+            assertTrue(h.gateway.calls.isEmpty())
+        } finally { h.close() }
+    }
+
+    @Test fun canonicalEquivalentArtistGroupsExposeTwoStableOptions() = runTest {
+        val stt = FakeSTT(SpeechRecognitionResult("Play songs by L'Arc", null, "en-US"))
+        val lib = FakeLibrary(artistNames = listOf("L'Arc", "L’Arc"))
+        val h = create(CoroutineScope(SupervisorJob() + StandardTestDispatcher(testScheduler)),
+            library = lib, stt = stt)
+        try {
+            h.coordinator.start(VoiceOrigin.Player)
+            runCurrent()
+            val confirming = h.coordinator.state.value as VoiceSessionState.Confirming
+            assertEquals(2, confirming.options.size)
+            assertEquals(listOf(0, 1), confirming.options.map { it.optionIndex })
+            assertTrue(h.gateway.calls.isEmpty())
+            assertTrue(h.coordinator.neither(confirming.token) is AppResult.Success)
+            assertTrue(h.gateway.calls.isEmpty())
+        } finally { h.close() }
+    }
+
+    @Test fun explicitNonEnglishArtistCommandDoesNotDispatchOrConfirm() = runTest {
+        val stt = FakeSTT(SpeechRecognitionResult(
+            "Play songs by Synthetic Artist", 1.0, "fa-IR",
+        ))
+        val h = create(CoroutineScope(SupervisorJob() + StandardTestDispatcher(testScheduler)),
+            stt = stt)
+        try {
+            h.coordinator.start(VoiceOrigin.Player)
+            runCurrent()
+            assertTrue(h.coordinator.state.value is VoiceSessionState.Failed)
+            assertTrue(h.gateway.calls.isEmpty())
+        } finally { h.close() }
+    }
+
+    @Test fun unsupportedCompoundArtistRequestIsSafeNoAction() = runTest {
+        val stt = FakeSTT(SpeechRecognitionResult(
+            "Play songs by Synthetic Artist on Spotify", 1.0, "en-US",
+        ))
+        val h = create(CoroutineScope(SupervisorJob() + StandardTestDispatcher(testScheduler)),
+            stt = stt)
         try {
             h.coordinator.start(VoiceOrigin.Player)
             runCurrent()
