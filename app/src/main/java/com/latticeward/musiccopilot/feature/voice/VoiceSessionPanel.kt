@@ -29,6 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.latticeward.musiccopilot.R
+import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
 import com.latticeward.musiccopilot.app.theme.MusicColors
 import com.latticeward.musiccopilot.app.theme.MusicRadius
 import com.latticeward.musiccopilot.app.theme.MusicSize
@@ -57,12 +58,18 @@ fun VoiceSessionPanel(
     onPermissionCancel: () -> Unit,
     onVoiceCancel: () -> Unit,
     onVoiceRetry: () -> Unit,
+    onConfirm: (VoiceCandidateToken, Int) -> Unit = { _, _ -> },
+    onNeither: (VoiceCandidateToken) -> Unit = {},
+    onCancelConfirmation: (VoiceCandidateToken) -> Unit = {},
     focusRequester: FocusRequester,
     driving: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val projected = VoiceOverlayPresentationPolicy.project(state, permissionStage)
     if (!projected.visible) return
+    // The only source of display labels/indexes is the Coordinator-owned
+    // immutable Confirming snapshot; never re-query Room/MediaStore from UI.
+    val confirming = state as? VoiceSessionState.Confirming
 
     val headingText = when (projected.status) {
         VoiceOverlayStatus.Hidden -> return
@@ -70,6 +77,10 @@ fun VoiceSessionPanel(
         VoiceOverlayStatus.PermissionPending -> stringResource(R.string.i10_voice_permission_waiting)
         VoiceOverlayStatus.Listening -> stringResource(R.string.i10_voice_listening)
         VoiceOverlayStatus.Processing -> stringResource(R.string.i10_voice_processing)
+        VoiceOverlayStatus.ConfirmationRequired -> stringResource(
+            if (confirming?.options?.size == 1) R.string.i11_artist_confirm_one_question
+            else R.string.i11_artist_confirm_two_question
+        )
         VoiceOverlayStatus.ConfirmationUnavailable ->
             stringResource(R.string.i10_voice_confirmation_unavailable)
         VoiceOverlayStatus.Executed -> stringResource(R.string.i10_voice_executed)
@@ -86,6 +97,8 @@ fun VoiceSessionPanel(
             stringResource(R.string.i10_voice_listen_help)
         VoiceOverlayStatus.Processing ->
             stringResource(R.string.i10_voice_processing_help)
+        VoiceOverlayStatus.ConfirmationRequired ->
+            stringResource(R.string.i11_artist_confirm_explanation)
         VoiceOverlayStatus.Executed ->
             stringResource(R.string.i10_voice_executed_help)
         VoiceOverlayStatus.Timeout, VoiceOverlayStatus.NotRecognized,
@@ -121,6 +134,42 @@ fun VoiceSessionPanel(
             style = MusicTextStyles.bodyMedium,
             textAlign = alignment,
         )
+        if (projected.status == VoiceOverlayStatus.ConfirmationRequired &&
+            confirming != null
+        ) {
+            // One or two full-width vertical actions; no horizontal 50/50
+            // row, so long artist names, RTL and 200% fonts remain readable.
+            // Native buttons keep TalkBack, D-pad and switch traversal order.
+            confirming.options.forEach { option ->
+                val accessibleLabel = stringResource(
+                    R.string.i11_artist_confirm_select_a11y,
+                    option.displayLabel,
+                    option.optionIndex + 1,
+                    confirming.options.size,
+                )
+                Button(
+                    onClick = { onConfirm(confirming.token, option.optionIndex) },
+                    modifier = Modifier.fillMaxWidth()
+                        .heightIn(min = actionSize)
+                        .then(voiceActionFocusOutline())
+                        .semantics { contentDescription = accessibleLabel },
+                ) {
+                    Text(
+                        text = option.displayLabel,
+                        textAlign = TextAlign.Center,
+                        style = textStyle,
+                    )
+                }
+            }
+            val neitherLabel = stringResource(R.string.i11_artist_confirm_neither_a11y)
+            OutlinedButton(
+                onClick = { onNeither(confirming.token) },
+                modifier = Modifier.fillMaxWidth()
+                    .heightIn(min = actionSize)
+                    .then(voiceActionFocusOutline())
+                    .semantics { contentDescription = neitherLabel },
+            ) { Text(stringResource(R.string.i11_artist_confirm_neither)) }
+        }
         if (projected.showPermissionContinue) {
             val label = stringResource(R.string.i9_a11y_continue_permission)
             Button(
@@ -139,19 +188,31 @@ fun VoiceSessionPanel(
                     .semantics { contentDescription = label },
             ) { Text(stringResource(R.string.i9_voice_retry)) }
         }
-        val exitLabel = when (projected.exit) {
-            VoiceOverlayExit.CancelCapture -> stringResource(R.string.i10_voice_cancel_active)
-            VoiceOverlayExit.DismissPermission -> stringResource(R.string.i10_voice_not_now)
-            VoiceOverlayExit.ReturnToManual -> stringResource(R.string.i10_voice_back_manual)
+        val exitLabel = when {
+            confirming != null -> stringResource(R.string.i11_artist_confirm_cancel)
+            projected.exit == VoiceOverlayExit.CancelCapture ->
+                stringResource(R.string.i10_voice_cancel_active)
+            projected.exit == VoiceOverlayExit.DismissPermission ->
+                stringResource(R.string.i10_voice_not_now)
+            else -> stringResource(R.string.i10_voice_back_manual)
         }
-        val exitA11y = when (projected.exit) {
-            VoiceOverlayExit.CancelCapture -> stringResource(R.string.i10_voice_cancel_a11y)
-            VoiceOverlayExit.DismissPermission -> stringResource(R.string.i10_voice_not_now_a11y)
-            VoiceOverlayExit.ReturnToManual -> stringResource(R.string.i10_voice_back_manual_a11y)
+        val exitA11y = when {
+            confirming != null -> stringResource(R.string.i11_artist_confirm_cancel_a11y)
+            projected.exit == VoiceOverlayExit.CancelCapture ->
+                stringResource(R.string.i10_voice_cancel_a11y)
+            projected.exit == VoiceOverlayExit.DismissPermission ->
+                stringResource(R.string.i10_voice_not_now_a11y)
+            else -> stringResource(R.string.i10_voice_back_manual_a11y)
         }
         OutlinedButton(
-            onClick = if (projected.exit == VoiceOverlayExit.DismissPermission)
-                onPermissionCancel else onVoiceCancel,
+            onClick = {
+                when {
+                    confirming != null -> onCancelConfirmation(confirming.token)
+                    projected.exit == VoiceOverlayExit.DismissPermission ->
+                        onPermissionCancel()
+                    else -> onVoiceCancel()
+                }
+            },
             modifier = Modifier.fillMaxWidth().heightIn(min = actionSize)
                 .then(voiceActionFocusOutline())
                 .semantics { contentDescription = exitA11y },
