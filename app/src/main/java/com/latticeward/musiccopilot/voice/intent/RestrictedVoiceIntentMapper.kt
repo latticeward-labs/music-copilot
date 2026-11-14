@@ -19,7 +19,7 @@ fun interface VoiceIntentMapper {
 }
 
 /**
- * P05: exactly five deterministic transport intents from ONE explicit mic tap.
+ * Issue #10 P05: exactly five deterministic transport intents from ONE explicit mic tap.
  * The optional spoken "musico" prefix is never an always-on wake listener.
  * The sixth MVP API enum remains reserved for #11 artist matching and must
  * never be returned as a Direct executable intent by this #10 mapper.
@@ -33,6 +33,17 @@ class RestrictedVoiceIntentMapper(
 ) : VoiceIntentMapper {
     val directThreshold: Double =
         DirectControlPhrasePolicy.validatedThreshold(configuredThreshold)
+
+    /**
+     * Issue #11 P02: additive, source-only artist grammar entry point.
+     *
+     * This intentionally does NOT alter the existing five-control map() path
+     * or enable PLAY_ARTIST playback/confirmation before P03-P07/P12.
+     * Caller receives only a bounded, private artist slot with no execution
+     * authority. P05 owns provider confidence admission.
+     */
+    fun classifyPlayArtist(result: SpeechRecognitionResult): PlayArtistPhraseResult =
+        PlayArtistPhrasePolicy.classify(result.transcript, result.detectedLanguageTag)
 
     override fun map(result: SpeechRecognitionResult): VoiceIntentDecision {
         // An explicitly detected non-English language overrides keyword matches.
