@@ -40,6 +40,8 @@ data class ArtistLookupRequest(
         }
     }
 
+    override fun toString(): String = "ArtistLookupRequest(redacted)"
+
     companion object {
         const val MAX_TARGET_CHARS = 120
         const val DEFAULT_PAGE_SIZE = 50
