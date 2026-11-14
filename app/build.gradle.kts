@@ -30,6 +30,12 @@ android {
         // Issue #10 P05: compile-time only, bounded in DirectControlPhrasePolicy.
         // No network config, transcript or external telemetry endpoint.
         buildConfigField("double", "VOICE_DIRECT_CONFIDENCE_THRESHOLD", "0.90")
+        // Issue #11 P05: PLAY_ARTIST uses a SEPARATE BuildConfig confidence
+        // knob. The immutable 0.80..0.98 bounds and 0.90 fallback are
+        // validated by ArtistConfidencePolicy; only real STT confidence can
+        // admit direct artist play. Fuzzy scores remain P04 VoicePolicy values.
+        // This does not change Issue #10's five direct-control behaviors.
+        buildConfigField("double", "VOICE_ARTIST_DIRECT_CONFIDENCE_THRESHOLD", "0.90")
     }
 
     buildTypes {
