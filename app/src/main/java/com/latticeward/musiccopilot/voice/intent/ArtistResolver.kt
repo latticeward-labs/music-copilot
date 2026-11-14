@@ -22,8 +22,9 @@ import kotlinx.coroutines.ensureActive
  * including apostrophe variants that the P03 raw SQL normalization keeps
  * in different groups. Artist ranking is independent of SQLite row order.
  *
- * IMPORTANT: source-only until P05 confidence, P06 queue validation and
- * P07 one-use confirmation are wired. No PlaybackGateway is called here.
+ * P12 integration: called by the single P07 Coordinator on a CPU dispatcher,
+ * then admitted by P05 and dispatched solely through P06. No PlaybackGateway
+ * is called inside this resolver.
  */
 class ArtistResolver(
     private val library: LibraryRepository,
