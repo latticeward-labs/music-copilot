@@ -71,7 +71,7 @@
     },
     {
       "path": "docs/implementation/ISSUE_11_P08_PLAYER_DRIVING_CONFIRMATION_UI_AUDIT.md",
-      "blob_sha": "ed4fa3a726328b866ec99e52ec868cd92ef14280",
+      "blob_sha": "b2096b1f1faebfdc4b836a32b9c16bc756e90ae3",
       "kind": "AUDIT_DOC_SOURCE_ONLY"
     }
   ],
@@ -438,7 +438,7 @@
     "P13_M01_M48": "NOT_RUN",
     "P13_T01_T10": "NOT_RUN",
     "P13_L01_L06": "NOT_RUN",
-    "static_source_review": "INSPECTED_ONLY_NOT_COMPILED",
+    "static_source_review": "SOURCE_INSPECTED_ONLY; NOT COMPILED; NOT EXECUTED",
     "fixture_suites": [
       {
         "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiContractTest.kt",
