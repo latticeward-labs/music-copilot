@@ -94,11 +94,12 @@ class ArtistDecisionPolicy(
                         PlayArtistDecision.Direct(candidate, matched.revision),
                     )
                 } else {
+                    val reason = confidenceReason(evidence) ?: return unknown()
                     AppResult.Success(
                         PlayArtistDecision.Ambiguous(
                             candidates = listOf(candidate),
                             expectedLibraryRevision = matched.revision,
-                            reason = confidenceReason(evidence),
+                            reason = reason,
                         ),
                     )
                 }
@@ -128,15 +129,13 @@ class ArtistDecisionPolicy(
         }
     }
 
-    private fun confidenceReason(evidence: ArtistProviderConfidence): ArtistAmbiguityReason =
+    private fun confidenceReason(evidence: ArtistProviderConfidence): ArtistAmbiguityReason? =
         when (evidence) {
             ArtistProviderConfidence.Missing ->
                 ArtistAmbiguityReason.MISSING_PROVIDER_CONFIDENCE
             is ArtistProviderConfidence.Calibrated ->
                 ArtistAmbiguityReason.LOW_PROVIDER_CONFIDENCE
-            ArtistProviderConfidence.Invalid ->
-                // Invalid is rejected BEFORE this method is reached.
-                ArtistAmbiguityReason.LOW_PROVIDER_CONFIDENCE
+            ArtistProviderConfidence.Invalid -> null
         }
 
     /**
