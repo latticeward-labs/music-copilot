@@ -55,8 +55,10 @@ class ArtistResolver(
         } catch (_: Exception) {
             return unavailableFailure()
         }
-        if (exact is AppResult.Failure) return exact
-        val exactPage = (exact as AppResult.Success).value
+        val exactPage = when (exact) {
+            is AppResult.Failure -> return exact
+            is AppResult.Success -> exact.value
+        }
         val revision = exactPage.revision
         if (exactPage.totalCount > PAGE_SIZE ||
             exactPage.entries.size != exactPage.totalCount ||
@@ -90,8 +92,10 @@ class ArtistResolver(
             } catch (_: Exception) {
                 return unavailableFailure()
             }
-            if (lookup is AppResult.Failure) return lookup
-            val page = (lookup as AppResult.Success).value
+            val page = when (lookup) {
+                is AppResult.Failure -> return lookup
+                is AppResult.Success -> lookup.value
+            }
             if (page.revision != revision ||
                 (expectedTotal != null && expectedTotal != page.totalCount)
             ) return staleFailure()
