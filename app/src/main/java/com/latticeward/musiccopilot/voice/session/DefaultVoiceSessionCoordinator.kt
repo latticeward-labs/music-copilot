@@ -35,12 +35,18 @@ import com.latticeward.musiccopilot.voice.intent.RestrictedVoiceIntentMapper
 import com.latticeward.musiccopilot.voice.intent.VoiceIntentDecision
 import com.latticeward.musiccopilot.voice.intent.VoiceIntentMapper
 import com.latticeward.musiccopilot.voice.policy.VoicePolicy
+import com.latticeward.musiccopilot.quality.api.ConfidenceBucket
+import com.latticeward.musiccopilot.quality.api.TelemetryEvent
+import com.latticeward.musiccopilot.quality.api.VoiceDiagnosticIntent
+import com.latticeward.musiccopilot.quality.api.VoiceDiagnosticResult
+import com.latticeward.musiccopilot.quality.privacy.VoiceIntentDiagnosticPolicy
 import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackCatalog
 import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackKey
 import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackPolicy
 import com.latticeward.musiccopilot.voice.feedback.EnglishVoiceFeedbackCatalog
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
@@ -74,6 +80,9 @@ class DefaultVoiceSessionCoordinator(
     // synthetic fakes omit this and retain all five transport behaviors.
     private val artistLibrary: LibraryRepository? = null,
     private val artistAdmission: ArtistDecisionPolicy = ArtistDecisionPolicy(),
+    // P11: optional and strictly typed. No analytics provider is installed.
+    // Observers receive only coarse outcomes, never local media identities.
+    private val tryRecordVoiceOutcome: (TelemetryEvent.VoiceIntentOutcome) -> Unit = {},
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
@@ -96,6 +105,11 @@ class DefaultVoiceSessionCoordinator(
     private var attempt = 0
     private var dispatchClaimed = false
     private var feedbackClaimed = false
+    // Per-attempt private state; only buckets and closed codes can be emitted.
+    private var artistIntentObserved = false
+    private var diagnosticClaimed = false
+    private var diagnosticConfidence: ConfidenceBucket? = null
+    private var attemptStartNanos = 0L
     // P09: one optional clarification sentence for an artist choice, kept
     // separate from the subsequent ACK-driven terminal response.
     private var artistPromptClaimed = false
@@ -150,6 +164,10 @@ class DefaultVoiceSessionCoordinator(
         childJob = generation
         dispatchClaimed = false
         feedbackClaimed = false
+        artistIntentObserved = false
+        diagnosticClaimed = false
+        diagnosticConfidence = null
+        attemptStartNanos = System.nanoTime()
         artistPromptClaimed = false
         artistPromptJob?.cancel()
         artistPromptJob = null
@@ -227,6 +245,8 @@ class DefaultVoiceSessionCoordinator(
                     if (artistPhrase is PlayArtistPhraseResult.Recognized ||
                         artistPhrase == PlayArtistPhraseResult.Unsupported
                     ) {
+                        if (!markArtistAttempt(id, generation, number,
+                                recognition.value.providerConfidence)) return
                         // The mic has already returned its transcript. Do not
                         // hold a temporary duck lease during a slow P03/P04
                         // library scan or the one-step confirmation wait.
@@ -395,6 +415,8 @@ class DefaultVoiceSessionCoordinator(
                         is AppResult.Success -> {
                             if (sent.value == PlayArtistDecision.Executed) {
                                 if (publishExecuted(id, origin, number, generation)) {
+                                    recordArtistOutcome(id, generation, number,
+                                        VoiceDiagnosticResult.EXECUTED)
                                     // P09: never say "Playing" before P06 validates
                                     // a service-owned Media3 acknowledgement.
                                     deliverFeedback(id, origin, number, generation,
@@ -839,6 +861,8 @@ class DefaultVoiceSessionCoordinator(
                         is AppResult.Success ->
                             if (ack.value == PlayArtistDecision.Executed) {
                                 if (publishExecuted(id, snapshot.origin, number, generation)) {
+                                    recordArtistOutcome(id, generation, number,
+                                        VoiceDiagnosticResult.EXECUTED)
                                     deliverFeedback(id, snapshot.origin, number, generation,
                                         VoiceFeedbackKey.ArtistPlaying)
                                 }
