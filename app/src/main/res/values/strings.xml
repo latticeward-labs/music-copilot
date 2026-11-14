@@ -309,4 +309,14 @@
     <string name="p11_voice_provider_missing">On-device speech recognition is unavailable. Use manual music controls.</string>
     <string name="p11_voice_provider_unverified">An on-device speech provider is present. English model readiness and recognition success are checked separately when you tap Mic.</string>
     <string name="p11_voice_privacy_no_history">Music Copilot does not save recordings or recognized speech history. Diagnostic events are not sent in this version.</string>
+    <!-- Issue #11 P08: one-step local artist identity confirmation; display labels
+         come only from the current Coordinator snapshot, never raw speech. -->
+    <string name="i11_artist_confirm_one_question">Play songs by this artist?</string>
+    <string name="i11_artist_confirm_two_question">Which local artist did you mean?</string>
+    <string name="i11_artist_confirm_explanation">Choose one artist or decline. Your current music stays unchanged until the playback service accepts your choice.</string>
+    <string name="i11_artist_confirm_select_a11y">Select local artist %1$s. Option %2$d of %3$d.</string>
+    <string name="i11_artist_confirm_neither">Neither</string>
+    <string name="i11_artist_confirm_neither_a11y">Neither artist. Keep current playback and end this voice request.</string>
+    <string name="i11_artist_confirm_cancel">Cancel</string>
+    <string name="i11_artist_confirm_cancel_a11y">Cancel artist selection and return to manual controls without changing the queue.</string>
 </resources>
