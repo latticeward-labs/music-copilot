@@ -86,22 +86,34 @@ class Phase8VoiceFoundationTest {
         }
     }
 
-    @Test fun grammarIsBoundedToSixApprovedIntentsWithMusicoPrefixAndConfidenceGate() {
+    /**
+     * Issue #10 P05 updates the old Phase8 fixture contract: the public six-
+     * value enum is preserved, but only five controls are executable until #11.
+     * The prior prefix-required and artist-direct expectations were obsolete.
+     * AUTHORED_ONLY — never run a test in P05.
+     */
+    @Test fun grammarIsBoundedToFiveDirectControlsWithOptionalSpokenPrefixAndConfidenceGate() {
         val mapper = RestrictedVoiceIntentMapper()
         val pairs = listOf(
+            "play" to RestrictedIntent.PLAY,
+            "pause" to RestrictedIntent.PAUSE,
+            "next song" to RestrictedIntent.NEXT,
+            "previous song" to RestrictedIntent.PREVIOUS,
+            "go back 10 seconds" to RestrictedIntent.SEEK_BACK,
             "musico play" to RestrictedIntent.PLAY,
             "musico pause" to RestrictedIntent.PAUSE,
             "musico next track" to RestrictedIntent.NEXT,
             "musico previous" to RestrictedIntent.PREVIOUS,
             "musico go back 10 seconds" to RestrictedIntent.SEEK_BACK,
-            "musico play songs by Synthetic Artist" to RestrictedIntent.PLAY_ARTIST,
         )
         pairs.forEach { (spoken, expected) ->
             assertEquals(expected, (mapper.map(result(spoken).value)
                 as VoiceIntentDecision.Direct).intent)
         }
         assertEquals(VoiceIntentDecision.Rejected,
-            mapper.map(result("pause").value))
+            mapper.map(result("play songs by Synthetic Artist").value))
+        assertEquals(VoiceIntentDecision.Rejected,
+            mapper.map(result("musico play songs by Synthetic Artist").value))
         assertEquals(VoiceIntentDecision.Rejected,
             mapper.map(result("musico seek to minute 3").value))
         assertEquals(VoiceIntentDecision.RequiresConfirmation,
@@ -129,7 +141,7 @@ class Phase8VoiceFoundationTest {
             advanceUntilIdle()
             assertEquals(VoiceSessionState.Executed(started.value, VoiceOrigin.Driving), voice.state.value)
             assertTrue(player.commands.single() is PlaybackCommand.Pause)
-            assertEquals("Done", tts.spoken.single().shortText)
+            assertEquals("Playback paused.", tts.spoken.single().shortText)
             assertEquals(6_000L, stt.requests.single().maxListeningMs)
         } finally { voice.close(); job.cancel() }
     }

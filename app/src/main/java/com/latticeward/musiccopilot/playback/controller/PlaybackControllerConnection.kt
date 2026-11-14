@@ -16,6 +16,7 @@ import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
+import com.latticeward.musiccopilot.playback.api.VoiceDuckingPort
 import com.latticeward.musiccopilot.playback.api.PlaybackSnapshot
 import com.latticeward.musiccopilot.playback.api.PlaybackState
 import com.latticeward.musiccopilot.playback.command.PlaybackWireProtocol
@@ -40,7 +41,7 @@ import kotlin.coroutines.resume
 class PlaybackControllerConnection(
     private val ownerScope: CoroutineScope,
     context: Context? = null,
-) : PlaybackGateway, AutoCloseable {
+) : PlaybackGateway, VoiceDuckingPort, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Controller requires structured scope" } }
 
     private val appContext = context?.applicationContext
@@ -48,6 +49,9 @@ class PlaybackControllerConnection(
     private var released = false
     private var connecting: ListenableFuture<MediaController>? = null
     private var active: MediaController? = null
+    // P10: retain only the final service release receipt until the
+    // foreground MediaController is safely detached. Never holds playback.
+    private var pendingVoiceRelease: ListenableFuture<SessionResult>? = null
 
     private val relay = ControllerSnapshotRelay()
     override val connectionState: StateFlow<PlaybackConnectionState> = relay.connectionState
@@ -178,6 +182,51 @@ class PlaybackControllerConnection(
         }
     }
 
+    /**
+     * P07: private Media3 service owns all volume changes; controller only
+     * sends a bounded request and checks an exact service-owned receipt.
+     * A rejected/timed-out acquire MUST prevent microphone activation.
+     */
+    override suspend fun acquireVoiceDuck(token: String): Boolean {
+        val controller = active ?: return false
+        val captured = generation
+        if (released || connectionState.value != PlaybackConnectionState.Ready ||
+            !com.latticeward.musiccopilot.playback.command.ServiceVoiceDuckLease.isValidToken(token)
+        ) return false
+        return try {
+            val outcome = withTimeoutOrNull(2_000L) {
+                await(controller.sendCustomCommand(
+                    PlaybackWireProtocol.voiceDuckAcquireCommand(),
+                    PlaybackWireProtocol.voiceDuckArgs(token),
+                ))
+            }
+            !released && captured == generation && active === controller &&
+                connectionState.value == PlaybackConnectionState.Ready &&
+                outcome?.resultCode == SessionResult.RESULT_SUCCESS &&
+                outcome.extras.getString(PlaybackWireProtocol.KEY_VOICE_DUCK_TOKEN) == token
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) { false }
+    }
+
+    /**
+     * No suspended callback on UI Back/permission loss. Sending release is
+     * best-effort; the service also has a bounded expiry and focus/route
+     * emergency revocation. Duplicate/stale releases cannot unduck a new lease.
+     */
+    override fun releaseVoiceDuck(token: String) {
+        val controller = active ?: return
+        if (released || !com.latticeward.musiccopilot.playback.command.ServiceVoiceDuckLease
+                .isValidToken(token)
+        ) return
+        try {
+            pendingVoiceRelease = controller.sendCustomCommand(
+                PlaybackWireProtocol.voiceDuckReleaseCommand(),
+                PlaybackWireProtocol.voiceDuckArgs(token),
+            )
+        } catch (_: Exception) { /* service TTL prevents permanent duck */ }
+    }
+
     override suspend fun execute(command: PlaybackCommand): AppResult<PlaybackSnapshot> {
         val controller = active
         val capturedGeneration = generation
@@ -214,6 +263,16 @@ class PlaybackControllerConnection(
             if (result.resultCode != SessionResult.RESULT_SUCCESS) {
                 PlaybackWireProtocol.decodeFailure(result.extras)
             } else {
+                // P06: Voice cannot report Executed from an uncorrelated
+                // success/stale service response. Manual commands preserve
+                // their original compatibility and service snapshot path.
+                if (!PlaybackWireProtocol.acknowledges(command, result.extras)) {
+                    return AppResult.Failure(AppError.Controller(
+                        AppErrorCodes.CONTROLLER_CONNECT_FAILED,
+                        Recoverability.RECOVERABLE,
+                        RecoveryAction.ManualFallback,
+                    ))
+                }
                 val confirmed = PlaybackWireProtocol.decodeSnapshot(
                     result.extras.getBundle(PlaybackWireProtocol.KEY_SNAPSHOT)
                 ) ?: return AppResult.Failure(AppError.Controller(
@@ -259,10 +318,32 @@ class PlaybackControllerConnection(
         if (released) return
         ++generation // Ignore callbacks from old binding/reconnect.
         connecting?.let(MediaController::releaseFuture)
-        active?.release()
+        val oldController = active
+        val releaseReceipt = pendingVoiceRelease
         active = null
         connecting = null
+        pendingVoiceRelease = null
         relay.disconnected()
+        if (oldController != null) {
+            if (releaseReceipt != null && !releaseReceipt.isDone) {
+                // The Main Activity is leaving; closing its controller
+                // immediately could drop the Voice-unDuck command it just
+                // sent. Keep ONLY the old controller until the command is
+                // serviced or one short timeout expires, then release it.
+                // No UI/Voice lifecycle, microphone or Player is retained.
+                ownerScope.launch {
+                    try {
+                        withTimeoutOrNull(1_000L) { await(releaseReceipt) }
+                    } catch (_: CancellationException) {
+                        // App teardown still releases this controller.
+                    } catch (_: Exception) {
+                        // Service-owned 22s lease TTL is a final fallback.
+                    } finally {
+                        oldController.release()
+                    }
+                }
+            } else oldController.release()
+        }
     }
 
     override fun close() {

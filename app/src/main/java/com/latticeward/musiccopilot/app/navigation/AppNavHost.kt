@@ -2,6 +2,7 @@ package com.latticeward.musiccopilot.app.navigation
 
 import androidx.activity.compose.BackHandler
 import android.os.SystemClock
+import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.DisposableEffect
@@ -55,6 +56,8 @@ import com.latticeward.musiccopilot.core.application.driving.DrivingViewState
 import com.latticeward.musiccopilot.core.application.driving.DrivingMicCapability
 import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceAvailability
 import com.latticeward.musiccopilot.core.application.driving.DrivingVoiceHandoffPolicy
+import com.latticeward.musiccopilot.core.application.voice.VoicePttAdmissionPolicy
+import com.latticeward.musiccopilot.core.application.voice.VoicePttAvailability
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.voice.api.VoiceOrigin
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
@@ -65,6 +68,8 @@ import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelect
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
+import com.latticeward.musiccopilot.core.application.voice.VoicePrivacyDiagnosticsPolicy
+import com.latticeward.musiccopilot.core.application.voice.LocalVoiceDiagnostic
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
@@ -134,6 +139,10 @@ fun AppNavHost(
     localVoiceProviderSupported: Boolean = false,
     localVoiceProviderAvailable: Boolean = false,
     freshCanStartDrivingVoice: () -> Boolean = { false },
+    playerMicPermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
+    onPlayerMicPermissionTap: () -> Unit = {},
+    onPlayerMicPermissionContinue: () -> Unit = {},
+    onPlayerMicPermissionDismiss: () -> Unit = {},
     drivingMicPermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
     onDrivingMicPermissionTap: () -> Unit = {},
     onDrivingMicPermissionContinue: () -> Unit = {},
@@ -250,6 +259,18 @@ fun AppNavHost(
             Destination.Search
         else -> Destination.Library
     }
+    // An app/system-origin navigation away from Full Player must never leave
+    // its PTT generation alive or its rationale attached to an unrelated route.
+    // This is navigation-observation only: it never starts recognition.
+    LaunchedEffect(target, voiceSessionState, playerMicPermissionStage) {
+        if (target != Destination.FullPlayer) {
+            if (voiceSessionCoordinator != null &&
+                VoicePttAdmissionPolicy.owns(voiceSessionCoordinator.state.value, VoiceOrigin.Player)
+            ) voiceSessionCoordinator.cancel(VoiceCancelReason.OriginInvalidated)
+            if (playerMicPermissionStage != VoicePracticeStage.Idle)
+                onPlayerMicPermissionDismiss()
+        }
+    }
     // Only the existing Library and Full Player can host a small, nonmodal
     // invitation. No Search/Settings/permission/onboarding/Driving overlay.
     val invitationSurfaceAllowed =
@@ -264,6 +285,7 @@ fun AppNavHost(
         bluetoothStorageState == PreferencesLoadState.Ready &&
         storedBluetoothPreferences.selectedBluetoothHint != null &&
         voiceSessionState == VoiceSessionState.Idle &&
+        playerMicPermissionStage == VoicePracticeStage.Idle &&
         drivingMicPermissionStage == VoicePracticeStage.Idle
     // Keep a single foreground collector across nav/permission recompositions.
     // When a reconnect occurs, evaluate the LATEST surface and OS evidence,
@@ -510,6 +532,36 @@ fun AppNavHost(
             )
         }
         composable(Destination.FullPlayer.route) {
+            val playerActive = target == Destination.FullPlayer &&
+                playerOpen && !drivingNavigation.state.active &&
+                actualRoute == BootstrapRoute.HomeLibrary &&
+                permission == PermissionStatus.Granted &&
+                mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                !settingsOpen && !replayingEducation
+            val availability = VoicePttAdmissionPolicy.availability(
+                originActive = playerActive,
+                providerSupported = localVoiceProviderSupported,
+                microphoneGranted = microphoneGranted,
+                providerAvailable = localVoiceProviderAvailable,
+                session = voiceSessionState,
+            )
+            var voiceStartRejected by remember { mutableStateOf(false) }
+            val ownedState = if (VoicePttAdmissionPolicy.owns(
+                    voiceSessionState, VoiceOrigin.Player
+                )) voiceSessionState else VoiceSessionState.Idle
+            val dismissPlayerVoice: () -> Unit = {
+                if (voiceSessionCoordinator != null &&
+                    VoicePttAdmissionPolicy.owns(
+                        voiceSessionCoordinator.state.value, VoiceOrigin.Player
+                    )
+                ) voiceSessionCoordinator.cancel(VoiceCancelReason.UserBack)
+                onPlayerMicPermissionDismiss()
+                voiceStartRejected = false
+            }
+            val exitPlayer: () -> Unit = {
+                dismissPlayerVoice()
+                playerOpen = false
+            }
             Column(modifier = Modifier.fillMaxSize()) {
                 if (offeredReconnect != null) {
                     BluetoothEntrySuggestionBanner(
@@ -518,23 +570,77 @@ fun AppNavHost(
                     )
                 }
                 Box(modifier = Modifier.weight(1f)) {
-            FullPlayerScreen(
-                model = playerModel,
-                state = playerUi,
-                library = libraryRepository,
-                canReadLocalMetadata = permission == PermissionStatus.Granted,
-                onBack = { playerOpen = false },
-                onEnterDriving = {
-                    drivingNavigation.enterFrom(
-                        Destination.FullPlayer,
-                        allowedByAppRoute = actualRoute == BootstrapRoute.HomeLibrary &&
-                            permission == PermissionStatus.Granted &&
-                            mediaRequestUi.outcome == MediaPermissionOutcome.None &&
-                            playerOpen && !settingsOpen && !replayingEducation,
+                    FullPlayerScreen(
+                        model = playerModel,
+                        state = playerUi,
+                        library = libraryRepository,
+                        canReadLocalMetadata = permission == PermissionStatus.Granted,
+                        onBack = exitPlayer,
+                        onEnterDriving = {
+                            // Do not change origin while a mic/Voice overlay is active.
+                            if (voiceSessionCoordinator?.state?.value == VoiceSessionState.Idle &&
+                                playerMicPermissionStage != VoicePracticeStage.Rationale &&
+                                playerMicPermissionStage != VoicePracticeStage.AwaitingAndroid
+                            ) {
+                                // Finished/denied permission presentation must not
+                                // block ordinary Player -> Driving navigation.
+                                onPlayerMicPermissionDismiss()
+                                drivingNavigation.enterFrom(
+                                    Destination.FullPlayer,
+                                    allowedByAppRoute = playerActive && playerOpen,
+                                )
+                            }
+                        },
+                        voiceState = ownedState,
+                        voiceAvailability = availability,
+                        voicePermissionStage = playerMicPermissionStage,
+                        voiceStartRejected = voiceStartRejected,
+                        onVoicePermissionContinue = onPlayerMicPermissionContinue,
+                        onVoicePermissionCancel = {
+                            onPlayerMicPermissionDismiss()
+                            voiceStartRejected = false
+                        },
+                        onVoiceCancel = dismissPlayerVoice,
+                        onVoiceRetry = {
+                            val latest = voiceSessionCoordinator?.state?.value
+                            if (playerActive &&
+                                latest is VoiceSessionState.Failed &&
+                                latest.origin == VoiceOrigin.Player && latest.canRetry &&
+                                freshCanStartDrivingVoice()
+                            ) {
+                                voiceStartRejected =
+                                    voiceSessionCoordinator?.retry() !is AppResult.Success
+                            } else voiceStartRejected = true
+                        },
+                        onMic = {
+                            if (playerActive &&
+                                voiceSessionCoordinator != null
+                            ) {
+                                when (availability) {
+                                    VoicePttAvailability.NeedsPermission ->
+                                        onPlayerMicPermissionTap()
+                                    VoicePttAvailability.Ready -> {
+                                        // Fresh OS+provider evidence and Idle read at click time.
+                                        val freshEligible = freshCanStartDrivingVoice()
+                                        if (VoicePttAdmissionPolicy.mayStart(
+                                                availability,
+                                                freshAndroidGrant = freshEligible,
+                                                freshOnDeviceProvider = freshEligible,
+                                                latest = voiceSessionCoordinator.state.value,
+                                            )
+                                        ) {
+                                            voiceStartRejected =
+                                                voiceSessionCoordinator.start(
+                                                    VoiceOrigin.Player
+                                                ) !is AppResult.Success
+                                        } else voiceStartRejected = true
+                                    }
+                                    else -> Unit
+                                }
+                            }
+                        },
                     )
-                },
-            )
-                } // existing full player/Media3 controls remain unchanged
+                }
                 BackHandler(enabled = offeredReconnect != null) {
                     declineBluetoothOffer()
                 }
@@ -690,6 +796,44 @@ fun AppNavHost(
                         stringResource(R.string.p10_notification_exempt_status),
                         modifier = Modifier.padding(top = MusicSpacing.lgDp),
                         style = MusicTextStyles.bodyLarge,
+                    )
+                    // P11: source-only, non-identifying voice diagnostic.
+                    // Do not print provider package, file path, transcript,
+                    // raw microphone status, exception or device identifier.
+                    Text(
+                        stringResource(R.string.p11_voice_privacy_heading),
+                        modifier = Modifier.padding(top = MusicSpacing.lgDp)
+                            .semantics { heading() },
+                        style = MusicTextStyles.bodyLarge,
+                    )
+                    Text(
+                        stringResource(R.string.p11_voice_local_only),
+                        modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    val localSpeechStatus = VoicePrivacyDiagnosticsPolicy.local(
+                        apiLevel = Build.VERSION.SDK_INT,
+                        microphoneGranted = microphoneGranted,
+                        onDeviceProviderAvailable = localVoiceProviderAvailable,
+                    )
+                    Text(
+                        stringResource(when (localSpeechStatus) {
+                            LocalVoiceDiagnostic.ManualOnlyPlatform ->
+                                R.string.p11_voice_api_manual_only
+                            LocalVoiceDiagnostic.MicrophonePermissionRequired ->
+                                R.string.p11_voice_permission_needed
+                            LocalVoiceDiagnostic.OnDeviceProviderUnavailable ->
+                                R.string.p11_voice_provider_missing
+                            LocalVoiceDiagnostic.OnDeviceProviderPresentUnverified ->
+                                R.string.p11_voice_provider_unverified
+                        }),
+                        modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Text(
+                        stringResource(R.string.p11_voice_privacy_no_history),
+                        modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                     Text(
                         stringResource(R.string.p10_cloud_stt_disabled),

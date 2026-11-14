@@ -20,13 +20,47 @@ import com.latticeward.musiccopilot.playback.api.PlaybackState
 object PlaybackWireProtocol {
     const val ACTION_EXECUTE = "com.latticeward.musiccopilot.playback.EXECUTE_V1"
     const val ACTION_SNAPSHOT = "com.latticeward.musiccopilot.playback.SNAPSHOT_V1"
+    const val ACTION_VOICE_DUCK_ACQUIRE = "com.latticeward.musiccopilot.playback.VOICE_DUCK_ACQUIRE_V1"
+    const val ACTION_VOICE_DUCK_RELEASE = "com.latticeward.musiccopilot.playback.VOICE_DUCK_RELEASE_V1"
+    const val KEY_VOICE_DUCK_TOKEN = "voice_duck_token"
     const val KEY_SNAPSHOT = "snapshot"
+    const val KEY_COMMAND_ACK = "command_ack_id"
     const val KEY_ERROR = "error_code"
     const val KEY_ERROR_FAMILY = "error_family"
     const val PROTOCOL_VERSION = 1
 
     fun executeCommand() = SessionCommand(ACTION_EXECUTE, Bundle.EMPTY)
     fun snapshotCommand() = SessionCommand(ACTION_SNAPSHOT, Bundle.EMPTY)
+
+    fun voiceDuckAcquireCommand() = SessionCommand(ACTION_VOICE_DUCK_ACQUIRE, Bundle.EMPTY)
+    fun voiceDuckReleaseCommand() = SessionCommand(ACTION_VOICE_DUCK_RELEASE, Bundle.EMPTY)
+
+    /** Private short-lived token only; no transcript or playback payload. */
+    fun voiceDuckArgs(token: String) = Bundle().apply {
+        putString(KEY_VOICE_DUCK_TOKEN, token)
+    }
+
+    fun validVoiceDuckToken(args: Bundle): String? =
+        args.getString(KEY_VOICE_DUCK_TOKEN)
+            ?.takeIf { ServiceVoiceDuckLease.isValidToken(it) }
+
+
+    /**
+     * P06: a successful execute response carries both the authoritative
+     * service snapshot and the exact command ID acknowledged by its worker.
+     * There is no transcript, path, title or item identity in this receipt.
+     * The existing snapshot-only command uses the original envelope.
+     */
+    fun acknowledgedSnapshot(snapshot: PlaybackSnapshot, id: CommandId): Bundle =
+        Bundle().apply {
+            putBundle(KEY_SNAPSHOT, encodeSnapshot(snapshot))
+            putString(KEY_COMMAND_ACK, id.value)
+        }
+
+    fun acknowledges(command: PlaybackCommand, extras: Bundle): Boolean =
+        VoiceCommandReceiptPolicy.confirms(
+            command, extras.getString(KEY_COMMAND_ACK)
+        )
 
     fun encodeCommand(command: PlaybackCommand): Bundle = Bundle().apply {
         putInt("v", PROTOCOL_VERSION)

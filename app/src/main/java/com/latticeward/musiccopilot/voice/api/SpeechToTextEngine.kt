@@ -9,11 +9,25 @@ data class SpeechRecognitionRequest(
     val maxListeningMs: Long = 6_000L,
 )
 
+/**
+ * Ephemeral in-memory provider result. Data-class default toString would
+ * include the user's spoken words in accidental Logcat/crash breadcrumbs.
+ * Deliberately never format the transcript (nor a device/locale identifier).
+ * Consumers must map this in-memory and immediately drop the reference.
+ */
 data class SpeechRecognitionResult(
     val transcript: String,
     val providerConfidence: Double?,
     val detectedLanguageTag: String?,
-)
+    /**
+     * Explicit assurance from local VAD endpointing ONLY, not model confidence.
+     * Never enabled by synthetic results or the Android recognizer by default.
+     * The restricted mapper still requires an exact allowlisted English phrase.
+     */
+    val localVadEndpointVerified: Boolean = false,
+) {
+    override fun toString(): String = "SpeechRecognitionResult(redacted)"
+}
 
 /** Ephemeral results only; remote STT disabled until independent consent/provider approval. */
 interface SpeechToTextEngine {

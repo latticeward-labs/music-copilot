@@ -13,6 +13,11 @@ android {
         applicationId = "com.latticeward.musiccopilot"
         minSdk = 29
         targetSdk = 36
+        // Issue #10 physical-device QA only: omit irrelevant emulator/32-bit
+        // JNI binaries from this *test APK*. Normal builds keep all ABIs.
+        if (project.providers.gradleProperty("issue10QaArm64Only").orNull == "true") {
+            ndk { abiFilters += "arm64-v8a" }
+        }
         versionCode = 1
         versionName = "0.1.0-foundation"
 
@@ -22,6 +27,9 @@ android {
         buildConfigField("boolean", "QUALITY_EXTERNAL_DIAGNOSTICS_ENABLED", "false")
         buildConfigField("boolean", "QUALITY_CRASH_UPLOAD_ENABLED", "false")
         buildConfigField("boolean", "QUALITY_VERBOSE_LOGGING_ENABLED", "false")
+        // Issue #10 P05: compile-time only, bounded in DirectControlPhrasePolicy.
+        // No network config, transcript or external telemetry endpoint.
+        buildConfigField("double", "VOICE_DIRECT_CONFIDENCE_THRESHOLD", "0.90")
     }
 
     buildTypes {
@@ -94,6 +102,10 @@ dependencies {
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.protobuf.javalite)
+
+    // Issue #10 only: on-device Moonshine/Silero STT runtime. The workflow
+    // obtains the pinned AAR before build; no network dependencies at runtime.
+    implementation(files("libs/sherpa-onnx-2.0.0.aar"))
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     testImplementation(libs.junit)

@@ -1,0 +1,2633 @@
+{
+  "schema_version": "1.0",
+  "issue": 10,
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/10-ptt-voice-five-control-intents",
+  "created_date": "2026-10-25",
+  "stage": "P13_OWNER_MOONSHINE_IMPLEMENTATION_ACCEPTED_WITH_LAB_GATE_FAILED",
+  "provenance": {
+    "source_archive_name": "MSM2(1)(1).rar",
+    "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "source_pdf_count": 12,
+    "base_branch": "main",
+    "base_commit_at_P00": "e13172683ee8495e26b7c2d56f88444e4969891e",
+    "source_of_truth": "ISSUE_10_PHASE0_TRACEABILITY.json",
+    "manual_checklist": "ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+    "no_tests_before_P13": true
+  },
+  "vocabulary": {
+    "phone": [
+      "NOT_RUN",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "N/A"
+    ],
+    "lab_attempt": [
+      "NOT_RUN",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "N/A",
+      "NOT_ITEMIZED"
+    ],
+    "technical": [
+      "NOT_RUN",
+      "AUTHORED_ONLY",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "DEFERRED"
+    ],
+    "acceptance": [
+      "NOT_VERIFIED",
+      "VERIFIED_PASS",
+      "VERIFIED_FAIL",
+      "DEFERRED",
+      "NOT_APPLICABLE_WITH_REASON"
+    ],
+    "evidence_owners": {
+      "phone": "OWNER_ACTUAL_DEVICE",
+      "lab": "OWNER_CONTROLLED_ENVIRONMENT",
+      "technical": "ACTUAL_EXECUTION_ONLY"
+    },
+    "lab_group": [
+      "OWNER_AGGREGATE_REPORTED"
+    ]
+  },
+  "phase_status": {
+    "P00": {
+      "state": "STATIC_AUDIT_COMPLETED_WITH_IMPLEMENTATION_GAPS",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P01": {
+      "state": "GOVERNANCE_SOURCE_DELIVERED_UNTESTED",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false
+    },
+    "P02": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+      "authored_junit_cases": 8,
+      "notes": "Coordinator/transition policy implemented in source only; no Gradle/JVM/Android/Actions run."
+    },
+    "P03": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+      "authored_junit_cases": 12,
+      "notes": "Real source wiring on Full Player + existing Driving, one ActivityResult launcher, one permission gate, shared Coordinator, source checks only. P04/P09/P10 pending."
+    },
+    "P04": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+      "authored_junit_cases": 12,
+      "notes": "On-device English STT API33+ installed-model preflight, API29/30 manual-only, optional offline TTS and callback lifecycle; source-only."
+    },
+    "P05": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+      "authored_junit_cases": 25,
+      "legacy_authored_junit_adjusted": 1,
+      "notes": "Finite 19-entry English PTT dictionary (5 controls), optional spoken musico, bounded BuildConfig threshold and fail-closed absent confidence; no tests/build/Actions."
+    },
+    "P06": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+      "authored_junit_cases": 15,
+      "notes": "P06 typed Voice dispatch, service ACK correlation, existing bounded idempotency reuse, voice-only safe NEXT-at-end/no-queue and blocked PLAY; code committed but NO Gradle/test/Actions."
+    },
+    "P07": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+      "authored_junit_cases": 13,
+      "notes": "P07 source-only Media3 service lease, 0.25 volume multiplier, 22s TTL, caller-private commands, pre-STT ack, fail/terminal cancellation/focus/route release; no build/tests."
+    },
+    "P08": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+      "authored_junit_cases": 15,
+      "legacy_authored_junit_adjusted": 1,
+      "notes": "P08 8 localizable English single-sentence feedback messages; 5 success only after Media3 ACK, optional final failure speech, retryable silence, one-shot gen gate and 2s max TTS; source-only no Gradle/test/Actions."
+    },
+    "P09": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+      "authored_junit_cases": 20,
+      "notes": "P09 pure WF-08 shared status projection; one accessible Compose Voice panel reused by Full Player and Driving, 21 string resources, focus-return, truthful retry/dismiss/manual paths. Source only: no build, Tests or Actions."
+    },
+    "P10": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+      "authored_junit_cases": 17,
+      "legacy_authored_junit_adjusted": 1,
+      "notes": "P10 foreground-only Voice; atomic rapid-tap block, provider recognizer/utterance cancellation identity, app-stop/revoked permission, focus and BT route, bounded un-Duck controller drain. No Build, JUnit, Actions."
+    },
+    "P11": {
+      "state": "SOURCE_IMPLEMENTED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+      "authored_junit_cases": 19,
+      "notes": "P11 transcript redaction in result toString, stricter future cloud disclosure, 4 typed local Voice diagnostics, 7 privacy strings in Settings, nonpersistent NoOp sink and networkless production boundary audited. No Build/JUnit/Actions."
+    },
+    "P12": {
+      "state": "SOURCE_AUDITED_UNBUILT",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": false,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "traceability_file": "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+      "lab_corpus_file": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+      "authored_junit_cases": 15,
+      "legacy_authored_junit_adjusted": 1,
+      "static_review_only": true,
+      "notes": "P12 cumulative P00-P11 and Issue7/8/9 static review, source F12-01 voice receipt process-namespace hardening and F12-02 Compose heading rename, 15 authored-only JUnit methods, 16 AC traced, 50 lab cases prepared NOT_RUN; no build, CI, phone QA or APK."
+    },
+    "P13": {
+      "state": "BUILD_SUCCESS_OWNER_VOICE_RETEST_PENDING",
+      "source_delivered": true,
+      "test_execution": "NOT_RUN",
+      "apk_built": true,
+      "build_verified": true,
+      "source_audit_file": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
+      "artifact_id": 12608466440,
+      "workflow_run_id": 40218586084,
+      "build_source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
+      "owner_phone_qa": "NOT_RUN",
+      "lab_50_attempts": "NOT_RUN",
+      "notes": "P13 replacement Voice-only offline model-support probe repair built. Owner previously observed immediate Unavailable; retest pending. All new APK test cases NOT_RUN, all 16 AC NOT_VERIFIED."
+    }
+  },
+  "apk": {
+    "state": "OWNER_TESTED_IMPLEMENTATION_ACCEPTED_WITH_FAILED_LAB_GATE",
+    "phase_authorized": "P13_ONLY",
+    "cumulative": true,
+    "apk_filename": "Music-Copilot-Issue10-Moonshine-VAD-debug.apk",
+    "source_sha": "eaebff42458a885995d336a8c517f744889d5bae",
+    "sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+    "bytes": 99628974,
+    "build_workflow_run_id": 40277406135,
+    "artifact_id": 13657909808,
+    "verified_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40277406135/artifacts/13657909808",
+    "device_candidate_version": "0.1.0-foundation-debug",
+    "artifact_name": "Music-Copilot-Issue10-Moonshine-Silero-VAD-APK",
+    "zip_sha256": "64c03fea552f9d73bb47db49bba33730170e92f33f62eea93394de19d26ad0e4",
+    "zip_bytes": 13564230,
+    "build_task": ":app:assembleDebug",
+    "job_id": 129053262550,
+    "build_status": "SUCCESS",
+    "app_id": "com.latticeward.musiccopilot.debug",
+    "min_sdk": 29,
+    "compile_sdk": 36,
+    "target_sdk": 36,
+    "replacement_of": {
+      "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+      "apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+      "run_id": 40180566730,
+      "artifact_id": 12593353938,
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+      "reason_superseded": "Immediate Voice unavailable owner phone observation before replacement; not a faulty build integrity claim."
+    },
+    "repair_scope": "Android on-device STT support metadata unavailability only",
+    "report": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+    "phone_retest_required": false,
+    "previous_pre_moonshine_candidate": {
+      "state": "BUILT_VERIFIED_ARTIFACT_OWNER_RETEST_PENDING",
+      "phase_authorized": "P13_ONLY",
+      "cumulative": true,
+      "apk_filename": "app-debug.apk",
+      "source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
+      "sha256": "7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f",
+      "bytes": 37285182,
+      "build_workflow_run_id": 40218586084,
+      "artifact_id": 12608466440,
+      "verified_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40218586084/artifacts/12608466440",
+      "device_candidate_version": "0.1.0-foundation-debug",
+      "artifact_name": "issue10-p13-one-cumulative-debug-apk",
+      "zip_sha256": "3738e90480a2f8d0241e206b017094d9713f0efcb1a32364b0b807dfa7ad4700",
+      "zip_bytes": 13564230,
+      "build_task": ":app:assembleDebug",
+      "job_id": 121244994062,
+      "build_status": "SUCCESS",
+      "app_id": "com.latticeward.musiccopilot.debug",
+      "min_sdk": 29,
+      "compile_sdk": 36,
+      "target_sdk": 36,
+      "replacement_of": {
+        "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+        "apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+        "run_id": 40180566730,
+        "artifact_id": 12593353938,
+        "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+        "reason_superseded": "Immediate Voice unavailable owner phone observation before replacement; not a faulty build integrity claim."
+      },
+      "repair_scope": "Android on-device STT support metadata unavailability only",
+      "report": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md",
+      "phone_retest_required": true
+    },
+    "build_run_attempt": 2,
+    "engine": "Moonshine Tiny v2 + Silero VAD (not Vosk)",
+    "owner_retest_date": "2026-11-14",
+    "owner_report_source": "owner chat aggregate on 2026-11-14",
+    "tests_executed_in_workflow": 0
+  },
+  "device_environment": {
+    "owner_device_name": null,
+    "android_api": null,
+    "android_release": null,
+    "recognizer_name": null,
+    "recognizer_on_device_available": null,
+    "english_language_pack_ready": null,
+    "output_route": null,
+    "owner_recorded_at": null
+  },
+  "acceptance": [
+    {
+      "id": "AC01",
+      "requirement": "Voice State Machine: Idle → Listening → Processing → (Confirming if needed) → Executed/Failed",
+      "phase_owners": [
+        "P02",
+        "P09"
+      ],
+      "source_observation": "State types exist; direct-path transitions and terminal lifecycle need hardening.",
+      "phone_or_lab_case_ids": [
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M29",
+        "M33"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC02",
+      "requirement": "Explicit mic tap only; no always-on / wake word",
+      "phase_owners": [
+        "P03"
+      ],
+      "source_observation": "Driving explicit tap partially wired; Full Player microphone missing.",
+      "phone_or_lab_case_ids": [
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M31"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC03",
+      "requirement": "Service-respecting Voice duck while Listening and reliable unduck",
+      "phase_owners": [
+        "P07"
+      ],
+      "source_observation": "No Voice-scoped duck/restore lease found in reviewed public contract/coordinator.",
+      "phone_or_lab_case_ids": [
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M41",
+        "M42"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC04",
+      "requirement": "Listening ≤6s; no more than one retry",
+      "phase_owners": [
+        "P02",
+        "P04"
+      ],
+      "source_observation": "6000ms and 2 attempts declared; timeout/cancellation/races not verified.",
+      "phone_or_lab_case_ids": [
+        "M26",
+        "M27",
+        "M28"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC05",
+      "requirement": "Replaceable STT and TTS providers",
+      "phase_owners": [
+        "P04"
+      ],
+      "source_observation": "Replaceable interfaces exist; device/provider/language readiness unverified.",
+      "phone_or_lab_case_ids": [
+        "M10",
+        "M39",
+        "M40",
+        "M52"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC06",
+      "requirement": "Only five executable controls in #10",
+      "phase_owners": [
+        "P05"
+      ],
+      "source_observation": "Six-type source declares PLAY_ARTIST, coordinator does not dispatch it; mapping needs PTT/bare-phrase policy.",
+      "phone_or_lab_case_ids": [
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M21",
+        "M22"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC07",
+      "requirement": "Direct recognized command → service without navigation",
+      "phase_owners": [
+        "P06"
+      ],
+      "source_observation": "Typed gateway dispatch exists; ACK, safety and real executions not verified.",
+      "phone_or_lab_case_ids": [
+        "M23",
+        "M24",
+        "M25",
+        "M32",
+        "M33"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC08",
+      "requirement": "UI observes Voice and does not own playback/recognition",
+      "phase_owners": [
+        "P03",
+        "P09"
+      ],
+      "source_observation": "Driving observes coordinator; Full Player overlay not wired.",
+      "phone_or_lab_case_ids": [
+        "M04",
+        "M05",
+        "M23",
+        "M43",
+        "M53"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC09",
+      "requirement": "At most one short TTS sentence",
+      "phase_owners": [
+        "P08"
+      ],
+      "source_observation": "Short 'Done' on ACK is source-visible; all terminal feedback/error/cancel cases incomplete.",
+      "phone_or_lab_case_ids": [
+        "M39",
+        "M40"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC10",
+      "requirement": "Timeout/failure/cancel preserves playback and manual controls",
+      "phase_owners": [
+        "P02",
+        "P07",
+        "P10"
+      ],
+      "source_observation": "Manual fallback rules exist; duck cleanup/route safety not proven.",
+      "phone_or_lab_case_ids": [
+        "M08",
+        "M19",
+        "M20",
+        "M28",
+        "M29",
+        "M36",
+        "M38",
+        "M43",
+        "M57"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC11",
+      "requirement": "Lifecycle/recreation/background/interruption no duplicate command",
+      "phase_owners": [
+        "P10"
+      ],
+      "source_observation": "Generation checks exist; late RPC/ACK and lifecycle state race unverified.",
+      "phone_or_lab_case_ids": [
+        "M30",
+        "M31",
+        "M32",
+        "M41",
+        "M42",
+        "M44",
+        "M45",
+        "M46",
+        "M47"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC12",
+      "requirement": "Lab direct-command success ≥90%",
+      "phase_owners": [
+        "P13"
+      ],
+      "source_observation": "Moonshine Tiny v2 + Silero VAD owner report 2026-11-14; 24 of 50 valid executions.",
+      "phone_or_lab_case_ids": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05"
+      ],
+      "status": "VERIFIED_FAIL",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+      "decision_note": "Owner aggregate shows 24/50 success=48%, below >=45/50=90%; FAILED. Per-attempt statuses unknown. Owner nonetheless explicitly accepted merge/close with P0 debt #80.",
+      "verified_at": "2026-11-14"
+    },
+    {
+      "id": "AC13",
+      "requirement": "No raw voice recording or logging",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_observation": "No persistence appears in reviewed coordinator; app-wide runtime/telemetry audit pending.",
+      "phone_or_lab_case_ids": [
+        "M51"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC14",
+      "requirement": "If cloud STT, separate consent and processing/retention disclosure",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_observation": "Production binds on-device/no-network fallback; conditional cloud gate stays mandatory if scope changes.",
+      "phone_or_lab_case_ids": [
+        "M10",
+        "M52"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC15",
+      "requirement": "Mapper/timeout/states/idempotence test coverage",
+      "phase_owners": [
+        "P02",
+        "P05",
+        "P06",
+        "P10",
+        "P12"
+      ],
+      "source_observation": "Previous source test fixtures exist; new #10 authored tests NOT_STARTED; none executed for #10.",
+      "phone_or_lab_case_ids": [
+        "M26",
+        "M27",
+        "M28",
+        "M30",
+        "M31",
+        "M32",
+        "M33"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    },
+    {
+      "id": "AC16",
+      "requirement": "WF-08 voice presentation, TalkBack and visible state",
+      "phase_owners": [
+        "P09"
+      ],
+      "source_observation": "Driving has partial Voice semantics; P09 Full Player/WF08 and physical TalkBack not verified.",
+      "phone_or_lab_case_ids": [
+        "M23",
+        "M24",
+        "M48",
+        "M49",
+        "M50"
+      ],
+      "status": "NOT_VERIFIED",
+      "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "runtime_evidence": null,
+      "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
+    }
+  ],
+  "phone_tests": [
+    {
+      "id": "M01",
+      "summary": "APK تجمیعی P13 نصب و باز شود؛ برنامه و Player اصلی بدون کرش فعال باشند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M02",
+      "summary": "با شروع برنامه هیچ ضبط صدای خودکار یا Voice Overlay ظاهر نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M03",
+      "summary": "بدون لمس میکروفون، گفتن «Play» هیچ دستوری اجرا نکند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M04",
+      "summary": "ورود از Full Player؛ میکروفون قابل مشاهده و قابل لمس باشد یا علت غیرفعال بودن روشن باشد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M05",
+      "summary": "ورود به Driving Mode از مسیر دستی؛ میکروفون همان Voice coordinator را استفاده کند و صفحهٔ جدید مستقل باز نکند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M06",
+      "summary": "اولین ورود با میکروفونِ فاقد مجوز؛ راهنمای مجوز مناسب نمایش داده شود و بدون انتخاب کاربر ضبط شروع نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M07",
+      "summary": "انتخاب Continue و مجوز Android؛ با برگشت از دیالوگ، ضبط خودکار شروع نشود؛ لمس مجدد لازم باشد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M08",
+      "summary": "انتخاب Don't allow؛ موسیقی و دکمه‌های دستی همچنان قابل استفاده باشند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M09",
+      "summary": "خاموش کردن مجوز میکروفون از Settings و برگشت؛ هنگام درخواست جدید، دسترسی دوباره بررسی شود و کرش نکند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M10",
+      "summary": "اگر تشخیص گفتار روی‌دستگاه یا زبان انگلیسی موجود نیست (خصوصاً Android 10/11)، پیام واقعیِ عدم پشتیبانی و مسیر کنترل دستی نمایش داده شود؛ سرویس ابری بی‌اجازه فعال نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M11",
+      "summary": "در حالت Pause با صف آماده بگو «Play»؛ همان موسیقی به صورت واقعی پخش شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M12",
+      "summary": "هنگام پخش بگو «Pause»؛ پخش متوقف شود و جایگاه صف حفظ شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M13",
+      "summary": "پس از Pause بگو «Resume»؛ پخش همان موسیقی از موقعیت صحیح ادامه پیدا کند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M14",
+      "summary": "با «Next song» به آهنگ بعدی همان صف برو.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M15",
+      "summary": "با «Previous song» رفتار ثابت Previous مطابق Player فعلی باشد (شروع آهنگ/ترک قبلی برحسب موقعیت).",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M16",
+      "summary": "با «Go back 10 seconds» حدود ۱۰ ثانیه به عقب Seek شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M17",
+      "summary": "همین Seek را در ۵ ثانیهٔ اول آهنگ انجام بده؛ موقعیت به صفر محدود شود، منفی/کرش نداشته باشد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M18",
+      "summary": "«Stop music» باید فقط PAUSE باشد، نه حذف صف/بستن Player.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M19",
+      "summary": "انتهای صف «Next»؛ هیچ ترک خیالی یا پخش غیرمنتظره‌ای رخ ندهد؛ پیغام کوتاه مناسب باشد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M20",
+      "summary": "با صف خالی «Play»؛ فقط در صورت وجود و اعتبار Play Last طبق قرارداد Player عمل کند، وگرنه خطای امن/کنترل دستی؛ هیچ صف خیالی ساخته نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M21",
+      "summary": "با گفتن جملهٔ نامربوط مثل «What is the weather?» هیچ عملی روی Player اجرا نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M22",
+      "summary": "با «Volume up»، «Play YouTube» و «Play songs by Adele» در Issue #10 هیچ intent غیرمجاز یا PLAY_ARTIST اجرا نشود؛ رفتار امن مشاهده شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M23",
+      "summary": "پس از لمس Mic حالت Listening واضح و منطبق با وضعیت واقعی دیده شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M24",
+      "summary": "پس از گفتن فرمان معتبر، Processing در صورت طول کافی قابل مشاهده باشد؛ سپس نتیجهٔ واقعی Executed نمایش داده شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M25",
+      "summary": "فرمان قطعیِ پنج‌گانه بدون صفحهٔ جدید یا مرحلهٔ تأیید اضافه اجرا شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M26",
+      "summary": "عدم صحبت بعد از Mic؛ Listening حداکثر ۶ ثانیه باشد (اندازه‌گیری دستی را تقریبی ثبت کن؛ اثبات دقیق با آزمون فنی جداست).",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M27",
+      "summary": "بعد از Timeout فقط یک Retry قابل انجام باشد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M28",
+      "summary": "Timeout یا عدم تشخیص در تلاش دوم؛ Retry سوم مجاز نباشد و حالت امن دستی بازگردد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M29",
+      "summary": "لمس Cancel یا Back هنگام Listening؛ ضبط فوراً متوقف و فرمانی اجرا نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M30",
+      "summary": "لمس Cancel هنگام Processing؛ پاسخ دیررس Voice هیچ دستور تازه‌ای اجرا نکند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M31",
+      "summary": "چند لمس سریع Mic؛ فقط یک جلسهٔ فعال وجود داشته باشد، نه دو ضبط/دو دستور.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M32",
+      "summary": "یک بار گفتن Next؛ دقیقاً یک ترک جلو برود، حتی اگر بازخورد/نتیجه دوباره به UI برسد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M33",
+      "summary": "نمایش Executed فقط پس از اجرای واقعی فرمان باشد؛ خطای Controller به اشتباه Executed نشان داده نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M34",
+      "summary": "در حال پخش موزیک Mic را بزن؛ صدای موزیک هنگام Listening به شکل قابل تشخیص کم شود (Ducking).",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M35",
+      "summary": "با اجرای موفق فرمان، Duck پایان یابد و سطح صدا متناسب با وضعیت جدید برگردد؛ افزایش تجمعی یا صدای ناگهانی رخ ندهد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M36",
+      "summary": "در Listening روی Cancel بزن؛ کاهش صدای موقت پایان یابد، ولی آهنگی که قبلاً Pause بوده خودکار Play نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M37",
+      "summary": "دو Listening متوالی و یک Retry؛ صدا مرحله‌به‌مرحله به سمت صفر نرود و Duck باقی نماند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M38",
+      "summary": "پس از Timeout/Failed، موسیقی و سطح صدا مطابق حالت امن قبل و مداخلات سیستم باقی بمانند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M39",
+      "summary": "پاسخ TTS اگر موجود باشد یک جملهٔ کوتاه باشد؛ تکرار پی‌درپی یا حرف‌زدن ممتد نداشته باشد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M40",
+      "summary": "موتور TTS غایب/غیرفعال/بدون زبان مناسب؛ اجرای فرمانِ معتبر معطل نشود و موسیقی خراب نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M41",
+      "summary": "حین Voice یک تماس تلفنی یا قطع Audio Focus رخ دهد؛ Voice لغو شود، تماس و اولویت سیستم محترم بمانند و پخش خودکار ناامن نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M42",
+      "summary": "حین Listening هندزفری/بلوتوث صدا قطع شود؛ صدای موسیقی به شکل ناخواسته از اسپیکر گوشی ادامه پیدا نکند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M43",
+      "summary": "هنگام Failed/Processing، دکمه‌های دستی Play/Pause/Next/Previous همان Player همچنان کار کنند یا با خروج فوری در دسترس باشند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M44",
+      "summary": "هنگام Listening صفحه را بچرخان یا Activity را بازسازی کن (اگر سیستم اجازه دهد)؛ ضبط/فرمان دوم بدون درخواست کاربر ساخته نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M45",
+      "summary": "هنگام Listening برنامه را به پس‌زمینه بفرست؛ مطابق سیاست Lifecycle ضبط لغو شود و برگشت خودکار ضبط را آغاز نکند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M46",
+      "summary": "هنگام Listening از Driving Mode خارج شو؛ Voice متعلق به Driving لغو شود و کنترل دستی سالم بماند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M47",
+      "summary": "حین Listening مجوز میکروفون را در تنظیمات لغو کن؛ با بازگشت، جلسه خاتمه و دسترسی تازه بررسی شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M48",
+      "summary": "TalkBack را فعال کن؛ برچسب Mic، Listening، Processing، Failed، Retry، Cancel و نتیجهٔ واقعی قابل فهم باشد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M49",
+      "summary": "اندازهٔ فونت را ۱۵۰٪ و ۲۰۰٪ کن؛ وضعیت صوتی و Cancel/Retry قابل رؤیت، اسکرول و لمس باشد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M50",
+      "summary": "پس از خروج از Voice، فوکوس دسترس‌پذیری/کنترل به سطح اولیه بازگردد؛ هیچ صفحهٔ جداگانهٔ گیرکننده ایجاد نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M51",
+      "summary": "لاگ/دادهٔ ذخیره‌شدهٔ قابل مشاهدهٔ اپ نباید فایل ضبط صدای خام یا تاریخچهٔ متن گفتار بسازد (فقط بازبینی کاربر؛ ممیزی کامل نیازمند تست فنی است).",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M52",
+      "summary": "بدون رضایت جداگانه و افشای مقصد/نگهداری، هیچ گزینهٔ STT ابری فعال یا اجباری نباشد؛ انتخاب «نه» مانع موسیقی آفلاین نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M53",
+      "summary": "Mini Player و Full Player پس از اجرای هر کدام از پنج فرمان از snapshot واقعی Media3 یکسان پیروی کنند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M54",
+      "summary": "دکمه‌های Play/Pause/Next/Previous در Android media notification همانند قبل کار کنند؛ لمس media card در صورت قابلیت قبلی اپ را باز کند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M55",
+      "summary": "کنترل Play/Pause/Next از ایرپاد یا هدست (اگر در دسترس است) بعد از Voice همچنان کار کند.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M56",
+      "summary": "ورود/خروج دستی Driving Mode و پیشنهاد اختیاری Bluetooth از Issue #9 مستقل از Voice بماند؛ هیچ ورود خودکار یا autoplay ناخواسته رخ ندهد.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M57",
+      "summary": "اگر آهنگ خراب/حذف‌شده یا Controller disconnected باشد، اجرای فرمان صوتی خطای کوتاه و امن بدهد، نه کرش/موفقیت ساختگی.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M58",
+      "summary": "کم‌وزیاد کردن صدا، قطع Bluetooth و تماس پس از اتمام Voice، سیاست‌های #8 و #9 را نقض نکند و صدای گوشی ناخواسته بلند نشود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M59",
+      "summary": "نسخه و SHA-256 APK مورد تست با فایل تحویل P13 تطبیق داده و همهٔ FAIL/BLOCKED/N/A با دلیل ثبت شود.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    },
+    {
+      "id": "M60",
+      "summary": "ثبت محدودیت تست تک‌دستگاهی؛ بررسی API29/30/31+/OEM و خودرو/هدیونیت که واقعاً انجام نشده صادقانه به صورت NOT_RUN/BLOCKED/N/A گزارش شود، نه PASS.",
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+    }
+  ],
+  "laboratory": {
+    "state": "OWNER_AGGREGATE_REPORTED_GATE_FAILED",
+    "prerequisite": "P13_CUMULATIVE_APK_AND_SUPPORTED_ON_DEVICE_STT",
+    "planned_total_attempts": 50,
+    "required_successes": 45,
+    "required_rate": 0.9,
+    "actual_attempts": 50,
+    "actual_successes": 24,
+    "actual_failures": 26,
+    "actual_success_rate": 0.48,
+    "gate_passed": false,
+    "owner_tested_at": "2026-11-14",
+    "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+    "groups": [
+      {
+        "id": "L01",
+        "intent": "PLAY",
+        "planned_attempts": 10,
+        "completed_attempts": 10,
+        "successful_attempts": 2,
+        "failed_attempts": 8,
+        "status": "OWNER_AGGREGATE_REPORTED",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          }
+        ],
+        "rate": 0.2,
+        "provenance": "owner aggregate count, no per-attempt labels"
+      },
+      {
+        "id": "L02",
+        "intent": "PAUSE",
+        "planned_attempts": 10,
+        "completed_attempts": 10,
+        "successful_attempts": 1,
+        "failed_attempts": 9,
+        "status": "OWNER_AGGREGATE_REPORTED",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          }
+        ],
+        "rate": 0.1,
+        "provenance": "owner aggregate count, no per-attempt labels"
+      },
+      {
+        "id": "L03",
+        "intent": "NEXT",
+        "planned_attempts": 10,
+        "completed_attempts": 10,
+        "successful_attempts": 8,
+        "failed_attempts": 2,
+        "status": "OWNER_AGGREGATE_REPORTED",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          }
+        ],
+        "rate": 0.8,
+        "provenance": "owner aggregate count, no per-attempt labels"
+      },
+      {
+        "id": "L04",
+        "intent": "PREVIOUS",
+        "planned_attempts": 10,
+        "completed_attempts": 10,
+        "successful_attempts": 5,
+        "failed_attempts": 5,
+        "status": "OWNER_AGGREGATE_REPORTED",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          }
+        ],
+        "rate": 0.5,
+        "provenance": "owner aggregate count, no per-attempt labels"
+      },
+      {
+        "id": "L05",
+        "intent": "SEEK_BACK",
+        "planned_attempts": 10,
+        "completed_attempts": 10,
+        "successful_attempts": 8,
+        "failed_attempts": 2,
+        "status": "OWNER_AGGREGATE_REPORTED",
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 2,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 3,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 4,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 5,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 6,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 7,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 8,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 9,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          },
+          {
+            "attempt": 10,
+            "status": "NOT_ITEMIZED",
+            "command_executed": null,
+            "recognizer_result_bucket": null,
+            "latency_ms": null,
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
+          }
+        ],
+        "rate": 0.8,
+        "provenance": "owner aggregate count, no per-attempt labels"
+      }
+    ],
+    "reporting_granularity": "GROUP_COUNTS_ONLY_NO_PER_ATTEMPT_OUTCOMES",
+    "evidence_doc": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+  },
+  "technical_tests": [
+    {
+      "id": "T01",
+      "name": "Deterministic intent mapping and rejection",
+      "phase": "P05",
+      "kind": "JVM",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "25 new P05 JUnit grammar/threshold cases authored and one Phase8 legacy method updated. 0 executed, no PASS.",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T02",
+      "name": "Voice reducer/state transitions/generation",
+      "phase": "P02",
+      "kind": "JVM",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "8 P02 JUnit methods are authored; runtime executed=0; any prior Phase8 tests unchanged/unrun here. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T03",
+      "name": "6s timeout, one retry, cancellation",
+      "phase": "P02/P04",
+      "kind": "JVM",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "17 P10 authored-only lifecycle/race methods, one P02 legacy fixture adapted. ZERO executed.",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T04",
+      "name": "Playback ACK and one-shot duplicate suppression",
+      "phase": "P06",
+      "kind": "JVM",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue8Phase12ReceiptOrderingTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "15 new P06 JUnit tests authored, previous Issue8 receipt tests unchanged; zero JUnit/Android execution. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T05",
+      "name": "Ducking lease/focus/route priority",
+      "phase": "P07",
+      "kind": "JVM",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "13 P07 pure/fake/source JUnit scenarios authored only, 0 run. Phone audio focus/call/BT not verified.",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T06",
+      "name": "Voice feedback, optional TTS failures",
+      "phase": "P08",
+      "kind": "JVM",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "15 P08 authored-only feedback/bounded-timeout/error/ACK cases plus updated Phase8 legacy assertion. P04 optional offline TTS cases also exist; ZERO tests executed.",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T07",
+      "name": "Compose voice overlay/semantics/a11y",
+      "phase": "P09",
+      "kind": "ANDROID_INSTRUMENTATION",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "20 new P09 pure/UI-static contract JUnit methods authored only. TalkBack/Compose/device execution = 0. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T08",
+      "name": "Lifecycle/permission/late-callback race",
+      "phase": "P10",
+      "kind": "JVM_AND_ANDROID_INSTRUMENTATION",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "17 P10 authored-only lifecycle/race methods, one P02 legacy fixture adapted. ZERO executed. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T09",
+      "name": "Privacy/consent/manifest/static inspection",
+      "phase": "P11",
+      "kind": "SOURCE_AUDIT_AND_LINT",
+      "source_cases": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "authored": true,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": "19 P11 source-authored privacy/consent/diagnostic JUnit methods. ZERO executed. P12 15 cumulative authored JUnit source contracts and P06 fixture updated (NOT_RUN).",
+      "source_status": "AUTHORED_ONLY"
+    },
+    {
+      "id": "T10",
+      "name": "Android 10/12/14+, OEM, parked vehicle and real voice integration",
+      "phase": "P13",
+      "kind": "PHYSICAL_DEVICE",
+      "source_cases": [],
+      "authored": false,
+      "execution_status": "NOT_RUN",
+      "execution_run_id": null,
+      "results_link": null,
+      "measured_passed": null,
+      "measured_failed": null,
+      "notes": null
+    }
+  ],
+  "deferred_carryover": {
+    "issue9_case_id": "M45",
+    "issue9_result": "BLOCKED",
+    "expected_retest": "Issue #9 M45: parked Driving -> explicit Mic -> English 'Next song' -> exactly one Media3 NEXT",
+    "source_issue": "https://github.com/latticeward-labs/music-copilot/issues/9",
+    "status": "NOT_RUN_IN_ISSUE_10",
+    "not_to_be_confused_with_issue10_M45": "Issue #10 M45 refers to background/cancellation; different checklist."
+  },
+  "privacy": {
+    "ledger_fields_raw_audio": false,
+    "ledger_fields_raw_transcript": false,
+    "ledger_fields_personal_media_path": false,
+    "application_runtime_privacy_status": "NOT_VERIFIED",
+    "policy": "Never put private audio/transcripts/music paths/Bluetooth MAC/call identity in evidence or telemetry"
+  },
+  "summary": {
+    "manual_total": 60,
+    "manual_recorded": 60,
+    "manual_passed": 60,
+    "manual_failed": 0,
+    "manual_blocked": 0,
+    "manual_na": 0,
+    "lab_total": 50,
+    "lab_measured": 50,
+    "ac_total": 16,
+    "ac_verified": 1,
+    "technical_groups": 10,
+    "technical_executed": 0,
+    "technical_groups_authored": 9,
+    "technical_groups_executed": 0,
+    "lab_successes": 24,
+    "lab_failures": 26,
+    "lab_success_rate": 0.48,
+    "lab_gate_passed": false,
+    "ac_verified_failed": 1,
+    "ac_verified_passed": 0,
+    "manual_evidence": "OWNER_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
+  },
+  "quality_gates": {
+    "P01_complete_only_on_source_commit": true,
+    "technical_QA_not_authorized_for_execution": true,
+    "owner_phone_results_deferred_to_P13": true,
+    "field_QA_requires_lab_gate_pass": true,
+    "no_merge_close_without_owner_instruction": true,
+    "owner_authorized_merge_close_exception": true,
+    "lab_gate_passed": false,
+    "p0_voice_quality_followup": 80
+  },
+  "phase_notes": {
+    "P02": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt"
+      ],
+      "implemented_source_boundaries": [
+        "one cancellable session generation",
+        "main-safe state admission",
+        "per-attempt six-second Listening",
+        "one recognition retry",
+        "terminal STT teardown",
+        "stale callback suppression",
+        "single dispatch claim before suspension",
+        "service ACK controls success state"
+      ],
+      "not_claimed": [
+        "service-level duplicate proof (P06)",
+        "duck lease P07",
+        "UI or Android device voice",
+        "automated test PASS"
+      ],
+      "unit_cases_authored": 8,
+      "technical_status": "NOT_RUN"
+    },
+    "P03": {
+      "commit_date": "2026-10-25",
+      "authored_junit_methods": 12,
+      "technical_status": "NOT_RUN",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePttAdmissionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+      ],
+      "unchanged_sensitive_components": [
+        "MusicPlaybackService.kt",
+        "DrivingModeScreen.kt",
+        "AndroidManifest.xml",
+        "VoiceBindings.kt",
+        "RestrictedVoiceIntentMapper.kt"
+      ],
+      "implemented_source_boundaries": [
+        "Full Player explicit PTT controls",
+        "one shared permission gate and OS launcher",
+        "tap-time fresh OS+provider check",
+        "single coordinator",
+        "origin-specific cancel and no automatic start after permission callback"
+      ],
+      "unverified_runtime": [
+        "actual on-device STT",
+        "Audio Duck",
+        "Full Player TalkBack focus lifecycle",
+        "Android version/OEM behavior",
+        "service command safety"
+      ]
+    },
+    "P04": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
+      ],
+      "authored_junit_methods": 12,
+      "technical_status": "NOT_RUN",
+      "android_policy": {
+        "API29_30": "MANUAL_ONLY",
+        "API31_32": "ON_DEVICE_BEST_EFFORT_PACK_UNVERIFIED",
+        "API33_PLUS": "INSTALLED_ENGLISH_SUPPORT_CHECK_BEFORE_LISTEN",
+        "cloud": "DISABLED",
+        "automatic_model_download": false
+      },
+      "remaining": [
+        "P05 deterministic mapper",
+        "P07 playback ducking",
+        "P08 final TTS feedback",
+        "P09 accessibility",
+        "P10 lifecycle and OEM",
+        "P13 cumulative build and owner QA"
+      ]
+    },
+    "P05": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt",
+        "docs/VOICE_CONTRACT.md"
+      ],
+      "grammar_version": "issue10-five-controls-v1",
+      "supported_intents": [
+        "PLAY",
+        "PAUSE",
+        "NEXT",
+        "PREVIOUS",
+        "SEEK_BACK"
+      ],
+      "enabled_direct_intent_count": 5,
+      "approved_phrase_count": 19,
+      "spoken_prefix": "optional_musico_only_after_explicit_tap",
+      "wake_listener": false,
+      "confidence_policy": "BuildConfig default=0.90, bounds=0.80..0.98, null/invalid/low fails closed; unknown/artist rejected",
+      "reserved_for_issue11": [
+        "PLAY_ARTIST",
+        "fuzzy_artist_resolution",
+        "one_step_artist_confirmation"
+      ],
+      "authored_junit_methods": 25,
+      "legacy_authored_case_updated": 1,
+      "technical_execution": "NOT_RUN",
+      "remaining": [
+        "P06 Media3 single command ACK and service idempotency",
+        "P07 voice duck lease",
+        "P08 feedback",
+        "P09 WF08 TalkBack",
+        "P10 interruption/lifecycle",
+        "P13 owner phone 5x10 lab"
+      ]
+    },
+    "P06": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt"
+      ],
+      "authored_junit_methods": 15,
+      "technical_status": "NOT_RUN",
+      "one_player": true,
+      "new_worker": false,
+      "media3_ack": "command_ack_id must equal voice CommandId on successful SessionResult",
+      "command_id_scheme": "voice-<positive-session-id>-<attempt-1-or-2>",
+      "existing_service_dedup": "PlaybackCommandProcessor with bounded 256 receipt ledger; same ID same payload shares Deferred, conflicting ID rejects",
+      "voice_implicit_success_preventions": [
+        "empty queue PLAY rejected",
+        "voice NEXT final occurrence rejected",
+        "service-unsafe Voice PLAY rejected",
+        "mismatched Voice ACK rejected"
+      ],
+      "known_limits": [
+        "In-memory dedup not process-global exactly-once",
+        "Cancel cannot rollback service-committed playback",
+        "Media3 ACK is accepted command, not proof of immediately audible output",
+        "P10 device/lifecycle/route race still pending"
+      ]
+    },
+    "P07": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/VoiceDuckingPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/ServiceVoiceDuckLease.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
+      ],
+      "authored_junit_methods": 13,
+      "technical_status": "NOT_RUN",
+      "volume_owner": "MusicPlaybackService single ExoPlayer",
+      "duck_factor": 0.25,
+      "acquire_timeout_ms": 2000,
+      "service_ttl_ms": 22000,
+      "token": "UUIDv4 opaque per-Voice attempt",
+      "release_guards": [
+        "token equality",
+        "observed player.volume not externally changed",
+        "superseded/stale token tombstones",
+        "focus/route emergency revoke",
+        "Service onDestroy",
+        "app cancel/retry/finally"
+      ],
+      "safety_limitations": [
+        "source-only not audible proof",
+        "TTL best effort inside alive service",
+        "service controller detach may lose release, TTL owns fallback",
+        "late in-flight acquire/release and OEM volume/focus race requires P10/P13 scrutiny"
+      ]
+    },
+    "P08": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/feedback/VoiceFeedbackCatalog.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidVoiceFeedbackCatalog.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt"
+      ],
+      "authored_junit_methods": 15,
+      "legacy_authored_case_updated": 1,
+      "technical_status": "NOT_RUN",
+      "success_feedback_only_after_ack": true,
+      "failure_feedback_only_final": true,
+      "retryable_failures_silent": true,
+      "max_sentences_per_eligible_terminal": 1,
+      "max_message_characters": 120,
+      "tts_timeout_ms": 2000,
+      "provider": "Android installed English offline voice only; optional",
+      "catalog": "8 stable resource keys with Android strings.xml, pure English JVM fallback",
+      "no_new_playback_service": true,
+      "no_background_stt": true,
+      "no_cloud_voice": true,
+      "remaining": [
+        "P09 WF-08 screen/a11y and visual copy",
+        "P10 TTS/duck/focus/route lifecycle races",
+        "P11 privacy full audit",
+        "P12 final source audit",
+        "P13 cumulative APK, OEM/audio tests"
+      ]
+    },
+    "P09": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+      ],
+      "authored_junit_methods": 20,
+      "technical_status": "NOT_RUN",
+      "single_shared_panel": true,
+      "model": "VoiceSessionState + VoicePracticeStage only; UI does not own recording/playback",
+      "status_keys": [
+        "PermissionRationale",
+        "PermissionPending",
+        "Listening",
+        "Processing",
+        "ConfirmationUnavailable",
+        "Executed",
+        "Timeout",
+        "NotRecognized",
+        "Unavailable"
+      ],
+      "displayed_microphone_claim": "Preparing or listening because duck ACK precedes STT",
+      "manual_exit_policy": [
+        "CancelCapture",
+        "DismissPermission",
+        "ReturnToManual"
+      ],
+      "a11y": [
+        "Polite LiveRegion",
+        "Heading semantics",
+        "Button contentDescriptions",
+        "48dp+ token targets",
+        "Focus restore only on panel open/close",
+        "Driving fixed exit remains"
+      ],
+      "unverified": [
+        "Physical TalkBack announcements",
+        "200% text scaling and focus return",
+        "OEM screen reader state",
+        "Failure and ACK end-to-end",
+        "P10 lifecycle race/interruptions"
+      ]
+    },
+    "P10": {
+      "commit_date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceLifecycleSafetyPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+      ],
+      "authored_junit_methods": 17,
+      "legacy_authored_junit_adjusted": 1,
+      "technical_status": "NOT_RUN",
+      "foreground_lease": "Activity onStart/onStop in-memory, blocks post-stop Mic and Retry",
+      "max_listen_ms": 6000,
+      "max_recognition_attempts": 2,
+      "duck_release_controller_drain_ms": 1000,
+      "provider_cancel_guards": [
+        "STT recognizer identity",
+        "TTS utterance identity",
+        "Main OEM callback serializing",
+        "Voice id/attempt/Job"
+      ],
+      "interruption_sources": [
+        "focus/call Media3",
+        "wired/BT output loss",
+        "BT output availability",
+        "media permission revocation",
+        "Activity UI stop"
+      ],
+      "limitations": [
+        "Media3 already-accepted command cannot rollback",
+        "service packet might not arrive; TTL best effort",
+        "no OEM phone testing yet"
+      ]
+    },
+    "P11": {
+      "date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+      ],
+      "authored_junit_methods": 19,
+      "technical_status": "NOT_RUN",
+      "voice_transcript": "Ephemeral in-memory result; toString redacted; no history/DB or app-owned network upload",
+      "manifest": "no INTERNET; backup disabled; RECORD_AUDIO JIT",
+      "production_cloud": "remoteAdapterApproved=false and legalApproval=false; stale consent cannot authorize",
+      "diagnostics": [
+        "ManualOnlyPlatform",
+        "MicrophonePermissionRequired",
+        "OnDeviceProviderUnavailable",
+        "OnDeviceProviderPresentUnverified"
+      ],
+      "telemetry": "AllowlistedTelemetryPrivacyGate and NoOpTelemetrySink: events dropped",
+      "limitations": [
+        "OEM recognition engine and logcat privacy not verified",
+        "Merged manifest, device network/backup checks not run",
+        "Cloud legal/processor terms require future review",
+        "No executed tests"
+      ]
+    },
+    "P12": {
+      "date": "2026-10-25",
+      "changed_source": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "report": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+      "traceability": "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+      "lab_corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+      "authored_junit_methods": 15,
+      "technical_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "fixed_source_findings": [
+        {
+          "id": "F12-01",
+          "risk": "process restart collision voice-42-1 service dedup",
+          "source_fix": "random 32hex process nonce for command IDs; legacy wire compatible"
+        },
+        {
+          "id": "F12-02",
+          "risk": "heading variable shadows semantics heading()",
+          "source_fix": "headingText rename in shared WF-08 Compose panel"
+        }
+      ],
+      "blocked_until_p13": [
+        "Kotlin/Gradle compile and merged manifest",
+        "OEM English STT confidence readiness",
+        "Media3 Duck/Focus/Route/Call/BT real tests",
+        "TalkBack font scale and speech duration",
+        "M01-M60 user physical tests",
+        "L01-L05 50 user lab attempts ≥45 PASS",
+        "Issue #9 inherited M45"
+      ],
+      "p13_build_only_task": ":app:assembleDebug",
+      "p13_one_cumulative_apk": true,
+      "p13_tests_disallowed": true,
+      "p13_output": "app/build/outputs/apk/debug/app-debug.apk"
+    },
+    "P13": {
+      "build_date_utc": "2026-10-25",
+      "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+      "run_id": 40180566730,
+      "job_id": 121130546863,
+      "artifact_id": 12593353938,
+      "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+      "apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+      "apk_bytes": 37285182,
+      "zip_sha256": "8b00edcf3fda48406c85aeb65875f07c2a43d0acf0c16afa923310da130987ce",
+      "zip_bytes": 13563944,
+      "run_result": "completed/success",
+      "build_task": ":app:assembleDebug",
+      "gradle_status": "BUILD SUCCESSFUL in 2m 20s",
+      "tests_executed": 0,
+      "technical_groups_executed": 0,
+      "manual_tests_executed": 0,
+      "lab_attempts_executed": 0,
+      "open_risks": [
+        "Real device PTT/Media3/Lifecycle/BT/Focus/Call/TalkBack not yet verified",
+        "Quality gate >=45 actual successes out of 50 not measured",
+        "Android 10/11 manual only; availability and confidence of on-device English OEM models unknown"
+      ],
+      "checklist": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+      "report": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
+      "replacement": {
+        "date_utc": "2026-10-25",
+        "reason": "Owner saw immediate Voice Unavailable after tapping Mic with audio TTS fallback; device root cause unproven",
+        "source_files_changed": [
+          "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+          "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt"
+        ],
+        "new_build_source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
+        "new_build_run_id": 40218586084,
+        "new_apk_sha256": "7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f",
+        "apk_bytes": 37285182,
+        "artifact_id": 12608466440,
+        "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40218586084/artifacts/12608466440",
+        "report": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md",
+        "tests_executed": 0,
+        "owner_retest": "PENDING",
+        "prior_apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396"
+      },
+      "owner_moonshine_2026_11_14": {
+        "report": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+        "source_sha": "eaebff42458a885995d336a8c517f744889d5bae",
+        "artifact_id": 13657909808,
+        "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+        "manual_report": "M01-M60 aggregate PASS",
+        "lab_gate": "FAIL_24_OF_50",
+        "technical_executed": 0,
+        "owner_authorized_merge_close": true,
+        "p0_followup_issue": 80
+      }
+    }
+  },
+  "owner_acceptance": {
+    "owner_report_date": "2026-11-14",
+    "decision": "MERGE_AND_CLOSE_IMPLEMENTATION_WITH_EXPLICIT_FAILED_QA_GATE",
+    "manual_test_provenance": "OWNER_GLOBAL_SELF_ATTESTATION_NO_PER_CASE_LOGS",
+    "manual_reported": "M01-M60 ALL PASS",
+    "voice_lab_reported": "24/50 = 48% (gate >=45/50 = 90%)",
+    "lab_gate": "FAILED",
+    "unresolved_debt_issue": 80,
+    "report": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+    "technical_proof": "T01-T10 NOT_RUN",
+    "caution": "Acceptance of implementation is not a claim of full quality gate pass, field readiness, or device matrix certification."
+  }
+}

@@ -1,16 +1,17 @@
 package com.latticeward.musiccopilot.voice.session
 
-import com.latticeward.musiccopilot.core.model.CommandId
 import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
 import com.latticeward.musiccopilot.core.model.VoiceSessionId
+import com.latticeward.musiccopilot.core.application.voice.VoiceLifecycleSafetyPolicy
 import com.latticeward.musiccopilot.core.result.AppError
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
-import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
-import com.latticeward.musiccopilot.voice.api.SpeechOutput
+import com.latticeward.musiccopilot.playback.api.VoiceDuckingPort
+import com.latticeward.musiccopilot.playback.api.NoOpVoiceDuckingPort
+import java.util.UUID
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionRequest
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
@@ -23,6 +24,10 @@ import com.latticeward.musiccopilot.voice.intent.RestrictedVoiceIntentMapper
 import com.latticeward.musiccopilot.voice.intent.VoiceIntentDecision
 import com.latticeward.musiccopilot.voice.intent.VoiceIntentMapper
 import com.latticeward.musiccopilot.voice.policy.VoicePolicy
+import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackCatalog
+import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackKey
+import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackPolicy
+import com.latticeward.musiccopilot.voice.feedback.EnglishVoiceFeedbackCatalog
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -46,88 +51,179 @@ class DefaultVoiceSessionCoordinator(
     private val playback: PlaybackGateway? = null,
     private val intentMapper: VoiceIntentMapper = RestrictedVoiceIntentMapper(),
     private val recognitionEnabled: Boolean = false,
+    // Production binds Media3's private duck port. The default is only for
+    // legacy no-Android JVM fixtures, NEVER chosen by production VoiceBindings.
+    private val ducking: VoiceDuckingPort = NoOpVoiceDuckingPort,
+    private val feedbackCatalog: VoiceFeedbackCatalog = EnglishVoiceFeedbackCatalog,
+    // Production supplies the current Activity STARTED observation. A queued
+    // Mic/Retry callback after onStop cannot reopen the microphone.
+    private val canBeginSession: () -> Boolean = { true },
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
     override val state: StateFlow<VoiceSessionState> = mutableState
 
+    /**
+     * UI, provider continuations and Media3 callbacks use the application Main
+     * dispatcher. Admission is also lock-protected so a late callback cannot
+     * race a synchronous cancel/retry or publish a stale result.
+     */
+    private val gate = Any()
+    private val voiceDispatcher = playback?.let(::VoicePlaybackDispatcher)
     private var sequence = 0L
     private var childJob: Job? = null
     private var currentId: VoiceSessionId? = null
     private var currentOrigin: VoiceOrigin? = null
     private var attempt = 0
-    internal val activeGenerationJob: Job? get() = childJob
+    private var dispatchClaimed = false
+    private var feedbackClaimed = false
+    private var activeDuckToken: String? = null
+    private var closed = false
 
-    override fun start(origin: VoiceOrigin): AppResult<VoiceSessionId> {
-        cancel(VoiceCancelReason.ReplacedByNewSession)
-        if (!stt.isAvailable()) return failure(AppErrorCodes.VOICE_UNAVAILABLE)
-        val id = VoiceSessionId(++sequence)
-        currentId = id
-        currentOrigin = origin
-        attempt = 1
-        newGeneration(id, origin, 1)
-        return AppResult.Success(id)
+    internal val activeGenerationJob: Job?
+        get() = synchronized(gate) { childJob }
+
+    /**
+     * P10: one active generation is exclusive even before Compose collects its
+     * new state. A second tap can NEVER silently replace active STT or TTS.
+     * The user first explicitly exits/cancels to Idle, then taps Mic again.
+     * Neither permission callbacks nor app bootstrap may call start().
+     */
+    override fun start(origin: VoiceOrigin): AppResult<VoiceSessionId> =
+        synchronized(gate) {
+            val foreground = runCatching { canBeginSession() }.getOrDefault(false)
+            if (closed || !foreground || ownerScope.coroutineContext[Job]?.isActive != true ||
+                !VoiceLifecycleSafetyPolicy.canAdmitExplicitTap(mutableState.value)
+            ) {
+                return@synchronized failure(AppErrorCodes.VOICE_UNAVAILABLE)
+            }
+            // Defensive cleanup for a previous completed/invalidated generation;
+            // no fresh command/recorder exists unless this explicit tap passed.
+            invalidateLocked()
+            val ready = try { stt.isAvailable() } catch (_: Exception) { false }
+            if (!ready || sequence == Long.MAX_VALUE) {
+                return@synchronized failure(AppErrorCodes.VOICE_UNAVAILABLE)
+            }
+            val id = VoiceSessionId(++sequence)
+            currentId = id
+            currentOrigin = origin
+            attempt = 1
+            beginAttemptLocked(id, origin, 1)
+            AppResult.Success(id)
+        }
+
+    /** Caller holds gate; no second session can become active in this window. */
+    private fun beginAttemptLocked(id: VoiceSessionId, origin: VoiceOrigin, number: Int) {
+        val generation = SupervisorJob(ownerScope.coroutineContext[Job])
+        childJob = generation
+        dispatchClaimed = false
+        feedbackClaimed = false
+        // Unique even if Android kills/restarts only the app controller while
+        // MediaSessionService retains music and an old lease.
+        val duckToken = "voice-duck-${UUID.randomUUID()}"
+        activeDuckToken = duckToken
+        mutableState.value = VoiceSessionState.Listening(id, origin, number)
+        // Keep the original non-recording fake seam for foundation tests.
+        if (!recognitionEnabled) return
+        ownerScope.launch(generation) { runAttempt(id, origin, number, generation, duckToken) }
     }
 
-    private fun newGeneration(id: VoiceSessionId, origin: VoiceOrigin, number: Int) {
-        val child = SupervisorJob(ownerScope.coroutineContext[Job])
-        childJob = child
-        mutableState.value = VoiceSessionState.Listening(id, origin, number)
-        if (!recognitionEnabled) return
-        ownerScope.launch(child) {
+    private suspend fun runAttempt(
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        number: Int,
+        generation: Job,
+        duckToken: String,
+    ) {
+        try {
+            // STT must NEVER open until the service has acknowledged
+            // attenuation, not merely a UI/state transition to Listening.
+            val acquired = try {
+                ducking.acquireVoiceDuck(duckToken)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) { false }
+            coroutineContext.ensureActive()
+            if (!isCurrent(id, generation, number)) return
+            if (!acquired) {
+                failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE)
+                return
+            }
+
             val recognition = try {
                 withTimeoutOrNull(VoicePolicy.LISTEN_TIMEOUT_MS) {
-                    stt.recognize(SpeechRecognitionRequest(id, "en-US", VoicePolicy.LISTEN_TIMEOUT_MS))
+                    stt.recognize(
+                        SpeechRecognitionRequest(id, "en-US", VoicePolicy.LISTEN_TIMEOUT_MS)
+                    )
                 }
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { failure(AppErrorCodes.VOICE_UNAVAILABLE) }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                failure(AppErrorCodes.VOICE_UNAVAILABLE)
+            }
 
             coroutineContext.ensureActive()
-            if (!isCurrent(id, child, number)) return@launch
+            if (!isCurrent(id, generation, number)) return
             if (recognition == null) {
-                stt.cancel(id)
-                markFailed(id, origin, number, AppErrorCodes.VOICE_TIMEOUT)
-                return@launch
+                failAttempt(id, origin, number, generation, AppErrorCodes.VOICE_TIMEOUT)
+                return
             }
             when (recognition) {
-                is AppResult.Failure -> markFailed(
-                    id, origin, number,
-                    when (recognition.error.code) {
+                is AppResult.Failure -> {
+                    val code = when (recognition.error.code) {
                         AppErrorCodes.VOICE_TIMEOUT -> AppErrorCodes.VOICE_TIMEOUT
                         AppErrorCodes.VOICE_NO_MATCH -> AppErrorCodes.VOICE_NO_MATCH
                         else -> AppErrorCodes.VOICE_UNAVAILABLE
                     }
-                )
+                    failAttempt(id, origin, number, generation, code)
+                }
                 is AppResult.Success -> {
-                    mutableState.value = VoiceSessionState.Processing(id, origin, number)
-                    when (val mapped = intentMapper.map(recognition.value)) {
+                    if (!publishProcessing(id, origin, number, generation)) return
+                    val decision = try {
+                        intentMapper.map(recognition.value)
+                    } catch (_: Exception) {
+                        VoiceIntentDecision.Rejected
+                    }
+                    when (decision) {
                         is VoiceIntentDecision.Rejected,
                         is VoiceIntentDecision.RequiresConfirmation ->
-                            markFailed(id, origin, number, AppErrorCodes.VOICE_NO_MATCH)
+                            failAttempt(
+                                id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH
+                            )
                         is VoiceIntentDecision.Direct -> {
-                            val command = mapPlaybackCommand(mapped.intent, id, number)
-                            // Artist matching/confirmation is NOT guessed in Phase 8.
-                            if (command == null || playback == null) {
-                                markFailed(id, origin, number, AppErrorCodes.VOICE_NO_MATCH)
-                                return@launch
+                            // P02 limits state admission; P05 will harden grammar.
+                            // PLAY_ARTIST remains reserved for Issue #11.
+                            val dispatcher = voiceDispatcher
+                            if (dispatcher == null || VoicePlaybackDispatcher.commandFor(
+                                    decision.intent, id, number
+                                ) == null
+                            ) {
+                                failAttempt(
+                                    id, origin, number, generation, AppErrorCodes.VOICE_NO_MATCH
+                                )
+                                return
                             }
-                            val acknowledged = try { playback.execute(command) }
-                                catch (cancelled: CancellationException) { throw cancelled }
-                                catch (_: Exception) { failure(AppErrorCodes.VOICE_UNAVAILABLE) }
+                            if (!claimDispatch(id, origin, number, generation)) return
+                            val acknowledged = try {
+                                dispatcher.execute(decision.intent, id, number)
+                            } catch (cancelled: CancellationException) {
+                                throw cancelled
+                            } catch (_: Exception) {
+                                failure(AppErrorCodes.VOICE_UNAVAILABLE)
+                            }
                             coroutineContext.ensureActive()
-                            if (!isCurrent(id, child, number)) return@launch
+                            if (!isCurrent(id, generation, number)) return
                             when (acknowledged) {
                                 is AppResult.Failure ->
-                                    markFailed(id, origin, number, AppErrorCodes.VOICE_UNAVAILABLE)
+                                    failAttempt(
+                                        id, origin, number, generation, AppErrorCodes.VOICE_UNAVAILABLE
+                                    )
                                 is AppResult.Success -> {
-                                    mutableState.value = VoiceSessionState.Executed(id, origin)
-                                    // Feedback is an optional child side effect AFTER playback ack.
-                                    if (tts.isAvailable()) {
-                                        val phrase = "Done"
-                                        try {
-                                            tts.speak(SpeechOutput(id, "voice_done", phrase))
-                                        } catch (cancelled: CancellationException) { throw cancelled }
-                                        catch (_: Exception) { /* no rollback of acknowledged playback */ }
+                                    if (!publishExecuted(id, origin, number, generation)) return
+                                    // One brief optional sentence ONLY after
+                                    // successful service ACK and published Executed.
+                                    VoiceFeedbackPolicy.acknowledged(decision.intent)?.let { key ->
+                                        deliverFeedback(id, origin, number, generation, key)
                                     }
                                 }
                             }
@@ -135,71 +231,202 @@ class DefaultVoiceSessionCoordinator(
                     }
                 }
             }
+        } finally {
+            // An old attempt's release can never alter the new attempt's
+            // different UUID lease in the service.
+            runCatching { ducking.releaseVoiceDuck(duckToken) }
+            // Do not erase a newer generation if retry/start ran while an old
+            // STT, TTS or Playback continuation was cancelling.
+            synchronized(gate) {
+                if (currentId == id && childJob === generation && attempt == number) {
+                    childJob = null
+                }
+            }
+            generation.cancel()
         }
     }
 
-    private fun mapPlaybackCommand(
-        intent: RestrictedIntent, id: VoiceSessionId, number: Int,
-    ): PlaybackCommand? {
-        val commandId = CommandId("voice-${id.value}-${number}")
-        return when (intent) {
-            RestrictedIntent.PLAY -> PlaybackCommand.Play(commandId)
-            RestrictedIntent.PAUSE -> PlaybackCommand.Pause(commandId)
-            RestrictedIntent.NEXT -> PlaybackCommand.Next(commandId)
-            RestrictedIntent.PREVIOUS -> PlaybackCommand.Previous(commandId)
-            RestrictedIntent.SEEK_BACK -> PlaybackCommand.SeekBy(commandId, -10_000L)
-            RestrictedIntent.PLAY_ARTIST -> null // Issue #11 handles bounded artist resolution.
-        }
+    private fun isCurrent(id: VoiceSessionId, generation: Job, number: Int): Boolean =
+        synchronized(gate) { isCurrentLocked(id, generation, number) }
+
+    private fun isCurrentLocked(id: VoiceSessionId, generation: Job, number: Int): Boolean =
+        currentId == id && childJob === generation && attempt == number &&
+            generation.isActive
+
+    private fun publishProcessing(
+        id: VoiceSessionId, origin: VoiceOrigin, number: Int, generation: Job,
+    ): Boolean = synchronized(gate) {
+        if (!isCurrentLocked(id, generation, number) ||
+            !VoiceTransitionPolicy.mayProcess(mutableState.value, id, origin, number)
+        ) return@synchronized false
+        mutableState.value = VoiceSessionState.Processing(id, origin, number)
+        true
     }
 
-    private fun isCurrent(id: VoiceSessionId, job: Job, number: Int): Boolean =
-        currentId == id && childJob === job && attempt == number && job.isActive
+    private fun claimDispatch(
+        id: VoiceSessionId, origin: VoiceOrigin, number: Int, generation: Job,
+    ): Boolean = synchronized(gate) {
+        if (!isCurrentLocked(id, generation, number) ||
+            !VoiceTransitionPolicy.mayDispatch(
+                mutableState.value, id, origin, number, dispatchClaimed
+            )
+        ) return@synchronized false
+        // Claim BEFORE suspending at Media3. A resumed duplicate callback
+        // cannot issue another command from the same attempt.
+        dispatchClaimed = true
+        true
+    }
 
-    private fun markFailed(
-        id: VoiceSessionId, origin: VoiceOrigin, number: Int, code: String,
+    private fun publishExecuted(
+        id: VoiceSessionId, origin: VoiceOrigin, number: Int, generation: Job,
+    ): Boolean = synchronized(gate) {
+        if (!isCurrentLocked(id, generation, number) || !dispatchClaimed ||
+            !VoiceTransitionPolicy.mayComplete(mutableState.value, id, origin, number)
+        ) return@synchronized false
+        mutableState.value = VoiceSessionState.Executed(id, origin)
+        true
+    }
+
+    /** A retryable failure is visual-only to avoid talking over the retry. */
+    private suspend fun failAttempt(
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        number: Int,
+        generation: Job,
+        code: String,
     ) {
-        if (currentId != id || attempt != number) return
-        mutableState.value = VoiceSessionState.Failed(
-            id, origin,
-            AppError.Voice(code, Recoverability.RECOVERABLE, RecoveryAction.ManualFallback),
-            canRetry = number < VoicePolicy.MAX_ATTEMPTS
+        val failed = synchronized(gate) {
+            if (!isCurrentLocked(id, generation, number)) return@synchronized null
+            val active = mutableState.value
+            if (!VoiceTransitionPolicy.mayProcess(active, id, origin, number) &&
+                !VoiceTransitionPolicy.mayComplete(active, id, origin, number)
+            ) return@synchronized null
+            runCatching { stt.cancel(id) }
+            activeDuckToken?.let { token ->
+                runCatching { ducking.releaseVoiceDuck(token) }
+                activeDuckToken = null
+            }
+            VoiceSessionState.Failed(
+                id, origin,
+                AppError.Voice(code, Recoverability.RECOVERABLE, RecoveryAction.ManualFallback),
+                canRetry = VoiceTransitionPolicy.canOfferRetry(number, code),
+            ).also { mutableState.value = it }
+        } ?: return
+        VoiceFeedbackPolicy.terminalFailure(code, failed.canRetry)?.let { key ->
+            deliverFeedback(id, origin, number, generation, key)
+        }
+    }
+
+    /**
+     * Only the owning, current terminal attempt may claim its one sentence.
+     * ACK/Failed state is already published: TTS has NO playback authority.
+     * Provider errors, absence and 2s timeout leave UI/manual playback intact.
+     */
+    private suspend fun deliverFeedback(
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        number: Int,
+        generation: Job,
+        key: VoiceFeedbackKey,
+    ) {
+        val output = VoiceFeedbackPolicy.output(id, key, feedbackCatalog) ?: return
+        val claimed = synchronized(gate) {
+            val st = mutableState.value
+            val terminal = when (st) {
+                is VoiceSessionState.Executed ->
+                    st.sessionId == id && st.origin == origin &&
+                        key in SUCCESS_FEEDBACK_KEYS
+                is VoiceSessionState.Failed ->
+                    st.sessionId == id && st.origin == origin &&
+                        !st.canRetry && key in FAILURE_FEEDBACK_KEYS
+                else -> false
+            }
+            if (!isCurrentLocked(id, generation, number) || feedbackClaimed || !terminal)
+                false
+            else {
+                feedbackClaimed = true // claim BEFORE suspending
+                true
+            }
+        }
+        if (!claimed) return
+        try {
+            if (tts.isAvailable()) {
+                withTimeoutOrNull(VoiceFeedbackPolicy.MAX_SPEAK_MS) {
+                    tts.speak(output) // optional; never affects terminal state
+                }
+            }
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            // A missing/offline TTS voice cannot undo a Media3 ACK.
+        }
+    }
+
+    private companion object {
+        val SUCCESS_FEEDBACK_KEYS = setOf(
+            VoiceFeedbackKey.Play, VoiceFeedbackKey.Pause, VoiceFeedbackKey.Next,
+            VoiceFeedbackKey.Previous, VoiceFeedbackKey.SeekBack,
+        )
+        val FAILURE_FEEDBACK_KEYS = setOf(
+            VoiceFeedbackKey.Timeout, VoiceFeedbackKey.NotRecognized,
+            VoiceFeedbackKey.Unavailable,
         )
     }
 
     override fun confirm(token: VoiceCandidateToken, optionIndex: Int): AppResult<Unit> =
+        // The Confirming shape stays compatible with Issue #11 but is never
+        // entered or acted on for Issue #10's five direct transport commands.
         failure(AppErrorCodes.VOICE_STALE_SESSION)
 
-    override fun retry(): AppResult<Unit> {
-        val state = state.value as? VoiceSessionState.Failed
-            ?: return failure(AppErrorCodes.VOICE_NO_MATCH)
-        if (!state.canRetry || attempt >= VoicePolicy.MAX_ATTEMPTS)
-            return failure(AppErrorCodes.VOICE_SECOND_ATTEMPT_FAILED)
-        val id = currentId ?: return failure(AppErrorCodes.VOICE_STALE_SESSION)
-        stt.cancel(id)
-        tts.stop(id)
+    override fun retry(): AppResult<Unit> = synchronized(gate) {
+        val failed = mutableState.value as? VoiceSessionState.Failed
+            ?: return@synchronized failure(AppErrorCodes.VOICE_NO_MATCH)
+        if (!VoiceTransitionPolicy.mayRetry(
+                failed, currentId, currentOrigin, attempt
+            )
+        ) return@synchronized failure(AppErrorCodes.VOICE_SECOND_ATTEMPT_FAILED)
+        if (closed || !runCatching { canBeginSession() }.getOrDefault(false) ||
+            ownerScope.coroutineContext[Job]?.isActive != true
+        ) {
+            return@synchronized failure(AppErrorCodes.VOICE_UNAVAILABLE)
+        }
+        val id = currentId ?: return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+        // The same logical session is retried; invalidate/cancel the old
+        // generation and its provider BEFORE starting attempt two.
         childJob?.cancel()
-        attempt = 2
-        newGeneration(id, state.origin, 2)
-        return AppResult.Success(Unit)
+        childJob = null
+        activeDuckToken?.let { token ->
+            runCatching { ducking.releaseVoiceDuck(token) }
+        }
+        activeDuckToken = null
+        runCatching { stt.cancel(id) }
+        runCatching { tts.stop(id) }
+        attempt += 1
+        beginAttemptLocked(id, failed.origin, attempt)
+        AppResult.Success(Unit)
     }
 
     override fun cancel(reason: VoiceCancelReason) {
+        synchronized(gate) { invalidateLocked() }
+    }
+
+    /** Synchronously invalidate the current receipt before any provider callback. */
+    private fun invalidateLocked() {
         val id = currentId
-        // Invalidate generation synchronously before provider can call back.
         currentId = null
         currentOrigin = null
         attempt = 0
-        childJob?.cancel()
+        dispatchClaimed = false
+        feedbackClaimed = false
+        activeDuckToken?.let { token -> runCatching {
+            ducking.releaseVoiceDuck(token)
+        } }
+        activeDuckToken = null
+        val job = childJob
         childJob = null
-        // Revoke every Listening/Processing/Confirming/Executed presentation
-        // immediately. A cancelled generation must never republish a late
-        // recognition/confirmation/feedback result as current.
         mutableState.value = VoiceSessionState.Idle
+        job?.cancel()
         if (id != null) {
-            // Provider teardown is independent: one Android STT provider
-            // failure must not prevent stopping potentially audible TTS.
-            // No transcripts, audio buffers, routes or voice identifiers
-            // are logged as part of interruption cancellation.
             runCatching { stt.cancel(id) }
             runCatching { tts.stop(id) }
         }
@@ -209,5 +436,12 @@ class DefaultVoiceSessionCoordinator(
         AppError.Voice(code, Recoverability.USER_ACTION_REQUIRED, RecoveryAction.ManualFallback)
     )
 
-    override fun close() { cancel(VoiceCancelReason.OriginInvalidated) }
+    override fun close() {
+        synchronized(gate) {
+            if (!closed) {
+                closed = true
+                invalidateLocked()
+            }
+        }
+    }
 }

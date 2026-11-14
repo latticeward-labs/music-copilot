@@ -1,0 +1,1575 @@
+{
+  "schema_version": "1.0",
+  "issue": 10,
+  "repository": "latticeward-labs/music-copilot",
+  "created_date": "2026-10-25",
+  "branch": "feature/10-ptt-voice-five-control-intents",
+  "base_branch": "main",
+  "source_lock": {
+    "main_commit_at_P00": "e13172683ee8495e26b7c2d56f88444e4969891e",
+    "rar_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "rar_pdf_count": 12,
+    "develop_behind_main_at_P01": 1066,
+    "branch_ahead_of_main_at_P01_start": 6,
+    "branch_behind_main_at_P01_start": 0,
+    "branch_policy": "Target main proposed; contributing guide prefers develop. Recheck live divergence and obtain owner approval before final PR/merge."
+  },
+  "evidence_role_taxonomy": {
+    "SOURCE_ONLY": "File inspected or committed; does NOT mean running",
+    "AUTHORED_ONLY": "Test source exists but was NOT executed",
+    "BUILD_ONLY": "assembleDebug output; not test PASS",
+    "OWNER_REPORTED": "User report from physical phone linked to exact APK SHA",
+    "EXECUTED_TECHNICAL": "Real execution with logs/run IDs",
+    "DEFERRED": "Unverified with explicit reason"
+  },
+  "linked_documents": {
+    "phase_plan": "docs/implementation/ISSUE_10_PHASED_EXECUTION_PLAN.md",
+    "readiness_audit": "docs/implementation/ISSUE_10_PHASE0_READINESS_AUDIT.md",
+    "phase0_traceability": "docs/implementation/ISSUE_10_PHASE0_TRACEABILITY.json",
+    "phase1_contract": "docs/implementation/ISSUE_10_PHASE1_EXECUTION_CONTRACT.md",
+    "phone_checklist": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+    "QA_register": "docs/implementation/ISSUE_10_QA_RESULTS.json",
+    "PR_template": ".github/PULL_REQUEST_TEMPLATE/issue-10-ptt-voice-five-control-intents.md",
+    "architecture": "docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md",
+    "design_handoff": "docs/design-system/ISSUE_17_FINAL_ACCEPTANCE_AUDIT.md",
+    "phase2_audit": "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+    "phase3_audit": "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+    "phase4_audit": "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+    "phase5_audit": "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+    "phase6_audit": "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+    "phase7_audit": "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+    "phase8_audit": "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+    "phase9_audit": "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+    "phase10_audit": "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+    "phase11_audit": "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+    "phase12_final_source_audit": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+    "phase12_acceptance_traceability": "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+    "phase12_p13_lab_corpus": "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+    "phase13_owner_handoff": "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
+    "phase13_persian_phone_checklist": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+    "phase13_local_stt_replacement": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md"
+  },
+  "phase_evidence": [
+    {
+      "phase": "P00",
+      "status": "SOURCE_AUDIT_COMPLETE",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE0_READINESS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE0_TRACEABILITY.json"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "Static audit only; G01-G10 outstanding"
+    },
+    {
+      "phase": "P01",
+      "status": "GOVERNANCE_DOCS_COMPLETE",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE1_EXECUTION_CONTRACT.md",
+        "docs/implementation/ISSUE_10_EVIDENCE_INDEX.json",
+        "docs/implementation/ISSUE_10_QA_RESULTS.json",
+        ".github/PULL_REQUEST_TEMPLATE/issue-10-ptt-voice-five-control-intents.md"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "Documentation and QA scaffolding only"
+    },
+    {
+      "phase": "P02",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "P02 source code delivered and 8 JVM tests authored only. No compiler, build, lint, emulator or Actions execution."
+    },
+    {
+      "phase": "P03",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePttAdmissionPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "One shared OS permission gate, Full Player mic and existing Driving callback, 12 tests authored (NOT_RUN)."
+    },
+    {
+      "phase": "P04",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "STT/TTS adapters hardened in source; 12 JUnit authored, none run."
+    },
+    {
+      "phase": "P05",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/build.gradle.kts",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt",
+        "docs/VOICE_CONTRACT.md"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "19 phrase grammar 5 direct controls, 25 authored JUnit checks plus legacy authored fixture aligned; no test execution/build."
+    },
+    {
+      "phase": "P06",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "Voice/Media3 ID-correlated ACK, bounded idempotency, no NEXT end false success; 15 authored JUnit, none executed."
+    },
+    {
+      "phase": "P07",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/VoiceDuckingPort.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/ServiceVoiceDuckLease.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackWireProtocol.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "P07 service-owned Media3 attenuation and pre-STT ACK, token-guarded restore on all terminal/interruption paths, TTL, 13 source-only JUnit."
+    },
+    {
+      "phase": "P08",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/feedback/VoiceFeedbackCatalog.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidVoiceFeedbackCatalog.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "8 resource-backed one-sentence outcome messages, terminal-only nonblocking TTS, 2s cap, 15 authored JUnit methods, old fixture updated; no execution."
+    },
+    {
+      "phase": "P09",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "Single shared WF-08 panel, pure state/error projection, 21 accessible string resources and focus return; 20 JUnit authored, no execution."
+    },
+    {
+      "phase": "P10",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceLifecycleSafetyPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "P10 foreground admission, callback identity cancellation, BT route/focus safety and 1s unDuck receipt drain. 17 authored JUnit, no execution."
+    },
+    {
+      "phase": "P11",
+      "status": "SOURCE_IMPLEMENTED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "P11 redacted recognition result string, strict conditional cloud STT disclosure and no-consent activation, private typed Settings diagnostics and 19 authored JUnit. No QA run."
+    },
+    {
+      "phase": "P12",
+      "status": "SOURCE_AUDITED_UNBUILT",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "NOT_BUILT",
+      "notes": "Cumulative P00–P11 source audit; F12-01 cross-process Voice ACK ID namespace and F12-02 Compose heading shadow fix; 15 authored JUnit, 16 AC source trace, 50 P13 lab samples NOT_RUN."
+    },
+    {
+      "phase": "P13",
+      "status": "REPLACEMENT_BUILD_SUCCESS_OWNER_RETEST_PENDING",
+      "evidence_paths": [
+        "docs/implementation/ISSUE_10_PHASE13_BUILD_AND_OWNER_QA_HANDOFF.md",
+        ".github/workflows/issue-10-p13-one-cumulative-apk.yml",
+        ".github/issue10-p13-apk-request.txt",
+        "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+        "docs/implementation/ISSUE_10_P13_FIVE_BY_TEN_DIRECT_VOICE_LAB_CORPUS.json",
+        "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt"
+      ],
+      "runtime_status": "NOT_RUN",
+      "build_status": "BUILD_SUCCESS",
+      "notes": "Voice immediate Unavailable owner observation; local-only OEM support metadata fallback fixed in source; replacement app-debug.apk source cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4, sha256 7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f, GitHub run 40218586084, artifact 12608466440, 37285182 bytes. Retest M10/Voice pending; all M01-M60 and lab 50 on replacement NOT_RUN, AC NOT_VERIFIED."
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P02",
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/VoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M29",
+        "M33"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC02",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P03"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M07",
+        "M31"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC03",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P07"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M34",
+        "M35",
+        "M36",
+        "M37",
+        "M38",
+        "M41",
+        "M42"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC04",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P02",
+        "P04"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/policy/VoicePolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M26",
+        "M27",
+        "M28"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC05",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P04"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/TextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M10",
+        "M39",
+        "M40",
+        "M52"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC06",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P05"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M21",
+        "M22"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC07",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P06"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M23",
+        "M24",
+        "M25",
+        "M32",
+        "M33"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC08",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P03",
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M04",
+        "M05",
+        "M23",
+        "M43",
+        "M53"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC09",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P08"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M39",
+        "M40"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC10",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P02",
+        "P07",
+        "P10"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M08",
+        "M19",
+        "M20",
+        "M28",
+        "M29",
+        "M36",
+        "M38",
+        "M43",
+        "M57"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC11",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P10"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M30",
+        "M31",
+        "M32",
+        "M41",
+        "M42",
+        "M44",
+        "M45",
+        "M46",
+        "M47"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC12",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P13"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "L01",
+        "L02",
+        "L03",
+        "L04",
+        "L05"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 5x10 lab corpus authored, 0 measured, requires ≥45/50 real successes. P13 owner testing required."
+    },
+    {
+      "id": "AC13",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M51"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC14",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P11"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M10",
+        "M52"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC15",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P02",
+        "P05",
+        "P06",
+        "P10",
+        "P12"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M26",
+        "M27",
+        "M28",
+        "M30",
+        "M31",
+        "M32",
+        "M33"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    },
+    {
+      "id": "AC16",
+      "status": "NOT_VERIFIED",
+      "phase_owners": [
+        "P09"
+      ],
+      "source_paths": [
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt"
+      ],
+      "linked_phone_lab_ids": [
+        "M23",
+        "M24",
+        "M48",
+        "M49",
+        "M50"
+      ],
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_ACCEPTANCE_TRACEABILITY.json",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md"
+      ],
+      "notes": "P12 cumulative source audit only, no device/compile proof. P13 owner testing required."
+    }
+  ],
+  "owner_phone_cases": [
+    {
+      "id": "M01",
+      "status": "NOT_RUN",
+      "QA_register_key": "M01",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M02",
+      "status": "NOT_RUN",
+      "QA_register_key": "M02",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M03",
+      "status": "NOT_RUN",
+      "QA_register_key": "M03",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M04",
+      "status": "NOT_RUN",
+      "QA_register_key": "M04",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M05",
+      "status": "NOT_RUN",
+      "QA_register_key": "M05",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M06",
+      "status": "NOT_RUN",
+      "QA_register_key": "M06",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M07",
+      "status": "NOT_RUN",
+      "QA_register_key": "M07",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M08",
+      "status": "NOT_RUN",
+      "QA_register_key": "M08",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M09",
+      "status": "NOT_RUN",
+      "QA_register_key": "M09",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M10",
+      "status": "NOT_RUN",
+      "QA_register_key": "M10",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M11",
+      "status": "NOT_RUN",
+      "QA_register_key": "M11",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M12",
+      "status": "NOT_RUN",
+      "QA_register_key": "M12",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M13",
+      "status": "NOT_RUN",
+      "QA_register_key": "M13",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M14",
+      "status": "NOT_RUN",
+      "QA_register_key": "M14",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M15",
+      "status": "NOT_RUN",
+      "QA_register_key": "M15",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M16",
+      "status": "NOT_RUN",
+      "QA_register_key": "M16",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M17",
+      "status": "NOT_RUN",
+      "QA_register_key": "M17",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M18",
+      "status": "NOT_RUN",
+      "QA_register_key": "M18",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M19",
+      "status": "NOT_RUN",
+      "QA_register_key": "M19",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M20",
+      "status": "NOT_RUN",
+      "QA_register_key": "M20",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M21",
+      "status": "NOT_RUN",
+      "QA_register_key": "M21",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M22",
+      "status": "NOT_RUN",
+      "QA_register_key": "M22",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M23",
+      "status": "NOT_RUN",
+      "QA_register_key": "M23",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M24",
+      "status": "NOT_RUN",
+      "QA_register_key": "M24",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M25",
+      "status": "NOT_RUN",
+      "QA_register_key": "M25",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M26",
+      "status": "NOT_RUN",
+      "QA_register_key": "M26",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M27",
+      "status": "NOT_RUN",
+      "QA_register_key": "M27",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M28",
+      "status": "NOT_RUN",
+      "QA_register_key": "M28",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M29",
+      "status": "NOT_RUN",
+      "QA_register_key": "M29",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M30",
+      "status": "NOT_RUN",
+      "QA_register_key": "M30",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M31",
+      "status": "NOT_RUN",
+      "QA_register_key": "M31",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M32",
+      "status": "NOT_RUN",
+      "QA_register_key": "M32",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M33",
+      "status": "NOT_RUN",
+      "QA_register_key": "M33",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M34",
+      "status": "NOT_RUN",
+      "QA_register_key": "M34",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M35",
+      "status": "NOT_RUN",
+      "QA_register_key": "M35",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M36",
+      "status": "NOT_RUN",
+      "QA_register_key": "M36",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M37",
+      "status": "NOT_RUN",
+      "QA_register_key": "M37",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M38",
+      "status": "NOT_RUN",
+      "QA_register_key": "M38",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M39",
+      "status": "NOT_RUN",
+      "QA_register_key": "M39",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M40",
+      "status": "NOT_RUN",
+      "QA_register_key": "M40",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M41",
+      "status": "NOT_RUN",
+      "QA_register_key": "M41",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M42",
+      "status": "NOT_RUN",
+      "QA_register_key": "M42",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M43",
+      "status": "NOT_RUN",
+      "QA_register_key": "M43",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M44",
+      "status": "NOT_RUN",
+      "QA_register_key": "M44",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M45",
+      "status": "NOT_RUN",
+      "QA_register_key": "M45",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M46",
+      "status": "NOT_RUN",
+      "QA_register_key": "M46",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M47",
+      "status": "NOT_RUN",
+      "QA_register_key": "M47",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M48",
+      "status": "NOT_RUN",
+      "QA_register_key": "M48",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M49",
+      "status": "NOT_RUN",
+      "QA_register_key": "M49",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M50",
+      "status": "NOT_RUN",
+      "QA_register_key": "M50",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M51",
+      "status": "NOT_RUN",
+      "QA_register_key": "M51",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M52",
+      "status": "NOT_RUN",
+      "QA_register_key": "M52",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M53",
+      "status": "NOT_RUN",
+      "QA_register_key": "M53",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M54",
+      "status": "NOT_RUN",
+      "QA_register_key": "M54",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M55",
+      "status": "NOT_RUN",
+      "QA_register_key": "M55",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M56",
+      "status": "NOT_RUN",
+      "QA_register_key": "M56",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M57",
+      "status": "NOT_RUN",
+      "QA_register_key": "M57",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M58",
+      "status": "NOT_RUN",
+      "QA_register_key": "M58",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M59",
+      "status": "NOT_RUN",
+      "QA_register_key": "M59",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    },
+    {
+      "id": "M60",
+      "status": "NOT_RUN",
+      "QA_register_key": "M60",
+      "checklist_doc": "docs/implementation/ISSUE_10_FINAL_PHONE_QA_CHECKLIST_FA.md",
+      "evidence_uris": []
+    }
+  ],
+  "lab_cases": [
+    {
+      "id": "L01",
+      "command": "PLAY",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "L02",
+      "command": "PAUSE",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "L03",
+      "command": "NEXT",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "L04",
+      "command": "PREVIOUS",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    },
+    {
+      "id": "L05",
+      "command": "SEEK_BACK",
+      "attempts_required": 10,
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    }
+  ],
+  "technical_groups": [
+    {
+      "id": "T01",
+      "name": "Deterministic intent mapping and rejection",
+      "phase": "P05",
+      "kind": "JVM",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE5_DETERMINISTIC_FIVE_CONTROL_INTENTS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T02",
+      "name": "Voice reducer/state transitions/generation",
+      "phase": "P02",
+      "kind": "JVM",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+        "docs/implementation/ISSUE_10_PHASE2_VOICE_STATE_MACHINE_AUDIT.md",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T03",
+      "name": "6s timeout, one retry, cancellation",
+      "phase": "P02/P04",
+      "kind": "JVM",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T04",
+      "name": "Playback ACK and one-shot duplicate suppression",
+      "phase": "P06",
+      "kind": "JVM",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE6_MEDIA3_DISPATCH_ACK_IDEMPOTENCY_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T05",
+      "name": "Ducking lease/focus/route priority",
+      "phase": "P07",
+      "kind": "JVM",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE7_VOICE_DUCK_RESTORE_FOCUS_ROUTE_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/command/ServiceVoiceDuckLease.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T06",
+      "name": "Voice feedback, optional TTS failures",
+      "phase": "P08",
+      "kind": "JVM",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE4_REPLACEABLE_STT_TTS_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt",
+        "docs/implementation/ISSUE_10_PHASE8_SHORT_TTS_FEEDBACK_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/feedback/VoiceFeedbackCatalog.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase8VoiceFoundationTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T07",
+      "name": "Compose voice overlay/semantics/a11y",
+      "phase": "P09",
+      "kind": "ANDROID_INSTRUMENTATION",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE9_WF08_VOICE_UI_ACCESSIBILITY_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T08",
+      "name": "Lifecycle/permission/late-callback race",
+      "phase": "P10",
+      "kind": "JVM_AND_ANDROID_INSTRUMENTATION",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE3_PTT_FULL_PLAYER_DRIVING_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
+        "docs/implementation/ISSUE_10_PHASE10_LIFECYCLE_INTERRUPTION_RACE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T09",
+      "name": "Privacy/consent/manifest/static inspection",
+      "phase": "P11",
+      "kind": "SOURCE_AUDIT_AND_LINT",
+      "status": "AUTHORED_ONLY",
+      "evidence_uris": [
+        "docs/implementation/ISSUE_10_PHASE11_VOICE_PRIVACY_CONSENT_DIAGNOSTICS_AUDIT.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt",
+        "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+      ],
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "T10",
+      "name": "Android 10/12/14+, OEM, parked vehicle and real voice integration",
+      "phase": "P13",
+      "kind": "PHYSICAL_DEVICE",
+      "status": "NOT_RUN",
+      "evidence_uris": []
+    }
+  ],
+  "source_boundaries": {
+    "one_voice_owner": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+    "replaceable_stt": "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+    "replaceable_tts": "app/src/main/java/com/latticeward/musiccopilot/voice/api/TextToSpeechEngine.kt",
+    "restricted_mapper": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+    "player": "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+    "driving": "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+    "binding": "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+    "playback_contract": "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+    "playback_service": "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+    "voice_transition_policy": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt",
+    "phase2_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase2VoiceStateMachineTest.kt",
+    "phase3_ptt_admission": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePttAdmissionPolicy.kt",
+    "phase3_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase3PushToTalkTest.kt",
+    "on_device_english_policy": "app/src/main/java/com/latticeward/musiccopilot/voice/policy/OnDeviceEnglishSupportPolicy.kt",
+    "phase4_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase4SpeechProvidersTest.kt",
+    "phase5_dictionary": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/DirectControlPhrasePolicy.kt",
+    "phase5_mapper": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/RestrictedVoiceIntentMapper.kt",
+    "phase5_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase5DeterministicIntentsTest.kt",
+    "phase6_voice_dispatcher": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+    "phase6_voice_receipt_policy": "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+    "phase6_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase6VoicePlaybackAckTest.kt",
+    "phase7_duck_api": "app/src/main/java/com/latticeward/musiccopilot/playback/api/VoiceDuckingPort.kt",
+    "phase7_service_lease": "app/src/main/java/com/latticeward/musiccopilot/playback/command/ServiceVoiceDuckLease.kt",
+    "phase7_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase7VoiceDuckingLeaseTest.kt",
+    "phase8_feedback_catalog": "app/src/main/java/com/latticeward/musiccopilot/voice/feedback/VoiceFeedbackCatalog.kt",
+    "phase8_android_catalog": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidVoiceFeedbackCatalog.kt",
+    "phase8_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+    "phase9_projection": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+    "phase9_shared_compose": "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+    "phase9_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase9VoiceOverlayAccessibilityTest.kt",
+    "phase10_lifecycle_policy": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceLifecycleSafetyPolicy.kt",
+    "phase10_stt_race": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+    "phase10_tts_race": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOfflineTextToSpeechEngine.kt",
+    "phase10_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase10LifecycleRaceSafetyTest.kt",
+    "phase11_result_redaction": "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+    "phase11_consent_policy": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/CloudSpeechConsentPolicy.kt",
+    "phase11_diagnostics": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoicePrivacyDiagnosticsPolicy.kt",
+    "phase11_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase11VoicePrivacyBoundaryTest.kt",
+    "phase12_voice_nonce": "app/src/main/java/com/latticeward/musiccopilot/voice/session/VoicePlaybackDispatcher.kt",
+    "phase12_receipt_parser": "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+    "phase12_authored_junit": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase12CumulativeSourceContractsTest.kt"
+  },
+  "known_gaps": [
+    {
+      "id": "G01",
+      "severity": "BLOCKER",
+      "description": "Voice-specific playback duck and safe restore not implemented",
+      "phases": [
+        "P07"
+      ],
+      "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
+      "resolved_by": "P07_SOURCE_ONLY",
+      "notes": "P07 voice duck port, service TTL lease, main-owned volume restoration; runtime and OEM/focus/route still unverified at P13. P10 added foreground lease, STT/TTS identity guards, focus/route Voice cancellation and bounded unDuck controller receipt. Device QA pending; NOT_CLOSED."
+    },
+    {
+      "id": "G02",
+      "severity": "BLOCKER",
+      "description": "Full Player microphone/overlay entry not connected",
+      "phases": [
+        "P03",
+        "P09"
+      ],
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "P03 Full Player Mic wired in source; runtime still untested."
+    },
+    {
+      "id": "G03",
+      "severity": "BLOCKER",
+      "description": "Current mapper requires spoken musico prefix; direct PTT examples omit it",
+      "phases": [
+        "P05"
+      ],
+      "state": "SOURCE_FIXED_PENDING_VERIFICATION",
+      "resolved_by": "P05_SOURCE_ONLY",
+      "notes": "Bare approved phrases now accepted on explicit PTT and optional spoken musico prefix; no device verification."
+    },
+    {
+      "id": "G04",
+      "severity": "HIGH",
+      "description": "Missing provider confidence maps to RequiresConfirmation and then Failed; decide fail-closed policy and measure",
+      "phases": [
+        "P04",
+        "P05"
+      ],
+      "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
+      "resolved_by": null,
+      "notes": "Missing/low provider confidence is fail-closed with bounded BuildConfig threshold; no synthetic confidence, field quality may be impacted. P10 added foreground lease, STT/TTS identity guards, focus/route Voice cancellation and bounded unDuck controller receipt. Device QA pending; NOT_CLOSED."
+    },
+    {
+      "id": "G05",
+      "severity": "HIGH",
+      "description": "On-device STT explicitly unavailable on Android 10/11 (API 29/30); manual fallback contract",
+      "phases": [
+        "P04"
+      ],
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "API29/30 manual-only, 31/32 unknown model readiness, 33+ English preflight"
+    },
+    {
+      "id": "G06",
+      "severity": "HIGH",
+      "description": "One-shot service dispatch/ACK and retry/lifecycle race behavior not validated",
+      "phases": [
+        "P02",
+        "P06",
+        "P10"
+      ],
+      "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
+      "resolved_by": null,
+      "notes": "P02/P06/P10 generation+service receipt sources and P12 F12-01 process-namespaced command IDs fix; zero runtime verification. Retains Media3 process restart/ACK race risk until P13."
+    },
+    {
+      "id": "G07",
+      "severity": "HIGH",
+      "description": "Voice UI accessibility and feedback incomplete cross origin",
+      "phases": [
+        "P08",
+        "P09"
+      ],
+      "state": "SOURCE_IMPLEMENTED_PENDING_RUNTIME_VERIFICATION",
+      "resolved_by": "P08_P09_SOURCE_ONLY",
+      "notes": "P08 bounded TTS and P09 common WF-08 panel, TalkBack labels, font-scale-friendly targets, focus return. P10/P13 real accessibility, OEM and late callback checks not run; do not close gap."
+    },
+    {
+      "id": "G08",
+      "severity": "HIGH",
+      "description": "Issue #9 M45 explicitly untested/deferred to #10",
+      "phases": [
+        "P13"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G09",
+      "severity": "QUALITY_GATE",
+      "description": "Direct-command lab 50 attempts not run; minimum 45 successes",
+      "phases": [
+        "P13"
+      ],
+      "state": "OPEN",
+      "resolved_by": null
+    },
+    {
+      "id": "G10",
+      "severity": "RISK",
+      "description": "Device matrix, separate test execution and privacy audit not completed",
+      "phases": [
+        "P11",
+        "P12",
+        "P13"
+      ],
+      "state": "OPEN_PARTIALLY_ADDRESSED_IN_SOURCE",
+      "resolved_by": null,
+      "notes": "P11 privacy and P12 full 16-AC static audit, authored JUnit and 5×10 lab corpus. No compile/merged manifest/OEM/network/Android matrix/phone QA; remains OPEN until P13 evidence."
+    }
+  ],
+  "cross_issue": {
+    "M45_from_issue9": "BLOCKED_DEFERRED_TO_ISSUE10_P13_GS04",
+    "issue9_link": "https://github.com/latticeward-labs/music-copilot/issues/9",
+    "deferred_QA_issues": [
+      74,
+      78
+    ],
+    "issue11": "PLAY_ARTIST reserved for Issue #11"
+  },
+  "release_evidence": {
+    "source_commit_sha": null,
+    "apk_sha256": null,
+    "apk_size_bytes": null,
+    "artifact_url": null,
+    "build_only_run_id": null,
+    "phone_owner_results_receipt": null,
+    "lab_gate": null,
+    "independent_reviewer": null,
+    "PR_url": null,
+    "merge_sha": null,
+    "closed_at": null
+  },
+  "summary": {
+    "AC_total": 16,
+    "AC_verified": 0,
+    "M_total": 60,
+    "M_executed": 0,
+    "L_groups": 5,
+    "L_attempts_executed": 0,
+    "technical_groups": 10,
+    "technical_groups_executed": 0,
+    "APK_count": 2,
+    "source_phase1_docs_complete": true,
+    "P02_source_delivered": true,
+    "P02_authored_junit_methods": 8,
+    "P03_source_delivered": true,
+    "P03_authored_junit_methods": 12,
+    "P04_source_delivered": true,
+    "P04_authored_junit_methods": 12,
+    "P05_source_delivered": true,
+    "P05_authored_junit_methods": 25,
+    "P06_source_delivered": true,
+    "P06_authored_junit_methods": 15,
+    "P07_source_delivered": true,
+    "P07_authored_junit_methods": 13,
+    "P08_source_delivered": true,
+    "P08_authored_junit_methods": 15,
+    "P09_source_delivered": true,
+    "P09_authored_junit_methods": 20,
+    "P10_source_delivered": true,
+    "P10_authored_junit_methods": 17,
+    "P11_source_delivered": true,
+    "P11_authored_junit_methods": 19,
+    "P12_source_audited": true,
+    "P12_authored_junit_methods": 15,
+    "P12_ac_source_traced": 16,
+    "P12_lab_corpus_prepared": 50,
+    "P13_build_success": true,
+    "P13_owner_qa_pending": true,
+    "P13_replacement_build_success": true
+  },
+  "verified_build": {
+    "source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
+    "run_id": 40218586084,
+    "job_id": 121244994062,
+    "artifact_id": 12608466440,
+    "artifact_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40218586084/artifacts/12608466440",
+    "artifact_name": "issue10-p13-one-cumulative-debug-apk",
+    "apk_name": "app-debug.apk",
+    "apk_size_bytes": 37285182,
+    "apk_sha256": "7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f",
+    "zip_size_bytes": 13564230,
+    "zip_sha256": "3738e90480a2f8d0241e206b017094d9713f0efcb1a32364b0b807dfa7ad4700",
+    "status": "REPLACEMENT_BUILD_SUCCESS_OWNER_VOICE_RETEST_PENDING",
+    "gradle_task": ":app:assembleDebug",
+    "test_execution": "NOT_RUN",
+    "repair_report": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md"
+  },
+  "previous_verified_build": {
+    "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+    "run_id": 40180566730,
+    "job_id": 121130546863,
+    "artifact_id": 12593353938,
+    "artifact_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+    "artifact_name": "issue10-p13-one-cumulative-debug-apk",
+    "apk_name": "app-debug.apk",
+    "apk_size_bytes": 37285182,
+    "apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+    "zip_size_bytes": 13563944,
+    "zip_sha256": "8b00edcf3fda48406c85aeb65875f07c2a43d0acf0c16afa923310da130987ce",
+    "status": "BUILD_SUCCESS_NOT_RUNTIME_VERIFIED",
+    "gradle_task": ":app:assembleDebug",
+    "test_execution": "NOT_RUN"
+  }
+}

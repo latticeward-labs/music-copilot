@@ -33,6 +33,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -52,6 +54,12 @@ import com.latticeward.musiccopilot.app.theme.MusicTextStyles
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppError
+import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
+import com.latticeward.musiccopilot.core.application.voice.VoicePttAdmissionPolicy
+import com.latticeward.musiccopilot.core.application.voice.VoicePttAvailability
+import com.latticeward.musiccopilot.feature.voice.VoiceSessionPanel
+import com.latticeward.musiccopilot.voice.api.VoiceSessionState
+import androidx.compose.ui.semantics.stateDescription
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -73,8 +81,25 @@ fun FullPlayerScreen(
     canReadLocalMetadata: Boolean,
     onBack: () -> Unit,
     onEnterDriving: () -> Unit = {},
+    voiceState: VoiceSessionState = VoiceSessionState.Idle,
+    voiceAvailability: VoicePttAvailability = VoicePttAvailability.ProviderUnavailable,
+    voicePermissionStage: VoicePracticeStage = VoicePracticeStage.Idle,
+    voiceStartRejected: Boolean = false,
+    onMic: () -> Unit = {},
+    onVoicePermissionContinue: () -> Unit = {},
+    onVoicePermissionCancel: () -> Unit = {},
+    onVoiceCancel: () -> Unit = {},
+    onVoiceRetry: () -> Unit = {},
 ) {
     BackHandler(onBack = onBack)
+    val voiceActive = voiceState != VoiceSessionState.Idle
+    val voicePermissionPrompt = voicePermissionStage == VoicePracticeStage.Rationale ||
+        voicePermissionStage == VoicePracticeStage.AwaitingAndroid
+    // Back first dismisses an owned Voice/rationale instead of leaving a
+    // recording active behind Full Player. The regular Back still closes Player.
+    BackHandler(enabled = voiceActive || voicePermissionPrompt) {
+        if (voiceActive) onVoiceCancel() else onVoicePermissionCancel()
+    }
     val snap = state.snapshot
     val listState = rememberLazyListState()
     val scrollScope = rememberCoroutineScope()
@@ -110,7 +135,13 @@ fun FullPlayerScreen(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         OutlinedButton(
-                            onClick = onBack,
+                            onClick = {
+                                when {
+                                    voiceActive -> onVoiceCancel()
+                                    voicePermissionPrompt -> onVoicePermissionCancel()
+                                    else -> onBack()
+                                }
+                            },
                             modifier = Modifier.heightIn(min = MusicSize.touchTargetMinDp),
                         ) { Text(stringResource(R.string.action_back)) }
                         Text(stringResource(R.string.i7_player_title),
@@ -122,6 +153,7 @@ fun FullPlayerScreen(
                     // recorded return origin. No change to service playback.
                     OutlinedButton(
                         onClick = onEnterDriving,
+                        enabled = !voiceActive && !voicePermissionPrompt,
                         modifier = Modifier.fillMaxWidth().heightIn(
                             min = MusicSize.touchTargetMinDp,
                         ),
@@ -143,6 +175,19 @@ fun FullPlayerScreen(
                             min = MusicSize.touchTargetMinDp
                         ),
                     ) { Text(stringResource(R.string.i7_queue_action)) }
+                    // P03: a same-route, one-shot PTT surface. This does not
+                    // alter LazyColumn item indexes or own recognition/player.
+                    PlayerVoiceControls(
+                        voiceState = voiceState,
+                        availability = voiceAvailability,
+                        permissionStage = voicePermissionStage,
+                        startRejected = voiceStartRejected,
+                        onMic = onMic,
+                        onPermissionContinue = onVoicePermissionContinue,
+                        onPermissionCancel = onVoicePermissionCancel,
+                        onCancel = onVoiceCancel,
+                        onRetry = onVoiceRetry,
+                    )
                 }
             }
             item(key = "player_artwork") {
@@ -463,6 +508,88 @@ fun FullPlayerScreen(
         }
     }
 }
+
+/**
+ * P03 Full Player WF-08 inline Voice controls. P09 refines the final design
+ * and focus handoff. No recorder, permission requester or Media3 owner here.
+ * All text is generic/resource-backed; never display raw transcripts.
+ */
+/**
+ * WF-08 P09: exactly the same accessible Voice projection as Driving, hosted
+ * inline in Full Player without a navigation destination or recorder.
+ * Restore keyboard/switch focus to Mic on dismissal; never refocus on every
+ * STT status change or start another voice session automatically.
+ */
+@Composable
+private fun PlayerVoiceControls(
+    voiceState: VoiceSessionState,
+    availability: VoicePttAvailability,
+    permissionStage: VoicePracticeStage,
+    startRejected: Boolean,
+    onMic: () -> Unit,
+    onPermissionContinue: () -> Unit,
+    onPermissionCancel: () -> Unit,
+    onCancel: () -> Unit,
+    onRetry: () -> Unit,
+) {
+    val active = voiceState != VoiceSessionState.Idle
+    val permissionPrompt = permissionStage == VoicePracticeStage.Rationale ||
+        permissionStage == VoicePracticeStage.AwaitingAndroid
+    val panelVisible = active || permissionPrompt
+    val micFocus = remember { FocusRequester() }
+    val panelFocus = remember { FocusRequester() }
+    var panelWasVisible by remember { mutableStateOf(false) }
+    LaunchedEffect(panelVisible) {
+        if (panelVisible) panelFocus.requestFocus()
+        else if (panelWasVisible && VoicePttAdmissionPolicy.canTapMic(availability))
+            micFocus.requestFocus()
+        panelWasVisible = panelVisible
+    }
+
+    if (!panelVisible) {
+        val micLabel = stringResource(R.string.i9_a11y_mic)
+        OutlinedButton(
+            onClick = onMic,
+            enabled = VoicePttAdmissionPolicy.canTapMic(availability),
+            modifier = Modifier.fillMaxWidth()
+                .focusRequester(micFocus)
+                .heightIn(min = MusicSize.touchTargetMinDp)
+                .semantics { contentDescription = micLabel },
+        ) { Text(stringResource(R.string.i9_driving_mic_voice)) }
+        val note = when {
+            startRejected -> R.string.i9_voice_start_unavailable
+            permissionStage == VoicePracticeStage.ReadyForVoiceHandoff ->
+                R.string.i9_voice_granted_tap_again
+            permissionStage == VoicePracticeStage.PermissionDenied ->
+                R.string.i9_voice_permission_denied
+            permissionStage == VoicePracticeStage.ProviderUnavailable ||
+                permissionStage == VoicePracticeStage.LanguageUnsupported ||
+                availability == VoicePttAvailability.ProviderUnavailable ->
+                R.string.i9_voice_local_provider_unavailable
+            availability == VoicePttAvailability.NeedsPermission ->
+                R.string.i9_voice_permission_rationale_brief
+            else -> null
+        }
+        if (note != null) Text(
+            stringResource(note),
+            color = MusicColors.textSecondary,
+            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+            style = MusicTextStyles.bodyMedium,
+        )
+    } else {
+        VoiceSessionPanel(
+            state = voiceState,
+            permissionStage = permissionStage,
+            onPermissionContinue = onPermissionContinue,
+            onPermissionCancel = onPermissionCancel,
+            onVoiceCancel = onCancel,
+            onVoiceRetry = onRetry,
+            focusRequester = panelFocus,
+            driving = false,
+        )
+    }
+}
+
 
 /** Pure display formatting; never moves the service playback position. */
 private fun formatTime(positionMs: Long): String {
