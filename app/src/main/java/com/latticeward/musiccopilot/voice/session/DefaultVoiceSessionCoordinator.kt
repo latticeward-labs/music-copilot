@@ -220,6 +220,14 @@ class DefaultVoiceSessionCoordinator(
                     if (artistPhrase is PlayArtistPhraseResult.Recognized ||
                         artistPhrase == PlayArtistPhraseResult.Unsupported
                     ) {
+                        // The mic has already returned its transcript. Do not
+                        // hold a temporary duck lease during a slow P03/P04
+                        // library scan or the one-step confirmation wait.
+                        // Keep the old #10 transport command duck policy intact.
+                        runCatching { ducking.releaseVoiceDuck(duckToken) }
+                        synchronized(gate) {
+                            if (activeDuckToken == duckToken) activeDuckToken = null
+                        }
                         handleArtistRecognition(
                             id, origin, number, generation, artistPhrase,
                             recognition.value.providerConfidence,
