@@ -1,0 +1,393 @@
+{
+  "schema": "issue11-p05-source-evidence-v1",
+  "date": "2026-11-14",
+  "issue": 11,
+  "phase": "P05",
+  "branch": "feature/11-play-artist-one-step-ambiguity",
+  "repository": "latticeward-labs/music-copilot",
+  "phase_status": "SOURCE_IMPLEMENTED_UNWIRED_UNBUILT",
+  "owner_source": {
+    "filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_documents": 12,
+    "read_from": "exact uploaded archive",
+    "authority": [
+      "ADR-0005_Restricted_Deterministic_Intent_Mapping.pdf sections 3-11",
+      "ADR-0004_Replaceable_Voice_Provider.pdf sections 3-7",
+      "Music_Copilot_Code_and_Technical_Documentation_MVP_v1_EN.pdf Voice & Intent pp 30-32",
+      "Music_Copilot_MVP_v1_EN.pdf",
+      "Music_Copilot_PRD_v1_EN_Clarified.pdf",
+      "GitHub accepted docs/adr/0005-deterministic-intent-mapping.md"
+    ]
+  },
+  "source_files": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/ArtistConfidencePolicy.kt",
+      "github_blob_sha": "fea7db8cd66cdc5419c071f72d7d914b7ee2b89c",
+      "kind": "P05_SOURCE_UNWIRED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/ArtistDecisionPolicy.kt",
+      "github_blob_sha": "7c0a7b6c0fa5775d18cee948aecf1471d310caa4",
+      "kind": "P05_SOURCE_UNWIRED"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "github_blob_sha": "83ef64a8bc9598ffc04f6da16d267b60c8105681",
+      "kind": "P05_SOURCE_UNWIRED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+      "github_blob_sha": "9c238c45f60645d71f43a1d466b91b667c63c837",
+      "kind": "P05_SOURCE_UNWIRED"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+      "github_blob_sha": "70c85003fc81505ddee28fa7e031be3d569dd065",
+      "kind": "TEST_SOURCE_ONLY_NOT_RUN"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+      "github_blob_sha": "80d9ed952078a633d6b9d5151d23e0d725be1a83",
+      "kind": "TEST_SOURCE_ONLY_NOT_RUN"
+    },
+    {
+      "path": "docs/implementation/ISSUE_11_P05_CONFIDENCE_AND_ADMISSION_POLICY.md",
+      "github_blob_sha": "3b91a4d12bff721d4787092effcd6384c42685df",
+      "kind": "P05_DESIGN_AUDIT"
+    }
+  ],
+  "confidence_policy": {
+    "version": "issue11-artist-provider-confidence-v1",
+    "direct_threshold_build_config_name": "VOICE_ARTIST_DIRECT_CONFIDENCE_THRESHOLD",
+    "build_config_value": 0.9,
+    "validated_min": 0.8,
+    "validated_max": 0.98,
+    "invalid_threshold_fallback": 0.9,
+    "null_provider_confidence": "Missing",
+    "nan_out_of_range_provider_confidence": "Invalid",
+    "finite_provider_confidence_range": [
+      0,
+      1
+    ],
+    "direct_score_requires_real_provider_confidence": true,
+    "null_moonshine_direct_play_allowed": false,
+    "local_vad_endpoint_substitution_allowed": false,
+    "artist_similarity_as_provider_confidence_allowed": false,
+    "remote_config_created": false,
+    "backend_created": false
+  },
+  "decision_policy": {
+    "version": "issue11-play-artist-decision-v1",
+    "grammar": "Play songs by [artist] (P02)",
+    "resolve_artists": "P04 ArtistResolution; P03 Room local identity; no title matching",
+    "matched_clear_high_real_confidence": "Direct candidate only; no Media3 execution",
+    "matched_clear_low_confidence": "Ambiguous one candidate LOW_PROVIDER_CONFIDENCE",
+    "matched_clear_missing_confidence": "Ambiguous one candidate MISSING_PROVIDER_CONFIDENCE",
+    "ambiguous_artist_high_confidence": "Ambiguous at most two CLOSE_ARTIST_MATCHES",
+    "ambiguous_artist_low_confidence": "Ambiguous at most two LOW_PROVIDER_CONFIDENCE",
+    "ambiguous_artist_missing_confidence": "Ambiguous at most two MISSING_PROVIDER_CONFIDENCE",
+    "invalid_provider_confidence": "Unknown; never direct nor speculative confirmation",
+    "too_many_plausible": "Unknown safe manual fallback",
+    "not_found_complete_index": "NotFound (no queue mutation)",
+    "missing_resolution": "AppResult.Failure LIBRARY_BROWSE_UNAVAILABLE",
+    "permission_stale_index": "Preserve original typed AppResult.Failure",
+    "fuzzy_version_inconsistent": "Unknown",
+    "malformed_p04_clear_match": "Unknown",
+    "unsupported_phrase": "Unsupported",
+    "non_english_unknown_malformed": "Unknown",
+    "confirmation_token_execution": "P07_PENDING",
+    "media3_ack_live_refs": "P06_PENDING",
+    "runtime_wiring": "P07_P12_PENDING",
+    "five_existing_transport_behaviors": "UNCHANGED"
+  },
+  "qa": {
+    "authored_unit_tests": 40,
+    "executed": 0,
+    "passed": 0,
+    "failed": 0,
+    "test_cases": [
+      {
+        "id": "P05-J01",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "policyHasVersionAndMatchesApprovedSafeDefaults",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J02",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "missingMoonshineConfidenceIsMissingNotCalibrated",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J03",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "nanoInvalidAndInfiniteScoresAreNeverCalibrated",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J04",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "finiteZeroAndOneAreLegitimateProviderEvidenceButNotAllDirect",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J05",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "directProviderThresholdIsInclusive",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J06",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "validThresholdBoundsAreAcceptedExactly",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J07",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "malformedThresholdsFallBackToApprovedDefault",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J08",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "lowerAllowedThresholdDoesNotBypassProviderValidity",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J09",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "malformedThresholdDoesNotSilentlyBecomeLowOrZero",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J10",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistConfidencePolicyTest.kt",
+        "method": "similarityAndVadAreNotConfidenceInputs",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J11",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "namedPolicyAndDefaultUseExistingSafeValues",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J12",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "highRealProviderConfidenceAndUniqueExactResultAdmitDirectCandidate",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J13",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "exactlyAtDirectThresholdIsAccepted",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J14",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "calibratedHighFuzzyClearCanBeAdmittedWithoutExecutingPlayback",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J15",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "validScoreJustBelowThresholdOffersOneConfirmationNotDirect",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J16",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "providerZeroEvenWithExactArtistDoesNotAutoPlay",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J17",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "missingMoonshineConfidenceWithUniqueExactCandidateRequiresConfirmation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J18",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "nullProviderConfidenceAndClearFuzzyCandidateStillNeverDirect",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J19",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "localVadCompleteNeverSubstitutesForArtistProviderConfidence",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J20",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "invalidNanInfinityAndOutOfRangeConfidenceRejectEvenExactCandidate",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J21",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "highProviderConfidenceCannotSkipTwoArtistConfirmation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J22",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "lowConfidenceKeepsBoundedTwoCandidateConfirmation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J23",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "missingConfidenceWithArtistTieKeepsOneStepBoundedResponse",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J24",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "inconsistentP04ClearBelowClearThresholdMustFailClosed",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J25",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "fuzzyBelowPlausibleFloorIsNeverPresentedAsAnArtistCandidate",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J26",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "scorerVersionMismatchRejectsFuzzyResult",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J27",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "exactCandidateDoesNotRequireFabricatedSimilarity",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J28",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "sameArtistIdTwiceCannotEnterConfirmation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J29",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "noMatchAfterFullIndexResolutionProducesNotFoundWithoutExecution",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J30",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "invalidProviderEvidenceDoesNotClaimDefinitiveNotFound",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J31",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "moreThanTwoPlausibleArtistsFailsSafeWithoutTruncatedConfirmation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J32",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "staleIndexFailureIsPreservedAndNeverConvertedToNotFound",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J33",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "revokedPermissionFailureIsPreservedEvenWithMissingConfidence",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J34",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "absentRepositoryOutcomeIsUnavailableRatherThanFabricatedNotFound",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J35",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "unknownAndMalformedPhrasesNeverUseArtistResolution",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J36",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "unsupportedStreamingRequestIsNotConvertedToLocalPlay",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J37",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "negativeRevisionIsRejectedEvenIfScoreIsPerfect",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J38",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "invalidDirectConfigUsesSafeDefaultAndNoUnboundedBypass",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J39",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "separateArtistConfigDoesNotAlterExistingTransportMapper",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-J40",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase5ArtistDecisionPolicyTest.kt",
+        "method": "privateArtistIdentifiersDoNotAppearInDecisionDiagnosticMessages",
+        "status": "NOT_RUN"
+      }
+    ],
+    "compilation": "NOT_RUN",
+    "gradle": "NOT_RUN",
+    "kapt": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "jvm_tests": "NOT_RUN",
+    "ci_actions": "NOT_RUN",
+    "phone": "NOT_RUN",
+    "apk": "NOT_CREATED",
+    "P13_owner_phone_M01_M48": "NOT_RUN",
+    "P13_technical_T01_T10": "NOT_RUN",
+    "P13_lab_L01_L06": "NOT_RUN"
+  },
+  "issue11_original_acceptance": {
+    "total": 13,
+    "verified_pass": 0,
+    "not_verified": 10,
+    "not_run": 3
+  },
+  "focused_criteria": {
+    "AC04": "SOURCE_ADMISSION_ONLY_NOT_VERIFIED",
+    "AC05": "ONE_STEP_ADMISSION_SOURCE_ONLY_NOT_VERIFIED",
+    "AC09": "LOCAL_BUILD_CONFIG_BOUNDS_SOURCE_ONLY_NOT_VERIFIED",
+    "AC10": "PRIVACY_SCHEMA_UNCHANGED_NOT_VERIFIED",
+    "AC11": "40_CASES_AUTHORED_NOT_RUN"
+  },
+  "open_quality_blocker": {
+    "issue": 80,
+    "state": "OPEN",
+    "issue10_reported_successes": 24,
+    "issue10_reported_attempts": 50,
+    "ratio": 0.48,
+    "target": 0.9
+  },
+  "next_phase": "P06 validated artist queue from MediaStore refs via service-owned PlaybackGateway acknowledgement",
+  "git_operations": {
+    "feature_branch_only": true,
+    "no_pr": true,
+    "no_merge": true,
+    "no_issue_close": true,
+    "no_acceptance_boxes_checked": true
+  }
+}
