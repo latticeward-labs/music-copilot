@@ -4,7 +4,7 @@
   "repository": "latticeward-labs/music-copilot",
   "branch": "feature/10-ptt-voice-five-control-intents",
   "created_date": "2026-10-25",
-  "stage": "P13_VOICE_FIX_REPLACEMENT_BUILT_OWNER_RETEST_PENDING",
+  "stage": "P13_OWNER_MOONSHINE_IMPLEMENTATION_ACCEPTED_WITH_LAB_GATE_FAILED",
   "provenance": {
     "source_archive_name": "MSM2(1)(1).rar",
     "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
@@ -28,7 +28,8 @@
       "PASS",
       "FAIL",
       "BLOCKED",
-      "N/A"
+      "N/A",
+      "NOT_ITEMIZED"
     ],
     "technical": [
       "NOT_RUN",
@@ -49,7 +50,10 @@
       "phone": "OWNER_ACTUAL_DEVICE",
       "lab": "OWNER_CONTROLLED_ENVIRONMENT",
       "technical": "ACTUAL_EXECUTION_ONLY"
-    }
+    },
+    "lab_group": [
+      "OWNER_AGGREGATE_REPORTED"
+    ]
   },
   "phase_status": {
     "P00": {
@@ -186,22 +190,22 @@
     }
   },
   "apk": {
-    "state": "BUILT_VERIFIED_ARTIFACT_OWNER_RETEST_PENDING",
+    "state": "OWNER_TESTED_IMPLEMENTATION_ACCEPTED_WITH_FAILED_LAB_GATE",
     "phase_authorized": "P13_ONLY",
     "cumulative": true,
-    "apk_filename": "app-debug.apk",
-    "source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
-    "sha256": "7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f",
-    "bytes": 37285182,
-    "build_workflow_run_id": 40218586084,
-    "artifact_id": 12608466440,
-    "verified_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40218586084/artifacts/12608466440",
+    "apk_filename": "Music-Copilot-Issue10-Moonshine-VAD-debug.apk",
+    "source_sha": "eaebff42458a885995d336a8c517f744889d5bae",
+    "sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+    "bytes": 99628974,
+    "build_workflow_run_id": 40277406135,
+    "artifact_id": 13657909808,
+    "verified_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40277406135/artifacts/13657909808",
     "device_candidate_version": "0.1.0-foundation-debug",
-    "artifact_name": "issue10-p13-one-cumulative-debug-apk",
-    "zip_sha256": "3738e90480a2f8d0241e206b017094d9713f0efcb1a32364b0b807dfa7ad4700",
+    "artifact_name": "Music-Copilot-Issue10-Moonshine-Silero-VAD-APK",
+    "zip_sha256": "64c03fea552f9d73bb47db49bba33730170e92f33f62eea93394de19d26ad0e4",
     "zip_bytes": 13564230,
     "build_task": ":app:assembleDebug",
-    "job_id": 121244994062,
+    "job_id": 129053262550,
     "build_status": "SUCCESS",
     "app_id": "com.latticeward.musiccopilot.debug",
     "min_sdk": 29,
@@ -216,8 +220,47 @@
       "reason_superseded": "Immediate Voice unavailable owner phone observation before replacement; not a faulty build integrity claim."
     },
     "repair_scope": "Android on-device STT support metadata unavailability only",
-    "report": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md",
-    "phone_retest_required": true
+    "report": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+    "phone_retest_required": false,
+    "previous_pre_moonshine_candidate": {
+      "state": "BUILT_VERIFIED_ARTIFACT_OWNER_RETEST_PENDING",
+      "phase_authorized": "P13_ONLY",
+      "cumulative": true,
+      "apk_filename": "app-debug.apk",
+      "source_sha": "cfb0abb9c3390d47c3afa3fa0513d7740aba0fa4",
+      "sha256": "7a80cdc1c673d1c04372f9a81cbd2be0a998e4eedcdfe87fd132b5177d9a192f",
+      "bytes": 37285182,
+      "build_workflow_run_id": 40218586084,
+      "artifact_id": 12608466440,
+      "verified_download_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40218586084/artifacts/12608466440",
+      "device_candidate_version": "0.1.0-foundation-debug",
+      "artifact_name": "issue10-p13-one-cumulative-debug-apk",
+      "zip_sha256": "3738e90480a2f8d0241e206b017094d9713f0efcb1a32364b0b807dfa7ad4700",
+      "zip_bytes": 13564230,
+      "build_task": ":app:assembleDebug",
+      "job_id": 121244994062,
+      "build_status": "SUCCESS",
+      "app_id": "com.latticeward.musiccopilot.debug",
+      "min_sdk": 29,
+      "compile_sdk": 36,
+      "target_sdk": 36,
+      "replacement_of": {
+        "source_sha": "16a71b5b412361fd83d37d196676bf5b4c39bd24",
+        "apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396",
+        "run_id": 40180566730,
+        "artifact_id": 12593353938,
+        "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/40180566730/artifacts/12593353938",
+        "reason_superseded": "Immediate Voice unavailable owner phone observation before replacement; not a faulty build integrity claim."
+      },
+      "repair_scope": "Android on-device STT support metadata unavailability only",
+      "report": "docs/implementation/ISSUE_10_P13_LOCAL_STT_OEM_SUPPORT_FIX_REPLACEMENT.md",
+      "phone_retest_required": true
+    },
+    "build_run_attempt": 2,
+    "engine": "Moonshine Tiny v2 + Silero VAD (not Vosk)",
+    "owner_retest_date": "2026-11-14",
+    "owner_report_source": "owner chat aggregate on 2026-11-14",
+    "tests_executed_in_workflow": 0
   },
   "device_environment": {
     "owner_device_name": null,
@@ -250,7 +293,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC02",
@@ -272,7 +316,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC03",
@@ -294,7 +339,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC04",
@@ -313,7 +359,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC05",
@@ -332,7 +379,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC06",
@@ -357,7 +405,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC07",
@@ -377,7 +426,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC08",
@@ -398,7 +448,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC09",
@@ -415,7 +466,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC10",
@@ -441,7 +493,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC11",
@@ -465,7 +518,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC12",
@@ -473,7 +527,7 @@
       "phase_owners": [
         "P13"
       ],
-      "source_observation": "Zero issue-10 lab executions; later 5×10 attempts require ≥45/50.",
+      "source_observation": "Moonshine Tiny v2 + Silero VAD owner report 2026-11-14; 24 of 50 valid executions.",
       "phone_or_lab_case_ids": [
         "L01",
         "L02",
@@ -481,11 +535,11 @@
         "L04",
         "L05"
       ],
-      "status": "NOT_VERIFIED",
+      "status": "VERIFIED_FAIL",
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
-      "runtime_evidence": null,
-      "decision_note": "P12 lab corpus prepared 50 records, but ZERO actual attempts; 45/50 gate NOT_MEASURED. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "runtime_evidence": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+      "decision_note": "Owner aggregate shows 24/50 success=48%, below >=45/50=90%; FAILED. Per-attempt statuses unknown. Owner nonetheless explicitly accepted merge/close with P0 debt #80.",
+      "verified_at": "2026-11-14"
     },
     {
       "id": "AC13",
@@ -501,7 +555,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC14",
@@ -518,7 +573,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC15",
@@ -544,7 +600,8 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     },
     {
       "id": "AC16",
@@ -564,1141 +621,1334 @@
       "source_review_evidence": "docs/implementation/ISSUE_10_PHASE12_FINAL_SOURCE_AUDIT.md",
       "runtime_evidence": null,
       "decision_note": "P12 cumulative source review and 16 AC traceability; physical evidence remains absent. NO compilation/test/CI/APK; P13 owner-phone confirmation required.",
-      "verified_at": null
+      "verified_at": null,
+      "owner_report_context": "M01-M60 owner-reported PASS in aggregate; no independent criteria proof, so formal status remains NOT_VERIFIED."
     }
   ],
   "phone_tests": [
     {
       "id": "M01",
       "summary": "APK تجمیعی P13 نصب و باز شود؛ برنامه و Player اصلی بدون کرش فعال باشند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M02",
       "summary": "با شروع برنامه هیچ ضبط صدای خودکار یا Voice Overlay ظاهر نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M03",
       "summary": "بدون لمس میکروفون، گفتن «Play» هیچ دستوری اجرا نکند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M04",
       "summary": "ورود از Full Player؛ میکروفون قابل مشاهده و قابل لمس باشد یا علت غیرفعال بودن روشن باشد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M05",
       "summary": "ورود به Driving Mode از مسیر دستی؛ میکروفون همان Voice coordinator را استفاده کند و صفحهٔ جدید مستقل باز نکند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M06",
       "summary": "اولین ورود با میکروفونِ فاقد مجوز؛ راهنمای مجوز مناسب نمایش داده شود و بدون انتخاب کاربر ضبط شروع نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M07",
       "summary": "انتخاب Continue و مجوز Android؛ با برگشت از دیالوگ، ضبط خودکار شروع نشود؛ لمس مجدد لازم باشد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M08",
       "summary": "انتخاب Don't allow؛ موسیقی و دکمه‌های دستی همچنان قابل استفاده باشند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M09",
       "summary": "خاموش کردن مجوز میکروفون از Settings و برگشت؛ هنگام درخواست جدید، دسترسی دوباره بررسی شود و کرش نکند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M10",
       "summary": "اگر تشخیص گفتار روی‌دستگاه یا زبان انگلیسی موجود نیست (خصوصاً Android 10/11)، پیام واقعیِ عدم پشتیبانی و مسیر کنترل دستی نمایش داده شود؛ سرویس ابری بی‌اجازه فعال نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M11",
       "summary": "در حالت Pause با صف آماده بگو «Play»؛ همان موسیقی به صورت واقعی پخش شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M12",
       "summary": "هنگام پخش بگو «Pause»؛ پخش متوقف شود و جایگاه صف حفظ شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M13",
       "summary": "پس از Pause بگو «Resume»؛ پخش همان موسیقی از موقعیت صحیح ادامه پیدا کند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M14",
       "summary": "با «Next song» به آهنگ بعدی همان صف برو.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M15",
       "summary": "با «Previous song» رفتار ثابت Previous مطابق Player فعلی باشد (شروع آهنگ/ترک قبلی برحسب موقعیت).",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M16",
       "summary": "با «Go back 10 seconds» حدود ۱۰ ثانیه به عقب Seek شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M17",
       "summary": "همین Seek را در ۵ ثانیهٔ اول آهنگ انجام بده؛ موقعیت به صفر محدود شود، منفی/کرش نداشته باشد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M18",
       "summary": "«Stop music» باید فقط PAUSE باشد، نه حذف صف/بستن Player.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M19",
       "summary": "انتهای صف «Next»؛ هیچ ترک خیالی یا پخش غیرمنتظره‌ای رخ ندهد؛ پیغام کوتاه مناسب باشد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M20",
       "summary": "با صف خالی «Play»؛ فقط در صورت وجود و اعتبار Play Last طبق قرارداد Player عمل کند، وگرنه خطای امن/کنترل دستی؛ هیچ صف خیالی ساخته نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M21",
       "summary": "با گفتن جملهٔ نامربوط مثل «What is the weather?» هیچ عملی روی Player اجرا نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M22",
       "summary": "با «Volume up»، «Play YouTube» و «Play songs by Adele» در Issue #10 هیچ intent غیرمجاز یا PLAY_ARTIST اجرا نشود؛ رفتار امن مشاهده شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M23",
       "summary": "پس از لمس Mic حالت Listening واضح و منطبق با وضعیت واقعی دیده شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M24",
       "summary": "پس از گفتن فرمان معتبر، Processing در صورت طول کافی قابل مشاهده باشد؛ سپس نتیجهٔ واقعی Executed نمایش داده شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M25",
       "summary": "فرمان قطعیِ پنج‌گانه بدون صفحهٔ جدید یا مرحلهٔ تأیید اضافه اجرا شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M26",
       "summary": "عدم صحبت بعد از Mic؛ Listening حداکثر ۶ ثانیه باشد (اندازه‌گیری دستی را تقریبی ثبت کن؛ اثبات دقیق با آزمون فنی جداست).",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M27",
       "summary": "بعد از Timeout فقط یک Retry قابل انجام باشد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M28",
       "summary": "Timeout یا عدم تشخیص در تلاش دوم؛ Retry سوم مجاز نباشد و حالت امن دستی بازگردد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M29",
       "summary": "لمس Cancel یا Back هنگام Listening؛ ضبط فوراً متوقف و فرمانی اجرا نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M30",
       "summary": "لمس Cancel هنگام Processing؛ پاسخ دیررس Voice هیچ دستور تازه‌ای اجرا نکند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M31",
       "summary": "چند لمس سریع Mic؛ فقط یک جلسهٔ فعال وجود داشته باشد، نه دو ضبط/دو دستور.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M32",
       "summary": "یک بار گفتن Next؛ دقیقاً یک ترک جلو برود، حتی اگر بازخورد/نتیجه دوباره به UI برسد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M33",
       "summary": "نمایش Executed فقط پس از اجرای واقعی فرمان باشد؛ خطای Controller به اشتباه Executed نشان داده نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M34",
       "summary": "در حال پخش موزیک Mic را بزن؛ صدای موزیک هنگام Listening به شکل قابل تشخیص کم شود (Ducking).",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M35",
       "summary": "با اجرای موفق فرمان، Duck پایان یابد و سطح صدا متناسب با وضعیت جدید برگردد؛ افزایش تجمعی یا صدای ناگهانی رخ ندهد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M36",
       "summary": "در Listening روی Cancel بزن؛ کاهش صدای موقت پایان یابد، ولی آهنگی که قبلاً Pause بوده خودکار Play نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M37",
       "summary": "دو Listening متوالی و یک Retry؛ صدا مرحله‌به‌مرحله به سمت صفر نرود و Duck باقی نماند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M38",
       "summary": "پس از Timeout/Failed، موسیقی و سطح صدا مطابق حالت امن قبل و مداخلات سیستم باقی بمانند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M39",
       "summary": "پاسخ TTS اگر موجود باشد یک جملهٔ کوتاه باشد؛ تکرار پی‌درپی یا حرف‌زدن ممتد نداشته باشد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M40",
       "summary": "موتور TTS غایب/غیرفعال/بدون زبان مناسب؛ اجرای فرمانِ معتبر معطل نشود و موسیقی خراب نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M41",
       "summary": "حین Voice یک تماس تلفنی یا قطع Audio Focus رخ دهد؛ Voice لغو شود، تماس و اولویت سیستم محترم بمانند و پخش خودکار ناامن نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M42",
       "summary": "حین Listening هندزفری/بلوتوث صدا قطع شود؛ صدای موسیقی به شکل ناخواسته از اسپیکر گوشی ادامه پیدا نکند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M43",
       "summary": "هنگام Failed/Processing، دکمه‌های دستی Play/Pause/Next/Previous همان Player همچنان کار کنند یا با خروج فوری در دسترس باشند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M44",
       "summary": "هنگام Listening صفحه را بچرخان یا Activity را بازسازی کن (اگر سیستم اجازه دهد)؛ ضبط/فرمان دوم بدون درخواست کاربر ساخته نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M45",
       "summary": "هنگام Listening برنامه را به پس‌زمینه بفرست؛ مطابق سیاست Lifecycle ضبط لغو شود و برگشت خودکار ضبط را آغاز نکند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M46",
       "summary": "هنگام Listening از Driving Mode خارج شو؛ Voice متعلق به Driving لغو شود و کنترل دستی سالم بماند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M47",
       "summary": "حین Listening مجوز میکروفون را در تنظیمات لغو کن؛ با بازگشت، جلسه خاتمه و دسترسی تازه بررسی شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M48",
       "summary": "TalkBack را فعال کن؛ برچسب Mic، Listening، Processing، Failed، Retry، Cancel و نتیجهٔ واقعی قابل فهم باشد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M49",
       "summary": "اندازهٔ فونت را ۱۵۰٪ و ۲۰۰٪ کن؛ وضعیت صوتی و Cancel/Retry قابل رؤیت، اسکرول و لمس باشد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M50",
       "summary": "پس از خروج از Voice، فوکوس دسترس‌پذیری/کنترل به سطح اولیه بازگردد؛ هیچ صفحهٔ جداگانهٔ گیرکننده ایجاد نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M51",
       "summary": "لاگ/دادهٔ ذخیره‌شدهٔ قابل مشاهدهٔ اپ نباید فایل ضبط صدای خام یا تاریخچهٔ متن گفتار بسازد (فقط بازبینی کاربر؛ ممیزی کامل نیازمند تست فنی است).",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M52",
       "summary": "بدون رضایت جداگانه و افشای مقصد/نگهداری، هیچ گزینهٔ STT ابری فعال یا اجباری نباشد؛ انتخاب «نه» مانع موسیقی آفلاین نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M53",
       "summary": "Mini Player و Full Player پس از اجرای هر کدام از پنج فرمان از snapshot واقعی Media3 یکسان پیروی کنند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M54",
       "summary": "دکمه‌های Play/Pause/Next/Previous در Android media notification همانند قبل کار کنند؛ لمس media card در صورت قابلیت قبلی اپ را باز کند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M55",
       "summary": "کنترل Play/Pause/Next از ایرپاد یا هدست (اگر در دسترس است) بعد از Voice همچنان کار کند.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M56",
       "summary": "ورود/خروج دستی Driving Mode و پیشنهاد اختیاری Bluetooth از Issue #9 مستقل از Voice بماند؛ هیچ ورود خودکار یا autoplay ناخواسته رخ ندهد.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M57",
       "summary": "اگر آهنگ خراب/حذف‌شده یا Controller disconnected باشد، اجرای فرمان صوتی خطای کوتاه و امن بدهد، نه کرش/موفقیت ساختگی.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M58",
       "summary": "کم‌وزیاد کردن صدا، قطع Bluetooth و تماس پس از اتمام Voice، سیاست‌های #8 و #9 را نقض نکند و صدای گوشی ناخواسته بلند نشود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M59",
       "summary": "نسخه و SHA-256 APK مورد تست با فایل تحویل P13 تطبیق داده و همهٔ FAIL/BLOCKED/N/A با دلیل ثبت شود.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     },
     {
       "id": "M60",
       "summary": "ثبت محدودیت تست تک‌دستگاهی؛ بررسی API29/30/31+/OEM و خودرو/هدیونیت که واقعاً انجام نشده صادقانه به صورت NOT_RUN/BLOCKED/N/A گزارش شود، نه PASS.",
-      "status": "NOT_RUN",
-      "apk_sha256": null,
-      "observed_at": null,
-      "device": null,
-      "evidence_links": [],
-      "observation": null,
-      "reason_if_blocked_or_na": null
+      "status": "PASS",
+      "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+      "observed_at": "2026-11-14",
+      "device": "owner's test handset (model not reconfirmed in this report)",
+      "evidence_links": [
+        "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
+      ],
+      "observation": "Owner reported all M01-M60 PASS as one aggregate statement on 2026-11-14, without individual case logs or independent technical proof.",
+      "reason_if_blocked_or_na": null,
+      "provenance": "OWNER_SELF_REPORT_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
     }
   ],
   "laboratory": {
-    "state": "NOT_RUN",
+    "state": "OWNER_AGGREGATE_REPORTED_GATE_FAILED",
     "prerequisite": "P13_CUMULATIVE_APK_AND_SUPPORTED_ON_DEVICE_STT",
     "planned_total_attempts": 50,
     "required_successes": 45,
     "required_rate": 0.9,
-    "actual_attempts": 0,
-    "actual_successes": null,
-    "actual_failures": null,
-    "actual_success_rate": null,
-    "gate_passed": null,
-    "owner_tested_at": null,
-    "apk_sha256": null,
+    "actual_attempts": 50,
+    "actual_successes": 24,
+    "actual_failures": 26,
+    "actual_success_rate": 0.48,
+    "gate_passed": false,
+    "owner_tested_at": "2026-11-14",
+    "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
     "groups": [
       {
         "id": "L01",
         "intent": "PLAY",
         "planned_attempts": 10,
-        "completed_attempts": 0,
-        "successful_attempts": null,
-        "failed_attempts": null,
-        "status": "NOT_RUN",
+        "completed_attempts": 10,
+        "successful_attempts": 2,
+        "failed_attempts": 8,
+        "status": "OWNER_AGGREGATE_REPORTED",
         "attempts": [
           {
             "attempt": 1,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 2,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 3,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 4,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 5,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 6,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 7,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 8,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 9,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 10,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           }
-        ]
+        ],
+        "rate": 0.2,
+        "provenance": "owner aggregate count, no per-attempt labels"
       },
       {
         "id": "L02",
         "intent": "PAUSE",
         "planned_attempts": 10,
-        "completed_attempts": 0,
-        "successful_attempts": null,
-        "failed_attempts": null,
-        "status": "NOT_RUN",
+        "completed_attempts": 10,
+        "successful_attempts": 1,
+        "failed_attempts": 9,
+        "status": "OWNER_AGGREGATE_REPORTED",
         "attempts": [
           {
             "attempt": 1,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 2,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 3,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 4,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 5,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 6,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 7,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 8,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 9,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 10,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           }
-        ]
+        ],
+        "rate": 0.1,
+        "provenance": "owner aggregate count, no per-attempt labels"
       },
       {
         "id": "L03",
         "intent": "NEXT",
         "planned_attempts": 10,
-        "completed_attempts": 0,
-        "successful_attempts": null,
-        "failed_attempts": null,
-        "status": "NOT_RUN",
+        "completed_attempts": 10,
+        "successful_attempts": 8,
+        "failed_attempts": 2,
+        "status": "OWNER_AGGREGATE_REPORTED",
         "attempts": [
           {
             "attempt": 1,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 2,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 3,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 4,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 5,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 6,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 7,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 8,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 9,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 10,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           }
-        ]
+        ],
+        "rate": 0.8,
+        "provenance": "owner aggregate count, no per-attempt labels"
       },
       {
         "id": "L04",
         "intent": "PREVIOUS",
         "planned_attempts": 10,
-        "completed_attempts": 0,
-        "successful_attempts": null,
-        "failed_attempts": null,
-        "status": "NOT_RUN",
+        "completed_attempts": 10,
+        "successful_attempts": 5,
+        "failed_attempts": 5,
+        "status": "OWNER_AGGREGATE_REPORTED",
         "attempts": [
           {
             "attempt": 1,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 2,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 3,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 4,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 5,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 6,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 7,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 8,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 9,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 10,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           }
-        ]
+        ],
+        "rate": 0.5,
+        "provenance": "owner aggregate count, no per-attempt labels"
       },
       {
         "id": "L05",
         "intent": "SEEK_BACK",
         "planned_attempts": 10,
-        "completed_attempts": 0,
-        "successful_attempts": null,
-        "failed_attempts": null,
-        "status": "NOT_RUN",
+        "completed_attempts": 10,
+        "successful_attempts": 8,
+        "failed_attempts": 2,
+        "status": "OWNER_AGGREGATE_REPORTED",
         "attempts": [
           {
             "attempt": 1,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 2,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 3,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 4,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 5,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 6,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 7,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 8,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 9,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           },
           {
             "attempt": 10,
-            "status": "NOT_RUN",
+            "status": "NOT_ITEMIZED",
             "command_executed": null,
             "recognizer_result_bucket": null,
             "latency_ms": null,
-            "observation": null
+            "observation": "Attempt completed within owner-reported 10-trial group; individual pass/fail, transcript, confidence, timing not supplied. Group total only."
           }
-        ]
+        ],
+        "rate": 0.8,
+        "provenance": "owner aggregate count, no per-attempt labels"
       }
-    ]
+    ],
+    "reporting_granularity": "GROUP_COUNTS_ONLY_NO_PER_ATTEMPT_OUTCOMES",
+    "evidence_doc": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md"
   },
   "technical_tests": [
     {
@@ -1896,26 +2146,36 @@
   },
   "summary": {
     "manual_total": 60,
-    "manual_recorded": 0,
-    "manual_passed": null,
-    "manual_failed": null,
-    "manual_blocked": null,
-    "manual_na": null,
+    "manual_recorded": 60,
+    "manual_passed": 60,
+    "manual_failed": 0,
+    "manual_blocked": 0,
+    "manual_na": 0,
     "lab_total": 50,
-    "lab_measured": 0,
+    "lab_measured": 50,
     "ac_total": 16,
-    "ac_verified": 0,
+    "ac_verified": 1,
     "technical_groups": 10,
     "technical_executed": 0,
     "technical_groups_authored": 9,
-    "technical_groups_executed": 0
+    "technical_groups_executed": 0,
+    "lab_successes": 24,
+    "lab_failures": 26,
+    "lab_success_rate": 0.48,
+    "lab_gate_passed": false,
+    "ac_verified_failed": 1,
+    "ac_verified_passed": 0,
+    "manual_evidence": "OWNER_AGGREGATE_NOT_INDEPENDENTLY_VERIFIED"
   },
   "quality_gates": {
     "P01_complete_only_on_source_commit": true,
     "technical_QA_not_authorized_for_execution": true,
     "owner_phone_results_deferred_to_P13": true,
     "field_QA_requires_lab_gate_pass": true,
-    "no_merge_close_without_owner_instruction": true
+    "no_merge_close_without_owner_instruction": true,
+    "owner_authorized_merge_close_exception": true,
+    "lab_gate_passed": false,
+    "p0_voice_quality_followup": 80
   },
   "phase_notes": {
     "P02": {
@@ -2344,7 +2604,30 @@
         "tests_executed": 0,
         "owner_retest": "PENDING",
         "prior_apk_sha256": "4c22acd630fd1c8b62044cd52d30ccf309d97fc787e6a5ecde7e4694f936b396"
+      },
+      "owner_moonshine_2026_11_14": {
+        "report": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+        "source_sha": "eaebff42458a885995d336a8c517f744889d5bae",
+        "artifact_id": 13657909808,
+        "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+        "manual_report": "M01-M60 aggregate PASS",
+        "lab_gate": "FAIL_24_OF_50",
+        "technical_executed": 0,
+        "owner_authorized_merge_close": true,
+        "p0_followup_issue": 80
       }
     }
+  },
+  "owner_acceptance": {
+    "owner_report_date": "2026-11-14",
+    "decision": "MERGE_AND_CLOSE_IMPLEMENTATION_WITH_EXPLICIT_FAILED_QA_GATE",
+    "manual_test_provenance": "OWNER_GLOBAL_SELF_ATTESTATION_NO_PER_CASE_LOGS",
+    "manual_reported": "M01-M60 ALL PASS",
+    "voice_lab_reported": "24/50 = 48% (gate >=45/50 = 90%)",
+    "lab_gate": "FAILED",
+    "unresolved_debt_issue": 80,
+    "report": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+    "technical_proof": "T01-T10 NOT_RUN",
+    "caution": "Acceptance of implementation is not a claim of full quality gate pass, field readiness, or device matrix certification."
   }
 }
