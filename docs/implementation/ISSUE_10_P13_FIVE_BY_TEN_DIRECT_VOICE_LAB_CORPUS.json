@@ -2,7 +2,7 @@
   "schema": "issue10-p13-direct-voice-lab-v1",
   "phase": "P13_ONLY",
   "source_phase": "P12_AUTHORED_ONLY",
-  "state": "PREPARED_NOT_EXECUTED",
+  "state": "OWNER_AGGREGATE_REPORTED_ATTEMPT_OUTCOMES_NOT_ITEMIZED",
   "count": 50,
   "groups": 5,
   "attempts_per_group": 10,
@@ -21,13 +21,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-01 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-02",
@@ -39,13 +39,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-02 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-03",
@@ -57,13 +57,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-03 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-04",
@@ -75,13 +75,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-04 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-05",
@@ -93,13 +93,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-05 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-06",
@@ -111,13 +111,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-06 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-07",
@@ -129,13 +129,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-07 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-08",
@@ -147,13 +147,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-08 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-09",
@@ -165,13 +165,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-09 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L01-10",
@@ -183,13 +183,13 @@
       "precondition": "Queue with valid current track; playback paused",
       "expected": "Media3 acknowledged playback resumes; current queue unchanged",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 2/10 group successes, but did not identify which trial L01-10 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-01",
@@ -201,13 +201,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-01 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-02",
@@ -219,13 +219,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-02 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-03",
@@ -237,13 +237,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-03 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-04",
@@ -255,13 +255,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-04 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-05",
@@ -273,13 +273,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-05 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-06",
@@ -291,13 +291,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-06 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-07",
@@ -309,13 +309,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-07 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-08",
@@ -327,13 +327,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-08 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-09",
@@ -345,13 +345,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-09 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L02-10",
@@ -363,13 +363,13 @@
       "precondition": "Active playback",
       "expected": "Playback stops at same position; no queue removal",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 1/10 group successes, but did not identify which trial L02-10 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-01",
@@ -381,13 +381,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-01 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-02",
@@ -399,13 +399,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-02 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-03",
@@ -417,13 +417,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-03 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-04",
@@ -435,13 +435,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-04 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-05",
@@ -453,13 +453,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-05 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-06",
@@ -471,13 +471,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-06 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-07",
@@ -489,13 +489,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-07 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-08",
@@ -507,13 +507,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-08 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-09",
@@ -525,13 +525,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-09 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L03-10",
@@ -543,13 +543,13 @@
       "precondition": "Three ordered playable tracks, start at index 0",
       "expected": "Advance exactly one track in same queue",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L03-10 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-01",
@@ -561,13 +561,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-01 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-02",
@@ -579,13 +579,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-02 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-03",
@@ -597,13 +597,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-03 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-04",
@@ -615,13 +615,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-04 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-05",
@@ -633,13 +633,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-05 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-06",
@@ -651,13 +651,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-06 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-07",
@@ -669,13 +669,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-07 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-08",
@@ -687,13 +687,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-08 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-09",
@@ -705,13 +705,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-09 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L04-10",
@@ -723,13 +723,13 @@
       "precondition": "Three ordered playable tracks; start index 2 with known elapsed position",
       "expected": "Existing Media3 Previous/start-current policy, no duplicate skip",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 5/10 group successes, but did not identify which trial L04-10 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-01",
@@ -741,13 +741,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-01 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-02",
@@ -759,13 +759,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-02 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-03",
@@ -777,13 +777,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-03 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-04",
@@ -795,13 +795,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-04 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-05",
@@ -813,13 +813,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-05 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-06",
@@ -831,13 +831,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-06 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-07",
@@ -849,13 +849,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-07 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-08",
@@ -867,13 +867,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-08 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-09",
@@ -885,13 +885,13 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-09 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     },
     {
       "id": "L05-10",
@@ -903,13 +903,35 @@
       "precondition": "Seekable current track, position at least 20 seconds",
       "expected": "Seek exactly 10 seconds back; never below zero",
       "actual": null,
-      "status": "NOT_RUN",
+      "status": "NOT_ITEMIZED",
       "device": null,
       "android_version": null,
-      "stt_engine": null,
+      "stt_engine": "Moonshine Tiny v2 + Silero VAD (group candidate only)",
       "provider_confidence": null,
       "elapsed_ms": null,
-      "notes": null
+      "notes": "Owner reported 8/10 group successes, but did not identify which trial L05-10 passed/failed; no fabricated per-attempt outcome, transcript or latency."
     }
-  ]
+  ],
+  "tested_candidate": {
+    "report_date": "2026-11-14",
+    "engine": "Moonshine Tiny v2 + Silero VAD",
+    "source_sha": "eaebff42458a885995d336a8c517f744889d5bae",
+    "apk_sha256": "f24e6998e17613f69da0e297b9175dede16c5819c760e95b26724fece61b0ed2",
+    "build_run_id": 40277406135,
+    "artifact_id": 13657909808,
+    "report": "docs/implementation/ISSUE_10_OWNER_MOONSHINE_QA_ACCEPTANCE_2026-11-14.md",
+    "group_successes": {
+      "L01": 2,
+      "L02": 1,
+      "L03": 8,
+      "L04": 5,
+      "L05": 8
+    },
+    "overall_successes": 24,
+    "overall_attempts": 50,
+    "overall_rate": 0.48,
+    "target_successes": 45,
+    "gate_passed": false,
+    "attempt_outcomes": "NOT_ITEMIZED_OWNER_AGGREGATE_ONLY"
+  }
 }
