@@ -3,38 +3,38 @@
 
 **وضعیت این سند:** برنامه‌ریزی و ممیزی سورس؛ پیاده‌سازی Issue #11 هنوز آغاز نشده. هیچ تست یا Build/APK در فازهای P00 تا P12 مجاز نیست؛ فقط P13 مرحله یکپارچه‌سازی نهایی، ساخت یک APK، تحویل چک‌لیست و اجرای تست به‌وسیله مالک است.
 
-**شاخه:** \`feature/11-play-artist-one-step-ambiguity\` — مبنا \`main\` پس از Merge شدن #10. **مخزن:** \`latticeward-labs/music-copilot\`.
+**شاخه:** `feature/11-play-artist-one-step-ambiguity` — مبنا `main` پس از Merge شدن #10. **مخزن:** `latticeward-labs/music-copilot`.
 
 **منابع الزام‌آور:**
 - [Issue #11](https://github.com/latticeward-labs/music-copilot/issues/11)؛ [PRD](https://github.com/latticeward-labs/music-copilot/blob/main/docs/PRD.md)؛ [MVP](https://github.com/latticeward-labs/music-copilot/blob/main/docs/MVP.md)؛ [Software Architecture](https://github.com/latticeward-labs/music-copilot/blob/main/docs/SOFTWARE_ARCHITECTURE.md).
-- آرشیو ۱۲ PDF انگلیسی ارسالی مالک \`MSM2(1)(1).rar\` با SHA-256 برابر \`0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8\`. مخصوصاً ADR-0003/0004/0005، Technical Documentation، PRD/MVP، System Architecture.
+- آرشیو ۱۲ PDF انگلیسی ارسالی مالک `MSM2(1)(1).rar` با SHA-256 برابر `0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8`. مخصوصاً ADR-0003/0004/0005، Technical Documentation، PRD/MVP، System Architecture.
 - #6 Library (Closed)، #10 Voice (Closed/Owner exception)، #16 Software Architecture (Closed)، #17 Design (Closed). #80 کیفیت تشخیص صوتی P0 همچنان OPEN است: پنج فرمان Issue #10، برابر 24/50 = 48% و زیر Gate ≥90%.
 
 ## اصول غیرقابل‌نقض
-1. شش Intent دقیقاً \`PLAY\`, \`PAUSE\`, \`NEXT\`, \`PREVIOUS\`, \`SEEK_BACK\`, \`PLAY_ARTIST\`؛ بدون NLU/LLM، Wake Word، مکالمه چندمرحله‌ای، حساب/Backend/Streaming، و بدون نیاز به اینترنت.
+1. شش Intent دقیقاً `PLAY`, `PAUSE`, `NEXT`, `PREVIOUS`, `SEEK_BACK`, `PLAY_ARTIST`؛ بدون NLU/LLM، Wake Word، مکالمه چندمرحله‌ای، حساب/Backend/Streaming، و بدون نیاز به اینترنت.
 2. شروع STT فقط با لمس Mic؛ Coordinator مالک Session/Confirming؛ Service/Media3 مالک Queue و Playback؛ UI فقط نمایش و رویداد انتخاب.
 3. مسیر واضح با شواهد confidence کافی → اجرای مستقیم؛ دو گزینه نزدیک یا confidence پایین اما قابل‌تعیین → تنها یک سؤال و پاسخ؛ ناموجود، ناشناخته، تأیید نامعتبر/دوم، لغو و خطای دسترسی → عدم تغییر پخش و بازگشت به کنترل دستی.
-4. Confirming فقط فهرست immutable یک یا دو گزینه با \`VoiceCandidateToken + optionIndex\`؛ دکمه Neither/Cancel خارج از گزینه‌های هنرمند؛ پس از مصرف token دیگر قابل اجرا نیست.
+4. Confirming فقط فهرست immutable یک یا دو گزینه با `VoiceCandidateToken + optionIndex`؛ دکمه Neither/Cancel خارج از گزینه‌های هنرمند؛ پس از مصرف token دیگر قابل اجرا نیست.
 5. جست‌وجوی هنرمند از مجوز MediaStore و ایندکس Room؛ قبل از Commit به Playback باید revision/مجوز/وجود فایل و قابلیت پخش دوباره بررسی شود؛ Queue فقط از فایل‌های همان هنرمند و با ترتیب پایدار تشکیل شود.
 6. نظم قطعی: exact normalized > fuzzy score > playback-history (فقط tie-break مجاز) > stable artist ID. آستانه‌های baseline: direct provider 0.90 (محدوده تنظیم 0.80..0.98)، artist clear 0.88، plausible 0.72 و حداقل فاصله 0.08. نام امتیاز و الگوریتم نسخه‌دار؛ امتیاز STT و تطبیق Artist نباید به‌صورت پنهان ترکیب شوند.
 7. Moonshine+Silero فعلی confidence کالیبره برای هر utterance برنمی‌گرداند؛ برای تصمیم مستقیم artist نباید confidence جعلی تولید شود. در P05 باید سیاست ایمن/مستند سازگار با استثنای Issue #10 برای عبارت پنج فرمان دقیق تعیین شود. این نقص و #80 را پنهان نکنید.
 8. داده صوت خام، Transcript کامل، نام هنرمند/فایل، ID/URI و محتویات کتابخانه نباید در Telemetry/گزارش‌های GitHub بیایند. فقط Intent، bucket اطمینان/تأخیر، نتیجه/خطای دسته‌بندی‌شده.
 
 ## مشاهده شکاف واقعی کد فعلی در main
-- \`RestrictedVoiceIntentMapper.kt\`: \`PLAY_ARTIST\` فقط نام رزروشده؛ هیچ map مستقیم برای هنرمند ندارد.
-- \`RoomLibraryRepository.resolveVoiceCandidates()\`: کاندیدا را از \`normalizedTitle\` و وجود متن در هنرمند، با امتیازهای 1/.88/.72 می‌سازد؛ این قرارداد «حل هنرمند» نیست و باید بدون شکستن Search/Browse اصلاح/تفکیک شود.
-- \`VoicePlaybackDispatcher.commandFor(PLAY_ARTIST)\` هم‌اکنون \`null\` می‌دهد.
-- \`DefaultVoiceSessionCoordinator.confirm()\` هم‌اکنون با \`VOICE_STALE_SESSION\` رد می‌کند.
-- \`VoiceOverlayPresentationPolicy\` حالت Confirming را \`ConfirmationUnavailable\` نمایش می‌دهد و \`VoiceSessionPanel\` گزینه‌های انتخاب هنرمند را ارائه نمی‌کند.
-- \`LibraryTextNormalization\` کلید Unicode/NFKC موجود است؛ باید از آن استفاده کرد و منطق نسخه‌دار جدید را با نمایش متادیتا مخلوط نکرد.
-- \`PlaybackCommand.ReplaceQueue\` و \`PlaybackGateway.execute\` از قبل برای صف یکپارچه و ACK سرویس موجودند؛ پخش‌کننده دوم ساخته نشود.
+- `RestrictedVoiceIntentMapper.kt`: `PLAY_ARTIST` فقط نام رزروشده؛ هیچ map مستقیم برای هنرمند ندارد.
+- `RoomLibraryRepository.resolveVoiceCandidates()`: کاندیدا را از `normalizedTitle` و وجود متن در هنرمند، با امتیازهای 1/.88/.72 می‌سازد؛ این قرارداد «حل هنرمند» نیست و باید بدون شکستن Search/Browse اصلاح/تفکیک شود.
+- `VoicePlaybackDispatcher.commandFor(PLAY_ARTIST)` هم‌اکنون `null` می‌دهد.
+- `DefaultVoiceSessionCoordinator.confirm()` هم‌اکنون با `VOICE_STALE_SESSION` رد می‌کند.
+- `VoiceOverlayPresentationPolicy` حالت Confirming را `ConfirmationUnavailable` نمایش می‌دهد و `VoiceSessionPanel` گزینه‌های انتخاب هنرمند را ارائه نمی‌کند.
+- `LibraryTextNormalization` کلید Unicode/NFKC موجود است؛ باید از آن استفاده کرد و منطق نسخه‌دار جدید را با نمایش متادیتا مخلوط نکرد.
+- `PlaybackCommand.ReplaceQueue` و `PlaybackGateway.execute` از قبل برای صف یکپارچه و ACK سرویس موجودند؛ پخش‌کننده دوم ساخته نشود.
 
 ## جدول فازها (فقط اجرای کد و مستندسازی؛ بدون Build/Test تا P13)
 
 ### P00 — مرجع، وابستگی، فریز Scope و شکاف‌سنجی
 - Issue #11، ADRها، PRD/MVP، Architecture، #6/#10/#16/#17 و ریسک #80 را تطبیق بده.
 - فهرست دقیق فایل‌ها و APIهای مجاز برای تغییر، baseline commit و ممنوعیت تغییر STT/Playback خارج از Scope ثبت شود.
-- **خروجی:** \`ISSUE_11_P00_READINESS_AND_GAPS.md\` + ثبت وضعیت readiness. **پایان فاز:** هیچ dependency حیاتی گم نشده و فرضیات باز مستندند.
+- **خروجی:** `ISSUE_11_P00_READINESS_AND_GAPS.md` + ثبت وضعیت readiness. **پایان فاز:** هیچ dependency حیاتی گم نشده و فرضیات باز مستندند.
 
 ### P01 — قرارداد محصول، state/نتایج و ماتریس پذیرش
 - حالات Direct / Ambiguous / NotFound / Unknown / Unsupported / Cancel / Stale / PlaybackFailure را به معیارهای Issue نگاشت کن.
@@ -42,7 +42,7 @@
 - **خروجی:** typed contract + State/Result matrix + traceability AC01..AC13؛ بدون فعال‌سازی رفتار.
 
 ### P02 — Grammar قطعی PLAY_ARTIST و Slot Extraction
-- عبارت الزامی \`Play songs by [artist]\`، و فقط فرم‌های معادل واقعاً تأییدشده در Voice Contract را پیاده کن.
+- عبارت الزامی `Play songs by [artist]`، و فقط فرم‌های معادل واقعاً تأییدشده در Voice Contract را پیاده کن.
 - phrase-prefixهای کنترل پنج‌گانه را تغییر نده؛ طول ورودی، نویز نقطه‌گذاری/فاصله، زبان انگلیسی، slot خالی، متن خارج از Scope را با خروجی typed تفکیک کن.
 - **خروجی:** mapper/prefix grammar نسخه‌دار و آزمون‌های منبع نوشته‌شده ولی NOT_RUN.
 
@@ -56,28 +56,28 @@
 - normalization مرحله‌ای/نسخه‌دار، exact، fuzzy bounded (مثلاً normalized edit distance با پارامتر ثبت‌شده) و ترتیب مورد توافق ADR را پیاده کن.
 - history تنها هنگامی که local history مطابق سیاست تأییدشده حاضر است، tie-break ثانویه؛ هرگز نامزد با اختلاف ناچیز را صرفاً به کمک history بی‌اجازه مستقیم اجرا نکن.
 - نزدیک به هم → Ambiguous حداکثر دو مورد؛ بدون کاندیدای plausible → NotFound؛ مرتب‌سازی مستقل از ترتیب SQLite.
-- **خروجی:** pure \`ArtistResolver\` و scorer، fixtures/tests فقط نوشته‌شده.
+- **خروجی:** pure `ArtistResolver` و scorer، fixtures/tests فقط نوشته‌شده.
 
 ### P05 — Confidence/Threshold و تصمیم Execute/Confirm/Reject
-- \`BuildConfig\` برای thresholdها/validation bounds؛ هیچ Remote Config/Backend تازه اضافه نشود.
+- `BuildConfig` برای thresholdها/validation bounds؛ هیچ Remote Config/Backend تازه اضافه نشود.
 - provider confidence و artist similarity را جدا نگه دار. missing/NaN/out-of-range → عدم حدس. برای provider Moonshine بدون confidence، سیاست شفاف و safe با توجه به قرارداد معماری و ریسک #80 مستند شود.
 - direct فقط با قواعد مورد تأیید؛ low confidence با انتخاب bounded → Confirming؛ سایر موارد → Failed/manual.
 - **خروجی:** pure confidence policy + نگاشت deterministic به تصمیم نهایی.
 
 ### P06 — جمع‌کردن آهنگ‌های یک هنرمند و Playback dispatch
-- از ArtistGroup انتخابی، فهرست محلی آهنگ‌ها با ترتیب ثابت و سقف موجود \`ReplaceQueue\` بساز؛ group/session/revision را پیش از اجرا کنترل کن.
-- \`LibraryRepository.get(ref)\` و سرویس Media3 آخرین داور مجوز، موجودی و ACK هستند؛ \`PlaybackGateway\` تنها مسیر پخش.
-- بازنویسی صف تنها پس از تصمیم مجاز؛ NotFound/Cancel/Failure نباید صف قبلی را دستکاری کند. برای هر dispatch \`CommandId\` ثابت نسبت به تلاش و nonce امن.
-- **خروجی:** use-case \`PlayArtist\` + ACK و خطاهای typed؛ بدون player دوم.
+- از ArtistGroup انتخابی، فهرست محلی آهنگ‌ها با ترتیب ثابت و سقف موجود `ReplaceQueue` بساز؛ group/session/revision را پیش از اجرا کنترل کن.
+- `LibraryRepository.get(ref)` و سرویس Media3 آخرین داور مجوز، موجودی و ACK هستند؛ `PlaybackGateway` تنها مسیر پخش.
+- بازنویسی صف تنها پس از تصمیم مجاز؛ NotFound/Cancel/Failure نباید صف قبلی را دستکاری کند. برای هر dispatch `CommandId` ثابت نسبت به تلاش و nonce امن.
+- **خروجی:** use-case `PlayArtist` + ACK و خطاهای typed؛ بدون player دوم.
 
 ### P07 — Coordinator: Confirming/Token/Exactly-Once
-- \`DefaultVoiceSessionCoordinator\` را به state Confirming واقعی و \`confirm(token, optionIndex)\` تک‌مصرف مجهز کن.
+- `DefaultVoiceSessionCoordinator` را به state Confirming واقعی و `confirm(token, optionIndex)` تک‌مصرف مجهز کن.
 - immutable snapshot از 1..2 گزینه، token/session/generation معتبر، ادعای dispatch پیش از suspend، stale event/چند لمس/process recreation/timeout/cancel رد شوند.
 - یک پاسخ فقط؛ پاسخ مبهم دوم → Failed/manual؛ پنجره Confirming بازگشت به Listening یا مکالمه آزاد نباشد.
 - **خروجی:** finite-state transitions با حداکثر یک dispatch و cancellation درست.
 
 ### P08 — UI Compose برای Confirming در Player و Driving
-- \`VoiceSessionPanel\` و projection را با متن سؤال، دکمه‌های یک یا دو انتخاب و Neither/Cancel هماهنگ کن؛ \`onConfirm(token,index)\` به Coordinator متصل شود.
+- `VoiceSessionPanel` و projection را با متن سؤال، دکمه‌های یک یا دو انتخاب و Neither/Cancel هماهنگ کن؛ `onConfirm(token,index)` به Coordinator متصل شود.
 - touch target و TalkBack/focus/RTL-safe handling و بازگشت درست به مبدأ؛ UI هیچ lookup دیگری انجام ندهد.
 - **خروجی:** رابط تأیید قابل استفاده با دسترسی‌پذیری، بدون ناوبری/صف جدید.
 
@@ -92,13 +92,13 @@
 - **خروجی:** safety guards و regression test fixtures (فقط نوشته شوند).
 
 ### P11 — Telemetry و Privacy Gate
-- فقط \`intent_type\`, \`confidence_bucket\`, \`latency_bucket\`, \`result_code\` و دسته safe برای manual correction.
+- فقط `intent_type`, `confidence_bucket`, `latency_bucket`, `result_code` و دسته safe برای manual correction.
 - هیچ Transcript، artist name، media title، URI/ID، candidate list، مسیر فایل یا token مصرفی persist/log/upload نشود.
 - بروز خطا در optional telemetry نباید Voice/Playback را بلوکه کند.
 - **خروجی:** typed allowlist + privacy test fixtures بدون اجرای تست.
 
 ### P12 — تکمیل Wiring، پوشش سناریو و آماده‌سازی تحویل
-- \`VoiceBindings\`/Data/Playback ports را به هم وصل کن و کدهای مستقل فازها را در همان branch کامل کن؛ پنج فرمان Issue #10، Library، Full Player و Driving Mode محفوظ.
+- `VoiceBindings`/Data/Playback ports را به هم وصل کن و کدهای مستقل فازها را در همان branch کامل کن؛ پنج فرمان Issue #10، Library، Full Player و Driving Mode محفوظ.
 - unit fixtures برای normalization, exact/fuzzy/ties, thresholds, NotFound, revision, idempotency و integration fixtures برای Confirming→Executed/Failed، dispatch/ACK، route/lifecycle آماده کن؛ **فقط نوشتن**.
 - ماتریس AC، چک‌لیست فارسی P13، ledger با وضعیت اولیه NOT_RUN و دستور build-only تدوین شود.
 - **خروجی:** سورس کامل بدون کامپایل/Build، بدون اجرای test/CI/Lint و بدون APK در این فاز.
@@ -110,13 +110,13 @@
 4. در صورت توافق مالک، برای تست‌های فنی نیز **فقط در P13** اجرای JVM/Integration/Android/Privacy و ضبط نتیجه واقعی انجام شود؛ نتیجه NOT_RUN را PASS ننام.
 5. آزمون آزمایشگاهی ۶ × ۱۰: پنج فرمان قبلی + PLAY_ARTIST، حداقل **54/60 = 90%** (معیار اجرایی پیشنهادی جهت کنترل کیفیت مستقیم). همچنین بروز اجرای اشتباه ناخواسته یک P0 است؛ زمان P95 پاسخ صوتی هدف <2.5s.
 6. مشکل فعال #80 (Issue #10 برابر 48% در نمونه پیشین) تا رفع/تکرار واقعی در build جدید همچنان blocking quality debt است؛ وضعیت Issue #11/PR را با نتایج واقعی ثبت کن.
-7. **فقط پس از گزارش تست مالک و ممیزی AC:** PR به \`main\`، Merge و Close. هیچ success/QA/closure پیشاپیش ادعا نشود.
+7. **فقط پس از گزارش تست مالک و ممیزی AC:** PR به `main`، Merge و Close. هیچ success/QA/closure پیشاپیش ادعا نشود.
 
 ## چک‌لیست اصلی گوشی در P13 — همه موارد NOT_RUN
 آماده‌سازی: حداقل یک هنرمند با چند آهنگ، دو نام هنرمند نزدیک، فایل هنرمند ناموجود، فایل حذف/جابجا شده، و نسخه با مجوز موسیقی. از ثبت نام واقعی فایل‌های خصوصی در گزارش GitHub خودداری کنید.
 
 ### A — فرمان و تشخیص هنرمند (M01–M08)
-- M01: \`Play songs by [artist]\` برای هنرمند موجود → همان artist.
+- M01: `Play songs by [artist]` برای هنرمند موجود → همان artist.
 - M02: چند آهنگ از هنرمند → صف شامل همه موارد مجاز در ترتیب پایدار.
 - M03: هنرمند منحصر به فرد با اعتماد کافی → اجرا بدون صفحه/تأیید اضافی.
 - M04: معادل تأییدشده دستور → همان رفتار.
