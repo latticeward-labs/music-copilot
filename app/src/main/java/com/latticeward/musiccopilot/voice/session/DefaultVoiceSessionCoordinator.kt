@@ -99,6 +99,7 @@ class DefaultVoiceSessionCoordinator(
     // P09: one optional clarification sentence for an artist choice, kept
     // separate from the subsequent ACK-driven terminal response.
     private var artistPromptClaimed = false
+    private var artistPromptJob: Job? = null
     /** The single pending confirmation exists only for the active generation. */
     private data class ArtistPending(
         val snapshot: PlayArtistConfirmationSnapshot,
@@ -150,6 +151,8 @@ class DefaultVoiceSessionCoordinator(
         dispatchClaimed = false
         feedbackClaimed = false
         artistPromptClaimed = false
+        artistPromptJob?.cancel()
+        artistPromptJob = null
         pendingArtist = null
         confirmingDispatchInFlight = false
         confirmationTimeoutJob?.cancel()
@@ -451,7 +454,8 @@ class DefaultVoiceSessionCoordinator(
         number: Int,
         generation: Job,
     ) {
-        ownerScope.launch(generation) {
+        artistPromptJob?.cancel()
+        artistPromptJob = ownerScope.launch(generation) {
             val key = synchronized(gate) {
                 val pending = pendingArtist
                 val ui = mutableState.value as? VoiceSessionState.Confirming
@@ -562,6 +566,8 @@ class DefaultVoiceSessionCoordinator(
         confirmingDispatchInFlight = false
         // Stop any outstanding short spoken question; cancellation/Neither
         // cannot leave a delayed TTS utterance over manual playback.
+        artistPromptJob?.cancel()
+        artistPromptJob = null
         runCatching { tts.stop(pending.snapshot.sessionId) }
         mutableState.value = VoiceSessionState.Failed(
             pending.snapshot.sessionId, pending.snapshot.origin,
@@ -770,6 +776,8 @@ class DefaultVoiceSessionCoordinator(
             confirmingDispatchInFlight = true
             // An answer supersedes the optional question; never overlap
             // clarification audio with a subsequent service ACK result.
+            artistPromptJob?.cancel()
+            artistPromptJob = null
             runCatching { tts.stop(id) }
             mutableState.value = VoiceSessionState.Processing(id, snapshot.origin, number)
 
@@ -904,6 +912,8 @@ class DefaultVoiceSessionCoordinator(
         dispatchClaimed = false
         feedbackClaimed = false
         artistPromptClaimed = false
+        artistPromptJob?.cancel()
+        artistPromptJob = null
         pendingArtist = null
         confirmingDispatchInFlight = false
         confirmationTimeoutJob?.cancel()
