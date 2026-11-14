@@ -112,6 +112,7 @@ class ApplicationBindings(
             voiceScope, speechToTextEngine, textToSpeechEngine,
             playbackGateway, context != null, context,
             canBeginSession = { uiVoiceStarted },
+            artistLibrary = libraryRepository,
         )
     val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
 
