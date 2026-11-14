@@ -112,6 +112,8 @@ fun VoiceSessionPanel(
         VoiceOverlayStatus.Hidden -> ""
     }
     val actionSize = if (driving) MusicSize.drivingExitMinDp else MusicSize.touchTargetMinDp
+    // P08 choices in Driving match its 64dp transport-target minimum.
+    val choiceSize = if (driving) MusicSize.drivingControlMinDp else actionSize
     val textStyle = if (driving) MusicTextStyles.drivingMeta else MusicTextStyles.bodyLarge
     val alignment = if (driving) TextAlign.Center else TextAlign.Start
 
@@ -161,7 +163,7 @@ fun VoiceSessionPanel(
                     },
                     enabled = !responseSubmitted && onConfirm != null,
                     modifier = Modifier.fillMaxWidth()
-                        .heightIn(min = actionSize)
+                        .heightIn(min = choiceSize)
                         .then(voiceActionFocusOutline())
                         .semantics { contentDescription = accessibleLabel },
                 ) {
@@ -182,7 +184,7 @@ fun VoiceSessionPanel(
                 },
                 enabled = !responseSubmitted && onNeither != null,
                 modifier = Modifier.fillMaxWidth()
-                    .heightIn(min = actionSize)
+                    .heightIn(min = choiceSize)
                     .then(voiceActionFocusOutline())
                     .semantics { contentDescription = neitherLabel },
             ) { Text(stringResource(R.string.i11_artist_confirm_neither)) }
@@ -236,7 +238,9 @@ fun VoiceSessionPanel(
                 }
             },
             enabled = confirming == null || (!responseSubmitted && onCancelConfirmation != null),
-            modifier = Modifier.fillMaxWidth().heightIn(min = actionSize)
+            modifier = Modifier.fillMaxWidth().heightIn(
+                min = if (confirming != null) choiceSize else actionSize
+            )
                 .then(voiceActionFocusOutline())
                 .semantics { contentDescription = exitA11y },
         ) { Text(exitLabel) }
