@@ -2,7 +2,9 @@ package com.latticeward.musiccopilot.app.di
 
 import android.content.Context
 import com.latticeward.musiccopilot.BuildConfig
+import com.latticeward.musiccopilot.quality.api.TelemetryEvent
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
+import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
 import com.latticeward.musiccopilot.playback.api.VoiceDuckingPort
 import com.latticeward.musiccopilot.playback.api.UnavailableVoiceDuckingPort
@@ -15,6 +17,7 @@ import com.latticeward.musiccopilot.voice.android.UnavailableTextToSpeechEngine
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
 import com.latticeward.musiccopilot.voice.session.DefaultVoiceSessionCoordinator
+import com.latticeward.musiccopilot.voice.intent.ArtistDecisionPolicy
 import com.latticeward.musiccopilot.voice.intent.RestrictedVoiceIntentMapper
 import kotlinx.coroutines.CoroutineScope
 
@@ -32,11 +35,21 @@ internal object VoiceBindings {
         if (context == null) UnavailableTextToSpeechEngine()
         else AndroidOfflineTextToSpeechEngine(context)
 
+    /**
+     * Issue #11 P05 pure admission policy factory. P07 injects it into
+     * the existing application-scoped coordinator without changing the five
+     * #10 transport command policies. Local bounded BuildConfig only.
+     */
+    fun artistDecisionPolicy(): ArtistDecisionPolicy =
+        ArtistDecisionPolicy(BuildConfig.VOICE_ARTIST_DIRECT_CONFIDENCE_THRESHOLD)
+
     fun coordinator(
         scope: CoroutineScope, stt: SpeechToTextEngine, tts: TextToSpeechEngine,
         playback: PlaybackGateway, enabled: Boolean,
         context: Context? = null,
         canBeginSession: () -> Boolean = { true },
+        artistLibrary: LibraryRepository? = null,
+        tryRecordVoiceOutcome: (TelemetryEvent.VoiceIntentOutcome) -> Unit = {},
     ): DefaultVoiceSessionCoordinator = DefaultVoiceSessionCoordinator(
         scope, stt, tts, playback = playback,
         intentMapper = RestrictedVoiceIntentMapper(
@@ -49,5 +62,10 @@ internal object VoiceBindings {
         feedbackCatalog = if (context == null) EnglishVoiceFeedbackCatalog
             else AndroidVoiceFeedbackCatalog(context),
         canBeginSession = canBeginSession,
+        // Only production with the real local Room/MediaStore port enables
+        // PLAY_ARTIST. No backend, second Player or synthetic confidence.
+        artistLibrary = if (enabled) artistLibrary else null,
+        artistAdmission = artistDecisionPolicy(),
+        tryRecordVoiceOutcome = tryRecordVoiceOutcome,
     )
 }

@@ -112,7 +112,9 @@ class Issue10Phase8FeedbackTest {
             val text = EnglishVoiceFeedbackCatalog.textFor(key)
             assertTrue(key.toString(), VoiceFeedbackPolicy.isShortSentence(text))
             assertTrue(text.length <= 120)
-            assertEquals(1, text.count { it == '.' })
+            // P09 adds one-clause spoken artist questions ending in '?';
+            // they still contain exactly ONE terminal punctuation mark.
+            assertEquals(1, text.count { it == '.' || it == '?' })
         }
     }
 
@@ -122,6 +124,8 @@ class Issue10Phase8FeedbackTest {
             "Done. ", "Done! ", "Ready!","One\nTwo.", "Hi.\r", "a".repeat(125) + "."
         )) assertFalse(bad, VoiceFeedbackPolicy.isShortSentence(bad))
         assertTrue(VoiceFeedbackPolicy.isShortSentence("Playback paused."))
+        assertTrue(VoiceFeedbackPolicy.isShortSentence("Did you mean this local artist?"))
+        assertFalse(VoiceFeedbackPolicy.isShortSentence("Which artist? Another question?"))
     }
 
     @Test fun outputUsesOnlyStableNonPersonalResourceKeyAndCatalogValue() {

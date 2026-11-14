@@ -18,5 +18,15 @@ class AndroidVoiceFeedbackCatalog(context: Context) : VoiceFeedbackCatalog {
         VoiceFeedbackKey.Timeout -> R.string.i10_feedback_timeout
         VoiceFeedbackKey.NotRecognized -> R.string.i10_feedback_notrecognized
         VoiceFeedbackKey.Unavailable -> R.string.i10_feedback_unavailable
+        VoiceFeedbackKey.ArtistPlaying -> R.string.i11_feedback_artist_playing
+        VoiceFeedbackKey.ArtistConfirmOne -> R.string.i11_feedback_artist_confirm_one
+        VoiceFeedbackKey.ArtistConfirmTwo -> R.string.i11_feedback_artist_confirm_two
+        VoiceFeedbackKey.ArtistNotFound -> R.string.i11_feedback_artist_not_found
+        VoiceFeedbackKey.ArtistUnsupported -> R.string.i11_feedback_artist_unsupported
+        VoiceFeedbackKey.ArtistDeclined -> R.string.i11_feedback_artist_declined
+        VoiceFeedbackKey.ArtistCanceled -> R.string.i11_feedback_artist_canceled
+        VoiceFeedbackKey.ArtistStale -> R.string.i11_feedback_artist_stale
+        VoiceFeedbackKey.ArtistUnavailable -> R.string.i11_feedback_artist_unavailable
+        VoiceFeedbackKey.ArtistPlaybackFailure -> R.string.i11_feedback_artist_playback_failure
     })
 }

@@ -40,6 +40,25 @@ internal object VoiceTransitionPolicy {
     ): Boolean = state is VoiceSessionState.Processing &&
         state.sessionId == id && state.origin == origin && state.attempt == attempt
 
+    /** P07: only the still-processing current attempt may offer one choice. */
+    fun mayOfferArtistConfirmation(
+        state: VoiceSessionState,
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        attempt: Int,
+        alreadyClaimed: Boolean,
+    ): Boolean = mayDispatch(state, id, origin, attempt, alreadyClaimed)
+
+    /** P07: token/session/generation ownership is separately checked under gate. */
+    fun mayClaimArtistConfirmation(
+        state: VoiceSessionState,
+        id: VoiceSessionId,
+        origin: VoiceOrigin,
+        token: com.latticeward.musiccopilot.core.model.VoiceCandidateToken,
+        alreadyClaimed: Boolean,
+    ): Boolean = !alreadyClaimed && state is VoiceSessionState.Confirming &&
+        state.sessionId == id && state.origin == origin && state.token == token
+
     /** Exactly one recognition retry; no retry after command delivery/error. */
     fun canOfferRetry(attempt: Int, errorCode: String): Boolean =
         attempt in 1 until VoicePolicy.MAX_ATTEMPTS &&

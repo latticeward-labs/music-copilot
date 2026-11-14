@@ -6,6 +6,21 @@ enum class LatencyBucket { Fast, Expected, Slow }
 enum class RouteType { BuiltIn, Wired, Bluetooth, Unknown }
 enum class TelemetryPlaybackState { Idle, Buffering, Playing, Paused, Ended, Error }
 
+enum class VoiceDiagnosticIntent { PLAY, PAUSE, NEXT, PREVIOUS, SEEK_BACK, PLAY_ARTIST }
+
+/**
+ * Issue #11 P11: closed result vocabulary. Neither raw STT text nor
+ * artist/local-media identifiers may appear in a diagnostic event.
+ */
+enum class VoiceDiagnosticResult {
+    EXECUTED, NOT_FOUND, UNSUPPORTED, DECLINED, STALE, UNAVAILABLE,
+    PLAYBACK_FAILED, NO_MATCH, TIMEOUT, CANCELED, MANUAL_CORRECTION
+}
+enum class VoiceManualCorrectionCategory {
+    MANUAL_PLAY, MANUAL_PAUSE, MANUAL_SKIP, MANUAL_SEARCH, MANUAL_SELECT
+}
+
+
 sealed interface TelemetryEvent {
     data class DrivingModeStarted(
         val entrySource: String,
@@ -40,4 +55,25 @@ sealed interface TelemetryEvent {
         val durationBucket: String,
         val commandsCount: Int,
     ) : TelemetryEvent
+
+    /**
+     * P11: sole typed sixth-intent outcome envelope. Exactly five approved
+     * semantic field names; all values are closed enums/buckets or "none".
+     * This structure cannot hold transcripts, artist/title/URI, MediaRef,
+     * confirmation tokens, raw confidence/latency or session identifiers.
+     * Manual correction MUST be explicitly observed, never inferred.
+     */
+    data class VoiceIntentOutcome(
+        val intentType: VoiceDiagnosticIntent,
+        val confidenceBucket: ConfidenceBucket?,
+        val latencyBucket: LatencyBucket?,
+        val resultCode: VoiceDiagnosticResult,
+        val correctionCategory: VoiceManualCorrectionCategory? = null,
+    ) : TelemetryEvent {
+        init {
+            require((resultCode == VoiceDiagnosticResult.MANUAL_CORRECTION) ==
+                (correctionCategory != null)) { "Invalid diagnostic category" }
+        }
+        override fun toString(): String = "VoiceIntentOutcome(redacted)"
+    }
 }

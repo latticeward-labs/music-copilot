@@ -27,6 +27,16 @@ class AllowlistedTelemetryPrivacyGate : TelemetryPrivacyGate {
                 wire("voice_button_pressed",
                     "playback_state" to event.playbackState.name)
 
+            is TelemetryEvent.VoiceIntentOutcome ->
+                // All inputs are closed Kotlin enums; there is no arbitrary
+                // parameter map or personal metadata to echo or sanitize.
+                wire("voice_intent_outcome",
+                    "intent_type" to event.intentType.name,
+                    "confidence_bucket" to (event.confidenceBucket?.name ?: "none"),
+                    "latency_bucket" to (event.latencyBucket?.name ?: "none"),
+                    "result_code" to event.resultCode.name,
+                    "correction_category" to (event.correctionCategory?.name ?: "none"))
+
             is TelemetryEvent.IntentDetected ->
                 if (event.intentType in INTENTS)
                     wire("intent_detected",
@@ -103,6 +113,13 @@ class AllowlistedTelemetryPrivacyGate : TelemetryPrivacyGate {
             AppErrorCodes.VOICE_UNAVAILABLE, AppErrorCodes.VOICE_TIMEOUT,
             AppErrorCodes.VOICE_NO_MATCH, AppErrorCodes.VOICE_SECOND_ATTEMPT_FAILED,
             AppErrorCodes.VOICE_STALE_SESSION,
+            // P11: approved sixth-intent failures, *exact* fixed codes only.
+            AppErrorCodes.VOICE_ARTIST_NOT_FOUND,
+            AppErrorCodes.VOICE_ARTIST_UNSUPPORTED,
+            AppErrorCodes.VOICE_ARTIST_DECLINED,
+            AppErrorCodes.VOICE_ARTIST_STALE,
+            AppErrorCodes.VOICE_ARTIST_UNAVAILABLE,
+            AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED,
             AppErrorCodes.PLAYBACK_BUSY, AppErrorCodes.PLAYBACK_REJECTED,
             AppErrorCodes.PLAYBACK_FAILED,
             AppErrorCodes.CONTROLLER_DISCONNECTED,

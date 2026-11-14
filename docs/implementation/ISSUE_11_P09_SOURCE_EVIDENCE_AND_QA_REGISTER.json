@@ -1,0 +1,430 @@
+{
+  "schema": "issue11-p09-source-evidence-v1",
+  "phase": "P09",
+  "issue": 11,
+  "date": "2026-11-14",
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/11-play-artist-one-step-ambiguity",
+  "state": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+  "owner_archive": {
+    "filename": "MSM2(1)(1).rar",
+    "rar_format": "RAR5",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12,
+    "relevant_documents": [
+      "ADR-0004_Replaceable_Voice_Provider.pdf pp2-5",
+      "ADR-0005_Restricted_Deterministic_Intent_Mapping.pdf pp2-5",
+      "Music_Copilot_MVP_v1_EN.pdf pp4-5",
+      "Music_Copilot_PRD_v1_EN_Clarified.pdf p6",
+      "Music_Copilot_System_Architecture_MVP_v1_EN.pdf pp10-12"
+    ]
+  },
+  "controlling_github": [
+    "docs/implementation/ISSUE_11_PHASED_EXECUTION_PLAN_FA.md P09",
+    "app/src/main/java/com/latticeward/musiccopilot/voice/api/TextToSpeechEngine.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/voice/session/PlayArtistPlaybackUseCase.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/voice/intent/ArtistDecisionPolicy.kt"
+  ],
+  "files": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/core/result/AppError.kt",
+      "github_blob_sha": "18703f187429c3c47c66d6c1c485beaafc619f45",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/feedback/VoiceFeedbackCatalog.kt",
+      "github_blob_sha": "0711aa4e8fb28464626df0c9ecf8868cd27a0fa6",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidVoiceFeedbackCatalog.kt",
+      "github_blob_sha": "6e2cff6fc6a7623a637d1c0594e4608055cf7c16",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+      "github_blob_sha": "b3de81bbada7ab7cd125466b04aeba2e10533abe",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
+      "github_blob_sha": "f767017ba1c03db897194d1a182a0d4e611d30f3",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+      "github_blob_sha": "010887351295f0ce572cf264738084b62da6859d",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "github_blob_sha": "d6e18f84d07f1470fd5cc83c900343d717255b4a",
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue10Phase8FeedbackTest.kt",
+      "github_blob_sha": "076aaa0176c6ffa5def5e77918fba02e1b504b4c",
+      "kind": "LEGACY_TEST_SOURCE_ADAPTED_NOT_RUN"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+      "github_blob_sha": "99834b275a9f4254d1e4a6263bb8b8cbff92eb57",
+      "kind": "TEST_SOURCE_AUTHORED_NOT_RUN"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+      "github_blob_sha": "730e6452e95b0f528eea990f3dd9e0a95090b724",
+      "kind": "TEST_SOURCE_AUTHORED_NOT_RUN"
+    },
+    {
+      "path": "docs/implementation/ISSUE_11_P09_ARTIST_VOICE_FEEDBACK_NOTFOUND_RECOVERY_AUDIT.md",
+      "github_blob_sha": "d2e442823ba8a675caa2517da2f63226a496bfc8",
+      "kind": "TECHNICAL_AUDIT"
+    }
+  ],
+  "feedback": {
+    "catalog_keys_added": [
+      "ArtistPlaying",
+      "ArtistConfirmOne",
+      "ArtistConfirmTwo",
+      "ArtistNotFound",
+      "ArtistUnsupported",
+      "ArtistDeclined",
+      "ArtistCanceled",
+      "ArtistStale",
+      "ArtistUnavailable",
+      "ArtistPlaybackFailure"
+    ],
+    "android_resources_unique": 10,
+    "ui_recovery_resources_unique": 7,
+    "text_policy": "one fixed short English sentence ending in . or ?; reject multiple sentences and nonprintable input; no names/transcript",
+    "direct_playing": "Only after PlayArtistDecision.Executed from P06 and state publishExecuted succeeds",
+    "confirmed_playing": "Only after same P06 service ACK and publishExecuted in one-use selection worker",
+    "clarification": "One optional 2-second-bounded question in a generation-owned prompt worker; never blocks one/two P08 options",
+    "clarification_queue": "One prompt per current session generation; canceled on option selection, Neither/expiry, lifecycle invalidation",
+    "no_tts_fallback": "No TTS must not change queue or outcome, no cloud fallback",
+    "cancel": "Catalog includes Canceled; explicit Cancel/Back remains immediate silent Idle to avoid late audio",
+    "declined": "Matching Neither is terminal typed failure; stops pending question and has manual UI fallback; catalog speech key available but not auto-played after cancellation",
+    "service_failure": "Never voice success on absent/bad ACK",
+    "storage": "No raw audio, transcript, artist label/ID, MediaRef or token in constant spoken keys/error codes"
+  },
+  "typed_errors": {
+    "VOICE_ARTIST_NOT_FOUND": "Failed/manual, zero queue mutation",
+    "VOICE_ARTIST_UNSUPPORTED": "Failed/manual, zero queue mutation",
+    "VOICE_ARTIST_DECLINED": "Failed/manual, no second question",
+    "VOICE_ARTIST_STALE": "Failed/manual if index revision or permission stale",
+    "VOICE_ARTIST_UNAVAILABLE": "Failed/manual if resolution/voice unavailable",
+    "VOICE_ARTIST_PLAYBACK_FAILED": "Failed/manual after rejected or invalid service ACK",
+    "recoverability": "TERMINAL_FOR_ATTEMPT",
+    "recovery_action": "ManualFallback"
+  },
+  "qa": {
+    "new_source_authored_tests": 41,
+    "suite_counts": [
+      {
+        "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "authored": 32,
+        "executed": 0
+      },
+      {
+        "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "authored": 9,
+        "executed": 0
+      }
+    ],
+    "legacy_issue10_suite": "SOURCE_UPDATED_ONLY; NOT_RUN; excluded from new P09 count",
+    "cases": [
+      {
+        "id": "P09-J01",
+        "method": "allArtistMessagesAreSingleShortEnglishSentences",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J02",
+        "method": "shortOneCandidateQuestionEndsWithQuestionMark",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J03",
+        "method": "shortTwoCandidateQuestionIsExactlyOneSentence",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J04",
+        "method": "validationAllowsOneQuestionButNotTwoOrTrailingWhitespace",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J05",
+        "method": "legacyControlSentenceValidationRemainsValid",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J06",
+        "method": "allNewOutputsHaveStableNonPersonalI11Keys",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J07",
+        "method": "playingSpeechNeverRequiresArtistNameOrTranscript",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J08",
+        "method": "notFoundFeedbackReferencesOnlyLocalLibrary",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J09",
+        "method": "playbackFailureNeverClaimsPlayStarted",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J10",
+        "method": "staleIndexFeedbackPromptsManualWithoutGuessing",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J11",
+        "method": "unavailableFeedbackPromisesNoAutomaticReplay",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J12",
+        "method": "canceledAndDeclinedHaveDistinctConstantLabels",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J13",
+        "method": "artistNotFoundIsTerminalVoiceFeedback",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J14",
+        "method": "artistUnsupportedIsTerminalVoiceFeedback",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J15",
+        "method": "artistDeclinedIsTerminalVoiceFeedback",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J16",
+        "method": "staleAndUnavailableUseDifferentRecoveryCodes",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J17",
+        "method": "playbackFailedHasDistinctVoiceFailureKey",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J18",
+        "method": "retryableFailuresStaySilentBeforeTheSecondRecognition",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J19",
+        "method": "typedNotFoundIsShownInPlayerWithManualReturn",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J20",
+        "method": "typedNotFoundIsShownIdenticallyInDriving",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J21",
+        "method": "declinedSelectionIsTerminalAndDoesNotAskAnotherQuestion",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J22",
+        "method": "unavailableAndServiceFailureRemainDifferentUiStatuses",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J23",
+        "method": "staleAndUnsupportedUseSpecificUiStatuses",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J24",
+        "method": "unknownPrivateErrorCodeDoesNotLeakToUiText",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J25",
+        "method": "fiveExistingTransportIntentAcknowledgementsAreUnchanged",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J26",
+        "method": "coordinatorSpeaksArtistSuccessOnlyAfterPublishingAckedExecution",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J27",
+        "method": "clarificationIsOptionalAndNeverBlocksConfirmationUi",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J28",
+        "method": "terminalArtistErrorDisablesRecognitionRetry",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J29",
+        "method": "allEnglishAndroidSpeechStringsExistExactlyOnce",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J30",
+        "method": "failureUiStringsAreResourceBackedAndNonDuplicated",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J31",
+        "method": "spokenTextIsFixedNotBuiltFromArtistNamesOrMediaRefs",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J32",
+        "method": "voiceAndAndroidProviderKeepPlaybackAuthorityInMedia3",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistFeedbackAndRecoveryTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J33",
+        "method": "missingMoonshineConfidenceSpeaksOneQuestionAndDoesNotEnqueue",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J34",
+        "method": "missingLocalTtsDoesNotHideConfirmingOrPauseThePlayer",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J35",
+        "method": "highRealConfidenceSpeaksPlayingOnlyAfterAcknowledgement",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J36",
+        "method": "confirmedOneStepSpeaksPlayingOnlyAfterSelectedQueueAck",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J37",
+        "method": "noPlausibleArtistSpeaksNotFoundAndNeverTouchesOldQueue",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J38",
+        "method": "staleMedia3AckCannotBeAnnouncedAsPlaying",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J39",
+        "method": "failedTtsDoesNotUndoAnAcceptedArtistCommand",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J40",
+        "method": "neitherClosesSingleConfirmationAndStopsItsOptionalQuestion",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P09-J41",
+        "method": "unsupportedArtistVariantFailsSafelyWithItsOwnMessage",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase9ArtistTtsCoordinatorIntegrationTest.kt",
+        "status": "NOT_RUN"
+      }
+    ],
+    "executed": 0,
+    "passed": 0,
+    "failed": 0,
+    "kotlin_compilation": "NOT_RUN",
+    "gradle": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "junit": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "compose_ui": "NOT_RUN",
+    "github_actions": "NOT_RUN",
+    "emulator": "NOT_RUN",
+    "physical_device": "NOT_RUN",
+    "apk": "NOT_CREATED",
+    "actual_android_tts": "NOT_VERIFIED",
+    "real_media3_ack": "NOT_VERIFIED",
+    "talkback": "NOT_VERIFIED",
+    "p95_voice": "NOT_MEASURED",
+    "actual_stt_accuracy": "NOT_MEASURED",
+    "P13_M01_M48": "NOT_RUN",
+    "P13_T01_T10": "NOT_RUN",
+    "P13_L01_L06": "NOT_RUN",
+    "static_source_review": "INSPECTED_ONLY_NOT_COMPILED"
+  },
+  "acceptance": {
+    "issue11_total": 13,
+    "verified_pass": 0
+  },
+  "legacy_five_control_mapper_dispatcher_modified": false,
+  "legacy_media3_service_modified": false,
+  "legacy_library_room_modified": false,
+  "next": "P10 lifecycle/voice and Bluetooth interrupt safety; P11 privacy; P12 integration evidence; P13 single APK and owner Android QA",
+  "p0_debt": {
+    "issue": 80,
+    "state": "OPEN",
+    "previous_reported_issue10_voice_lab": "24/50 48%",
+    "gate": "90%",
+    "not_resolved_by_p09": true
+  },
+  "operations": {
+    "ci_tests": false,
+    "gradle_tests": false,
+    "apk_built": false,
+    "pr": false,
+    "merged": false,
+    "issue_closed": false
+  }
+}

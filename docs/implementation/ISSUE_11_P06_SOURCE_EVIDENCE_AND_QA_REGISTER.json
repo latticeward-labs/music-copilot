@@ -1,0 +1,257 @@
+{
+  "schema": "issue11-p06-source-evidence-v1",
+  "date": "2026-11-14",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/11-play-artist-one-step-ambiguity",
+  "issue": 11,
+  "phase": "P06",
+  "disposition": "SOURCE_IMPLEMENTED_UNWIRED_UNBUILT",
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "documents": 12,
+    "relevant": [
+      "ADR-0002_Service_Owned_Media3_Playback.pdf",
+      "ADR-0003_Local_First_Data_Boundaries_Revised.pdf",
+      "ADR-0005_Restricted_Deterministic_Intent_Mapping.pdf",
+      "Music_Copilot_MVP_v1_EN.pdf",
+      "Music_Copilot_PRD_v1_EN_Clarified.pdf",
+      "Music_Copilot_Code_and_Technical_Documentation_MVP_v1_EN.pdf"
+    ]
+  },
+  "github_authorities": [
+    "docs/implementation/ISSUE_11_PHASED_EXECUTION_PLAN_FA.md",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackGateway.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackCommand.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/command/PlaybackQueuePolicy.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/command/VoiceCommandReceiptPolicy.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/controller/PlaybackControllerConnection.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/data/api/ArtistLookupContracts.kt"
+  ],
+  "files": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/session/PlayArtistPlaybackUseCase.kt",
+      "github_blob_sha": "dd3c562a2432859cdef5a244ffcd18097c6e27ab",
+      "kind": "SOURCE_IMPLEMENTED_UNWIRED"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase6ArtistPlaybackUseCaseTest.kt",
+      "github_blob_sha": "ebb4b91448205eb254d8c73456d51aded69980a5",
+      "kind": "SOURCE_AUTHORED_TESTS_NOT_RUN"
+    },
+    {
+      "path": "docs/implementation/ISSUE_11_P06_ARTIST_QUEUE_PLAYBACK_AND_ACK_AUDIT.md",
+      "github_blob_sha": "42e7ac9a2e6df2916def5e3b9d6a6d69c74a2702",
+      "kind": "SOURCE_AUDIT"
+    }
+  ],
+  "contract": {
+    "policy_version": "issue11-play-artist-playback-v1",
+    "entrypoint": "PlayArtistPlaybackUseCase.execute(claim,isCurrentSession)",
+    "claim": "PlayArtistDispatchClaim",
+    "claim_mint_direct": "Only PlayArtistDecision.Direct",
+    "claim_mint_confirmation": "PlayArtistConfirmationSnapshot + matching Select token/index",
+    "single_claim_invocation": "AtomicBoolean.compareAndSet false->true",
+    "correlation": "voice-{random 32 hex}-{positive VoiceSessionId}-{attempt 1..2}",
+    "nonce": "secure unpredictable process-local UUID, never persisted",
+    "token_ownership": "P07_PENDING coordinator owns valid current generation/token; P06 structurally checks token and calls mandatory predicate",
+    "group": "P05 selected artistGroupId; Room members only from same P03 artist group",
+    "queue_source": "P03 artistTrackRefs Room bounded SQL, title order then MediaRef, no unrelated title candidate scan",
+    "data_access": "LibraryRepository.get(ref) performs fresh MediaStore requery for every indexed item; service independently re-probes",
+    "index_revision": "pinned from P04/P05; checked before/after each page, after get and final first-page P03 read",
+    "permission_and_lifecycle": "P03 permission/epoch checks; predicate checked across await boundaries; no speculative fallback",
+    "queue_max": 5000,
+    "page_size": 100,
+    "empty_queue": "MEDIA_ITEM_UNPLAYABLE no dispatch",
+    "missing_file": "skip only MISSING or UNPLAYABLE; all missing -> typed failure",
+    "wrong_artist_metadata": "exclude mismatched identity from selected artist queue",
+    "duplicate_or_truncated_pages": "typed fail, never partially dispatch",
+    "dispatch": "one PlaybackCommand.ReplaceQueue through PlaybackGateway.execute",
+    "start_index": 0,
+    "start_position_ms": 0,
+    "play_when_ready": true,
+    "media3_service_owner": "existing MusicPlaybackService / Media3 Player only",
+    "acknowledgement": "PlaybackGateway success + new queueRevision + coherent first selected item + ordered subsequence + Playing/Buffering + no lastError",
+    "result": "PlayArtistDecision.Executed ONLY after verified service acknowledgement, otherwise typed failure",
+    "not_found_cancel_unsupported": "no claim created, zero PlaybackGateway commands",
+    "privacy": "No transcripts, title, artist label/ID, MediaRef, URI or token are logged or emitted",
+    "legacy_controls": "existing five intent dispatcher/mapper and Media3 code untouched",
+    "production_wiring": "P07/P12 pending, no product PLAY_ARTIST activation"
+  },
+  "qa": {
+    "source_authored_tests": 25,
+    "executed": 0,
+    "passed": 0,
+    "failed": 0,
+    "cases": [
+      {
+        "id": "P06-J01",
+        "method": "claimContainsOneFixedServiceCompatibleVoiceId",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J02",
+        "method": "twoAttemptsHaveDifferentOpaqueNonceAndNoPersonalData",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J03",
+        "method": "invalidSessionAndAttemptCannotMintClaim",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J04",
+        "method": "selectedConfirmationRequiresMatchingTokenAndBoundedIndex",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J05",
+        "method": "verifiedOneSongProducesOneReplaceQueueAndAckedExecuted",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J06",
+        "method": "aClaimCanDispatchOnlyOnceEvenWhenRepeated",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J07",
+        "method": "unownedGenerationCannotReadLibraryOrDispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J08",
+        "method": "disconnectedGatewayDoesNotReplaceExistingQueue",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J09",
+        "method": "staleRevisionBeforeReadFailsWithoutQueueChange",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J10",
+        "method": "emptyArtistMembershipPreservesOldQueue",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J11",
+        "method": "everyMissingSongFailsWithoutReplacingQueue",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J12",
+        "method": "missingFirstSongIsSkippedAndNextValidSongIsSelected",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J13",
+        "method": "changedArtistMembershipMustNeverLeakIntoNewQueue",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J14",
+        "method": "exactFiveThousandItemLimitMatchesExistingPlaybackQueuePolicy",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J15",
+        "method": "moreThanFiveThousandFailsBeforeMediaRequeryOrDispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J16",
+        "method": "overOneHundredSongsUseRevisionPinnedPages",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J17",
+        "method": "duplicateIndexedMediaRefFailsBeforeServiceDispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J18",
+        "method": "truncatedRoomPageCannotProducePartialQueue",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J19",
+        "method": "permissionRevokedWhileReadingFailsBeforeServiceDispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J20",
+        "method": "laterRoomFailureMustNotMutateQueue",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J21",
+        "method": "failedServiceAcknowledgementIsNeverExecuted",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J22",
+        "method": "incoherentOrOldServiceSnapshotCannotClaimExecuted",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J23",
+        "method": "gatewayPausedStateDoesNotClaimSuccessfulAudioStart",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J24",
+        "method": "serviceMaySkipLaterFilesWithoutBreakingQueueOrder",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-J25",
+        "method": "canceledSessionBeforeFinalDispatchCannotSendCommand",
+        "status": "NOT_RUN"
+      }
+    ],
+    "gradle": "NOT_RUN",
+    "kotlin_compilation": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "jvm_tests": "NOT_RUN",
+    "android_instrumented_tests": "NOT_RUN",
+    "github_actions": "NOT_RUN",
+    "apk": "NOT_CREATED",
+    "owner_M01_M48": "NOT_RUN",
+    "tech_T01_T10": "NOT_RUN",
+    "lab_L01_L06": "NOT_RUN",
+    "real_device_media3_ack": "NOT_VERIFIED",
+    "real_device_queue_latency": "NOT_VERIFIED",
+    "source_code_review": "REVIEWED_NOT_COMPILED"
+  },
+  "issue11_AC": {
+    "total": 13,
+    "verified_pass": 0,
+    "not_verified": 10,
+    "not_run": 3
+  },
+  "focus_AC": {
+    "AC04": "SERVICE_ACK_SOURCE_LOGIC_ONLY_NOT_VERIFIED",
+    "AC06": "SINGLE_CLAIM_SOURCE_LOGIC_ONLY_COORDINATOR_P07_PENDING",
+    "AC07": "NO_PLAYABLE_ARTIST_TYPED_FAILURE_SOURCE_ONLY",
+    "AC08": "NO_DISPATCH_FOR_REJECTED_CHOICES_BY_CONSTRUCTION",
+    "AC11": "25_TEST_METHODS_AUTHORED_NOT_RUN",
+    "AC12": "LIVE_MEDIA3_INTEGRATION_NOT_RUN"
+  },
+  "quality_debt": {
+    "issue": 80,
+    "state": "OPEN",
+    "previous_issue10_owner_lab": "24/50 (48%)",
+    "gate": "90%",
+    "not_measured_in_P06": true
+  },
+  "risks": [
+    "P07 must own one active claim per session; P06 cannot prevent two separately minted claims",
+    "Media3 ACK buffering not proof of audible playback",
+    "5000-song sequential requery may exceed p95 voice target; P13 measure",
+    "Timeout after submitting to service cannot guarantee queue unchanged; avoid automatic second nonce/retry"
+  ],
+  "next_phase": "P07 coordinator-owned Confirming, single-use token/generation, exactly-once and P06 invocation"
+}

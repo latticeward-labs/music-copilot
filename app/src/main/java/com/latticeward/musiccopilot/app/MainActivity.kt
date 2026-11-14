@@ -459,9 +459,10 @@ class MainActivity : ComponentActivity() {
         val voiceState = (application as MusicCopilotApplication).bindings.voiceSessionCoordinator.state.value
         if (!freshMic && (observedMicrophoneGrant ||
                 voiceState != com.latticeward.musiccopilot.voice.api.VoiceSessionState.Idle)) {
-            (application as MusicCopilotApplication).bindings.voiceSessionCoordinator.cancel(
-                com.latticeward.musiccopilot.voice.api.VoiceCancelReason.PermissionLost,
-            )
+            // P10 uses the one app-scoped boundary to invalidate any
+            // listening, pending artist choice or in-flight P06 ACK.
+            (application as MusicCopilotApplication).bindings
+                .onForegroundMicrophonePermissionObserved(freshMic)
         }
         observedMicrophoneGrant = freshMic
         microphoneAccess.value = freshMic

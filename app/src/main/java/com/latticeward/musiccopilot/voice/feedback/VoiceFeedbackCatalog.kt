@@ -8,7 +8,11 @@ import com.latticeward.musiccopilot.voice.policy.VoicePolicy
 
 /** Stable, non-personal message IDs. Never include STT text or media metadata. */
 enum class VoiceFeedbackKey {
-    Play, Pause, Next, Previous, SeekBack, Timeout, NotRecognized, Unavailable
+    Play, Pause, Next, Previous, SeekBack, Timeout, NotRecognized, Unavailable,
+    // P09: all constant, privacy-safe one-sentence English feedback.
+    ArtistPlaying, ArtistConfirmOne, ArtistConfirmTwo, ArtistNotFound,
+    ArtistUnsupported, ArtistDeclined, ArtistCanceled, ArtistStale,
+    ArtistUnavailable, ArtistPlaybackFailure
 }
 
 /** Replaceable catalog; production resolves Android English string resources. */
@@ -27,6 +31,16 @@ object EnglishVoiceFeedbackCatalog : VoiceFeedbackCatalog {
         VoiceFeedbackKey.Timeout -> "I didn't hear a command."
         VoiceFeedbackKey.NotRecognized -> "Command not recognized."
         VoiceFeedbackKey.Unavailable -> "Use the manual player controls."
+        VoiceFeedbackKey.ArtistPlaying -> "Playing songs by the selected artist."
+        VoiceFeedbackKey.ArtistConfirmOne -> "Did you mean this local artist?"
+        VoiceFeedbackKey.ArtistConfirmTwo -> "Which of these two local artists did you mean?"
+        VoiceFeedbackKey.ArtistNotFound -> "I could not find that artist in your library."
+        VoiceFeedbackKey.ArtistUnsupported -> "That artist request is not supported."
+        VoiceFeedbackKey.ArtistDeclined -> "No artist selected."
+        VoiceFeedbackKey.ArtistCanceled -> "Artist selection canceled."
+        VoiceFeedbackKey.ArtistStale -> "Your music library changed, so please choose manually."
+        VoiceFeedbackKey.ArtistUnavailable -> "Artist playback is unavailable; use manual controls."
+        VoiceFeedbackKey.ArtistPlaybackFailure -> "The player could not start that artist."
     }
 }
 
@@ -52,13 +66,19 @@ object VoiceFeedbackPolicy {
         return when (code) {
             AppErrorCodes.VOICE_TIMEOUT -> VoiceFeedbackKey.Timeout
             AppErrorCodes.VOICE_NO_MATCH -> VoiceFeedbackKey.NotRecognized
+            AppErrorCodes.VOICE_ARTIST_NOT_FOUND -> VoiceFeedbackKey.ArtistNotFound
+            AppErrorCodes.VOICE_ARTIST_UNSUPPORTED -> VoiceFeedbackKey.ArtistUnsupported
+            AppErrorCodes.VOICE_ARTIST_DECLINED -> VoiceFeedbackKey.ArtistDeclined
+            AppErrorCodes.VOICE_ARTIST_STALE -> VoiceFeedbackKey.ArtistStale
+            AppErrorCodes.VOICE_ARTIST_UNAVAILABLE -> VoiceFeedbackKey.ArtistUnavailable
+            AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED -> VoiceFeedbackKey.ArtistPlaybackFailure
             else -> VoiceFeedbackKey.Unavailable
         }
     }
 
     fun isShortSentence(text: String): Boolean {
         if (text.isBlank() || text.length > VoicePolicy.MAX_SHORT_FEEDBACK_CHARS ||
-            text != text.trim() || !text.endsWith(".") ||
+            text != text.trim() || (text.last() != '.' && text.last() != '?') ||
             text.dropLast(1).any { it == '.' || it == '!' || it == '?' || it == '\n' || it == '\r' } ||
             text.any { Character.isISOControl(it) }
         ) return false
@@ -72,6 +92,19 @@ object VoiceFeedbackPolicy {
     ): SpeechOutput? {
         val text = try { catalog.textFor(key) } catch (_: Exception) { return null }
         if (!isShortSentence(text)) return null
-        return SpeechOutput(sessionId, "i10_feedback_${key.name.lowercase()}", text)
+        val stableKey = when (key) {
+            VoiceFeedbackKey.ArtistPlaying -> "i11_feedback_artist_playing"
+            VoiceFeedbackKey.ArtistConfirmOne -> "i11_feedback_artist_confirm_one"
+            VoiceFeedbackKey.ArtistConfirmTwo -> "i11_feedback_artist_confirm_two"
+            VoiceFeedbackKey.ArtistNotFound -> "i11_feedback_artist_not_found"
+            VoiceFeedbackKey.ArtistUnsupported -> "i11_feedback_artist_unsupported"
+            VoiceFeedbackKey.ArtistDeclined -> "i11_feedback_artist_declined"
+            VoiceFeedbackKey.ArtistCanceled -> "i11_feedback_artist_canceled"
+            VoiceFeedbackKey.ArtistStale -> "i11_feedback_artist_stale"
+            VoiceFeedbackKey.ArtistUnavailable -> "i11_feedback_artist_unavailable"
+            VoiceFeedbackKey.ArtistPlaybackFailure -> "i11_feedback_artist_playback_failure"
+            else -> "i10_feedback_${key.name.lowercase()}"
+        }
+        return SpeechOutput(sessionId, stableKey, text)
     }
 }

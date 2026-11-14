@@ -7,7 +7,9 @@ import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 /** P09: pure WF-08 projection shared by Driving and Full Player. */
 enum class VoiceOverlayStatus {
     Hidden, PermissionRationale, PermissionPending, Listening,
-    Processing, ConfirmationUnavailable, Executed,
+    Processing, ConfirmationRequired, ConfirmationUnavailable, Executed,
+    ArtistNotFound, ArtistUnsupported, ArtistDeclined, ArtistStale,
+    ArtistUnavailable, ArtistPlaybackFailure,
     Timeout, NotRecognized, Unavailable,
 }
 
@@ -32,6 +34,13 @@ object VoiceOverlayPresentationPolicy {
         state: VoiceSessionState,
         permissionStage: VoicePracticeStage,
     ): VoiceOverlayPresentation {
+        // P08: the Coordinator's live confirmation has priority over stale
+        // permission handoff UI. Display choices from that same Voice state,
+        // never a separate library/search query or another microphone turn.
+        if (state is VoiceSessionState.Confirming) return VoiceOverlayPresentation(
+            VoiceOverlayStatus.ConfirmationRequired, false, false,
+            VoiceOverlayExit.CancelCapture,
+        )
         if (permissionStage == VoicePracticeStage.Rationale) {
             return VoiceOverlayPresentation(
                 VoiceOverlayStatus.PermissionRationale, false, true,
@@ -55,8 +64,8 @@ object VoiceOverlayPresentationPolicy {
                 VoiceOverlayStatus.Processing, false, false, VoiceOverlayExit.CancelCapture,
             )
             is VoiceSessionState.Confirming -> VoiceOverlayPresentation(
-                VoiceOverlayStatus.ConfirmationUnavailable, false, false,
-                VoiceOverlayExit.ReturnToManual,
+                VoiceOverlayStatus.ConfirmationRequired, false, false,
+                VoiceOverlayExit.CancelCapture,
             )
             is VoiceSessionState.Executed -> VoiceOverlayPresentation(
                 VoiceOverlayStatus.Executed, false, false, VoiceOverlayExit.ReturnToManual,
@@ -65,6 +74,12 @@ object VoiceOverlayPresentationPolicy {
                 when (state.error.code) {
                     AppErrorCodes.VOICE_TIMEOUT -> VoiceOverlayStatus.Timeout
                     AppErrorCodes.VOICE_NO_MATCH -> VoiceOverlayStatus.NotRecognized
+                    AppErrorCodes.VOICE_ARTIST_NOT_FOUND -> VoiceOverlayStatus.ArtistNotFound
+                    AppErrorCodes.VOICE_ARTIST_UNSUPPORTED -> VoiceOverlayStatus.ArtistUnsupported
+                    AppErrorCodes.VOICE_ARTIST_DECLINED -> VoiceOverlayStatus.ArtistDeclined
+                    AppErrorCodes.VOICE_ARTIST_STALE -> VoiceOverlayStatus.ArtistStale
+                    AppErrorCodes.VOICE_ARTIST_UNAVAILABLE -> VoiceOverlayStatus.ArtistUnavailable
+                    AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED -> VoiceOverlayStatus.ArtistPlaybackFailure
                     else -> VoiceOverlayStatus.Unavailable
                 }, state.canRetry, false, VoiceOverlayExit.ReturnToManual,
             )

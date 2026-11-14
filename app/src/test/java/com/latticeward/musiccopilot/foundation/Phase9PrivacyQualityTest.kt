@@ -25,7 +25,7 @@ class Phase9PrivacyQualityTest {
         assertEquals("QUALITY_DROPPED", (result as AppResult.Failure).error.code)
     }
 
-    @Test fun exactlyEightApprovedEventFamiliesHaveStrictPredictableEncodings() {
+    @Test fun exactlyNineApprovedEventFamiliesHaveStrictPredictableEncodings() {
         val encodings = listOf(
             accept(TelemetryEvent.DrivingModeStarted("home", false)),
             accept(TelemetryEvent.VoiceButtonPressed(TelemetryPlaybackState.Playing)),
@@ -35,14 +35,23 @@ class Phase9PrivacyQualityTest {
             accept(TelemetryEvent.CommandExecuted("NEXT", LatencyBucket.Expected)),
             accept(TelemetryEvent.ManualCorrection("PAUSE", "manual_play")),
             accept(TelemetryEvent.PlayerError("PLAYBACK_FAILED", RouteType.Bluetooth)),
-            accept(TelemetryEvent.SessionCompleted("1_to_5m", 7))
+            accept(TelemetryEvent.SessionCompleted("1_to_5m", 7)),
+            accept(TelemetryEvent.VoiceIntentOutcome(
+                VoiceDiagnosticIntent.PLAY_ARTIST,
+                confidenceBucket = null,
+                latencyBucket = LatencyBucket.Expected,
+                resultCode = VoiceDiagnosticResult.NOT_FOUND,
+            )),
         )
-        assertEquals(8, TelemetryEvent::class.java.declaredClasses.size)
-        assertEquals(8, encodings.size)
-        assertEquals(8, encodings.map { it.split("|")[1] }.toSet().size)
+        assertEquals(9, TelemetryEvent::class.java.declaredClasses.size)
+        assertEquals(9, encodings.size)
+        assertEquals(9, encodings.map { it.split("|")[1] }.toSet().size)
         encodings.forEach { assertTrue(it.startsWith("v1|")) }
         assertEquals("v1|command_executed|intent_type=NEXT|latency_bucket=Expected",
             encodings[4])
+        assertEquals("v1|voice_intent_outcome|intent_type=PLAY_ARTIST|" +
+            "confidence_bucket=none|latency_bucket=Expected|" +
+            "result_code=NOT_FOUND|correction_category=none", encodings[8])
     }
 
     @Test fun deniedStringsNeverEchoRawAudioTranscriptsOrMediaTitles() {

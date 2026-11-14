@@ -309,4 +309,34 @@
     <string name="p11_voice_provider_missing">On-device speech recognition is unavailable. Use manual music controls.</string>
     <string name="p11_voice_provider_unverified">An on-device speech provider is present. English model readiness and recognition success are checked separately when you tap Mic.</string>
     <string name="p11_voice_privacy_no_history">Music Copilot does not save recordings or recognized speech history. Diagnostic events are not sent in this version.</string>
+    <!-- Issue #11 P08: one-step local artist identity confirmation; display labels
+         come only from the current Coordinator snapshot, never raw speech. -->
+    <string name="i11_artist_confirm_one_question">Play songs by this artist?</string>
+    <string name="i11_artist_confirm_two_question">Which local artist did you mean?</string>
+    <string name="i11_artist_confirm_explanation">Choose one artist or decline. Your current music stays unchanged until the playback service accepts your choice.</string>
+    <string name="i11_artist_confirm_select_a11y">Select local artist %1$s. Option %2$d of %3$d.</string>
+    <string name="i11_artist_confirm_neither">Neither</string>
+    <string name="i11_artist_confirm_neither_a11y">Neither artist. Keep current playback and end this voice request.</string>
+    <string name="i11_artist_confirm_cancel">Cancel</string>
+    <string name="i11_artist_confirm_cancel_a11y">Cancel artist selection and return to manual controls without changing the queue.</string>
+    <!-- Issue #11 P09: constant, one-sentence English local TTS.
+         These deliberately contain NO artist name, transcript or media ID. -->
+    <string name="i11_feedback_artist_playing">Playing songs by the selected artist.</string>
+    <string name="i11_feedback_artist_confirm_one">Did you mean this local artist?</string>
+    <string name="i11_feedback_artist_confirm_two">Which of these two local artists did you mean?</string>
+    <string name="i11_feedback_artist_not_found">I could not find that artist in your library.</string>
+    <string name="i11_feedback_artist_unsupported">That artist request is not supported.</string>
+    <string name="i11_feedback_artist_declined">No artist selected.</string>
+    <string name="i11_feedback_artist_canceled">Artist selection canceled.</string>
+    <string name="i11_feedback_artist_stale">Your music library changed, so please choose manually.</string>
+    <string name="i11_feedback_artist_unavailable">Artist playback is unavailable; use manual controls.</string>
+    <string name="i11_feedback_artist_playback_failure">The player could not start that artist.</string>
+    <!-- P09 source-only recovery copy used in BOTH Player and Driving. -->
+    <string name="i11_voice_artist_not_found">Artist not found in your local library</string>
+    <string name="i11_voice_artist_unsupported">Artist command not supported</string>
+    <string name="i11_voice_artist_declined">No artist selected</string>
+    <string name="i11_voice_artist_stale">Local music library changed</string>
+    <string name="i11_voice_artist_unavailable">Artist playback unavailable</string>
+    <string name="i11_voice_artist_playback_failed">Artist playback could not start</string>
+    <string name="i11_voice_artist_manual_fallback">Continue with your current music or use manual controls.</string>
 </resources>

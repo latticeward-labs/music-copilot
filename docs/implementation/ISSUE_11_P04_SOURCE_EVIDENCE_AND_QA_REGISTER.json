@@ -1,0 +1,325 @@
+{
+  "schema": "issue11-p04-source-evidence-v1",
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/11-play-artist-one-step-ambiguity",
+  "issue": 11,
+  "phase": "P04",
+  "date": "2026-11-14",
+  "phase_status": "SOURCE_IMPLEMENTED_UNWIRED_UNBUILT",
+  "archive": {
+    "filename": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "documents_extracted": 12,
+    "relevant_sources": [
+      "ADR-0005_Restricted_Deterministic_Intent_Mapping.pdf sections 6–11",
+      "Music_Copilot_Code_and_Technical_Documentation_MVP_v1_EN.pdf pages 31–32",
+      "Music_Copilot_PRD_v1_EN_Clarified.pdf ambiguity and error rules",
+      "Music_Copilot_MVP_v1_EN.pdf Voice quality rules"
+    ]
+  },
+  "github_references": [
+    "docs/adr/0005-deterministic-intent-mapping.md",
+    "app/src/main/java/com/latticeward/musiccopilot/voice/policy/VoicePolicy.kt",
+    "docs/implementation/ISSUE_11_P03_ARTIST_INDEX_LOOKUP_AND_REVISION_AUDIT.md"
+  ],
+  "source_files": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/ArtistMatchPolicy.kt",
+      "github_blob_sha": "590d65ea0c214360dbe3fe46e8dd6aec74e34959",
+      "kind": "PRODUCTION_SOURCE_UNWIRED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/intent/ArtistResolver.kt",
+      "github_blob_sha": "5a82f570da70716213b524e678d34c54e312f63e",
+      "kind": "PRODUCTION_SOURCE_UNWIRED"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "github_blob_sha": "621e10832f00f76e65a65c68712a9f4ff1d0d1ab",
+      "kind": "TEST_SOURCE_AUTHORED_NOT_RUN"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "github_blob_sha": "fd9948624471d8a3644b460e4bdf403a6d81cbc5",
+      "kind": "TEST_SOURCE_AUTHORED_NOT_RUN"
+    }
+  ],
+  "documentation": "docs/implementation/ISSUE_11_P04_ARTIST_RESOLVER_SCORING_AND_TIEBREAK_AUDIT.md",
+  "versions": {
+    "normalization": "issue11-artist-key-nfkc-punctuation-v1",
+    "scoring": "issue11-artist-levenshtein-codepoint-v1",
+    "resolver": "issue11-artist-resolver-v1"
+  },
+  "policy": {
+    "exact_first": true,
+    "fuzzy_algorithm": "normalized Levenshtein distance over Unicode code points",
+    "score": "1 - distance/max(code_point_lengths)",
+    "artist_clear_similarity": 0.88,
+    "artist_plausible_similarity": 0.72,
+    "minimum_top_two_separation": 0.08,
+    "stt_provider_confidence": "SEPARATE_P05_NOT_READ_BY_P04",
+    "ordering": [
+      "exact_normalized DESC",
+      "fuzzy_similarity DESC",
+      "approved_history_priority DESC",
+      "stable_local_artist_group_id ASC"
+    ],
+    "production_history_source": "NONE_APPROVED_PRESENT",
+    "history_default": "NoArtistHistoryPriority=0 for every artist",
+    "history_use": "secondary equal-score ranking only; cannot promote ambiguity to direct",
+    "candidate_page_limit": 100,
+    "artist_scan_limit": 5000,
+    "code_point_limit": 80,
+    "ranking_top_memory": 3,
+    "confirmation_options_max": 2,
+    "too_many_close_candidates": "TooManyPlausible -> fail/manual",
+    "incomplete_scan": "AppResult.Failure LIBRARY_BROWSE_UNAVAILABLE; never false NotFound",
+    "stale_or_revoke": "AppResult.Failure; no candidate publication",
+    "playback_commands_sent": 0,
+    "media3_files_changed": 0,
+    "five_existing_control_phrases_changed": 0
+  },
+  "test_cases": [
+    {
+      "id": "P04-J01",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "versionsAreStableAndMatchApprovedPolicyBounds",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J02",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "normalizationIsSymmetricForCurlyApostrophesAndExtraSpaces",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J03",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "accentsAndSemanticPunctuationArePreserved",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J04",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "exactCanonicalNameHasScoreOne",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J05",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "normalizedEditDistanceFavorsOneCharacterMistake",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J06",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "plausibleButBelowClearThresholdNeedsConfirmation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J07",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "unrelatedNamesAndExcessLengthCannotMakePlausibleCandidate",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J08",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "directScoreBoundaryAndSeparationAreDeterministic",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J09",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "validIndexKeyMustCorrespondToTheArtistLabel",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J10",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "uniqueExactDominatesFuzzyRegardlessOfHistory",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J11",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "canonicalEquivalentArtistGroupsCannotSilentlyPickFirstRow",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J12",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "clearlyHighFuzzyWithNoSecondCandidateMayBeClear",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J13",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "nearEqualFuzzyCandidatesStayAmbiguousNotAutomaticallyPicked",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J14",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "localHistoryIsSecondaryTieBreakOnlyAndCannotSuppressConfirmation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J15",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "absentHistoryHasStableIdSortForTiedScores",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J16",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "threePlausibleSimilarArtistsFailClosedRatherThanHideAChoice",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J17",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "unrelatedCandidatesReturnNotFoundWithoutChangingPlayback",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J18",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "emptyArtistIndexIsNotFoundOnlyForCompleteSnapshot",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J19",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "privateArtistNamesNeverAppearInOutcomeDiagnostics",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J20",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistMatchPolicyTest.kt",
+      "method": "identicalScoringIsDeterministicAcrossRepeatedInvocations",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J21",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "resolverStartsWithExactArtistIndexAndThenPinsCandidateRevision",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J22",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "canonicalQuoteVariantsAcrossDifferentIdsAreBothConsidered",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J23",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "fuzzyScoreCanFindANameWithoutSubstringEquality",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J24",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "fullyScansTwoBoundedPagesWithoutHydratingSongsOrRoomAll",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J25",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "emptyVerifiedArtistPageMeansNotFoundOnlyAfterFullRead",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J26",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "invalidIndexGroupMetadataFailsUnavailableNotNotFound",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J27",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "tooManyArtistGroupsDoNotProducePartialNotFoundOrWrongDirect",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J28",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "aTruncatedPageFailsClosedInsteadOfClaimingNoMatch",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J29",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "staleSecondPagePropagatesTypedFailure",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J30",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "permissionRevocationAtFinalPageIsNotMisreportedAsNotFound",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J31",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "twoPlausibleCandidatesReturnOnlyBoundedConfirmationSuggestions",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J32",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "threeNearEqualMatchesAreSafelyUnresolvedNotPartialConfirmation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J33",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "zeroTrustForUnnormalizedOrOversizedSlots",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04-J34",
+      "file": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase4ArtistResolverPortTest.kt",
+      "method": "privateResultDoesNotIncludeArtistOrIdInDiagnosticMessage",
+      "status": "NOT_RUN"
+    }
+  ],
+  "qa": {
+    "authored_unit_cases": 34,
+    "executed": 0,
+    "passed": 0,
+    "failed": 0,
+    "execution_status": "NOT_RUN",
+    "kotlin_compilation": "NOT_RUN",
+    "gradle": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "github_actions": "NOT_RUN",
+    "apk": "NOT_CREATED",
+    "phone_manual": "NOT_RUN",
+    "M01_to_M48": "NOT_RUN",
+    "T01_to_T10": "NOT_RUN",
+    "L01_to_L06": "NOT_RUN"
+  },
+  "original_issue11_acceptance": {
+    "total": 13,
+    "verified_pass": 0,
+    "not_verified": 10,
+    "not_run": 3
+  },
+  "focus_ac": {
+    "AC02": "SOURCE_IMPLEMENTED_UNVERIFIED",
+    "AC03": "HISTORY_TIE_PORT_SOURCE_ONLY_NO_APPROVED_RUNTIME_SOURCE",
+    "AC05": "BOUND_AMBIGUITY_SOURCE_UNWIRED",
+    "AC07": "NOT_FOUND_SOURCE_SAFE",
+    "AC11": "34_UNIT_SOURCE_AUTHORED_NOT_RUN"
+  },
+  "quality_issue80": {
+    "state": "OPEN",
+    "previous_issue10_lab": "24/50=48%",
+    "quality_gate": "≥90%",
+    "no_new_measurement": true
+  },
+  "next_phase": "P05 real provider confidence admission and safe Execute/Confirm/Reject decision"
+}

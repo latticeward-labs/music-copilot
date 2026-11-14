@@ -64,6 +64,8 @@ import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
 import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.feature.driving.DrivingModeScreen
+import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
+import com.latticeward.musiccopilot.feature.voice.VoiceConfirmationActionPolicy
 import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import com.latticeward.musiccopilot.core.application.permission.PermissionStatus
 import com.latticeward.musiccopilot.core.application.permission.VoicePracticeStage
@@ -558,6 +560,16 @@ fun AppNavHost(
                 onPlayerMicPermissionDismiss()
                 voiceStartRejected = false
             }
+            val playerConfirmationAllowed: (VoiceCandidateToken) -> Boolean = { token ->
+                val coordinator = voiceSessionCoordinator
+                coordinator != null && VoiceConfirmationActionPolicy.mayRespond(
+                    latest = coordinator.state.value, token = token,
+                    origin = VoiceOrigin.Player,
+                    originActive = playerActive && playerOpen &&
+                        target == Destination.FullPlayer &&
+                        visibleBackStackEntry?.destination?.route == Destination.FullPlayer.route,
+                )
+            }
             val exitPlayer: () -> Unit = {
                 dismissPlayerVoice()
                 playerOpen = false
@@ -601,6 +613,20 @@ fun AppNavHost(
                             voiceStartRejected = false
                         },
                         onVoiceCancel = dismissPlayerVoice,
+                        // Event-time gate: never dispatch a saved token from a
+                        // dismissed/hidden Player or another Voice generation.
+                        onVoiceConfirm = { token, index ->
+                            if (playerConfirmationAllowed(token))
+                                voiceSessionCoordinator?.confirm(token, index)
+                        },
+                        onVoiceNeither = { token ->
+                            if (playerConfirmationAllowed(token))
+                                voiceSessionCoordinator?.neither(token)
+                        },
+                        onVoiceCancelConfirmation = { token ->
+                            if (playerConfirmationAllowed(token))
+                                voiceSessionCoordinator?.cancelConfirmation(token)
+                        },
                         onVoiceRetry = {
                             val latest = voiceSessionCoordinator?.state?.value
                             if (playerActive &&
@@ -692,6 +718,20 @@ fun AppNavHost(
                 }
             }
             BackHandler(onBack = exitDriving)
+            val drivingConfirmationAllowed: (VoiceCandidateToken) -> Boolean = { token ->
+                val coordinator = voiceSessionCoordinator
+                coordinator != null && VoiceConfirmationActionPolicy.mayRespond(
+                    latest = coordinator.state.value, token = token,
+                    origin = VoiceOrigin.Driving,
+                    originActive = drivingNavigation.state.active &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                        !settingsOpen && !replayingEducation &&
+                        target == Destination.Driving &&
+                        visibleBackStackEntry?.destination?.route == Destination.Driving.route,
+                )
+            }
             // P07 extends the existing WF-07 screen with a *same-route*
             // cancellable Voice overlay, never a second Voice destination.
             // Voice transport only runs through the application coordinator.
@@ -717,6 +757,18 @@ fun AppNavHost(
                         )
                     ) voiceSessionCoordinator.cancel(VoiceCancelReason.UserBack)
                     voiceStartRejected = false
+                },
+                onVoiceConfirm = { token, index ->
+                    if (drivingConfirmationAllowed(token))
+                        voiceSessionCoordinator?.confirm(token, index)
+                },
+                onVoiceNeither = { token ->
+                    if (drivingConfirmationAllowed(token))
+                        voiceSessionCoordinator?.neither(token)
+                },
+                onVoiceCancelConfirmation = { token ->
+                    if (drivingConfirmationAllowed(token))
+                        voiceSessionCoordinator?.cancelConfirmation(token)
                 },
                 onVoiceRetry = {
                     if (drivingNavigation.state.active &&

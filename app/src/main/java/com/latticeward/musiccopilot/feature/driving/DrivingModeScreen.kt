@@ -47,6 +47,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.latticeward.musiccopilot.R
+import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
 import com.latticeward.musiccopilot.feature.voice.VoiceSessionPanel
 import com.latticeward.musiccopilot.app.theme.MusicColors
 import com.latticeward.musiccopilot.app.theme.MusicGrid
@@ -105,6 +106,10 @@ fun DrivingModeScreen(
     onVoicePermissionCancel: () -> Unit = {},
     onVoiceCancel: () -> Unit = {},
     onVoiceRetry: () -> Unit = {},
+    // Without P08 wiring, native buttons are disabled rather than no-op.
+    onVoiceConfirm: ((VoiceCandidateToken, Int) -> Unit)? = null,
+    onVoiceNeither: ((VoiceCandidateToken) -> Unit)? = null,
+    onVoiceCancelConfirmation: ((VoiceCandidateToken) -> Unit)? = null,
 ) {
     // Key on the verified *service* currentItem, not last clicked row or
     // a previously loaded title. Every change hides old metadata immediately.
@@ -151,7 +156,13 @@ fun DrivingModeScreen(
     // A Voice Back cancels capture/permission overlay in this same route.
     // Otherwise P03's root BackHandler exits Driving immediately.
     BackHandler(enabled = voiceActive || voicePermissionPrompt) {
-        if (voiceActive) onVoiceCancel() else onVoicePermissionCancel()
+        val confirming = voiceState as? VoiceSessionState.Confirming
+        when {
+            confirming != null && onVoiceCancelConfirmation != null ->
+                onVoiceCancelConfirmation(confirming.token)
+            voiceActive -> onVoiceCancel()
+            else -> onVoicePermissionCancel()
+        }
     }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MusicColors.background) {
@@ -212,6 +223,25 @@ fun DrivingModeScreen(
                 textAlign = TextAlign.Center,
             )
 
+            // P08: keep two short confirmation options at the TOP of the
+            // scrollable body, before artwork/recovery copy. Driving Exit
+            // remains pinned. Hide nonessential track details while awaiting
+            // one choice; never introduce a new Activity or modal focus trap.
+            if (voiceState is VoiceSessionState.Confirming) {
+                VoiceSessionPanel(
+                    state = voiceState,
+                    permissionStage = voicePermissionStage,
+                    onPermissionContinue = onVoicePermissionContinue,
+                    onPermissionCancel = onVoicePermissionCancel,
+                    onVoiceCancel = onVoiceCancel,
+                    onVoiceRetry = onVoiceRetry,
+                    onConfirm = onVoiceConfirm,
+                    onNeither = onVoiceNeither,
+                    onCancelConfirmation = onVoiceCancelConfirmation,
+                    focusRequester = overlayFocusRequester,
+                    driving = true,
+                )
+            } else {
             if (recovery.showArtworkAndMetadata) {
                 // CC-05/CC-06: subordinate CMP-08 neutral artwork only.
                 // Never fabricate a bitmap or cache a revoked private file.
@@ -312,6 +342,9 @@ fun DrivingModeScreen(
                     onPermissionCancel = onVoicePermissionCancel,
                     onVoiceCancel = onVoiceCancel,
                     onVoiceRetry = onVoiceRetry,
+                    onConfirm = onVoiceConfirm,
+                    onNeither = onVoiceNeither,
+                    onCancelConfirmation = onVoiceCancelConfirmation,
                     focusRequester = overlayFocusRequester,
                     driving = true,
                 )
@@ -410,6 +443,7 @@ fun DrivingModeScreen(
                     textAlign = TextAlign.Center,
                 )
             }
+            } // non-Confirming presentation; choices remain above artwork
             Text(
                 stringResource(R.string.i9_driving_one_layer_note),
                 style = MusicTextStyles.bodyMedium,

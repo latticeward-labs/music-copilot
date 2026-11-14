@@ -7,6 +7,10 @@ import com.latticeward.musiccopilot.core.result.AppErrorCodes
 import com.latticeward.musiccopilot.core.result.AppResult
 import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
+import com.latticeward.musiccopilot.data.api.ArtistLookupPage
+import com.latticeward.musiccopilot.data.api.ArtistLookupRequest
+import com.latticeward.musiccopilot.data.api.ArtistTrackRefsPage
+import com.latticeward.musiccopilot.data.api.ArtistTrackRefsRequest
 import com.latticeward.musiccopilot.data.api.LibraryBrowsePage
 import com.latticeward.musiccopilot.data.api.LibraryBrowseRequest
 import com.latticeward.musiccopilot.data.api.LibraryCandidate
@@ -309,6 +313,78 @@ class RoomLibraryRepository(
             AppErrorCodes.LIBRARY_BROWSE_STALE,
             Recoverability.RECOVERABLE, RecoveryAction.Retry,
         ))
+
+    /**
+     * Issue #11 P03: REAL artist-group identity from bounded Room SQL only.
+     * Never infer NotFound from a revoked/Scanning/stale or unavailable index.
+     *
+     * A source/reconcile epoch is captured across the read, so permission
+     * revocation followed by quick regrant cannot validate an old snapshot.
+     * The Voice use case must pin and revalidate revision again at dispatch.
+     */
+    override suspend fun lookupArtistGroups(
+        request: ArtistLookupRequest,
+    ): AppResult<ArtistLookupPage> = withContext(dispatchers.io) {
+        if (!source.hasAccess()) return@withContext permissionUnavailable()
+        val epoch = accessEpoch.get()
+        val before = index.value
+        if (before.status != LibraryIndexStatus.Ready &&
+            before.status != LibraryIndexStatus.Empty
+        ) return@withContext libraryReadUnavailable()
+        if (request.expectedRevision != null &&
+            request.expectedRevision != before.revision
+        ) return@withContext staleBrowsePage()
+
+        try {
+            val page = projection.lookupArtistGroups(request, before.revision)
+            currentCoroutineContext().ensureActive()
+            if (!source.hasAccess()) return@withContext permissionUnavailable()
+            val stillCurrent = synchronized(accessLock) {
+                accessEpoch.get() == epoch &&
+                    state.value.revision == before.revision &&
+                    state.value.status == before.status &&
+                    source.hasAccess()
+            }
+            if (!stillCurrent) return@withContext staleBrowsePage()
+            AppResult.Success(page)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (security: SecurityException) { permissionUnavailable() }
+        catch (failure: Exception) { libraryReadUnavailable() }
+    }
+
+    /**
+     * Read a bounded, stable page of refs scoped to one REAL artist group.
+     * The Data API does NOT prove file existence, permission at dispatch time,
+     * playback success, or queue ownership: P06 must requery get(ref).
+     */
+    override suspend fun artistTrackRefs(
+        request: ArtistTrackRefsRequest,
+    ): AppResult<ArtistTrackRefsPage> = withContext(dispatchers.io) {
+        if (!source.hasAccess()) return@withContext permissionUnavailable()
+        val epoch = accessEpoch.get()
+        val before = index.value
+        if (before.status != LibraryIndexStatus.Ready &&
+            before.status != LibraryIndexStatus.Empty
+        ) return@withContext libraryReadUnavailable()
+        if (before.revision != request.expectedRevision)
+            return@withContext staleBrowsePage()
+
+        try {
+            val page = projection.artistTrackRefs(request, before.revision)
+            currentCoroutineContext().ensureActive()
+            if (!source.hasAccess()) return@withContext permissionUnavailable()
+            val stillCurrent = synchronized(accessLock) {
+                accessEpoch.get() == epoch &&
+                    state.value.revision == before.revision &&
+                    state.value.status == before.status &&
+                    source.hasAccess()
+            }
+            if (!stillCurrent) return@withContext staleBrowsePage()
+            AppResult.Success(page)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (security: SecurityException) { permissionUnavailable() }
+        catch (failure: Exception) { libraryReadUnavailable() }
+    }
 
     override suspend fun get(ref: MediaRef): AppResult<LibraryItem> =
         withContext(dispatchers.io) {

@@ -1,0 +1,189 @@
+{
+  "schema": "issue11-p03-source-evidence-v1",
+  "issue": 11,
+  "phase": "P03",
+  "date": "2026-11-14",
+  "repository": "latticeward-labs/music-copilot",
+  "branch": "feature/11-play-artist-one-step-ambiguity",
+  "phase_status": "SOURCE_IMPLEMENTED_UNBUILT_UNWIRED",
+  "source_basis": {
+    "owner_archive": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_documents_read": 12,
+    "chief_authorities": [
+      "ADR-0003_Local_First_Data_Boundaries_Revised.pdf",
+      "ADR-0004_Replaceable_Voice_Provider.pdf",
+      "ADR-0005_Restricted_Deterministic_Intent_Mapping.pdf",
+      "Music_Copilot_Code_and_Technical_Documentation_MVP_v1_EN.pdf",
+      "GitHub approved Voice Contract / Architecture / Issue #11"
+    ]
+  },
+  "source_files": [
+    "app/src/main/java/com/latticeward/musiccopilot/data/api/ArtistLookupContracts.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/data/api/LibraryRepository.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryDao.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/data/room/LibraryProjection.kt",
+    "app/src/main/java/com/latticeward/musiccopilot/data/repository/RoomLibraryRepository.kt",
+    "docs/implementation/ISSUE_11_P03_ARTIST_INDEX_LOOKUP_AND_REVISION_AUDIT.md",
+    "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+    "app/src/androidTest/java/com/latticeward/musiccopilot/Issue11Phase3RoomArtistQueryTest.kt"
+  ],
+  "invariants": {
+    "artist_identity_only": "Queries artistGroupId, normalizedArtist, artist; no song-title resolution",
+    "exact_mode": "SQL normalizedArtist equality, grouped by artistGroupId",
+    "fuzzy_inputs": "Stable paged artist-group candidates; P04 algorithm NOT_IMPLEMENTED",
+    "missing_metadata": "Null/blank artist and missing V2 group excluded; literal user-authored Unknown Artist remains distinct",
+    "queries_bounded": "LIMIT/OFFSET in SQLite, default 50 and maximum 100 per page",
+    "member_selection": "Only selected artistGroupId, normalizedTitle and mediaRef stable order, MediaRef values only",
+    "revision": "Same read transaction for count/page, expected revision pinned for later artist pages and every member page",
+    "permission": "Live source.hasAccess before/after; accessEpoch and revision/status rechecked",
+    "failure": "Typed PERMISSION_REVOKED or LIBRARY_BROWSE_STALE or LIBRARY_BROWSE_UNAVAILABLE; no fake NotFound",
+    "legacy": "resolveVoiceCandidates remains title-oriented/unchanged; new lookup separate",
+    "playback": "Media3 queue and controller unchanged; requery/ACK P06 pending",
+    "privacy": "No raw artist names/IDs/refs/transcripts included in Quality, GitHub evidence or error codes",
+    "schema": "Room V2 unchanged; no migration",
+    "voice_runtime": "not wired until later phases; five controls unchanged"
+  },
+  "qa": {
+    "jvm_tests_authored": 14,
+    "android_instrumentation_authored": 4,
+    "all_authored": 18,
+    "all_executed": 0,
+    "cases": [
+      {
+        "id": "P03-T01",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "requestBoundsRejectBadKeysAndUnpinnedLaterPages",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T02",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "acceptedAuthoritativeIndexRequiredBeforeEitherRead",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T03",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "revokedPermissionPreventsQueriesAndIsNotMistakenForNotFound",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T04",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "exactArtistLookupIsIdentityScopedNotSongTitle",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T05",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "missingArtistMetadataIsExcludedButLiteralUnknownArtistIsDistinct",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T06",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "candidatePagesAreStableSortedAndBoundedWithRevisionCursor",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T07",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "staleExpectedRevisionFailsBeforeRoomIsRead",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T08",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "membershipOnlyReturnsSelectedArtistInStableTitleRefOrder",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T09",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "revocationDuringQueryFailsClosedEvenAfterPreviouslyReadyScan",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T10",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "revokeThenRegrantEpochRejectsEvenUnchangedRevision",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T11",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "memberReadsFailClosedIfPermissionVanishedDuringRead",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T12",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "acceptedRevisionCanGoStaleAfterFreshMediaReconciliation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T13",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "opaqueArtistMetadataAndRefsMustNotLeakThroughDiagnostics",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T14",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase3ArtistLookupPortTest.kt",
+        "name": "immutableCopyPreventsCallerFromMutatingPublishedCandidateList",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T15",
+        "source": "app/src/androidTest/java/com/latticeward/musiccopilot/Issue11Phase3RoomArtistQueryTest.kt",
+        "name": "roomExactLookupUsesArtistIdentityNotSongTitles",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T16",
+        "source": "app/src/androidTest/java/com/latticeward/musiccopilot/Issue11Phase3RoomArtistQueryTest.kt",
+        "name": "roomCandidatePagesStableAndNoMissingArtistMetadata",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T17",
+        "source": "app/src/androidTest/java/com/latticeward/musiccopilot/Issue11Phase3RoomArtistQueryTest.kt",
+        "name": "roomSongRefsAreBoundedAndStrictlyArtistScoped",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P03-T18",
+        "source": "app/src/androidTest/java/com/latticeward/musiccopilot/Issue11Phase3RoomArtistQueryTest.kt",
+        "name": "roomLiteralUnknownArtistRemainsDifferentFromMissingMetadata",
+        "status": "NOT_RUN"
+      }
+    ],
+    "test_execution": "NOT_RUN",
+    "gradle": "NOT_RUN",
+    "compile": "NOT_RUN",
+    "kapt": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "ci": "NOT_RUN",
+    "build": "NOT_RUN",
+    "apk": "NOT_CREATED",
+    "device_manual": "NOT_RUN",
+    "issue11_acceptance": {
+      "total": 13,
+      "verified_pass": 0,
+      "not_verified": 10,
+      "not_run": 3
+    },
+    "planned_m01_m48": "NOT_RUN",
+    "planned_t01_t10": "NOT_RUN",
+    "planned_l01_l06": "NOT_RUN"
+  },
+  "open_quality_blocker": {
+    "issue": 80,
+    "status": "OPEN",
+    "issue10_owner_reported_successes": 24,
+    "issue10_owner_reported_attempts": 50,
+    "release_gate": 0.9
+  },
+  "handoff": "P04 versioned artist fuzzy ranking, score, ties and history policy; no test/build until P13"
+}
