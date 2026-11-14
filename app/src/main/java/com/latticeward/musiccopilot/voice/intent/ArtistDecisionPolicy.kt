@@ -13,7 +13,8 @@ import com.latticeward.musiccopilot.voice.policy.VoicePolicy
  * Only maps P02 grammar + P04 artist identity outcome + *actual* STT provider
  * confidence. It does not own session/token, access MediaStore, synthesize
  * ArtistResolution, execute PlaybackGateway, or show a confirmation UI.
- * These remain P06/P07/P08/P12 responsibilities.
+ * These are implemented in the P06/P07/P08 ports and verified for source
+ * connectivity in P12; compilation and device behavior remain P13 gates.
  *
  * The five #10 exact transport intents MUST continue through their existing
  * RestrictedVoiceIntentMapper; do not route them through this policy.
