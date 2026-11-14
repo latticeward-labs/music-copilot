@@ -1,0 +1,450 @@
+{
+  "schema": "issue11-p13-build-result-owner-qa-v1",
+  "date": "2026-11-14",
+  "repo": "latticeward-labs/music-copilot",
+  "issue": 11,
+  "phase": "P13",
+  "owner_request": "Generate one cumulative APK from all source phases P00-P12 and provide exact owner phone QA checklist, without running automated tests",
+  "status": "CUMULATIVE_APK_BUILD_SUCCESS_OWNER_PHONE_QA_PENDING",
+  "source": {
+    "branch": "feature/11-play-artist-one-step-ambiguity",
+    "commit": "a8191014a1a95e4d337314caf196b282749f9f9d",
+    "base_prebuild_commit": "1adccd8aebe136a1bd8af48e4ba6dbb1803bf8ed",
+    "archive_uploaded_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "source_configuration": "complete Issue #11 feature branch, no merge"
+  },
+  "build": {
+    "github_actions_run_id": 43606645653,
+    "github_actions_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/43606645653",
+    "workflow": ".github/workflows/issue-11-p13-one-cumulative-apk.yml",
+    "trigger": ".github/issue11-p13-apk-request.txt",
+    "job_id": 132482610942,
+    "job_result": "success",
+    "job_status": "completed",
+    "run_attempt": 1,
+    "task": ":app:assembleDebug",
+    "flavor": "debug",
+    "arm64_only_flag": "-Pissue10QaArm64Only=true",
+    "compile_and_package": "SUCCESS",
+    "unit_tests": "NOT_RUN",
+    "android_tests": "NOT_RUN",
+    "compose_tests": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "emulator": "NOT_RUN",
+    "started_at_utc": "2026-11-14T14:46:55Z",
+    "completed_at_utc": "2026-11-14T14:51:19Z",
+    "provenance_inside_artifact": [
+      "BUILD_PROVENANCE.txt",
+      "SOURCE_COMMIT.txt",
+      "APK_SHA256SUM.txt",
+      "APK_SIZE_BYTES.txt",
+      "INPUT_SHA256SUMS.txt"
+    ],
+    "artifact": {
+      "id": 14119115504,
+      "name": "issue11-p13-one-cumulative-build-only-apk",
+      "type": "GitHub Actions ZIP archive",
+      "expires_at_utc": "2026-11-28T14:51:13Z",
+      "size_compressed_bytes": 56628179,
+      "github_run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/43606645653",
+      "download_api_url": "https://api.github.com/repos/latticeward-labs/music-copilot/actions/artifacts/14119115504/zip"
+    },
+    "apk": {
+      "file_name": "music-copilot-issue11-p13-debug.apk",
+      "size_bytes": 99853110,
+      "sha256": "b77004afa8d1b4a61ff483ec90347d0200742bcbc8f49d9b8bd8e96f588e812d",
+      "checked_against": "APK_SHA256SUM.txt, APK_SIZE_BYTES.txt, SOURCE_COMMIT.txt in downloaded artifact ZIP",
+      "checksum_verified": true,
+      "bytes_verified": true,
+      "source_commit_verified": true,
+      "installed_on_phone": false
+    },
+    "model_assets": {
+      "source": "pinned Issue #10 Moonshine Tiny offline runtime included in cumulative APK",
+      "moonshine_tiny_en_archive_sha256": "9ec31b342d8fa3240c3b81b8f82e1cf7e3ac467c93ca5a999b741d5887164f8d",
+      "moonshine_encoder_sha256": "94e90a4654fc45cdfedb77c4c08e1739f48862998e58fada384b25118134f221",
+      "moonshine_decoder_sha256": "cf524c4862d36e9e5ab032eddc73637efd822d70e868ac575cf1a46e1e4708a0",
+      "moonshine_tokens_sha256": "2870d843e14c1e187bf1913a521562a63b53933814bd7f2145120468f494a049",
+      "silero_vad_sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+      "sherpa_aar_sha256": "f0f8716982d27cb4ce695e3934018b1342d9d3d6fdb6ef1f1658fe8bad50b4fc",
+      "static_apk_archive_inspection": {
+        "contains_sherpa_onnx_arm64_native_lib": true,
+        "contains_moonshine_assets": true,
+        "contains_silero_vad_asset": true,
+        "not_equivalent_to_runtime_test": true
+      }
+    }
+  },
+  "owner_phone_checks": {
+    "checklist": "docs/implementation/ISSUE_11_P12_P13_OWNER_PHONE_QA_CHECKLIST_FA.md",
+    "manual": [
+      {
+        "id": "M01",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M02",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M03",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M04",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M05",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M06",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M07",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M08",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M09",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M10",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M11",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M12",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M13",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M14",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M15",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M16",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M17",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M18",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M19",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M20",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M21",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M22",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M23",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M24",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M25",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M26",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M27",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M28",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M29",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M30",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M31",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M32",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M33",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M34",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M35",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M36",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M37",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M38",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M39",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M40",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M41",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M42",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M43",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M44",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M45",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M46",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M47",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "M48",
+        "status": "NOT_RUN",
+        "result": null
+      }
+    ],
+    "specialist": [
+      {
+        "id": "T01",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T02",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T03",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T04",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T05",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T06",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T07",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T08",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T09",
+        "status": "NOT_RUN",
+        "result": null
+      },
+      {
+        "id": "T10",
+        "status": "NOT_RUN",
+        "result": null
+      }
+    ],
+    "lab": [
+      {
+        "id": "L01",
+        "attempts": 10,
+        "correct": null,
+        "unintended_wrong_execution": null,
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "L02",
+        "attempts": 10,
+        "correct": null,
+        "unintended_wrong_execution": null,
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "L03",
+        "attempts": 10,
+        "correct": null,
+        "unintended_wrong_execution": null,
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "L04",
+        "attempts": 10,
+        "correct": null,
+        "unintended_wrong_execution": null,
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "L05",
+        "attempts": 10,
+        "correct": null,
+        "unintended_wrong_execution": null,
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "L06",
+        "attempts": 10,
+        "correct": null,
+        "unintended_wrong_execution": null,
+        "status": "NOT_RUN"
+      }
+    ],
+    "goal_lab_correct_at_least": 54,
+    "goal_lab_total": 60,
+    "goal_wrong_auto_executions": 0,
+    "voice_p95_goal_ms_below": 2500,
+    "instructions": "Owner installs artifact APK and manually reports actual PASS/FAIL/BLOCKED, device, app source SHA and redacted notes; only then update case statuses"
+  },
+  "acceptance": {
+    "total_original_criteria": 13,
+    "pass": 0,
+    "fail": 0,
+    "not_verified": 13,
+    "source": "docs/implementation/ISSUE_11_P12_ACCEPTANCE_AND_QA_LEDGER.json"
+  },
+  "independent_quality_debt": {
+    "issue": 80,
+    "state": "OPEN",
+    "prior_issue10_lab": "24/50 correct (48%)",
+    "current_issue11_phone_lab": "NOT_RUN",
+    "do_not_claim_resolved": true
+  },
+  "release_decision": "HOLD_FOR_OWNER_PHONE_QA",
+  "merge": false,
+  "pr": false,
+  "issue_close": false,
+  "notes": [
+    "Build success is evidence of compiling and packaging the cumulative APK ONLY, not of device behavior or passing acceptance tests.",
+    "Moonshine providerConfidence=null remains a known safety limitation: no synthetic high confidence. P13 M03 direct admission may be BLOCKED.",
+    "No tracking, personal transcript/title/artist names, or session tokens should be posted in GitHub QA reports.",
+    "Canceling after Media3 already accepted command cannot rewind actual service state; real route/call/focus must be checked on device.",
+    "APK is debug build for owner field QA, not a Play Store release-signed artifact.",
+    "GitHub artifact has expiry. Direct sandbox copies have the exact same SHA as the downloaded artifact at build verification."
+  ]
+}
