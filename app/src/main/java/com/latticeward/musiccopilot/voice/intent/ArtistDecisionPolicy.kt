@@ -48,12 +48,12 @@ class ArtistDecisionPolicy(
         resolution: AppResult<ArtistResolution>? = null,
     ): AppResult<PlayArtistDecision> {
         when (phrase) {
-            is PlayArtistPhraseResult.NotArtistPhrase,
+            PlayArtistPhraseResult.NotArtistPhrase,
             is PlayArtistPhraseResult.Malformed,
-            is PlayArtistPhraseResult.NonEnglish ->
+            PlayArtistPhraseResult.NonEnglish ->
                 return AppResult.Success(PlayArtistDecision.Unknown)
 
-            is PlayArtistPhraseResult.Unsupported ->
+            PlayArtistPhraseResult.Unsupported ->
                 return AppResult.Success(PlayArtistDecision.Unsupported)
 
             is PlayArtistPhraseResult.Recognized -> Unit
@@ -69,7 +69,7 @@ class ArtistDecisionPolicy(
         val evidence = ArtistConfidencePolicy.classify(providerConfidence)
         // Corrupt provider score is not evidence of a low-confidence utterance.
         // Do NOT offer a guessed artist or substitute its similarity score.
-        if (evidence is ArtistProviderConfidence.Invalid) return unknown()
+        if (evidence == ArtistProviderConfidence.Invalid) return unknown()
 
         return when (matched) {
             is ArtistResolution.NotFound ->
@@ -113,7 +113,7 @@ class ArtistDecisionPolicy(
                     PlayArtistDecision.Ambiguous(
                         candidates = candidates,
                         expectedLibraryRevision = matched.revision,
-                        reason = if (evidence is ArtistProviderConfidence.Missing)
+                        reason = if (evidence == ArtistProviderConfidence.Missing)
                             ArtistAmbiguityReason.MISSING_PROVIDER_CONFIDENCE
                         else if (evidence is ArtistProviderConfidence.Calibrated &&
                             evidence.probability < directThreshold
