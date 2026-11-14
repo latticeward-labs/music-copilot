@@ -453,7 +453,7 @@ class DefaultVoiceSessionCoordinator(
                 val pending = pendingArtist
                 val ui = mutableState.value as? VoiceSessionState.Confirming
                 if (!isCurrentLocked(id, generation, number) ||
-                    pending?.generation !== generation || ui == null ||
+                    pending == null || pending.generation !== generation || ui == null ||
                     ui.sessionId != id || ui.origin != origin ||
                     pending.snapshot.token != ui.token || artistPromptClaimed
                 ) null else {
@@ -471,8 +471,8 @@ class DefaultVoiceSessionCoordinator(
                             val pending = pendingArtist
                             val ui = mutableState.value as? VoiceSessionState.Confirming
                             isCurrentLocked(id, generation, number) &&
-                                pending?.generation === generation &&
-                                ui?.sessionId == id && ui.origin == origin &&
+                                pending != null && pending.generation === generation &&
+                                ui != null && ui.sessionId == id && ui.origin == origin &&
                                 ui.token == pending.snapshot.token
                         }
                         if (stillConfirming) tts.speak(output)
@@ -632,8 +632,14 @@ class DefaultVoiceSessionCoordinator(
             }
             VoiceSessionState.Failed(
                 id, origin,
-                AppError.Voice(code, Recoverability.RECOVERABLE, RecoveryAction.ManualFallback),
-                canRetry = VoiceTransitionPolicy.canOfferRetry(number, code),
+                AppError.Voice(
+                    code,
+                    if (code in ARTIST_TERMINAL_CODES) Recoverability.TERMINAL_FOR_ATTEMPT
+                    else Recoverability.RECOVERABLE,
+                    RecoveryAction.ManualFallback,
+                ),
+                canRetry = code !in ARTIST_TERMINAL_CODES &&
+                    VoiceTransitionPolicy.canOfferRetry(number, code),
             ).also { mutableState.value = it }
         } ?: return
         VoiceFeedbackPolicy.terminalFailure(code, failed.canRetry)?.let { key ->
@@ -689,13 +695,25 @@ class DefaultVoiceSessionCoordinator(
     private companion object {
         // Explicit one-question window. Timeout is terminal, not a new listen.
         const val CONFIRMATION_TIMEOUT_MS = 10_000L
+        val ARTIST_TERMINAL_CODES = setOf(
+            AppErrorCodes.VOICE_ARTIST_NOT_FOUND,
+            AppErrorCodes.VOICE_ARTIST_UNSUPPORTED,
+            AppErrorCodes.VOICE_ARTIST_DECLINED,
+            AppErrorCodes.VOICE_ARTIST_STALE,
+            AppErrorCodes.VOICE_ARTIST_UNAVAILABLE,
+            AppErrorCodes.VOICE_ARTIST_PLAYBACK_FAILED,
+        )
         val SUCCESS_FEEDBACK_KEYS = setOf(
             VoiceFeedbackKey.Play, VoiceFeedbackKey.Pause, VoiceFeedbackKey.Next,
             VoiceFeedbackKey.Previous, VoiceFeedbackKey.SeekBack,
+            VoiceFeedbackKey.ArtistPlaying,
         )
         val FAILURE_FEEDBACK_KEYS = setOf(
             VoiceFeedbackKey.Timeout, VoiceFeedbackKey.NotRecognized,
-            VoiceFeedbackKey.Unavailable,
+            VoiceFeedbackKey.Unavailable, VoiceFeedbackKey.ArtistNotFound,
+            VoiceFeedbackKey.ArtistUnsupported, VoiceFeedbackKey.ArtistDeclined,
+            VoiceFeedbackKey.ArtistStale, VoiceFeedbackKey.ArtistUnavailable,
+            VoiceFeedbackKey.ArtistPlaybackFailure,
         )
     }
 
@@ -882,6 +900,7 @@ class DefaultVoiceSessionCoordinator(
         attempt = 0
         dispatchClaimed = false
         feedbackClaimed = false
+        artistPromptClaimed = false
         pendingArtist = null
         confirmingDispatchInFlight = false
         confirmationTimeoutJob?.cancel()
