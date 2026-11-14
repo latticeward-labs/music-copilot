@@ -1,0 +1,403 @@
+{
+  "schema": "issue11-p11-source-evidence-v1",
+  "date": "2026-11-14",
+  "repo": "latticeward-labs/music-copilot",
+  "branch": "feature/11-play-artist-one-step-ambiguity",
+  "issue": 11,
+  "phase": "P11",
+  "status": "SOURCE_IMPLEMENTED_UNBUILT_UNVERIFIED",
+  "owner_attachment": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "pdf_count": 12,
+    "authority": [
+      "ADR-0003_Local_First_Data_Boundaries_Revised.pdf pp2-5",
+      "ADR-0004_Replaceable_Voice_Provider.pdf p3",
+      "ADR-0005_Restricted_Deterministic_Intent_Mapping.pdf p4",
+      "Music_Copilot_MVP_v1_EN.pdf p10",
+      "Music_Copilot_System_Architecture_MVP_v1_EN.pdf pp7,16-17",
+      "Music_Copilot_User_Flow_Phase_1_First_Readiness_v1.0_EN(4).pdf p14"
+    ]
+  },
+  "source_files": [
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/quality/api/TelemetryEvent.kt",
+      "github_blob_sha": "426eadb2bd51eaeea83f0ca50c6935c38aefb18a",
+      "category": "PRODUCTION_SOURCE_NOT_COMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/quality/privacy/AllowlistedTelemetryPrivacyGate.kt",
+      "github_blob_sha": "1fc346aa28a2af008194e3d2b4a0dff382a9e675",
+      "category": "PRODUCTION_SOURCE_NOT_COMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/quality/privacy/VoiceIntentDiagnosticPolicy.kt",
+      "github_blob_sha": "b3d0e2f580bd9b4f8c12cef6429735e6a2b46bff",
+      "category": "PRODUCTION_SOURCE_NOT_COMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+      "github_blob_sha": "aa1afc0d472ec935cfa8aad20bd5a4524da8abb2",
+      "category": "PRODUCTION_SOURCE_NOT_COMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+      "github_blob_sha": "f74aca2458e60ce51cac38a5b4b66ba9bb400ae4",
+      "category": "PRODUCTION_SOURCE_NOT_COMPILED"
+    },
+    {
+      "path": "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+      "github_blob_sha": "f16ecfe27406f41fb829628993c9da5e5a6755ac",
+      "category": "PRODUCTION_SOURCE_NOT_COMPILED"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase9PrivacyQualityTest.kt",
+      "github_blob_sha": "6a5e4730d6e30addc914596ed4f08f9d196a60b7",
+      "category": "AUTHORED_OR_ADAPTED_TEST_NOT_RUN"
+    },
+    {
+      "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+      "github_blob_sha": "db4ab35ad583b5c07af09ae53a4689d99bf8be5c",
+      "category": "AUTHORED_OR_ADAPTED_TEST_NOT_RUN"
+    },
+    {
+      "path": "docs/implementation/ISSUE_11_P11_TYPED_TELEMETRY_PRIVACY_AUDIT.md",
+      "github_blob_sha": "24d3bd747aad9ddd015690d5245a96ae035ee433",
+      "category": "AUDIT"
+    }
+  ],
+  "schema_contract": {
+    "name": "v1|voice_intent_outcome",
+    "fields": [
+      "intent_type",
+      "confidence_bucket",
+      "latency_bucket",
+      "result_code",
+      "correction_category"
+    ],
+    "identity_and_personal_fields": [],
+    "intent_values": [
+      "PLAY",
+      "PAUSE",
+      "NEXT",
+      "PREVIOUS",
+      "SEEK_BACK",
+      "PLAY_ARTIST"
+    ],
+    "result_codes": [
+      "EXECUTED",
+      "NOT_FOUND",
+      "UNSUPPORTED",
+      "DECLINED",
+      "STALE",
+      "UNAVAILABLE",
+      "PLAYBACK_FAILED",
+      "NO_MATCH",
+      "TIMEOUT",
+      "CANCELED",
+      "MANUAL_CORRECTION"
+    ],
+    "manual_correction_categories": [
+      "MANUAL_PLAY",
+      "MANUAL_PAUSE",
+      "MANUAL_SKIP",
+      "MANUAL_SEARCH",
+      "MANUAL_SELECT"
+    ],
+    "correction_requirements": "manual_correction category only with explicitly observed MANUAL_CORRECTION result",
+    "missing_confidence": "none, never synthesized",
+    "confidence_boundaries": {
+      "Low": "[0, 0.60)",
+      "Medium": "[0.60, 0.90)",
+      "High": "[0.90, 1.0]",
+      "other": "none"
+    },
+    "latency_boundaries_ms": {
+      "Fast": "0..1000",
+      "Expected": "1001..2500",
+      "Slow": ">2500",
+      "invalid": "none"
+    },
+    "threshold_origin": "P11 explicit engineering choice; not mandated as numeric threshold in uploaded ADR",
+    "clock": "System.nanoTime monotonic; only bucket leaves coordinator",
+    "result_emission": "one closed terminal event per owned PLAY_ARTIST attempt, including ACK-only success, typed failure, Neither/timeout/explicit token Cancel; none for pending confirmation",
+    "deduplication": "coordinator gate diagnosticClaimed boolean, no persistent/session ID",
+    "lifetime": "ephemeral in memory only; no storage/retry queue",
+    "renderer": "SanitizedTelemetryEvent internal constructor only from privacy gate",
+    "legacy_eight": "unchanged, including strict rejection of raw extra data in unapproved String code fields",
+    "added_legacy_six_error_codes": [
+      "VOICE_ARTIST_NOT_FOUND",
+      "VOICE_ARTIST_UNSUPPORTED",
+      "VOICE_ARTIST_DECLINED",
+      "VOICE_ARTIST_STALE",
+      "VOICE_ARTIST_UNAVAILABLE",
+      "VOICE_ARTIST_PLAYBACK_FAILED"
+    ],
+    "forbidden": [
+      "raw microphone buffers",
+      "raw voice recordings",
+      "transcripts",
+      "artist names",
+      "song/album titles",
+      "filenames/paths",
+      "media URIs or MediaRef",
+      "candidate list",
+      "artist group IDs",
+      "session IDs",
+      "confirmation tokens",
+      "bluetooth device IDs",
+      "precise location",
+      "contacts",
+      "personal playback history"
+    ],
+    "optional_quality_delivery": "off critical path on Dispatchers.Default; publisher rejects unapproved event; exception swallowed",
+    "production_sink": "NoOpTelemetrySink; no storage/remote transmission; consent/retention approval NOT granted",
+    "provider_raw_confidence": "never sent, only bucket; Moonshine nullable confidence remains none"
+  },
+  "qa": {
+    "authored_new_jvm_methods": 34,
+    "legacy_phase9_test_methods_source_only_updated": 13,
+    "legacy_phase9_test_executed": 0,
+    "cases": [
+      {
+        "id": "P11-J01",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "approvedIntentsAreExactlyTheSixAdrIntents",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J02",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "resultVocabularyIsClosedWithElevenCategories",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J03",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "manualCorrectionVocabularyIsClosedWithFiveCategories",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J04",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "nullConfidenceRemainsUnknownRatherThanSyntheticHigh",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J05",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "invalidConfidenceValuesAreRejected",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J06",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "confidenceBucketsUseExplicitBoundaryValues",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J07",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "missingAndNegativeElapsedTimeAreUnknown",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J08",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "latencyIsOnlyFastExpectedOrSlow",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J09",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "diagnosticPolicyDeclaresItsVersion",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J10",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "p09SixStableArtistErrorCodesMapToClosedResults",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J11",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "noMatchAndTimeoutMapToSafeResults",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J12",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "privateProviderErrorMessagesCannotBecomeResultCodes",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J13",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "encodedOutcomeContainsExactlyTheApprovedFiveFields",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J14",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "unknownProviderConfidenceEncodesAsNone",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J15",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "unknownLatencyEncodesAsNone",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J16",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "eachResultRemainsAConstantSafeCategory",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J17",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "manualCorrectionRequiresObservedTypedAction",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J18",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "nonCorrectionCannotHideACorrectionCategory",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J19",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "correctionResultWithoutCategoryIsRejected",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J20",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "diagnosticsToStringDoesNotLeakEvenSafeFields",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J21",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "typedEventHasNoFreeFormTranscriptOrArtistFields",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J22",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "p09ArtistFailuresAreStrictlyAllowlistedInLegacyFailureEvent",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J23",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "appendedArtistNameOrUriIsRejectedByLegacyGate",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J24",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "rawRecognitionBytesAreNotAValidFailureCode",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J25",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "noOpSinkDropsAllTypedResultsWithoutPersisting",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J26",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "throwingSinkCannotStopBestEffortPublisher",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J27",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "throwingGateCannotReachSink",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J28",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "coordinatorClaimsArtistAttemptBeforeTryingToEmitOutcome",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J29",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "executedOutcomeIsSourceGatedByMedia3Acknowledgement",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J30",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "rawArtistMetadataIsNeverSentToTelemetryCallback",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J31",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "diagnosticsAreAsynchronousAndFailuresAreContained",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J32",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "applicationStillUsesExistingGateAndNoOpSinkOnly",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J33",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "manualCorrectionIsNotInferredFromDecliningArtist",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P11-J34",
+        "source": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt",
+        "method": "noInternetOrAndroidBackupIsEnabled",
+        "status": "NOT_RUN"
+      }
+    ],
+    "executed": 0,
+    "passed": 0,
+    "failed": 0,
+    "kotlin_compile": "NOT_RUN",
+    "gradle": "NOT_RUN",
+    "jvm": "NOT_RUN",
+    "android_instrumentation": "NOT_RUN",
+    "lint": "NOT_RUN",
+    "github_actions": "NOT_RUN",
+    "real_device": "NOT_RUN",
+    "apk": "NOT_CREATED",
+    "privacy_runtime": "NOT_VERIFIED",
+    "M01_M48": "NOT_RUN",
+    "T01_T10": "NOT_RUN",
+    "L01_L06": "NOT_RUN",
+    "static_source_review": "INSPECTED_ONLY_NO_COMPILER"
+  },
+  "original_issue11_acceptance": {
+    "total": 13,
+    "verified_pass": 0
+  },
+  "quality_debt": {
+    "issue": 80,
+    "state": "OPEN",
+    "prior_issue10_report": "24/50 48%",
+    "target": "90%",
+    "p11_does_not_change_stt": true
+  },
+  "operational": {
+    "no_ci_or_actions": true,
+    "no_build": true,
+    "no_merge": true,
+    "no_close_issue": true,
+    "feature_branch_only": true
+  },
+  "next": "P12 integration source wiring, owner-checklist + evidence; P13 only APK build and real owner phone QA"
+}
