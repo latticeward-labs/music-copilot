@@ -58,9 +58,11 @@ fun VoiceSessionPanel(
     onPermissionCancel: () -> Unit,
     onVoiceCancel: () -> Unit,
     onVoiceRetry: () -> Unit,
-    onConfirm: (VoiceCandidateToken, Int) -> Unit = { _, _ -> },
-    onNeither: (VoiceCandidateToken) -> Unit = {},
-    onCancelConfirmation: (VoiceCandidateToken) -> Unit = {},
+    // Nullable rather than no-op: when a caller has not wired P08, the
+    // choices remain visibly disabled instead of pretending to do something.
+    onConfirm: ((VoiceCandidateToken, Int) -> Unit)? = null,
+    onNeither: ((VoiceCandidateToken) -> Unit)? = null,
+    onCancelConfirmation: ((VoiceCandidateToken) -> Unit)? = null,
     focusRequester: FocusRequester,
     driving: Boolean,
     modifier: Modifier = Modifier,
@@ -70,6 +72,9 @@ fun VoiceSessionPanel(
     // The only source of display labels/indexes is the Coordinator-owned
     // immutable Confirming snapshot; never re-query Room/MediaStore from UI.
     val confirming = state as? VoiceSessionState.Confirming
+    // Presentation-only rapid-tap guard. P07's token/generation claim is
+    // authoritative; this just avoids double feedback before recomposition.
+    var responseSubmitted by remember(confirming?.token) { mutableStateOf(false) }
 
     val headingText = when (projected.status) {
         VoiceOverlayStatus.Hidden -> return
@@ -148,7 +153,13 @@ fun VoiceSessionPanel(
                     confirming.options.size,
                 )
                 Button(
-                    onClick = { onConfirm(confirming.token, option.optionIndex) },
+                    onClick = {
+                        if (!responseSubmitted && onConfirm != null) {
+                            responseSubmitted = true
+                            onConfirm(confirming.token, option.optionIndex)
+                        }
+                    },
+                    enabled = !responseSubmitted && onConfirm != null,
                     modifier = Modifier.fillMaxWidth()
                         .heightIn(min = actionSize)
                         .then(voiceActionFocusOutline())
@@ -163,7 +174,13 @@ fun VoiceSessionPanel(
             }
             val neitherLabel = stringResource(R.string.i11_artist_confirm_neither_a11y)
             OutlinedButton(
-                onClick = { onNeither(confirming.token) },
+                onClick = {
+                    if (!responseSubmitted && onNeither != null) {
+                        responseSubmitted = true
+                        onNeither(confirming.token)
+                    }
+                },
+                enabled = !responseSubmitted && onNeither != null,
                 modifier = Modifier.fillMaxWidth()
                     .heightIn(min = actionSize)
                     .then(voiceActionFocusOutline())
@@ -207,12 +224,18 @@ fun VoiceSessionPanel(
         OutlinedButton(
             onClick = {
                 when {
-                    confirming != null -> onCancelConfirmation(confirming.token)
+                    confirming != null -> {
+                        if (!responseSubmitted && onCancelConfirmation != null) {
+                            responseSubmitted = true
+                            onCancelConfirmation(confirming.token)
+                        }
+                    }
                     projected.exit == VoiceOverlayExit.DismissPermission ->
                         onPermissionCancel()
                     else -> onVoiceCancel()
                 }
             },
+            enabled = confirming == null || (!responseSubmitted && onCancelConfirmation != null),
             modifier = Modifier.fillMaxWidth().heightIn(min = actionSize)
                 .then(voiceActionFocusOutline())
                 .semantics { contentDescription = exitA11y },
