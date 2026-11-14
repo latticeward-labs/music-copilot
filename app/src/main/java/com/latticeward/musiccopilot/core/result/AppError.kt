@@ -98,6 +98,14 @@ object AppErrorCodes {
     const val VOICE_NO_MATCH = "VOICE_NO_MATCH"
     const val VOICE_SECOND_ATTEMPT_FAILED = "VOICE_SECOND_ATTEMPT_FAILED"
     const val VOICE_STALE_SESSION = "VOICE_STALE_SESSION"
+    // Issue #11 P09: sixth-intent-only typed recovery. Never include artist
+    // names, transcripts, paths or tokens in these public error codes.
+    const val VOICE_ARTIST_NOT_FOUND = "VOICE_ARTIST_NOT_FOUND"
+    const val VOICE_ARTIST_UNSUPPORTED = "VOICE_ARTIST_UNSUPPORTED"
+    const val VOICE_ARTIST_DECLINED = "VOICE_ARTIST_DECLINED"
+    const val VOICE_ARTIST_STALE = "VOICE_ARTIST_STALE"
+    const val VOICE_ARTIST_UNAVAILABLE = "VOICE_ARTIST_UNAVAILABLE"
+    const val VOICE_ARTIST_PLAYBACK_FAILED = "VOICE_ARTIST_PLAYBACK_FAILED"
     const val FOCUS_NOT_RECOVERED = "FOCUS_NOT_RECOVERED"
     const val ROUTE_INVALIDATED = "ROUTE_INVALIDATED"
     const val CALL_OR_ROUTE_SAFE_PAUSED = "CALL_OR_ROUTE_SAFE_PAUSED"
