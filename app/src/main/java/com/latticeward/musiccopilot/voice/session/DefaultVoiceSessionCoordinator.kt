@@ -431,7 +431,9 @@ class DefaultVoiceSessionCoordinator(
         pendingArtist = ArtistPending(snapshot, generation, number)
         mutableState.value = VoiceSessionState.Confirming(
             id, origin, token,
-            snapshot.options.map { VoiceConfirmationOption(it.optionIndex, it.candidate.displayLabel) },
+            java.util.Collections.unmodifiableList(
+                snapshot.options.map { VoiceConfirmationOption(it.optionIndex, it.candidate.displayLabel) }
+            ),
         )
         confirmationTimeoutJob?.cancel()
         confirmationTimeoutJob = ownerScope.launch(generation) {
