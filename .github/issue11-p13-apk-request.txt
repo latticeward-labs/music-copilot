@@ -1,0 +1,8 @@
+Issue #11 P13: owner-requested one cumulative build-only APK
+Request date: 2026-11-14
+Branch: feature/11-play-artist-one-step-ambiguity
+Integrated source head before request: 1adccd8aebe136a1bd8af48e4ba6dbb1803bf8ed
+Build task: :app:assembleDebug
+Owner will run all phone tests: M01-M48, T01-T10, L01-L06.
+Do not run JVM/Android tests, lint, emulator or benchmarks.
+Do not merge or close Issue #11 before owner phone QA evidence.
