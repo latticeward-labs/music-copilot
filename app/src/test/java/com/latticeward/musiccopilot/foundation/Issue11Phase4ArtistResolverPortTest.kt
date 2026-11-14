@@ -116,7 +116,7 @@ class Issue11Phase4ArtistResolverPortTest {
         val library = FakeLibrary(listOf(artist("Adele")))
         val result = ArtistResolver(library).resolve(slot("Adele"))
         assertTrue(result is AppResult.Success<*>)
-        assertTrue((result as AppResult.Success).value is ArtistResolution.Clear)
+        assertTrue((result as AppResult.Success<ArtistResolution>).value is ArtistResolution.Clear)
         assertEquals(ArtistLookupMode.ExactNormalized, library.requests[0].mode)
         assertEquals(ArtistLookupMode.CandidatePage, library.requests[1].mode)
         assertEquals(4L, library.requests[1].expectedRevision)
@@ -125,7 +125,7 @@ class Issue11Phase4ArtistResolverPortTest {
     @Test fun canonicalQuoteVariantsAcrossDifferentIdsAreBothConsidered() = runBlocking {
         val library = FakeLibrary(listOf(artist("L'Arc"), artist("L’Arc")))
         val result = ArtistResolver(library).resolve(slot("L'Arc"))
-        assertTrue((result as AppResult.Success).value is ArtistResolution.NeedsConfirmation)
+        assertTrue((result as AppResult.Success<ArtistResolution>).value is ArtistResolution.NeedsConfirmation)
         val selected = result.value as ArtistResolution.NeedsConfirmation
         assertEquals(2, selected.candidates.size)
     }
@@ -133,7 +133,7 @@ class Issue11Phase4ArtistResolverPortTest {
     @Test fun fuzzyScoreCanFindANameWithoutSubstringEquality() = runBlocking {
         val library = FakeLibrary(listOf(artist("The Weekend"), artist("Mozart")))
         val result = ArtistResolver(library).resolve(slot("The Weeknd"))
-        assertTrue((result as AppResult.Success).value is ArtistResolution.Clear)
+        assertTrue((result as AppResult.Success<ArtistResolution>).value is ArtistResolution.Clear)
         assertEquals("The Weekend", (result.value as ArtistResolution.Clear)
             .candidate.displayLabel)
     }
@@ -142,7 +142,7 @@ class Issue11Phase4ArtistResolverPortTest {
         val labels = (0 until 140).map { "Noise Band $it" } + "The Weekend"
         val library = FakeLibrary(labels.map(::artist))
         val result = ArtistResolver(library).resolve(slot("The Weeknd"))
-        assertTrue((result as AppResult.Success).value is ArtistResolution.Clear)
+        assertTrue((result as AppResult.Success<ArtistResolution>).value is ArtistResolution.Clear)
         assertTrue(library.requests.count { it.mode == ArtistLookupMode.CandidatePage } >= 2)
         assertTrue(library.requests.all { it.limit <= ArtistResolver.PAGE_SIZE })
         assertTrue(library.requests.filter { it.mode == ArtistLookupMode.CandidatePage }
@@ -152,7 +152,7 @@ class Issue11Phase4ArtistResolverPortTest {
     @Test fun emptyVerifiedArtistPageMeansNotFoundOnlyAfterFullRead() = runBlocking {
         val library = FakeLibrary(emptyList())
         val result = ArtistResolver(library).resolve(slot("Adele"))
-        assertEquals(ArtistResolution.NotFound(4L), (result as AppResult.Success).value)
+        assertEquals(ArtistResolution.NotFound(4L), (result as AppResult.Success<ArtistResolution>).value)
     }
 
     @Test fun invalidIndexGroupMetadataFailsUnavailableNotNotFound() = runBlocking {
@@ -194,7 +194,7 @@ class Issue11Phase4ArtistResolverPortTest {
     @Test fun twoPlausibleCandidatesReturnOnlyBoundedConfirmationSuggestions() = runBlocking {
         val library = FakeLibrary(listOf(artist("Adelle"), artist("Adelee")))
         val result = ArtistResolver(library).resolve(slot("Adele"))
-        val ambiguous = (result as AppResult.Success).value as ArtistResolution.NeedsConfirmation
+        val ambiguous = (result as AppResult.Success<ArtistResolution>).value as ArtistResolution.NeedsConfirmation
         assertEquals(2, ambiguous.candidates.size)
         assertEquals(4L, ambiguous.revision)
     }
@@ -204,7 +204,7 @@ class Issue11Phase4ArtistResolverPortTest {
             artist("Adelle"), artist("Adelee"), artist("Adela"),
         ))
         val result = ArtistResolver(library).resolve(slot("Adele"))
-        assertTrue((result as AppResult.Success).value is ArtistResolution.TooManyPlausible)
+        assertTrue((result as AppResult.Success<ArtistResolution>).value is ArtistResolution.TooManyPlausible)
     }
 
     @Test fun zeroTrustForUnnormalizedOrOversizedSlots() = runBlocking {
@@ -220,7 +220,7 @@ class Issue11Phase4ArtistResolverPortTest {
         val result = ArtistResolver(library).resolve(slot("Synthetic Private Artist"))
         assertTrue(result is AppResult.Success<*>)
         assertFalse(result.toString().contains("Synthetic Private Artist"))
-        val typed = (result as AppResult.Success).value
+        val typed = (result as AppResult.Success<ArtistResolution>).value
         assertFalse(typed.toString().contains("Synthetic Private Artist"))
     }
 }
