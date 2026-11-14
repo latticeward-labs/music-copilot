@@ -152,7 +152,9 @@ class Issue11Phase8ArtistConfirmationUiTest {
     @Test fun artistButtonsHaveBoundedAccessibleLargeTouchTargets() {
         val panel = source("feature/voice/VoiceSessionPanel.kt")
         assertTrue(panel.contains("MusicSize.drivingExitMinDp"))
+        assertTrue(panel.contains("MusicSize.drivingControlMinDp"))
         assertTrue(panel.contains("MusicSize.touchTargetMinDp"))
+        assertTrue(panel.contains(".heightIn(min = choiceSize)"))
         assertTrue(panel.contains(".heightIn(min = actionSize)"))
         assertTrue(panel.contains("contentDescription = accessibleLabel"))
         assertTrue(panel.contains("contentDescription = neitherLabel"))
