@@ -188,6 +188,6 @@ object PlayArtistPhrasePolicy {
 
     private fun unsafe(character: Char): Boolean =
         (Character.isISOControl(character) && !character.isWhitespace()) ||
-            Character.getType(character) == Character.FORMAT ||
+            Character.getType(character) == Character.FORMAT.toInt() ||
             character == '\ufffd'
 }
