@@ -3,6 +3,9 @@ package com.latticeward.musiccopilot.voice.api
 import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
 import com.latticeward.musiccopilot.core.model.VoiceSessionId
 import com.latticeward.musiccopilot.core.result.AppError
+import com.latticeward.musiccopilot.core.result.AppErrorCodes
+import com.latticeward.musiccopilot.core.result.Recoverability
+import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.core.result.AppResult
 import kotlinx.coroutines.flow.StateFlow
 
@@ -20,7 +23,10 @@ enum class VoiceCancelReason {
 data class VoiceConfirmationOption(
     val optionIndex: Int,
     val displayLabel: String,
-)
+) {
+    // Labels are private local artist metadata; never expose through diagnostics.
+    override fun toString(): String = "VoiceConfirmationOption(redacted)"
+}
 
 sealed interface VoiceSessionState {
     data object Idle : VoiceSessionState
@@ -46,10 +52,11 @@ sealed interface VoiceSessionState {
     ) : VoiceSessionState {
         init {
             require(options.size in 1..2) { "Voice confirmation requires 1 or 2 options" }
-            require(options.map { it.optionIndex }.distinct().size == options.size) {
-                "Voice confirmation indexes must be distinct"
+            require(options.map { it.optionIndex } == options.indices.toList()) {
+                "Voice confirmation indexes must be contiguous, zero-based and ordered"
             }
         }
+        override fun toString(): String = "VoiceSessionState.Confirming(redacted)"
     }
 
     data class Executed(
@@ -70,6 +77,16 @@ interface VoiceSessionCoordinator {
     val state: StateFlow<VoiceSessionState>
     fun start(origin: VoiceOrigin): AppResult<VoiceSessionId>
     fun confirm(token: VoiceCandidateToken, optionIndex: Int): AppResult<Unit>
+    /** P07 one-step negative response. Invalid/stale token MUST NOT change state. */
+    fun neither(token: VoiceCandidateToken): AppResult<Unit> = AppResult.Failure(
+        AppError.Voice(AppErrorCodes.VOICE_STALE_SESSION,
+            Recoverability.TERMINAL_FOR_ATTEMPT, RecoveryAction.ManualFallback)
+    )
+    /** P07 explicit token-scoped Cancel; distinct from global lifecycle cancel. */
+    fun cancelConfirmation(token: VoiceCandidateToken): AppResult<Unit> = AppResult.Failure(
+        AppError.Voice(AppErrorCodes.VOICE_STALE_SESSION,
+            Recoverability.TERMINAL_FOR_ATTEMPT, RecoveryAction.ManualFallback)
+    )
     fun retry(): AppResult<Unit>
     fun cancel(reason: VoiceCancelReason)
 }
