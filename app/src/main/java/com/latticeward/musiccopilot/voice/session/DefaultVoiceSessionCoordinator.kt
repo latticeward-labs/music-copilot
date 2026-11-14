@@ -579,8 +579,27 @@ class DefaultVoiceSessionCoordinator(
         pending.generation.cancel()
     }
 
+    /**
+     * P10: every post-suspension continuation checks the same app-foreground
+     * and *fresh Android RECORD_AUDIO grant* policy used for explicit start.
+     * If the active generation lost authority, invalidate it synchronously
+     * before a queued STT, TTS or service ACK can publish a result.
+     *
+     * Caller owns gate. No new recording is started on foreground recovery.
+     */
+    private fun isCurrentAndAuthorizedLocked(
+        id: VoiceSessionId, generation: Job, number: Int,
+    ): Boolean {
+        if (!isCurrentLocked(id, generation, number)) return false
+        if (!runCatching { canBeginSession() }.getOrDefault(false)) {
+            invalidateLocked()
+            return false
+        }
+        return true
+    }
+
     private fun isCurrent(id: VoiceSessionId, generation: Job, number: Int): Boolean =
-        synchronized(gate) { isCurrentLocked(id, generation, number) }
+        synchronized(gate) { isCurrentAndAuthorizedLocked(id, generation, number) }
 
     private fun isCurrentLocked(id: VoiceSessionId, generation: Job, number: Int): Boolean =
         currentId == id && childJob === generation && attempt == number &&
@@ -589,7 +608,7 @@ class DefaultVoiceSessionCoordinator(
     private fun publishProcessing(
         id: VoiceSessionId, origin: VoiceOrigin, number: Int, generation: Job,
     ): Boolean = synchronized(gate) {
-        if (!isCurrentLocked(id, generation, number) ||
+        if (!isCurrentAndAuthorizedLocked(id, generation, number) ||
             !VoiceTransitionPolicy.mayProcess(mutableState.value, id, origin, number)
         ) return@synchronized false
         mutableState.value = VoiceSessionState.Processing(id, origin, number)
@@ -599,7 +618,7 @@ class DefaultVoiceSessionCoordinator(
     private fun claimDispatch(
         id: VoiceSessionId, origin: VoiceOrigin, number: Int, generation: Job,
     ): Boolean = synchronized(gate) {
-        if (!isCurrentLocked(id, generation, number) ||
+        if (!isCurrentAndAuthorizedLocked(id, generation, number) ||
             !VoiceTransitionPolicy.mayDispatch(
                 mutableState.value, id, origin, number, dispatchClaimed
             )
@@ -613,7 +632,7 @@ class DefaultVoiceSessionCoordinator(
     private fun publishExecuted(
         id: VoiceSessionId, origin: VoiceOrigin, number: Int, generation: Job,
     ): Boolean = synchronized(gate) {
-        if (!isCurrentLocked(id, generation, number) || !dispatchClaimed ||
+        if (!isCurrentAndAuthorizedLocked(id, generation, number) || !dispatchClaimed ||
             !VoiceTransitionPolicy.mayComplete(mutableState.value, id, origin, number)
         ) return@synchronized false
         mutableState.value = VoiceSessionState.Executed(id, origin)
@@ -629,7 +648,7 @@ class DefaultVoiceSessionCoordinator(
         code: String,
     ) {
         val failed = synchronized(gate) {
-            if (!isCurrentLocked(id, generation, number)) return@synchronized null
+            if (!isCurrentAndAuthorizedLocked(id, generation, number)) return@synchronized null
             val active = mutableState.value
             if (!VoiceTransitionPolicy.mayProcess(active, id, origin, number) &&
                 !VoiceTransitionPolicy.mayComplete(active, id, origin, number)
@@ -680,7 +699,8 @@ class DefaultVoiceSessionCoordinator(
                         !st.canRetry && key in FAILURE_FEEDBACK_KEYS
                 else -> false
             }
-            if (!isCurrentLocked(id, generation, number) || feedbackClaimed || !terminal)
+            if (!isCurrentAndAuthorizedLocked(id, generation, number) ||
+                feedbackClaimed || !terminal)
                 false
             else {
                 feedbackClaimed = true // claim BEFORE suspending
@@ -689,9 +709,12 @@ class DefaultVoiceSessionCoordinator(
         }
         if (!claimed) return
         try {
-            if (tts.isAvailable()) {
+            if (tts.isAvailable() && isCurrent(id, generation, number)) {
                 withTimeoutOrNull(VoiceFeedbackPolicy.MAX_SPEAK_MS) {
-                    tts.speak(output) // optional; never affects terminal state
+                    // Recheck immediately before optional audio; cancellation
+                    // of the generation also stops any active utterance.
+                    if (isCurrent(id, generation, number))
+                        tts.speak(output) // never affects terminal state
                 }
             }
         } catch (cancelled: CancellationException) {
