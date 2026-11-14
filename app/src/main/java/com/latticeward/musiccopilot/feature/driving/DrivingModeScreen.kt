@@ -106,9 +106,10 @@ fun DrivingModeScreen(
     onVoicePermissionCancel: () -> Unit = {},
     onVoiceCancel: () -> Unit = {},
     onVoiceRetry: () -> Unit = {},
-    onVoiceConfirm: (VoiceCandidateToken, Int) -> Unit = { _, _ -> },
-    onVoiceNeither: (VoiceCandidateToken) -> Unit = {},
-    onVoiceCancelConfirmation: (VoiceCandidateToken) -> Unit = {},
+    // Without P08 wiring, native buttons are disabled rather than no-op.
+    onVoiceConfirm: ((VoiceCandidateToken, Int) -> Unit)? = null,
+    onVoiceNeither: ((VoiceCandidateToken) -> Unit)? = null,
+    onVoiceCancelConfirmation: ((VoiceCandidateToken) -> Unit)? = null,
 ) {
     // Key on the verified *service* currentItem, not last clicked row or
     // a previously loaded title. Every change hides old metadata immediately.
@@ -157,7 +158,8 @@ fun DrivingModeScreen(
     BackHandler(enabled = voiceActive || voicePermissionPrompt) {
         val confirming = voiceState as? VoiceSessionState.Confirming
         when {
-            confirming != null -> onVoiceCancelConfirmation(confirming.token)
+            confirming != null && onVoiceCancelConfirmation != null ->
+                onVoiceCancelConfirmation(confirming.token)
             voiceActive -> onVoiceCancel()
             else -> onVoicePermissionCancel()
         }
