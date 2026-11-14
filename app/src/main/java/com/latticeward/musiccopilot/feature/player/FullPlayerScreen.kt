@@ -58,6 +58,7 @@ import com.latticeward.musiccopilot.core.application.permission.VoicePracticeSta
 import com.latticeward.musiccopilot.core.application.voice.VoicePttAdmissionPolicy
 import com.latticeward.musiccopilot.core.application.voice.VoicePttAvailability
 import com.latticeward.musiccopilot.feature.voice.VoiceSessionPanel
+import com.latticeward.musiccopilot.core.model.VoiceCandidateToken
 import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 import androidx.compose.ui.semantics.stateDescription
 import com.latticeward.musiccopilot.data.api.LibraryRepository
@@ -90,6 +91,9 @@ fun FullPlayerScreen(
     onVoicePermissionCancel: () -> Unit = {},
     onVoiceCancel: () -> Unit = {},
     onVoiceRetry: () -> Unit = {},
+    onVoiceConfirm: (VoiceCandidateToken, Int) -> Unit = { _, _ -> },
+    onVoiceNeither: (VoiceCandidateToken) -> Unit = {},
+    onVoiceCancelConfirmation: (VoiceCandidateToken) -> Unit = {},
 ) {
     BackHandler(onBack = onBack)
     val voiceActive = voiceState != VoiceSessionState.Idle
@@ -98,7 +102,12 @@ fun FullPlayerScreen(
     // Back first dismisses an owned Voice/rationale instead of leaving a
     // recording active behind Full Player. The regular Back still closes Player.
     BackHandler(enabled = voiceActive || voicePermissionPrompt) {
-        if (voiceActive) onVoiceCancel() else onVoicePermissionCancel()
+        val confirming = voiceState as? VoiceSessionState.Confirming
+        when {
+            confirming != null -> onVoiceCancelConfirmation(confirming.token)
+            voiceActive -> onVoiceCancel()
+            else -> onVoicePermissionCancel()
+        }
     }
     val snap = state.snapshot
     val listState = rememberLazyListState()
@@ -137,6 +146,8 @@ fun FullPlayerScreen(
                         OutlinedButton(
                             onClick = {
                                 when {
+                                    voiceState is VoiceSessionState.Confirming ->
+                                        onVoiceCancelConfirmation(voiceState.token)
                                     voiceActive -> onVoiceCancel()
                                     voicePermissionPrompt -> onVoicePermissionCancel()
                                     else -> onBack()
@@ -187,6 +198,9 @@ fun FullPlayerScreen(
                         onPermissionCancel = onVoicePermissionCancel,
                         onCancel = onVoiceCancel,
                         onRetry = onVoiceRetry,
+                        onConfirm = onVoiceConfirm,
+                        onNeither = onVoiceNeither,
+                        onCancelConfirmation = onVoiceCancelConfirmation,
                     )
                 }
             }
@@ -531,6 +545,9 @@ private fun PlayerVoiceControls(
     onPermissionCancel: () -> Unit,
     onCancel: () -> Unit,
     onRetry: () -> Unit,
+    onConfirm: (VoiceCandidateToken, Int) -> Unit,
+    onNeither: (VoiceCandidateToken) -> Unit,
+    onCancelConfirmation: (VoiceCandidateToken) -> Unit,
 ) {
     val active = voiceState != VoiceSessionState.Idle
     val permissionPrompt = permissionStage == VoicePracticeStage.Rationale ||
@@ -584,6 +601,9 @@ private fun PlayerVoiceControls(
             onPermissionCancel = onPermissionCancel,
             onVoiceCancel = onCancel,
             onVoiceRetry = onRetry,
+            onConfirm = onConfirm,
+            onNeither = onNeither,
+            onCancelConfirmation = onCancelConfirmation,
             focusRequester = panelFocus,
             driving = false,
         )
