@@ -25,7 +25,7 @@ The **10,000ms** UI confirmation window is an explicit **new, versioned P07 impl
 | app/src/main/java/com/latticeward/musiccopilot/voice/session/VoiceTransitionPolicy.kt | Explicit Processing → Confirming and Confirming → one claimed action admission rules; prior retry/transport rules unchanged |
 | app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt | Pass the actual local LibraryRepository and existing P05 BuildConfig-calibrated ArtistDecisionPolicy to the single application coordinator; no synthetic confidence or second voice owner |
 | app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt | Inject the existing application-scoped libraryRepository; retain existing canBeginSession foreground guard and Media3 controller |
-| app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase7ArtistCoordinatorConfirmationTest.kt | **26 source-authored synthetic JUnit cases, 0 executed** |
+| app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase7ArtistCoordinatorConfirmationTest.kt | **27 source-authored synthetic JUnit cases, 0 executed** |
 
 **No changes:** Issue #10 five control grammar/mapper/transport dispatcher, P03 Room tables/SQL, P04 ranking, P05 confidence formula, P06 MediaStore/ACK use case, Media3 PlaybackGateway/Service/Player, STT/Moonshine provider, UI/Driving Mode screens, cloud/back-end and analytics.
 
@@ -35,7 +35,7 @@ The **10,000ms** UI confirmation window is an explicit **new, versioned P07 impl
 2. A strictly approved P02 phrase, e.g. "Play songs by [artist]", follows **P04 ArtistResolver** over the P03 real Room artist group and P05 ArtistDecisionPolicy over actual nullable provider confidence. Unsupported, unknown, malformed, missing index and no match never fabricate a player command.
 3. **P05 Direct**: the existing coordinator's dispatchClaimed is atomically set while Processing; one P06 claim, original library revision and process-unique service command ID; pass a **live generation/processing** predicate into P06; publish Executed only after P06 receives an ACK-backed valid snapshot.
 4. **P05 Ambiguous (1–2 real candidates)**: while still Processing, check that the same attempt is owned, not claimed, Activity foreground remains, and local index is still Ready at P05's original revision. Coordinator creates one random in-memory VoiceCandidateToken and an immutable PlayArtistConfirmationSnapshot containing original artist identities, options 0/1, session/origin, revision and attempt generation. Publish VoiceSessionState.Confirming with a separate **unmodifiable display-only** option list. No queue action yet.
-5. **Recognition completion**: release the service's temporary voice duck lease and stop recognition handling; retain only the current session-generation lease and the one bounded confirmation timer. The Mic is not reopened and no arbitrary follow-on utterance is interpreted as a reply. App/Activity recreation never restores this ephemeral pending snapshot.
+5. **Recognition completion**: release the service's temporary voice duck lease **immediately after STT returns and before P04 local artist lookup** (with a safe idempotent final release); retain only the current session-generation lease and the one bounded confirmation timer. The Mic is not reopened and no arbitrary follow-on utterance is interpreted as a reply. App/Activity recreation never restores this ephemeral pending snapshot.
 6. **Valid confirm(token, optionIndex)**: while the same generation is active, compare with the CURRENT pending token and UI state, verify option index, foreground predicate and unchanged Ready library revision **synchronously under the coordinator gate**. Mint exactly one P06 claim from the privately owned snapshot, clear pending, cancel expiry, set dispatchClaimed **before launching any suspension**, transition Confirming → Processing, then call P06 with a live state-generation predicate. Duplicate taps and stale tokens fail before dispatch.
 7. **P06 confirmed service ACK**: only a successfully correlated ACK-backed service queue with coherent snapshot becomes VoiceSessionState.Executed. Failure/timeout/stale/cancel cannot publish an optimistic execution, and P06 already re-queries all selected tracks from live MediaStore. One accepted UI selection is **not** an ACK.
 8. **Neither(token)** is one terminal negative response: Failed with canRetry=false; no second clarification/STT run and no service queue mutation. **cancelConfirmation(token)** returns Idle with zero service dispatch. A wrong/old token never consumes the current one. A matching token with invalid index is a consumed bad one-step response → Failed/manual, not a second chance to pick.
@@ -73,8 +73,8 @@ The **10,000ms** UI confirmation window is an explicit **new, versioned P07 impl
 
 ## 6. Source-only QA matrix
 
-**26 new JVM JUnit methods** authored in Issue11Phase7ArtistCoordinatorConfirmationTest.kt. Scenarios:
-- Moonshine missing confidence → single-option Confirming; microphone lease release, live generation retention.
+**27 new JVM JUnit methods** authored in Issue11Phase7ArtistCoordinatorConfirmationTest.kt. Scenarios:
+- Moonshine missing confidence → single-option Confirming; duck release *before* local Room artist lookup, live generation retention.
 - Confirmation selection → one service ReplaceQueue and ACK-driven Executed; immediate duplicate tap rejection; wrong token cannot consume valid choice.
 - Malformed index consumes one answer → Failed, no second clarification; Neither terminal; Cancel Idle; old-token negative controls ignored.
 - 10s expiry; revision change; permission revocation; canceled queued worker; late non-cancellable ACK cannot publish stale success; bad ACK rejected.
