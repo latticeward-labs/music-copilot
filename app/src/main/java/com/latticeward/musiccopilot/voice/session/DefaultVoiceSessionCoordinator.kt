@@ -53,6 +53,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.coroutines.coroutineContext
@@ -357,7 +358,11 @@ class DefaultVoiceSessionCoordinator(
             return
         }
         val resolved = try {
-            resolver.resolve(recognized.slot)
+            // P12: P04 bounded Levenshtein can score up to 5,000 artist
+            // groups. Offload CPU scoring/index iteration from the app Main
+            // dispatcher without moving Media3 controller commands or UI.
+            // The P10 generation/OS-permission gate is checked on return.
+            withContext(Dispatchers.Default) { resolver.resolve(recognized.slot) }
         } catch (cancelled: CancellationException) {
             throw cancelled
         } catch (_: Exception) {
