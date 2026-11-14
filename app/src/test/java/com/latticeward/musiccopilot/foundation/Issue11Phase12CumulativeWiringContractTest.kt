@@ -206,7 +206,10 @@ class Issue11Phase12CumulativeWiringContractTest {
         val workflow = root(".github/workflows/issue-11-p13-one-cumulative-apk.yml")
         assertTrue(workflow.contains("feature/11-play-artist-one-step-ambiguity"))
         assertTrue(workflow.contains(".github/issue11-p13-apk-request.txt"))
-        assertFalse(File("../.github/issue11-p13-apk-request.txt").exists())
+        assertTrue(workflow.contains("branches:"))
+        // The request marker WILL exist at P13 when this authored test is
+        // eventually run. Never assert a P12-only absence as a runtime rule.
+        assertFalse(workflow.contains("workflow_dispatch:"))
     }
 
     @Test fun p13WorkflowIncludesRealMoonshineAndSherpaWithoutTestsOrLint() {
