@@ -215,9 +215,10 @@ class Issue11Phase8ArtistConfirmationUiTest {
         val panel = source("feature/voice/VoiceSessionPanel.kt")
         val policy = source("feature/voice/VoiceConfirmationActionPolicy.kt")
         assertFalse(panel.contains("PlaybackGateway"))
-        assertFalse(panel.contains("MediaStore"))
+        assertFalse(panel.contains("artistTrackRefs("))
         assertFalse(panel.contains("VoiceSessionCoordinator.start"))
         assertFalse(policy.contains("PlaybackGateway"))
-        assertFalse(policy.contains("MediaStore"))
+        assertFalse(policy.contains("library.get("))
+        assertFalse(policy.contains("playback.execute("))
     }
 }
