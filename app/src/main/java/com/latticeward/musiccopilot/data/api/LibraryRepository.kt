@@ -82,6 +82,37 @@ interface LibraryRepository {
             ),
         )
 
+    /**
+     * Issue #11 P03 artist identity lookup, separate from legacy song-title
+     * resolveVoiceCandidates(). Source-only API until P04-P12 Voice wiring.
+     * Fakes/providers without support must fail, NOT claim empty/NotFound.
+     */
+    suspend fun lookupArtistGroups(
+        request: ArtistLookupRequest,
+    ): AppResult<ArtistLookupPage> =
+        AppResult.Failure(
+            AppError.Library(
+                code = AppErrorCodes.LIBRARY_BROWSE_UNAVAILABLE,
+                recoverability = Recoverability.RECOVERABLE,
+                recoveryAction = RecoveryAction.Retry,
+            ),
+        )
+
+    /**
+     * Bounded refs for exactly ONE artist group and pinned index revision.
+     * Caller revalidates actual files with get(ref) before any queue mutation.
+     */
+    suspend fun artistTrackRefs(
+        request: ArtistTrackRefsRequest,
+    ): AppResult<ArtistTrackRefsPage> =
+        AppResult.Failure(
+            AppError.Library(
+                code = AppErrorCodes.LIBRARY_BROWSE_UNAVAILABLE,
+                recoverability = Recoverability.RECOVERABLE,
+                recoveryAction = RecoveryAction.Retry,
+            ),
+        )
+
     suspend fun get(ref: MediaRef): AppResult<LibraryItem>
     suspend fun resolveVoiceCandidates(
         normalizedTarget: String,
