@@ -109,6 +109,7 @@ class Issue11Phase7ArtistCoordinatorConfirmationTest {
         )
         var getCount = 0
         var artistRefsRead = 0
+        var lookupHook: (() -> Unit)? = null
         var denyRef: Boolean = false
         val ref = MediaRef("audio:7")
 
@@ -125,6 +126,7 @@ class Issue11Phase7ArtistCoordinatorConfirmationTest {
         override suspend fun lookupArtistGroups(
             request: ArtistLookupRequest,
         ): AppResult<ArtistLookupPage> {
+            lookupHook?.invoke()
             if (request.expectedRevision != null &&
                 request.expectedRevision != index.value.revision
             ) return AppResult.Failure(AppError.Library(
@@ -252,6 +254,19 @@ class Issue11Phase7ArtistCoordinatorConfirmationTest {
             assertEquals(1, h.stt.count)
             assertEquals(1, h.duck.acquired)
             assertTrue(h.duck.released >= 1)
+        } finally { h.close() }
+    }
+
+    @Test fun artistDuckingLeaseIsReleasedBeforeSlowLocalIndexLookup() = runTest {
+        val lib = FakeLibrary()
+        val h = create(CoroutineScope(SupervisorJob() + StandardTestDispatcher(testScheduler)),
+            library = lib)
+        try {
+            lib.lookupHook = { assertTrue(h.duck.released >= 1) }
+            h.coordinator.start(VoiceOrigin.Driving)
+            runCurrent()
+            assertTrue(h.coordinator.state.value is VoiceSessionState.Confirming)
+            assertTrue(h.gateway.calls.isEmpty())
         } finally { h.close() }
     }
 
