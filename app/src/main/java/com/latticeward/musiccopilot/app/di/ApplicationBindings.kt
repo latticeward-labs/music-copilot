@@ -111,7 +111,19 @@ class ApplicationBindings(
         VoiceBindings.coordinator(
             voiceScope, speechToTextEngine, textToSpeechEngine,
             playbackGateway, context != null, context,
-            canBeginSession = { uiVoiceStarted },
+            // P10: check fresh Android OS truth on EVERY invocation,
+            // including delayed STT/ACK continuations, not only on Mic tap.
+            // A cached grant or a resumed Activity is never authorization.
+            canBeginSession = {
+                val app = context?.applicationContext
+                VoiceLifecycleSafetyPolicy.canContinueWithFreshOsGrant(
+                    uiStarted = uiVoiceStarted,
+                    recordAudioGranted = app != null &&
+                        ContextCompat.checkSelfPermission(
+                            app, Manifest.permission.RECORD_AUDIO,
+                        ) == PackageManager.PERMISSION_GRANTED,
+                )
+            },
             artistLibrary = libraryRepository,
         )
     val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
@@ -234,6 +246,18 @@ class ApplicationBindings(
         ) voiceOwner.cancel(VoiceCancelReason.PermissionLost)
         scanLaunchGate.cancelInFlight()
         libraryRepository.invalidateMediaAccess()
+    }
+
+    /**
+     * P10: onResume/Settings permission observation invalidates an in-flight
+     * STT, Confirming prompt or Media3 ACK before any newly visible UI can
+     * respond. A new Android grant NEVER starts or retries Voice automatically.
+     */
+    fun onForegroundMicrophonePermissionObserved(granted: Boolean) {
+        if (!granted && VoiceLifecycleSafetyPolicy.mustCancelOnSafetyBoundary(
+                voiceOwner.state.value
+            )
+        ) voiceOwner.cancel(VoiceCancelReason.PermissionLost)
     }
 
     fun onUiStarted() {
