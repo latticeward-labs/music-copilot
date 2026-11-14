@@ -517,6 +517,84 @@ class DefaultVoiceSessionCoordinator(
         }
     }
 
+    /**
+     * P11: keep the transient STT result private. This claim stores only an
+     * enum bucket and a monotonic attempt start timestamp (never persisted).
+     * Called only for the sixth supported artist grammar, on this generation.
+     */
+    private fun markArtistAttempt(
+        id: VoiceSessionId, generation: Job, number: Int,
+        providerConfidence: Double?,
+    ): Boolean = synchronized(gate) {
+        if (!isCurrentAndAuthorizedLocked(id, generation, number)) return@synchronized false
+        artistIntentObserved = true
+        diagnosticConfidence = VoiceIntentDiagnosticPolicy.confidence(providerConfidence)
+        true
+    }
+
+    /**
+     * Capture one closed-schema terminal outcome per attempt while ownership
+     * is valid. No candidate, transcript, token, MediaRef or exact millisecond
+     * value crosses this boundary; null is "unknown", never guessed.
+     * Caller owns gate.
+     */
+    private fun takeArtistOutcomeLocked(
+        id: VoiceSessionId, generation: Job, number: Int,
+        code: VoiceDiagnosticResult?,
+    ): TelemetryEvent.VoiceIntentOutcome? {
+        if (code == null || !artistIntentObserved || diagnosticClaimed ||
+            !isCurrentLocked(id, generation, number)
+        ) return null
+        diagnosticClaimed = true
+        val elapsedNanos = System.nanoTime() - attemptStartNanos
+        val elapsedMs = elapsedNanos.takeIf { it >= 0L }?.div(1_000_000L)
+        return TelemetryEvent.VoiceIntentOutcome(
+            intentType = VoiceDiagnosticIntent.PLAY_ARTIST,
+            confidenceBucket = diagnosticConfidence,
+            latencyBucket = VoiceIntentDiagnosticPolicy.latency(elapsedMs),
+            resultCode = code,
+        )
+    }
+
+    /**
+     * Diagnostics may be absent, throw or be canceled: voice and playback
+     * never await the sink, and no failure/exception text is propagated or
+     * logged. The production sink is NoOp until separate consent approval.
+     */
+    private fun dispatchArtistOutcome(event: TelemetryEvent.VoiceIntentOutcome?) {
+        if (event == null) return
+        try {
+            ownerScope.launch(Dispatchers.Default) {
+                try { tryRecordVoiceOutcome(event) } catch (_: Exception) {
+                    // Optional diagnostic transport cannot block product flow.
+                }
+            }
+        } catch (_: Exception) {
+            // Could not schedule: silently drop, no retry or disk queue.
+        }
+    }
+
+    /** Caller owns gate. */
+    private fun queueArtistOutcomeLocked(
+        id: VoiceSessionId, generation: Job, number: Int,
+        code: VoiceDiagnosticResult?,
+    ) {
+        dispatchArtistOutcome(takeArtistOutcomeLocked(id, generation, number, code))
+    }
+
+    private fun recordArtistOutcome(
+        id: VoiceSessionId, generation: Job, number: Int,
+        code: VoiceDiagnosticResult,
+    ) {
+        synchronized(gate) {
+            // Only the ACK-published Executed state may produce EXECUTED.
+            if (code == VoiceDiagnosticResult.EXECUTED &&
+                mutableState.value !is VoiceSessionState.Executed
+            ) return@synchronized
+            queueArtistOutcomeLocked(id, generation, number, code)
+        }
+    }
+
     private fun publishArtistConfirmation(
         id: VoiceSessionId,
         origin: VoiceOrigin,
