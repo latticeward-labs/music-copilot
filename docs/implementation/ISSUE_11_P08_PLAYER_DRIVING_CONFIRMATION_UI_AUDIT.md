@@ -58,6 +58,10 @@ The legacy \`ConfirmationUnavailable\` status remains as a distinct enum for com
 
 ## 5. Source-authored QA inventory and remaining gates
 
+**Consolidated P08 authored QA:** the branch also contains a complementary 27-case source-only fixture suite, [`Issue11Phase8ArtistConfirmationUiContractTest.kt`](../../app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiContractTest.kt). Together with this audit's 24-case suite, **51 authored JVM methods remain NOT_RUN, 0 compiled and 0 verified PASS**. Both suites are indexed individually in [the consolidated P08 evidence register](ISSUE_11_P08_SOURCE_EVIDENCE_AND_QA_REGISTER.json). Overlapping cases are intentional source coverage, not 51 independent real-device executions.
+
+
+
 The new P08 authored fixture file contains **24 @Test methods**, all **NOT_RUN**:
 - Positive and negative token/origin/hidden-screen admission, old-token rejection after Processing/Executed, Idle/Listening rejections.
 - \`Confirming\` projection over Idle/Rationale/AwaitingAndroid permission states, one/two options and redacted diagnostics.
