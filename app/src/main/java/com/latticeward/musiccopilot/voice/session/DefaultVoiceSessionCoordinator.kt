@@ -596,6 +596,8 @@ class DefaultVoiceSessionCoordinator(
     }
 
     private companion object {
+        // Explicit one-question window. Timeout is terminal, not a new listen.
+        const val CONFIRMATION_TIMEOUT_MS = 10_000L
         val SUCCESS_FEEDBACK_KEYS = setOf(
             VoiceFeedbackKey.Play, VoiceFeedbackKey.Pause, VoiceFeedbackKey.Next,
             VoiceFeedbackKey.Previous, VoiceFeedbackKey.SeekBack,
@@ -606,10 +608,142 @@ class DefaultVoiceSessionCoordinator(
         )
     }
 
+    /**
+     * The only POSITIVE confirmation answer. This synchronous, lock-protected
+     * method consumes the current snapshot/token BEFORE launching any suspend
+     * MediaStore/Media3 work. Duplicate taps, wrong tokens, wrong generation,
+     * and callbacks after timeout/cancel cannot dispatch the same choice.
+     */
     override fun confirm(token: VoiceCandidateToken, optionIndex: Int): AppResult<Unit> =
-        // The Confirming shape stays compatible with Issue #11 but is never
-        // entered or acted on for Issue #10's five direct transport commands.
-        failure(AppErrorCodes.VOICE_STALE_SESSION)
+        synchronized(gate) {
+            val pending = pendingArtist
+                ?: return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+            val snapshot = pending.snapshot
+            val generation = pending.generation
+            val id = snapshot.sessionId
+            val number = pending.attempt
+            if (!isCurrentLocked(id, generation, number) ||
+                !VoiceTransitionPolicy.mayClaimArtistConfirmation(
+                    mutableState.value, id, snapshot.origin, token, dispatchClaimed,
+                ) || snapshot.token != token
+            ) return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+
+            // An invalid option with a valid token is the ONE answer, not an
+            // invitation to retry with a second choice or re-enter listening.
+            val response = if (optionIndex in snapshot.options.indices)
+                PlayArtistConfirmationResponse.Select(token, optionIndex) else null
+            val claim = response?.let {
+                PlayArtistDispatchClaim.fromSelectedConfirmation(snapshot, it, number)
+            }
+            if (claim == null) {
+                finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_NO_MATCH)
+                return@synchronized failure(AppErrorCodes.VOICE_NO_MATCH)
+            }
+
+            // Recheck ownership and index revision before accepting selection.
+            val index = artistLibrary?.index?.value
+            if (index == null || index.status != LibraryIndexStatus.Ready ||
+                index.revision != snapshot.expectedLibraryRevision ||
+                !runCatching { canBeginSession() }.getOrDefault(false)
+            ) {
+                finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_STALE_SESSION)
+                return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+            }
+
+            // Claim exactly once before coroutine launch or Media3 suspension.
+            pendingArtist = null
+            confirmationTimeoutJob?.cancel()
+            confirmationTimeoutJob = null
+            dispatchClaimed = true
+            confirmingDispatchInFlight = true
+            mutableState.value = VoiceSessionState.Processing(id, snapshot.origin, number)
+
+            val executor = artistPlayback
+            ownerScope.launch(generation) {
+                try {
+                    if (executor == null) {
+                        failAttempt(id, snapshot.origin, number, generation,
+                            AppErrorCodes.VOICE_UNAVAILABLE)
+                        return@launch
+                    }
+                    val ack = try {
+                        executor.execute(claim) {
+                            synchronized(gate) {
+                                isCurrentLocked(id, generation, number) &&
+                                    confirmingDispatchInFlight &&
+                                    dispatchClaimed &&
+                                    VoiceTransitionPolicy.mayComplete(
+                                        mutableState.value, id, snapshot.origin, number,
+                                    )
+                            }
+                        }
+                    } catch (cancelled: CancellationException) {
+                        throw cancelled
+                    } catch (_: Exception) {
+                        failAttempt(id, snapshot.origin, number, generation,
+                            AppErrorCodes.VOICE_UNAVAILABLE)
+                        return@launch
+                    }
+                    coroutineContext.ensureActive()
+                    if (!isCurrent(id, generation, number)) return@launch
+                    when (ack) {
+                        is AppResult.Success ->
+                            if (ack.value == PlayArtistDecision.Executed) {
+                                publishExecuted(id, snapshot.origin, number, generation)
+                            } else {
+                                failAttempt(id, snapshot.origin, number, generation,
+                                    AppErrorCodes.VOICE_UNAVAILABLE)
+                            }
+                        is AppResult.Failure ->
+                            failAttempt(id, snapshot.origin, number, generation,
+                                AppErrorCodes.VOICE_UNAVAILABLE)
+                    }
+                } finally {
+                    // Do not retain an in-flight generation after terminal ACK.
+                    synchronized(gate) {
+                        if (currentId == id && childJob === generation && attempt == number) {
+                            confirmingDispatchInFlight = false
+                            childJob = null
+                        }
+                    }
+                    generation.cancel()
+                }
+            }
+            // An accepted UI selection is NOT itself the service ACK.
+            AppResult.Success(Unit)
+        }
+
+    /** The one negative "Neither" answer is terminal, never a second STT turn. */
+    override fun neither(token: VoiceCandidateToken): AppResult<Unit> =
+        synchronized(gate) {
+            val pending = pendingArtist
+                ?: return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+            val snapshot = pending.snapshot
+            if (!isCurrentLocked(snapshot.sessionId, pending.generation, pending.attempt) ||
+                !VoiceTransitionPolicy.mayClaimArtistConfirmation(
+                    mutableState.value, snapshot.sessionId, snapshot.origin, token,
+                    dispatchClaimed,
+                ) || snapshot.token != token
+            ) return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+            finishArtistConfirmationLocked(pending, AppErrorCodes.VOICE_NO_MATCH)
+            AppResult.Success(Unit)
+        }
+
+    /** Explicit token-scoped cancel resets to Idle but never changes playback. */
+    override fun cancelConfirmation(token: VoiceCandidateToken): AppResult<Unit> =
+        synchronized(gate) {
+            val pending = pendingArtist
+                ?: return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+            val snapshot = pending.snapshot
+            if (!isCurrentLocked(snapshot.sessionId, pending.generation, pending.attempt) ||
+                !VoiceTransitionPolicy.mayClaimArtistConfirmation(
+                    mutableState.value, snapshot.sessionId, snapshot.origin, token,
+                    dispatchClaimed,
+                ) || snapshot.token != token
+            ) return@synchronized failure(AppErrorCodes.VOICE_STALE_SESSION)
+            invalidateLocked()
+            AppResult.Success(Unit)
+        }
 
     override fun retry(): AppResult<Unit> = synchronized(gate) {
         val failed = mutableState.value as? VoiceSessionState.Failed
