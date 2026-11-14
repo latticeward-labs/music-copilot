@@ -22,66 +22,57 @@
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/VoiceOverlayPresentationPolicy.kt",
       "blob_sha": "c3cde3e7bad9b5933fc848b3200a1b3fd522cff4",
-      "kind": "PRODUCTION_SOURCE_UNCOMPILED",
-      "github_blob_sha": "c3cde3e7bad9b5933fc848b3200a1b3fd522cff4"
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
     },
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
       "blob_sha": "6e5565d27104a935c760424f16558a48cd296bf6",
-      "kind": "PRODUCTION_SOURCE_UNCOMPILED",
-      "github_blob_sha": "6e5565d27104a935c760424f16558a48cd296bf6"
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
     },
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceConfirmationActionPolicy.kt",
       "blob_sha": "69f709bb90174709c991fac367ae379ab14baf07",
-      "kind": "PRODUCTION_SOURCE_UNCOMPILED",
-      "github_blob_sha": "69f709bb90174709c991fac367ae379ab14baf07"
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
     },
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
       "blob_sha": "7eca8be903157b5a13bcde26f16b57696e6fec4a",
-      "kind": "PRODUCTION_SOURCE_UNCOMPILED",
-      "github_blob_sha": "7eca8be903157b5a13bcde26f16b57696e6fec4a"
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
     },
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
       "blob_sha": "c021140cc561250e6bce79e546e4d21c100fdc5e",
-      "kind": "PRODUCTION_SOURCE_UNCOMPILED",
-      "github_blob_sha": "c021140cc561250e6bce79e546e4d21c100fdc5e"
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
     },
     {
       "path": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
       "blob_sha": "048190b7675f7d5fa9a19961cfe3899fd04ddcd6",
-      "kind": "PRODUCTION_SOURCE_UNCOMPILED",
-      "github_blob_sha": "048190b7675f7d5fa9a19961cfe3899fd04ddcd6"
+      "kind": "PRODUCTION_SOURCE_UNCOMPILED"
     },
     {
       "path": "app/src/main/res/values/strings.xml",
       "blob_sha": "859f2c4460381ae791485d74039640b34ce5715a",
-      "kind": "LOCALIZED_RESOURCES",
-      "github_blob_sha": "859f2c4460381ae791485d74039640b34ce5715a"
+      "kind": "LOCALIZED_RESOURCES"
     },
     {
       "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiContractTest.kt",
       "blob_sha": "06af7717d8e941b3e08b86ff2b4c47e0f04bb18b",
-      "kind": "TEST_SOURCE_NOT_RUN",
-      "github_blob_sha": "06af7717d8e941b3e08b86ff2b4c47e0f04bb18b"
+      "kind": "TEST_SOURCE_NOT_RUN"
     },
     {
       "path": "docs/implementation/ISSUE_11_P08_COMPOSE_PLAYER_DRIVING_CONFIRMATION_AUDIT.md",
-      "blob_sha": "14f43e3214ca917099dfc9f51ca98b381bd0034e",
-      "kind": "PRODUCTION_SOURCE_UNCOMPILED",
-      "github_blob_sha": "d79348b8f5b24d28ad04cc38c043ef9176f666b6"
+      "blob_sha": "d79348b8f5b24d28ad04cc38c043ef9176f666b6",
+      "kind": "AUDIT_DOC_SOURCE_ONLY"
     },
     {
       "path": "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase8ArtistConfirmationUiTest.kt",
-      "sha": "658864f9b86add27846a89b912ca00c80d812372",
-      "source_only": true
+      "blob_sha": "05da2df11c28ff5140321ad507dc53d897edb86b",
+      "kind": "TEST_SOURCE_NOT_RUN"
     },
     {
       "path": "docs/implementation/ISSUE_11_P08_PLAYER_DRIVING_CONFIRMATION_UI_AUDIT.md",
-      "sha": "ed4fa3a726328b866ec99e52ec868cd92ef14280",
-      "source_only": true
+      "blob_sha": "ed4fa3a726328b866ec99e52ec868cd92ef14280",
+      "kind": "AUDIT_DOC_SOURCE_ONLY"
     }
   ],
   "contract": {
