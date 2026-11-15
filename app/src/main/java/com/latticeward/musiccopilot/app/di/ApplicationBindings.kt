@@ -55,6 +55,8 @@ import com.latticeward.musiccopilot.voice.session.DefaultVoiceSessionCoordinator
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -102,6 +104,9 @@ class ApplicationBindings(
     // for already queued events. This is process-only, never a user ID.
     private data class PendingDiagnostic(val epoch: Long, val event: TelemetryEvent)
     private val diagnosticsEpoch = AtomicLong(0L)
+    // Saturating local-only counter of dropped enqueue attempts, never
+    // construed as failures or successful command outcomes.
+    private val diagnosticQueueDrops = AtomicLong(0L)
     private val diagnosticsDeliveryLock = Any()
     private val diagnosticEvents = Channel<PendingDiagnostic>(capacity = 64)
     private val correctionOwner = ExplicitManualCorrectionOwner(
@@ -266,6 +271,17 @@ class ApplicationBindings(
         }
     }
 
+    // A separate Settings/data-store consent update can occur without
+    // calling revokeDiagnosticsConsent(). Watch its live READY/consent state
+    // and erase RAM on ANY authorization loss; P04's synchronous revoke
+    // remains the primary immediate privacy boundary.
+    private val diagnosticsAuthorizationWatch = applicationScope.launch(Dispatchers.Default) {
+        combine(
+            preferencesRepository.preferences, preferencesRepository.loadState
+        ) { _, _ -> diagnosticsCollectionAuthorization.canCollect() }
+            .collect { approved -> if (!approved) clearLocalDiagnostics() }
+    }
+
     /**
      * P09: explicitly erase all applicable local diagnostics without touching
      * cloud speech consent, settings, short user history, likes, queue,
@@ -282,6 +298,7 @@ class ApplicationBindings(
                 // Drop already queued typed envelopes, never copy/log them.
             }
             localDiagnosticsStore.clear()
+            diagnosticQueueDrops.set(0L)
             crashEvidenceReporter.clear()
             correctionOwner.clear()
             drivingSessionOwner.forgetForPrivacy()
@@ -296,7 +313,9 @@ class ApplicationBindings(
     fun localDiagnosticsSummaryIfApproved(): LocalDiagnosticsSummary? =
         if (QualityBindings.PRODUCTION_LOCAL_DIAGNOSTICS_MODE ==
             LocalDiagnosticsProviderMode.MemoryOnly
-        ) localDiagnosticsStore.summaryIfAuthorized() else null
+        ) localDiagnosticsStore.summaryIfAuthorized()?.copy(
+            sourceQueueDropsSinceClear = diagnosticQueueDrops.get()
+        ) else null
 
     /**
      * P05: only the existing Voice owner's accepted start/retry result
@@ -315,9 +334,12 @@ class ApplicationBindings(
     private fun queueApprovedDiagnostic(event: TelemetryEvent) {
         if (!diagnosticsCollectionAuthorization.canCollect()) return
         try {
-            diagnosticEvents.trySend(
+            val queued = diagnosticEvents.trySend(
                 PendingDiagnostic(diagnosticsEpoch.get(), event)
             ) // bounded, never suspend or block
+            if (queued.isFailure) diagnosticQueueDrops.getAndUpdate {
+                if (it == Long.MAX_VALUE) it else it + 1L
+            }
         } catch (_: Exception) {
             // No Quality failure affects navigation, speech or playback.
         }
