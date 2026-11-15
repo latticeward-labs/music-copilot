@@ -153,6 +153,11 @@ fun AppNavHost(
     onDrivingMicPermissionDismiss: () -> Unit = {},
     // Coarse, source-allowlisted input from accepted user navigation only.
     onDrivingModeEntered: (String) -> Unit = {},
+    // P08: user-initiated Exit / Android Back, never an OS lifecycle stop.
+    onDrivingModeExplicitlyExited: () -> Unit = {},
+    // Route/permission/bootstrap invalidation is an UNKNOWN abandoned
+    // session, not a clean user exit or a crash verdict.
+    onDrivingModeSystemInvalidated: () -> Unit = {},
     // P06: user explicitly arms correction in a terminal Voice panel.
     // Only an ACK-confirmed manual action from the same visible origin
     // subsequently records a correction; no generic touch inference.
@@ -270,7 +275,13 @@ fun AppNavHost(
             ) voiceSessionCoordinator.cancel(VoiceCancelReason.OriginInvalidated)
             if (drivingMicPermissionStage != VoicePracticeStage.Idle)
                 onDrivingMicPermissionDismiss()
+            val hadActiveDrivingSession = drivingNavigation.state.active
             drivingNavigation.clearForSystemBoundary()
+            if (hadActiveDrivingSession) {
+                try { onDrivingModeSystemInvalidated() } catch (_: Exception) {
+                    // A diagnostic cannot change permission/navigation safety.
+                }
+            }
         }
     }
     val target = when {
@@ -776,7 +787,16 @@ fun AppNavHost(
                 ) voiceSessionCoordinator.cancel(VoiceCancelReason.DrivingExit)
                 onDrivingMicPermissionDismiss()
                 voiceStartRejected = false
+                val wasActiveDriving = drivingNavigation.state.active
                 val origin = drivingNavigation.exit()
+                // The navigation owner has now made its one real active ->
+                // inactive transition. Only an explicit user Exit/Back
+                // callback is eligible to close the P08 telemetry session.
+                if (wasActiveDriving) {
+                    try { onDrivingModeExplicitlyExited() } catch (_: Exception) {
+                        // Never alter route/Media3 on telemetry failure.
+                    }
+                }
                 // Explicitly restore the recorded, non-Driving origin, rather
                 // than trusting independently changing Player UI flags.
                 if (actualRoute == BootstrapRoute.HomeLibrary &&
