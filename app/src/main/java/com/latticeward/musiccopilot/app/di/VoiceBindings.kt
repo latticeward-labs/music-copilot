@@ -4,6 +4,7 @@ import android.content.Context
 import com.latticeward.musiccopilot.BuildConfig
 import com.latticeward.musiccopilot.quality.api.TelemetryEvent
 import com.latticeward.musiccopilot.voice.api.VoiceOrigin
+import com.latticeward.musiccopilot.voice.api.SpeechEndpointQuality
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
@@ -53,6 +54,7 @@ internal object VoiceBindings {
         tryRecordVoiceOutcome: (TelemetryEvent.VoiceIntentOutcome) -> Unit = {},
         tryRecordApprovedVoiceEvent: (TelemetryEvent) -> Unit = {},
         onAcknowledgedDrivingCommand: (VoiceOrigin) -> Unit = {},
+        onTerminalDrawLatencyProxy: (SpeechEndpointQuality?, Long?) -> Unit = { _, _ -> },
     ): DefaultVoiceSessionCoordinator = DefaultVoiceSessionCoordinator(
         scope, stt, tts, playback = playback,
         intentMapper = RestrictedVoiceIntentMapper(
@@ -72,5 +74,10 @@ internal object VoiceBindings {
         tryRecordVoiceOutcome = tryRecordVoiceOutcome,
         tryRecordApprovedVoiceEvent = tryRecordApprovedVoiceEvent,
         onAcknowledgedDrivingCommand = onAcknowledgedDrivingCommand,
+        // Same source clock as Android STT's onEndpointSignal.
+        elapsedRealtimeNanos = {
+            android.os.SystemClock.elapsedRealtimeNanos()
+        },
+        onTerminalDrawLatencyProxy = onTerminalDrawLatencyProxy,
     )
 }
