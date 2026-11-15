@@ -21,6 +21,8 @@ import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.voice.api.VoiceOrigin
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
 import com.latticeward.musiccopilot.voice.api.VoiceSessionState
+import com.latticeward.musiccopilot.voice.api.SpeechEndpointEvidence
+import com.latticeward.musiccopilot.voice.api.SpeechEndpointQuality
 import com.latticeward.musiccopilot.voice.api.VoiceConfirmationOption
 import com.latticeward.musiccopilot.voice.intent.ArtistDecisionPolicy
 import com.latticeward.musiccopilot.voice.intent.ArtistResolver
@@ -92,6 +94,11 @@ class DefaultVoiceSessionCoordinator(
     // P08: acknowledgement-only, source-owned Driving command count.
     // No user/session/media identity or Quality storage crosses this seam.
     private val onAcknowledgedDrivingCommand: (VoiceOrigin) -> Unit = {},
+    // P10: same-origin monotonic callback supplies only transient proxy
+    // endpoint->FIRST-DRAW latency; the default JVM clock is NOT mixed
+    // with the Android provider's production elapsedRealtime clock.
+    private val elapsedRealtimeNanos: () -> Long = System::nanoTime,
+    private val onTerminalDrawLatencyProxy: (SpeechEndpointQuality?, Long?) -> Unit = { _, _ -> },
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
@@ -126,6 +133,10 @@ class DefaultVoiceSessionCoordinator(
     private var telemetryConfidence: ConfidenceBucket? = null
     private var telemetryDetectedClaimed = false
     private var telemetryTerminalClaimed = false
+    // P10: process-only current-generation endpoint signal and terminal
+    // first-draw claim; NEVER stored, logged or exported as an event field.
+    private var speechEndpointSignal: SpeechEndpointEvidence? = null
+    private var terminalFirstDrawClaimed = false
     // P09: one optional clarification sentence for an artist choice, kept
     // separate from the subsequent ACK-driven terminal response.
     private var artistPromptClaimed = false
@@ -207,6 +218,8 @@ class DefaultVoiceSessionCoordinator(
         telemetryConfidence = null
         telemetryDetectedClaimed = false
         telemetryTerminalClaimed = false
+        speechEndpointSignal = null
+        terminalFirstDrawClaimed = false
         artistPromptClaimed = false
         artistPromptJob?.cancel()
         artistPromptJob = null
@@ -249,7 +262,20 @@ class DefaultVoiceSessionCoordinator(
             val recognition = try {
                 withTimeoutOrNull(VoicePolicy.LISTEN_TIMEOUT_MS) {
                     stt.recognize(
-                        SpeechRecognitionRequest(id, "en-US", VoicePolicy.LISTEN_TIMEOUT_MS)
+                        SpeechRecognitionRequest(
+                            id, "en-US", VoicePolicy.LISTEN_TIMEOUT_MS,
+                            onEndpointSignal = { evidence ->
+                                // Only this exact generation can claim the
+                                // provider's endpoint signal. Signal does NOT
+                                // mean last physical speech sample.
+                                synchronized(gate) {
+                                    if (isCurrentAndAuthorizedLocked(id, generation, number) &&
+                                        speechEndpointSignal == null &&
+                                        evidence.elapsedRealtimeNanos > 0L
+                                    ) speechEndpointSignal = evidence
+                                }
+                            },
+                        )
                     )
                 }
             } catch (cancelled: CancellationException) {
@@ -789,6 +815,42 @@ class DefaultVoiceSessionCoordinator(
         }
     }
 
+    /**
+     * Issue #12 P10: called only after a current, terminal Voice label
+     * actually participated in the Player/Driving Compose draw. No
+     * optimistic state-publication, TTS-dispatch or Media3 ACK timestamp
+     * may masquerade as visible feedback. This is still a FIRST-DRAW
+     * proxy pending physical display QA, not guaranteed human perception.
+     *
+     * The SpeechEndpoint signal is intentionally NOT physical speech-end;
+     * Silero's configured 550ms silence makes its callback late. Hence
+     * this measurement NEVER flows to the strict verified PRD P95 bucket.
+     */
+    fun onTerminalLabelDrawn(visible: VoiceSessionState) {
+        val report = synchronized(gate) {
+            if (terminalFirstDrawClaimed || visible != mutableState.value ||
+                visible !is VoiceSessionState.Executed &&
+                visible !is VoiceSessionState.Failed
+            ) return@synchronized null
+            val id = when (visible) {
+                is VoiceSessionState.Executed -> visible.sessionId
+                is VoiceSessionState.Failed -> visible.sessionId
+                else -> return@synchronized null
+            }
+            if (currentId != id || currentOrigin == null || closed)
+                return@synchronized null
+            terminalFirstDrawClaimed = true
+            val endpoint = speechEndpointSignal
+            val now = runCatching { elapsedRealtimeNanos() }.getOrNull()
+            val ms = if (endpoint != null && now != null &&
+                now >= endpoint.elapsedRealtimeNanos && endpoint.elapsedRealtimeNanos > 0L
+            ) (now - endpoint.elapsedRealtimeNanos) / 1_000_000L else null
+            (endpoint?.quality to ms)
+        } ?: return
+        try { onTerminalDrawLatencyProxy(report.first, report.second) }
+        catch (_: Exception) { /* optional Quality cannot change the UI */ }
+    }
+
     /** Caller holds the same lock; elapsed duration stays transient. */
     private fun currentLatencyBucketLocked(): LatencyBucket? {
         val elapsed = System.nanoTime() - attemptStartNanos
@@ -1194,6 +1256,8 @@ class DefaultVoiceSessionCoordinator(
         val job = childJob
         childJob = null
         mutableState.value = VoiceSessionState.Idle
+        speechEndpointSignal = null
+        terminalFirstDrawClaimed = false
         job?.cancel()
         if (id != null) {
             runCatching { stt.cancel(id) }
