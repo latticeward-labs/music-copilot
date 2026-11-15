@@ -90,9 +90,9 @@ class ApplicationBindings(
     // preserves per-attempt source order without delaying Voice/Media3.
     // On overflow drop, never suspend or persist; P10 tracks unknown loss.
     private val diagnosticEvents = Channel<TelemetryEvent>(capacity = 64)
-    private val correctionOwner = ExplicitManualCorrectionOwner {
-        android.os.SystemClock.elapsedRealtime()
-    }
+    private val correctionOwner = ExplicitManualCorrectionOwner(
+        nowElapsedMs = { android.os.SystemClock.elapsedRealtime() }
+    )
 
     // Issue #12 P04: separate diagnostic consent, NO audio/cloud association.
     // Always fail closed until Product/Privacy/Legal signoff. The in-memory
