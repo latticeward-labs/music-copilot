@@ -255,11 +255,18 @@
     {
       "phase": "P13",
       "title": "Source integration, authored test contracts and final QA package",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_TEST_PLAN.md",
+        "docs/implementation/ISSUE_12_PHONE_QA_CHECKLIST_FA.md",
+        "docs/implementation/ISSUE_12_QA_RESULTS.json",
+        "docs/implementation/ISSUE_12_EVIDENCE_INDEX.md",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase13FinalIntegrationContractsTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "P13 current English original RAR12 source rechecked by exact SHA; Issue #12 live 14 AC, GitHub main...feature source compare, relevant app/Quality/Voice/Driving/Playback/Settings/P10/P11 sources and open issues #80/#82 reviewed with explicit no-build caveat. Source-only integration and negative tests authored, not run. 29 new Kotlin @Test methods, total 240 Issue12 Kotlin + 31 P11 Python = 271 authored tests, ZERO executed. 121 M001-M121 evidence cases: 87 OWNER_PHONE /15 TECHNICAL_QA/12 PRODUCT_QA/7 CONTROLLED_BETA; every case NOT_RUN and each of 14 AC NOT_VERIFIED. Privacy review/retention/analytics vendor unresolved (P04 four false/NoOp), actual 50/14/3 Beta absent, history DAO absent, acoustic P95 proxy uncalibrated, #80 24/50=48% lab FAIL & #82 artist instability open. P14 final one build only after owner authorization, technical tests still not run without separate authorization; owner reports phone QA. No Gradle/compile/tests/Actions/APK/PR/merge/issue close."
     },
     {
       "phase": "P14",
@@ -390,7 +397,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 docs complete; P03–P12 source-implemented UNCOMPILED NOT_RUN; P13–P14 NOT_STARTED. P12 Settings/UF-12 actual diagnostic clear/revoke/cloud consent callbacks, JIT voice disclosure and protected categories. No history repository exists; disabled truthful NOT STORED status; no fabricated retention/provider/legal approval, remote deletion or app-stored personal data. P04 approvals FALSE/P09 NoOp production. 30 new QA source tests authored, 0 executed. All 14 AC NOT_VERIFIED; inherited #80/#82 unresolved. No tests/compilation/Gradle/CI/Actions/APK/PR/merge/close.",
+  "notes": "P01/P02 documentary source complete, P03–P13 source implemented/authored UNCOMPILED NOT_RUN, P14 NOT_STARTED. P13 exact English RAR 12 PDFs re-read, actual issue+compare/source reviewed; four committed QA artifacts + 29 Kotlin contracts. 271 source-authored methods and 121 M-cases ALL NOT_RUN. AC01-AC14 remain NOT_VERIFIED; no user-phone, real Beta, valid physical speech-end P95, Analytics/Privacy/Legal signoff, short-history owner or resolved #80/#82. No technical tests, Gradle, Actions, emulator, APK, PR, merge or close. Future phone and provider evidences are owner- and QA-dependent.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -784,5 +791,45 @@
     "compiled": false,
     "apk": "NOT_BUILT",
     "all_ac": "NOT_VERIFIED"
+  },
+  "p13_final_source_review_and_qa": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "source_archives_pdf_entries_reopened": 12,
+    "source_review": "docs/implementation/ISSUE_12_TEST_PLAN.md",
+    "phone_checklist": "docs/implementation/ISSUE_12_PHONE_QA_CHECKLIST_FA.md",
+    "qa_results": "docs/implementation/ISSUE_12_QA_RESULTS.json",
+    "evidence_index": "docs/implementation/ISSUE_12_EVIDENCE_INDEX.md",
+    "kotlin_p03_to_p12_methods_authored": 211,
+    "kotlin_p13_methods_authored": 29,
+    "python_p11_methods_authored": 31,
+    "authored_test_total": 271,
+    "executed_test_total": 0,
+    "phone_case_count": 87,
+    "technical_case_count": 15,
+    "product_qa_case_count": 12,
+    "real_beta_case_count": 7,
+    "manual_cases_total": 121,
+    "manual_cases_initial_state": "ALL_NOT_RUN",
+    "acceptance_criteria": "ALL_14_NOT_VERIFIED",
+    "source_review_scope": "COMPARED_MAIN_AND_BRANCH_READ_TARGETED_CHANGED_CODE_NOT_COMPILED_OR_RUNTIME_VERIFIED",
+    "production_local_mode": "NoOp",
+    "production_collection_approvals": "ALL_FALSE",
+    "local_history_repository": "DOES_NOT_EXIST",
+    "voice_end_to_end_p95": "NOT_VERIFIED_VAD_END_TO_COMPOSE_DRAW_PROXY",
+    "real_qa_ground_truth": "NOT_PROVIDED",
+    "real_50_14_3_beta": "NOT_PROVIDED",
+    "outstanding_blockers": [
+      80,
+      82
+    ],
+    "privacy_legal_product_signoff": "NOT_APPROVED",
+    "no_build": true,
+    "no_apk": true,
+    "no_ci": true,
+    "no_tests": true,
+    "no_merge": true,
+    "no_issue_close": true,
+    "p14_next": "ONE_FINAL_INTEGRATED_APK_BUILD_ONLY_IF_AUTHORIZED_AND_OWNER_DEVICE_QA"
   }
 }
