@@ -127,11 +127,25 @@
     {
       "phase": "P07",
       "title": "Player error and crash-reporting boundaries",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_P07_PLAYER_ERROR_CRASH_BOUNDARY.md",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/api/PlaybackRuntimeDiagnosticHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/ServicePlayerErrorEpisodeGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/playback/service/MusicPlaybackService.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MusicCopilotApplication.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/api/SafeCrashEvidence.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/noop/NoOpCrashEvidenceSink.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/adapters/ConsentGatedCrashEvidenceReporter.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/crash/AndroidProcessExitClassification.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/playback/service/Issue12Phase7ServiceErrorEpisodesTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase7CrashPrivacyBoundaryTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "P07 service-authoritative player_error only after committed service snapshot, typed exact P03 Player error enum, one contiguous episode per code; Unknown route rather than fabricated BT. PermissionRevoked omitted due frozen P03 PlayerError allowlist. Separate in-RAM closed crash-category reporter, NoOp, gated by P04 approvals, optional Android11+ ApplicationExitInfo.reason only; API29/OEM missing UNKNOWN, no raw throwable/trace/stack/user ID. Historical exit cannot correlate a Driving session; P08/09 marker needed. 20 source-authored tests NOT_RUN, NO Gradle/CI/build/APK. Privacy/retention/provider/review unresolved."
     },
     {
       "phase": "P08",
@@ -316,7 +330,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 source-doc complete; P03–P06 source-implemented UNCOMPILED NOT_RUN; P07–P14 NOT_STARTED. Production NoOp & non-audio consent disabled. 14/14 Issue #12 AC NOT_VERIFIED. No CI/Gradle/build/tests/PR/merge/close; Product/Privacy schema & missingness approvals pending.",
+  "notes": "P01/P02 documented; P03–P07 source-implemented UNCOMPILED/NOT_RUN; P08–P14 NOT_STARTED. Production NoOp + no approved independent consent/copy/retention/provider; historical exit is not a Driving crash-free proof. All 14 Issue #12 AC still NOT_VERIFIED. No Gradle/CI/tests/APK/PR/merge/close; follow-up quality #80/#82 open.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -448,5 +462,31 @@
     "compiled": false,
     "apk": "NOT_BUILT",
     "human_approvals": "NOT_PROVIDED"
+  },
+  "p07_player_crash": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "documentation": "docs/implementation/ISSUE_12_P07_PLAYER_ERROR_CRASH_BOUNDARY.md",
+    "player_source": "MusicPlaybackService.publishSnapshot.after_session_setSessionExtras",
+    "player_dedup": "ONE_EVENT_PER_CONTIGUOUS_IDENTICAL_TYPED_ERROR_EPISODE",
+    "player_code": "P03_CLOSED_PlayerRuntimeErrorCode_ENUM_ONLY",
+    "route_type": "Unknown_UNTIL_SERVICE_ACTIVE_ROUTE_PROVEN",
+    "permission_revoked": "OMITTED_FROM_P03_PLAYER_ERROR_ALLOWLIST_APPROVAL_REQUIRED",
+    "media_ref_sent": false,
+    "exception_string_sent": false,
+    "crash_api": "Android_11_PLUS_ApplicationExitInfo_reason_ONLY",
+    "android10": "UNKNOWN_NOT_CRASH_FREE",
+    "crash_category": "SAFE_CLOSED_ENUM_IN_RAM_ONLY_NO_NINTH_OUTBOUND_EVENT",
+    "uncaught_handler": "NOT_INSTALLED_TO_AVOID_UNREVIEWED_RAW_EXCEPTION",
+    "crash_provider": "NoOpCrashEvidenceSink",
+    "production_external_upload": false,
+    "production_diagnostics_authorized": false,
+    "crash_free_99_percent": "NOT_MEASURABLE",
+    "session_correlation": "P08_P09_NOT_IMPLEMENTED",
+    "retention_policy": "NOT_APPROVED_P09",
+    "provider_approval": "NOT_APPROVED",
+    "tests_authored": 20,
+    "tests_run": 0,
+    "compiled": false,
+    "apk": "NOT_BUILT"
   }
 }
