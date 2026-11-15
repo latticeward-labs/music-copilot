@@ -68,7 +68,7 @@
         "docs/implementation/ISSUE_12_P04_DIAGNOSTICS_CONSENT_AND_PRIVACY_GATE.md",
         "app/src/main/java/com/latticeward/musiccopilot/data/api/PreferencesRepository.kt",
         "app/src/main/java/com/latticeward/musiccopilot/data/datastore/PreferencesDataStore.kt",
-        "app/src/main/java/com/latticeward/musiccopilot/quality/privacy/DiagnosticsConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/privacy/DiagnosticsConsentPolicy.kt",
         "app/src/main/java/com/latticeward/musiccopilot/quality/privacy/ConsentGatedTelemetrySink.kt",
         "app/src/main/java/com/latticeward/musiccopilot/quality/adapters/BestEffortQualityEventPublisher.kt",
         "app/src/main/java/com/latticeward/musiccopilot/app/di/QualityBindings.kt",
@@ -78,7 +78,7 @@
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
       "apk": "NOT_BUILT",
-      "notes": "Independent diagnostics consent added in DataStore, default NotAsked; synchronous revocation latch, capture- and sink-delivery authorization added. Four production approvals false, all production events still dropped by gated NoOp. No UI (P12), persistence/transport (P09) or active upload. 12 source-authored tests NOT_RUN; approval and process-restart failed-revocation recovery pending."
+      "notes": "Independent diagnostics consent added in DataStore, default NotAsked; synchronous revocation latch, capture- and sink-delivery authorization added. Four production approvals false, all production events still dropped by gated NoOp. No UI (P12), persistence/transport (P09) or active upload. 12 source-authored tests NOT_RUN; approval and process-restart failed-revocation recovery pending. Final dependency-direction review: consent policy lives in core/application/privacy, Quality consumes injected canCollect only; #16 boundary preserved."
     },
     {
       "phase": "P05",
@@ -352,6 +352,8 @@
     "tests_authored": 12,
     "tests_run": 0,
     "compiled": false,
-    "doc": "docs/implementation/ISSUE_12_P04_DIAGNOSTICS_CONSENT_AND_PRIVACY_GATE.md"
+    "doc": "docs/implementation/ISSUE_12_P04_DIAGNOSTICS_CONSENT_AND_PRIVACY_GATE.md",
+    "policy_path": "app/src/main/java/com/latticeward/musiccopilot/core/application/privacy/DiagnosticsConsentPolicy.kt",
+    "quality_data_dependency": "NONE"
   }
 }
