@@ -1,5 +1,12 @@
 package com.latticeward.musiccopilot.quality.adapters
 
+import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.quality.api.ConfidenceBucket
+import com.latticeward.musiccopilot.quality.api.LatencyBucket
+import com.latticeward.musiccopilot.quality.api.RouteType
+import com.latticeward.musiccopilot.quality.api.TelemetryEvent
+import com.latticeward.musiccopilot.quality.api.TelemetryPlaybackState
+import com.latticeward.musiccopilot.quality.privacy.AllowlistedTelemetryPrivacyGate
 import com.latticeward.musiccopilot.quality.api.LocalDiagnosticsStore
 import com.latticeward.musiccopilot.quality.api.LocalDiagnosticsSummary
 import com.latticeward.musiccopilot.quality.api.SanitizedTelemetryEvent
@@ -25,6 +32,7 @@ class BoundedMemoryDiagnosticsStore(
     init { require(maxEvents in 1..MAX_CONFIGURABLE_EVENTS) }
 
     private val gate = Any()
+    private val semanticGate = AllowlistedTelemetryPrivacyGate()
     private val ring = ArrayDeque<SanitizedTelemetryEvent>()
     private val counts = LinkedHashMap<String, Long>()
     private var accepted = 0L
@@ -109,8 +117,62 @@ class BoundedMemoryDiagnosticsStore(
             if (equal <= 0 || piece.indexOf('=', equal + 1) >= 0) return null
             attributes.add(piece.substring(0, equal) to piece.substring(equal + 1))
         }
-        return family.takeIf {
-            OutboundTelemetrySchemaV1.encode(family, attributes.toTypedArray()) == source
+        if (OutboundTelemetrySchemaV1.encode(family, attributes.toTypedArray()) != source)
+            return null
+
+        // A SanitizedTelemetryEvent constructor is module-internal, so
+        // defense in depth must also check semantic VALUE vocabulary, not
+        // just valid separators and field names. Re-project through the
+        // canonical P03 gate; only its exact approved canonical encoding
+        // may enter local memory. Never log a malformed attempted value.
+        val values = attributes.toMap()
+        val rebuilt = when (family) {
+            "driving_mode_started" -> {
+                val bluetooth = when (values["bt_connected"]) {
+                    "true" -> true
+                    "false" -> false
+                    else -> return null
+                }
+                TelemetryEvent.DrivingModeStarted(
+                    values.getValue("entry_source"), bluetooth
+                )
+            }
+            "voice_button_pressed" -> TelemetryEvent.VoiceButtonPressed(
+                TelemetryPlaybackState.valueOf(values.getValue("playback_state"))
+            )
+            "intent_detected" -> TelemetryEvent.IntentDetected(
+                values.getValue("intent_type"),
+                ConfidenceBucket.valueOf(values.getValue("confidence_bucket"))
+            )
+            "intent_failed" -> TelemetryEvent.IntentFailed(
+                values.getValue("intent_type").takeUnless { it == "none" },
+                values.getValue("failure_code"),
+                values.getValue("confidence_bucket").takeUnless { it == "none" }
+                    ?.let(ConfidenceBucket::valueOf),
+                values.getValue("latency_bucket").takeUnless { it == "none" }
+                    ?.let(LatencyBucket::valueOf)
+            )
+            "command_executed" -> TelemetryEvent.CommandExecuted(
+                values.getValue("intent_type"),
+                LatencyBucket.valueOf(values.getValue("latency_bucket"))
+            )
+            "manual_correction" -> TelemetryEvent.ManualCorrection(
+                values.getValue("previous_intent"), values.getValue("correction_type")
+            )
+            "player_error" -> TelemetryEvent.PlayerError(
+                values.getValue("error_code"),
+                RouteType.valueOf(values.getValue("route_type"))
+            )
+            "session_completed" -> TelemetryEvent.SessionCompleted(
+                values.getValue("duration_bucket"),
+                values.getValue("commands_count").toIntOrNull() ?: return null
+            )
+            else -> return null
+        }
+        return when (val verified = semanticGate.sanitize(rebuilt)) {
+            is AppResult.Success ->
+                family.takeIf { verified.value.encoded == source }
+            is AppResult.Failure -> null
         }
     }
 
