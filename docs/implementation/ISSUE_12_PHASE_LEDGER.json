@@ -102,11 +102,27 @@
     {
       "phase": "P06",
       "title": "Voice detection, failure, execution and manual correction",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_VOICE_EVENT_OWNERSHIP.md",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/ExplicitManualCorrectionOwner.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase6VoiceOutcomeEventsTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase6ManualCorrectionTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "P06 code authored: deterministic accepted-intent gated detection (drops unknown confidence), typed once-per-attempt terminal failures, ACK-only executed from existing service, explicit single-use 60s same-origin manual-correction choice + verified manual ACK (Play/Pause/Next/Previous/Select only). Private ninth P11 result still not exported. App-scoped bounded FIFO queue 64, consent capture/delivery checks, production NoOp. Written 20 source QA methods, NOT COMPILED/NOT RUN. Source blueprint intent_failed property mismatch, Product/Privacy/UX review, Moonshine missing calibrated confidence, event-loss/missingness and final P95 remain unresolved."
     },
     {
       "phase": "P07",
@@ -300,7 +316,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 source docs complete; P03/P04/P05 source-implemented UNCOMPILED NOT_RUN; P06–P14 NOT_STARTED. No test/CI/Gradle/APK/telemetry collection or human approvals. Fourteen AC NOT_VERIFIED. #80/#82 remain open.",
+  "notes": "P01/P02 source-doc complete; P03–P06 source-implemented UNCOMPILED NOT_RUN; P07–P14 NOT_STARTED. Production NoOp & non-audio consent disabled. 14/14 Issue #12 AC NOT_VERIFIED. No CI/Gradle/build/tests/PR/merge/close; Product/Privacy schema & missingness approvals pending.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -396,5 +412,41 @@
     "compiled": false,
     "device": "NOT_RUN",
     "review": "NOT_SIGNED_OFF"
+  },
+  "p06_voice_outcomes": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "document": "docs/implementation/ISSUE_12_VOICE_EVENT_OWNERSHIP.md",
+    "families": [
+      "intent_detected",
+      "intent_failed",
+      "command_executed",
+      "manual_correction"
+    ],
+    "intent_detection": "ONLY_ADMITTED_DETERMINISTIC_MAPPER_OR_ACCEPTED_ARTIST_DECISION",
+    "unknown_calibrated_confidence": "DROP_INTENT_DETECTED_NOT_INVENT_HIGH",
+    "failed": "ONE_TYPED_FAILURE_PER_TERMINAL_ATTEMPT_INCLUDING_RETRYABLE_FIRST_ATTEMPT",
+    "executed": "ONLY_EXISTING_VALIDATED_MEDIA3_SERVICE_ACK_AND_ACTIVE_VOICE_GENERATION",
+    "manual_correction": "EXPLICIT_TERMINAL_VOICE_UI_CHOICE_PLUS_IN_ORIGIN_ACK_BEFORE_60S;_ONCE_ONLY",
+    "manual_correction_supported_actions": [
+      "manual_play",
+      "manual_pause",
+      "manual_skip",
+      "manual_select"
+    ],
+    "manual_search": "NOT_EMITTED_UNTIL_SEPARATE_VERIFIED_SOURCE",
+    "preexisting_private_event": "voice_intent_outcome_STILL_NOT_OUTBOUND",
+    "queue": "64_VOLATILE_NONBLOCKING_FIFO_DROP_ON_OVERFLOW",
+    "production_sink": "NoOpTelemetrySink",
+    "consent": "ALL_APPROVALS_DEFAULT_FALSE;_PRE_ENQUEUE_PRE_PUBLISH_PRE_SINK",
+    "data_retention": "NONE",
+    "outbound_identity": "NONE",
+    "known_source_discrepancy": "English technical blueprint p39 intent_failed(failure_type,mapper_version) vs P03 branch schema intent_type/failure_code/confidence_bucket/latency_bucket; REVIEW_REQUIRED",
+    "speech_end_p95": "NOT_MEASURED_P10",
+    "unknown_missed_corrections": "UNKNOWN_CANNOT_TREAT_AS_ZERO",
+    "qa_authored": 20,
+    "qa_executed": 0,
+    "compiled": false,
+    "apk": "NOT_BUILT",
+    "human_approvals": "NOT_PROVIDED"
   }
 }
