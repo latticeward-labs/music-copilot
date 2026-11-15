@@ -586,6 +586,7 @@ class MainActivity : ComponentActivity() {
                 onDrivingMicPermissionTap = ::onDrivingMicPermissionTap,
                 onDrivingMicPermissionContinue = ::onDrivingMicPermissionContinue,
                 onDrivingMicPermissionDismiss = ::onDrivingMicPermissionDismiss,
+                onDrivingModeEntered = bindings::recordAcceptedDrivingEntry,
                 onFirstUseComplete = {
                     onPracticeManualOnly()
                     bindings.onForeground()
