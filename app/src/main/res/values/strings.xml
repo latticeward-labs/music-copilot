@@ -389,4 +389,7 @@
     <string name="i12_privacy_result_unavailable">Unavailable</string>
     <string name="i12_privacy_result_failed">Failed</string>
     <string name="i12_privacy_result_notselected">Not selected</string>
+    <string name="i12_privacy_cloud_revoke_saving">Saving cloud speech consent choice…</string>
+    <string name="i12_privacy_cloud_revoke_success">Cloud speech consent revoked on this phone. No online speech provider is enabled.</string>
+    <string name="i12_privacy_cloud_revoke_failed">Could not save the cloud speech revocation. No remote speech service is enabled. Retry.</string>
 </resources>
