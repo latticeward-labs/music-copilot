@@ -271,11 +271,20 @@
     {
       "phase": "P14",
       "title": "FINAL integrated APK, owner phone/vehicle QA and merge gate",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "BUILD_SUCCEEDED_PENDING_OWNER_QA",
+      "evidence": [
+        "docs/implementation/ISSUE_12_P14_BUILD_AND_OWNER_HANDOFF.md",
+        ".github/workflows/issue-12-p14-one-integrated-apk.yml",
+        ".github/issue12-p14-apk-request.txt",
+        "docs/implementation/ISSUE_12_QA_RESULTS.json",
+        "docs/implementation/ISSUE_12_PHONE_QA_CHECKLIST_FA.md",
+        "https://github.com/latticeward-labs/music-copilot/actions/runs/43710955663",
+        "https://github.com/latticeward-labs/music-copilot/actions/runs/43710955663/artifacts/14160576631"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "BUILT_SHA256_VERIFIED",
+      "notes": "P14 exact source commit 599c4035511bbe80c318413853f956496a0416f3 owner requested build; one build-only GitHub Actions push run 43710955663 #132802164685 SUCCESS, Gradle :app:assembleDebug 39 compilation/packaging tasks in 3m33s. Artifact 14160576631 zip ~56.75 MB includes 100205689-byte ARM64 debug APK, independent exact file SHA256 cbe10d9efadd09118a1726dee97d08b4da9318b7da4dcbf2da117a5f29671392 verified vs APK_SHA256SUM.txt. Runtime models Moonshine Tiny v2 and Silero VAD bundled, AAR sherpa-onnx 2.0.0 verified. 0 technical/unit/instrumentation/python tests, 0 lint, 0 emulator, 0 owner-device QA. 121 M-cases all NOT_RUN, 14 AC all NOT_VERIFIED. Production Quality NoOp, approvals false, no history DAO, no actual Beta 50/14/3, #80/#82 OPEN. P14 build delivered, owner QA/merge/close pending separate explicit go-ahead; no PR, merge, issue close. Later docs-only commits not included in APK."
     }
   ],
   "accepted_external_event_families": [
@@ -397,7 +406,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 documentary source complete, P03–P13 source implemented/authored UNCOMPILED NOT_RUN, P14 NOT_STARTED. P13 exact English RAR 12 PDFs re-read, actual issue+compare/source reviewed; four committed QA artifacts + 29 Kotlin contracts. 271 source-authored methods and 121 M-cases ALL NOT_RUN. AC01-AC14 remain NOT_VERIFIED; no user-phone, real Beta, valid physical speech-end P95, Analytics/Privacy/Legal signoff, short-history owner or resolved #80/#82. No technical tests, Gradle, Actions, emulator, APK, PR, merge or close. Future phone and provider evidences are owner- and QA-dependent.",
+  "notes": "P01/P02 original source documentation complete; P03–P13 source authored. P14 one integrated Android DEBUG ARM64 APK SUCCESS on exact frozen commit 599c4035511bbe80c318413853f956496a0416f3; real SHA-256 verified against extracted artifact, via run 43710955663 and artifact 14160576631. ZERO technical/unit/Python/Android/emulator/lint tests, 121 owner/technical/Product/Beta cases all NOT_RUN, 14 Issue #12 AC NOT_VERIFIED. Full owner-phone QA, signed off retention/privacy/legal/provider, real 50/14/3 Beta and fixing #80/#82 remain outstanding. No PR/merge/Issue closure.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -831,5 +840,41 @@
     "no_merge": true,
     "no_issue_close": true,
     "p14_next": "ONE_FINAL_INTEGRATED_APK_BUILD_ONLY_IF_AUTHORIZED_AND_OWNER_DEVICE_QA"
+  },
+  "p14_integrated_apk_and_owner_qa": {
+    "status": "BUILD_SUCCEEDED_PENDING_OWNER_QA",
+    "source_commit": "599c4035511bbe80c318413853f956496a0416f3",
+    "run_id": 43710955663,
+    "run_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/43710955663",
+    "job_id": 132802164685,
+    "build_job": "SUCCESS",
+    "task": ":app:assembleDebug",
+    "apk_filename": "music-copilot-issue12-p14-debug-arm64.apk",
+    "apk_size_bytes": 100205689,
+    "apk_sha256": "cbe10d9efadd09118a1726dee97d08b4da9318b7da4dcbf2da117a5f29671392",
+    "artifact_id": 14160576631,
+    "artifact_url": "https://github.com/latticeward-labs/music-copilot/actions/runs/43710955663/artifacts/14160576631",
+    "artifact_expires_utc": "2026-11-29T11:55:45Z",
+    "archive_zip_bytes": 56750084,
+    "downloaded_artifact_zip_and_recomputed_apk_hash": true,
+    "direct_apk_copy_in_conversation": true,
+    "documentation": "docs/implementation/ISSUE_12_P14_BUILD_AND_OWNER_HANDOFF.md",
+    "qa_results": "docs/implementation/ISSUE_12_QA_RESULTS.json",
+    "phone_checklist": "docs/implementation/ISSUE_12_PHONE_QA_CHECKLIST_FA.md",
+    "authored_test_methods": 271,
+    "technical_test_methods_executed": 0,
+    "manual_cases_total": 121,
+    "manual_cases_executed": 0,
+    "owner_phone_test_results": "NOT_RUN",
+    "all_ac": "NOT_VERIFIED",
+    "production_telemetry": "NoOp",
+    "product_privacy_legal_approvals": "NOT_APPROVED",
+    "unresolved_p0": [
+      80,
+      82
+    ],
+    "actual_closed_beta": "NOT_PROVIDED",
+    "pr_or_merge": "NOT_DONE",
+    "issue_closed": false
   }
 }
