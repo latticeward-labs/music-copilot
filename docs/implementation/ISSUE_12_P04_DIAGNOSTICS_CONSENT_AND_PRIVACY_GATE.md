@@ -52,12 +52,16 @@ There is **no approved final diagnostic notice wording, consent-version, precise
 |---|---|
 | app/src/main/java/com/latticeward/musiccopilot/data/api/PreferencesRepository.kt | New DiagnosticsConsent enum, default-off AppPreferences value and distinct SetDiagnosticsConsent update |
 | app/src/main/java/com/latticeward/musiccopilot/data/datastore/PreferencesDataStore.kt | New DataStore key, safe decode fallback and atomic persistence case without touching cloud consent |
-| app/src/main/java/com/latticeward/musiccopilot/quality/privacy/DiagnosticsConsentPolicy.kt | New pure policy, explicit approval gates and app-scoped immediate revoke latch |
+| app/src/main/java/com/latticeward/musiccopilot/core/application/privacy/DiagnosticsConsentPolicy.kt | New pure policy, explicit approval gates and app-scoped immediate revoke latch |
 | app/src/main/java/com/latticeward/musiccopilot/quality/privacy/ConsentGatedTelemetrySink.kt | New fail-closed sink check on every outgoing delivery |
 | app/src/main/java/com/latticeward/musiccopilot/quality/adapters/BestEffortQualityEventPublisher.kt | Optional canCollect check before sanitation; production explicitly binds authorization, legacy isolated test fixture constructor preserved |
 | app/src/main/java/com/latticeward/musiccopilot/app/di/QualityBindings.kt | Production authorization injection, gated NoOp sink, injection into publisher; no provider activated |
 | app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt | One app-scoped authorization, live readiness/consent checks, immediate revoke entry |
 | app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase4DiagnosticsConsentTest.kt | New **12 source-authored JVM scenarios; NOT COMPILED, NOT RUN** |
+
+### Architecture #16 boundary confirmation
+
+The normative dependency rules in docs/architecture/IMPLEMENTATION_STRUCTURE_AND_PUBLIC_CONTRACTS.md (§9.8–9.9) forbid Quality implementation from calling Data. Accordingly, DiagnosticsConsentPolicy and DiagnosticsCollectionAuthorization are placed in **core/application/privacy** (Application/Domain may depend on data/api). Quality's publisher and guarded sink depend only on quality/api and an injected Boolean authorization callback. app/di/QualityBindings owns the cross-boundary dependency injection. No Quality → Data dependency has been introduced.
 
 ## 5. Privacy copy + provider/retention approval decision ledger
 
