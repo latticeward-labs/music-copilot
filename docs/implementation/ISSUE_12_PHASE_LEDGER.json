@@ -83,11 +83,21 @@
     {
       "phase": "P05",
       "title": "Authoritative Driving + Voice entry instrumentation",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_P05_DRIVING_VOICE_ENTRY_OWNERSHIP.md",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/DrivingNavigationViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/voice/ObservedVoicePttCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/platform/audio/CoarseBluetoothAudioOutput.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase5EntryTelemetryTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "Driving entry emitted only on true inactive->active navigation admission from manual Library/Player/accepted BT invitation; PTT initial start and explicit retry only after app-scoped Voice coordinator returns AppResult.Success. Existing generation/attempt admission dedup, no ids exported. Coarse Bluetooth AudioManager output types only; unavailable observation drops rather than fabricates false. 10 authored tests NOT_RUN. P04 default all approvals false & NoOp means no live events, no consent/UI/store yet."
     },
     {
       "phase": "P06",
@@ -290,7 +300,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 documented. P03/P04 source-implemented, not compiled/tested. P05–P14 NOT_STARTED. Production NoOp, no external processing. All Issue #12 ACs NOT_VERIFIED; P04 consent copy, retention/provider/legal approvals and Settings UI remain pending.",
+  "notes": "P01/P02 source docs complete; P03/P04/P05 source-implemented UNCOMPILED NOT_RUN; P06–P14 NOT_STARTED. No test/CI/Gradle/APK/telemetry collection or human approvals. Fourteen AC NOT_VERIFIED. #80/#82 remain open.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -355,5 +365,36 @@
     "doc": "docs/implementation/ISSUE_12_P04_DIAGNOSTICS_CONSENT_AND_PRIVACY_GATE.md",
     "policy_path": "app/src/main/java/com/latticeward/musiccopilot/core/application/privacy/DiagnosticsConsentPolicy.kt",
     "quality_data_dependency": "NONE"
+  },
+  "p05_entry_instrumentation": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "document": "docs/implementation/ISSUE_12_P05_DRIVING_VOICE_ENTRY_OWNERSHIP.md",
+    "driving_sources": [
+      "home",
+      "player"
+    ],
+    "driving_writer": "DrivingNavigationViewModel.accepted_transition+AppNavHost.enterDrivingOnce",
+    "bluetooth_offer": "EXPLICIT_FRESH_ACCEPTANCE_ONLY_NEVER_BACKGROUND_OR_AUTO",
+    "bt_connected": "CoarseBluetoothAudioOutput_getDevices_GET_DEVICES_OUTPUTS_type_only",
+    "unknown_bt": "DROP_EVENT_NO_SYNTHETIC_FALSE",
+    "voice_writer": "ObservedVoicePttCoordinator_wrapping_existing_DefaultVoiceSessionCoordinator",
+    "voice_admission": "SUCCESS_ONLY_INITIAL_AND_EXPLICIT_RETRY",
+    "voice_dedup": "EXISTING_LOCK_AND_GENERATION_ATTEMPT_STATE",
+    "artist_confirmation": "NOT_A_SECOND_PTT",
+    "consent_at_capture": "PRECHECK_AUTHORIZATION_DEFAULT_DENY",
+    "consent_at_delivery": "P04_GATED_SINK_DEFAULT_DENY",
+    "event_families": [
+      "driving_mode_started",
+      "voice_button_pressed"
+    ],
+    "retention": "NONE",
+    "identity_export": "NONE",
+    "production_sink": "NoOpTelemetrySink",
+    "production_events_observed": false,
+    "test_cases_authored": 10,
+    "tests_run": 0,
+    "compiled": false,
+    "device": "NOT_RUN",
+    "review": "NOT_SIGNED_OFF"
   }
 }
