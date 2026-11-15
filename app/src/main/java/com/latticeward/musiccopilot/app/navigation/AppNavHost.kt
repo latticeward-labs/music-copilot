@@ -164,6 +164,9 @@ fun AppNavHost(
     // P10: drawn, terminal label event in an authenticated visible route.
     // Never a UI composition or a mere ACK state transition.
     onTerminalVoiceLabelDrawn: (VoiceSessionState) -> Unit = {},
+    // P10: admitted manual Player/Driving controls only; pre-ACK elapsed
+    // is transient and never reported outside local coarse histograms.
+    onManualCommandAckLatency: (Long?) -> Unit = {},
     onArmVoiceManualCorrection: (VoiceOrigin) -> Boolean = { false },
     onVerifiedManualCorrection: (VoiceOrigin, VoiceManualCorrectionCategory) -> Unit = { _, _ -> },
     onAbandonManualCorrection: () -> Unit = {},
@@ -307,6 +310,21 @@ fun AppNavHost(
     // successful Media3 ACK is offered only to an explicitly armed ticket
     // when its original surface remains visible and permission-safe.
     SideEffect {
+        playerModel.onVerifiedManualAckLatency = { elapsedMs ->
+            val displayed = visibleBackStackEntry?.destination?.route
+            val visibleEligible = actualRoute == BootstrapRoute.HomeLibrary &&
+                permission == PermissionStatus.Granted &&
+                !settingsOpen && !replayingEducation &&
+                (target == Destination.FullPlayer && playerOpen &&
+                    displayed == Destination.FullPlayer.route ||
+                 target == Destination.Driving && drivingNavigation.state.active &&
+                    mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                    displayed == Destination.Driving.route)
+            if (visibleEligible) {
+                try { onManualCommandAckLatency(elapsedMs) }
+                catch (_: Exception) { /* optional Quality only */ }
+            }
+        }
         playerModel.onVerifiedManualAction = { category ->
             try {
                 val currentRoute = visibleBackStackEntry?.destination?.route
@@ -333,7 +351,10 @@ fun AppNavHost(
         }
     }
     DisposableEffect(playerModel) {
-        onDispose { playerModel.onVerifiedManualAction = null }
+        onDispose {
+            playerModel.onVerifiedManualAction = null
+            playerModel.onVerifiedManualAckLatency = null
+        }
     }
     // An app/system-origin navigation away from Full Player must never leave
     // its PTT generation alive or its rationale attached to an unrelated route.
