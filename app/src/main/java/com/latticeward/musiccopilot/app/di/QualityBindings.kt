@@ -6,7 +6,7 @@ import com.latticeward.musiccopilot.quality.api.TelemetrySink
 import com.latticeward.musiccopilot.quality.noop.NoOpTelemetrySink
 import com.latticeward.musiccopilot.quality.privacy.AllowlistedTelemetryPrivacyGate
 import com.latticeward.musiccopilot.quality.privacy.ConsentGatedTelemetrySink
-import com.latticeward.musiccopilot.quality.privacy.DiagnosticsCollectionAuthorization
+import com.latticeward.musiccopilot.core.application.privacy.DiagnosticsCollectionAuthorization
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 
 /** No analytics/crash/remote provider is installed in either build variant. */
