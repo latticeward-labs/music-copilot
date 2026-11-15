@@ -63,11 +63,22 @@
     {
       "phase": "P04",
       "title": "Consent, mode gating & privacy-safe lifecycle",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_P04_DIAGNOSTICS_CONSENT_AND_PRIVACY_GATE.md",
+        "app/src/main/java/com/latticeward/musiccopilot/data/api/PreferencesRepository.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/data/datastore/PreferencesDataStore.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/privacy/DiagnosticsConsentPolicy.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/privacy/ConsentGatedTelemetrySink.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/adapters/BestEffortQualityEventPublisher.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/QualityBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase4DiagnosticsConsentTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "Independent diagnostics consent added in DataStore, default NotAsked; synchronous revocation latch, capture- and sink-delivery authorization added. Four production approvals false, all production events still dropped by gated NoOp. No UI (P12), persistence/transport (P09) or active upload. 12 source-authored tests NOT_RUN; approval and process-restart failed-revocation recovery pending."
     },
     {
       "phase": "P05",
@@ -260,7 +271,7 @@
     "retention_policy": "BLOCKED_NOT_APPROVED",
     "diagnostics_provider_and_legal": "BLOCKED_NOT_APPROVED",
     "external_eight_vs_nine_schema": "SOURCE_GUARDRAIL_IMPLEMENTED_PRODUCT_PRIVACY_REVIEW_PENDING",
-    "consent_optin": "NOT_IMPLEMENTED"
+    "consent_optin": "SOURCE_MODEL_AND_GATES_IMPLEMENTED_DEFAULT_OFF_NO_SIGNOFF_OR_SETTINGS_UI"
   },
   "risk_ids": [
     "R01",
@@ -279,7 +290,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 documented; P03 schema/quality gate source-implemented but not compiled or tested; P04-P14 not started. No CI, Gradle, test, APK, analytics provider, consent or release approval. All Issue #12 ACs remain NOT_VERIFIED.",
+  "notes": "P01/P02 documented. P03/P04 source-implemented, not compiled/tested. P05–P14 NOT_STARTED. Production NoOp, no external processing. All Issue #12 ACs NOT_VERIFIED; P04 consent copy, retention/provider/legal approvals and Settings UI remain pending.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -320,5 +331,27 @@
     "device": "NOT_RUN",
     "product_privacy_signoff": "NOT_PROVIDED",
     "qa": "NOT_VERIFIED"
+  },
+  "p04_consent": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "preference_key": "non_audio_diagnostics_consent",
+    "default_state": "NotAsked",
+    "distinct_from_cloud_stt": true,
+    "pre_capture_gate": "DiagnosticsCollectionAuthorization",
+    "pre_sink_gate": "ConsentGatedTelemetrySink",
+    "withdrawal": "IMMEDIATE_IN_PROCESS_DENY_BEFORE_DATASTORE_ASYNC_SAVE",
+    "production_approvals": "PRIVACY_COPY_FALSE_RETENTION_FALSE_COLLECTOR_FALSE_LEGAL_FALSE",
+    "production_provider": "NoOpTelemetrySink",
+    "collection_enabled": false,
+    "copy_approved": false,
+    "retention_approved": false,
+    "provider_approved": false,
+    "external_upload": false,
+    "ui_consent": "NOT_IMPLEMENTED_P12",
+    "cross_process_failed_revocation": "PENDING_P12_RECONCILIATION_REVIEW",
+    "tests_authored": 12,
+    "tests_run": 0,
+    "compiled": false,
+    "doc": "docs/implementation/ISSUE_12_P04_DIAGNOSTICS_CONSENT_AND_PRIVACY_GATE.md"
   }
 }
