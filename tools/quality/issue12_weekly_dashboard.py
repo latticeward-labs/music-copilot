@@ -99,9 +99,13 @@ def main(argv=None):
             except BaseException:
                 args.output.unlink(missing_ok=True)
                 raise
-    except (AggregateSchemaError, OSError, ValueError, OverflowError) as exc:
-        # Error content is fixed schema/path labels; never dump the JSON.
-        print("Dashboard refused input/output: " + str(exc), file=sys.stderr)
+    except AggregateSchemaError as exc:
+        # Schema failures use only controlled field PATHS, never actual values.
+        print("Dashboard refused aggregate schema: " + str(exc), file=sys.stderr)
+        return 2
+    except (OSError, ValueError, OverflowError):
+        # Even an OSError can embed a private local filename/path; do not echo.
+        print("Dashboard refused input/output: local I/O failure", file=sys.stderr)
         return 2
     print("Local aggregate dashboard created. Decision evidence: " +
           result["decision"])
