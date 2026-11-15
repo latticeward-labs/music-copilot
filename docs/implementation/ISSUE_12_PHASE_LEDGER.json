@@ -217,11 +217,19 @@
     {
       "phase": "P11",
       "title": "Weekly measurement dashboard (non-product-backend)",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_DASHBOARD_SPEC.md",
+        "tools/quality/issue12_dashboard_core.py",
+        "tools/quality/issue12_dashboard_render.py",
+        "tools/quality/issue12_weekly_dashboard.py",
+        "tools/quality/fixtures/issue12_dashboard_SYNTHETIC.json",
+        "tools/quality/test_issue12_weekly_dashboard.py"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "P11 source-authored, NOT_RUN: offline Python stdlib-only strict schema aggregate JSON->responsive printable one-view HTML with USED/WORKS/RETURNS panels, W1/W2 anchored UTC; original PRD/MVP targets, actual numerator/denominator n/D, sample/cohort, source, UNKNOWN, coverage, P95 boundary/critical incident strict rules. Synthetic-only fabricated QA fixture hard-watermarked DEMO_ONLY. Strict all-nested-key allowlist denies personal data, ninth event and per-user rows; HTML escaped/no JS/network; private no-clobber output. Operator-provided approval flag cannot prove independent real signoff, final decision always review candidate, pending source proof. 31 unittest test methods AUTHORED NOT_RUN. Production app collector still P04 approvals FALSE, P09 NoOp. No Gradle/compile/tests/generator run/Actions/APK/PR/merge/issue close. All 14 AC NOT_VERIFIED."
     },
     {
       "phase": "P12",
@@ -370,7 +378,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 source documentation complete; P03–P10 implemented in source, UNCOMPILED NOT_RUN; P11–P14 NOT_STARTED. P10 formal locked target comparisons + opt-in RAM proxy hooks are NOT real QA evidence; strict Voice speech-end P95 unverified, no 50-person actual Beta, no QA-labelled wrong/correction or crash-free session joins. P04 diagnostic approvals FALSE, P09 production NoOp. All 14 Issue #12 AC remain NOT_VERIFIED. No Gradle/tests/Actions/APK/PR/merge/close; inherited #80/#82 unresolved.",
+  "notes": "P01/P02 source documentation complete; P03–P11 source-implemented UNCOMPILED NOT_RUN; P12–P14 NOT_STARTED. P11 adds offline Product/QA three-panel weekly aggregate-only HTML generator and clearly SYNTHETIC fixture; generator NOT executed and no HTML output rendered, no real Beta data. Original PRD/MVP locked metrics, strict P95, unknowable denominators, no invented 50-person pilot, operator declarations not independently signed. P04 production authorizations FALSE/P09 NoOp. All 14 #12 AC NOT_VERIFIED; inherited #80/#82 remain OPEN. No tests/compile/build/CI/Actions/APK/PR/merge/issue close.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -654,5 +662,71 @@
     "compiled": false,
     "apk": "NOT_BUILT",
     "privacy_legal_voice_product_signoffs": "NOT_PROVIDED"
+  },
+  "p11_dashboard": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "spec": "docs/implementation/ISSUE_12_DASHBOARD_SPEC.md",
+    "generator": "tools/quality/issue12_weekly_dashboard.py",
+    "calculation": "tools/quality/issue12_dashboard_core.py",
+    "presentation": "tools/quality/issue12_dashboard_render.py",
+    "sample": "tools/quality/fixtures/issue12_dashboard_SYNTHETIC.json",
+    "sample_classification": "SYNTHETIC_FIXTURE_NOT_REAL_PILOT",
+    "output_kind": "LOCAL_PRINTABLE_STATIC_HTML_NO_EXTERNAL_ASSETS",
+    "ui_panels": [
+      "USED",
+      "WORKS",
+      "RETURNS"
+    ],
+    "metrics": [
+      "NS01_W1",
+      "NS01_W2",
+      "Q01_W1",
+      "Q01_W2",
+      "F01_W1",
+      "F01_W2",
+      "G01_W1",
+      "G01_W2",
+      "P01_W1",
+      "P01_W2",
+      "P02_W1",
+      "P02_W2",
+      "S01_W1",
+      "S01_W2",
+      "S02_W1",
+      "S02_W2",
+      "R01",
+      "R02"
+    ],
+    "source": "CLOSED_ANONYMOUS_AGGREGATES_NOT_EVENT_USER_JOINS",
+    "event_families": 8,
+    "allowed_report_states": [
+      "PASS",
+      "FAIL",
+      "NOT_VERIFIED",
+      "NOT_MEASURABLE"
+    ],
+    "allowed_decision_evidence": [
+      "DEMO_ONLY",
+      "INSUFFICIENT_EVIDENCE",
+      "BLOCKED",
+      "GO_REVIEW_CANDIDATE",
+      "ITERATE_REVIEW_CANDIDATE",
+      "STOP_REVIEW_CANDIDATE"
+    ],
+    "production_diagnostics_collection": false,
+    "real_beta_start_utc": "NOT_PROVIDED",
+    "real_beta_enrollment": "NOT_PROVIDED",
+    "source_review_approval": "NOT_PROVIDED",
+    "raw_audio_metadata_or_person_id_in_schema": false,
+    "backend_account_external_provider": false,
+    "html_generated": false,
+    "qa_tests_authored": 31,
+    "qa_tests_executed": 0,
+    "compiled": false,
+    "gradle_or_github_actions": "NOT_RUN",
+    "apk": "NOT_BUILT",
+    "external_export": "NONE",
+    "privacy_controls_user_ui": "P12_NOT_STARTED",
+    "all_acceptance_criteria": "NOT_VERIFIED"
   }
 }
