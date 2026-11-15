@@ -26,8 +26,6 @@ internal object CoarseBluetoothAudioOutput {
             }
         } catch (_: RuntimeException) {
             null
-        } catch (_: SecurityException) {
-            null
         }
     }
 
