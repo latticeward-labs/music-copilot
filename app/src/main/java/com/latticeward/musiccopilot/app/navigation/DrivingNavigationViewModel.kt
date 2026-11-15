@@ -40,8 +40,17 @@ class DrivingNavigationViewModel : ViewModel() {
     var state by mutableStateOf(DrivingNavigationState())
         private set
 
-    fun enterFrom(origin: Destination, allowedByAppRoute: Boolean) {
-        state = DrivingNavigationPolicy.enter(state, origin, allowedByAppRoute)
+    /**
+     * P05: true only for one real, accepted inactive -> active transition.
+     * Recomposition, repeat taps and route/permission denial all return false.
+     * The caller may report a non-authoritative privacy-gated diagnostic
+     * only after this method returns true; this ViewModel owns no Quality SDK.
+     */
+    fun enterFrom(origin: Destination, allowedByAppRoute: Boolean): Boolean {
+        val next = DrivingNavigationPolicy.enter(state, origin, allowedByAppRoute)
+        if (state.active || !next.active) return false
+        state = next
+        return true
     }
 
     fun exit(): Destination {
