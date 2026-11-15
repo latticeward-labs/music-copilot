@@ -305,3 +305,32 @@ data class VoiceLatencyBucketSnapshot(
         unknown = unknown,
     )
 }
+
+/**
+ * P02 (<1000ms) local-command input→verified service ACK histogram. Scope:
+ * visible Player/Driving manually admitted controls only; other OS controls
+ * remain NOT OBSERVED. Failed/stale/no ACK are UNKNOWN, never fast successes.
+ */
+class LocalManualAckHistogram {
+    private var below1000 = 0L
+    private var atOrAbove1000 = 0L
+    private var unknown = 0L
+
+    @Synchronized
+    fun observe(elapsedMs: Long?) {
+        when {
+            elapsedMs == null || elapsedMs < 0L -> unknown = add(unknown)
+            elapsedMs < 1000L -> below1000 = add(below1000)
+            else -> atOrAbove1000 = add(atOrAbove1000)
+        }
+    }
+
+    @Synchronized
+    fun evidence(): P95BucketEvidence =
+        P95BucketEvidence(below1000, atOrAbove1000, unknown)
+
+    @Synchronized
+    fun clear() { below1000 = 0; atOrAbove1000 = 0; unknown = 0 }
+
+    private fun add(value: Long) = if (value == Long.MAX_VALUE) value else value + 1
+}
