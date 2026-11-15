@@ -6,6 +6,7 @@ import com.latticeward.musiccopilot.core.model.CommandId
 import com.latticeward.musiccopilot.core.application.driving.DrivingAction
 import com.latticeward.musiccopilot.core.application.driving.DrivingCommandAdmissionPolicy
 import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.quality.api.VoiceManualCorrectionCategory
 import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackConnectionState
@@ -61,6 +62,14 @@ class PlayerViewModel(
     // own the PlaybackGateway transport queue; the service already does.
     // Epoch only rejects a late UI completion from an obsolete submit.
     private var requestEpoch: Long = 0L
+
+    /**
+     * Issue #12 P06: optional observation seam, NOT a command executor.
+     * AppNavHost installs an origin-checked observer. Ordinary transport
+     * actions never become corrections unless the user explicitly armed a
+     * single pending ticket on a terminal Voice panel.
+     */
+    var onVerifiedManualAction: ((VoiceManualCorrectionCategory) -> Unit)? = null
 
     init {
         viewModelScope.launch {
@@ -132,6 +141,30 @@ class PlayerViewModel(
                 // Service-owned ACK/focus/route validation is the sole source
                 // of truth; never flip a local 'Playing' flag on success.
                 val result = gateway.execute(command)
+                // A tap is NOT a correction. Only a genuine service ACK on
+                // the current request may be offered to the explicit,
+                // same-origin, short-lived application correction ticket.
+                if (result is AppResult.Success && epoch == requestEpoch) {
+                    val category = when (command) {
+                        is PlaybackCommand.Play ->
+                            VoiceManualCorrectionCategory.MANUAL_PLAY
+                        is PlaybackCommand.Pause ->
+                            VoiceManualCorrectionCategory.MANUAL_PAUSE
+                        is PlaybackCommand.Next, is PlaybackCommand.Previous ->
+                            VoiceManualCorrectionCategory.MANUAL_SKIP
+                        is PlaybackCommand.SelectQueueIndex ->
+                            VoiceManualCorrectionCategory.MANUAL_SELECT
+                        // Seeking is not a skip/correction category; no
+                        // category is fabricated for absent analytics schema.
+                        else -> null
+                    }
+                    if (category != null) {
+                        try { onVerifiedManualAction?.invoke(category) }
+                        catch (_: Exception) {
+                            // Quality failure cannot fail a Media3 ACK.
+                        }
+                    }
+                }
                 // An out-of-order failure/timeout must not override a newer
                 // service status, queue, selection or a newer request.
                 val current = mutable.value
