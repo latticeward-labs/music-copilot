@@ -6,6 +6,8 @@ import com.latticeward.musiccopilot.app.di.PlaybackBindings
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.playback.api.PlaybackMediaResolutionPort
 import com.latticeward.musiccopilot.playback.api.PlaybackResolverHost
+import com.latticeward.musiccopilot.playback.api.PlaybackRuntimeDiagnosticHost
+import com.latticeward.musiccopilot.playback.api.PlayerRuntimeErrorCode
 import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionHost
 import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionReason
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
@@ -18,13 +20,17 @@ import kotlinx.coroutines.CoroutineScope
  * jobs automatically. onTerminate is best-effort emulator/host cleanup, not a runtime guarantee.
  */
 class MusicCopilotApplication : Application(),
-    PlaybackResolverHost, PlaybackVoiceInterruptionHost {
+    PlaybackResolverHost, PlaybackVoiceInterruptionHost,
+    PlaybackRuntimeDiagnosticHost {
     lateinit var bindings: ApplicationBindings
         private set
 
     override fun onCreate() {
         super.onCreate()
         bindings = ApplicationBindings(context = applicationContext)
+        // Only permission/approval-gated coarse OS exit reasons are inspected;
+        // Android 10 and no consent remain UNKNOWN, not crash-free.
+        bindings.inspectPriorProcessExitIfApproved()
     }
 
     override fun createPlaybackMediaResolver(
@@ -56,6 +62,18 @@ class MusicCopilotApplication : Application(),
                 VoiceCancelReason.RouteInvalidated
         }
         bindings.voiceSessionCoordinator.cancel(voiceReason)
+    }
+
+    /**
+     * P07: service-owned published PlaybackSnapshot is the sole source.
+     * Only an approved closed error enum crosses into the application.
+     * No Throwable, player reference, URI, route identity or raw code.
+     */
+    override fun observeServicePlayerError(error: PlayerRuntimeErrorCode) {
+        if (!::bindings.isInitialized) return
+        try { bindings.recordServicePlayerError(error) } catch (_: Exception) {
+            // Diagnostics must never block Media3's main-thread observer.
+        }
     }
 
     override fun onTerminate() {
