@@ -89,6 +89,9 @@ class DefaultVoiceSessionCoordinator(
     // ninth internal diagnostic. Production callback only trySend's to
     // a bounded off-Voice nonblocking Quality channel.
     private val tryRecordApprovedVoiceEvent: (TelemetryEvent) -> Unit = {},
+    // P08: acknowledgement-only, source-owned Driving command count.
+    // No user/session/media identity or Quality storage crosses this seam.
+    private val onAcknowledgedDrivingCommand: (VoiceOrigin) -> Unit = {},
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
@@ -853,6 +856,13 @@ class DefaultVoiceSessionCoordinator(
         // Never count STT recognition, an artist option, a pending command,
         // a late ACK or a TTS utterance as successful command execution.
         mutableState.value = VoiceSessionState.Executed(id, origin)
+        // The same current-generation ACK is the sole source for the
+        // Driving count. P08 owner will reject Player origin, absent
+        // consent and inactive sessions. No new Media3 player/worker.
+        if (origin == VoiceOrigin.Driving) {
+            try { onAcknowledgedDrivingCommand(origin) }
+            catch (_: Exception) { /* optional diagnostics only */ }
+        }
         if (!telemetryTerminalClaimed) {
             telemetryTerminalClaimed = true
             val kind = telemetryIntent
