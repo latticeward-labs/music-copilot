@@ -7,8 +7,10 @@ import android.os.Build
 import android.Manifest
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
 import com.latticeward.musiccopilot.core.application.voice.VoiceLifecycleSafetyPolicy
+import com.latticeward.musiccopilot.core.application.voice.ObservedVoicePttCoordinator
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
+import com.latticeward.musiccopilot.app.platform.audio.CoarseBluetoothAudioOutput
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechConsentPolicy
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
@@ -19,6 +21,7 @@ import com.latticeward.musiccopilot.core.application.library.LibraryScanLaunchGa
 import com.latticeward.musiccopilot.core.application.library.LibraryScanReason
 import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
 
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.core.time.Clock
@@ -26,9 +29,12 @@ import com.latticeward.musiccopilot.data.api.LibraryRepository
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.data.api.RestorableQueueStore
 import com.latticeward.musiccopilot.playback.api.PlaybackGateway
+import com.latticeward.musiccopilot.playback.api.PlaybackState
 import com.latticeward.musiccopilot.playback.controller.PlaybackControllerConnection
 import com.latticeward.musiccopilot.quality.api.TelemetryPrivacyGate
 import com.latticeward.musiccopilot.quality.api.TelemetrySink
+import com.latticeward.musiccopilot.quality.api.TelemetryEvent
+import com.latticeward.musiccopilot.quality.api.TelemetryPlaybackState
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
@@ -141,7 +147,6 @@ class ApplicationBindings(
                 Unit
             },
         )
-    val voiceSessionCoordinator: VoiceSessionCoordinator = voiceOwner
 
     /**
      * P09 provider probe only. This must be invoked after a fresh Android
@@ -194,6 +199,58 @@ class ApplicationBindings(
     val qualityEventPublisher = QualityBindings.publisher(
         telemetryPrivacyGate, telemetrySink, diagnosticsCollectionAuthorization
     )
+
+    /**
+     * P05: only the existing Voice owner's accepted start/retry result
+     * can issue this callback. The decorator creates no new Voice session,
+     * no audio work and no second authority for the recognizer.
+     */
+    val voiceSessionCoordinator: VoiceSessionCoordinator =
+        ObservedVoicePttCoordinator(voiceOwner, ::recordAcceptedVoicePtt)
+
+    /**
+     * An accepted interaction is not evidence of user consent. In production
+     * every approval flag is FALSE (P04); no event is constructed at all.
+     * If a reviewed local collector is installed later, data is delivered
+     * off the UI/Voice critical path and reauthorized before sink delivery.
+     */
+    private fun queueApprovedDiagnostic(event: TelemetryEvent) {
+        try {
+            applicationScope.launch(Dispatchers.Default) {
+                qualityEventPublisher.tryRecord(event)
+            }
+        } catch (_: Exception) {
+            // No Quality failure affects navigation, speech or playback.
+        }
+    }
+
+    private fun recordAcceptedVoicePtt() {
+        if (!diagnosticsCollectionAuthorization.canCollect()) return
+        // Read ONLY the already service-authoritative coarse playback state.
+        // No queue, MediaRef, track title, position or route identity is read.
+        val playback = when (playbackGateway.snapshot.value.playbackState) {
+            PlaybackState.Idle -> TelemetryPlaybackState.Idle
+            PlaybackState.Buffering -> TelemetryPlaybackState.Buffering
+            PlaybackState.Playing -> TelemetryPlaybackState.Playing
+            PlaybackState.Paused -> TelemetryPlaybackState.Paused
+            PlaybackState.Ended -> TelemetryPlaybackState.Ended
+            PlaybackState.Error -> TelemetryPlaybackState.Error
+        }
+        queueApprovedDiagnostic(TelemetryEvent.VoiceButtonPressed(playback))
+    }
+
+    /** Invoked once only after DrivingNavigationViewModel accepts entry. */
+    fun recordAcceptedDrivingEntry(entrySource: String) {
+        if (!diagnosticsCollectionAuthorization.canCollect()) return
+        // Only AudioDeviceInfo.type is read at this explicit boundary, never
+        // device name/address, selected BT token, call metadata or location.
+        // The v1 event needs a boolean, so unknown hardware truth means DROP.
+        val connected = CoarseBluetoothAudioOutput.isConnected(mediaAppContext)
+            ?: return
+        queueApprovedDiagnostic(
+            TelemetryEvent.DrivingModeStarted(entrySource, connected)
+        )
+    }
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
     private val mediaAppContext = context?.applicationContext
