@@ -392,4 +392,5 @@
     <string name="i12_privacy_cloud_revoke_saving">Saving cloud speech consent choice…</string>
     <string name="i12_privacy_cloud_revoke_success">Cloud speech consent revoked on this phone. No online speech provider is enabled.</string>
     <string name="i12_privacy_cloud_revoke_failed">Could not save the cloud speech revocation. No remote speech service is enabled. Retry.</string>
+    <string name="i12_privacy_microphone_jit">Microphone access is optional. Speech is processed on this device; raw recordings are not saved by Music Copilot. Separate non-audio diagnostics collection is off. Cancel keeps manual controls.</string>
 </resources>
