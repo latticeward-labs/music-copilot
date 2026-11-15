@@ -29,8 +29,6 @@ internal object AndroidProcessExitClassification {
             fromReason(last.reason)
         } catch (_: RuntimeException) {
             SafeCrashCategory.UNKNOWN
-        } catch (_: SecurityException) {
-            SafeCrashCategory.UNKNOWN
         }
     }
 
