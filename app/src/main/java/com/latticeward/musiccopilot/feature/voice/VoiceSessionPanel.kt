@@ -58,6 +58,9 @@ fun VoiceSessionPanel(
     onPermissionCancel: () -> Unit,
     onVoiceCancel: () -> Unit,
     onVoiceRetry: () -> Unit,
+    // P06: explicit user decision only, never a background/automatic
+    // correction. A later service ACK is still required for telemetry.
+    onCorrectManually: (() -> Unit)? = null,
     // Nullable rather than no-op: when a caller has not wired P08, the
     // choices remain visibly disabled instead of pretending to do something.
     onConfirm: ((VoiceCandidateToken, Int) -> Unit)? = null,
@@ -216,6 +219,18 @@ fun VoiceSessionPanel(
                     .then(voiceActionFocusOutline())
                     .semantics { contentDescription = label },
             ) { Text(stringResource(R.string.i9_voice_retry)) }
+        }
+        if ((state is VoiceSessionState.Executed ||
+                state is VoiceSessionState.Failed) && onCorrectManually != null
+        ) {
+            // This action arms a short-lived attribution window and returns
+            // to manual controls. It does NOT itself record a correction;
+            // the existing Media3 gateway must ACK a manual action first.
+            OutlinedButton(
+                onClick = onCorrectManually,
+                modifier = Modifier.fillMaxWidth().heightIn(min = actionSize)
+                    .then(voiceActionFocusOutline()),
+            ) { Text(stringResource(R.string.i12_voice_correct_manually)) }
         }
         val exitLabel = when {
             confirming != null -> stringResource(R.string.i11_artist_confirm_cancel)
