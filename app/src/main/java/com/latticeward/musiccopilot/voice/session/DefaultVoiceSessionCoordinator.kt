@@ -38,6 +38,7 @@ import com.latticeward.musiccopilot.voice.policy.VoicePolicy
 import com.latticeward.musiccopilot.quality.api.ConfidenceBucket
 import com.latticeward.musiccopilot.quality.api.TelemetryEvent
 import com.latticeward.musiccopilot.quality.api.VoiceDiagnosticIntent
+import com.latticeward.musiccopilot.quality.api.LatencyBucket
 import com.latticeward.musiccopilot.quality.api.VoiceDiagnosticResult
 import com.latticeward.musiccopilot.quality.privacy.VoiceIntentDiagnosticPolicy
 import com.latticeward.musiccopilot.voice.feedback.VoiceFeedbackCatalog
@@ -84,6 +85,10 @@ class DefaultVoiceSessionCoordinator(
     // P11: optional and strictly typed. No analytics provider is installed.
     // Observers receive only coarse outcomes, never local media identities.
     private val tryRecordVoiceOutcome: (TelemetryEvent.VoiceIntentOutcome) -> Unit = {},
+    // Issue #12 P06: ONLY eight external schema families, never the #11
+    // ninth internal diagnostic. Production callback only trySend's to
+    // a bounded off-Voice nonblocking Quality channel.
+    private val tryRecordApprovedVoiceEvent: (TelemetryEvent) -> Unit = {},
 ) : VoiceSessionCoordinator, AutoCloseable {
     init { requireNotNull(ownerScope.coroutineContext[Job]) { "Voice needs a parent Job" } }
     private val mutableState = MutableStateFlow<VoiceSessionState>(VoiceSessionState.Idle)
@@ -111,6 +116,13 @@ class DefaultVoiceSessionCoordinator(
     private var diagnosticClaimed = false
     private var diagnosticConfidence: ConfidenceBucket? = null
     private var attemptStartNanos = 0L
+    // Issue #12 P06: one accepted mapping and terminal outcome per owned
+    // attempt. These are only ephemeral, in-process, and reset on Retry.
+    // No transcript, artist name, stable identifier or media path is kept.
+    private var telemetryIntent: RestrictedIntent? = null
+    private var telemetryConfidence: ConfidenceBucket? = null
+    private var telemetryDetectedClaimed = false
+    private var telemetryTerminalClaimed = false
     // P09: one optional clarification sentence for an artist choice, kept
     // separate from the subsequent ACK-driven terminal response.
     private var artistPromptClaimed = false
@@ -169,6 +181,10 @@ class DefaultVoiceSessionCoordinator(
         diagnosticClaimed = false
         diagnosticConfidence = null
         attemptStartNanos = System.nanoTime()
+        telemetryIntent = null
+        telemetryConfidence = null
+        telemetryDetectedClaimed = false
+        telemetryTerminalClaimed = false
         artistPromptClaimed = false
         artistPromptJob?.cancel()
         artistPromptJob = null
@@ -287,6 +303,11 @@ class DefaultVoiceSessionCoordinator(
                                 return
                             }
                             if (!claimDispatch(id, origin, number, generation)) return
+                            // Mapping is accepted only AFTER the normal
+                            // service-dispatch admission; neither a guessed
+                            // keyword nor stale generation is an intent.
+                            if (!noteAcceptedIntent(id, generation, number,
+                                    decision.intent, recognition.value.providerConfidence)) return
                             if (!isCurrent(id, generation, number)) return
                             val acknowledged = try {
                                 dispatcher.execute(decision.intent, id, number)
@@ -389,6 +410,8 @@ class DefaultVoiceSessionCoordinator(
             is AppResult.Success -> when (val value = outcome.value) {
                 is PlayArtistDecision.Direct -> {
                     if (!claimDispatch(id, origin, number, generation)) return
+                    if (!noteAcceptedIntent(id, generation, number,
+                            RestrictedIntent.PLAY_ARTIST, providerConfidence)) return
                     if (!isCurrent(id, generation, number)) return
                     val claim = PlayArtistDispatchClaim.fromDirect(value, id, number)
                     if (claim == null) {
@@ -439,6 +462,8 @@ class DefaultVoiceSessionCoordinator(
                 }
                 is PlayArtistDecision.Ambiguous -> {
                     if (publishArtistConfirmation(id, origin, number, generation, value)) {
+                        noteAcceptedIntent(id, generation, number,
+                            RestrictedIntent.PLAY_ARTIST, providerConfidence)
                         // This is a prompt, NOT a successful playback response.
                         // Do not hold up P08 option buttons awaiting optional TTS.
                         queueArtistClarification(id, origin, number, generation)
@@ -534,6 +559,8 @@ class DefaultVoiceSessionCoordinator(
         if (!isCurrentAndAuthorizedLocked(id, generation, number)) return@synchronized false
         artistIntentObserved = true
         diagnosticConfidence = VoiceIntentDiagnosticPolicy.confidence(providerConfidence)
+        telemetryIntent = RestrictedIntent.PLAY_ARTIST
+        telemetryConfidence = diagnosticConfidence
         true
     }
 
@@ -682,6 +709,9 @@ class DefaultVoiceSessionCoordinator(
                 RecoveryAction.ManualFallback),
             canRetry = false,
         )
+        // P06: one terminal failure only for the active artist generation.
+        // A successful/failed confirmation tap is not a Media3 ACK.
+        recordTerminalFailureLocked(code)
         // P11: even Neither/timeout/invalid-index have one sanitized outcome,
         // but no artist name, token or user choice is persisted.
         queueArtistOutcomeLocked(pending.snapshot.sessionId, pending.generation,
@@ -726,6 +756,60 @@ class DefaultVoiceSessionCoordinator(
         true
     }
 
+    /**
+     * Source-only P06 event seam; the caller owns the Voice gate. The
+     * production callback performs only a consent check and a bounded
+     * nonblocking trySend. Provider/sink work is never awaited here.
+     */
+    private fun dispatchApprovedVoiceEvent(event: TelemetryEvent) {
+        try { tryRecordApprovedVoiceEvent(event) } catch (_: Exception) {
+            // Quality must not mutate Speech/Media3 or surface private errors.
+        }
+    }
+
+    /** Caller holds the same lock; elapsed duration stays transient. */
+    private fun currentLatencyBucketLocked(): LatencyBucket? {
+        val elapsed = System.nanoTime() - attemptStartNanos
+        return VoiceIntentDiagnosticPolicy.latency(
+            elapsed.takeIf { it >= 0L }?.div(1_000_000L)
+        )
+    }
+
+    /**
+     * Single accepted deterministic mapping, after the existing dispatch/
+     * confirmation gate. Unknown provider confidence is NOT High: the
+     * required nonnullable confidence means omit this specific event.
+     * Other outcome events remain independently truthful.
+     */
+    private fun noteAcceptedIntent(
+        id: VoiceSessionId, generation: Job, number: Int,
+        kind: RestrictedIntent, confidence: Double?,
+    ): Boolean = synchronized(gate) {
+        if (!isCurrentAndAuthorizedLocked(id, generation, number) ||
+            mutableState.value !is VoiceSessionState.Processing &&
+            mutableState.value !is VoiceSessionState.Confirming
+        ) return@synchronized false
+        if (telemetryIntent != null && telemetryIntent != kind) return@synchronized false
+        telemetryIntent = kind
+        telemetryConfidence = VoiceIntentDiagnosticPolicy.confidence(confidence)
+        if (!telemetryDetectedClaimed) {
+            telemetryDetectedClaimed = true
+            telemetryConfidence?.let {
+                dispatchApprovedVoiceEvent(TelemetryEvent.IntentDetected(kind.name, it))
+            }
+        }
+        true
+    }
+
+    /** Caller owns gate; exactly one Failed transition per attempt. */
+    private fun recordTerminalFailureLocked(code: String) {
+        if (telemetryTerminalClaimed) return
+        telemetryTerminalClaimed = true
+        dispatchApprovedVoiceEvent(TelemetryEvent.IntentFailed(
+            telemetryIntent?.name, code, telemetryConfidence, currentLatencyBucketLocked()
+        ))
+    }
+
     private fun claimDispatch(
         id: VoiceSessionId, origin: VoiceOrigin, number: Int, generation: Job,
     ): Boolean = synchronized(gate) {
@@ -746,7 +830,17 @@ class DefaultVoiceSessionCoordinator(
         if (!isCurrentAndAuthorizedLocked(id, generation, number) || !dispatchClaimed ||
             !VoiceTransitionPolicy.mayComplete(mutableState.value, id, origin, number)
         ) return@synchronized false
+        // Caller reached here only on a validated PlaybackGateway ACK.
+        // Never count STT recognition, an artist option, a pending command,
+        // a late ACK or a TTS utterance as successful command execution.
         mutableState.value = VoiceSessionState.Executed(id, origin)
+        if (!telemetryTerminalClaimed) {
+            telemetryTerminalClaimed = true
+            val kind = telemetryIntent
+            val bucket = currentLatencyBucketLocked()
+            if (kind != null && bucket != null)
+                dispatchApprovedVoiceEvent(TelemetryEvent.CommandExecuted(kind.name, bucket))
+        }
         true
     }
 
@@ -781,6 +875,7 @@ class DefaultVoiceSessionCoordinator(
                     VoiceTransitionPolicy.canOfferRetry(number, code),
             ).also {
                 mutableState.value = it
+                recordTerminalFailureLocked(code)
                 queueArtistOutcomeLocked(id, generation, number,
                     VoiceIntentDiagnosticPolicy.fromArtistError(code))
             }
