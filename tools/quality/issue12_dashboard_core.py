@@ -8,7 +8,6 @@ No online services, stable IDs, raw voice, media metadata or event-level rows.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from math import ceil, isfinite
 
 SCHEMA = "music-copilot-weekly-aggregate-v1"
 VERIFIED_SOURCES = frozenset({
@@ -222,7 +221,20 @@ def report(data):
     # Deduplicated rows have been removed, not unreported or considered successes.
     losses = any(coverage[k] != 0 for k in COVERAGE_FIELDS if k != "deduplicated")
     core_review = all(reviewed[k] for k in ("qa", "product", "privacy", "retention"))
-    complete = kind == "CONTROLLED_BETA" and core_review and not losses
+    # This P11 dashboard is the locked 50-driver / 14-day controlled
+    # Beta view, not the P10 independent laboratory trial calculator.
+    # Never paint a metric green on a truncated/missing pilot.
+    protocol_population_complete = (
+        cohort["qualified_enrolled"] >= 50 and
+        cohort["distinct_vehicle_models"] >= 3 and
+        cohort["days_observed"] == 14 and
+        cohort["consented"] == cohort["qualified_enrolled"] and
+        cohort["withdrawn"] == 0
+    )
+    complete = (
+        kind == "CONTROLLED_BETA" and core_review and not losses
+        and protocol_population_complete
+    )
 
     blockers_raw = data["open_blockers"]
     if not isinstance(blockers_raw, list) or len(blockers_raw) > 20:
@@ -261,6 +273,12 @@ def report(data):
             raise AggregateSchemaError("NS01: must use exact weekly active denominator")
         if truths["S01"]["eligible"] != sess["started"]:
             raise AggregateSchemaError("S01: must include ALL started journeys")
+        if (truths["S01"]["yes"] > sess["completed"] or
+            truths["S01"]["no"] < sess["verified_crashed"] or
+            truths["S01"]["unknown"] < sess["unknown"]):
+            raise AggregateSchemaError("S01: cannot label crashed or unknown journeys clean")
+        if truths["NS01"]["yes"] > sess["voice_driving_sessions"]:
+            raise AggregateSchemaError("NS01: verified unique successes exceed Voice sessions")
         lat = shape(w["latency"], "weeks.latency", LATENCY_IDS)
         lats = {}
         for key in LATENCY_IDS:
@@ -285,7 +303,8 @@ def report(data):
         # accuracy, weekly distinct people, crash-free or response latency.
         rows = [
             classify_ratio(k, truths[k], source,
-                           complete and (reviewed["cohort_reconciled"] if k == "NS01"
+                           complete and (reviewed["cohort_reconciled"] and
+                                         reviewed["intent_labels"] if k == "NS01"
                                          else reviewed["crash_reconciled"] if k == "S01"
                                          else reviewed["intent_labels"]),
                            complete)
@@ -319,6 +338,8 @@ def report(data):
         raise AggregateSchemaError("R01: denominator must be W1 active")
     if cross_truth["R02"]["eligible"] != cohort["qualified_enrolled"]:
         raise AggregateSchemaError("R02: denominator must be ALL enrolled")
+    if cross_truth["R01"]["yes"] > cohort["week2_active"]:
+        raise AggregateSchemaError("R01: verified returners exceed W2 active")
     cross_rows = [
         classify_ratio(k, cross_truth[k], source,
                        complete and reviewed["cohort_reconciled"], complete)
