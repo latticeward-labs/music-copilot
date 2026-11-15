@@ -150,11 +150,22 @@
     {
       "phase": "P08",
       "title": "Driving session lifecycle & reliable completion",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_P08_DRIVING_SESSION_LIFECYCLE.md",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/driving/DrivingSessionTelemetryOwner.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase8DrivingSessionOwnerTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase8DrivingLifecycleContractTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "P08 app-scoped RAM only Driving session owner: one successful P05 entry edge begins; current-generation P06 real Media3 ACK for VoiceOrigin.Driving increments command count; one explicit Exit/Back only emits session_completed with P03 duration bucket and bounded 0..1000 count; duplicates and unproven time/count drop. Config rotation/background/focus/BT do not finish; system/permission navigation invalidation and Activity explicit finish without accepted exit abandon UNKNOWN; process kill loses RAM marker, cannot assert completion or crash-free. Default P04 approved consent false & NoOp, no real collection/persistence/provider. 29 authored, NOT_RUN tests. P09 retention/marker approval and P10 denominator/joins outstanding."
     },
     {
       "phase": "P09",
@@ -330,7 +341,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 documented; P03–P07 source-implemented UNCOMPILED/NOT_RUN; P08–P14 NOT_STARTED. Production NoOp + no approved independent consent/copy/retention/provider; historical exit is not a Driving crash-free proof. All 14 Issue #12 AC still NOT_VERIFIED. No Gradle/CI/tests/APK/PR/merge/close; follow-up quality #80/#82 open.",
+  "notes": "P01/P02 documentation; P03–P08 source-implemented UNCOMPILED_NOT_RUN; P09–P14 NOT_STARTED. Default production NoOp; consent/retention/provider unapproved. P08 no durable death marker or verified crash-free joins; eight outbound events lack session ID. All Issue #12 ACs NOT_VERIFIED. No tests, Gradle/CI, APK, PR, merge or Issue close; #80/#82 remain open.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -488,5 +499,39 @@
     "tests_run": 0,
     "compiled": false,
     "apk": "NOT_BUILT"
+  },
+  "p08_driving_session": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "documentation": "docs/implementation/ISSUE_12_P08_DRIVING_SESSION_LIFECYCLE.md",
+    "owner": "core.application.driving.DrivingSessionTelemetryOwner",
+    "entry": "P05_DrivingNavigationViewModel.accepted_inactive_to_active_edge",
+    "command_count": "P06_DefaultVoiceSessionCoordinator.publishExecuted_after_validated_Media3_ACK_AND_origin_Driving",
+    "exit": "EXPLICIT_USER_EXIT_OR_ANDROID_BACK_ONLY_AND_ACTIVE_VIEWMODEL",
+    "schema_event": "session_completed(duration_bucket,commands_count)",
+    "duration_thresholds_ms": [
+      60000,
+      300000,
+      900000
+    ],
+    "duration_thresholds_approval": "ENGINEERING_UNAPPROVED",
+    "count_semantics": "ACKED_DRIVING_VOICE_COMMANDS_ONLY_ENGINEERING_UNAPPROVED",
+    "count_max": 1000,
+    "count_overflow": "DROP_COMPLETION_INVALID_MEASUREMENT",
+    "session_ids_exported": false,
+    "rotation_or_background": "KEEP_ACTIVE_IN_MEMORY_NO_COMPLETION",
+    "bluetooth_or_phone_or_focus_interruption": "KEEP_ACTIVE_NO_AUTOMATIC_COMPLETION",
+    "system_route_permission_invalidation": "ABANDON_UNKNOWN_NO_COMPLETION",
+    "activity_finish_without_exit": "ABANDON_UNKNOWN_IF_ON_DESTROY_EXECUTES",
+    "unexpected_process_death": "IN_MEMORY_TICKET_LOST_UNKNOWN_NOT_CRASH_FREE",
+    "persistent_marker": "NOT_IMPLEMENTED_P09_RETENTION_APPROVAL_REQUIRED",
+    "remote_or_local_event_store": "NONE",
+    "consent": "P04_ALL_APPROVALS_DEFAULT_FALSE",
+    "production_sink": "NoOpTelemetrySink",
+    "test_cases_authored": 29,
+    "test_cases_executed": 0,
+    "compiled": false,
+    "android_device": "NOT_RUN",
+    "apk": "NOT_BUILT",
+    "privacy_and_product_signoff": "NOT_APPROVED"
   }
 }
