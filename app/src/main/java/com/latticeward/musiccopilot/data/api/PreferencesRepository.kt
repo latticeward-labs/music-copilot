@@ -9,11 +9,19 @@ enum class FirstUsePage { Value, SafetyAndVoice }
 
 enum class CloudSpeechConsent { NotApplicable, NotAsked, Declined, Granted, Revoked }
 
+/**
+ * Issue #12 P04: Non-audio diagnostics ONLY, never microphone or remote STT
+ * consent. Even Granted is insufficient for collection without reviewed copy,
+ * retention and an approved local/provider configuration.
+ */
+enum class DiagnosticsConsent { NotAsked, Declined, Granted, Revoked }
+
 data class AppPreferences(
     val onboardingComplete: Boolean,
     val selectedBluetoothHint: String?,
     val cloudSpeechConsent: CloudSpeechConsent,
     val onboardingCheckpoint: FirstUsePage = FirstUsePage.Value,
+    val diagnosticsConsent: DiagnosticsConsent = DiagnosticsConsent.NotAsked,
 )
 
 sealed interface PreferenceUpdate {
@@ -21,6 +29,8 @@ sealed interface PreferenceUpdate {
     data class SetOnboardingComplete(val complete: Boolean) : PreferenceUpdate
     data class SetBluetoothHint(val value: String?) : PreferenceUpdate
     data class SetCloudSpeechConsent(val value: CloudSpeechConsent) : PreferenceUpdate
+    /** Persist a separate explicit non-audio diagnostics decision. */
+    data class SetDiagnosticsConsent(val value: DiagnosticsConsent) : PreferenceUpdate
 }
 
 /** Permission grants are never persisted as authoritative OS permission truth. */
