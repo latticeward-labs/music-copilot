@@ -424,6 +424,7 @@ class ApplicationBindings(
      */
     fun onUiStopped() {
         uiVoiceStarted = false
+        correctionOwner.clear() // no post-background correction attribution
         // Application boundary is authoritative even if Activity callbacks
         // raced with route loss, rotation or task dismissal. Cancel FIRST,
         // while this MediaController is still connected so P07 release can
