@@ -45,11 +45,20 @@
     {
       "phase": "P03",
       "title": "Locked event schema and privacy gate hardening",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_EVENT_SCHEMA.md",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/privacy/OutboundTelemetrySchemaV1.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/privacy/AllowlistedTelemetryPrivacyGate.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/api/TelemetryEvent.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase3TelemetrySchemaTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Phase9PrivacyQualityTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue11Phase11ArtistTelemetryPrivacyTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "Eight exact outbound v1 families, bounded ordered keys and deny-only ninth internal Voice outcome; closed value code checks preserved. Source-authored tests only, NOT_RUN. Real consent is P04, event emitters P05–P08, sink P09; Product/Privacy approval pending."
     },
     {
       "phase": "P04",
@@ -250,7 +259,7 @@
     "privacy_copy": "BLOCKED_NOT_APPROVED",
     "retention_policy": "BLOCKED_NOT_APPROVED",
     "diagnostics_provider_and_legal": "BLOCKED_NOT_APPROVED",
-    "external_eight_vs_nine_schema": "OPEN_REVIEW",
+    "external_eight_vs_nine_schema": "SOURCE_GUARDRAIL_IMPLEMENTED_PRODUCT_PRIVACY_REVIEW_PENDING",
     "consent_optin": "NOT_IMPLEMENTED"
   },
   "risk_ids": [
@@ -270,7 +279,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01 and P02 documentation/source-only complete. No tests/CI/Gradle/APK, no external diagnostics or approvals asserted. P03 next. All fourteen Issue #12 acceptance criteria remain NOT_VERIFIED.",
+  "notes": "P01/P02 documented; P03 schema/quality gate source-implemented but not compiled or tested; P04-P14 not started. No CI, Gradle, test, APK, analytics provider, consent or release approval. All Issue #12 ACs remain NOT_VERIFIED.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -294,5 +303,22 @@
     "measurements": "NO_LIVE_DATA_NOT_VERIFIED",
     "missingness": "CONSERVATIVE_BOUNDS_DOCUMENTED",
     "approvals": "PRODUCT_QA_PRIVACY_NOT_PROVIDED"
+  },
+  "p03_schema": {
+    "version": "v1",
+    "external_family_count": 8,
+    "ninth_internal_only": "voice_intent_outcome",
+    "ninth_outbound_status": "REJECTED_BY_PRIVACY_GATE",
+    "runtime_export_sink": "NoOpTelemetrySink",
+    "consent_enforcement": "NOT_IMPLEMENTED_P04",
+    "emitter_coverage": "NOT_IMPLEMENTED_P05_P08",
+    "field_keys": "EXACT_EIGHT_FAMILIES_ORDERED",
+    "allowed_codes": "EXISTING_GATE_ALLOWLIST",
+    "optional_session_id": "OMITTED_PENDING_PRIVACY_APPROVAL",
+    "tests": "SOURCE_AUTHORED_NOT_RUN",
+    "compile": "NOT_RUN",
+    "device": "NOT_RUN",
+    "product_privacy_signoff": "NOT_PROVIDED",
+    "qa": "NOT_VERIFIED"
   }
 }
