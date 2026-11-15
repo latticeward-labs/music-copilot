@@ -414,6 +414,18 @@ class MainActivity : ComponentActivity() {
         (application as MusicCopilotApplication).bindings.onUiStarted()
     }
 
+    override fun onDestroy() {
+        // P08: finishing a UI task without the accepted Driving Exit/Back
+        // must not leave an app-process ticket that a later fresh Activity
+        // could mistake for its own Driving session. Rotation retains it.
+        // Android does NOT guarantee onDestroy on process kill: UNKNOWN.
+        if (isFinishing && !isChangingConfigurations) {
+            (application as MusicCopilotApplication).bindings
+                .recordDrivingSystemInvalidation()
+        }
+        super.onDestroy()
+    }
+
     override fun onStop() {
         super.onStop()
         // Do not keep the microphone recording after the app leaves the
