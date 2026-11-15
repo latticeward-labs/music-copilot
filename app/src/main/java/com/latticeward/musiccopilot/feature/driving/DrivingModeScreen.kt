@@ -106,6 +106,7 @@ fun DrivingModeScreen(
     onVoicePermissionCancel: () -> Unit = {},
     onVoiceCancel: () -> Unit = {},
     onVoiceRetry: () -> Unit = {},
+    onCorrectManually: () -> Unit = {},
     // Without P08 wiring, native buttons are disabled rather than no-op.
     onVoiceConfirm: ((VoiceCandidateToken, Int) -> Unit)? = null,
     onVoiceNeither: ((VoiceCandidateToken) -> Unit)? = null,
@@ -235,6 +236,7 @@ fun DrivingModeScreen(
                     onPermissionCancel = onVoicePermissionCancel,
                     onVoiceCancel = onVoiceCancel,
                     onVoiceRetry = onVoiceRetry,
+                    onCorrectManually = onCorrectManually,
                     onConfirm = onVoiceConfirm,
                     onNeither = onVoiceNeither,
                     onCancelConfirmation = onVoiceCancelConfirmation,
@@ -342,6 +344,7 @@ fun DrivingModeScreen(
                     onPermissionCancel = onVoicePermissionCancel,
                     onVoiceCancel = onVoiceCancel,
                     onVoiceRetry = onVoiceRetry,
+                    onCorrectManually = onCorrectManually,
                     onConfirm = onVoiceConfirm,
                     onNeither = onVoiceNeither,
                     onCancelConfirmation = onVoiceCancelConfirmation,
