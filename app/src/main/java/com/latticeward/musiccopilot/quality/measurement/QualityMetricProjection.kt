@@ -334,3 +334,17 @@ class LocalManualAckHistogram {
 
     private fun add(value: Long) = if (value == Long.MAX_VALUE) value else value + 1
 }
+
+/**
+ * P10 app-local, consent-gated observational summary. Neither a user/week
+ * cohort nor a validated PRD P95: endpoints are uncalibrated provider
+ * signals and screen text draw is not hardware-confirmed human perception.
+ * Real QA input goes through StrictP95Boundary separately.
+ */
+data class LocalMeasurementSnapshot(
+    val observed: LocalQualityCoverage,
+    val voiceEndpointToDrawProxy: VoiceLatencyBucketSnapshot,
+    val manualTapToAck: P95BucketEvidence,
+    val officialVoiceP95: MeasurementVerdict = MeasurementVerdict.NOT_VERIFIED,
+    val officialManualP95: MeasurementVerdict = MeasurementVerdict.NOT_VERIFIED,
+)
