@@ -27,7 +27,7 @@ internal object QualityBindings {
         DiagnosticsCollectionAuthorization(repository)
 
     /** NoOp in BOTH debug and release until a reviewed config changes it. */
-    const val PRODUCTION_LOCAL_DIAGNOSTICS_MODE =
+    val PRODUCTION_LOCAL_DIAGNOSTICS_MODE =
         LocalDiagnosticsProviderMode.NoOp
 
     fun localStore(authorization: DiagnosticsCollectionAuthorization) =
