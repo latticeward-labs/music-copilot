@@ -194,6 +194,8 @@ fun AppNavHost(
     },
     onRevokeDiagnosticsConsent: ((DiagnosticsRevocationReport) -> Unit) -> Unit =
         { completed -> completed(DiagnosticsRevocationReport(false, false)) },
+    onRevokeCloudSpeechConsentWithResult: ((Boolean) -> Unit) -> Unit =
+        { completed -> completed(false) },
 ) {
     val navController = rememberNavController()
     val visibleBackStackEntry by navController.currentBackStackEntryAsState()
@@ -998,6 +1000,8 @@ fun AppNavHost(
             )
         }
         composable(Destination.Settings.route) {
+            var cloudSaving by remember { mutableStateOf(false) }
+            var cloudSaveResult by remember { mutableStateOf<Boolean?>(null) }
             BackHandler {
                 bluetoothModel.dismiss()
                 settingsOpen = false
@@ -1086,11 +1090,31 @@ fun AppNavHost(
                         Text(stringResource(R.string.p10_remote_gate_unexpected))
                     }
                     OutlinedButton(
-                        onClick = onRevokeCloudSpeechConsent,
+                        enabled = !cloudSaving,
+                        onClick = {
+                            cloudSaving = true
+                            cloudSaveResult = null
+                            onRevokeCloudSpeechConsentWithResult { saved ->
+                                cloudSaving = false
+                                cloudSaveResult = saved
+                            }
+                        },
                         modifier = Modifier.padding(top = MusicSpacing.smDp)
                             .heightIn(min = MusicSize.touchTargetMinDp),
                     ) {
                         Text(stringResource(R.string.p10_revoke_cloud_consent))
+                    }
+                    if (cloudSaving) {
+                        Text(stringResource(R.string.i12_privacy_cloud_revoke_saving))
+                    }
+                    cloudSaveResult?.let { saved ->
+                        Text(
+                            stringResource(
+                                if (saved) R.string.i12_privacy_cloud_revoke_success
+                                else R.string.i12_privacy_cloud_revoke_failed
+                            ),
+                            modifier = Modifier.padding(top = MusicSpacing.smDp),
+                        )
                     }
                     // Issue #12 P12: WF-10/UF-12 local clear, separate
                     // non-audio diagnostics consent, and truthful retention.
