@@ -11,7 +11,9 @@ import com.latticeward.musiccopilot.quality.api.TelemetryPrivacyGate
  * Pure, deny-by-default diagnostic boundary. All output values derive from
  * closed Kotlin enums, stable code sets, booleans or explicitly bounded counts.
  * This class never echoes rejected values, throws a provider exception or logs.
- * Only the eight product-approved families can be serialized. Values are\n * constrained to closed Kotlin enums, stable codes and bounded buckets.\n * No arbitrary JSON, free-form fields or ninth diagnostic export.
+ * Only the eight product-approved families can be serialized. Values are
+ * constrained to closed Kotlin enums, stable codes and bounded buckets.
+ * No arbitrary JSON, free-form fields or ninth diagnostic export.
  */
 class AllowlistedTelemetryPrivacyGate : TelemetryPrivacyGate {
     override fun sanitize(event: TelemetryEvent): AppResult<SanitizedTelemetryEvent> {
