@@ -188,11 +188,31 @@
     {
       "phase": "P10",
       "title": "Exact measurement projection & data quality",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_AGGREGATION_AND_DATA_QUALITY.md",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/measurement/QualityMetricProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/measurement/ControlledBetaCohortProjection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/api/SpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/MoonshineSileroSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/android/AndroidOnDeviceSpeechToTextEngine.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/voice/session/DefaultVoiceSessionCoordinator.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/VoiceBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/FullPlayerScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/driving/DrivingModeScreen.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/player/PlayerViewModel.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase10MetricProjectionTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase10MeasurementWiringTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase10ControlledBetaCohortTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "P10 pure Kotlin conservative QA aggregate KPI projection for 10 locked PRD/MVP thresholds; strict nearest-rank voice (<2500ms) and manual (<1000ms) histograms; no PASS for zero/unknown/unreconciled source or synthetic. On-device STT VAD/OEM callback signals and first drawn terminal Voice UI measured as RAM-only PROXY (not physical speech end or user perception; cannot certify P01). Visible accepted manual UI tap→valid service ACK measured as separate P02 partial-scope proxy with failures UNKNOWN. Consent-gated app RAM hist and source loss/eviction summary; fixed real T0 14d two half-open W1/W2 and independently QA-validated enrolled user aggregates, no device/session ID. Production P04 approvals FALSE and NoOp so no live collection, cohort or real QA observations. 48 tests AUTHORED NOT_RUN, NO compile/build/CI/APK. Independent speech acoustic calibration, true response, QA truth labels, complete denominator, real Beta 50/14/3, critical severity and crash joins all pending."
     },
     {
       "phase": "P11",
@@ -350,7 +370,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 source docs complete; P03–P09 source-implemented UNCOMPILED_NOT_RUN; P10–P14 NOT_STARTED. P09 memory-only candidate compiled source but PROD mode NoOp & independent consent approvals FALSE, so no real collection or disk persistence. Exact TTL, approval, vendor, P08 marker, user clear UI and P10 denominators pending. All 14 Issue #12 AC remain NOT_VERIFIED. No test/Gradle/Actions/APK/PR/merge/close; follow-ups #80/#82 remain open.",
+  "notes": "P01/P02 source documentation complete; P03–P10 implemented in source, UNCOMPILED NOT_RUN; P11–P14 NOT_STARTED. P10 formal locked target comparisons + opt-in RAM proxy hooks are NOT real QA evidence; strict Voice speech-end P95 unverified, no 50-person actual Beta, no QA-labelled wrong/correction or crash-free session joins. P04 diagnostic approvals FALSE, P09 production NoOp. All 14 Issue #12 AC remain NOT_VERIFIED. No Gradle/tests/Actions/APK/PR/merge/close; inherited #80/#82 unresolved.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -587,5 +607,52 @@
     "external_provider_legal_approval": "NOT_APPROVED",
     "user_clear_settings_ui": "P12_NOT_IMPLEMENTED",
     "durable_beta_history": "NOT_AVAILABLE"
+  },
+  "p10_measurement_and_quality": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "documentation": "docs/implementation/ISSUE_12_AGGREGATION_AND_DATA_QUALITY.md",
+    "locked_targets": {
+      "NS01": "at_least_50_percent_of_weekly_active_users",
+      "Q01": "direct_command_success_at_least_85_percent",
+      "F01": "manual_correction_strictly_less_than_15_percent",
+      "G01": "incorrect_execution_strictly_less_than_3_percent",
+      "R01": "weekly_return_at_least_30_percent",
+      "R02": "Driving_reuse_at_least_50_percent",
+      "P01": "real_acoustic_speech_end_to_perceivable_feedback_p95_strictly_less_than_2500ms",
+      "P02": "local_command_accepted_tap_to_Media3_ACK_p95_strictly_less_than_1000ms",
+      "S01": "crash_free_started_journeys_at_least_99_percent",
+      "S02": "critical_player_error_incidents_per_100_started_sessions_strictly_less_than_1"
+    },
+    "source_validity": "ONLY_QA_VERIFIED_OR_CONTROLLED_BETA_VERIFIED_AGGREGATES_WITH_COMPLETENESS",
+    "zero_denominator": "NOT_MEASURABLE",
+    "unknown_consent_loss_queue_loss_evictions": "NOT_VERIFIED_NOT_ZERO",
+    "raw_events": "P09_EXISTING_EIGHT_ONLY",
+    "voice_endpoint_sources": [
+      "Moonshine_Silero_VAD_signal_uncalibrated",
+      "Android_Recognizer_onEndOfSpeech_uncalibrated"
+    ],
+    "voice_terminal_boundary": "CURRENT_ORIGIN_TERMINAL_FIRST_COMPOSE_DRAW_PROXY",
+    "voice_p95_claim": "NOT_VERIFIED_ACOUSTIC_SPEECH_END_AND_PHYSICAL_VISIBLE_RESPONSE_UNCALIBRATED",
+    "voice_timing": "TRANSIENT_ELAPSED_REALTIME_NANOS_BUCKETS_ONLY_NO_PERSISTENCE",
+    "manual_control_p95": "VISIBLE_UI_TAP_TO_VERIFIED_Media3_ACK_WITH_FAILURE_UNKNOWN_PARTIAL_COVERAGE",
+    "manual_p95_claim": "NOT_VERIFIED_TOTAL_COMMAND_POPULATION_INCOMPLETE",
+    "real_14_day_beta_t0": "NOT_PROVIDED",
+    "real_qualified_beta_drivers": "NOT_RECRUITED_OR_VERIFIED_BY_P10",
+    "beta_windows": "T0_UTC_HALF_OPEN_WEEK1_WEEK2_NO_INVENTED_START",
+    "device_identity_exported": false,
+    "persistent_participant_week_flag": "NOT_CREATED_RETENTION_AND_REVIEW_MISSING",
+    "strict_nearest_rank": "CEIL_0_95_N_WITH_BELOW_THRESHOLD_BIN",
+    "unapproved_patient_or_audio_data": false,
+    "production_diagnostics_authorized": false,
+    "production_sink": "NoOpTelemetrySink",
+    "quality_followups": [
+      80,
+      82
+    ],
+    "qa_sources_authored": 48,
+    "qa_sources_executed": 0,
+    "compiled": false,
+    "apk": "NOT_BUILT",
+    "privacy_legal_voice_product_signoffs": "NOT_PROVIDED"
   }
 }
