@@ -150,9 +150,10 @@ class Issue12Phase5EntryTelemetryTest {
         assertTrue(ptt is AppResult.Success<*>)
         assertEquals("v1|driving_mode_started|entry_source=home|bt_connected=true",
             (driving as AppResult.Success<SanitizedTelemetryEvent>).value.encoded)
+        val approvedPtt = (ptt as AppResult.Success<SanitizedTelemetryEvent>).value
         assertEquals("v1|voice_button_pressed|playback_state=Paused",
-            (ptt as AppResult.Success<SanitizedTelemetryEvent>).value.encoded)
-        assertFalse(NoOpTelemetrySink().tryEmit(ptt.value))
+            approvedPtt.encoded)
+        assertFalse(NoOpTelemetrySink().tryEmit(approvedPtt))
     }
 
     @Test fun sourceWiringDoesNotInstrumentRecompositionOrBluetoothSuggestion() {
