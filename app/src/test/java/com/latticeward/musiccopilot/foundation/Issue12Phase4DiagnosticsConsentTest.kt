@@ -18,7 +18,7 @@ import com.latticeward.musiccopilot.quality.privacy.AllowlistedTelemetryPrivacyG
 import com.latticeward.musiccopilot.quality.privacy.ConsentGatedTelemetrySink
 import com.latticeward.musiccopilot.core.application.privacy.DiagnosticsCollectionApprovals
 import com.latticeward.musiccopilot.core.application.privacy.DiagnosticsCollectionAuthorization
-import com.latticeward.musiccopilot.quality.privacy.DiagnosticsConsentPolicy
+import com.latticeward.musiccopilot.core.application.privacy.DiagnosticsConsentPolicy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.File
