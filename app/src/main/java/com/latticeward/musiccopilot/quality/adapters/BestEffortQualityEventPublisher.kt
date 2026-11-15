@@ -20,8 +20,8 @@ class BestEffortQualityEventPublisher(
     private val canCollect: () -> Boolean = { true },
 ) {
     fun tryRecord(event: TelemetryEvent): Boolean = try {
-        if (!canCollect()) return false
-        when (val outcome = privacyGate.sanitize(event)) {
+        if (!canCollect()) false
+        else when (val outcome = privacyGate.sanitize(event)) {
             is AppResult.Failure -> false
             is AppResult.Success -> try {
                 sink.tryEmit(outcome.value)
