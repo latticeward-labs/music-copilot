@@ -48,6 +48,11 @@ import com.latticeward.musiccopilot.voice.api.VoiceOrigin
 import kotlinx.coroutines.channels.Channel
 import java.util.concurrent.atomic.AtomicLong
 import com.latticeward.musiccopilot.quality.api.LocalDiagnosticsSummary
+import com.latticeward.musiccopilot.quality.measurement.LocalLatencyHistogram
+import com.latticeward.musiccopilot.quality.measurement.LocalManualAckHistogram
+import com.latticeward.musiccopilot.quality.measurement.LocalMeasurementSnapshot
+import com.latticeward.musiccopilot.quality.measurement.QualityMetricProjection
+import com.latticeward.musiccopilot.voice.api.SpeechEndpointQuality
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
@@ -107,6 +112,10 @@ class ApplicationBindings(
     // Saturating local-only counter of dropped enqueue attempts, never
     // construed as failures or successful command outcomes.
     private val diagnosticQueueDrops = AtomicLong(0L)
+    // P10: coarse RAM-only histograms. Voice is explicitly an endpoint-SIGNAL
+    // to UI-draw PROXY; not the strict PRD acoustic speech-end P95.
+    private val voiceEndpointProxyHistogram = LocalLatencyHistogram()
+    private val localCommandAckHistogram = LocalManualAckHistogram()
     private val diagnosticsDeliveryLock = Any()
     private val diagnosticEvents = Channel<PendingDiagnostic>(capacity = 64)
     private val correctionOwner = ExplicitManualCorrectionOwner(
@@ -200,6 +209,7 @@ class ApplicationBindings(
             // and bounded Channel.trySend; never a storage/provider call.
             tryRecordApprovedVoiceEvent = ::queueApprovedDiagnostic,
             onAcknowledgedDrivingCommand = ::recordAcknowledgedDrivingVoiceCommand,
+            onTerminalDrawLatencyProxy = ::recordVoiceTerminalLatencyProxy,
         )
 
     /**
@@ -299,6 +309,8 @@ class ApplicationBindings(
             }
             localDiagnosticsStore.clear()
             diagnosticQueueDrops.set(0L)
+            voiceEndpointProxyHistogram.clear()
+            localCommandAckHistogram.clear()
             crashEvidenceReporter.clear()
             correctionOwner.clear()
             drivingSessionOwner.forgetForPrivacy()
@@ -316,6 +328,70 @@ class ApplicationBindings(
         ) localDiagnosticsStore.summaryIfAuthorized()?.copy(
             sourceQueueDropsSinceClear = diagnosticQueueDrops.get()
         ) else null
+
+    /**
+     * P10: record only a terminal heading actually drawn on the live,
+     * permission-verified Player/Driving route (validated in AppNavHost).
+     * Coordinator checks exact current Voice state/id/generation and claims
+     * it only once. No UI recompose or hidden state publishes a sample.
+     */
+    fun recordVisibleTerminalVoiceLabel(state: VoiceSessionState) {
+        if (!diagnosticsCollectionAuthorization.canCollect()) return
+        if (QualityBindings.PRODUCTION_LOCAL_DIAGNOSTICS_MODE !=
+            LocalDiagnosticsProviderMode.MemoryOnly) return
+        try { voiceOwner.onTerminalLabelDrawn(state) }
+        catch (_: Exception) { /* non-authoritative measurement only */ }
+    }
+
+    /**
+     * P10: on-device STT's endpoint signal is DELAYED/UNCALIBRATED;
+     * never feed this proxy into verified <2500ms voice P95. No raw
+     * interval is stored after immediate coarse bucketing.
+     */
+    private fun recordVoiceTerminalLatencyProxy(
+        quality: SpeechEndpointQuality?, elapsedMs: Long?,
+    ) {
+        if (!diagnosticsCollectionAuthorization.canCollect() ||
+            QualityBindings.PRODUCTION_LOCAL_DIAGNOSTICS_MODE !=
+            LocalDiagnosticsProviderMode.MemoryOnly) return
+        synchronized(diagnosticsDeliveryLock) {
+            if (!diagnosticsCollectionAuthorization.canCollect()) return
+            voiceEndpointProxyHistogram.addVoiceResponse(
+                elapsedMs.takeIf { quality != null && it != null && it in 0L..30_000L }
+            )
+        }
+    }
+
+    /** P10: bounded local tap-to-real-Media3-ACK observation, no queue/media ID. */
+    fun recordVisibleManualAckLatency(elapsedMs: Long?) {
+        if (!diagnosticsCollectionAuthorization.canCollect() ||
+            QualityBindings.PRODUCTION_LOCAL_DIAGNOSTICS_MODE !=
+            LocalDiagnosticsProviderMode.MemoryOnly) return
+        synchronized(diagnosticsDeliveryLock) {
+            if (!diagnosticsCollectionAuthorization.canCollect()) return
+            localCommandAckHistogram.observe(elapsedMs.takeIf { it != null && it >= 0L })
+        }
+    }
+
+    /**
+     * Only an authorized LOCAL observational snapshot. No completed
+     * QA labels, user-week identities, crash-free denominator or certified
+     * physical speech-end marker are present. Both P95 GO statuses remain
+     * NOT_VERIFIED, regardless of a nice-looking proxy distribution.
+     */
+    fun localMeasurementSnapshotIfApproved(): LocalMeasurementSnapshot? {
+        if (QualityBindings.PRODUCTION_LOCAL_DIAGNOSTICS_MODE !=
+            LocalDiagnosticsProviderMode.MemoryOnly ||
+            !diagnosticsCollectionAuthorization.canCollect()) return null
+        return synchronized(diagnosticsDeliveryLock) {
+            val local = localDiagnosticsSummaryIfApproved() ?: return@synchronized null
+            LocalMeasurementSnapshot(
+                observed = QualityMetricProjection.observedLocalOnly(local),
+                voiceEndpointToDrawProxy = voiceEndpointProxyHistogram.snapshot(),
+                manualTapToAck = localCommandAckHistogram.evidence(),
+            )
+        }
+    }
 
     /**
      * P05: only the existing Voice owner's accepted start/retry result
