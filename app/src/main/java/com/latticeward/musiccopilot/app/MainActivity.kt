@@ -558,6 +558,10 @@ class MainActivity : ComponentActivity() {
                 preferencesRepository = bindings.preferencesRepository,
                 remoteSpeechDecision = bindings.remoteSpeechDecision(),
                 onRevokeCloudSpeechConsent = bindings::revokeCloudSpeechConsent,
+                // P12: explicit, category-scoped user confirmation only.
+                shortHistoryAvailability = bindings.shortHistoryAvailability,
+                onClearSelectedAppData = bindings::clearSelectedAppData,
+                onRevokeDiagnosticsConsent = bindings::revokeDiagnosticsConsentWithResult,
                 bluetoothConnectGranted = btGranted,
                 selectedBluetoothConnection = bindings.selectedBluetoothConnection,
                 onRequestBluetoothConnectPermission = ::onRequestBluetoothConnectPermission,
