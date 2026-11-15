@@ -339,4 +339,5 @@
     <string name="i11_voice_artist_unavailable">Artist playback unavailable</string>
     <string name="i11_voice_artist_playback_failed">Artist playback could not start</string>
     <string name="i11_voice_artist_manual_fallback">Continue with your current music or use manual controls.</string>
+    <string name="i12_voice_correct_manually">Correct using manual controls</string>
 </resources>
