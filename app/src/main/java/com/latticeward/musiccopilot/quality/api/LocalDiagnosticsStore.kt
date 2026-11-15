@@ -13,6 +13,9 @@ data class LocalDiagnosticsSummary(
     val acceptedSinceClear: Long,
     val evictedOldestSinceClear: Long,
     val countsByFamilySinceClear: Map<String, Long>,
+    // Queued events rejected at the fixed-cap source queue are unobserved.
+    // P10 must not interpret these as successful or failed user actions.
+    val sourceQueueDropsSinceClear: Long = 0L,
 )
 
 /**
