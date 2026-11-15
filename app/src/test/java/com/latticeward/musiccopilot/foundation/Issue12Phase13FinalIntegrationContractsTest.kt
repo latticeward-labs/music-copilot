@@ -247,8 +247,8 @@ class Issue12Phase13FinalIntegrationContractsTest {
 
     @Test fun endpointProxyCannotBeAssertedAsRealSpeechEndP95() {
         val p10 = source("quality/measurement/QualityMetricProjection.kt")
-        assertTrue(p10.contains("ENDPOINT_SIGNAL_TO_TERMINAL_DRAW_PROXY"))
-        assertTrue(p10.contains("NOT_VERIFIED"))
+        assertTrue(p10.contains("voiceEndpointToDrawProxy: VoiceLatencyBucketSnapshot"))
+        assertTrue(p10.contains("officialVoiceP95: MeasurementVerdict = MeasurementVerdict.NOT_VERIFIED"))
     }
 
     @Test fun appMeasurementNeverStoresRawLatencySamples() {
