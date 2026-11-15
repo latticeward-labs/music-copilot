@@ -170,11 +170,20 @@
     {
       "phase": "P09",
       "title": "Local event collection, retention and optional transport",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_P09_LOCAL_DIAGNOSTICS_RETENTION_AND_CLEAR.md",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/api/LocalDiagnosticsStore.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/quality/adapters/BoundedMemoryDiagnosticsStore.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/QualityBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase9BoundedDiagnosticsStoreTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase9DiagnosticsDeletionWiringTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "P09 source: bounded RAM-only sanitized event store (128 default/1024 max) with 8-family aggregate counters, semantic P03 defense-in-depth, evictions, 64-queue drop count, clear/revoke epoch purge, P04 consent watcher, no process/disk/file retention or backup. Explicit DI NoOp vs MemoryOnly mode, PRODUCTION NoOp always and P04 four approvals false. No arbitrary TTL fabricated (only process RAM lifetime); exact retention/provider/notice/deletion SLA still need Product/Privacy/Legal review. No P08 durable crash marker. 32 authored unit/source QA cases NOT_RUN. No actual data captured, exported or remote-deleted."
     },
     {
       "phase": "P10",
@@ -341,7 +350,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 documentation; P03–P08 source-implemented UNCOMPILED_NOT_RUN; P09–P14 NOT_STARTED. Default production NoOp; consent/retention/provider unapproved. P08 no durable death marker or verified crash-free joins; eight outbound events lack session ID. All Issue #12 ACs NOT_VERIFIED. No tests, Gradle/CI, APK, PR, merge or Issue close; #80/#82 remain open.",
+  "notes": "P01/P02 source docs complete; P03–P09 source-implemented UNCOMPILED_NOT_RUN; P10–P14 NOT_STARTED. P09 memory-only candidate compiled source but PROD mode NoOp & independent consent approvals FALSE, so no real collection or disk persistence. Exact TTL, approval, vendor, P08 marker, user clear UI and P10 denominators pending. All 14 Issue #12 AC remain NOT_VERIFIED. No test/Gradle/Actions/APK/PR/merge/close; follow-ups #80/#82 remain open.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -533,5 +542,50 @@
     "android_device": "NOT_RUN",
     "apk": "NOT_BUILT",
     "privacy_and_product_signoff": "NOT_APPROVED"
+  },
+  "p09_local_diagnostics": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "documentation": "docs/implementation/ISSUE_12_P09_LOCAL_DIAGNOSTICS_RETENTION_AND_CLEAR.md",
+    "storage_mode": "VOLATILE_RAM_ONLY_NO_DISK",
+    "default_active_provider": "NoOp",
+    "optional_future_provider": "MemoryOnly_SOURCE_SWITCH_SUBJECT_TO_APPROVAL",
+    "raw_events_cap": 128,
+    "hard_config_max_events": 1024,
+    "source_queue_capacity": 64,
+    "event_families": 8,
+    "eleventh_or_ninth_event": "NONE_DENY_ISSUE11_NINTH",
+    "privacy_gate": "P03_TYPED_AND_CANONICAL_SEMANTIC_REVALIDATION",
+    "consent_gate": "P04_FOUR_APPROVALS_DEFAULT_FALSE",
+    "retention_ttl": "UNAPPROVED_NO_TIME_TTL_RAM_UNTIL_PROCESS_END_OR_USER_CLEAR_REVOKE",
+    "physical_persistence": false,
+    "android_backup_of_events": false,
+    "encryption_at_rest": "NOT_APPLICABLE_NO_EVENT_BYTES_WRITTEN",
+    "disk_marker_for_crash_free": false,
+    "cloud_upload": false,
+    "external_processor": "NONE",
+    "source_queue_clear_epoch": "ATOMIC_GENERATION_PLUS_SHORT_SERIALIZED_ERASE",
+    "clear_local_api": "ApplicationBindings.clearLocalDiagnostics:Boolean",
+    "consent_revoke": "SYNCHRONOUS_DENY_AND_PURGE_BEFORE_ASYNC_DATASTORE_WRITE",
+    "consent_observer": "Preferences_and_LoadState_unauthorized_purge",
+    "clear_preserves": [
+      "MediaStore",
+      "Room_library",
+      "likes",
+      "user_history",
+      "Bluetooth_settings",
+      "CloudSpeechConsent",
+      "DiagnosticsConsent",
+      "Media3_player",
+      "user_files"
+    ],
+    "coarse_aggregate": "LocalDiagnosticsSummary_eight_family_counts_evictions_source_queue_drops",
+    "qa_authored": 32,
+    "qa_executed": 0,
+    "compiled": false,
+    "apk": "NOT_BUILT",
+    "retention_policy_product_approval": "NOT_APPROVED",
+    "external_provider_legal_approval": "NOT_APPROVED",
+    "user_clear_settings_ui": "P12_NOT_IMPLEMENTED",
+    "durable_beta_history": "NOT_AVAILABLE"
   }
 }
