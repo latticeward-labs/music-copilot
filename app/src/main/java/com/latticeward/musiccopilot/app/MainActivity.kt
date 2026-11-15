@@ -587,6 +587,9 @@ class MainActivity : ComponentActivity() {
                 onDrivingMicPermissionContinue = ::onDrivingMicPermissionContinue,
                 onDrivingMicPermissionDismiss = ::onDrivingMicPermissionDismiss,
                 onDrivingModeEntered = bindings::recordAcceptedDrivingEntry,
+                onArmVoiceManualCorrection = bindings::armExplicitManualCorrection,
+                onVerifiedManualCorrection = bindings::recordVerifiedManualCorrection,
+                onAbandonManualCorrection = bindings::abandonManualCorrection,
                 onFirstUseComplete = {
                     onPracticeManualOnly()
                     bindings.onForeground()
