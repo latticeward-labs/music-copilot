@@ -23,6 +23,8 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionRequest
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionResult
+import com.latticeward.musiccopilot.voice.api.SpeechEndpointEvidence
+import com.latticeward.musiccopilot.voice.api.SpeechEndpointQuality
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.policy.OnDeviceEnglishSupportPolicy
 import com.latticeward.musiccopilot.voice.policy.VoicePolicy
@@ -130,7 +132,19 @@ class AndroidOnDeviceSpeechToTextEngine(
                     override fun onBeginningOfSpeech() = Unit
                     override fun onRmsChanged(rmsdB: Float) = Unit
                     override fun onBufferReceived(buffer: ByteArray?) = Unit
-                    override fun onEndOfSpeech() = Unit
+                    override fun onEndOfSpeech() {
+                        // The OS recognizer's own endpoint callback is only
+                        // an UNCALIBRATED SIGNAL, never an exact audio offset.
+                        onMain {
+                            if (live !== session || !continuation.isActive) return@onMain
+                            try {
+                                request.onEndpointSignal?.invoke(SpeechEndpointEvidence(
+                                    android.os.SystemClock.elapsedRealtimeNanos(),
+                                    SpeechEndpointQuality.ANDROID_RECOGNIZER_DETECTED
+                                ))
+                            } catch (_: Exception) { /* no product impact */ }
+                        }
+                    }
                     override fun onEvent(eventType: Int, params: Bundle?) = Unit
                     override fun onPartialResults(partialResults: Bundle?) = Unit
                     override fun onError(error: Int) {
