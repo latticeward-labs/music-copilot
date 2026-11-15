@@ -1,0 +1,10 @@
+issue=12
+phase=P14
+scope=ONE_INTEGRATED_APK_P01_TO_P13
+branch=feature/12-privacy-safe-telemetry-measurement
+authorization=OWNER_EXPLICIT_P14_BUILD_REQUEST_2026-11-15
+gradle_task=:app:assembleDebug
+qa_tests=NOT_AUTHORIZED_NOT_RUN
+android_device_tests=OWNER_WILL_RUN
+quality_telemetry=PRODUCTION_NOOP
+merge_close=NOT_AUTHORIZED
