@@ -141,7 +141,7 @@ class Issue12Phase10MeasurementWiringTest {
         val bindings = read("app/di/ApplicationBindings.kt")
         assertTrue(bindings.contains("voiceEndpointProxyHistogram"))
         assertTrue(bindings.contains("recordVoiceTerminalLatencyProxy"))
-        assertTrue(bindings.contains("officialVoiceP95"))
+        assertTrue(bindings.contains("voiceEndpointToDrawProxy"))
         assertTrue(bindings.contains("localMeasurementSnapshotIfApproved"))
     }
 
