@@ -1,0 +1,2726 @@
+{
+  "schema_version": "issue12-p13-evidence-v1",
+  "repository": "latticeward-labs/music-copilot",
+  "issue": 12,
+  "branch": "feature/12-privacy-safe-telemetry-measurement",
+  "source_archive_sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+  "created_date": "2026-11-15",
+  "source_review_only": true,
+  "execution_policy": {
+    "p01_p13": "NO_TESTS_NO_GRADLE_NO_CI_NO_APK",
+    "p14": "SINGLE_INTEGRATED_APK_BUILD_ONLY_WITH_OWNER_AUTHORIZATION",
+    "owner_phone_testing": "OWNER_ONLY_AFTER_APK",
+    "technical_tests": "NOT_RUN_UNTIL_EXPLICITLY_AUTHORIZED"
+  },
+  "build": {
+    "status": "NOT_BUILT",
+    "apk_uri": null,
+    "apk_sha256": null,
+    "head_sha": null,
+    "artifact_id": null,
+    "source_version": null
+  },
+  "technical_test_inventory": {
+    "issue12_p03_p12_kotlin_methods_authored": 211,
+    "issue12_p13_kotlin_methods_authored": 29,
+    "issue12_p11_python_methods_authored": 31,
+    "total_authored": 271,
+    "executed": 0,
+    "unit_pass": 0,
+    "unit_fail": 0,
+    "source_test_results": "NOT_RUN",
+    "note": "Source-method count from GitHub files, NOT number of executed tests; individual tests must be authorized/actually run and checked at P14."
+  },
+  "real_cohort": {
+    "consented_qualified_drivers": null,
+    "head_unit_models": null,
+    "actual_t0_utc": null,
+    "observed_days": null,
+    "verified_returning_users": null,
+    "status": "NOT_PROVIDED"
+  },
+  "privacy_and_product_signoff": {
+    "exact_notice": "NOT_APPROVED",
+    "retention_ttl": "NOT_APPROVED",
+    "legal": "NOT_APPROVED",
+    "collection_provider": "NOT_APPROVED",
+    "cloud_stt_provider": "NOT_APPROVED",
+    "short_history_owner": "NOT_IMPLEMENTED"
+  },
+  "pending_risks": [
+    {
+      "issue": 80,
+      "status": "OPEN",
+      "evidence": "OWNER_LAB_24_OF_50_48_PERCENT_VS_90_GATE",
+      "release_gate": "BLOCKED"
+    },
+    {
+      "issue": 82,
+      "status": "OPEN",
+      "evidence": "ARTIST_MATCHING_INSTABILITY_AND_DEFERRED_QA",
+      "release_gate": "BLOCKED"
+    },
+    {
+      "id": "P10-P95",
+      "status": "NOT_VERIFIED",
+      "evidence": "VAD/OEM_TO_COMPOSE_DRAW_IS_PROXY_NOT_ACOUSTIC_TO_PERCEIVABLE"
+    },
+    {
+      "id": "P12-HISTORY",
+      "status": "NOT_IMPLEMENTED",
+      "evidence": "No standalone short history DAO or retention policy"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "description": "Required events from one authoritative source; no duplicates on recreation/retry",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M005",
+        "M023",
+        "M039",
+        "M042",
+        "M043",
+        "M044",
+        "M045",
+        "M046",
+        "M047",
+        "M048",
+        "M049",
+        "M050",
+        "M051",
+        "M052",
+        "M053",
+        "M054",
+        "M055",
+        "M056",
+        "M058",
+        "M059",
+        "M060",
+        "M061",
+        "M062",
+        "M063",
+        "M064",
+        "M065",
+        "M066",
+        "M067",
+        "M068",
+        "M069",
+        "M074",
+        "M075",
+        "M080",
+        "M083",
+        "M097",
+        "M098"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC02",
+      "description": "Allowed properties match eight-event telemetry table and enums/buckets",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M010",
+        "M088",
+        "M091",
+        "M092"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC03",
+      "description": "Allowed intent/confidence/latency/error/route coarse values",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M071",
+        "M073",
+        "M075",
+        "M079",
+        "M090"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC04",
+      "description": "No raw audio/transcript/artist/title/location/contacts/unneeded ID",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M008",
+        "M010",
+        "M020",
+        "M034",
+        "M040",
+        "M056",
+        "M057",
+        "M064",
+        "M071",
+        "M073",
+        "M079",
+        "M081",
+        "M086",
+        "M089",
+        "M099",
+        "M116",
+        "M119"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC05",
+      "description": "Crash reports only safe non-sensitive diagnostic context",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M073",
+        "M075",
+        "M076",
+        "M077",
+        "M096",
+        "M097"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC06",
+      "description": "Analytics and crash disabled or safe local/non-prod configuration",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M001",
+        "M002",
+        "M003",
+        "M004",
+        "M005",
+        "M008",
+        "M009",
+        "M011",
+        "M012",
+        "M013",
+        "M015",
+        "M033",
+        "M035",
+        "M037",
+        "M038",
+        "M070",
+        "M072",
+        "M077",
+        "M078",
+        "M084",
+        "M093",
+        "M119"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC07",
+      "description": "User can clear local history and diagnostics through approved Settings flow",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M006",
+        "M007",
+        "M018",
+        "M021",
+        "M023",
+        "M024",
+        "M025",
+        "M026",
+        "M027",
+        "M028",
+        "M029",
+        "M030",
+        "M031",
+        "M032",
+        "M033",
+        "M034",
+        "M035",
+        "M036",
+        "M038",
+        "M039",
+        "M040",
+        "M078",
+        "M082",
+        "M085",
+        "M087",
+        "M094",
+        "M095",
+        "M115",
+        "M119"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC08",
+      "description": "Microphone and diagnostic collection explained clearly",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M002",
+        "M006",
+        "M007",
+        "M009",
+        "M010",
+        "M011",
+        "M012",
+        "M013",
+        "M014",
+        "M015",
+        "M017",
+        "M019",
+        "M020",
+        "M021",
+        "M022",
+        "M028",
+        "M035",
+        "M036",
+        "M037",
+        "M041",
+        "M042",
+        "M043",
+        "M057",
+        "M080",
+        "M081",
+        "M085"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC09",
+      "description": "Separate Cloud STT consent and destination/retention disclosure before any use",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M004",
+        "M014",
+        "M016",
+        "M017",
+        "M018",
+        "M019",
+        "M041",
+        "M086"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC10",
+      "description": "Schema tests reject invalid and prohibited fields/values",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M088",
+        "M089",
+        "M090",
+        "M091",
+        "M092",
+        "M093",
+        "M094",
+        "M095",
+        "M096",
+        "M097",
+        "M098",
+        "M099",
+        "M102"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC11",
+      "description": "All command/correction/wrong/P95/player/crash/reuse/return measurements",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M044",
+        "M045",
+        "M046",
+        "M047",
+        "M048",
+        "M049",
+        "M050",
+        "M051",
+        "M053",
+        "M054",
+        "M055",
+        "M067",
+        "M068",
+        "M069",
+        "M070",
+        "M074",
+        "M076",
+        "M084",
+        "M100",
+        "M101",
+        "M105",
+        "M106",
+        "M107",
+        "M108",
+        "M109",
+        "M110",
+        "M111",
+        "M112",
+        "M113",
+        "M115",
+        "M117",
+        "M118"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC12",
+      "description": "One-view USED / WORKS / RETURNS dashboard",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M099",
+        "M102",
+        "M103",
+        "M104"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC13",
+      "description": "Targets/bands frozen to exact PRD/MVP",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M101",
+        "M105",
+        "M106",
+        "M107",
+        "M108",
+        "M109",
+        "M110",
+        "M111",
+        "M112",
+        "M114"
+      ],
+      "technical_validation": "NOT_RUN"
+    },
+    {
+      "id": "AC14",
+      "description": "Evidence sufficiently complete for human Go / Iterate / Stop",
+      "status": "NOT_VERIFIED",
+      "verification_state": "NOT_RUN",
+      "owner_evidence": null,
+      "linked_phone_cases": [
+        "M087",
+        "M094",
+        "M100",
+        "M102",
+        "M104",
+        "M113",
+        "M114",
+        "M115",
+        "M116",
+        "M117",
+        "M118",
+        "M120",
+        "M121"
+      ],
+      "technical_validation": "NOT_RUN"
+    }
+  ],
+  "manual_cases": [
+    {
+      "id": "M001",
+      "group": "A — Setup & offline",
+      "kind": "OWNER_PHONE",
+      "title": "تطبیق APK",
+      "procedure": "در فاز ۱۴ نسخه، مسیر دانلود، SHA-256 و نسخهٔ نصب‌شده را ثبت کن.",
+      "expected": "APK فقط با SHA واقعی همان HEAD معتبر است؛ بدون آن نتیجه NOT_VERIFIED است.",
+      "acceptance_criteria": [
+        "AC06"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M002",
+      "group": "A — Setup & offline",
+      "kind": "OWNER_PHONE",
+      "title": "شروع نخستین‌بار",
+      "procedure": "برنامه را با دسترسی‌های پیش‌فرض Android باز کن.",
+      "expected": "شروع دستی و صفحهٔ کتابخانه فعال است؛ Diagnostics خودکار فعال نمی‌شود.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M003",
+      "group": "A — Setup & offline",
+      "kind": "OWNER_PHONE",
+      "title": "اجرای آفلاین",
+      "procedure": "Wi‑Fi و دادهٔ موبایل را خاموش کن، موسیقی محلی را پخش کن.",
+      "expected": "پخش و کنترل‌های دستی بدون اینترنت کار می‌کنند.",
+      "acceptance_criteria": [
+        "AC06"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M004",
+      "group": "A — Setup & offline",
+      "kind": "OWNER_PHONE",
+      "title": "بازگشت اینترنت",
+      "procedure": "اتصال اینترنت را بازگردان.",
+      "expected": "هیچ درخواست STT/Analytics خارجی خودکار آغاز نمی‌شود.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC09"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M005",
+      "group": "A — Setup & offline",
+      "kind": "OWNER_PHONE",
+      "title": "بسته‌شدن از صفحهٔ خانه",
+      "procedure": "هنگام پخش، به Home برو و برگرد.",
+      "expected": "مدیریت Audio Focus/Media3 حفظ می‌شود؛ تشخیص یا گزارش اضافه آغاز نمی‌شود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC06"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M006",
+      "group": "A — Setup & offline",
+      "kind": "OWNER_PHONE",
+      "title": "بازکردن Settings از Library",
+      "procedure": "در حالت غیر Driving وارد Settings شو.",
+      "expected": "حریم خصوصی و داده‌های محلی قابل دسترسی‌اند.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M007",
+      "group": "A — Setup & offline",
+      "kind": "OWNER_PHONE",
+      "title": "Settings در Driving",
+      "procedure": "وارد Driving شو و مسیر Settings را بررسی کن.",
+      "expected": "Settings/حذف/Consent در صفحهٔ فعال رانندگی قابل فراخوانی نیست.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M008",
+      "group": "A — Setup & offline",
+      "kind": "OWNER_PHONE",
+      "title": "مجوز رسانه رد شود",
+      "procedure": "دسترسی Media را در Android Settings رد کن و برگرد.",
+      "expected": "داده‌های قدیمی کتابخانه نمایش معتبر پیدا نمی‌کنند؛ Diagnostics و صف خصوصی نشتی ندارند.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC06"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M009",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "پیش‌فرض Diagnostics",
+      "procedure": "Settings → Privacy را پس از نصب تازه باز کن.",
+      "expected": "وضعیت NotAsked/Off مطابق DataStore و بدون دکمهٔ فعال‌سازی تأییدنشده است.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M010",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "پیام هشت خانواده",
+      "procedure": "متن رویدادهای مجاز را بخوان.",
+      "expected": "فقط هشت دستهٔ کلی و ممنوعیت صوت/عنوان موسیقی توضیح داده شده است.",
+      "acceptance_criteria": [
+        "AC02",
+        "AC04",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M011",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "وضعیت Granted قدیمی",
+      "procedure": "در صورت وجود مقدار Granted قبلی، صفحه را باز کن.",
+      "expected": "حتی Granted قبلی به معنای فعال‌بودن Diagnostics نیست؛ تولید NoOp می‌ماند.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M012",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "وضعیت Declined",
+      "procedure": "با دادهٔ تست واجد شرایط مقدار Declined را مشاهده کن.",
+      "expected": "جمع‌آوری غیرفعال و وضعیت تصمیم مشخص است.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M013",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "وضعیت Revoked",
+      "procedure": "پس از لغو رضایت، Settings را مجدد باز کن.",
+      "expected": "Revoked واقعاً خوانده می‌شود و جمع‌آوری خاموش است.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M014",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "مجوز Microphone ممنوع",
+      "procedure": "RECORD_AUDIO را رد کن و Settings → Privacy را باز کن.",
+      "expected": "وضعیت Android OS نمایش می‌یابد؛ رضایت Diagnostics تغییر نمی‌کند.",
+      "acceptance_criteria": [
+        "AC08",
+        "AC09"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M015",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "مجوز Microphone مجاز",
+      "procedure": "RECORD_AUDIO را در Android مجاز کن و Privacy را ببین.",
+      "expected": "اعطای Mic، Diagnostics را فعال نمی‌کند.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M016",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "Cloud STT مستقل",
+      "procedure": "Cloud STT را در Settings بررسی کن.",
+      "expected": "بدون provider تصویب‌شده هیچ STT آنلاین اجرا نمی‌شود.",
+      "acceptance_criteria": [
+        "AC09"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M017",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "Cloud revoke موفق",
+      "procedure": "دکمهٔ لغو Cloud STT را بزن و پاسخ DataStore را مشاهده کن.",
+      "expected": "فقط پس از تأیید ذخیره، پیام موفقیت نشان داده می‌شود.",
+      "acceptance_criteria": [
+        "AC08",
+        "AC09"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M018",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "Cloud revoke خطا",
+      "procedure": "با دادهٔ QA خطای DataStore را شبیه‌سازی کن.",
+      "expected": "موفقیت کاذب نشان داده نمی‌شود؛ Retry قابل اقدام است.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC09"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M019",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "حفظ Diagn. پس از Cloud revoke",
+      "procedure": "بعد از لغو Cloud، Diagnostics را دوباره بررسی کن.",
+      "expected": "وضعیت Diagnostics به‌اشتباه با Cloud تغییر نکرده است.",
+      "acceptance_criteria": [
+        "AC08",
+        "AC09"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M020",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "متن نگهداری",
+      "procedure": "بخش Retention را بخوان.",
+      "expected": "هیچ TTL، انتقال به سرور یا پاک‌سازی از provider اختراع نشده است.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M021",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "متن دسترس‌پذیر",
+      "procedure": "TalkBack را در حالت ایمن فعال و اندازهٔ فونت را ۲۰۰٪ کن.",
+      "expected": "عنوان‌ها و دکمه‌ها به‌ترتیب منطقی خوانده و بدون برش مهم قابل دسترس‌اند.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M022",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "بازگشت از Android Settings",
+      "procedure": "اجازهٔ میکروفون را در Android Settings تغییر بده و به برنامه برگرد.",
+      "expected": "وضعیت از سیستم دوباره خوانده می‌شود، نه از فلگ قدیمی.",
+      "acceptance_criteria": [
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M023",
+      "group": "B — Privacy & independent consent",
+      "kind": "OWNER_PHONE",
+      "title": "باز و بسته کردن Settings",
+      "procedure": "Privacy را بارها باز و بسته کن.",
+      "expected": "هیچ consent، حذف یا رویدادی صرفاً از رندر/بازکردن صفحه صادر نمی‌شود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M024",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "انتخاب بدون پیش‌فرض",
+      "procedure": "Settings → Clear app-owned data را باز کن.",
+      "expected": "هیچ دسته‌ای از ابتدا تیک‌خورده نیست.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M025",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "عدم حذف بدون انتخاب",
+      "procedure": "بدون انتخاب دسته، دکمهٔ Review را بررسی کن.",
+      "expected": "هیچ عملیات پاک‌سازی اجرا نمی‌شود.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M026",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "تاریخچهٔ کوتاه",
+      "procedure": "دستهٔ Short playback history را بررسی کن.",
+      "expected": "به‌درستی Not stored/disabled است و صف پخش را تاریخچه نمی‌نامد.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M027",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "انتخاب Diagnostics",
+      "procedure": "فقط Local diagnostic data را انتخاب کن.",
+      "expected": "دیگر دسته‌ها به‌صورت ضمنی انتخاب نمی‌شوند.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M028",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "پنجرهٔ تأیید",
+      "procedure": "Review selected data را لمس کن.",
+      "expected": "دستهٔ منتخب، فهرست محفوظات و عدم حذف از سرور صریح است.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M029",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "Cancel در دیالوگ",
+      "procedure": "Cancel را بزن.",
+      "expected": "هیچ پاک‌سازی آغاز نمی‌شود؛ داده‌ها و پخش حفظ می‌شوند.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M030",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "Back در دیالوگ",
+      "procedure": "دیالوگ حذف را باز کن، Back بزن.",
+      "expected": "اثر حذف ندارد.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M031",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "تأیید پاک‌سازی",
+      "procedure": "دوباره انتخاب کن و Confirm clear را بزن.",
+      "expected": "نتیجهٔ پاک‌سازی فقط با پاسخ واقعی local owner نمایش می‌یابد.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M032",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "تکرار پاک‌سازی",
+      "procedure": "بدون تولید دادهٔ جدید دوباره Clear کن.",
+      "expected": "رفتار idempotent؛ نتیجهٔ اضافی ساختگی/حذف موسیقی ندارد.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M033",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "پاک‌سازی و پخش فعال",
+      "procedure": "آهنگی در حال پخش داشته باش و Diagnostics را پاک کن.",
+      "expected": "صدای درحال پخش، موقعیت و صف Media3 دست‌نخورده‌اند.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M034",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "پاک‌سازی و کتابخانه",
+      "procedure": "پیش/پس از پاک‌سازی، فایل‌ها و جست‌وجوی محلی را بررسی کن.",
+      "expected": "MediaStore و نمایهٔ موسیقی بدون حذف باقی می‌مانند.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M035",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "لغو رضایت Diagnostics",
+      "procedure": "Revoke Diagnostics → Confirm را بزن.",
+      "expected": "ابتدا جمع‌آوری قطع و RAM scrub می‌شود، سپس DataStore ذخیره می‌شود.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC07",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M036",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "ردِ لغو رضایت",
+      "procedure": "دیالوگ Revoke را باز کن و Cancel یا Back بزن.",
+      "expected": "رضایت موجود بدون تغییر می‌ماند و حذف اتفاق نمی‌افتد.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M037",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "دادهٔ پایدار رضایت",
+      "procedure": "بعد از تأیید Revoke، برنامه را مجدد اجرا کن.",
+      "expected": "اگر ذخیره موفق بوده Revoked همچنان نمایش داده می‌شود.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M038",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "شکست DataStore در Revoke",
+      "procedure": "خطای ذخیره را با ابزار QA ایجاد کن؛ بدون دست‌کاری دادهٔ کاربر.",
+      "expected": "پیام partial/failure و Retry ظاهر می‌شود؛ وضعیت جمع‌آوری در همان پردازش deny می‌ماند.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M039",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "بازسازی صفحه هنگام پاک‌سازی",
+      "procedure": "هنگام عملیات پذیرفته‌شده گوشی را بچرخان.",
+      "expected": "عملیات owner-scoped لغو و دوباره انجام نمی‌شود؛ وضعیت را QA بررسی کند.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M040",
+      "group": "C — Explicit clearing & revocation",
+      "kind": "OWNER_PHONE",
+      "title": "حذف داده از server؟",
+      "procedure": "متن نتیجهٔ Clear را بررسی کن.",
+      "expected": "تنها پاک‌سازی محلی گزارش می‌شود؛ remote deletion ادعا نمی‌شود.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M041",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "افشای Mic به‌موقع",
+      "procedure": "با Mic بدون مجوز وارد rationale شو.",
+      "expected": "دربارهٔ STT محلی، اختیاری‌بودن Mic، عدم ذخیرهٔ صدا و Diagnostics OFF توضیح داده می‌شود.",
+      "acceptance_criteria": [
+        "AC08",
+        "AC09"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M042",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "انصراف از Mic",
+      "procedure": "در rationale گزینهٔ Cancel/Manual را بزن.",
+      "expected": "هیچ ضبط/دستور آغاز نمی‌شود و پخش دستی می‌ماند.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M043",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "مجوز Mic بعد از لمس",
+      "procedure": "مجوز Android را بده و طبق راهنمای UI دوباره Mic را لمس کن.",
+      "expected": "درخواست ضبط فقط بعد از اقدام صریح مجاز رخ می‌دهد.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M044",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "PLAY",
+      "procedure": "فرمان PLAY را ۱۰ بار جداگانه در شرایط کنترل‌شده بگو؛ تعداد را ثبت کن.",
+      "expected": "هر تلاش حداکثر یک نتیجهٔ نهایی و یک ACK مجاز دارد؛ درصد واقعی ثبت می‌شود، نه PASS کلی.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M045",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "PAUSE",
+      "procedure": "فرمان PAUSE را ۱۰ بار جداگانه بگو.",
+      "expected": "تعداد موفقیت/خطا ثبت و با PLAY تفکیک می‌شود؛ Issue #80 باز است.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M046",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "NEXT",
+      "procedure": "فرمان NEXT را ۱۰ بار جداگانه بگو.",
+      "expected": "یک انتقال واقعی در صورت ACK؛ خطاهای ASR در مخرج باقی بمانند.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M047",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "PREVIOUS",
+      "procedure": "فرمان PREVIOUS را ۱۰ بار جداگانه بگو.",
+      "expected": "یک نتیجهٔ کنترل‌شده و دقت واقعی شمارش شود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M048",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "SEEK_BACK",
+      "procedure": "فرمان SEEK BACK را ۱۰ بار جداگانه بگو.",
+      "expected": "در صورت تأیید Playback زمان عقب می‌رود؛ خطاها مخفی نمی‌شوند.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M049",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "PLAY_ARTIST",
+      "procedure": "فرمان Play songs by [artist] را با دادهٔ تست بگو.",
+      "expected": "ابهام یک‌مرحله‌ای، عدم اجرای نامطمئن و ACK سرویس رعایت شود؛ #82 باز است.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M050",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "Artist ambiguous two options",
+      "procedure": "با دو هنرمند تستِ نزدیک به هم فرمان Artist بده.",
+      "expected": "فقط انتخاب صریح کاربر باعث ACK شود؛ هر دو گزینه معتبر و پایدار باشند.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M051",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "Artist three similar",
+      "procedure": "سه گروه مشابه قابل‌قبول بساز و Play Artist را امتحان کن.",
+      "expected": "سیستم نامشخص را ایمن رد کند؛ گزینهٔ سوم بی‌سروصدا حذف نشود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M052",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "فشار پشت‌سرهم Mic",
+      "procedure": "Mic را چند بار سریع لمس کن.",
+      "expected": "فقط جلسات پذیرفته‌شده شمرده شوند؛ دوباره‌کاری/چند ACK نباشد.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M053",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "Timeout و Retry",
+      "procedure": "بی‌صدا بمان یا گفتار نامفهوم ایجاد کن، سپس Retry.",
+      "expected": "شکست و تلاش مجدد جداگانه ثبت شود؛ فرمان اشتباه اجرا نشود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M054",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "اصلاح دستی صریح",
+      "procedure": "بعد از خروجی Voice نامناسب، گزینهٔ اصلاح دستی را بزن و عمل اصلاح را انجام بده.",
+      "expected": "فقط یک correction مرتبط با همان فرمان، نه هر لمس عمومی.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M055",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "اصلاح دستی بدون ارتباط",
+      "procedure": "بدون انتخاب اصلاح دستی یک کنترل دستی بزن.",
+      "expected": "به‌اشتباه manual_correction نسبت داده نمی‌شود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M056",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "خروج در حین Voice",
+      "procedure": "وقتی Listening/Processing است Back یا Cancel بزن.",
+      "expected": "دیگر ACK/متن پاسخ دیررس وارد جلسهٔ بعد نمی‌شود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC04"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M057",
+      "group": "D — Voice, intent, correction",
+      "kind": "OWNER_PHONE",
+      "title": "میکروفون رد شده در میان فرمان",
+      "procedure": "در حالت ایمن مجوز Mic را حذف کن و به برنامه برگرد.",
+      "expected": "جلسهٔ جاری لغو؛ هیچ ضبط تازه‌ای انجام نمی‌شود.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M058",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "ورود واقعی Driving",
+      "procedure": "از Library وارد Driving Mode شو.",
+      "expected": "فقط یک مرز ورود پذیرفته‌شده، بدون اجرای خودکار موسیقی.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M059",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "ورود از Player",
+      "procedure": "از Player وارد Driving شو.",
+      "expected": "منبع ورود درست و بدون event مضاعف ثبت‌پذیر است؛ تولید NoOp فعلاً مشاهده‌پذیر نیست.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M060",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "Recomposition",
+      "procedure": "چرخش/تغییر قالب UI را هنگام Driving اجرا کن.",
+      "expected": "ورود دوباره یا session_completed کاذب ایجاد نشود.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M061",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "Background/Foreground",
+      "procedure": "در Driving به Home برو و بازگرد.",
+      "expected": "بدون یک خروج/ورود اضافی و بدون شمارش completion جعلی.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M062",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "Bluetooth reconnect",
+      "procedure": "در حالت امن دستگاه صوتی قبلاً منتخب را قطع/وصل کن.",
+      "expected": "ارتباط BT به‌تنهایی Driving را باز یا موسیقی را پخش نمی‌کند.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M063",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "پیشنهاد Bluetooth لغو",
+      "procedure": "پیشنهاد ورود Driving را رد کن.",
+      "expected": "هیچ Driving Session شروع‌شده‌ای برای پیشنهاد ردشده وجود ندارد.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M064",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "ورود پیشنهادی Bluetooth",
+      "procedure": "پیشنهاد را صریح بپذیر.",
+      "expected": "فقط یک انتقال پذیرفته‌شده معتبر باشد؛ آدرس BT به Diagnostics نرود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC04"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M065",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "خروج صریح Driving",
+      "procedure": "در حالت Driving گزینهٔ Exit/Back را بزن.",
+      "expected": "در صورت جلسۀ معتبر، completion فقط یک بار نامزد می‌شود.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M066",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "خروج تکراری",
+      "procedure": "دکمهٔ Exit/Back را سریع چند بار بزن.",
+      "expected": "هیچ completion دوبار تولید نمی‌شود.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M067",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "کشتن فرآیند در Driving",
+      "procedure": "در حالت پارک و امن برنامه را force stop کن، سپس دوباره باز کن.",
+      "expected": "جلسهٔ قبلی UNKNOWN است، نه crash-free یا completed جعلی.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M068",
+      "group": "E — Driving session ownership",
+      "kind": "OWNER_PHONE",
+      "title": "دستور Voice داخل Driving",
+      "procedure": "Mic را داخل Driving بزن و یک فرمان مجاز بده.",
+      "expected": "فقط ACK همان session به commands_count اضافه شود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M069",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "دکمه‌های اصلی Player",
+      "procedure": "Play/Pause/Next/Previous را با فایل‌های محلی امتحان کن.",
+      "expected": "هر دستور صرفاً از Media3 ACK وضعیت واقعی دریافت کند.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M070",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "Audio focus",
+      "procedure": "هنگام پخش صوت برنامهٔ دیگری را با رعایت ایمنی شروع/متوقف کن.",
+      "expected": "رفتار focus/recovery مطابق Issue #8 باقی بماند.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M071",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "هدست اتصال/قطع",
+      "procedure": "هدست را هنگام پخش با شرایط کنترل‌شده قطع/وصل کن.",
+      "expected": "پخش از مسیر درست بازیابی و پیام خصوصی به Analytics ارسال نشود.",
+      "acceptance_criteria": [
+        "AC03",
+        "AC04"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M072",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "پخش در تماس",
+      "procedure": "در محیط ایمن تماس آزمایشی/Audio focus loss را بررسی کن.",
+      "expected": "ایمنی توقف/ازسرگیری موسیقی حفظ شود.",
+      "acceptance_criteria": [
+        "AC06"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M073",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "فایل خراب یا حذف‌شده",
+      "procedure": "یک فایل آزمایشی را با کنترل MediaStore در شرایط غیررانندگی حذف کن.",
+      "expected": "خطای پایدار Player بدون نشت مسیر/نام فایل و بدون پخش فانتوم نمایش یابد.",
+      "acceptance_criteria": [
+        "AC03",
+        "AC04",
+        "AC05"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M074",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "MediaController قطع",
+      "procedure": "با QA کنترل‌شده اتصال Controller را از دسترس خارج کن.",
+      "expected": "UI بدون ACK اشتباه Playing نشان ندهد؛ #82 M29 هنوز باز است.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M075",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "دنبالهٔ خطای تکراری",
+      "procedure": "خطاهای مشابه Service را پشت‌سرهم با QA فیک ایجاد کن.",
+      "expected": "فقط اپیزودهای مستقل طبق gate شمرده شوند؛ storm باعث قفل پخش نشود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC03",
+        "AC05"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M076",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "Crash در حال Playback",
+      "procedure": "فقط در محیط تست و بدون حرکت، سناریوی خروج غیرعادی امن/شبیه‌سازی را اجرا کن.",
+      "expected": "گزارش فقط دستهٔ کلی است و جلسهٔ UNKNOWN به‌جای crash-free ثبت می‌شود.",
+      "acceptance_criteria": [
+        "AC05",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M077",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "بدون crash SDK",
+      "procedure": "مجوز شبکه و رفتار Diagnostics را در محیط امن بررسی کن.",
+      "expected": "برنامه هیچ SDK/upload خارجی بدون رضایت/تصویب ندارد.",
+      "acceptance_criteria": [
+        "AC05",
+        "AC06"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M078",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "Player پس از حذف Diagnostics",
+      "procedure": "هنگام پخش پاک‌سازی محلی Diagnostics را انجام بده.",
+      "expected": "صدا، queue، foreground service و تنظیمات فردی بی‌تأثیر بمانند.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M079",
+      "group": "F — Playback, route, crash",
+      "kind": "OWNER_PHONE",
+      "title": "Route Type coarse",
+      "procedure": "فقط با ابزار QA eventهای BuiltIn/Wired/Bluetooth/Unknown را بررسی کن.",
+      "expected": "نوع مسیر کلی است؛ BT address/name هرگز ثبت نمی‌شود.",
+      "acceptance_criteria": [
+        "AC03",
+        "AC04"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M080",
+      "group": "G — Lifecycle, queue and repair",
+      "kind": "OWNER_PHONE",
+      "title": "آموزش و بازگشت",
+      "procedure": "صفحهٔ آموزش مجدد را باز کن و برگرد.",
+      "expected": "هیچ event یا consent ناخواسته تولید نشود.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M081",
+      "group": "G — Lifecycle, queue and repair",
+      "kind": "OWNER_PHONE",
+      "title": "حذف Permissions هنگام background",
+      "procedure": "مجوز Media/Mic را در background حذف کن و برگرد.",
+      "expected": "app از مشاهدهٔ فعلی Android استفاده کند و payload قدیمی را بپوشاند.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M082",
+      "group": "G — Lifecycle, queue and repair",
+      "kind": "OWNER_PHONE",
+      "title": "چرخش صفحه Settings",
+      "procedure": "حین Settings بدون فشردن تأیید بچرخان.",
+      "expected": "دیالوگ انتخاب حذف، خودکار پاک‌سازی نمی‌کند.",
+      "acceptance_criteria": [
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M083",
+      "group": "G — Lifecycle, queue and repair",
+      "kind": "OWNER_PHONE",
+      "title": "چرخش حین Voice",
+      "procedure": "حین شناخت Voice در محیط امن UI را recreate کن.",
+      "expected": "ACK/intent قدیمی به نسل جدید نشت نمی‌کند.",
+      "acceptance_criteria": [
+        "AC01"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M084",
+      "group": "G — Lifecycle, queue and repair",
+      "kind": "OWNER_PHONE",
+      "title": "رابط دستی پس از Voice failure",
+      "procedure": "فرمان صوتی نامعتبر بده و سپس دکمهٔ دستی بزن.",
+      "expected": "پخش دستی مستقل از اختلال کیفیت کار کند.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC11"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M085",
+      "group": "G — Lifecycle, queue and repair",
+      "kind": "OWNER_PHONE",
+      "title": "تست انصراف تمام دیالوگ‌ها",
+      "procedure": "در هر دیالوگ Privacy/Cloud/Permission از Back استفاده کن.",
+      "expected": "هیچ اثر غیرصریح و مخربی ثبت نمی‌شود.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC08"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M086",
+      "group": "G — Lifecycle, queue and repair",
+      "kind": "OWNER_PHONE",
+      "title": "خاموشی شبکه و Play Artist",
+      "procedure": "بدون اینترنت Play Artist را اجرا کن.",
+      "expected": "فقط دادهٔ MediaStore و STT محلی، بدون Cloud STT.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC09"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M087",
+      "group": "G — Lifecycle, queue and repair",
+      "kind": "OWNER_PHONE",
+      "title": "پاک‌سازی بعد از صف اشباع",
+      "procedure": "با ابزار تست واجدشرایط یک صف رویداد اشباع و سپس clear کن.",
+      "expected": "قدیمی‌ترین‌ها/افت ورودی معلوم و هیچ رویداد حذف‌شده‌ای دوباره برنمی‌گردد.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M088",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "۸ خانوادهٔ دقیق",
+      "procedure": "تست یونیت gate را برای تمام هشت خانواده اجرا کن.",
+      "expected": "فقط نام‌ها و ترتیب فیلدهای مجاز، نسخه v1؛ هیچ خانوادهٔ نهمی عبور نکند.",
+      "acceptance_criteria": [
+        "AC02",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M089",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "ورود فیلد ممنوع",
+      "procedure": "payload با transcript، artist، path، token، location، device_id را تزریق کن.",
+      "expected": "schema همه را رد و هیچ دادهٔ خصوصی در خطا چاپ نشود.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M090",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "کد خطای ناآشنا",
+      "procedure": "کد یا message ناشناخته و فیلد دلخواه را به quality بده.",
+      "expected": "رد شود؛ دلیل خام Exception انتشار پیدا نکند.",
+      "acceptance_criteria": [
+        "AC03",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M091",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "غلط بودن عدد count",
+      "procedure": "commands_count منفی/بیش‌از ۱۰۰۰ را تست کن.",
+      "expected": "وارد wire نمی‌شود، truncate کاذب ندارد.",
+      "acceptance_criteria": [
+        "AC02",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M092",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "افزودن خانوادهٔ نهم",
+      "procedure": "VoiceIntentOutcome را به sink فرضی بفرست.",
+      "expected": "حتی با sink Fake، gate مانع export باشد.",
+      "acceptance_criteria": [
+        "AC02",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M093",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "گیت consent capture/flush",
+      "procedure": "با Granted/Declined/Revoked و approvals آماده/نبود، هم قبل از capture و هم قبل از sink اجرا کن.",
+      "expected": "هیچ event بدون رضایت و همهٔ approvals عبور نمی‌کند.",
+      "acceptance_criteria": [
+        "AC06",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M094",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "پاک‌سازی اتمیک",
+      "procedure": "هم‌زمان با queue drain، consent revoke و clear اجرا کن.",
+      "expected": "generation قدیمی دوباره ذخیره نمی‌شود، افت ثبت‌شده است.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC10",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M095",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "حذف و خرابی DataStore",
+      "procedure": "write failure را در مخزن fake تزریق کن.",
+      "expected": "نتیجهٔ partial/error و deny latch؛ هرگز Saved کاذب نباشد.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M096",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "گزارش Crash امن",
+      "procedure": "SafeCrashCategory را در sink آزمایشی بررسی کن.",
+      "expected": "هیچ Throwable/stack trace/file path/identity عبور نکند.",
+      "acceptance_criteria": [
+        "AC05",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M097",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "طوفان callback Service",
+      "procedure": "چند error, ACK, callback بعد از disconnect را تزریق کن.",
+      "expected": "ownerها dedup و playback رفتار مستقل؛ no blocking.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC05",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M098",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "Voicing generation race",
+      "procedure": "cancel، retry، late STT و دو نتیجهٔ متفاوت را تزریق کن.",
+      "expected": "فقط generation معتبر terminal event و ACK دریافت کند.",
+      "acceptance_criteria": [
+        "AC01",
+        "AC10"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M099",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "Dashboard دادهٔ ناشناس",
+      "procedure": "schema JSON با شناسهٔ دستگاه/فرد/عنوان موسیقی وارد کن.",
+      "expected": "رد شود؛ فایل گزارش/خطا هیچ payload خصوصی ندارد.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC10",
+        "AC12"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M100",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "کامل‌بودن رخدادها",
+      "procedure": "missing attempts، queue drop، ring eviction و unknown را شبیه‌سازی کن.",
+      "expected": "مخرج‌ها ناخواسته کاهش نیابند و وضعیت NOT_VERIFIED شود.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M101",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "P95 مرز سخت",
+      "procedure": "نمونه‌های دقیقاً ۲۵۰۰ms و ۱۰۰۰ms و rank 95% را بررسی کن.",
+      "expected": "برابری با مرز FAIL است، proxy نتیجهٔ رسمی نیست.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M102",
+      "group": "H — Source/technical QA; not observable on production NoOp",
+      "kind": "TECHNICAL_QA",
+      "title": "ایمنی parser داشبورد",
+      "procedure": "JSON کلید تکراری، NaN، فیلد اضافی، خروجی ناامن را تزریق کن.",
+      "expected": "بدون data leak و بدون PASS در گزارش ساختگی رد شود.",
+      "acceptance_criteria": [
+        "AC10",
+        "AC12",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M103",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "نمایش یکپارچه سه سؤال",
+      "procedure": "نمونهٔ SYNTHETIC را فقط پس از مجوز نهایی در generator آفلاین باز کن.",
+      "expected": "USED/WORKS/RETURNS هم‌زمان، برچسب DEMO_ONLY واضح.",
+      "acceptance_criteria": [
+        "AC12"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M104",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "عدم سبزشدن demo",
+      "procedure": "نمونهٔ ساختگی با عدد ظاهراً عالی بساز.",
+      "expected": "هیچ GO یا PASS واقعی اعلام نمی‌شود.",
+      "acceptance_criteria": [
+        "AC12",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M105",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "North Star W1 و W2",
+      "procedure": "دو هفته با اعضای فعال متفاوت وارد کن.",
+      "expected": "NS01 صورت و مخرج مستقل هر هفته است.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M106",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "R01 cohort return",
+      "procedure": "افراد W1 برگشته در W2 را با شمارش مستقل کنترل کن.",
+      "expected": "مخرج W1-active است، نه تعداد نشست یا ۵۰ ثبت‌نامی.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M107",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "R02 enrolled driving reuse",
+      "procedure": "مشارکت‌کنندگان با دو Driving entry را از owner validated داده وارد کن.",
+      "expected": "مخرج تمام ثبت‌نام‌شده‌های واجد شرایط است.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M108",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "Q01 correctness",
+      "procedure": "تعداد فرمان درست با ground-truth و خطا/Retry را وارد کن.",
+      "expected": "حداقل ۸۵٪ از کل تلاش‌های واجد شرایط، نه فقط ACKها.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M109",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "F01 correction / G01 wrong",
+      "procedure": "اصلاح دستی مرتبط و اجرای نادرست را جدا جمع بزن.",
+      "expected": "به‌ترتیب کمتر از ۱۵٪ و کمتر از ۳٪، نه برابر.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M110",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "Crash-free / critical rate",
+      "procedure": "تمام session starts، crash و UNKNOWN و incident rate را وارد کن.",
+      "expected": "≥۹۹٪ crash-free و کمتر از ۱ حادثهٔ بحرانی در ۱۰۰ شروع؛ UNKNOWN صفر فرض نشود.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M111",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "Voice P95 physical endpoints",
+      "procedure": "مبنای پایان صوت فیزیکی و اولین پاسخ قابل ادراک را مستقل اندازه‌گیری کن.",
+      "expected": "VAD→Compose پروکسی رسمی نیست؛ بدون کالیبراسیون NOT_VERIFIED.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M112",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "Local P95 full control coverage",
+      "procedure": "زمان لمس تا ACK را برای همهٔ مسیرهای واجد شرایط ثبت کن.",
+      "expected": "Partial UI taps کل کنترل‌ها را نمایندگی نمی‌کند؛ بدون پوشش NOT_VERIFIED.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC13"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M113",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "پایگاه دادهٔ ناقص",
+      "procedure": "منبع نامعتبر، عدم رضایت، drop/eviction یا ناشناخته‌ها را ثبت کن.",
+      "expected": "مورد نامعلوم باید NOT_VERIFIED یا NOT_MEASURABLE باشد، نه موفق.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M114",
+      "group": "I — Measurement/dashboard QA",
+      "kind": "PRODUCT_QA",
+      "title": "تصمیم GO با blocker",
+      "procedure": "با اعداد سبز ولی Issue #80/#82 حل‌نشده تصمیم بگیر.",
+      "expected": "BLOCKED، نه GO؛ تصمیم نهایی باید انسانی باشد.",
+      "acceptance_criteria": [
+        "AC13",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M115",
+      "group": "J — Real closed Beta (future, not existing evidence)",
+      "kind": "CONTROLLED_BETA",
+      "title": "ثبت واقعی شرکت‌کنندگان",
+      "procedure": "۵۰ رانندهٔ واجد شرایط و رضایت مستقلشان را توسط مسئول Beta مستند کن.",
+      "expected": "بدون ۵۰ نفر واقعی و مجاز، Beta readiness تأیید نشود.",
+      "acceptance_criteria": [
+        "AC07",
+        "AC11",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M116",
+      "group": "J — Real closed Beta (future, not existing evidence)",
+      "kind": "CONTROLLED_BETA",
+      "title": "تنوع خودرو/هدیونیت",
+      "procedure": "حداقل ۳ مدل مستقل واقعی را ثبت کن.",
+      "expected": "مدل‌های ساختگی و شناسهٔ خودرو وارد Telemetry نشوند.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M117",
+      "group": "J — Real closed Beta (future, not existing evidence)",
+      "kind": "CONTROLLED_BETA",
+      "title": "پنجرهٔ ۱۴روزه",
+      "procedure": "T0 واقعی UTC و دو هفتهٔ [۷روز،۷روز) را ثبت کن.",
+      "expected": "هیچ رخداد بیرون پنجره یا روز مرزی دوبار شمرده نشود.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M118",
+      "group": "J — Real closed Beta (future, not existing evidence)",
+      "kind": "CONTROLLED_BETA",
+      "title": "جمعیت کاربران واقعی",
+      "procedure": "W1/W2 distinct actives و returning را از شواهد دارای رضایت reconcile کن.",
+      "expected": "هشت event بی‌هویت به‌تنهایی join افراد را اثبات نمی‌کند.",
+      "acceptance_criteria": [
+        "AC11",
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M119",
+      "group": "J — Real closed Beta (future, not existing evidence)",
+      "kind": "CONTROLLED_BETA",
+      "title": "امضای رضایت/نگهداری",
+      "procedure": "مجوزهای Product/Privacy/Legal و TTL مثبت مصوب را بررسی کن.",
+      "expected": "تا نبود مصوبه چهارگانه جمع‌آوری OFF می‌ماند.",
+      "acceptance_criteria": [
+        "AC04",
+        "AC06",
+        "AC07"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M120",
+      "group": "J — Real closed Beta (future, not existing evidence)",
+      "kind": "CONTROLLED_BETA",
+      "title": "مطابقت همهٔ ACها",
+      "procedure": "۱۴ معیار Issue #12 را با evidence مستقل و نتیجهٔ واقعی بازبینی کن.",
+      "expected": "هیچ AC بدون شاهد TESTED/PASS نشود؛ تصمیم GO/Iterate/Stop انسانی است.",
+      "acceptance_criteria": [
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    },
+    {
+      "id": "M121",
+      "group": "J — Real closed Beta (future, not existing evidence)",
+      "kind": "CONTROLLED_BETA",
+      "title": "آمادگی Merge و Close",
+      "procedure": "پیش از PR نهایی گزارش FAIL/NOT_VERIFIED و #80/#82 را به مالک ارائه کن.",
+      "expected": "Merge/Close فقط با تأیید صریح مالک و رفع یا پذیرش مکتوب استثناء؛ Beta GO خودکار نیست.",
+      "acceptance_criteria": [
+        "AC14"
+      ],
+      "status": "NOT_RUN",
+      "observed": null,
+      "notes": null,
+      "evidence": null,
+      "device": null,
+      "apk_sha256": null,
+      "checked_at_utc": null
+    }
+  ],
+  "results_policy": "Never populate a case status from authored tests, synthetic fixture or code review alone; only independent executed evidence. Allowed case status NOT_RUN / PASS / FAIL / BLOCKED / REVIEW."
+}
