@@ -14,8 +14,13 @@ import com.latticeward.musiccopilot.quality.api.TelemetrySink
 class BestEffortQualityEventPublisher(
     private val privacyGate: TelemetryPrivacyGate,
     private val sink: TelemetrySink,
+    // P04: check the current consent/approval state BEFORE sanitization.
+    // Default preserves isolated legacy in-memory adapter fixtures only;
+    // production MUST supply fail-closed DiagnosticsCollectionAuthorization.
+    private val canCollect: () -> Boolean = { true },
 ) {
     fun tryRecord(event: TelemetryEvent): Boolean = try {
+        if (!canCollect()) return false
         when (val outcome = privacyGate.sanitize(event)) {
             is AppResult.Failure -> false
             is AppResult.Success -> try {
