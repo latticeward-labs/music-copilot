@@ -602,6 +602,7 @@ class MainActivity : ComponentActivity() {
                 onDrivingModeExplicitlyExited = bindings::recordExplicitDrivingExit,
                 onDrivingModeSystemInvalidated = bindings::recordDrivingSystemInvalidation,
                 onTerminalVoiceLabelDrawn = bindings::recordVisibleTerminalVoiceLabel,
+                onManualCommandAckLatency = bindings::recordVisibleManualAckLatency,
                 onArmVoiceManualCorrection = bindings::armExplicitManualCorrection,
                 onVerifiedManualCorrection = bindings::recordVerifiedManualCorrection,
                 onAbandonManualCorrection = bindings::abandonManualCorrection,
