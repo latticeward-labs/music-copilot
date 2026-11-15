@@ -149,6 +149,8 @@ fun AppNavHost(
     onDrivingMicPermissionTap: () -> Unit = {},
     onDrivingMicPermissionContinue: () -> Unit = {},
     onDrivingMicPermissionDismiss: () -> Unit = {},
+    // Coarse, source-allowlisted input from accepted user navigation only.
+    onDrivingModeEntered: (String) -> Unit = {},
 ) {
     val navController = rememberNavController()
     val visibleBackStackEntry by navController.currentBackStackEntryAsState()
@@ -206,6 +208,24 @@ fun AppNavHost(
     val drivingNavigation: DrivingNavigationViewModel = viewModel(
         key = "issue9-root-driving-navigation",
     )
+    // P05 single entry ownership for Library, Full Player and explicit BT
+    // invitation acceptance. The ViewModel admits ONE inactive->active edge.
+    // No effect/composition observer and no Bluetooth reconnect broadcasts
+    // are permitted to emit this event.
+    val enterDrivingOnce: (Destination, Boolean) -> Unit = { origin, allowed ->
+        if (drivingNavigation.enterFrom(origin, allowedByAppRoute = allowed)) {
+            val source = when (origin) {
+                Destination.Library -> "home"
+                Destination.FullPlayer -> "player"
+                else -> null
+            }
+            if (source != null) {
+                try { onDrivingModeEntered(source) } catch (_: Exception) {
+                    // Quality is strictly best-effort, not navigation authority.
+                }
+            }
+        }
+    }
     var manualFallback by rememberSaveable { mutableStateOf(false) }
     var settingsOpen by rememberSaveable { mutableStateOf(false) }
     var searchOpen by rememberSaveable { mutableStateOf(false) }
@@ -362,7 +382,7 @@ fun AppNavHost(
             // Identical P03 in-app user-origin entry; never play, toggle
             // pause, change route, request mic, start another Activity or
             // jump into Driving from a background Bluetooth broadcast.
-            drivingNavigation.enterFrom(origin, allowedByAppRoute = true)
+            enterDrivingOnce(origin, true)
             bluetoothSuggestionModel.accepted()
         } else bluetoothSuggestionModel.invalidate()
     }
@@ -482,9 +502,9 @@ fun AppNavHost(
                 onOpenPlayer = { playerOpen = true },
                 onTogglePlayback = playerModel::togglePlayPause,
                 onEnterDriving = {
-                    drivingNavigation.enterFrom(
+                    enterDrivingOnce(
                         Destination.Library,
-                        allowedByAppRoute = actualRoute == BootstrapRoute.HomeLibrary &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
                             permission == PermissionStatus.Granted &&
                             mediaRequestUi.outcome == MediaPermissionOutcome.None &&
                             !settingsOpen && !searchOpen && !replayingEducation &&
@@ -597,9 +617,9 @@ fun AppNavHost(
                                 // Finished/denied permission presentation must not
                                 // block ordinary Player -> Driving navigation.
                                 onPlayerMicPermissionDismiss()
-                                drivingNavigation.enterFrom(
+                                enterDrivingOnce(
                                     Destination.FullPlayer,
-                                    allowedByAppRoute = playerActive && playerOpen,
+                                    playerActive && playerOpen,
                                 )
                             }
                         },
