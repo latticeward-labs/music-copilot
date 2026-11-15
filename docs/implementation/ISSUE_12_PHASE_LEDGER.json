@@ -234,11 +234,23 @@
     {
       "phase": "P12",
       "title": "Settings, deletion, education & retention UX",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+      "evidence": [
+        "docs/implementation/ISSUE_12_P12_SETTINGS_PRIVACY_DELETION.md",
+        "app/src/main/java/com/latticeward/musiccopilot/core/application/privacy/LocalPrivacyClearContract.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/settings/privacy/PrivacyDiagnosticsSettingsSection.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/app/MainActivity.kt",
+        "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+        "app/src/main/res/values/strings.xml",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase12PrivacyClearContractTest.kt",
+        "app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase12PrivacySettingsWiringTest.kt"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "P12 source-authored Privacy/Diagnostics Settings in existing UF-12 route; truthful eight non-audio v1 events, real diagnostics consent status and separate mic/cloud choices, NO grant until P04 four approvals; JIT mic disclosure; independently confirmed CloudSpeechConsent revocation. New typed confirmation/clear/revoke callback paths backed by existing app-scoped repository job, synchronous P04 deny and P09 epoch+RAM scrub, awaited real DataStore acknowledgement, failure/partial/retry. No deletion on back/cancel, no protected MediaStore/Room/likes/queue/settings, no external deletion claim. Real short-history repository DOES NOT EXIST; history shown NOT STORED + disabled, typed requested clear UNAVAILABLE, never falsely claimed cleared or destroys queue. Real positive retention TTL, privacy notice/legal/processor and history owner still NOT APPROVED. 30 QA test methods AUTHORED NOT_RUN. No compile/tests/CI/Gradle/Actions/APK/PR/merge/Issue close; all 14 acceptance criteria NOT_VERIFIED."
     },
     {
       "phase": "P13",
@@ -378,7 +390,7 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01/P02 source documentation complete; P03–P11 source-implemented UNCOMPILED NOT_RUN; P12–P14 NOT_STARTED. P11 adds offline Product/QA three-panel weekly aggregate-only HTML generator and clearly SYNTHETIC fixture; generator NOT executed and no HTML output rendered, no real Beta data. Original PRD/MVP locked metrics, strict P95, unknowable denominators, no invented 50-person pilot, operator declarations not independently signed. P04 production authorizations FALSE/P09 NoOp. All 14 #12 AC NOT_VERIFIED; inherited #80/#82 remain OPEN. No tests/compile/build/CI/Actions/APK/PR/merge/issue close.",
+  "notes": "P01/P02 docs complete; P03–P12 source-implemented UNCOMPILED NOT_RUN; P13–P14 NOT_STARTED. P12 Settings/UF-12 actual diagnostic clear/revoke/cloud consent callbacks, JIT voice disclosure and protected categories. No history repository exists; disabled truthful NOT STORED status; no fabricated retention/provider/legal approval, remote deletion or app-stored personal data. P04 approvals FALSE/P09 NoOp production. 30 new QA source tests authored, 0 executed. All 14 AC NOT_VERIFIED; inherited #80/#82 unresolved. No tests/compilation/Gradle/CI/Actions/APK/PR/merge/close.",
   "p02_metric_dictionary": {
     "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
     "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
@@ -728,5 +740,49 @@
     "external_export": "NONE",
     "privacy_controls_user_ui": "P12_NOT_STARTED",
     "all_acceptance_criteria": "NOT_VERIFIED"
+  },
+  "p12_settings_consent_and_clear": {
+    "status": "SOURCE_IMPLEMENTED_UNCOMPILED_NOT_RUN",
+    "spec": "docs/implementation/ISSUE_12_P12_SETTINGS_PRIVACY_DELETION.md",
+    "screen": "app/src/main/java/com/latticeward/musiccopilot/feature/settings/privacy/PrivacyDiagnosticsSettingsSection.kt",
+    "settings_route": "app/src/main/java/com/latticeward/musiccopilot/app/navigation/AppNavHost.kt",
+    "application_owner": "app/src/main/java/com/latticeward/musiccopilot/app/di/ApplicationBindings.kt",
+    "typed_contract": "app/src/main/java/com/latticeward/musiccopilot/core/application/privacy/LocalPrivacyClearContract.kt",
+    "jittest_copy": "app/src/main/java/com/latticeward/musiccopilot/feature/voice/VoiceSessionPanel.kt",
+    "data_categories": [
+      "DIAGNOSTICS_CLEARABLE_RAM",
+      "SHORT_HISTORY_NOT_IMPLEMENTED_DISABLED"
+    ],
+    "current_history_owner": "NONE_NO_HISTORY_DAO_DATASTORE_OR_TABLE",
+    "history_clear": "UNAVAILABLE_NOT_CLAIMED_CLEARED",
+    "selection_initial_state": "NOT_SELECTED",
+    "confirmation": "REQUIRED_SEPARATE_ALERT_DIALOG_BEFORE_ERASE_OR_REVOKE",
+    "cancel_back": "NO_MUTATION",
+    "local_diagnostics_clear": "P09_SYNCHRONOUS_EPOCH_QUEUE_CRASH_HISTOGRAM_PURGE_WITH_TRUE_FALSE_RESULT",
+    "revoke_non_audio_consent": "P04_SYNCHRONOUS_DENIAL_BEFORE_ASYNC_DATASTORE_WITH_ACK_RESULT",
+    "cloud_speech_consent": "INDEPENDENT_DATASTORE_RESULT_REVOKE_NO_PROVIDER",
+    "android_mic_permission": "OS_TRUTH_NO_SETTINGS_CONTROL_SIDE_EFFECT",
+    "protected": [
+      "USER_MEDIASTORE_AUDIO",
+      "ROOM_DERIVED_INDEX",
+      "LIKES",
+      "RESTORABLE_AND_LIVE_QUEUE",
+      "PREFERENCES",
+      "BLUETOOTH_SELECTION",
+      "CLOUD_STT_CONSENT_WHEN_CLEARING_DIAGNOSTICS",
+      "PLAYBACK_SERVICE"
+    ],
+    "remote_diagnostics": "NO_PROVIDER_NO_REMOTE_ERASE_CLAIM",
+    "positive_retention_days": "NOT_APPROVED_NO_FABRICATED_TTL",
+    "privacy_notice_approval": "NOT_APPROVED",
+    "provider_legal_retention_approvals": "ALL_FALSE",
+    "allow_diagnostics_grant": false,
+    "backend_or_network_transport": false,
+    "unverified_device_talkback_scale": "P14_OWNER_PHONE_QA_PENDING",
+    "qa_cases_authored": 30,
+    "qa_cases_run": 0,
+    "compiled": false,
+    "apk": "NOT_BUILT",
+    "all_ac": "NOT_VERIFIED"
   }
 }
