@@ -1,0 +1,187 @@
+{
+  "schema": "music-copilot-weekly-aggregate-v1",
+  "dataset_kind": "SYNTHETIC",
+  "evidence_source": "SYNTHETIC_FIXTURE",
+  "pilot_t0_utc": "2026-01-01T00:00:00Z",
+  "cohort": {
+    "qualified_enrolled": 50,
+    "consented": 46,
+    "withdrawn": 1,
+    "distinct_vehicle_models": 3,
+    "days_observed": 14,
+    "week1_active": 40,
+    "week2_active": 29
+  },
+  "review": {
+    "qa": false,
+    "product": false,
+    "privacy": false,
+    "retention": false,
+    "cohort_reconciled": false,
+    "intent_labels": false,
+    "voice_boundary": false,
+    "local_ack_coverage": false,
+    "player_severity": false,
+    "crash_reconciled": false
+  },
+  "coverage": {
+    "queue_drops": 2,
+    "ring_evictions": 5,
+    "missing_participant_reports": 7,
+    "unreconciled_attempts": 4,
+    "invalid_unresolved": 1,
+    "deduplicated": 3
+  },
+  "weeks": [
+    {
+      "index": 1,
+      "sessions": {
+        "started": 70,
+        "completed": 65,
+        "verified_crashed": 1,
+        "unknown": 4,
+        "voice_driving_sessions": 34,
+        "voice_adoption_unknown": 5
+      },
+      "counts": {
+        "NS01": {
+          "yes": 22,
+          "no": 15,
+          "unknown": 3
+        },
+        "Q01": {
+          "yes": 88,
+          "no": 7,
+          "unknown": 5
+        },
+        "F01": {
+          "yes": 10,
+          "no": 86,
+          "unknown": 4
+        },
+        "G01": {
+          "yes": 2,
+          "no": 92,
+          "unknown": 6
+        },
+        "S01": {
+          "yes": 65,
+          "no": 1,
+          "unknown": 4
+        }
+      },
+      "latency": {
+        "P01": {
+          "below_target": 43,
+          "at_or_above": 2,
+          "unknown": 5,
+          "boundary": "PROXY_VAD_TO_COMPOSE_DRAW"
+        },
+        "P02": {
+          "below_target": 61,
+          "at_or_above": 4,
+          "unknown": 5,
+          "boundary": "PARTIAL_UI_TO_ACK"
+        }
+      },
+      "critical_errors": {
+        "incidents": 2,
+        "started_verified": 66,
+        "started_unknown": 4
+      },
+      "observed_events": {
+        "driving_mode_started": 70,
+        "voice_button_pressed": 78,
+        "intent_detected": 69,
+        "intent_failed": 10,
+        "command_executed": 62,
+        "manual_correction": 10,
+        "player_error": 2,
+        "session_completed": 65
+      }
+    },
+    {
+      "index": 2,
+      "sessions": {
+        "started": 57,
+        "completed": 55,
+        "verified_crashed": 0,
+        "unknown": 2,
+        "voice_driving_sessions": 28,
+        "voice_adoption_unknown": 2
+      },
+      "counts": {
+        "NS01": {
+          "yes": 15,
+          "no": 11,
+          "unknown": 3
+        },
+        "Q01": {
+          "yes": 72,
+          "no": 12,
+          "unknown": 6
+        },
+        "F01": {
+          "yes": 12,
+          "no": 70,
+          "unknown": 8
+        },
+        "G01": {
+          "yes": 2,
+          "no": 82,
+          "unknown": 6
+        },
+        "S01": {
+          "yes": 55,
+          "no": 0,
+          "unknown": 2
+        }
+      },
+      "latency": {
+        "P01": {
+          "below_target": 30,
+          "at_or_above": 5,
+          "unknown": 5,
+          "boundary": "PROXY_VAD_TO_COMPOSE_DRAW"
+        },
+        "P02": {
+          "below_target": 48,
+          "at_or_above": 5,
+          "unknown": 4,
+          "boundary": "PARTIAL_UI_TO_ACK"
+        }
+      },
+      "critical_errors": {
+        "incidents": 0,
+        "started_verified": 55,
+        "started_unknown": 2
+      },
+      "observed_events": {
+        "driving_mode_started": 57,
+        "voice_button_pressed": 60,
+        "intent_detected": 50,
+        "intent_failed": 12,
+        "command_executed": 45,
+        "manual_correction": 12,
+        "player_error": 1,
+        "session_completed": 55
+      }
+    }
+  ],
+  "cross_week": {
+    "R01": {
+      "yes": 25,
+      "no": 11,
+      "unknown": 4
+    },
+    "R02": {
+      "yes": 24,
+      "no": 21,
+      "unknown": 5
+    }
+  },
+  "open_blockers": [
+    "LAB_VOICE_GATE_ISSUE80",
+    "ARTIST_QA_ISSUE82"
+  ]
+}
