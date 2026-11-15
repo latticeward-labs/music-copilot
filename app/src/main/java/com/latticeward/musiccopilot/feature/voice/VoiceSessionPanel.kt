@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -61,6 +62,9 @@ fun VoiceSessionPanel(
     // P06: explicit user decision only, never a background/automatic
     // correction. A later service ACK is still required for telemetry.
     onCorrectManually: (() -> Unit)? = null,
+    // P10: first terminal heading DRAW only. Coordinator claims one valid
+    // attempt; Compose must not invent a success from Processing/Confirming.
+    onTerminalLabelDrawn: ((VoiceSessionState) -> Unit)? = null,
     // Nullable rather than no-op: when a caller has not wired P08, the
     // choices remain visibly disabled instead of pretending to do something.
     onConfirm: ((VoiceCandidateToken, Int) -> Unit)? = null,
@@ -137,6 +141,13 @@ fun VoiceSessionPanel(
         Text(
             text = headingText,
             modifier = Modifier.fillMaxWidth()
+                .drawWithContent {
+                    drawContent()
+                    if ((state is VoiceSessionState.Executed ||
+                            state is VoiceSessionState.Failed) &&
+                        onTerminalLabelDrawn != null
+                    ) onTerminalLabelDrawn(state)
+                }
                 .focusRequester(focusRequester)
                 .focusable()
                 .semantics {
