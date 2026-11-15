@@ -75,6 +75,12 @@ import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecisi
 import com.latticeward.musiccopilot.core.application.voice.VoicePrivacyDiagnosticsPolicy
 import com.latticeward.musiccopilot.core.application.voice.LocalVoiceDiagnostic
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
+import com.latticeward.musiccopilot.core.application.privacy.LocalPrivacyClearSelection
+import com.latticeward.musiccopilot.core.application.privacy.LocalPrivacyClearReport
+import com.latticeward.musiccopilot.core.application.privacy.LocalClearCategoryResult
+import com.latticeward.musiccopilot.core.application.privacy.DiagnosticsRevocationReport
+import com.latticeward.musiccopilot.core.application.privacy.ShortHistoryAvailability
+import com.latticeward.musiccopilot.feature.settings.privacy.PrivacyDiagnosticsSettingsSection
 import com.latticeward.musiccopilot.data.api.PreferencesRepository
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
 import com.latticeward.musiccopilot.app.platform.bluetooth.AndroidPairedAudioDeviceSource
@@ -170,6 +176,24 @@ fun AppNavHost(
     onArmVoiceManualCorrection: (VoiceOrigin) -> Boolean = { false },
     onVerifiedManualCorrection: (VoiceOrigin, VoiceManualCorrectionCategory) -> Unit = { _, _ -> },
     onAbandonManualCorrection: () -> Unit = {},
+    // P12: app-owned deletion and denial-first consent revocation remain
+    // outside this composable. Defaults fail closed for preview/fake callers.
+    shortHistoryAvailability: ShortHistoryAvailability =
+        ShortHistoryAvailability.NOT_STORED_IN_CURRENT_BUILD,
+    onClearSelectedAppData: (
+        LocalPrivacyClearSelection, (LocalPrivacyClearReport) -> Unit
+    ) -> Unit = { selection, completed ->
+        completed(LocalPrivacyClearReport(
+            shortHistory = if (selection.shortHistory)
+                LocalClearCategoryResult.UNAVAILABLE
+                else LocalClearCategoryResult.NOT_SELECTED,
+            diagnostics = if (selection.diagnostics)
+                LocalClearCategoryResult.FAILED
+                else LocalClearCategoryResult.NOT_SELECTED,
+        ))
+    },
+    onRevokeDiagnosticsConsent: ((DiagnosticsRevocationReport) -> Unit) -> Unit =
+        { completed -> completed(DiagnosticsRevocationReport(false, false)) },
 ) {
     val navController = rememberNavController()
     val visibleBackStackEntry by navController.currentBackStackEntryAsState()
@@ -1068,6 +1092,17 @@ fun AppNavHost(
                     ) {
                         Text(stringResource(R.string.p10_revoke_cloud_consent))
                     }
+                    // Issue #12 P12: WF-10/UF-12 local clear, separate
+                    // non-audio diagnostics consent, and truthful retention.
+                    // Existing cloud consent is separately handled above.
+                    PrivacyDiagnosticsSettingsSection(
+                        diagnosticsConsent = storedBluetoothPreferences.diagnosticsConsent,
+                        preferencesReady = bluetoothStorageState == PreferencesLoadState.Ready,
+                        microphoneGranted = microphoneGranted,
+                        shortHistoryAvailability = shortHistoryAvailability,
+                        onClearSelected = onClearSelectedAppData,
+                        onRevokeDiagnostics = onRevokeDiagnosticsConsent,
+                    )
                 },
             )
         }
