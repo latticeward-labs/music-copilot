@@ -46,6 +46,8 @@ import com.latticeward.musiccopilot.quality.api.TelemetryPlaybackState
 import com.latticeward.musiccopilot.quality.api.VoiceManualCorrectionCategory
 import com.latticeward.musiccopilot.voice.api.VoiceOrigin
 import kotlinx.coroutines.channels.Channel
+import java.util.concurrent.atomic.AtomicLong
+import com.latticeward.musiccopilot.quality.api.LocalDiagnosticsSummary
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
@@ -96,7 +98,12 @@ class ApplicationBindings(
     // P06: process-local bounded Quality queue. Exactly one consumer
     // preserves per-attempt source order without delaying Voice/Media3.
     // On overflow drop, never suspend or persist; P10 tracks unknown loss.
-    private val diagnosticEvents = Channel<TelemetryEvent>(capacity = 64)
+    // P09: epoch guards make user clear/revocation a hard boundary even
+    // for already queued events. This is process-only, never a user ID.
+    private data class PendingDiagnostic(val epoch: Long, val event: TelemetryEvent)
+    private val diagnosticsEpoch = AtomicLong(0L)
+    private val diagnosticsDeliveryLock = Any()
+    private val diagnosticEvents = Channel<PendingDiagnostic>(capacity = 64)
     private val correctionOwner = ExplicitManualCorrectionOwner(
         nowElapsedMs = { android.os.SystemClock.elapsedRealtime() }
     )
@@ -112,6 +119,11 @@ class ApplicationBindings(
     // revocation latch is synchronous even before the DataStore edit completes.
     val diagnosticsCollectionAuthorization =
         QualityBindings.authorization(preferencesRepository)
+
+    // P09: capped RAM adapter exists for a reviewed future MemoryOnly mode.
+    // Production still selects NoOp, and all P04 approvals stay FALSE.
+    private val localDiagnosticsStore =
+        QualityBindings.localStore(diagnosticsCollectionAuthorization)
 
     // P07: source-only RAM crash classification. No SDK/automatic uncaught
     // handler, file, user identifier or remote sink. Production consent and
@@ -216,9 +228,7 @@ class ApplicationBindings(
      */
     fun revokeDiagnosticsConsent() {
         diagnosticsCollectionAuthorization.requestImmediateRevocation()
-        correctionOwner.clear() // do not retain correction intent after revoke
-        drivingSessionOwner.forgetForPrivacy()
-        crashEvidenceReporter.clear() // discard even in-process safe evidence
+        clearLocalDiagnostics() // synchronous privacy scrub, then async DataStore
         repositoryScope.launch {
             preferencesRepository.update(
                 PreferenceUpdate.SetDiagnosticsConsent(DiagnosticsConsent.Revoked)
@@ -234,17 +244,59 @@ class ApplicationBindings(
     }
 
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
-    val telemetrySink: TelemetrySink =
-        QualityBindings.sink(diagnosticsCollectionAuthorization)
+    val telemetrySink: TelemetrySink = QualityBindings.sink(
+        diagnosticsCollectionAuthorization, localDiagnosticsStore
+    )
     val qualityEventPublisher = QualityBindings.publisher(
         telemetryPrivacyGate, telemetrySink, diagnosticsCollectionAuthorization
     )
     private val diagnosticDrain = applicationScope.launch(Dispatchers.Default) {
-        for (event in diagnosticEvents) {
-            try { qualityEventPublisher.tryRecord(event) }
-            catch (_: Exception) { /* no log, no retry, no product effect */ }
+        for (pending in diagnosticEvents) {
+            try {
+                // Serialize only this memory/NoOp publisher with explicit
+                // clear. Old queue generation cannot reappear after erase.
+                synchronized(diagnosticsDeliveryLock) {
+                    if (pending.epoch == diagnosticsEpoch.get() &&
+                        diagnosticsCollectionAuthorization.canCollect()
+                    ) qualityEventPublisher.tryRecord(pending.event)
+                }
+            } catch (_: Exception) {
+                // No log/provider exception may change user playback.
+            }
         }
     }
+
+    /**
+     * P09: explicitly erase all applicable local diagnostics without touching
+     * cloud speech consent, settings, short user history, likes, queue,
+     * MediaStore files, playback or microphone permissions.
+     *
+     * Current product uses NoOp (no external collector), therefore no remote
+     * deletion is possible or claimed. If a remote provider is ever approved,
+     * that provider needs a distinct reviewed deletion status and workflow.
+     */
+    fun clearLocalDiagnostics(): Boolean = try {
+        synchronized(diagnosticsDeliveryLock) {
+            diagnosticsEpoch.incrementAndGet()
+            while (diagnosticEvents.tryReceive().isSuccess) {
+                // Drop already queued typed envelopes, never copy/log them.
+            }
+            localDiagnosticsStore.clear()
+            crashEvidenceReporter.clear()
+            correctionOwner.clear()
+            drivingSessionOwner.forgetForPrivacy()
+        }
+        true
+    } catch (_: Exception) {
+        // P12 must show retry, never claim a deletion that cannot be proven.
+        false
+    }
+
+    /** P10/P12: only an authorized local aggregate, never event payloads. */
+    fun localDiagnosticsSummaryIfApproved(): LocalDiagnosticsSummary? =
+        if (QualityBindings.PRODUCTION_LOCAL_DIAGNOSTICS_MODE ==
+            LocalDiagnosticsProviderMode.MemoryOnly
+        ) localDiagnosticsStore.summaryIfAuthorized() else null
 
     /**
      * P05: only the existing Voice owner's accepted start/retry result
@@ -263,7 +315,9 @@ class ApplicationBindings(
     private fun queueApprovedDiagnostic(event: TelemetryEvent) {
         if (!diagnosticsCollectionAuthorization.canCollect()) return
         try {
-            diagnosticEvents.trySend(event) // bounded, never suspend or block
+            diagnosticEvents.trySend(
+                PendingDiagnostic(diagnosticsEpoch.get(), event)
+            ) // bounded, never suspend or block
         } catch (_: Exception) {
             // No Quality failure affects navigation, speech or playback.
         }
@@ -540,9 +594,7 @@ class ApplicationBindings(
 
     override fun close() {
         uiVoiceStarted = false
-        correctionOwner.clear()
-        drivingSessionOwner.forgetForPrivacy()
-        crashEvidenceReporter.clear()
+        clearLocalDiagnostics()
         diagnosticEvents.close()
         selectedBluetoothConnection.close()
         voiceOwner.close()
