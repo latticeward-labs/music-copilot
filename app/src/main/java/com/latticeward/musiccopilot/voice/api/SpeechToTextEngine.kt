@@ -15,7 +15,11 @@ enum class SpeechEndpointQuality { VAD_DETECTED, ANDROID_RECOGNIZER_DETECTED }
 data class SpeechEndpointEvidence(
     val elapsedRealtimeNanos: Long,
     val quality: SpeechEndpointQuality,
-)
+) {
+    // A default data-class toString would leak a raw timing marker into
+    // accidental crash/log breadcrumbs. Never format the raw timestamp.
+    override fun toString(): String = "SpeechEndpointEvidence(redacted)"
+}
 
 data class SpeechRecognitionRequest(
     val sessionId: VoiceSessionId,
@@ -23,7 +27,9 @@ data class SpeechRecognitionRequest(
     val maxListeningMs: Long = 6_000L,
     // Ephemeral one-attempt callback; no ID/time is serialized or logged.
     val onEndpointSignal: ((SpeechEndpointEvidence) -> Unit)? = null,
-)
+) {
+    override fun toString(): String = "SpeechRecognitionRequest(redacted)"
+}
 
 /**
  * Ephemeral in-memory provider result. Data-class default toString would
