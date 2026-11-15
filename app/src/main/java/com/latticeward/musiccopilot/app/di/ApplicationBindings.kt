@@ -12,6 +12,7 @@ import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConn
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechConsentPolicy
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
+import com.latticeward.musiccopilot.data.api.DiagnosticsConsent
 import com.latticeward.musiccopilot.data.api.PreferenceUpdate
 import com.latticeward.musiccopilot.core.application.library.LibraryScanUseCase
 import com.latticeward.musiccopilot.core.application.library.LibraryScanLaunchGate
@@ -74,6 +75,12 @@ class ApplicationBindings(
     val libraryRepository: LibraryRepository = dataComponents.library
     val preferencesRepository: PreferencesRepository = dataComponents.preferences
     val restorableQueueStore: RestorableQueueStore = dataComponents.restorableQueue
+
+    // Issue #12 P04: separate diagnostic consent, NO audio/cloud association.
+    // Always fail closed until Product/Privacy/Legal signoff. The in-memory
+    // revocation latch is synchronous even before the DataStore edit completes.
+    val diagnosticsCollectionAuthorization =
+        QualityBindings.authorization(preferencesRepository)
 
     // P10: app-scoped, but Android Bluetooth callbacks exist ONLY while the
     // Activity is foreground and a user-selected saved audio token is valid.
@@ -160,6 +167,20 @@ class ApplicationBindings(
             drivingMode = false,
         )
 
+    /**
+     * Immediately stop diagnostics BEFORE asynchronous DataStore persistence.
+     * This method cannot modify Android permissions, STT/cloud consent,
+     * user music or Media3. P12 must surface persistence failures in Settings.
+     */
+    fun revokeDiagnosticsConsent() {
+        diagnosticsCollectionAuthorization.requestImmediateRevocation()
+        repositoryScope.launch {
+            preferencesRepository.update(
+                PreferenceUpdate.SetDiagnosticsConsent(DiagnosticsConsent.Revoked)
+            )
+        }
+    }
+
     /** Revocation is a local DataStore preference, never an Android permission. */
     fun revokeCloudSpeechConsent() {
         repositoryScope.launch {
@@ -168,8 +189,11 @@ class ApplicationBindings(
     }
 
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
-    val telemetrySink: TelemetrySink = QualityBindings.sink()
-    val qualityEventPublisher = QualityBindings.publisher(telemetryPrivacyGate, telemetrySink)
+    val telemetrySink: TelemetrySink =
+        QualityBindings.sink(diagnosticsCollectionAuthorization)
+    val qualityEventPublisher = QualityBindings.publisher(
+        telemetryPrivacyGate, telemetrySink, diagnosticsCollectionAuthorization
+    )
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
     private val mediaAppContext = context?.applicationContext
