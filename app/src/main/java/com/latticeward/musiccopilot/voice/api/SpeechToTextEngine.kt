@@ -3,10 +3,26 @@ package com.latticeward.musiccopilot.voice.api
 import com.latticeward.musiccopilot.core.model.VoiceSessionId
 import com.latticeward.musiccopilot.core.result.AppResult
 
+/**
+ * Issue #12 P10: source category of a transient endpoint marker.
+ * A VAD/onEndOfSpeech CALLBACK is an endpoint SIGNAL and may occur AFTER the
+ * physical last speech sample (e.g. Silero's configured silence window).
+ * None of these provider categories are accepted as independently verified
+ * acoustic speech-end without a separate calibrated device/QA annotation.
+ */
+enum class SpeechEndpointQuality { VAD_DETECTED, ANDROID_RECOGNIZER_DETECTED }
+
+data class SpeechEndpointEvidence(
+    val elapsedRealtimeNanos: Long,
+    val quality: SpeechEndpointQuality,
+)
+
 data class SpeechRecognitionRequest(
     val sessionId: VoiceSessionId,
     val languageTag: String,
     val maxListeningMs: Long = 6_000L,
+    // Ephemeral one-attempt callback; no ID/time is serialized or logged.
+    val onEndpointSignal: ((SpeechEndpointEvidence) -> Unit)? = null,
 )
 
 /**
