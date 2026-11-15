@@ -194,6 +194,7 @@ class ApplicationBindings(
      */
     fun revokeDiagnosticsConsent() {
         diagnosticsCollectionAuthorization.requestImmediateRevocation()
+        correctionOwner.clear() // do not retain correction intent after revoke
         repositoryScope.launch {
             preferencesRepository.update(
                 PreferenceUpdate.SetDiagnosticsConsent(DiagnosticsConsent.Revoked)
