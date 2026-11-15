@@ -143,6 +143,25 @@ class DefaultVoiceSessionCoordinator(
         get() = synchronized(gate) { childJob }
 
     /**
+     * P06: optional, read-only coarse intent for EXPLICIT user-initiated
+     * manual correction. Only a terminal state from the same origin and
+     * session is eligible. No transcript, artist, receipt or session ID
+     * crosses this boundary. Caller must still wait for actual manual ACK.
+     */
+    fun acceptedTerminalIntentForCorrection(origin: VoiceOrigin): VoiceDiagnosticIntent? =
+        synchronized(gate) {
+            val terminal = when (val state = mutableState.value) {
+                is VoiceSessionState.Executed ->
+                    state.origin == origin && state.sessionId == currentId
+                is VoiceSessionState.Failed ->
+                    state.origin == origin && state.sessionId == currentId
+                else -> false
+            }
+            if (!terminal) null
+            else telemetryIntent?.name?.let { VoiceDiagnosticIntent.valueOf(it) }
+        }
+
+    /**
      * P10: one active generation is exclusive even before Compose collects its
      * new state. A second tap can NEVER silently replace active STT or TTS.
      * The user first explicitly exits/cancels to Idle, then taps Mic again.
