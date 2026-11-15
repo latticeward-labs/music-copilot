@@ -11,7 +11,7 @@ import com.latticeward.musiccopilot.quality.api.TelemetryPrivacyGate
  * Pure, deny-by-default diagnostic boundary. All output values derive from
  * closed Kotlin enums, stable code sets, booleans or explicitly bounded counts.
  * This class never echoes rejected values, throws a provider exception or logs.
- * Output is a private schema wire code, NOT an arbitrary JSON or dynamic map.
+ * Only the eight product-approved families can be serialized. Values are\n * constrained to closed Kotlin enums, stable codes and bounded buckets.\n * No arbitrary JSON, free-form fields or ninth diagnostic export.
  */
 class AllowlistedTelemetryPrivacyGate : TelemetryPrivacyGate {
     override fun sanitize(event: TelemetryEvent): AppResult<SanitizedTelemetryEvent> {
@@ -28,14 +28,11 @@ class AllowlistedTelemetryPrivacyGate : TelemetryPrivacyGate {
                     "playback_state" to event.playbackState.name)
 
             is TelemetryEvent.VoiceIntentOutcome ->
-                // All inputs are closed Kotlin enums; there is no arbitrary
-                // parameter map or personal metadata to echo or sanitize.
-                wire("voice_intent_outcome",
-                    "intent_type" to event.intentType.name,
-                    "confidence_bucket" to (event.confidenceBucket?.name ?: "none"),
-                    "latency_bucket" to (event.latencyBucket?.name ?: "none"),
-                    "result_code" to event.resultCode.name,
-                    "correction_category" to (event.correctionCategory?.name ?: "none"))
+                // Issue #11's ninth diagnostic is PRIVATE and does not belong
+                // to the eight externally authorized v1.0 event families.
+                // P06 may project verified results into approved events.
+                // Deny even to a fake/accidentally connected future sink.
+                null
 
             is TelemetryEvent.IntentDetected ->
                 if (event.intentType in INTENTS)
@@ -87,11 +84,8 @@ class AllowlistedTelemetryPrivacyGate : TelemetryPrivacyGate {
         else AppResult.Failure(AppError.Quality(AppErrorCodes.QUALITY_DROPPED))
     }
 
-    private fun wire(event: String, vararg attributes: Pair<String, String>): String =
-        buildString {
-            append("v1|").append(event)
-            attributes.forEach { (key, value) -> append('|').append(key).append('=').append(value) }
-        }
+    private fun wire(event: String, vararg attributes: Pair<String, String>): String? =
+        OutboundTelemetrySchemaV1.encode(event, attributes)
 
     companion object {
         /** Subject to later product/privacy review, not remote-configurable. */
