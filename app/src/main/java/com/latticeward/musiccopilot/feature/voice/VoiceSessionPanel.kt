@@ -165,6 +165,17 @@ fun VoiceSessionPanel(
             style = MusicTextStyles.bodyMedium,
             textAlign = alignment,
         )
+        // P12: just-in-time privacy disclosure BEFORE the Android
+        // microphone dialog. No diagnostics opt-in is inferred from Mic.
+        if (projected.status == VoiceOverlayStatus.PermissionRationale) {
+            Text(
+                text = stringResource(R.string.i12_privacy_microphone_jit),
+                modifier = Modifier.fillMaxWidth(),
+                color = MusicColors.textSecondary,
+                style = MusicTextStyles.bodyMedium,
+                textAlign = alignment,
+            )
+        }
         if (projected.status == VoiceOverlayStatus.ConfirmationRequired &&
             confirming != null
         ) {
