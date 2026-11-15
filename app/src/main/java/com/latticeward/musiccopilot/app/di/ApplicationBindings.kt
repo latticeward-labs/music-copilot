@@ -9,6 +9,7 @@ import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCap
 import com.latticeward.musiccopilot.core.application.voice.VoiceLifecycleSafetyPolicy
 import com.latticeward.musiccopilot.core.application.voice.ObservedVoicePttCoordinator
 import com.latticeward.musiccopilot.core.application.voice.ExplicitManualCorrectionOwner
+import com.latticeward.musiccopilot.core.application.driving.DrivingSessionTelemetryOwner
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
 import com.latticeward.musiccopilot.app.platform.audio.CoarseBluetoothAudioOutput
@@ -99,6 +100,12 @@ class ApplicationBindings(
     private val correctionOwner = ExplicitManualCorrectionOwner(
         nowElapsedMs = { android.os.SystemClock.elapsedRealtime() }
     )
+    // P08: process-scoped and only live after an independently approved
+    // diagnostic Driving entry. Never a SavedState/session ID/Media3 owner.
+    // No durable recovery marker before P09 retention/Privacy approval.
+    private val drivingSessionOwner = DrivingSessionTelemetryOwner(
+        elapsedRealtimeMs = { android.os.SystemClock.elapsedRealtime() }
+    )
 
     // Issue #12 P04: separate diagnostic consent, NO audio/cloud association.
     // Always fail closed until Product/Privacy/Legal signoff. The in-memory
@@ -175,6 +182,7 @@ class ApplicationBindings(
             // The approved-event callback executes only a consent check
             // and bounded Channel.trySend; never a storage/provider call.
             tryRecordApprovedVoiceEvent = ::queueApprovedDiagnostic,
+            onAcknowledgedDrivingCommand = ::recordAcknowledgedDrivingVoiceCommand,
         )
 
     /**
@@ -209,6 +217,7 @@ class ApplicationBindings(
     fun revokeDiagnosticsConsent() {
         diagnosticsCollectionAuthorization.requestImmediateRevocation()
         correctionOwner.clear() // do not retain correction intent after revoke
+        drivingSessionOwner.forgetForPrivacy()
         crashEvidenceReporter.clear() // discard even in-process safe evidence
         repositoryScope.launch {
             preferencesRepository.update(
@@ -279,7 +288,15 @@ class ApplicationBindings(
     /** Invoked once only after DrivingNavigationViewModel accepts entry. */
     fun recordAcceptedDrivingEntry(entrySource: String) {
         correctionOwner.clear() // route transition cancels old attribution
-        if (!diagnosticsCollectionAuthorization.canCollect()) return
+        if (!diagnosticsCollectionAuthorization.canCollect()) {
+            drivingSessionOwner.forgetForPrivacy()
+            return
+        }
+        // P08: the UI has already admitted the inactive->active transition.
+        // Begin BEFORE the independent P05 Bluetooth observation: an OEM
+        // missing output query must not invent a failed or finished session.
+        // No identifier or storage is allocated; duplicate entries fail.
+        if (!drivingSessionOwner.beginFromAcceptedEntry()) return
         // Only AudioDeviceInfo.type is read at this explicit boundary, never
         // device name/address, selected BT token, call metadata or location.
         // The v1 event needs a boolean, so unknown hardware truth means DROP.
@@ -288,6 +305,41 @@ class ApplicationBindings(
         queueApprovedDiagnostic(
             TelemetryEvent.DrivingModeStarted(entrySource, connected)
         )
+    }
+
+    /**
+     * P08: called exclusively after the existing Voice owner accepted an
+     * actual Media3 ACK and transitioned to Executed. This is a cheap
+     * closed, in-memory counter, never a second observer of Media3.
+     */
+    private fun recordAcknowledgedDrivingVoiceCommand(origin: VoiceOrigin) {
+        if (!diagnosticsCollectionAuthorization.canCollect()) {
+            drivingSessionOwner.forgetForPrivacy()
+            return
+        }
+        drivingSessionOwner.noteAcknowledgedVoiceCommand(origin)
+    }
+
+    /**
+     * P08: ONLY explicit UI Exit / Android Back from a genuinely active
+     * DrivingNavigationViewModel can call this. A claimed session is removed
+     * BEFORE enqueue, so duplicate callbacks cannot emit two completions.
+     * We never infer clean completion from Activity.onStop/onDestroy.
+     */
+    fun recordExplicitDrivingExit() {
+        if (!diagnosticsCollectionAuthorization.canCollect()) {
+            drivingSessionOwner.forgetForPrivacy()
+            return
+        }
+        drivingSessionOwner.completeFromExplicitExit()?.let(::queueApprovedDiagnostic)
+    }
+
+    /**
+     * P08: invalid onboarding/permission/recovery route is not a user exit.
+     * Never synthesize duration, count, crash-free or session_completed.
+     */
+    fun recordDrivingSystemInvalidation() {
+        drivingSessionOwner.abandonWithoutCompletion()
     }
 
     /**
@@ -489,6 +541,7 @@ class ApplicationBindings(
     override fun close() {
         uiVoiceStarted = false
         correctionOwner.clear()
+        drivingSessionOwner.forgetForPrivacy()
         crashEvidenceReporter.clear()
         diagnosticEvents.close()
         selectedBluetoothConnection.close()
