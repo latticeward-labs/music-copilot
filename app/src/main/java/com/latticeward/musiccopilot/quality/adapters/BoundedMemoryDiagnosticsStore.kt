@@ -32,7 +32,7 @@ class BoundedMemoryDiagnosticsStore(
 
     override fun tryEmit(event: SanitizedTelemetryEvent): Boolean = try {
         synchronized(gate) {
-            if (!canCollect()) return@synchronized false
+            if (!authorizedOrPurgeLocked()) return@synchronized false
             // Defense in depth: even accidental direct calls cannot place
             // arbitrary event families/keys/values into this RAM buffer.
             val family = validateApprovedEnvelope(event) ?: return@synchronized false
@@ -49,7 +49,7 @@ class BoundedMemoryDiagnosticsStore(
 
     override fun summaryIfAuthorized(): LocalDiagnosticsSummary? = try {
         synchronized(gate) {
-            if (!canCollect()) null
+            if (!authorizedOrPurgeLocked()) null
             else LocalDiagnosticsSummary(
                 retainedEvents = ring.size,
                 acceptedSinceClear = accepted,
@@ -67,16 +67,32 @@ class BoundedMemoryDiagnosticsStore(
      */
     internal fun snapshotSanitizedForLocalProjection(): List<SanitizedTelemetryEvent>? =
         try {
-            synchronized(gate) { if (!canCollect()) null else ring.toList() }
+            synchronized(gate) {
+                if (!authorizedOrPurgeLocked()) null else ring.toList()
+            }
         } catch (_: Exception) { null }
 
     override fun clear() {
-        synchronized(gate) {
-            ring.clear()
-            counts.clear()
-            accepted = 0L
-            evicted = 0L
-        }
+        synchronized(gate) { clearLocked() }
+    }
+
+    private fun clearLocked() {
+        ring.clear()
+        counts.clear()
+        accepted = 0L
+        evicted = 0L
+    }
+
+    /**
+     * Consent can also change via the observable PreferencesRepository, not
+     * only the explicit Settings revoke callback. On ANY denied access,
+     * immediately wipe cached RAM observations, not merely hide the read.
+     * This is defense in depth; ApplicationBindings also scrubs on revoke.
+     */
+    private fun authorizedOrPurgeLocked(): Boolean {
+        val approved = try { canCollect() } catch (_: Exception) { false }
+        if (!approved) clearLocked()
+        return approved
     }
 
     private fun validateApprovedEnvelope(event: SanitizedTelemetryEvent): String? {
