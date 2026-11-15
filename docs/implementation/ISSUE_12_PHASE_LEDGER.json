@@ -32,11 +32,15 @@
     {
       "phase": "P02",
       "title": "Measurement dictionary & frozen success thresholds",
-      "status": "NOT_STARTED",
-      "evidence": [],
+      "status": "DOCUMENTED_SOURCE_ONLY",
+      "evidence": [
+        "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
+        "docs/implementation/ISSUE_12_PHASE_LEDGER.json"
+      ],
       "automated_tests": "NOT_RUN",
       "device_tests": "NOT_RUN",
-      "apk": "NOT_BUILT"
+      "apk": "NOT_BUILT",
+      "notes": "Product thresholds frozen from English PRD/MVP; metric formula/window/denominator engineering interpretations documented, some pending explicit Product/QA/Privacy approval; no test/build/SDK enabled."
     },
     {
       "phase": "P03",
@@ -266,5 +270,29 @@
     82
   ],
   "production_telemetry_collected": false,
-  "notes": "P01 is a static document/source audit, not functional verification; no tests/builds/CI were invoked."
+  "notes": "P01 and P02 documentation/source-only complete. No tests/CI/Gradle/APK, no external diagnostics or approvals asserted. P03 next. All fourteen Issue #12 acceptance criteria remain NOT_VERIFIED.",
+  "p02_metric_dictionary": {
+    "path": "docs/implementation/ISSUE_12_METRIC_DICTIONARY.md",
+    "product_thresholds_source": "English PRD v1 pp.9-10; English MVP v1 pp.2,7-11",
+    "product_metrics": [
+      "NS01",
+      "Q01",
+      "F01",
+      "G01",
+      "R01",
+      "R02",
+      "P01",
+      "P02",
+      "S01",
+      "S02",
+      "LAB01",
+      "BETA01",
+      "D01"
+    ],
+    "metric_calculation": "ENGINEERING_DEFINITIONS_DOCUMENTED_PENDING_REVIEW",
+    "product_thresholds": "SOURCE_FROZEN_NO_RUNTIME_RECONFIGURATION",
+    "measurements": "NO_LIVE_DATA_NOT_VERIFIED",
+    "missingness": "CONSERVATIVE_BOUNDS_DOCUMENTED",
+    "approvals": "PRODUCT_QA_PRIVACY_NOT_PROVIDED"
+  }
 }
