@@ -16,6 +16,7 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.data.api.AppPreferences
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
+import com.latticeward.musiccopilot.data.api.DiagnosticsConsent
 import com.latticeward.musiccopilot.data.api.FirstUsePage
 import com.latticeward.musiccopilot.data.api.PreferenceUpdate
 import com.latticeward.musiccopilot.data.api.PreferencesLoadState
@@ -48,6 +49,8 @@ class DataStorePreferencesRepository(
     private val onboardingStepKey = stringPreferencesKey("onboarding_checkpoint")
     private val bluetoothKey = stringPreferencesKey("bluetooth_hint")
     private val consentKey = stringPreferencesKey("cloud_speech_consent")
+    // Distinct storage key; older installations decode as NotAsked.
+    private val diagnosticsConsentKey = stringPreferencesKey("non_audio_diagnostics_consent")
 
     private val mutable = MutableStateFlow(AppPreferences(false, null, CloudSpeechConsent.NotAsked))
     override val preferences: StateFlow<AppPreferences> = mutable
@@ -78,6 +81,9 @@ class DataStorePreferencesRepository(
         cloudSpeechConsent = p[consentKey]?.let { value ->
             CloudSpeechConsent.entries.firstOrNull { it.name == value }
         } ?: CloudSpeechConsent.NotAsked,
+        diagnosticsConsent = p[diagnosticsConsentKey]?.let { saved ->
+            DiagnosticsConsent.entries.firstOrNull { it.name == saved }
+        } ?: DiagnosticsConsent.NotAsked, // Unknown/tampered value fails closed.
     )
 
     override suspend fun reload(): AppResult<AppPreferences> =
@@ -113,6 +119,8 @@ class DataStorePreferencesRepository(
                             else p[bluetoothKey] = update.value
                         is PreferenceUpdate.SetCloudSpeechConsent ->
                             p[consentKey] = update.value.name
+                        is PreferenceUpdate.SetDiagnosticsConsent ->
+                            p[diagnosticsConsentKey] = update.value.name
                     }
                 }
                 val saved = decode(committed)
