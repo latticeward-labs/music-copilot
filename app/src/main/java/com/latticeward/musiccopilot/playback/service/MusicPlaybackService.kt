@@ -29,6 +29,7 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.playback.api.PlaybackCommand
 import com.latticeward.musiccopilot.playback.api.PlaybackPlayOrigin
+import com.latticeward.musiccopilot.playback.api.PlaybackRuntimeDiagnosticHost
 import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionHost
 import com.latticeward.musiccopilot.playback.api.PlaybackVoiceInterruptionReason
 import com.latticeward.musiccopilot.playback.interruption.FocusCondition
@@ -87,6 +88,9 @@ class MusicPlaybackService : MediaSessionService() {
     private val maxVoiceDuckDurationMs = 22_000L
     private val projector = Media3SnapshotProjector()
     private var runtimeError: AppError? = null
+    // One observation gate for the SAME published authoritative snapshot.
+    // No second player, free-form exception payload or diagnostics SDK.
+    private val playerErrorEpisodeGate = ServicePlayerErrorEpisodeGate()
     private lateinit var pausedCheckpoint: ServicePausedCheckpoint
     private var restoreGeneration = 0L
     // P10: consecutive decoder failures have one bounded recovery budget.
@@ -1352,6 +1356,19 @@ class MusicPlaybackService : MediaSessionService() {
         confirmed = next
         session.setSessionExtras(wrap(next))
         if (::pausedCheckpoint.isInitialized) pausedCheckpoint.onSnapshot(next)
+        // P07: observe only an already committed service-owned snapshot.
+        // Main-looper episode gate suppresses repeated Media3 onEvents,
+        // duplicate recovery notices and re-published unchanged snapshots.
+        // The host can fail or be unavailable without altering Media3.
+        val code = playerErrorEpisodeGate.observe(next.lastError)
+        if (!serviceClosing && code != null) {
+            try {
+                (application as? PlaybackRuntimeDiagnosticHost)
+                    ?.observeServicePlayerError(code)
+            } catch (_: Exception) {
+                // Optional Quality may never interrupt or retry playback.
+            }
+        }
     }
 
     private fun wrap(snapshot: PlaybackSnapshot) = Bundle().apply {
