@@ -40,6 +40,7 @@ The **only outbound payload** remains the preapproved P03 eight-family `Telemetr
 | Rapid duplicate Driving tap / navigation recomposition | Existing active navigation guard | No new ticket, no repeat begin | No double session |
 | Rotation or configuration recreation retaining Activity-scoped ViewModel | Android normal configuration lifecycle | No end, no new begin; app graph and single owner remain | Screen recreation is not session termination |
 | App in background, Home, screen off, normal UI stop | `Activity.onStop` (existing) | **No clean completion and no abandon**; live in-RAM ticket remains if process alive | Audio may legitimately continue; no explicit Exit |
+| Activity definitively finishes without accepted Driving exit (not rotation) | MainActivity.onDestroy guarded by isFinishing && !isChangingConfigurations | Abandon as UNKNOWN, never session_completed | Prevent retained ticket when a new Activity starts within same live process; onDestroy not guaranteed on kill |
 | Phone call, focus/route or Bluetooth loss | Existing Media3/Voice interruption policy | No success or end; Driving navigation remains the arbiter. Voice may be canceled by existing safety logic | A paused/focus-suppressed song is not a finished journey |
 | One current Driving Voice command returned validated Media3 ACK | `DefaultVoiceSessionCoordinator.publishExecuted` after service ACK | App callback increments bounded counter **only for VoiceOrigin.Driving and active ticket** | Do not count detection, intention, TTS or permission prompt |
 | `PLAY_ARTIST` direct or confirmed successful Media3 ACK | Same existing `publishExecuted` | One bounded increment for that executed attempt | Choice alone is not a command execution |
@@ -64,9 +65,9 @@ The **only outbound payload** remains the preapproved P03 eight-family `Telemetr
 | `app/di/VoiceBindings.kt` | Forward the optional ACK-only callback without breaking old constructors/fixtures |
 | `app/di/ApplicationBindings.kt` | Own one telemetry session owner; begin after accepted P05 navigation entry, ACK count with live consent, publish only on explicit user exit, invalidate/forget without emit on forced route, revocation, close |
 | `app/navigation/AppNavHost.kt` | Existing Exit/Back shared lambda triggers a new optional `onDrivingModeExplicitlyExited` **after** actual active → inactive navigation; existing system invalidation effect calls `onDrivingModeSystemInvalidated` only if Driving was previously active. No observers in Compose recomposition/start/stop |
-| `app/MainActivity.kt` | Wire the two new callbacks to the same app-scoped bindings. No navigation or playback ownership change |
+| `app/MainActivity.kt` | Wire the two new callbacks to the same app-scoped bindings. A definitive Activity finish (not rotation) invalidates unfinished evidence without completion. No navigation or playback ownership change |
 | `app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase8DrivingSessionOwnerTest.kt` (new) | **17 authored, NOT_RUN** state, timing, overflow, privacy, duplicate, ACK and unknown cases |
-| `app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase8DrivingLifecycleContractTest.kt` (new) | **11 authored, NOT_RUN** wiring, rotation, focus, system invalidation, source safety and schema contract checks |
+| `app/src/test/java/com/latticeward/musiccopilot/foundation/Issue12Phase8DrivingLifecycleContractTest.kt` (new) | **12 authored, NOT_RUN** wiring, rotation, focus, system invalidation, source safety and schema contract checks |
 
 **No change** to any Media3 Service/player, playback command, queue, audio focus, Bluetooth route recovery, Vosk/Moonshine STT, intent grammar, PLAY_ARTIST algorithm, Room/MediaStore, onboarding or OS permission UX. No new analytics SDK or provider.
 
@@ -92,7 +93,7 @@ This phase adds **NO persistent marker**, because P09 has not yet approved the l
 - [x] Wired accepted explicit user entry, accepted current-generation Media3-backed Voice execution count, and accepted Exit/Back only.
 - [x] Treated rotation/background/focus/route interruptions as non-terminal, system/permission invalidation as UNKNOWN, and abnormal process death as unobserved UNKNOWN.
 - [x] No unapproved persistence, personal media identifiers, timestamp payloads or external transport.
-- [x] Authored 28 source test cases, including exact duration boundaries, 1001st-command overflow, stale/duplicate callbacks, permission/revoke and acceptance path.
+- [x] Authored 29 source test cases, including exact duration boundaries, 1001st-command overflow, stale/duplicate callbacks, permission/revoke and acceptance path.
 - [ ] **NO Kotlin/JVM, Android, emulator, lint or device test executed**. NO Gradle, GitHub Actions, APK build, PR, merge, issue close.
 - [ ] P09 approved retention and optional consented marker, P10 data completeness + North Star correctness, Product/Privacy/Legal signature and P14 physical-phone QA remain outstanding.
 - [ ] All 14 Issue #12 acceptance criteria remain `NOT_VERIFIED` pending final user-led QA and signoffs.
