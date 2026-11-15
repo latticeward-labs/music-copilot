@@ -126,29 +126,36 @@ class Issue11Phase11ArtistTelemetryPrivacyTest {
         }
     }
 
-    @Test fun encodedOutcomeContainsExactlyTheApprovedFiveFields() {
-        val encoded = safe(event(confidence = ConfidenceBucket.High,
-            latency = LatencyBucket.Slow))
-        assertEquals("v1|voice_intent_outcome|intent_type=PLAY_ARTIST|" +
-            "confidence_bucket=High|latency_bucket=Slow|result_code=NOT_FOUND|" +
-            "correction_category=none", encoded)
-        assertEquals(7, encoded.split("|").size)
+    @Test fun internalOutcomeHasFiveClosedFieldsButIsNotAnOutboundEvent() {
+        val outcome = event(confidence = ConfidenceBucket.High, latency = LatencyBucket.Slow)
+        assertEquals(VoiceDiagnosticIntent.PLAY_ARTIST, outcome.intentType)
+        assertEquals(ConfidenceBucket.High, outcome.confidenceBucket)
+        assertEquals(LatencyBucket.Slow, outcome.latencyBucket)
+        assertEquals(VoiceDiagnosticResult.NOT_FOUND, outcome.resultCode)
+        assertNull(outcome.correctionCategory)
+        // Issue #12 P03: ninth local diagnostic is not approved for outbound v1.
+        assertTrue(gate.sanitize(outcome) is AppResult.Failure)
     }
 
-    @Test fun unknownProviderConfidenceEncodesAsNone() {
-        assertTrue(safe(event()).contains("|confidence_bucket=none|"))
+    @Test fun unknownProviderConfidenceRemainsNullAndNotExportable() {
+        val outcome = event()
+        assertNull(outcome.confidenceBucket)
+        assertTrue(gate.sanitize(outcome) is AppResult.Failure)
     }
 
-    @Test fun unknownLatencyEncodesAsNone() {
-        assertTrue(safe(event()).contains("|latency_bucket=none|"))
+    @Test fun unknownLatencyRemainsNullAndNotExportable() {
+        val outcome = event()
+        assertNull(outcome.latencyBucket)
+        assertTrue(gate.sanitize(outcome) is AppResult.Failure)
     }
 
-    @Test fun eachResultRemainsAConstantSafeCategory() {
+    @Test fun eachInternalResultIsTypedAndNotOutbound() {
         for (result in VoiceDiagnosticResult.values()) {
             val outcome = event(result,
                 correction = if (result == VoiceDiagnosticResult.MANUAL_CORRECTION)
                     VoiceManualCorrectionCategory.MANUAL_SELECT else null)
-            assertTrue(safe(outcome).contains("|result_code=" + result.name + "|"))
+            assertEquals(result, outcome.resultCode)
+            assertTrue(gate.sanitize(outcome) is AppResult.Failure)
         }
     }
 
@@ -158,7 +165,9 @@ class Issue11Phase11ArtistTelemetryPrivacyTest {
             VoiceManualCorrectionCategory.MANUAL_SEARCH,
         )
         assertEquals(VoiceDiagnosticResult.MANUAL_CORRECTION, corrected.resultCode)
-        assertTrue(safe(corrected).endsWith("|correction_category=MANUAL_SEARCH"))
+        assertEquals(VoiceManualCorrectionCategory.MANUAL_SEARCH,
+            corrected.correctionCategory)
+        assertTrue(gate.sanitize(corrected) is AppResult.Failure)
     }
 
     @Test fun nonCorrectionCannotHideACorrectionCategory() {
@@ -216,9 +225,11 @@ class Issue11Phase11ArtistTelemetryPrivacyTest {
             null, null)) is AppResult.Failure)
     }
 
-    @Test fun noOpSinkDropsAllTypedResultsWithoutPersisting() {
-        val sanitized = gate.sanitize(event(VoiceDiagnosticResult.EXECUTED))
-        val approved = (sanitized as AppResult.Success).value
+    @Test fun noOpSinkDropsApprovedEventsAndNinthIsDeniedBeforeSink() {
+        val denied = gate.sanitize(event(VoiceDiagnosticResult.EXECUTED))
+        assertTrue(denied is AppResult.Failure)
+        val approved = (gate.sanitize(TelemetryEvent.CommandExecuted(
+            "PLAY_ARTIST", LatencyBucket.Expected)) as AppResult.Success).value
         repeat(5) { assertFalse(NoOpTelemetrySink().tryEmit(approved)) }
     }
 
@@ -229,7 +240,7 @@ class Issue11Phase11ArtistTelemetryPrivacyTest {
             }
         }
         assertFalse(BestEffortQualityEventPublisher(gate, throwing).tryRecord(
-            event(VoiceDiagnosticResult.EXECUTED)))
+            TelemetryEvent.CommandExecuted("PLAY_ARTIST", LatencyBucket.Expected)))
     }
 
     @Test fun throwingGateCannotReachSink() {
