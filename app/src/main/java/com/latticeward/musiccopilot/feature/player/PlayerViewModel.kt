@@ -71,6 +71,11 @@ class PlayerViewModel(
      */
     var onVerifiedManualAction: ((VoiceManualCorrectionCategory) -> Unit)? = null
 
+    // P10: visible manual input -> validated current Media3 ACK. Ephemeral
+    // elapsed ms, never a track/command/player ID; no second dispatcher.
+    // Failure/no ACK is marked UNKNOWN, not zero latency.
+    var onVerifiedManualAckLatency: ((Long?) -> Unit)? = null
+
     init {
         viewModelScope.launch {
             gateway.connectionState.collect { status ->
@@ -135,6 +140,7 @@ class PlayerViewModel(
         val acceptedQueueRevision = atTap.snapshot.queueRevision
         val acceptedItem = atTap.snapshot.currentItem
         val epoch = ++requestEpoch
+        val acceptedAtNanos = System.nanoTime()
         mutable.value = mutable.value.copy(pending = true, requestFailed = false)
         viewModelScope.launch {
             try {
@@ -145,6 +151,10 @@ class PlayerViewModel(
                 // the current request may be offered to the explicit,
                 // same-origin, short-lived application correction ticket.
                 if (result is AppResult.Success && epoch == requestEpoch) {
+                    val elapsed = (System.nanoTime() - acceptedAtNanos)
+                        .takeIf { it >= 0L }?.div(1_000_000L)
+                    try { onVerifiedManualAckLatency?.invoke(elapsed) }
+                    catch (_: Exception) { /* optional local Quality */ }
                     val category = when (command) {
                         is PlaybackCommand.Play ->
                             VoiceManualCorrectionCategory.MANUAL_PLAY
@@ -165,6 +175,10 @@ class PlayerViewModel(
                         }
                     }
                 }
+                if (result is AppResult.Failure && epoch == requestEpoch) {
+                    try { onVerifiedManualAckLatency?.invoke(null) }
+                    catch (_: Exception) { /* optional local Quality */ }
+                }
                 // An out-of-order failure/timeout must not override a newer
                 // service status, queue, selection or a newer request.
                 val current = mutable.value
@@ -176,6 +190,10 @@ class PlayerViewModel(
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
+                if (epoch == requestEpoch) {
+                    try { onVerifiedManualAckLatency?.invoke(null) }
+                    catch (_: Exception) { /* optional local Quality */ }
+                }
                 val current = mutable.value
                 if (epoch == requestEpoch && current.ready &&
                     current.snapshot.revision == acceptedRevision &&
