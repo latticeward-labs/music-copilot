@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -60,6 +61,7 @@ import com.latticeward.musiccopilot.core.application.voice.VoicePttAdmissionPoli
 import com.latticeward.musiccopilot.core.application.voice.VoicePttAvailability
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.voice.api.VoiceOrigin
+import com.latticeward.musiccopilot.quality.api.VoiceManualCorrectionCategory
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
 import com.latticeward.musiccopilot.voice.api.VoiceSessionState
 import com.latticeward.musiccopilot.core.result.AppResult
@@ -151,6 +153,12 @@ fun AppNavHost(
     onDrivingMicPermissionDismiss: () -> Unit = {},
     // Coarse, source-allowlisted input from accepted user navigation only.
     onDrivingModeEntered: (String) -> Unit = {},
+    // P06: user explicitly arms correction in a terminal Voice panel.
+    // Only an ACK-confirmed manual action from the same visible origin
+    // subsequently records a correction; no generic touch inference.
+    onArmVoiceManualCorrection: (VoiceOrigin) -> Boolean = { false },
+    onVerifiedManualCorrection: (VoiceOrigin, VoiceManualCorrectionCategory) -> Unit = { _, _ -> },
+    onAbandonManualCorrection: () -> Unit = {},
 ) {
     val navController = rememberNavController()
     val visibleBackStackEntry by navController.currentBackStackEntryAsState()
@@ -280,6 +288,38 @@ fun AppNavHost(
         searchOpen && actualRoute == BootstrapRoute.HomeLibrary ->
             Destination.Search
         else -> Destination.Library
+    }
+    // P06: a UI playback command is NOT automatically a correction. A
+    // successful Media3 ACK is offered only to an explicitly armed ticket
+    // when its original surface remains visible and permission-safe.
+    SideEffect {
+        playerModel.onVerifiedManualAction = { category ->
+            try {
+                val currentRoute = visibleBackStackEntry?.destination?.route
+                when {
+                    target == Destination.FullPlayer &&
+                        currentRoute == Destination.FullPlayer.route &&
+                        playerOpen && actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        !settingsOpen && !replayingEducation ->
+                        onVerifiedManualCorrection(VoiceOrigin.Player, category)
+                    target == Destination.Driving &&
+                        currentRoute == Destination.Driving.route &&
+                        drivingNavigation.state.active &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                        !settingsOpen && !replayingEducation ->
+                        onVerifiedManualCorrection(VoiceOrigin.Driving, category)
+                    else -> onAbandonManualCorrection()
+                }
+            } catch (_: Exception) {
+                // Optional diagnostic observation cannot affect an ACK.
+            }
+        }
+    }
+    DisposableEffect(playerModel) {
+        onDispose { playerModel.onVerifiedManualAction = null }
     }
     // An app/system-origin navigation away from Full Player must never leave
     // its PTT generation alive or its rationale attached to an unrelated route.
@@ -591,6 +631,7 @@ fun AppNavHost(
                 )
             }
             val exitPlayer: () -> Unit = {
+                onAbandonManualCorrection()
                 dismissPlayerVoice()
                 playerOpen = false
             }
@@ -633,6 +674,18 @@ fun AppNavHost(
                             voiceStartRejected = false
                         },
                         onVoiceCancel = dismissPlayerVoice,
+                        onCorrectManually = {
+                            val latest = voiceSessionCoordinator?.state?.value
+                            val terminal = latest is VoiceSessionState.Executed ||
+                                latest is VoiceSessionState.Failed
+                            if (playerActive && terminal &&
+                                latest != null &&
+                                VoicePttAdmissionPolicy.owns(latest, VoiceOrigin.Player)
+                            ) {
+                                onArmVoiceManualCorrection(VoiceOrigin.Player)
+                                dismissPlayerVoice()
+                            }
+                        },
                         // Event-time gate: never dispatch a saved token from a
                         // dismissed/hidden Player or another Voice generation.
                         onVoiceConfirm = { token, index ->
@@ -717,6 +770,7 @@ fun AppNavHost(
             // Both Exit and Android Back have the same navigation-only result.
             // Exit never stops/pauses playback or executes a transport command.
             val exitDriving: () -> Unit = {
+                onAbandonManualCorrection()
                 if (voiceSessionCoordinator != null &&
                     DrivingVoiceHandoffPolicy.shouldCancelOnExit(voiceSessionCoordinator.state.value)
                 ) voiceSessionCoordinator.cancel(VoiceCancelReason.DrivingExit)
@@ -770,6 +824,21 @@ fun AppNavHost(
                 voiceStartRejected = voiceStartRejected,
                 onVoicePermissionContinue = onDrivingMicPermissionContinue,
                 onVoicePermissionCancel = onDrivingMicPermissionDismiss,
+                onCorrectManually = {
+                    val latest = voiceSessionCoordinator?.state?.value
+                    val terminal = latest is VoiceSessionState.Executed ||
+                        latest is VoiceSessionState.Failed
+                    if (drivingNavigation.state.active &&
+                        target == Destination.Driving &&
+                        permission == PermissionStatus.Granted &&
+                        terminal && latest != null &&
+                        VoicePttAdmissionPolicy.owns(latest, VoiceOrigin.Driving)
+                    ) {
+                        onArmVoiceManualCorrection(VoiceOrigin.Driving)
+                        voiceSessionCoordinator?.cancel(VoiceCancelReason.UserBack)
+                        voiceStartRejected = false
+                    }
+                },
                 onVoiceCancel = {
                     if (voiceSessionCoordinator != null &&
                         DrivingVoiceHandoffPolicy.shouldCancelOnExit(
