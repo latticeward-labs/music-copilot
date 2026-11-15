@@ -114,6 +114,15 @@ class Issue12Phase8DrivingLifecycleContractTest {
         assertTrue(start.contains("?: return"))
     }
 
+    @Test fun finishingActivityWithoutAcceptedDrivingExitIsUnknownButRotationIsRetained() {
+        val activity = source("app/MainActivity.kt")
+        val section = activity.substringAfter("override fun onDestroy()")
+            .substringBefore("override fun onStop()")
+        assertTrue(section.contains("isFinishing && !isChangingConfigurations"))
+        assertTrue(section.contains("recordDrivingSystemInvalidation()"))
+        assertFalse(section.contains("recordExplicitDrivingExit()"))
+    }
+
     @Test fun sourceNeverMarksUnknownOrProcessKilledJourneyCrashFree() {
         val app = source("app/di/ApplicationBindings.kt")
         val owner = source("core/application/driving/DrivingSessionTelemetryOwner.kt")
