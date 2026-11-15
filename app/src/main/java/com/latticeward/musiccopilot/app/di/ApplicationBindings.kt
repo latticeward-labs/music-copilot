@@ -8,6 +8,7 @@ import android.Manifest
 import com.latticeward.musiccopilot.core.application.permission.VoiceProviderCapability
 import com.latticeward.musiccopilot.core.application.voice.VoiceLifecycleSafetyPolicy
 import com.latticeward.musiccopilot.core.application.voice.ObservedVoicePttCoordinator
+import com.latticeward.musiccopilot.core.application.voice.ExplicitManualCorrectionOwner
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
 import com.latticeward.musiccopilot.app.platform.audio.CoarseBluetoothAudioOutput
@@ -35,6 +36,9 @@ import com.latticeward.musiccopilot.quality.api.TelemetryPrivacyGate
 import com.latticeward.musiccopilot.quality.api.TelemetrySink
 import com.latticeward.musiccopilot.quality.api.TelemetryEvent
 import com.latticeward.musiccopilot.quality.api.TelemetryPlaybackState
+import com.latticeward.musiccopilot.quality.api.VoiceManualCorrectionCategory
+import com.latticeward.musiccopilot.voice.api.VoiceOrigin
+import kotlinx.coroutines.channels.Channel
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.api.TextToSpeechEngine
 import com.latticeward.musiccopilot.voice.api.VoiceSessionCoordinator
@@ -81,6 +85,14 @@ class ApplicationBindings(
     val libraryRepository: LibraryRepository = dataComponents.library
     val preferencesRepository: PreferencesRepository = dataComponents.preferences
     val restorableQueueStore: RestorableQueueStore = dataComponents.restorableQueue
+
+    // P06: process-local bounded Quality queue. Exactly one consumer
+    // preserves per-attempt source order without delaying Voice/Media3.
+    // On overflow drop, never suspend or persist; P10 tracks unknown loss.
+    private val diagnosticEvents = Channel<TelemetryEvent>(capacity = 64)
+    private val correctionOwner = ExplicitManualCorrectionOwner {
+        android.os.SystemClock.elapsedRealtime()
+    }
 
     // Issue #12 P04: separate diagnostic consent, NO audio/cloud association.
     // Always fail closed until Product/Privacy/Legal signoff. The in-memory
@@ -146,6 +158,9 @@ class ApplicationBindings(
                 qualityEventPublisher.tryRecord(event)
                 Unit
             },
+            // The approved-event callback executes only a consent check
+            // and bounded Channel.trySend; never a storage/provider call.
+            tryRecordApprovedVoiceEvent = ::queueApprovedDiagnostic,
         )
 
     /**
@@ -199,6 +214,12 @@ class ApplicationBindings(
     val qualityEventPublisher = QualityBindings.publisher(
         telemetryPrivacyGate, telemetrySink, diagnosticsCollectionAuthorization
     )
+    private val diagnosticDrain = applicationScope.launch(Dispatchers.Default) {
+        for (event in diagnosticEvents) {
+            try { qualityEventPublisher.tryRecord(event) }
+            catch (_: Exception) { /* no log, no retry, no product effect */ }
+        }
+    }
 
     /**
      * P05: only the existing Voice owner's accepted start/retry result
@@ -215,16 +236,16 @@ class ApplicationBindings(
      * off the UI/Voice critical path and reauthorized before sink delivery.
      */
     private fun queueApprovedDiagnostic(event: TelemetryEvent) {
+        if (!diagnosticsCollectionAuthorization.canCollect()) return
         try {
-            applicationScope.launch(Dispatchers.Default) {
-                qualityEventPublisher.tryRecord(event)
-            }
+            diagnosticEvents.trySend(event) // bounded, never suspend or block
         } catch (_: Exception) {
             // No Quality failure affects navigation, speech or playback.
         }
     }
 
     private fun recordAcceptedVoicePtt() {
+        correctionOwner.clear() // a new explicit PTT invalidates old correction
         if (!diagnosticsCollectionAuthorization.canCollect()) return
         // Read ONLY the already service-authoritative coarse playback state.
         // No queue, MediaRef, track title, position or route identity is read.
@@ -241,6 +262,7 @@ class ApplicationBindings(
 
     /** Invoked once only after DrivingNavigationViewModel accepts entry. */
     fun recordAcceptedDrivingEntry(entrySource: String) {
+        correctionOwner.clear() // route transition cancels old attribution
         if (!diagnosticsCollectionAuthorization.canCollect()) return
         // Only AudioDeviceInfo.type is read at this explicit boundary, never
         // device name/address, selected BT token, call metadata or location.
@@ -251,6 +273,40 @@ class ApplicationBindings(
             TelemetryEvent.DrivingModeStarted(entrySource, connected)
         )
     }
+
+    /**
+     * P06: only a deliberate "Correct using manual controls" action from
+     * the currently terminal Voice panel arms an ephemeral ticket. Generic
+     * UI touches, lifecycle exits and artist confirmations never arm it.
+     */
+    fun armExplicitManualCorrection(origin: VoiceOrigin): Boolean {
+        if (!diagnosticsCollectionAuthorization.canCollect()) return false
+        val intent = voiceOwner.acceptedTerminalIntentForCorrection(origin)
+            ?: return false
+        return correctionOwner.arm(origin, intent)
+    }
+
+    /**
+     * P06: the PlayerViewModel invokes this ONLY following a genuine
+     * PlaybackGateway.execute() success from manual on-screen controls.
+     * The source route is separately checked at ACK time by AppNavHost.
+     * Merely pressing Back/Exit or a normal unrelated control is not
+     * proof of an explicitly armed correction.
+     */
+    fun recordVerifiedManualCorrection(
+        origin: VoiceOrigin,
+        category: VoiceManualCorrectionCategory,
+    ) {
+        if (!diagnosticsCollectionAuthorization.canCollect()) {
+            correctionOwner.clear()
+            return
+        }
+        val event = correctionOwner.observeAcknowledgedManualAction(origin, category)
+            ?: return
+        queueApprovedDiagnostic(event)
+    }
+
+    fun abandonManualCorrection() { correctionOwner.clear() }
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
     private val mediaAppContext = context?.applicationContext
@@ -382,6 +438,8 @@ class ApplicationBindings(
 
     override fun close() {
         uiVoiceStarted = false
+        correctionOwner.clear()
+        diagnosticEvents.close()
         selectedBluetoothConnection.close()
         voiceOwner.close()
         (speechToTextEngine as? AutoCloseable)?.close()
