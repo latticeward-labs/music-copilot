@@ -57,11 +57,12 @@ sealed interface TelemetryEvent {
     ) : TelemetryEvent
 
     /**
-     * P11: sole typed sixth-intent outcome envelope. Exactly five approved
-     * semantic field names; all values are closed enums/buckets or "none".
-     * This structure cannot hold transcripts, artist/title/URI, MediaRef,
-     * confirmation tokens, raw confidence/latency or session identifiers.
-     * Manual correction MUST be explicitly observed, never inferred.
+     * Issue #11 P11 legacy INTERNAL-only outcome envelope.
+     * Issue #12 P03: this ninth family is NOT approved for outbound
+     * telemetry; AllowlistedTelemetryPrivacyGate deliberately rejects it.
+     * Later P06 may safely project verified outcomes into the eight
+     * approved families without copying personal media or transcripts.
+     * All values are closed enums; manual correction is explicitly observed.
      */
     data class VoiceIntentOutcome(
         val intentType: VoiceDiagnosticIntent,
