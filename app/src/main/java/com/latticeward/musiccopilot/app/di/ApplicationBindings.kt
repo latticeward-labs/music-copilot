@@ -12,6 +12,12 @@ import com.latticeward.musiccopilot.core.application.voice.ExplicitManualCorrect
 import com.latticeward.musiccopilot.voice.api.VoiceCancelReason
 import com.latticeward.musiccopilot.app.platform.bluetooth.SelectedBluetoothConnectionCoordinator
 import com.latticeward.musiccopilot.app.platform.audio.CoarseBluetoothAudioOutput
+import com.latticeward.musiccopilot.app.platform.crash.AndroidProcessExitClassification
+import com.latticeward.musiccopilot.playback.api.PlayerRuntimeErrorCode
+import com.latticeward.musiccopilot.quality.api.RouteType
+import com.latticeward.musiccopilot.quality.api.SafeCrashCategory
+import com.latticeward.musiccopilot.quality.adapters.ConsentGatedCrashEvidenceReporter
+import com.latticeward.musiccopilot.quality.noop.NoOpCrashEvidenceSink
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechConsentPolicy
 import com.latticeward.musiccopilot.core.application.voice.CloudSpeechGateDecision
 import com.latticeward.musiccopilot.data.api.CloudSpeechConsent
@@ -99,6 +105,14 @@ class ApplicationBindings(
     // revocation latch is synchronous even before the DataStore edit completes.
     val diagnosticsCollectionAuthorization =
         QualityBindings.authorization(preferencesRepository)
+
+    // P07: source-only RAM crash classification. No SDK/automatic uncaught
+    // handler, file, user identifier or remote sink. Production consent and
+    // approval gates are FALSE, so no prior exits are even inspected.
+    private val crashEvidenceReporter = ConsentGatedCrashEvidenceReporter(
+        authorized = diagnosticsCollectionAuthorization::canCollect,
+        sink = NoOpCrashEvidenceSink(),
+    )
 
     // P10: app-scoped, but Android Bluetooth callbacks exist ONLY while the
     // Activity is foreground and a user-selected saved audio token is valid.
@@ -195,6 +209,7 @@ class ApplicationBindings(
     fun revokeDiagnosticsConsent() {
         diagnosticsCollectionAuthorization.requestImmediateRevocation()
         correctionOwner.clear() // do not retain correction intent after revoke
+        crashEvidenceReporter.clear() // discard even in-process safe evidence
         repositoryScope.launch {
             preferencesRepository.update(
                 PreferenceUpdate.SetDiagnosticsConsent(DiagnosticsConsent.Revoked)
@@ -308,6 +323,39 @@ class ApplicationBindings(
     }
 
     fun abandonManualCorrection() { correctionOwner.clear() }
+
+    /**
+     * P07: only the service-owned committed PlaybackSnapshot error episode.
+     * A device output *presence* is not an authoritative actively-routed
+     * device; mark route Unknown until an approved service route observation
+     * can truthfully distinguish BuiltIn/Wired/Bluetooth.
+     */
+    fun recordServicePlayerError(error: PlayerRuntimeErrorCode) {
+        if (!diagnosticsCollectionAuthorization.canCollect()) return
+        queueApprovedDiagnostic(TelemetryEvent.PlayerError(error.name, RouteType.Unknown))
+    }
+
+    /**
+     * Only the OS-provided historical *reason code* is classified, and only
+     * after separate non-audio diagnostics consent and all legal/retention/
+     * collector approvals. Never collect Throwable/stack/trace/processId.
+     * Historical exit cannot be mapped to the current Driving session:
+     * no crash-free numerator/denominator is claimed here.
+     */
+    fun inspectPriorProcessExitIfApproved() {
+        if (!diagnosticsCollectionAuthorization.canCollect()) return
+        val contextForSafeExit = mediaAppContext ?: return
+        applicationScope.launch(Dispatchers.Default) {
+            if (!diagnosticsCollectionAuthorization.canCollect()) return@launch
+            val category = AndroidProcessExitClassification.previousExit(contextForSafeExit)
+            if (category != SafeCrashCategory.UNKNOWN &&
+                diagnosticsCollectionAuthorization.canCollect()
+            ) crashEvidenceReporter.record(category)
+        }
+    }
+
+    /** Local safe classification only; never a crash-free journey verdict. */
+    fun lastApprovedCrashEvidence(): SafeCrashCategory? = crashEvidenceReporter.peekLocal()
 
     /** Recheck permission/platform truth without blocking Main on every foreground return. */
     private val mediaAppContext = context?.applicationContext
@@ -441,6 +489,7 @@ class ApplicationBindings(
     override fun close() {
         uiVoiceStarted = false
         correctionOwner.clear()
+        crashEvidenceReporter.clear()
         diagnosticEvents.close()
         selectedBluetoothConnection.close()
         voiceOwner.close()
