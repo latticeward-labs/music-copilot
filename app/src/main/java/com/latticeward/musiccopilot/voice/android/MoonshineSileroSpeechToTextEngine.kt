@@ -25,6 +25,8 @@ import com.latticeward.musiccopilot.core.result.Recoverability
 import com.latticeward.musiccopilot.core.result.RecoveryAction
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionRequest
 import com.latticeward.musiccopilot.voice.api.SpeechRecognitionResult
+import com.latticeward.musiccopilot.voice.api.SpeechEndpointEvidence
+import com.latticeward.musiccopilot.voice.api.SpeechEndpointQuality
 import com.latticeward.musiccopilot.voice.api.SpeechToTextEngine
 import com.latticeward.musiccopilot.voice.policy.VoicePolicy
 import java.util.concurrent.atomic.AtomicBoolean
@@ -218,6 +220,17 @@ internal class MoonshineSileroSpeechToTextEngine(
                 if (detector.isSpeechDetected()) speechStarted = true
                 if (!detector.empty()) {
                     completed = true
+                    // P10: VAD's endpoint SIGNAL, not physical speech-end.
+                    // Silero minSilenceDuration=0.55s means this marker is
+                    // delayed by design. Must NOT certify PRD strict P95.
+                    if (!session.cancelled.get()) {
+                        val marker = SpeechEndpointEvidence(
+                            android.os.SystemClock.elapsedRealtimeNanos(),
+                            SpeechEndpointQuality.VAD_DETECTED
+                        )
+                        try { request.onEndpointSignal?.invoke(marker) }
+                        catch (_: Exception) { /* diagnostics only */ }
+                    }
                     break
                 }
             }
