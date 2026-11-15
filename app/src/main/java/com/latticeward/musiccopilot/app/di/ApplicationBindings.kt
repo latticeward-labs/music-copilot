@@ -30,6 +30,14 @@ import com.latticeward.musiccopilot.core.application.library.LibraryScanReason
 import com.latticeward.musiccopilot.core.application.playback.LibraryMediaSelectionUseCase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CancellationException
+import com.latticeward.musiccopilot.core.result.AppResult
+import com.latticeward.musiccopilot.core.application.privacy.LocalPrivacyClearSelection
+import com.latticeward.musiccopilot.core.application.privacy.LocalPrivacyClearReport
+import com.latticeward.musiccopilot.core.application.privacy.LocalClearCategoryResult
+import com.latticeward.musiccopilot.core.application.privacy.ShortHistoryAvailability
+import com.latticeward.musiccopilot.core.application.privacy.DiagnosticsRevocationReport
 
 import com.latticeward.musiccopilot.core.dispatchers.DispatcherProvider
 import com.latticeward.musiccopilot.core.time.Clock
@@ -249,6 +257,71 @@ class ApplicationBindings(
             preferencesRepository.update(
                 PreferenceUpdate.SetDiagnosticsConsent(DiagnosticsConsent.Revoked)
             )
+        }
+    }
+
+    /**
+     * P12: WF-10 app-owned deletion; executed on the existing repository
+     * coroutine scope, not the UI or Media3 thread. Report TRUE only for
+     * categories whose concrete owner confirms success.
+     *
+     * There is NO short-history table/DAO in the current shipped graph:
+     * clear history is UNAVAILABLE, never faked as success or mapped to
+     * likes/library/queue. The Settings checkbox is disabled accordingly.
+     */
+    val shortHistoryAvailability: ShortHistoryAvailability =
+        ShortHistoryAvailability.NOT_STORED_IN_CURRENT_BUILD
+
+    fun clearSelectedAppData(
+        selection: LocalPrivacyClearSelection,
+        onFinished: (LocalPrivacyClearReport) -> Unit,
+    ) {
+        repositoryScope.launch {
+            val report = LocalPrivacyClearReport(
+                shortHistory = if (!selection.shortHistory)
+                    LocalClearCategoryResult.NOT_SELECTED
+                else LocalClearCategoryResult.UNAVAILABLE,
+                diagnostics = if (!selection.diagnostics)
+                    LocalClearCategoryResult.NOT_SELECTED
+                else if (clearLocalDiagnostics())
+                    LocalClearCategoryResult.CLEARED
+                else LocalClearCategoryResult.FAILED,
+            )
+            withContext(dispatchers.main) {
+                try { onFinished(report) } catch (_: Exception) {
+                    // UI observer cannot alter the outcome or playback.
+                }
+            }
+        }
+    }
+
+    /**
+     * Revocation MUST synchronously latch DENIED and purge pending diagnostics
+     * before ANY background preference write. The coroutine belongs to the
+     * app graph: leaving Settings or rotating cannot cancel the DataStore
+     * write. A failed write is visible through the callback for Retry;
+     * collection remains denied in this process even after failure.
+     */
+    fun revokeDiagnosticsConsentWithResult(
+        onFinished: (DiagnosticsRevocationReport) -> Unit,
+    ) {
+        diagnosticsCollectionAuthorization.requestImmediateRevocation()
+        val cleared = clearLocalDiagnostics()
+        repositoryScope.launch {
+            val saved = try {
+                preferencesRepository.update(
+                    PreferenceUpdate.SetDiagnosticsConsent(DiagnosticsConsent.Revoked)
+                ) is AppResult.Success
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) { false }
+            withContext(dispatchers.main) {
+                try {
+                    onFinished(DiagnosticsRevocationReport(
+                        localDiagnosticsCleared = cleared, persisted = saved
+                    ))
+                } catch (_: Exception) { /* UI cannot affect consent */ }
+            }
         }
     }
 
