@@ -161,6 +161,9 @@ fun AppNavHost(
     // P06: user explicitly arms correction in a terminal Voice panel.
     // Only an ACK-confirmed manual action from the same visible origin
     // subsequently records a correction; no generic touch inference.
+    // P10: drawn, terminal label event in an authenticated visible route.
+    // Never a UI composition or a mere ACK state transition.
+    onTerminalVoiceLabelDrawn: (VoiceSessionState) -> Unit = {},
     onArmVoiceManualCorrection: (VoiceOrigin) -> Boolean = { false },
     onVerifiedManualCorrection: (VoiceOrigin, VoiceManualCorrectionCategory) -> Unit = { _, _ -> },
     onAbandonManualCorrection: () -> Unit = {},
@@ -685,6 +688,16 @@ fun AppNavHost(
                             voiceStartRejected = false
                         },
                         onVoiceCancel = dismissPlayerVoice,
+                        onTerminalLabelDrawn = { drawn ->
+                            val currentlyShown = visibleBackStackEntry?.destination?.route ==
+                                Destination.FullPlayer.route
+                            if (playerActive && playerOpen && currentlyShown &&
+                                permission == PermissionStatus.Granted &&
+                                !settingsOpen && !replayingEducation &&
+                                VoicePttAdmissionPolicy.owns(drawn, VoiceOrigin.Player) &&
+                                drawn == voiceSessionCoordinator?.state?.value
+                            ) onTerminalVoiceLabelDrawn(drawn)
+                        },
                         onCorrectManually = {
                             val latest = voiceSessionCoordinator?.state?.value
                             val terminal = latest is VoiceSessionState.Executed ||
@@ -844,6 +857,18 @@ fun AppNavHost(
                 voiceStartRejected = voiceStartRejected,
                 onVoicePermissionContinue = onDrivingMicPermissionContinue,
                 onVoicePermissionCancel = onDrivingMicPermissionDismiss,
+                onTerminalLabelDrawn = { drawn ->
+                    val currentlyShown = visibleBackStackEntry?.destination?.route ==
+                        Destination.Driving.route
+                    if (drivingNavigation.state.active && currentlyShown &&
+                        actualRoute == BootstrapRoute.HomeLibrary &&
+                        permission == PermissionStatus.Granted &&
+                        mediaRequestUi.outcome == MediaPermissionOutcome.None &&
+                        !settingsOpen && !replayingEducation &&
+                        VoicePttAdmissionPolicy.owns(drawn, VoiceOrigin.Driving) &&
+                        drawn == voiceSessionCoordinator?.state?.value
+                    ) onTerminalVoiceLabelDrawn(drawn)
+                },
                 onCorrectManually = {
                     val latest = voiceSessionCoordinator?.state?.value
                     val terminal = latest is VoiceSessionState.Executed ||
