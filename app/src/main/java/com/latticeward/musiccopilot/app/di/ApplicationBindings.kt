@@ -332,6 +332,28 @@ class ApplicationBindings(
         }
     }
 
+    /**
+     * P12: cloud Speech is a DIFFERENT user decision, never tied to
+     * DiagnosticConsent, MediaStore, or microphone permission. No approved
+     * remote provider is present; saving Revoked still reports actual result
+     * and never invents a remote deletion acknowledgement.
+     */
+    fun revokeCloudSpeechConsentWithResult(onFinished: (Boolean) -> Unit) {
+        repositoryScope.launch {
+            val saved = try {
+                preferencesRepository.update(
+                    PreferenceUpdate.SetCloudSpeechConsent(CloudSpeechConsent.Revoked)
+                ) is AppResult.Success
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) { false }
+            withContext(dispatchers.main) {
+                try { onFinished(saved) }
+                catch (_: Exception) { /* Settings observation cannot change engine */ }
+            }
+        }
+    }
+
     val telemetryPrivacyGate: TelemetryPrivacyGate = QualityBindings.privacyGate()
     val telemetrySink: TelemetrySink = QualityBindings.sink(
         diagnosticsCollectionAuthorization, localDiagnosticsStore
