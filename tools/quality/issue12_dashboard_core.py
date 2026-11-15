@@ -245,6 +245,10 @@ def report(data):
         if name in blockers:
             raise AggregateSchemaError("open_blockers: duplicate")
         blockers.append(name)
+    # A currently unresolved release/safety/lab/consent blocker must
+    # override nominal Green even if per-metric QA counts look good.
+    # Keep protocol completeness distinct from release readiness.
+    chart_complete = complete and not blockers
     weeks_raw = data["weeks"]
     if not isinstance(weeks_raw, list) or len(weeks_raw) != 2:
         raise AggregateSchemaError("weeks: exactly anchored W1 and W2 required")
@@ -303,21 +307,22 @@ def report(data):
         # accuracy, weekly distinct people, crash-free or response latency.
         rows = [
             classify_ratio(k, truths[k], source,
-                           complete and (reviewed["cohort_reconciled"] and
+                           chart_complete and (reviewed["cohort_reconciled"] and
                                          reviewed["intent_labels"] if k == "NS01"
                                          else reviewed["crash_reconciled"] if k == "S01"
                                          else reviewed["intent_labels"]),
-                           complete)
+                           chart_complete)
             for k in WEEK_IDS
         ]
         rows.extend(
-            classify_latency(k, lats[k], source, complete, complete,
+            classify_latency(k, lats[k], source, chart_complete, chart_complete,
                              reviewed["voice_boundary"] if k == "P01"
                              else reviewed["local_ack_coverage"])
             for k in LATENCY_IDS
         )
         rows.append(classify_critical(critical, sess["started"], source,
-                                     complete and reviewed["player_severity"], complete))
+                                     chart_complete and reviewed["player_severity"],
+                                     chart_complete))
         for row in rows:
             row["window"] = "W" + str(idx)
         all_metrics.extend(rows)
@@ -342,7 +347,8 @@ def report(data):
         raise AggregateSchemaError("R01: verified returners exceed W2 active")
     cross_rows = [
         classify_ratio(k, cross_truth[k], source,
-                       complete and reviewed["cohort_reconciled"], complete)
+                       chart_complete and reviewed["cohort_reconciled"],
+                       chart_complete)
         for k in CROSS_IDS
     ]
     for row in cross_rows:
@@ -359,11 +365,11 @@ def report(data):
     # remains a review CANDIDATE even with declared approval flags true.
     if kind == "SYNTHETIC":
         decision = "DEMO_ONLY"
+    elif blockers and beta_protocol_ready:
+        decision = "BLOCKED"
     elif not beta_protocol_ready or any(
             m["status"] in ("NOT_VERIFIED", "NOT_MEASURABLE") for m in all_metrics):
         decision = "INSUFFICIENT_EVIDENCE"
-    elif blockers:
-        decision = "BLOCKED"
     elif all(m["status"] == "PASS" for m in all_metrics):
         decision = "GO_REVIEW_CANDIDATE"
     elif all_metrics and (any(m["id"] == "R01" and m["status"] == "FAIL"
