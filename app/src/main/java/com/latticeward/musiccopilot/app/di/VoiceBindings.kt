@@ -50,6 +50,7 @@ internal object VoiceBindings {
         canBeginSession: () -> Boolean = { true },
         artistLibrary: LibraryRepository? = null,
         tryRecordVoiceOutcome: (TelemetryEvent.VoiceIntentOutcome) -> Unit = {},
+        tryRecordApprovedVoiceEvent: (TelemetryEvent) -> Unit = {},
     ): DefaultVoiceSessionCoordinator = DefaultVoiceSessionCoordinator(
         scope, stt, tts, playback = playback,
         intentMapper = RestrictedVoiceIntentMapper(
@@ -67,5 +68,6 @@ internal object VoiceBindings {
         artistLibrary = if (enabled) artistLibrary else null,
         artistAdmission = artistDecisionPolicy(),
         tryRecordVoiceOutcome = tryRecordVoiceOutcome,
+        tryRecordApprovedVoiceEvent = tryRecordApprovedVoiceEvent,
     )
 }
