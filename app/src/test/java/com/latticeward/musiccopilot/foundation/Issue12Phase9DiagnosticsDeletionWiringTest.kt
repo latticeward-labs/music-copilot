@@ -133,6 +133,22 @@ class Issue12Phase9DiagnosticsDeletionWiringTest {
         assertFalse(store.contains("24 * 60 * 60 * 1000"))
     }
 
+    @Test fun consentLossFromPreferencesAlsoPurgesLocalDiagnostics() {
+        val app = read("app/di/ApplicationBindings.kt")
+        assertTrue(app.contains("preferencesRepository.preferences, preferencesRepository.loadState"))
+        assertTrue(app.contains(".collect { approved -> if (!approved) clearLocalDiagnostics() }"))
+        assertTrue(app.contains("diagnosticsAuthorizationWatch"))
+    }
+
+    @Test fun boundedQueueOverflowsAreNotSilentlyCountedAsSuccess() {
+        val app = read("app/di/ApplicationBindings.kt")
+        assertTrue(app.contains("Channel<PendingDiagnostic>(capacity = 64)"))
+        assertTrue(app.contains("diagnosticQueueDrops.getAndUpdate"))
+        assertTrue(app.contains("queued.isFailure"))
+        assertTrue(app.contains("sourceQueueDropsSinceClear = diagnosticQueueDrops.get()"))
+        assertTrue(app.contains("diagnosticQueueDrops.set(0L)"))
+    }
+
     @Test fun anUnapprovedProviderDoesNotCreateASilentExport() {
         val app = read("app/di/ApplicationBindings.kt")
         val quality = read("app/di/QualityBindings.kt")
