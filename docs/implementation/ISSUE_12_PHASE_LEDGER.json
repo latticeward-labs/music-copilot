@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "repository": "latticeward-labs/music-copilot",
+  "issue_number": 12,
+  "issue_url": "https://github.com/latticeward-labs/music-copilot/issues/12",
+  "branch": "feature/12-privacy-safe-telemetry-measurement",
+  "recorded_on": "2026-11-15",
+  "source_archive": {
+    "name": "MSM2(1)(1).rar",
+    "sha256": "0618cf20f1d7bd596ab744c1fa7b19bf257982f538e21670d11f15de0b029eb8",
+    "english_pdfs_reviewed": 12
+  },
+  "main_sha_at_p01": "2831de126a3968c57eeaac63c355c8b42ae7acac",
+  "policy": {
+    "p01_through_p13": "SOURCE_AND_DOCUMENTATION_ONLY_NO_TEST_COMPILE_BUILD_GRADLE_ACTIONS_OR_APK",
+    "p14": "SINGLE_INTEGRATED_BUILD_ONLY_SUBJECT_TO_OWNER_AUTHORIZATION;_OWNER_MANUAL_DEVICE_QA",
+    "issue_close": "REQUIRES_EXPLICIT_OWNER_APPROVAL_AND_EVIDENCE"
+  },
+  "phases": [
+    {
+      "phase": "P01",
+      "title": "Source baseline, traceability & DoR",
+      "status": "DOCUMENTED_SOURCE_ONLY",
+      "evidence": [
+        "docs/implementation/ISSUE_12_SOURCE_AND_GAP_AUDIT.md",
+        "docs/implementation/ISSUE_12_PHASE_LEDGER.json"
+      ],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P02",
+      "title": "Measurement dictionary & frozen success thresholds",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P03",
+      "title": "Locked event schema and privacy gate hardening",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P04",
+      "title": "Consent, mode gating & privacy-safe lifecycle",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P05",
+      "title": "Authoritative Driving + Voice entry instrumentation",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P06",
+      "title": "Voice detection, failure, execution and manual correction",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P07",
+      "title": "Player error and crash-reporting boundaries",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P08",
+      "title": "Driving session lifecycle & reliable completion",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P09",
+      "title": "Local event collection, retention and optional transport",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P10",
+      "title": "Exact measurement projection & data quality",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P11",
+      "title": "Weekly measurement dashboard (non-product-backend)",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P12",
+      "title": "Settings, deletion, education & retention UX",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P13",
+      "title": "Source integration, authored test contracts and final QA package",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    },
+    {
+      "phase": "P14",
+      "title": "FINAL integrated APK, owner phone/vehicle QA and merge gate",
+      "status": "NOT_STARTED",
+      "evidence": [],
+      "automated_tests": "NOT_RUN",
+      "device_tests": "NOT_RUN",
+      "apk": "NOT_BUILT"
+    }
+  ],
+  "accepted_external_event_families": [
+    "driving_mode_started",
+    "voice_button_pressed",
+    "intent_detected",
+    "intent_failed",
+    "command_executed",
+    "manual_correction",
+    "player_error",
+    "session_completed"
+  ],
+  "internal_event_review": {
+    "event": "voice_intent_outcome",
+    "origin": "Issue #11 P11",
+    "present_in_typed_event_and_gate": true,
+    "external_v1_approval": "NOT_APPROVED",
+    "production_sink": "NoOpTelemetrySink",
+    "resolution": "P03_PRIVACY_PRODUCT_REVIEW_REQUIRED"
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC01",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC02",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC03",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC04",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC05",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC06",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC07",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC08",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC09",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC10",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC11",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC12",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC13",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    },
+    {
+      "id": "AC14",
+      "status": "NOT_VERIFIED",
+      "evidence": []
+    }
+  ],
+  "definition_of_ready": {
+    "architecture_16": "APPROVED",
+    "foundation_4": "CLOSED_WITH_QUALITY_CAVEATS",
+    "driving_9": "CLOSED_WITH_DEFERRED_QA",
+    "voice_10": "CLOSED_WITH_FAILED_LAB_GATE_80_OPEN",
+    "artist_11": "CLOSED_WITH_82_OPEN",
+    "privacy_copy": "BLOCKED_NOT_APPROVED",
+    "retention_policy": "BLOCKED_NOT_APPROVED",
+    "diagnostics_provider_and_legal": "BLOCKED_NOT_APPROVED",
+    "external_eight_vs_nine_schema": "OPEN_REVIEW",
+    "consent_optin": "NOT_IMPLEMENTED"
+  },
+  "risk_ids": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R09",
+    "R10"
+  ],
+  "open_quality_followups": [
+    80,
+    82
+  ],
+  "production_telemetry_collected": false,
+  "notes": "P01 is a static document/source audit, not functional verification; no tests/builds/CI were invoked."
+}
