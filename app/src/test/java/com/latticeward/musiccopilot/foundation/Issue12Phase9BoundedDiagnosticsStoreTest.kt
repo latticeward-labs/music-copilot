@@ -154,6 +154,25 @@ class Issue12Phase9BoundedDiagnosticsStoreTest {
         assertTrue(store.summaryIfAuthorized()!!.countsByFamilySinceClear.isEmpty())
     }
 
+    @Test fun forgedCanonicalShapeWithForbiddenSemanticValueIsDropped() {
+        val store = BoundedMemoryDiagnosticsStore({ true })
+        assertFalse(store.tryEmit(SanitizedTelemetryEvent(
+            "v1|voice_button_pressed|playback_state=SecretSongName"
+        )))
+        assertFalse(store.tryEmit(SanitizedTelemetryEvent(
+            "v1|player_error|error_code=private_file_path|route_type=Unknown"
+        )))
+        assertEquals(0, store.summaryIfAuthorized()!!.retainedEvents)
+    }
+
+    @Test fun allowedFieldNameCannotSmuggleArbitraryIntentValue() {
+        val store = BoundedMemoryDiagnosticsStore({ true })
+        assertFalse(store.tryEmit(SanitizedTelemetryEvent(
+            "v1|manual_correction|previous_intent=PersonalArtist|correction_type=manual_pause"
+        )))
+        assertEquals(0L, store.summaryIfAuthorized()!!.acceptedSinceClear)
+    }
+
     @Test fun malformedPayloadExceedingMaxLengthIsDroppedNotLogged() {
         val store = BoundedMemoryDiagnosticsStore({ true })
         assertFalse(store.tryEmit(SanitizedTelemetryEvent(
