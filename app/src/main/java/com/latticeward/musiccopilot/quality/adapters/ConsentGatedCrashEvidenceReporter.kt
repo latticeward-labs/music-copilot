@@ -14,9 +14,9 @@ class ConsentGatedCrashEvidenceReporter(
 ) {
     @Volatile private var lastCategory: SafeCrashCategory? = null
 
-    fun record(category: SafeCrashCategory): Boolean {
-        if (!authorized()) return false
-        return try {
+    fun record(category: SafeCrashCategory): Boolean = try {
+        if (!authorized()) false
+        else {
             // Diagnostic evidence is not a claim about a particular session.
             lastCategory = category
             // Re-authorize immediately before provider delivery: revoke wins.
@@ -24,14 +24,15 @@ class ConsentGatedCrashEvidenceReporter(
                 lastCategory = null
                 false
             } else sink.tryRecord(category)
-        } catch (_: Exception) {
-            // No provider exceptions, stack text or raw payload surfaced.
-            false
         }
+    } catch (_: Exception) {
+        // No provider exceptions, stack text or raw payload surfaced.
+        false
     }
 
-    fun peekLocal(): SafeCrashCategory? =
+    fun peekLocal(): SafeCrashCategory? = try {
         if (authorized()) lastCategory else null
+    } catch (_: Exception) { null }
 
     fun clear() { lastCategory = null }
 }
